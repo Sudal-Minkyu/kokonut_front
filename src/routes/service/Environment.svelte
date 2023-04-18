@@ -17,17 +17,79 @@
             <h1>환경설정</h1>
         </div>
 
-        <ul style="font-size: 30px;">
-            <li><span>페이지 1 : </span><a style="color: #00BA83" use:link href="/service/environment/apikey">API Key 관리</a></li>
-            <br/>
-            <li><span>페이지 2 : </span><a style="color: #00BA83" use:link href="/service/environment/mypage">내정보</a></li>
-            <br/>
-            <li><span>페이지 3 : </span><a style="color: #00BA83" use:link href="/service/environment/setting">서비스설정</a></li>
-            <br/>
-            <li><span>페이지 4 : </span><a style="color: #00BA83" use:link href="/service/environment/qnaList">1:1 문의</a></li>
-            <br/>
-            <li><span>페이지 5 : </span><a style="color: #00BA83" use:link href="/service/environment/personalInfoItem">개안정보 항목관리</a></li>
-        </ul>
-
+        <div class="setListWrap">
+            <ul>
+                <li>
+                    <a use:link href="/service/environment/personalInfoItem">
+                        <div class="setlistBox">
+                            <div class="setitemBox">
+                                <div class="seticon"><img src="/assets/images/common/setlist_icon_04.png" alt=""></div>
+                                <div class="settitle">개인정보 항목 관리</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a use:link href="/service/environment/apikey">
+                        <div class="setlistBox">
+                            <div class="setitemBox">
+                                <div class="seticon"><img src="/assets/images/common/setlist_icon_01.png" alt=""></div>
+                                <div class="settitle">API키 관리</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a use:link href="/service/environment">
+                        <div class="setlistBox">
+                            <div class="setitemBox">
+                                <div class="seticon"><img src="/assets/images/common/setlist_icon_07.png" alt=""></div>
+                                <div class="settitle">서드파티 연동</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a use:link href="/service/environment/setting">
+                        <div class="setlistBox">
+                            <div class="setitemBox">
+                                <div class="seticon"><img src="/assets/images/common/setlist_icon_05.png" alt=""></div>
+                                <div class="settitle">서비스 설정</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a use:link href="/service/environment">
+                        <div class="setlistBox">
+                            <div class="setitemBox">
+                                <div class="seticon"><img src="/assets/images/common/setlist_icon_06.png" alt=""></div>
+                                <div class="settitle">구독 관리</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a use:link href="/service/environment/mypage">
+                        <div class="setlistBox">
+                            <div class="setitemBox">
+                                <div class="seticon"><img src="/assets/images/common/setlist_icon_02.png" alt=""></div>
+                                <div class="settitle">내 정보</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a  use:link href="/service/environment/qnaList">
+                        <div class="setlistBox">
+                            <div class="setitemBox">
+                                <div class="seticon"><img src="/assets/images/common/setlist_icon_03.png" alt=""></div>
+                                <div class="settitle">1:1 문의</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </section>
