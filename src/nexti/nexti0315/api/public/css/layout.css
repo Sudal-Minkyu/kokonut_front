@@ -1,0 +1,68 @@
+/*--------------------------------------------------------------
+# width 클래스
+--------------------------------------------------------------*/
+.wid60{width:6rem;}
+.wid70{width:7rem;}
+.wid90{width:9rem;}
+.wid100{width:10rem;}
+.wid110{width:11rem;}
+.wid120{width:12rem;}
+.wid130{width:13rem;}
+.wid162{width:16.2rem;}
+.wid190{width:19rem;}
+.wid195{width:19.5rem;}
+.wid265{width:26.5rem;}
+.wid270{width:27rem;}
+.wid275{width:27.5rem;}
+.wid280{width:28rem;}
+.wid400{width:40rem;}
+.wid500{width:50rem;}
+
+.wid50per{width:50%;}
+.wid100per{width:100%;}
+
+
+
+/*--------------------------------------------------------------
+# margin 클래스
+--------------------------------------------------------------*/
+.marT14{margin-top:1.4rem;}
+.marT20{margin-top:2rem;}
+
+.marB10{margin-bottom:1rem;}
+.marB12{margin-bottom:1.2rem;}
+.marB16{margin-bottom:1.6rem;}
+.marB20{margin-bottom:2rem;}
+.marB30{margin-bottom:3rem;}
+.noneMarB{margin-bottom:0rem!important;}
+
+.marT60{margin-top:6rem;}
+
+/*--------------------------------------------------------------
+# padding 클래스
+--------------------------------------------------------------*/
+.nonePad{padding:0rem!important;}
+
+/*--------------------------------------------------------------
+# border 클래스
+--------------------------------------------------------------*/
+.borB:after{
+	content:'';
+	position:absolute;
+	left:0rem;
+	bottom:0rem;
+	width:100%;
+	height:1px;
+	background:#E2E5EA;
+	z-index:10;
+}
+.borL:after{
+	content:'';
+	position:absolute;
+	left:0rem;
+	top:0rem;
+	width:1px;
+	height:100%;
+	background:#E2E5EA;
+	z-index:10;
+}

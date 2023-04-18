@@ -1,0 +1,104 @@
+
+<script>
+
+    import jQuery from 'jquery';
+    import { link } from 'svelte-spa-router'
+
+    new WOW().init();
+
+    // Header Scroll 반응
+    let lastScrollTop = 0, delta = 15;
+    jQuery(window).scroll(function(){
+        const scrollTop = jQuery(this).scrollTop();
+        if(Math.abs(lastScrollTop - scrollTop) <= delta)
+            return;
+        if ((scrollTop > lastScrollTop) && (lastScrollTop>10)) {
+            jQuery("#header").addClass('down_header');
+            jQuery("#header").removeClass('up_header');
+        } else {
+            jQuery("#header").removeClass('down_header');
+            jQuery("#header").addClass('up_header');
+
+        }
+        lastScrollTop = scrollTop;
+    });
+
+    function navShow(e) {
+        e.preventDefault();
+        jQuery('.side_cont_wrap').toggleClass('is_active');
+        jQuery('.side_menu_BG').toggleClass('showBg');
+    }
+
+    function clostShow(e) {
+        e.preventDefault();
+        jQuery('.side_cont_wrap').removeClass('is_active');
+        jQuery('.side_menu_BG').removeClass('showBg');
+    }
+
+    jQuery(".side_menu_BG").click(function(){
+        if(jQuery(".side_cont_wrap").hasClass("is_active")){
+            (jQuery(".side_cont_wrap").removeClass("is_active"))
+            (jQuery('.side_menu_BG').removeClass('showBg'))
+        }
+    });
+
+    // 모바일 메뉴
+    const url = window.location.href;
+    if (url.indexOf('price') !== -1)
+    {jQuery('.gnb .price').addClass('on_nav');}
+    else if (url.indexOf('privacy') !== -1)
+    {jQuery('.gnb .privacy').addClass('on_nav');}
+    else if (url.indexOf('teamInfo') !== -1)
+    {jQuery('.gnb .teamInfo').addClass('on_nav');}
+
+</script>
+
+<header>
+    <div class="header_inner">
+        <div class="logo">
+            <a href="">
+                <img src="/assets/images/main/b_koko_logo.png" alt="logo">
+            </a>
+        </div>
+        <div class="gnb">
+            <ul>
+                <li class="price h_contact"><a use:link href="/price">요금안내</a></li>
+                <li class="privacy"><a href="{'#'}">개인정보보호 더 알기</a></li>
+                <li class="teamInfo"><a href="{'#'}">팀 소개</a></li>
+            </ul>
+        </div>
+        <div class="loginArea">
+            <ul>
+                <li><a use:link href="/login">로그인</a></li>
+                <li class="free"><a href="">무료체험</a></li>
+            </ul>
+        </div>
+        <div class="side_menu_Btn" on:click={navShow}>
+            <div class="side_menu_Wrap">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="side_cont_wrap">
+    <div class="side">
+        <div class="side_menu_Btn fix" on:click={clostShow}>
+            <div class="side_menu_Wrap">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="side_cont_inner">
+            <div class="container">
+                <ul id="ac">
+                    <li class="menu01"><a a use:link href="/price"><p class="menu01_h">요금안내</p></a></li>
+                    <li class="menu01"><a href=""><p class="menu01_h">개인정보보호 더 알기</p></a></li>
+                    <li class="menu01"><a href=""><p class="menu01_h">팀소개</p></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="side_menu_BG"></div>

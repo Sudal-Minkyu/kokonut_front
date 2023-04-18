@@ -1,0 +1,287 @@
+<?php
+include_once('../common/header.html');
+?>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+	
+	<section class="bodyWrap">
+		<div class="contentInnerWrap">
+			<div class="pageTitleBtn marB50">
+				<h1>개인정보 제공</h1>
+			</div>
+			
+			<div class="pri_componentWrap">
+				<form>
+					<div class="pristep02">
+						<div class="pristepContent">
+							<div class="marB46">
+								<label class="step02label"><b>1</b>제공받을 사람을 선택해 주세요.</label>
+								<div class="popRadio">
+									<div class="check poprCheck">
+										<input type="radio" class="radio solo stcheck" name="solo_team" id="본인" value="본인">
+										<label for="본인"><em><dt></dt></em>본인</label>
+									</div>
+									<div class="check poprCheck">
+										<input type="radio" class="radio team stcheck" name="solo_team" id="내부 팀원" value="내부 팀원">
+										<label for="내부 팀원"><em><dt></dt></em>내부 팀원</label>
+									</div>
+								</div>
+								<script>
+									// 활성 비활성화 체크 여부 스크립트
+									$(".solo").click(function(){			
+										$('.teamtable').hide();
+									});
+									$(".team").click(function(){
+										$('.teamtable').show();	
+									});
+									$(document).ready(function(){
+										if($(".team").is(":checked")){
+											$('.teamtable').show();	
+										}
+										else{
+											$('.teamtable').hide();
+										}
+									});
+								</script>
+								<div class="teamtable">
+									<div class="ipseaBox marB20">
+										<div class="koinput">
+											<input type="text" name="" id="" class="wid236" placeholder="아이디, 이름 검색"></input>
+											<button><img src="/kokonut/member/public/img/common/icon_search_ver2.png" alt=""></button>
+										</div>
+									</div>
+									<div class="iptable">
+										<table>
+											<caption>개인정보 제공 회원 리스트</caption>
+											<colgroup>
+												<col style="width:7.50%;">
+												<col style="width:37.50%;">
+												<col style="width:25.00%;">
+												<col style="width:30.00%;">
+											</colgroup>
+											<thead>
+												<tr>
+													<th>
+														<div class="koko_check">
+															<input type="checkbox" name="allcheck" id="allcheck">
+															<label for="allcheck"><em></em></label>
+														</div>
+													</th>
+													<th>항목</th>
+													<th>이름</th>
+													<th>관리자 등급</th>
+												</tr>    
+											</thead>
+											<tbody>
+												<tr>
+													<th>
+														<div class="koko_check">
+															<input type="checkbox" value="" name="ip01" id="ip01" class="partcheck">
+															<label for="ip01"><em></em></label>
+														</div>
+													</th>
+													<th>henry@kokonut.me</th>
+													<th>곽호림</th>
+													<th>최고관리자</th>
+												</tr>
+												<tr>
+													<th>
+														<div class="koko_check">
+															<input type="checkbox" value="" name="ip02" id="ip02" class="partcheck">
+															<label for="ip02"><em></em></label>
+														</div>
+													</th>
+													<th>henry@kokonut.me</th>
+													<th>곽호림</th>
+													<th>최고관리자</th>
+												</tr>
+												<tr>
+													<th>
+														<div class="koko_check">
+															<input type="checkbox" value="" name="ip03" id="ip03" class="partcheck">
+															<label for="ip03"><em></em></label>
+														</div>
+													</th>
+													<th>henry@kokonut.me</th>
+													<th>곽호림</th>
+													<th>최고관리자</th>
+												</tr>
+												<tr>
+													<th>
+														<div class="koko_check">
+															<input type="checkbox" value="" name="ip04" id="ip04" class="partcheck">
+															<label for="ip04"><em></em></label>
+														</div>
+													</th>
+													<th>henry@kokonut.me</th>
+													<th>곽호림</th>
+													<th>최고관리자</th>
+												</tr>
+												<tr>
+													<th>
+														<div class="koko_check">
+															<input type="checkbox" value="" name="ip05" id="ip05" class="partcheck">
+															<label for="ip05"><em></em></label>
+														</div>
+													</th>
+													<th>henry@kokonut.me</th>
+													<th>곽호림</th>
+													<th>최고관리자</th>
+												</tr>
+											</tbody>	
+										</table>	
+									</div>
+									<script>
+									// 체크박스 스크립트
+									$("#allcheck").click(function(){
+										if($("#allcheck").is(":checked")){
+											$(".partcheck").prop("checked",true);
+										}
+										else{
+											$(".partcheck").prop("checked",false);
+										}
+									});
+									</script>
+									<div class="paginationBox marT20">
+										<ul class="pagination">
+											<li class="page-item page-pre disabled"><a class="page-link" aria-label="previous page" href="javascript:void(0)"></a></li>
+											<li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">1</a></li>
+											<li class="page-item"><a class="page-link" aria-label="to page 2" href="javascript:void(0)">2</a></li>
+											<li class="page-item"><a class="page-link" aria-label="to page 3" href="javascript:void(0)">3</a></li>
+											<li class="page-item"><a class="page-link" aria-label="to page 4" href="javascript:void(0)">4</a></li>
+											<li class="page-item"><a class="page-link" aria-label="to page 5" href="javascript:void(0)">5</a></li>
+											<li class="page-item page-last-separator disabled"><a class="page-link" aria-label="" href="javascript:void(0)">...</a></li>
+											<li class="page-item"><a class="page-link" aria-label="to page 93" href="javascript:void(0)">93</a></li>
+											<li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)"></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="marB100">
+								<label class="step02label"><b>2</b>제공일자를 선택해 주세요.</label>
+								<div class="callender_radio_box">
+									<div class="start_end_search_box">
+										<div class="start_end_search_Inner">
+											<div class="time_input l_time_input">
+												<input type="text" name="startdate" id="datepicker" class="" placeholder="시작일" autocomplete="off" maxlength="10" value="">
+											</div>
+											<div class="time_text">
+												~
+											</div>
+											<div class="time_input r_time_input">
+												<input type="text" name="enddate" id="datepicker2" class="" placeholder="종료일" autocomplete="off" maxlength="10" value="">
+											</div>
+										</div>
+									</div>
+									
+									<div class="seaRadio">
+										<div class="check radioCheck">
+											<input type="radio" class="radio" name="period" id="오늘" value="오늘">
+											<label for="오늘"><em><dt></dt></em>오늘</label>
+										</div>
+										<div class="check radioCheck">
+											<input type="radio" class="radio" name="period" id="1주일" value="1주일">
+											<label for="1주일"><em><dt></dt></em>1주일</label>
+										</div>
+										<div class="check radioCheck">
+											<input type="radio" class="radio" name="period" id="1개월" value="1개월">
+											<label for="1개월"><em><dt></dt></em>1개월</label>
+										</div>
+										<div class="check radioCheck">
+											<input type="radio" class="radio" name="period" id="3개월" value="3개월">
+											<label for="3개월"><em><dt></dt></em>3개월</label>
+										</div>
+										<div class="check radioCheck">
+											<input type="radio" class="radio" name="period" id="6개월" value="6개월">
+											<label for="6개월"><em><dt></dt></em>6개월</label>
+										</div>
+									</div>
+									
+									<!--
+									<div class="calRadio">
+										<div class="check">
+											<input type="radio" class="radio" name="period" id="오늘" value="오늘">
+											<label for="오늘">오늘</label>
+										</div>
+										<div class="check">
+											<input type="radio" class="radio" name="period" id="1주일" value="1주일">
+											<label for="1주일">1주일</label>
+										</div>
+										<div class="check">
+											<input type="radio" class="radio" name="period" id="1개월" value="1개월">
+											<label for="1개월">1개월</label>
+										</div>
+										<div class="check">
+											<input type="radio" class="radio" name="period" id="3개월" value="3개월">
+											<label for="3개월">3개월</label>
+										</div>
+										<div class="check">
+											<input type="radio" class="radio" name="period" id="전체" value="전체">
+											<label for="전체">전체</label>
+										</div>
+									</div>
+									-->
+									
+								</div>
+								
+							</div>
+						</div>
+						
+						<div class="bottomProgBox">
+							<div class="bottomProgLine">
+								<div class="Prog_2 prog66"></div>
+							</div>
+						</div>
+						
+						<div class="pri_bottomBtnBox marT24">
+							<!--<button type="submit" class="pri_bottomBtn">다음</button>-->
+							<a href="./step-03.html" class="pri_bottomBtn">다음</a>
+						</div>
+					</div>
+				</form>
+			</div>
+			
+		</div>
+	</section>
+	
+	<script>
+	
+	$(function() {
+		//모든 datepicker에 대한 공통 옵션 설정
+		$.datepicker.setDefaults({
+			dateFormat: 'yy. mm. dd' //Input Display Format 변경
+			,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+			,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+			,changeYear: true //콤보박스에서 년 선택 가능
+			,changeMonth: true //콤보박스에서 월 선택 가능                
+			//,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+			//,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+			//,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+			,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+			,yearSuffix: "" //달력의 년도 부분 뒤에 붙는 텍스트
+			,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+			,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+			,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+			,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+			,minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+			,maxDate: "+5Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+		});
+
+		//input을 datepicker로 선언
+		$("#datepicker").datepicker();                    
+		$("#datepicker2").datepicker();
+		
+		//From의 초기값을 오늘 날짜로 설정
+		//$('#datepicker').datepicker('setDate', '-7D'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+		//To의 초기값을 내일로 설정
+		//$('#datepicker2').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+	});
+	</script>
+	
+
+
+	
+	
+<?php
+include_once('../common/footer.html');
+?>	

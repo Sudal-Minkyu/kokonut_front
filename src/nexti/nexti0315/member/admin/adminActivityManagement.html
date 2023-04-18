@@ -1,0 +1,448 @@
+<?php
+include_once('../common/header.html');
+?>
+	
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	
+	<section class="bodyWrap">
+		<div class="contentInnerWrap">
+			<div class="pageTitleBtn marB50">
+				<h1>관리자 활동 이력</h1>
+			</div>
+			
+			<!-- 상단 검색 영역 -->
+			<div class="seaWrap marB50">
+				<div class="kotopBtn"><button id="excel_download_pop">현재목록 엑셀 다운로드</button></div>
+				<form>
+					<div class="koinput marB32">
+						<input type="text" name="" id="" class="wid360" placeholder="이름, 이메일 검색"></input>
+						<button><img src="/kokonut/member/public/img/common/icon_search.png" alt=""></button>
+					</div>
+					<div class="seaContentBox">
+						<div class="seaContentLine borB">
+							<div class="seaCont wid500">
+								<dl>조회 기간</dl>
+								<div class="calenderBox">
+									<div class="calenderInput">
+										<input id="stime" type="text" name="stime" class="form-control" placeholer="날짜선택" aria-describedby="stime_addon" />
+										<img src="/kokonut/member/public/img/common/callendericon.png" alt="">
+									</div>
+								</div>
+							</div>
+							<script>
+							// 캘린더 스크립트
+							$('#stime').daterangepicker({
+								timePicker: true,
+								startDate: moment().startOf('day').add(-1, 'month'),
+								endDate: moment().endOf('day'),
+								showDropdowns: true,
+								showDropdowns: false,
+								timePicker: false,
+								timePicker24Hour: false,
+								changeYear: false,
+								changeMonth: false,
+								locale: {
+									format: 'YYYY-MM-DD',
+									customRangeLabel: '사용자 정의',
+									daysOfWeek: ["일", "월", "화", "수", "목", "금", "토"],
+									monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+								}
+							});
+							$("#stime").on('show.daterangepicker', function (ev, picker) {
+								$(".yearselect").css("float", "left");
+								$(".monthselect").css("float", "right");
+							});
+							</script>
+							<div class="seaRadioBox borL">
+								<div class="seaRadio">
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="전체" value="전체" checked>
+										<label for="전체"><em><dt></dt></em>전체</label>
+									</div>
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="최근 1년" value="최근 1년">
+										<label for="최근 1년"><em><dt></dt></em>최근 1년</label>
+									</div>
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="최근 6개월" value="최근 6개월">
+										<label for="최근 6개월"><em><dt></dt></em>최근 6개월</label>
+									</div>
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="최근 3개월" value="최근 3개월">
+										<label for="최근 3개월"><em><dt></dt></em>최근 3개월</label>
+									</div>
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="최근 한 달" value="최근 한 달">
+										<label for="최근 한 달"><em><dt></dt></em>최근 한 달</label>
+									</div>
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="최근 1주일" value="최근 1주일">
+										<label for="최근 1주일"><em><dt></dt></em>최근 1주일</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="seaContentLine">
+							<div class="seaCont wid100per">
+								<dl>활동 선택</dl>
+								<div class="sc_multiBox">
+									<div class="fccheckText">
+										<span class="fccheckBtn" id="result">활동전체</span>
+									</div>
+									
+									<div class="floatCheckBox">
+										<div class="floatCheckList borB">
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="로그인" value="로그인"/>
+												<label for="로그인">로그인</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="회원정보 변경" value="회원정보 변경"/>
+												<label for="회원정보 변경">회원정보 변경</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="회원정보 삭제" value="회원정보 삭제"/>
+												<label for="회원정보 삭제">회원정보 삭제</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="관리자 추가" value="관리자 추가"/>
+												<label for="관리자 추가">관리자 추가</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="관리자 권한 변경" value="관리자 권한 변경"/>
+												<label for="관리자 권한 변경">관리자 권한 변경</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="처리이력 다운로드" value="처리이력 다운로드"/>
+												<label for="처리이력 다운로드">처리이력 다운로드</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="활동이력 다운로드" value="활동이력 다운로드"/>
+												<label for="활동이력 다운로드">활동이력 다운로드</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="회원정보DB관리 변경" value="회원정보DB관리 변경"/>
+												<label for="회원정보DB관리 변경">회원정보DB관리 변경</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="회원DB 항목관리 변경" value="회원DB 항목관리 변경"/>
+												<label for="회원DB 항목관리 변경">회원DB 항목관리 변경</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="회원관리 등록" value="회원관리 등록"/>
+												<label for="회원관리 등록">회원관리 등록</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="정보제공 목록" value="정보제공 목록"/>
+												<label for="정보제공 목록">정보제공 목록</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="정보파기 관리" value="정보파기 관리"/>
+												<label for="정보파기 관리">정보파기 관리</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="테이블 생성" value="테이블 생성"/>
+												<label for="테이블 생성">테이블 생성</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="전체DB 다운로드" value="전체DB 다운로드"/>
+												<label for="전체DB 다운로드">전체DB 다운로드</label>
+											</div>
+											<div class="actCheck">
+												<input type="checkbox" name="activity" class="act_sel" id="회원관리 변경" value="회원관리 변경"/>
+												<label for="회원관리 변경">회원관리 변경</label>
+											</div>
+										</div>
+										  
+										<div class="floatBtnList">
+											<div class="activityCancel" onclick="activityCancel()">초기화</div>
+											<div class="activityConfirm" onclick="activityConfirm()">선택완료</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+						
+						<script>
+						
+							$(document).on("click", ".fccheckBtn", function () {
+								$('.floatCheckBox').css("display", 'inline-block');
+							});
+  
+							function activityConfirm() {
+								var select_obj = '';
+								
+								if($("input[name='activity']:checked").length == 0){
+									alert('최소 한개 이상의 선택은 진행해주셔야 합니다.');
+								}
+								
+								let count = $("input[name='activity']:checked").length;
+								if(count > 5){
+									alert('5개 이상 선택할수 없습니다');
+								}
+								else{
+									$('input[type="checkbox"]:checked').each(function (index) {
+										if (index != 0) {
+											select_obj += ', ';
+										}
+										select_obj += $(this).val();
+										
+										document.getElementById('result').innerText = select_obj;
+										$('.floatCheckBox').css("display", 'none');
+										
+									});
+								}	
+							}
+							
+							function activityCancel() {
+								$(".act_sel").prop("checked",false);
+								document.getElementById('result').innerText = '활동전체';
+								$('.floatCheckBox').css("display", 'none');
+							}
+						</script>
+						
+					</div>
+				</form>
+			</div>
+			
+			<!-- 테이블 영역 -->
+			<div class="kotable adminActivityManagement">
+				
+				<table>
+					<caption>관리자 활동 이력 리스트</caption>
+					<colgroup>
+						<col style="width:4.79%;">
+						<col style="width:19.18%;">
+						<col style="width:8.22%;">
+						<col style="width:13.01%;">
+						<col style="width:27.40%;">
+						<col style="width:18.49%;">
+						<col style="width:8.90%;">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>이름</th>
+							<th>등급</th>
+							<th>활동내역</th>
+							<th>사유</th>
+							<th>일시</th>
+							<th>상태</th>
+						</tr>    
+					</thead>
+					<tbody>
+						<tr>
+							<th>910</th>
+							<th>최*리(test2test2@kokonut.me)</th>
+							<th>관리자</th>
+							<th>테이블 생성</th>
+							<th>
+								<div class="reason"> 사유 내용이 들어갑니다.</div>
+							</th>
+							<th>2023-01-27 16:29 (IP:127.0.0.1)</th>
+							<th>
+								<div class="normal">정상</div>
+							</th>
+						</tr>
+						<tr>
+							<th>909</th>
+							<th>테*트(testtest@kokonut.me)</th>
+							<th>관리자</th>
+							<th>회원DB 항목 관리 변경</th>
+							<th>
+								<div class="reason">사유 내용이 들어갑니다. 사유 내용이 들어갑니다.사유 내용이 들어갑니다. 사유 내용이 들어갑니다.</div>
+							</th>
+							<th>2023-01-27 16:29 (IP:127.0.0.1)</th>
+							<th>
+								<div class="normal">정상</div>
+							</th>
+						</tr>
+						<tr>
+							<th>908</th>
+							<th>최*리(test2test2@kokonut.me)</th>
+							<th>최고관리자</th>
+							<th>정보 파기 관리</th>
+							<th>
+								<div class="reason">사유 내용이 들어갑니다. 사유 내용이 들어갑니다.</div>
+							</th>
+							<th>2023-01-27 16:29 (IP:127.0.0.1)</th>
+							<th>
+								<div class="normal">정상</div>
+							</th>
+						</tr>
+						<tr>
+							<th>907</th>
+							<th>테*트(testtest@kokonut.me)</th>
+							<th>관리자</th>
+							<th>로그인</th>
+							<th>
+								<div class="reason">사유 내용이 들어갑니다. 사유 내용이 들어갑니다.사유 내용이 들어갑니다. 사유 내용이 들어갑니다.사유 내용이 들어갑니다. 사유 내용이 들어갑니다.</div>
+							</th>
+							<th>2023-01-27 16:29 (IP:127.0.0.1)</th>
+							<th>
+								<div class="normal">정상</div>
+							</th>
+						</tr>
+						
+						<tr>
+							<th>906</th>
+							<th>최*리(test2test2@kokonut.me)</th>
+							<th>최고관리자</th>
+							<th>관리자 추가</th>
+							<th>
+								<div class="reason">사유 내용이 들어갑니다.</div>
+							</th>
+							<th>2023-01-27 16:29 (IP:127.0.0.1)</th>
+							<th>
+								<div class="normal">정상</div>
+							</th>
+						</tr>
+						<tr>
+							<th>905</th>
+							<th>최*리(test2test2@kokonut.me)</th>
+							<th>관리자</th>
+							<th>전체DB 다운로드</th>
+							<th>
+								<div class="reason">사유 내용이 들어갑니다. 사유 내용이 들어갑니다.</div>
+							</th>
+							<th>2023-01-27 16:29 (IP:127.0.0.1)</th>
+							<th>
+								<div class="normal">정상</div>
+							</th>
+						</tr>
+						<tr>
+							<th>904</th>
+							<th>최*리(test2test2@kokonut.me)</th>
+							<th>관리자</th>
+							<th>테이블 생성</th>
+							<th>
+								<div class="reason"> 사유 내용이 들어갑니다.</div>
+							</th>
+							<th>2023-01-27 16:29 (IP:127.0.0.1)</th>
+							<th>
+								<div class="normal">정상</div>
+							</th>
+						</tr>
+						<tr>
+							<th>903</th>
+							<th>테*트(testtest@kokonut.me)</th>
+							<th>관리자</th>
+							<th>회원DB 항목 관리 변경</th>
+							<th>
+								<div class="reason">사유 내용이 들어갑니다. 사유 내용이 들어갑니다.사유 내용이 들어갑니다. 사유 내용이 들어갑니다.</div>
+							</th>
+							<th>2023-01-27 16:29 (IP:127.0.0.1)</th>
+							<th>
+								<div class="normal">정상</div>
+							</th>
+						</tr>
+						<tr>
+							<th>902</th>
+							<th>최*리(test2test2@kokonut.me)</th>
+							<th>최고관리자</th>
+							<th>정보 파기 관리</th>
+							<th>
+								<div class="reason">사유 내용이 들어갑니다. 사유 내용이 들어갑니다.</div>
+							</th>
+							<th>2023-01-27 16:29 (IP:127.0.0.1)</th>
+							<th>
+								<div class="normal">정상</div>
+							</th>
+						</tr>
+						<tr>
+							<th>901</th>
+							<th>테*트(testtest@kokonut.me)</th>
+							<th>관리자</th>
+							<th>로그인</th>
+							<th>
+								<div class="reason">사유 내용이 들어갑니다. 사유 내용이 들어갑니다.</div>
+							</th>
+							<th>2023-01-27 16:29 (IP:127.0.0.1)</th>
+							<th>
+								<div class="normal">정상</div>
+							</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<!-- 페이징 영역 -->
+			<div class="paginationBox marT40">
+				<ul class="pagination">
+					<li class="page-item page-pre disabled"><a class="page-link" aria-label="previous page" href="javascript:void(0)"></a></li>
+					<li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">1</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 2" href="javascript:void(0)">2</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 3" href="javascript:void(0)">3</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 4" href="javascript:void(0)">4</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 5" href="javascript:void(0)">5</a></li>
+					<li class="page-item page-last-separator disabled"><a class="page-link" aria-label="" href="javascript:void(0)">...</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 93" href="javascript:void(0)">93</a></li>
+					<li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)"></a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</section>
+	
+	<!-- [D] 엑셀 다운로드 팝업 -->
+	<div class="koko_popup excel_download_pop" data-popup="excel_download_pop" >
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title">
+					<h3 class="">엑셀 다운로드</h3>
+				</div>
+				<form>
+					<div class="kopopinput marB24">
+						<label>파일</label>
+						<input type="text" name="" id="" class="excelfile" value="관리자활동이력_20230203.xls (920 data)" readonly></input>
+					</div>
+					<div class="kopopinput marB24">
+						<label>사유</label>
+						<textarea name="" id="" class="" placeholder="사유를 적어주세요."></textarea>
+					</div>
+					<div class="kopopinput marB24">
+						<label>OTP</label>
+						<input type="text" name="" id="" class="" placeholder="OTP를 적어주세요."></input>
+					</div>
+					<div class="popcaseInfoBox">
+						<p>주의사항</p>
+						<dl>다운로드 파일은 배포가 금지되어 있습니다.</dl>
+						<dl>다운로드 사유 외에 다른 사유로 해당 파일을 사용 시, 법적인 모든 책임을 물을 수 있습니다.</dl>
+					</div>
+					<div class="koko_check">
+						<input type="checkbox" value="1" name="pricheck" id="pricheck">
+						<label for="pricheck">
+							<em></em>
+							<p class="check">주의사항에 대해 확인했습니다.</p>
+						</label>
+					</div>
+					
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel excel_download_pop_close">취소</div>
+						<div class="koko_go"><button>다운로드</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close excel_download_pop_close" data-popup-close="excel_download_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 엑셀 다운로드 팝업 -->
+	
+	<script>
+	//----- 엑셀 다운로드 OPEN / CLOSE
+	$('#excel_download_pop').on('click', function() {
+		$('[data-popup="excel_download_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.excel_download_pop_close').on('click', function() {
+		$('[data-popup="excel_download_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+<?php
+include_once('../common/footer.html');
+?>	

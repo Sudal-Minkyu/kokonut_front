@@ -1,0 +1,348 @@
+<?php
+include_once('../common/header.html');
+?>
+	<!-- 단일 캘린더 스크립트 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+	
+	<section class="bodyWrap">
+		<div class="contentInnerWrap">
+			<!--
+			<div class="page_backLine marB40">
+				<a href="./search.html"><div class="page_backarrow"></div></a>
+			</div>
+			-->
+			<div class="seaTitle marB50">
+				<dl><span>코코</span>에 대한 검색 결과</dl>
+			</div>
+			
+			<div class="sea_resultWrap">
+				<div>
+					<div class="sea_reInner">
+						<div class="mu_SelBox wid138">
+							<div class="selectBox wid100per nonePad">
+								<div class="label" id="">전체</div>
+								<ul class="optionList">
+									<li class="optionItem curv all_sel">전체</li>
+									<li class="optionItem curv email_sel">이메일</li>
+									<li class="optionItem curv name_sel">이름</li>
+									<li class="optionItem curv birth_sel">생년월일</li>
+									<li class="optionItem curv phone_sel">휴대폰번호</li>
+								</ul>
+							</div>
+						</div>
+						<div class="koinputshowhideBox">
+							<div class="koinput">
+								<input type="text" name="all" id="all" class="wid360" placeholder="이름, 이메일, 생년월일, 휴대폰번호 검색"></input>
+								<button><img src="/kokonut/member/public/img/common/icon_search_ver2.png" alt=""></button>
+							</div>
+						</div>
+						
+						<div class="filtetBtn" id="filter_pop">기간 필터</div>
+						
+					</div>
+					<div class="koko_check">
+						<input type="checkbox" value="1" name="result_research" id="result_research">
+						<label for="result_research">
+							<em></em>
+							<p class="check">결과 내 재검색</p>
+						</label>
+					</div>
+				</div>
+				
+				<div class="kotable search_result marT50">
+					<div class="kt_tableTopBox marB24">
+						<div class="kt_total">총 <span>910</span>건</div>
+						<div class="kt_selbox wid120">
+							<div class="selectBox wid100per nonePad">
+								<div class="label" id="">최근 등록순</div>
+								<ul class="optionList">
+									<li class="optionItem curv">최근 등록순</li>
+									<li class="optionItem curv">정확도순</li>
+									<li class="optionItem curv">오름차순</li>
+									<li class="optionItem curv">내림차순</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<table>
+						<caption>개인정보 검색결과 테이블</caption>
+						<colgroup>
+							<col style="width:6.85%;">
+							<col style="width:28.77%;">
+							<col style="width:12.33%;">
+							<col style="width:19.18%;">
+							<col style="width:19.18%;">
+							<col style="width:13.70%;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>이메일</th>
+								<th>이름</th>
+								<th>생년월일</th>
+								<th>휴대전화 번호</th>
+								<th>상세보기</th>
+							</tr>    
+						</thead>
+						<tbody>
+							<tr>
+								<td>910</td>
+								<td>te***12@ko******.me</td>
+								<td>김<dt>코코</dt></td>
+								<td>1996. 11. 01</td>
+								<td>010-****-1155</td>
+								<td><a href="./search_detail.html">상세보기</a></td>
+							</tr>
+							<tr>
+								<td>910</td>
+								<td>te***12@ko******.me</td>
+								<td>김<dt>코코</dt></td>
+								<td>1996. 11. 01</td>
+								<td>010-****-1155</td>
+								<td><a href="./search_detail.html">상세보기</a></td>
+							</tr>
+							<tr>
+								<td>910</td>
+								<td>te***12@ko******.me</td>
+								<td>김<dt>코코</dt></td>
+								<td>1996. 11. 01</td>
+								<td>010-****-1155</td>
+								<td><a href="./search_detail.html">상세보기</a></td>
+							</tr>
+							<tr>
+								<td>910</td>
+								<td>te***12@ko******.me</td>
+								<td>김<dt>코코</dt></td>
+								<td>1996. 11. 01</td>
+								<td>010-****-1155</td>
+								<td><a href="./search_detail.html">상세보기</a></td>
+							</tr>
+							<tr>
+								<td>910</td>
+								<td>te***12@ko******.me</td>
+								<td>김<dt>코코</dt></td>
+								<td>1996. 11. 01</td>
+								<td>010-****-1155</td>
+								<td><a href="./search_detail.html">상세보기</a></td>
+							</tr>
+							<tr>
+								<td>910</td>
+								<td>te***12@ko******.me</td>
+								<td>김<dt>코코</dt></td>
+								<td>1996. 11. 01</td>
+								<td>010-****-1155</td>
+								<td><a href="./search_detail.html">상세보기</a></td>
+							</tr>
+							<tr>
+								<td>910</td>
+								<td>te***12@ko******.me</td>
+								<td>김<dt>코코</dt></td>
+								<td>1996. 11. 01</td>
+								<td>010-****-1155</td>
+								<td><a href="./search_detail.html">상세보기</a></td>
+							</tr>
+							<tr>
+								<td>910</td>
+								<td>te***12@ko******.me</td>
+								<td>김<dt>코코</dt></td>
+								<td>1996. 11. 01</td>
+								<td>010-****-1155</td>
+								<td><a href="./search_detail.html">상세보기</a></td>
+							</tr>
+							<tr>
+								<td>910</td>
+								<td>te***12@ko******.me</td>
+								<td>김<dt>코코</dt></td>
+								<td>1996. 11. 01</td>
+								<td>010-****-1155</td>
+								<td><a href="./search_detail.html">상세보기</a></td>
+							</tr>
+							<tr>
+								<td>910</td>
+								<td>te***12@ko******.me</td>
+								<td>김<dt>코코</dt></td>
+								<td>1996. 11. 01</td>
+								<td>010-****-1155</td>
+								<td><a href="./search_detail.html">상세보기</a></td>
+							</tr>
+						</tbody>	
+					</table>
+				</div>	
+				<!-- 페이징 영역 -->
+				<div class="paginationBox marT40">
+					<ul class="pagination">
+						<li class="page-item page-pre disabled"><a class="page-link" aria-label="previous page" href="javascript:void(0)"></a></li>
+						<li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">1</a></li>
+						<li class="page-item"><a class="page-link" aria-label="to page 2" href="javascript:void(0)">2</a></li>
+						<li class="page-item"><a class="page-link" aria-label="to page 3" href="javascript:void(0)">3</a></li>
+						<li class="page-item"><a class="page-link" aria-label="to page 4" href="javascript:void(0)">4</a></li>
+						<li class="page-item"><a class="page-link" aria-label="to page 5" href="javascript:void(0)">5</a></li>
+						<li class="page-item page-last-separator disabled"><a class="page-link" aria-label="" href="javascript:void(0)">...</a></li>
+						<li class="page-item"><a class="page-link" aria-label="to page 93" href="javascript:void(0)">93</a></li>
+						<li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)"></a></li>
+					</ul>
+				</div>
+				
+			</div>
+			
+		</div>
+	</section>
+	
+	<!-- [D] 기간필터 팝업 -->
+	<div class="koko_popup filter_pop" data-popup="filter_pop">
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title">
+					<h3 class="">기간 필터</h3>
+				</div>
+				<form>
+					<div class="filtercontbox marB50">
+						<p>회원가입 일시</p>
+						<div class="start_end_search_box">
+							<div class="start_end_search_Inner">
+								<div class="time_input l_time_input">
+									<input type="text" name="startdate" id="datepicker" class="" placeholder="시작일" autocomplete="off" maxlength="10" value="">
+								</div>
+								<div class="time_text">
+									~
+								</div>
+								<div class="time_input r_time_input">
+									<input type="text" name="enddate" id="datepicker2" class="" placeholder="종료일" autocomplete="off" maxlength="10" value="">
+								</div>
+							</div>
+						</div>
+						<div class="seaRadio">
+							<div class="check radioCheck">
+								<input type="radio" class="radio" name="period" id="today" value="today" checked>
+								<label for="today"><em><dt></dt></em>오늘</label>
+							</div>
+							<div class="check radioCheck">
+								<input type="radio" class="radio" name="period" id="week" value="week">
+								<label for="week"><em><dt></dt></em>1주일</label>
+							</div>
+							<div class="check radioCheck">
+								<input type="radio" class="radio" name="period" id="month1" value="month1">
+								<label for="month1"><em><dt></dt></em>1개월</label>
+							</div>
+							<div class="check radioCheck">
+								<input type="radio" class="radio" name="period" id="month6" value="month6">
+								<label for="month6"><em><dt></dt></em>6개월</label>
+							</div>
+							<div class="check radioCheck">
+								<input type="radio" class="radio" name="period" id="all" value="all">
+								<label for="all"><em><dt></dt></em>전체</label>
+							</div>
+						</div>
+					</div>
+					<div class="filtercontbox">
+						<p>마지막 로그인 일시</p>
+						<div class="start_end_search_box">
+							<div class="start_end_search_Inner">
+								<div class="time_input l_time_input">
+									<input type="text" name="last_startdate" id="datepicker3" class="" placeholder="시작일" autocomplete="off" maxlength="10" value="">
+								</div>
+								<div class="time_text">
+									~
+								</div>
+								<div class="time_input r_time_input">
+									<input type="text" name="last_enddate" id="datepicker4" class="" placeholder="종료일" autocomplete="off" maxlength="10" value="">
+								</div>
+							</div>
+						</div>
+						<div class="seaRadio">
+							<div class="check radioCheck">
+								<input type="radio" class="radio" name="last_period" id="last_today" value="last_today" checked>
+								<label for="last_today"><em><dt></dt></em>오늘</label>
+							</div>
+							<div class="check radioCheck">
+								<input type="radio" class="radio" name="last_period" id="last_week1" value="last_week1">
+								<label for="last_week1"><em><dt></dt></em>1주일</label>
+							</div>
+							<div class="check radioCheck">
+								<input type="radio" class="radio" name="last_period" id="last_month1" value="last_month1">
+								<label for="last_month1"><em><dt></dt></em>1개월</label>
+							</div>
+							<div class="check radioCheck">
+								<input type="radio" class="radio" name="last_period" id="last_month6" value="last_month6">
+								<label for="last_month6"><em><dt></dt></em>6개월</label>
+							</div>
+							<div class="check radioCheck">
+								<input type="radio" class="radio" name="last_period" id="last_all" value="last_all">
+								<label for="last_all"><em><dt></dt></em>전체</label>
+							</div>
+						</div>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_reset" id="reset">초기화</div>
+						<div class="koko_go"><button type="submit">적용하기</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close filter_pop_close" data-popup-close="filter_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 기간필터 팝업 -->
+	<script>
+	//----- 기간필터 팝업 OPEN / CLOSE
+	$('#filter_pop').on('click', function() {
+		$('[data-popup="filter_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.filter_pop_close').on('click', function() {
+		$('[data-popup="filter_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	
+	$("#reset").click(function(){
+		$('#datepicker').val('');
+		$('#datepicker2').val('');
+		$('#datepicker3').val('');
+		$('#datepicker4').val('');
+		
+		$("#today").prop("checked",true);
+		$("#last_today").prop("checked",true);
+	});
+	</script>
+	
+	
+	<script>
+	
+	$(function() {
+		//모든 datepicker에 대한 공통 옵션 설정
+		$.datepicker.setDefaults({
+			dateFormat: 'yy. mm. dd' //Input Display Format 변경
+			,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+			,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+			,changeYear: true //콤보박스에서 년 선택 가능
+			,changeMonth: true //콤보박스에서 월 선택 가능                
+			,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+			,buttonImage: "/kokonut/member/public/img/common/callendericon.png" //버튼 이미지 경로
+			,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+			,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+			,yearSuffix: "" //달력의 년도 부분 뒤에 붙는 텍스트
+			,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+			,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+			,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+			,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+			,minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+			,maxDate: "+5Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+		});
+
+		//input을 datepicker로 선언
+		$("#datepicker").datepicker();                    
+		$("#datepicker2").datepicker();
+		$("#datepicker3").datepicker();                    
+		$("#datepicker4").datepicker();
+		
+		//From의 초기값을 오늘 날짜로 설정
+		//$('#datepicker').datepicker('setDate', '-7D'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+		//To의 초기값을 내일로 설정
+		//$('#datepicker2').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+	});
+	</script>
+	
+	
+<?php
+include_once('../common/footer.html');
+?>	

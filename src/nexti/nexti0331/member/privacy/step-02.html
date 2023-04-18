@@ -1,0 +1,227 @@
+<?php
+include_once('../common/header.html');
+?>
+	
+	<section class="stepbodyWrap">
+		<div class="stepcontentInnerWrap">
+			<div class="spcontWrap">
+				<div class="pageTitleBtn marB50">
+					<h1>개인정보 제공</h1>
+					<dl>
+						💡 더 이상 이메일로 회원의 소중한 개인정보를 공유하지 마세요. 코코넛을 통해 안전하게 개인정보를 제공하고 조회할 수 있습니다.
+					</dl>
+				</div>
+				
+				<div class="pri_componentWrap">
+					<form>
+						<div class="pristep02">
+							<div class="pristepContent">
+								<div class="marB46">
+									<label class="step02label"><b>1</b>제공받을 사람을 선택해 주세요.</label>
+									<div class="step_radioBox">
+										<div class="step_radio">
+											<input type="radio" class="stradio solo" name="solo_team" id="본인" value="본인">
+											<label for="본인">본인</label>
+										</div>
+										<div class="step_radio">
+											<input type="radio" class="stradio team" name="solo_team" id="내부 팀원" value="내부 팀원">
+											<label for="내부 팀원">내부 팀원</label>
+										</div>
+									</div>
+									<script>
+										// 활성 비활성화 체크 여부 스크립트
+										$(".solo").click(function(){			
+											$('.teamtable').hide();
+										});
+										$(".team").click(function(){
+											$('.teamtable').show();	
+										});
+										$(document).ready(function(){
+											if($(".team").is(":checked")){
+												$('.teamtable').show();	
+											}
+											else{
+												$('.teamtable').hide();
+											}
+										});
+									</script>
+									<div class="teamtable">
+										<div class="ipseaBox marB20">
+											<div class="koinput">
+												<input type="text" name="" id="" class="wid236" placeholder="아이디, 이름 검색"></input>
+												<button><img src="/kokonut/member/public/img/common/icon_search_ver2.png" alt=""></button>
+											</div>
+										</div>
+										<div class="iptable">
+											<table>
+												<caption>개인정보 제공 회원 리스트</caption>
+												<colgroup>
+													<col style="width:7.50%;">
+													<col style="width:37.50%;">
+													<col style="width:25.00%;">
+													<col style="width:30.00%;">
+												</colgroup>
+												<thead>
+													<tr>
+														<th>
+															<div class="koko_check">
+																<input type="checkbox" name="allcheck" id="allcheck">
+																<label for="allcheck"><em></em></label>
+															</div>
+														</th>
+														<th>항목</th>
+														<th>이름</th>
+														<th>관리자 등급</th>
+													</tr>    
+												</thead>
+												<tbody>
+													<tr>
+														<th>
+															<div class="koko_check">
+																<input type="checkbox" value="" name="ip01" id="ip01" class="partcheck">
+																<label for="ip01"><em></em></label>
+															</div>
+														</th>
+														<th>henry@kokonut.me</th>
+														<th>곽호림</th>
+														<th>최고관리자</th>
+													</tr>
+													<tr>
+														<th>
+															<div class="koko_check">
+																<input type="checkbox" value="" name="ip02" id="ip02" class="partcheck">
+																<label for="ip02"><em></em></label>
+															</div>
+														</th>
+														<th>henry@kokonut.me</th>
+														<th>곽호림</th>
+														<th>최고관리자</th>
+													</tr>
+													<tr>
+														<th>
+															<div class="koko_check">
+																<input type="checkbox" value="" name="ip03" id="ip03" class="partcheck">
+																<label for="ip03"><em></em></label>
+															</div>
+														</th>
+														<th>henry@kokonut.me</th>
+														<th>곽호림</th>
+														<th>최고관리자</th>
+													</tr>
+													<tr>
+														<th>
+															<div class="koko_check">
+																<input type="checkbox" value="" name="ip04" id="ip04" class="partcheck">
+																<label for="ip04"><em></em></label>
+															</div>
+														</th>
+														<th>henry@kokonut.me</th>
+														<th>곽호림</th>
+														<th>최고관리자</th>
+													</tr>
+													<tr>
+														<th>
+															<div class="koko_check">
+																<input type="checkbox" value="" name="ip05" id="ip05" class="partcheck">
+																<label for="ip05"><em></em></label>
+															</div>
+														</th>
+														<th>henry@kokonut.me</th>
+														<th>곽호림</th>
+														<th>최고관리자</th>
+													</tr>
+												</tbody>	
+											</table>	
+										</div>
+										<script>
+										// 체크박스 스크립트
+										$("#allcheck").click(function(){
+											if($("#allcheck").is(":checked")){
+												$(".partcheck").prop("checked",true);
+											}
+											else{
+												$(".partcheck").prop("checked",false);
+											}
+										});
+										</script>
+										<div class="paginationBox marT20">
+											<ul class="pagination">
+												<li class="page-item page-pre disabled"><a class="page-link" aria-label="previous page" href="javascript:void(0)"></a></li>
+												<li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">1</a></li>
+												<li class="page-item"><a class="page-link" aria-label="to page 2" href="javascript:void(0)">2</a></li>
+												<li class="page-item"><a class="page-link" aria-label="to page 3" href="javascript:void(0)">3</a></li>
+												<li class="page-item"><a class="page-link" aria-label="to page 4" href="javascript:void(0)">4</a></li>
+												<li class="page-item"><a class="page-link" aria-label="to page 5" href="javascript:void(0)">5</a></li>
+												<li class="page-item page-last-separator disabled"><a class="page-link" aria-label="" href="javascript:void(0)">...</a></li>
+												<li class="page-item"><a class="page-link" aria-label="to page 93" href="javascript:void(0)">93</a></li>
+												<li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)"></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>	
+			
+			<div class="fixstepInner">
+				<div class="bottomProgBox">
+					<div class="bottomProgLine">
+						<div class="Prog_2 prog40"></div>
+					</div>
+				</div>
+				<div class="pri_bottomBtnBox marT32">
+					<a href="./step-01.html" class="pri_prevBtn">이전</a>
+					<div class="pris_num">
+						<dl><span>2</span>/5</dl>
+					</div>
+					<!--<button type="submit" class="pri_nextBtn">다음</button>-->
+					<a href="./step-03.html" class="pri_nextBtn">다음</a>
+				</div>
+			</div>
+			
+		</div>
+	</section>
+	
+	<script>
+	
+	$(function() {
+		//모든 datepicker에 대한 공통 옵션 설정
+		$.datepicker.setDefaults({
+			dateFormat: 'yy. mm. dd' //Input Display Format 변경
+			,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+			,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+			,changeYear: true //콤보박스에서 년 선택 가능
+			,changeMonth: true //콤보박스에서 월 선택 가능                
+			//,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+			//,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+			//,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+			,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+			,yearSuffix: "" //달력의 년도 부분 뒤에 붙는 텍스트
+			,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+			,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+			,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+			,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+			,minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+			,maxDate: "+5Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+		});
+
+		//input을 datepicker로 선언
+		$("#datepicker").datepicker();                    
+		$("#datepicker2").datepicker();
+		
+		//From의 초기값을 오늘 날짜로 설정
+		//$('#datepicker').datepicker('setDate', '-7D'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+		//To의 초기값을 내일로 설정
+		//$('#datepicker2').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+	});
+	</script>
+	
+
+
+	
+	
+<?php
+include_once('../common/footer.html');
+?>	

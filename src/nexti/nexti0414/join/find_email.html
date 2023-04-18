@@ -1,0 +1,40 @@
+<?php
+include_once('../common/header.html');
+?>
+
+<link href="/kokonut/member/public/css/join.css" rel="stylesheet">
+
+
+<div class="find_email" id="joinWrap">
+	<div class="joinCont">
+		<div class="joinBg"></div>
+		<div class="joinContArea">
+			<div class="joinContBox">
+				<ul class="f_type">
+					<li class="active"><a href="find_email.html"><p>이메일 찾기</p></a></li>
+					<li><a href="find_password.html"><p>비밀번호 찾기</p></a></li>
+				</ul>
+				<div class="findContArea">
+					<p class="findEx">
+						휴대폰 인증을 하면<br>
+						이메일을 확인하실 수 있습니다.
+					</p>
+				</div>
+				<figure class="f_emailImg"><img src="/kokonut/member/public/img/join/f-email.png"></figure>
+				<div class="find_bottom login">
+					<a href="success_email.html"><p>휴대폰 인증하기</p></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$('#joinWrap input').change(function() {
+		($(this).parent('.input-field').addClass("filled"));
+	});
+</script>
+
+<?php
+include_once('../common/footer.html');
+?>

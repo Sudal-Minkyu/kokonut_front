@@ -1,0 +1,174 @@
+<?php
+include_once('./common/header.html');
+?>
+	
+	<section class="bodyWrap">
+		<div class="contentInnerWrap">
+			
+			<div>
+				<div class="stgr-box">
+					시작하기
+				</div>
+				<div class="stgrContentBox">
+					<div class="apicont_type01">
+						<h2>REST API</h2>
+						<h3>이 문서는 REST API를 사용한 카카오 API 사용법과 카카오디벨로터스(kakao Developers, 이하 개발자 웹사이트) 설정에 대하여 안내합니다.</h3>
+					</div>
+					<div class="lineDivider"></div>
+					<div class="apicont_type01">
+						<h2>기능 소개</h2>
+						<h3>카카오 API는 대부분의 기능을 REST API로 제공합니다. 카카오톡 공유나 서비스 UI와 관련 있는 플러그인 성격의 일부 기능을 제외하고 모든 기능을 서비스 서버에서 REST API로 구현할 수 있습니다. 또한 카카오 SDK가 지원하지 않는 카카오 API는 REST API를 통해 사용 가능합니다.</h3>
+						<h3>REST API는  HTTP 요청을 보낼 수 있는 환경이라면 어디서든 이용 가능합니다. 클라이언트에서 서버로, 또는 서버에서 서버로 요청을 보낼 수 있습니다. 예를 들면 다음과 같은 환경에서 REST API를 사용할 수 있습니다.</h3>
+						<h4>모바일/PC 웹 환경</h4>
+						<h4>iOS, Android 등 모바일 환경</h4>
+						<h4>Java, Rudy, Python 등 다양한 환경의 웹 서버</h4>
+						<h3 class="marT20 noneMarB">REST API 요청과 응답 규격을 비롯한 자세한 정보는 <span class="at_green">REST API 레퍼런스</span>에서 확인할 수 있습니다.</h3>
+					</div>
+				</div>
+			</div>
+			
+			<div class="lineDivider"></div>
+			
+			<div class="vringContentBox">
+				<div class="vringContent">
+					<h1 class="marB30">발링키로 결제 요청하기<p><a href="">REST API 테스트 도구</a></p></h1>
+					<div class="apinorText marB30">
+						위 과정에서 빌링키를 발급받아 저장하셨다면, <span class="at_green">원하는 이벤트 시점(ex. 일주일 뒤에, 택시에서 내렸을 때)</span>에 결제 승인 요청할 수 있습니다. 이때 구매자가 별도로 결제창 UI를 통해 진행하지 않아도, 개발사의 서버에서 저장된 빌링키와, 결제금액, 상품명 등의 정보를 REST API를 통해 결제 요청하면, 요청이 유효 할 경우 최종적으로 승인이 됩니다. 결제결과(성공/실패)는 서버로 통지됩니다.
+					</div>
+					<div class="pjdro_Box marB20">
+						<ul class="pjandion-menu">
+							<li class="open_faq">
+								<div class="pjdropName">
+									<h2>PG사 다날 이용 시 빌링키 결제 방화벽 IP 해제 요청</h2>
+									<i class="fa fa-chevron-down" aria-hidden="true"></i>
+								</div>
+								<ul class="projItems">
+									<li>
+										<div class="open_proj_box">
+											<div class="dropNortext">
+												<h3><span class="at_red">다날</span>을 이용하는 개발사의 경우 방화벽애 의해 빌링키 결제 요청이 실패할 수 있습니다. 이때 다날측에 <span class="at_green">223.130.82.4, 223.130.82.130, 223.130.82.131</span>에 대한 공용 IP를 방화벽에서 해제해달라고 요청해주시면 됩니다. 그렇지 않을 경우, <span class="at_red">RETURNCODE : 11112,   RETURNMSG : 접근 권한이 없습니다.</span>  같이 리턴받거나, PG사 방화벽에 의해 요청 자체가 실패할 수 있습니다.</h3>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</li>
+						</ul> 
+					</div>
+					<div class="pjdro_Box">
+						<ul class="pjandion-menu">
+							<li class="open_faq">
+								<div class="pjdropName">
+									<h2>요청 Parameters</h2>
+									<i class="fa fa-chevron-down" aria-hidden="true"></i>
+								</div>
+								<ul class="projItems nonePad">
+									<li>
+										<div class="open_proj_box">
+											<div class="dropcont">
+												<div class="drcont">
+													<p>billing_key</p><span>필수</span><b>string</b>
+												</div>
+												<h3>자동결제를 요청할 빌링키</h3>
+											</div>
+											<div class="dropcont">
+												<div class="drcont">
+													<p>order_name</p><span>필수</span><b>string</b>
+												</div>
+												<h3>판매하는 상품명</h3>
+											</div>
+											<div class="dropcont">
+												<div class="drcont">
+													<p>order_id</p><span>필수</span><b>string</b>
+												</div>
+												<h3>가맹점에서 부여한 주문 고유값</h3>
+											</div>
+											<div class="dropcont">
+												<div class="drcont">
+													<p>price</p><span>필수</span><b>string</b>
+												</div>
+												<h3>자동결제 금액</h3>
+											</div>
+											<div class="dropcont">
+												<div class="drcont">
+													<p>tax_free</p><span class="drsred">선택</span><b>number</b>
+												</div>
+												<h3>비과세 금액</h3>
+											</div>
+											<div class="dropcont">
+												<div class="drcont">
+													<p>card_quota</p><span class="drsred">선택</span><b>string</b>
+												</div>
+												<dt>기본값 00</dt>
+												<h3>카드 할부 개월수 2자리<span>00 - 일시불, 02 - 2개월, 5만원 이상부터 가능</span></h3>
+											</div>
+											<div class="dropcont">
+												<div class="drcont">
+													<p>card_interest</p><span class="drsred">일부 PG지원</span><b>string</b>
+												</div>
+												<h3>가맹점 부담 무이자 할부 개월수 선택<span>00 - 일시불, 02 - 2개월, 5만원 이상부터 가능</span></h3>
+											</div>
+											<div class="dropcont">
+												<div class="drcont">
+													<p>user</p><span class="drsred">선택</span><b>string</b>
+												</div>
+												<h3>자동결제 하는 사용자 정보</h3>
+												<div class="dropcontBtn marT14"><a href="">더 많은 Attributes 보기</a></div>
+											</div>
+											<div class="dropcont">
+												<div class="drcont">
+													<p>feedback_url</p><span class="drsred">선택</span><b>string</b>
+												</div>
+												<h3>부트페이 관리자에서 설정된 Webhook URL외 별도로 Webhook을 받고 싶을 때 http/https 도메인으로 된 URL을 입력합니다.</h3>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</li>
+						</ul> 
+					</div>
+				</div>
+				<div class="vringContent">
+					<div class="codeContentBox marB20">
+						<div class="codeTitle"><h2>ENTRYPOINT</h2><img src="/kokonut/api/public/img/codeicon.png" alt=""></div>
+						<div class="codeNormalContent">
+							<div class="codeNormal">
+								<span>POST</span><p>/subscripbe/payment</p>
+							</div>
+						</div>
+					</div>
+					<div class="codeContentBox_Dark marB20">
+						<div class="codeTitle_dark"><h2>빌링키로 결제요청 API</h2><img src="/kokonut/api/public/img/codeicon.png" alt=""></div>
+					</div>
+					<div class="codeContentBox">
+						<div class="codeTitle"><h2>Response</h2><img src="/kokonut/api/public/img/codeicon.png" alt=""></div>
+						<div class="codeNormalContent">
+							<div class="codeNormal">
+								<p>
+									{<br>
+										“recepit_id”: “624b913816ge28eg1828834ry7348r7”;<br>
+										“order_id”: “1649119729”;<br>
+										“price”: 1000,<br>
+										“tax_free”: 0,<br>
+										“cancelled_price”: 0,<br>
+										“cancelled_tax_free”: 0,<br>
+										“order_name”: “테스트결제”,<br>
+										“company_name”: “주) 부트페이”,<br>
+										“gateway_url”: null,<br>
+										“metadata”: null,<br>
+										“sandbox”: true,<br>
+										“pg”: “페이레터”,<br>
+										“method”: “카드”,<br>
+										“method_origin”: “카드자동”,<br>
+										“recepit_id”: “624b913816ge28eg1828834ry7348r7”;
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</section>
+	
+	
+

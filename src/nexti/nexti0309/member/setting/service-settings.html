@@ -1,0 +1,392 @@
+<?php
+include_once('../common/header.html');
+?>
+	
+	<section class="bodyWrap">
+		<div class="contentInnerWrap serviceSetWrap">
+			<div class="pageTitleBtn marB50">
+				<h1>서비스 설정</h1>
+				<dl>
+					해당 페이지는 최고관리자만 수정할 수 있습니다.
+				</dl>
+			</div>
+			
+			<div class="seaContentBox">
+				<div class="seaContentLine borB">
+					<div class="seaCont wid100per">
+						<dl>해당 로그인 설정</dl>
+						<div class="seaRadio">
+							<div class="flex_sel">
+								<div class="check radioCheck">
+									<input type="radio" class="radio" name="loginsetting" id="로그인 허용" value="로그인 허용" checked>
+									<label for="로그인 허용"><em><dt></dt></em>로그인 허용</label>
+								</div>
+								<div class="check radioCheck noneMarR">
+									<input type="radio" class="radio" name="loginsetting" id="로그인 차단" value="로그인 차단">
+									<label for="로그인 차단"><em><dt></dt></em>로그인 차단</label>
+								</div>
+								<dd class="marL16">*해외에서 로그인을 시도하는 경우 본인확인 후 로그인이 가능합니다.</dd>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="seaContentLine borB">
+					<div class="seaCont wid100per">
+						<dl>접속 허용 IP 설정</dl>
+						<div class="ipContentBox">
+							<div class="seaRadio">
+								<div class="check radioCheck">
+									<input type="radio" class="radio non_activate" name="ipsetting" id="비활성화" value="비활성화">
+									<label for="비활성화"><em><dt></dt></em>비활성화</label>
+								</div>
+								<div class="check radioCheck">
+									<input type="radio" class="radio activate" name="ipsetting" id="활성화" value="활성화" checked>
+									<label for="활성화"><em><dt></dt></em>활성화</label>
+								</div>
+							</div>
+							<script>
+								// 활성 비활성화 체크 여부 스크립트
+								$(".non_activate").click(function(){			
+									$('.ipContentIner').hide();
+								});
+								$(".activate").click(function(){
+									$('.ipContentIner').show();	
+								});
+								$(document).ready(function(){
+									if($(".activate").is(":checked")){
+										$('.ipContentIner').show();	
+									}
+									else{
+										$('.ipContentIner').hide();
+									}
+								});
+							</script>
+							<div class="ipContentIner">
+								<div class="ipseaBox marB20">
+									<div class="koinput">
+										<input type="text" name="" id="" class="wid236" placeholder="IP 검색"></input>
+										<button><img src="/kokonut/member/public/img/common/icon_search_ver2.png" alt=""></button>
+									</div>
+									<div class="floatBtnBox">
+										<button class="del" id="ipdel_pop">삭제</button>
+										<button class="add" id="ipadd_pop">추가</button>
+									</div>
+								</div>
+								<div class="iptable">
+									<table>
+										<caption>관리자 활동 이력 리스트</caption>
+										<colgroup>
+											<col style="width:2%;">
+											<col style="width:54%;">
+											<col style="width:54%;">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>
+													<div class="koko_check">
+														<input type="checkbox" name="allcheck" id="allcheck">
+														<label for="allcheck"><em></em></label>
+													</div>
+												</th>
+												<th>공인 IP</th>
+												<th>메모</th>
+											</tr>    
+										</thead>
+										<tbody>
+											<tr>
+												<th>
+													<div class="koko_check">
+														<input type="checkbox" value="" name="ip01" id="ip01" class="partcheck">
+														<label for="ip01"><em></em></label>
+													</div>
+												</th>
+												<th>121.134.227.161</th>
+												<th>2월대개봉_오피스IP</th>
+											</tr>
+											<tr>
+												<th>
+													<div class="koko_check">
+														<input type="checkbox" value="" name="ip02" id="ip02" class="partcheck">
+														<label for="ip02"><em></em></label>
+													</div>
+												</th>
+												<th>121.134.227.161</th>
+												<th>2월대개봉_오피스IP</th>
+											</tr>
+											<tr>
+												<th>
+													<div class="koko_check">
+														<input type="checkbox" value="" name="ip03" id="ip03" class="partcheck">
+														<label for="ip03"><em></em></label>
+													</div>
+												</th>
+												<th>121.134.227.161</th>
+												<th>2월대개봉_오피스IP</th>
+											</tr>
+											<tr>
+												<th>
+													<div class="koko_check">
+														<input type="checkbox" value="" name="ip04" id="ip04" class="partcheck">
+														<label for="ip04"><em></em></label>
+													</div>
+												</th>
+												<th>121.134.227.161</th>
+												<th>2월대개봉_오피스IP</th>
+											</tr>
+											<tr>
+												<th>
+													<div class="koko_check">
+														<input type="checkbox" value="" name="ip05" id="ip05" class="partcheck">
+														<label for="ip05"><em></em></label>
+													</div>
+												</th>
+												<th>121.134.227.161</th>
+												<th>2월대개봉_오피스IP</th>
+											</tr>
+										</tbody>	
+									</table>	
+								</div>
+								<script>
+								// 체크박스 스크립트
+								$("#allcheck").click(function(){
+									if($("#allcheck").is(":checked")){
+										$(".partcheck").prop("checked",true);
+									}
+									else{
+										$(".partcheck").prop("checked",false);
+									}
+								});
+								</script>
+								
+								<div class="paginationBox marT20">
+									<ul class="pagination">
+										<li class="page-item page-pre disabled"><a class="page-link" aria-label="previous page" href="javascript:void(0)"></a></li>
+										<li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">1</a></li>
+										<li class="page-item"><a class="page-link" aria-label="to page 2" href="javascript:void(0)">2</a></li>
+										<li class="page-item"><a class="page-link" aria-label="to page 3" href="javascript:void(0)">3</a></li>
+										<li class="page-item"><a class="page-link" aria-label="to page 4" href="javascript:void(0)">4</a></li>
+										<li class="page-item"><a class="page-link" aria-label="to page 5" href="javascript:void(0)">5</a></li>
+										<li class="page-item page-last-separator disabled"><a class="page-link" aria-label="" href="javascript:void(0)">...</a></li>
+										<li class="page-item"><a class="page-link" aria-label="to page 93" href="javascript:void(0)">93</a></li>
+										<li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)"></a></li>
+									</ul>
+								</div>
+							
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="seaContentLine borB">
+					<div class="seaCont wid100per">
+						<dl>비밀번호 변경주기</dl>
+						<div class="sc_SelBox">
+							<div class="selectBox wid124">
+								<div class="label" id="">선택</div>
+								<ul class="optionList">
+									<li class="optionItem curv">3개월</li>
+									<li class="optionItem curv">6개월</li>
+									<li class="optionItem curv">9개월</li>
+									<li class="optionItem curv">12개월</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="seaContentLine borB">
+					<div class="seaCont wid100per">
+						<dl>비밀번호 오류 접속제한</dl>
+						<div class="sc_SelBox">
+							<div class="selectBox wid124">
+								<div class="label" id="">선택</div>
+								<ul class="optionList">
+									<li class="optionItem curv">5번</li>
+									<li class="optionItem curv">10번</li>
+									<li class="optionItem curv">15번</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="seaContentLine borB">
+					<div class="seaCont wid100per">
+						<dl>자동 로그아웃 시간</dl>
+						<div class="sc_SelBox flex_sel">
+							<p class="marR30">로그인 후</p>
+							<div class="selectBox wid124">
+								<div class="label" id="">선택</div>
+								<ul class="optionList">
+									<li class="optionItem curv">30분</li>
+									<li class="optionItem curv">60분</li>
+									<li class="optionItem curv">90분</li>
+									<li class="optionItem curv">120분</li>
+								</ul>
+							</div>
+							<p class="marL30">동안 페이지 전환이 없으면 자동 로그아웃</p>
+						</div>
+					</div>
+				</div>
+				<div class="seaContentLine">
+					<div class="seaCont wid100per">
+						<dl>장기 미접속 접근제한</dl>
+						<div class="seaRadio">
+							<div class="flex_sel">
+								<div class="check radioCheck">
+									<input type="radio" class="radio nolimit" name="acesssetting" id="제한 없음" value="제한 없음" checked>
+									<label for="제한 없음"><em><dt></dt></em>제한 없음</label>
+								</div>
+								<div class="check radioCheck noneMarR">
+									<input type="radio" class="radio period" name="acesssetting" id="기간선택" value="기간선택">
+									<label for="기간선택"><em><dt></dt></em></label>
+								</div>
+								<script>
+								// 제한 or 기간 체크 여부 스크립트
+								$(".nolimit").click(function(){			
+									$('.disableBox').show();
+									$('#period').text('기간선택');	
+								});
+								$(".period").click(function(){
+									$('.disableBox').hide();
+								});
+								$(document).ready(function(){
+									if($(".period").is(":checked")){
+										$('.disableBox').hide();	
+									}
+									else{
+										$('.disableBox').show();
+									}
+								});
+								</script>
+								<div class="selectBox wid124">
+									<div class="disableBox" onclick="alert('기간선택 옆의 체크박스를 체크해주세요.');return false;"></div>
+									<div class="label" id="period">기간선택</div>
+									<ul class="optionList">
+										<li class="optionItem curv">1개월</li>
+										<li class="optionItem curv">3개월</li>
+										<li class="optionItem curv">6개월</li>
+									</ul>
+								</div>
+								<p class="marL30">동안 시스템에 접속하지 않은 경우, 로그인 제한</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</section>
+	
+	<!-- [D] IP 삭제 팝업 -->
+	<div class="koko_popup ipdel_pop" data-popup="ipdel_pop">
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_titleh4">
+					<h4 class="">선택하신 IP를 정말 삭제하실 건가요?</h4>
+				</div>
+				<form>
+					<div class="kopopinput marB24">
+						<label>OTP</label>
+						<input type="text" name="" id="" class="" placeholder="OTP를 적어주세요."></input>
+					</div>
+					<div class="popcaseInfoBox">
+						<p>주의사항</p>
+						<dl>해당 IP로 접속 중인 관리자가 강제 로그아웃 될 수 있습니다.</span></dl>
+					</div>
+					<div class="koko_check">
+						<input type="checkbox" value="1" name="checkcation" id="checkcation">
+						<label for="checkcation">
+							<em></em>
+							<p class="check">주의사항에 대해 확인했습니다.</p>
+						</label>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel ipdel_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">확인</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close ipdel_pop_close" data-popup-close="ipdel_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] IP 삭제 팝업 -->
+	<script>
+	//----- IP 삭제 OPEN / CLOSE
+	$('#ipdel_pop').on('click', function() {
+		$('[data-popup="ipdel_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.ipdel_pop_close').on('click', function() {
+		$('[data-popup="ipdel_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+	
+	<!-- [D] IP 추가 팝업 -->
+	<div class="koko_popup ipadd_pop" data-popup="ipadd_pop" >
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title">
+					<h3 class="">접속 허용 IP 추가</h3>
+				</div>
+				<form>
+					<div class="marB24">
+						<div class="kopopMuntiinputBox">
+							<label>공인 IP</label>
+							<div class="kopopMuntiinputInner">	
+								<div class="kopopMuntiinput">
+									<input type="text" name="" id="" class="" placeholder=""></input>
+								</div>
+								<div class="kopopMuntiinput">
+									<input type="text" name="" id="" class="" placeholder=""></input>
+								</div>
+								<div class="kopopMuntiinput">
+									<input type="text" name="" id="" class="" placeholder=""></input>
+								</div>
+								<div class="kopopMuntiinput">
+									<input type="text" name="" id="" class="" placeholder=""></input>
+								</div>
+								<div class="kopopMuntiinput">
+									<input type="text" name="" id="" class="" placeholder=""></input>
+								</div>
+							</div>
+						</div>
+						<div class="koko_check">
+							<input type="checkbox" value="1" name="IPcheck" id="IPcheck">
+							<label for="IPcheck">
+								<em></em>
+								<p class="check">현재 접속한 IP</p>
+							</label>
+						</div>
+					</div>
+					<div class="kopopinput marB24">
+						<label>메모</label>
+						<input type="text" name="" id="" class="" placeholder="메모를 적어주세요."></input>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel ipadd_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">추가</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close ipadd_pop_close" data-popup-close="ipadd_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] IP 추가 팝업 -->
+	<script>
+	//----- IP 추가 OPEN / CLOSE
+	$('#ipadd_pop').on('click', function() {
+		$('[data-popup="ipadd_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.ipadd_pop_close').on('click', function() {
+		$('[data-popup="ipadd_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+	
+<?php
+include_once('../common/footer.html');
+?>	

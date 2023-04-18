@@ -1,0 +1,62 @@
+<?php
+include_once('../common/header.html');
+?>
+	
+	<section class="bodyWrap">
+		<div class="contentInnerWrap">
+			<div>
+				<div class="apiContentBox">
+					<div class="apicontTitleVer2">
+						<h1>회원가입</h1>
+					</div>
+					<div>
+						<div class="apinorText marB20">사용자가 등록한 테이블의 컬럼에 맞는 양식에 따라 회원가입을 진행 할 수 있습니다. 사용자가 필요로 하는 데이터에 맞는 컬럼을 테이블에 추가하면 사용 할 수 있습니다.</div>
+						<div class="apinorText marB30">
+							<div class="cationBox"><dl>주의사항</dl></div>
+							kokonut 화면에서 설정한 테이블의 컬럼명과 타입에 맞게 작성되어야 합니다.
+						</div>
+					</div>
+					<div class="pjdro_Box marB20">
+						<ul class="pjandion-menu">
+							<li class="open_faq">
+								<div class="pjdropName">
+									<h2>요청 Parameters</h2>
+									<i class="fa fa-chevron-down" aria-hidden="true"></i>
+								</div>
+								<ul class="projItems nonePad">
+									<li>
+										<div class="open_proj_box">
+											<div class="dropcont">
+												<div class="drcont marB12">
+													<p>jsonString</p><span>필수</span><b>json (그룹화 id, pw)</b>
+												</div>
+												<h3>사용자가 생성한 테이블 컬럼과 해당되는 데이터를 json 형태로 나열한 문자열</h3>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</li>
+						</ul> 
+					</div>
+					<div class="codeContentBox marB20">
+						<div class="codeTitle"><h2>Response</h2><img src="/kokonut/api/public/img/codeicon.png" alt=""></div>
+						<div class="codeNormalContent">
+							<div class="codeNormal">
+								<p>
+								{<br>
+									&nbsp;&nbsp;"error": "error message",<br>
+									&nbsp;&nbsp;"success": true<br>
+								}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</section>
+	
+	
+	
+

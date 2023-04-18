@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>코코넛관리자</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="">
+	<meta name="keywords" content="">
+	<meta name="format-detection" content="telephone=no">
+	
+	<!-- 폰트  -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+	
+	<!-- css -->
+	<link href="/kokonut/member/public/css/reset.css" rel="stylesheet">
+	<link href="/kokonut/member/public/css/common.css" rel="stylesheet">
+	<link href="/kokonut/member/public/css/layout.css" rel="stylesheet">
+	<link href="/kokonut/member/public/css/daterangepicker.css" rel="stylesheet">
+	
+	<!-- js -->
+	<script src="/kokonut/member/public/js/jquery-3.6.3.min.js"></script>
+	
+	</head>
+	<body>
+	
+		<!-- 헤더 -->
+		<header id="header" class="">
+			<div class="topHead">
+				<div class="topHeadInner">
+					<!--<div class="menuBtn">
+						<img src="/kokonut/member/public/img/common/hambtn.png" alt="">
+					</div>-->
+					<div class="toplogo">
+						<a href="/kokonut/member/index.html"><img src="/kokonut/member/public/img/common/kokonutLogo.png" alt=""></a>
+					</div>
+					<div class="topmyinfoBox">
+						<div class="myinfoBox">
+							<div class="myinfoIcon"></div>
+							<span>코코넛님</span>
+						</div>
+						<div class="myinfoMenu">알림</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		
+		<div class="navMenu">
+			<div class="navMenuInner">
+				<div class="navName">주식회사 코코넛</div>
+				<div class="subNav">
+					<ul>
+						<li>개인정보 현황</li>
+						<li><a href="/kokonut/member/privacy/search.html"><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">개인정보 조회</a></li>
+						<li><a href=""><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">개인정보 처리 이력</a></li>
+						<li><a href="/kokonut/member/privacy/step-01.html"><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">개인정보 제공</a></li>
+					</ul>
+				</div>
+				<div class="subNav">
+					<ul>
+						<li>관리자 현황</li>
+						<li><a href="/kokonut/member/admin/adminManagement.html"><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">관리자 등록</a></li>
+						<li><a href="/kokonut/member/admin/adminActivityManagement.html"><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">관리자 활동 이력</a></li>
+					</ul>
+				</div>
+				<!--
+				<div class="subNav">
+					<ul>
+						<li>이메일 발송</li>
+						<li><a href=""><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">이메일 발송</a></li>
+						<li><a href=""><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">개인정보 이용내역 통지</a></li>
+						<li><a href=""><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">발송 내역 관리</a></li>
+					</ul>
+				</div>
+				<div class="subNav">
+					<ul>
+						<li>개인정보처리방침 관리</li>
+						<li><a href=""><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">처리방침 제작</a></li>
+						<li><a href=""><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">처리방침 관리</a></li>
+					</ul>
+				</div>
+				-->
+				<div class="subNav">
+					<ul>
+						<li class="noneMarB"><a href="/kokonut/member/subscription/management.html"><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">구독관리</a></li>
+					</ul>
+				</div>
+				<div class="subNav">
+					<ul>
+						<li class="noneMarB"><a href="/kokonut/member/third-party.html"><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">서드파티 연동</a></li>
+					</ul>
+				</div>
+				<div class="subNav">
+					<ul>
+						<li>환경설정</li>
+						<li><a href="/kokonut/member/setting/personal-information-management.html"><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">개인정보 항목 관리</a></li>
+						<li><a href="/kokonut/member/setting/api-key.html"><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">API Key 관리</a></li>
+						<li><a href="/kokonut/member/setting/service-settings.html"><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">보안 설정</a></li>
+						<li><a href="/kokonut/member/setting/mypage.html"><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">내 정보</a></li>
+						<li><a href="/kokonut/member/setting/inquiry.html"><img src="/kokonut/member/public/img/common/suvmenu_icon_none.png" alt="">1대1 문의</a></li>
+						
+					</ul>
+				</div>
+				<!--<div class="navSet"><a href=""><img src="/kokonut/member/public/img/common/suvmenu_icon_06.png" alt="">환경설정</a></div>-->
+			</div>
+		</div>
+		
+		
+	

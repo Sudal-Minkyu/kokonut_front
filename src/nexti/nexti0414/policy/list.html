@@ -1,0 +1,303 @@
+<?php
+include_once('../common/header.html');
+?>
+	
+	<!-- 범위 캘린더 스크립트 -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="/kokonut/member/public/js/daterangepicker.min.js"></script>
+	
+	<section class="bodyWrap">
+		<div class="contentInnerWrap">
+			<div class="pageTitleBtn marB50">
+				<h1>개인정보처리방침 목록</h1>
+				<div class="TitleBtn">
+					<a href="policy-making.html">
+						<button id="adm_registration_pop">새로 만들기</button>
+					</a>
+				</div>
+			</div>
+			
+			<!-- 상단 검색 영역 -->
+			<div class="seaWrap marB50">
+				<form>
+					<div class="koinput marB32">
+						<input type="text" name="" id="" class="wid360" placeholder="담당자 검색"></input>
+						<button><img src="/kokonut/member/public/img/common/icon_search.png" alt=""></button>
+					</div>
+					<div class="seaContentBox">
+						<div class="seaContentLine borB">
+							<div class="seaCont wid662">
+								<dl>제공 날짜</dl>
+								<div class="seaflexBox">
+									<div class="sc_SelBox">
+										<div class="selectBox wid162">
+											<div class="label" id="">제작일</div>
+											<ul class="optionList">
+												<li class="optionItem">제작일</li>
+												<li class="optionItem">개정일</li>
+												<li class="optionItem">시행일</li>
+											</ul>
+										</div>
+									</div>
+									<div class="calenderBox borL">
+										<div class="calenderInput">
+											<input id="stime" type="text" name="stime" class="form-control" placeholer="날짜선택" aria-describedby="stime_addon" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<script>
+							// 캘린더 스크립트
+							$('#stime').daterangepicker({
+								timePicker: true,
+								startDate: moment().startOf('day').add(-1, 'month'),
+								endDate: moment().endOf('day'),
+								showDropdowns: true,
+								showDropdowns: false,
+								timePicker: false,
+								timePicker24Hour: false,
+								changeYear: false,
+								changeMonth: false,
+								locale: {
+									format: 'YYYY-MM-DD',
+									customRangeLabel: '사용자 정의',
+									daysOfWeek: ["일", "월", "화", "수", "목", "금", "토"],
+									monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+								}
+							});
+							$("#stime").on('show.daterangepicker', function (ev, picker) {
+								$(".yearselect").css("float", "left");
+								$(".monthselect").css("float", "right");
+							});
+							</script>
+							<div class="seaRadioBox borL">
+								<div class="seaRadio">
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="오늘" value="오늘" checked>
+										<label for="오늘"><em><dt></dt></em>오늘</label>
+									</div>
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="1주일" value="1주일">
+										<label for="1주일"><em><dt></dt></em>1주일</label>
+									</div>
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="1개월" value="1개월">
+										<label for="1개월"><em><dt></dt></em>1개월</label>
+									</div>
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="3개월" value="3개월">
+										<label for="3개월"><em><dt></dt></em>3개월</label>
+									</div>
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="6개월" value="6개월">
+										<label for="6개월"><em><dt></dt></em>6개월</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			
+			<!-- 테이블 영역 -->
+			<div class="kotable policyList">
+				<div class="kt_tableTopBox marB20">
+					<div class="kt_total">총 <span>910</span>건</div>
+					<div class="kt_selbox wid120">
+						<div class="selectBox wid100per nonePad">
+							<div class="label" id="">최근 등록순</div>
+							<ul class="optionList">
+								<li class="optionItem">최근 등록순</li>
+								<li class="optionItem">정확도순</li>
+								<li class="optionItem">오름차순</li>
+								<li class="optionItem">내림차순</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<table>
+					<caption>개인정보 처리이력 리스트</caption>
+					<colgroup>
+						<col style="width:5.48%;">
+						<col style="width:9.59%;">
+						<col style="width:10.96%;">
+						<col style="width:12.33%;">
+						<col style="width:15.07%;">
+						<col style="width:15.07%;">
+						<col style="width:15.07%;">
+						<col style="width:16.44%;">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>버전</th>
+							<th>작성자</th>
+							<th>등급</th>
+							<th>제작일</th>
+							<th>개정일</th>
+							<th>시행일</th>
+							<th>전문확인</th>
+						</tr>    
+					</thead>
+					<tbody>
+						<tr>
+							<td>10</td>
+							<td>1.4</td>
+							<td>김*코</td>
+							<td>최고관리자<div class="mastericon"></div></td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td><div class="dlink"><a href="policy-detail.html">상세보기</a></div></td>
+						</tr>
+						<tr>
+							<td>9</td>
+							<td>1.4</td>
+							<td>김*코</td>
+							<td>최고관리자<div class="mastericon"></div></td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td><div class="dlink"><a href="policy-detail.html">상세보기</a></div></td>
+						</tr>
+						<tr>
+							<td>8</td>
+							<td>1.4</td>
+							<td>김*코</td>
+							<td>최고관리자<div class="mastericon"></div></td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td><div class="dlink"><a href="policy-detail.html">상세보기</a></div></td>
+						</tr>
+						<tr>
+							<td>7</td>
+							<td>1.4</td>
+							<td>김*코</td>
+							<td>최고관리자<div class="mastericon"></div></td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td><div class="dlink"><a href="policy-detail.html">상세보기</a></div></td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td>1.4</td>
+							<td>김*코</td>
+							<td>최고관리자<div class="mastericon"></div></td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td><div class="dlink"><a href="policy-detail.html">상세보기</a></div></td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>1.4</td>
+							<td>김*코</td>
+							<td>최고관리자<div class="mastericon"></div></td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td><div class="dlink"><a href="policy-detail.html">상세보기</a></div></td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>1.4</td>
+							<td>김*코</td>
+							<td>최고관리자<div class="mastericon"></div></td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td><div class="dlink"><a href="policy-detail.html">상세보기</a></div></td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>1.4</td>
+							<td>김*코</td>
+							<td>최고관리자<div class="mastericon"></div></td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td><div class="dlink"><a href="policy-detail.html">상세보기</a></div></td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>1.4</td>
+							<td>김*코</td>
+							<td>최고관리자<div class="mastericon"></div></td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td><div class="dlink"><a href="policy-detail.html">상세보기</a></div></td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>1.4</td>
+							<td>김*코</td>
+							<td>최고관리자<div class="mastericon"></div></td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td>2023. 03. 28</td>
+							<td><div class="dlink"><a href="policy-detail.html">상세보기</a></div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- 페이징 영역 -->
+			<div class="paginationBox marT40">
+				<ul class="pagination">
+					<li class="page-item page-pre disabled"><a class="page-link" aria-label="previous page" href="javascript:void(0)"></a></li>
+					<li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">1</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 2" href="javascript:void(0)">2</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 3" href="javascript:void(0)">3</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 4" href="javascript:void(0)">4</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 5" href="javascript:void(0)">5</a></li>
+					<li class="page-item page-last-separator disabled"><a class="page-link" aria-label="" href="javascript:void(0)">...</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 93" href="javascript:void(0)">93</a></li>
+					<li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)"></a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</section>
+	
+	<!-- [D] 수정 문서 확인 팝업 -->
+	<div class="another_koko_popup confirm_pop" data-popup="confirm_pop" style="display:block">
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_titleh4">
+					<h4 class="">
+						마지막으로 수정된 문서가 있습니다.<br>
+						해당 문서로 돌아가시겠습니까?
+					</h4>
+				</div>
+				<form>
+					<div class="popcaseInfoBox pi_noneicon">
+						<p>주의사항</p>
+						<dl>취소 시 마지막으로 저장된 문서는 삭제됩니다.</dl>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel confirm_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">확인</button></div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- // [D] 수정 문서 확인 팝업 -->
+	<script>
+	//----- 수정 문서 확인 OPEN / CLOSE
+	$('#confirm_pop').on('click', function() {
+		$('[data-popup="confirm_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.confirm_pop_close').on('click', function() {
+		$('[data-popup="confirm_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+<?php
+include_once('../common/footer.html');
+?>	

@@ -1,0 +1,358 @@
+<?php
+include_once('../common/header.html');
+?>
+	
+	<section class="bodyWrap">
+		<div class="contentInnerWrap">
+			<div class="pageTitleBtn marB50">
+				<h1>내 정보 </h1>
+			</div>
+			
+			<div class="seaContentBox">
+				<div class="seaContentLine borB">
+					<div class="seaCont wid100per">
+						<dl>이름</dl>
+						<div class="myInfoBox">
+							<span>김코코</span>
+						</div>
+					</div>
+				</div>
+				<div class="seaContentLine borB">
+					<div class="seaCont wid100per">
+						<dl>이메일</dl>
+						<div class="myInfoBox">
+							<span>kimkoko@kokonut.me</span>
+						</div>
+					</div>
+				</div>
+				<div class="seaContentLine borB">
+					<div class="seaCont wid100per">
+						<dl>소속</dl>
+						<div class="myInfoBox">
+							<span>코코넛</span>
+							<button class="myinfoChangeBtn" id="belong_pop">변경</button>
+						</div>
+					</div>
+				</div>
+				<div class="seaContentLine borB">
+					<div class="seaCont wid100per">
+						<dl>부서</dl>
+						<div class="myInfoBox">
+							<span>인사팀</span>
+							<button class="myinfoChangeBtn" id="department_pop">변경</button>
+						</div>
+					</div>
+				</div>
+				<div class="seaContentLine borB">
+					<div class="seaCont wid100per">
+						<dl>휴대전화</dl>
+						<div class="myInfoBox">
+							<span>010-1234-5678</span>
+							<button class="myinfoChangeBtn" id="phone_pop">변경</button>
+						</div>
+					</div>
+				</div>
+				<div class="seaContentLine borB">
+					<div class="seaCont wid100per">
+						<dl>비밀번호</dl>
+						<div class="myInfoBox">
+							<div class="dotbox">
+								<dt></dt>
+								<dt></dt>
+								<dt></dt>
+								<dt></dt>
+								<dt></dt>
+								<dt></dt>
+								<dt></dt>
+								<dt></dt>
+							</div>
+							<button class="myinfoChangeBtn" id="password_pop">변경</button>
+						</div>
+					</div>
+				</div>
+				<div class="seaContentLine borB">
+					<div class="seaCont wid100per">
+						<dl>2단계 인증 (MFA)</dl>
+						<div class="myInfoBox">
+							<span class="otptext">Google OTP 인증 사용중</span>
+							<button class="myinfoChangeBtn" id="otp_pop">재등록</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</section>
+	
+	<!-- [D] 소속 변경 팝업 -->
+	<div class="koko_popup belong_pop" data-popup="belong_pop" >
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title">
+					<h3 class="">소속 변경</h3>
+				</div>
+				<form>
+					<div class="kopopinput marB24">
+						<label>변경할 소속 명</label>
+						<input type="text" name="" id="" class="" placeholder=""></input>
+					</div>
+					<div class="kopopinput">
+						<label>비밀번호</label>
+						<input type="password" name="" id="" class="" placeholder=""></input>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel belong_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">변경</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close belong_pop_close" data-popup-close="belong_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 소속 변경 팝업 -->
+	<script>
+	//----- 소속 변경 OPEN / CLOSE
+	$('#belong_pop').on('click', function() {
+		$('[data-popup="belong_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.belong_pop_close').on('click', function() {
+		$('[data-popup="belong_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+	<!-- [D] 부서 변경 팝업 -->
+	<div class="koko_popup department_pop" data-popup="department_pop" >
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title">
+					<h3 class="">부서 변경</h3>
+				</div>
+				<form>
+					<div class="kopopinput marB24">
+						<label>변경할 부서 명</label>
+						<input type="text" name="" id="" class="" placeholder=""></input>
+					</div>
+					<div class="kopopinput">
+						<label>비밀번호</label>
+						<input type="password" name="" id="" class="" placeholder=""></input>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel department_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">변경</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close department_pop_close" data-popup-close="department_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 부서 변경 팝업 -->
+	<script>
+	//----- 부서 변경 OPEN / CLOSE
+	$('#department_pop').on('click', function() {
+		$('[data-popup="department_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.department_pop_close').on('click', function() {
+		$('[data-popup="department_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+	<!-- [D] 휴대전화번호 변경 팝업 -->
+	<div class="another_koko_popup phone_pop" data-popup="phone_pop" >
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title">
+					<h3 class="">휴대전화번호 변경</h3>
+				</div>
+				<form>
+					<div class="kopopinput marB24 padR108">
+						<label>휴대전화번호</label>
+						<input type="text" name="" id="" class="" placeholder=""></input>
+						<button>인증하기</button>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel phone_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">변경</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close phone_pop_close" data-popup-close="phone_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 휴대전화번호 변경 팝업 -->
+	<script>
+	//----- 휴대전화번호 변경 OPEN / CLOSE
+	$('#phone_pop').on('click', function() {
+		$('[data-popup="phone_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.phone_pop_close').on('click', function() {
+		$('[data-popup="phone_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+	<!-- [D] 비밀번호 변경 팝업 -->
+	<div class="koko_popup password_pop" data-popup="password_pop">
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title">
+					<h3 class="">비밀번호 변경</h3>
+				</div>
+				<form>
+					<div class="kopopinput marB24">
+						<label>현재 비밀번호</label>
+						<input type="password" name="" id="" class="" placeholder=""></input>
+					</div>
+					<div class="kopopinput marB24">
+						<label>새로운 비밀번호</label>
+						<input type="password" name="" id="" class="" placeholder=""></input>
+						<div class="ps_confirm">
+							<p>영문 포함</p>
+							<p>숫자 포함</p>
+							<p>특수문자 포함</p>
+							<p>10~20자</p>
+							
+							<!-- 
+							일치했을 시
+							<b>영문 포함</b>
+							<b>숫자 포함</b>
+							<b>특수문자 포함</b>
+							<b>10~20자</b>
+							-->
+							
+							<!-- 
+							불일치했을 시
+							<dd>영문 포함</dd>
+							<dd>숫자 포함</dd>
+							<dd>특수문자 포함</dd>
+							<dd>10~20자</dd>
+							-->
+						</div>
+					</div>
+					<div class="kopopinput">
+						<label>새로운 비밀번호 확인</label>
+						<input type="password" name="" id="" class="" placeholder=""></input>
+						<div class="ps_confirm">
+							<p>비밀번호 일치</p>
+							
+							<!-- 
+							일치했을 시
+							<b>비밀번호 일치</b>
+							-->
+							
+							<!-- 
+							불일치했을 시
+							<dd>비밀번호 일치</dd>
+							-->
+						</div>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel password_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">변경</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close password_pop_close" data-popup-close="password_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 비밀번호 변경 팝업 -->
+	<script>
+	//----- 비밀번호 변경 OPEN / CLOSE
+	$('#password_pop').on('click', function() {
+		$('[data-popup="password_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.password_pop_close').on('click', function() {
+		$('[data-popup="password_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+	<!-- [D] otp 재등록 팝업 -->
+	<div class="koko_popup otp_pop" data-popup="otp_pop">
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title noneMarB">
+					<h3 class="">OTP 재등록</h3>
+					<div class="koSubInfo">
+						<dl>
+							kokonut 서비스 관리자 로그인을 위해 2단계 인증이 필요합니다.<br>
+							<span>Google OTP</span> 인증을 등록해 주세요.
+						</dl>
+					</div>
+				</div>
+				<div class="otpInfoBox">
+					<div class="otpInfotext">
+						<d>1</d><dl>구글 플레이 혹은 애플 앱스토어에서 <span>Google Authenticator</span>를 검색해서 설치해 주세요.</dl>
+					</div>
+					<div class="otpInfotext">
+						<d>2</d><dl>다운받은 Google OTP앱으로 QR코드를 스캔하거나, 하단의 코드를 직접 입력해 주세요.</dl>
+						<div class="otpqrBox">
+							<div class="otpqrInner">
+								<div class="otpqrImg"><img src="/kokonut/member/public/img/common/otpqrimg.png" alt=""></div>
+								<div class="divider_line"></div>
+								<div class="otpqrInfo">
+									<div class="otpqrNum">64JYYF34MSZ6Q6DE</div>
+									
+									<div class="otpqrNumInfo">
+										<p>
+											위 16자리 코드를 반드시 메모해
+											두세요. 휴대전화의 교체/분실
+											또는 앱 삭제 시 복구를 위해
+											필요합니다.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="otpInfotext">
+						<d>3</d><dl>(아래 그림 참고) Google OTP 앱에서 우측 상단 + 를 클릭한 후 Accout에 kokonut 계정이메일 주소를, Keyg항목에는 위에서 복사한 번호를 입력 후 상단 체크를 클릭해 저장해주세요. 홈으로 돌아와 OTP 인증코드를 확인해 주세요.</dl>
+						<div class="otpqrInfoImg">
+							<img src="/kokonut/member/public/img/common/authenticator.png" alt="">
+						</div>
+					</div>
+				</div>
+				<form>
+					<div class="kopopinput marB24">
+						<label>비밀번호 입력</label>
+						<input type="password" name="" id="" class="" placeholder=""></input>
+					</div>
+					<div class="kopopinput marB24">
+						<label>OTP 인증코드</label>
+						<input type="password" name="" id="" class="" placeholder=""></input>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel otp_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">변경</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close otp_pop_close" data-popup-close="otp_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] otp 재등록 팝업 -->
+	<script>
+	//----- 휴대전화번호 변경 OPEN / CLOSE
+	$('#otp_pop').on('click', function() {
+		$('[data-popup="otp_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.otp_pop_close').on('click', function() {
+		$('[data-popup="otp_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+<?php
+include_once('../common/footer.html');
+?>	

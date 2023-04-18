@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>코코넛 API 가이드</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="">
+	<meta name="keywords" content="">
+	<meta name="format-detection" content="telephone=no">
+	
+	<!-- 폰트  -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+	
+	<!-- css -->
+	<link href="/kokonut/api/public/css/reset.css" rel="stylesheet">
+	<link href="/kokonut/api/public/css/common.css" rel="stylesheet">
+	<link href="/kokonut/api/public/css/layout.css" rel="stylesheet">
+	
+	<!-- js -->
+	<script src="/kokonut/api/public/js/jquery-3.6.3.min.js"></script>
+	
+	</head>
+	<body>
+	
+		<!-- 헤더 -->
+		<header id="header" class="">
+			<div class="topHead">
+				<div class="topHeadInner">
+					<div class="toplogo">
+						<a href="/kokonut/api/index.html"><img src="/kokonut/member/public/img/common/kokonutLogo.png" alt=""><p>Guide</p></a>
+					</div>
+				</div>
+			</div>
+		</header>
+		
+		<nav class="navMenu">
+			<div class="navMenuInner">
+				
+				<div class="navSeaBox">
+					<div class="navSea" id="document_search_pop">
+						<div class="nsBox"><span>검색어를 입력해 주세요</span></div>
+					</div>
+					<a href="/kokonut/api/before-start.html" class="start">시작하기 전에</a>
+				</div>
+				<div class="subNav">
+					<ul>
+						<li>로그인</li>
+						<li class="one_login"><a href="/kokonut/api/login/findid.html">아이디 찾기</a></li>
+						<li class="two_login"><a href="/kokonut/api/login/change-password.html">비밀번호 변경</a></li>
+						<li class="three_login"><a href="/kokonut/api/login/info-login.html">로그인</a></li>
+						<li class="four_login"><a href="/kokonut/api/login/join-the-membership.html">회원가입</a></li>
+						<li class="five_login"><a href="/kokonut/api/login/dormancy.html">휴면 해제</a></li>
+						
+						<!--<li class="findid"><a href="/kokonut/api/login/findid.html">아이디 찾기</a></li>
+						<li class="password"><a href="/kokonut/api/login/change-password.html">비밀번호 변경</a></li>
+						<li class="info"><a href="/kokonut/api/login/info-login.html">로그인</a></li>
+						<li class="membership"><a href="/kokonut/api/login/join-the-membership.html">회원가입</a></li>
+						<li class="dormancy"><a href="/kokonut/api/login/dormancy.html">휴면 해제</a></li>-->
+					</ul>
+				</div>
+				<div class="subNav">
+					<ul>
+						<li>개인정보 관리</li>
+						<li class="one_privacy"><a href="/kokonut/api/privacy/detailed-inquiry.html">개인정보 상세 조회</a></li>
+						<li class="two_privacy"><a href="/kokonut/api/privacy/correction.html">개인정보 수정</a></li>
+						<li class="three_privacy"><a href="/kokonut/api/privacy/status-inquiry.html">개인정보 상태 조회</a></li>
+						<li><a href="">개인정보 목록 엑셀 다운로드</a></li>
+						<li><a href="">개인정보 목록 엑셀 업로드</a></li>
+						<li><a href="">개인정보 목록 조회</a></li>
+						<li><a href="">개인정보 테이블 컬럼 목록 조회</a></li>
+					</ul>
+				</div>
+				<div class="subNav">
+					<ul>
+						<li>개인정보 제공 관리</li>
+						<li><a href="">개인정보 제공 등록</a></li>
+						<li><a href="">개인정보 제공 삭제</a></li>
+						<li><a href="">사용중인 개인정보 제공 상세 조회</a></li>
+						<li><a href="">사용중인 개인정보 제공 목록 조회</a></li>
+						<li><a href="">파기된 정보제공 목록 조회</a></li>
+						<li><a href="">개인정보 제공 엑셀 다운로드</a></li>
+					</ul>
+				</div>
+				<div class="subNav">
+					<ul>
+						<li>관리자 관리</li>
+						<li><a href="">관리자 로그인</a></li>
+						<li><a href="">관리자 존재유무 확인</a></li>
+						<li><a href="">관리자 활동이력 조회</a></li>
+						<li><a href="">관리자 활동이력 엑셀 다운로드</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+		<script>
+			var url = window.location.href;
+			
+			if (url.indexOf('before-start') != -1)
+			{$('nav .start').addClass('on_nav');}
+			
+			if (url.indexOf('findid') != -1)
+			{$('nav .one_login').addClass('on_nav');}
+			else if (url.indexOf('change-password') != -1)
+			{$('nav .two_login').addClass('on_nav');}
+			else if (url.indexOf('info-login') != -1)
+			{$('nav .three_login').addClass('on_nav');}
+			else if (url.indexOf('join-the-membership') != -1)
+			{$('nav .four_login').addClass('on_nav');}
+			else if (url.indexOf('dormancy') != -1)
+			{$('nav .five_login').addClass('on_nav');}
+			
+			else if (url.indexOf('detailed-inquiry') != -1)
+			{$('nav .one_privacy').addClass('on_nav');}
+			else if (url.indexOf('correction') != -1)
+			{$('nav .two_privacy').addClass('on_nav');}
+			else if (url.indexOf('status-inquiry') != -1)
+			{$('nav .three_privacy').addClass('on_nav');}
+		</script>
+		
+		<!-- [D] 문서 검색 팝업 -->
+		<div class="docu_popup document_search_pop" data-popup="document_search_pop" >
+			<div class="docu_popup_inner">
+				<div class="docu_popup_container">
+					<div class="docu_popup_title">
+						<h3 class="">문서 검색</h3>
+					</div>
+					<div class="docupopinput">
+						<input type="text" name="docuse" id="docuse" class="excelfile" placeholder="검색어를 입력해 주세요"></input>
+						<button type="button" class="nemaclear" onclick="nameReset()"></button>
+						<dl>문서내에서 검색할 단어를 입력해주세요.</dl>
+					</div>
+					<div class="dcResultBox">
+						<div class="dcR_num">총<span>12</span>건</div>
+						<div class="dcResultList">
+							<ul>
+								<li><a href="">v1 &#8594; v2 마이그레이션 > 바뀐점</a></li>
+								<li><a href="">v1 &#8594; v2 마이그레이션 > 바뀐점</a></li>
+								<li><a href="">v1 &#8594; v2 마이그레이션 > 바뀐점</a></li>
+								<li><a href="">v1 &#8594; v2 마이그레이션 > 바뀐점</a></li>
+								<li><a href="">v1 &#8594; v2 마이그레이션 > 바뀐점</a></li>
+								<li><a href="">v1 &#8594; v2 마이그레이션 > 바뀐점</a></li>
+								<li><a href="">v1 &#8594; v2 마이그레이션 > 바뀐점</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="docu-popup-close document_search_pop_close" data-popup-close="document_search_pop_close"></div>
+			</div>
+		</div>
+		<!-- // [D] 문서 검색 팝업 -->
+		
+		<script>
+		//----- 문서 검색 OPEN / CLOSE
+		$('#document_search_pop').on('click', function(e) {
+			var targeted_popup_class = jQuery(this).attr('data-popup-open');
+			$('[data-popup="document_search_pop"]').fadeIn(0);
+			$('#docuse').focus();
+			$('body').css('overflow','hidden');
+			e.preventDefault();
+		});
+		$('.document_search_pop_close').on('click', function(e) {
+			$('[data-popup="document_search_pop"]').fadeOut(0);
+			$('body').css('overflow','unset');
+			e.preventDefault();
+		});
+		
+		function nameReset() {
+			$('#docuse').val('');
+		}
+		</script>
+		
+		<script>
+		// 드랍박스 스크립트
+		$(function() {
+		  var Accordion = function(el, multiple) {
+			this.el = el || {};
+			this.multiple = multiple || false;
+
+			var dropdownlink = this.el.find('.pjdropName');
+			dropdownlink.on('click',
+							{ el: this.el, multiple: this.multiple },
+							this.dropdown);
+		  };
+
+		  Accordion.prototype.dropdown = function(e) {
+			var $el = e.data.el,
+				$this = $(this),
+				$next = $this.next();
+
+			$next.slideToggle();
+			$this.parent().toggleClass('open_faq');
+
+			<!-- if(!e.data.multiple) { -->
+			  <!-- $el.find('.projItems').not($next).slideUp().parent().removeClass('open_faq'); -->
+			<!-- } -->
+		  }
+
+		  var accordion = new Accordion($('.pjandion-menu'), false);
+		})
+		</script>
+		
+	</body>
+</html>

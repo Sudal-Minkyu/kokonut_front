@@ -1,0 +1,12 @@
+<footer>
+    <div class="footerInner">
+        <div class="footerBox">
+            <ul>
+                <li><p>text01</p><p>text01-1</p></li>
+                <li><p>text02</p><p>text02-1</p></li>
+                <li><p>text03</p><p>text04</p><p>text05</p><p>text06</p></li>
+            </ul>
+            <p class="copy">© txttxttxt <br class="mo_br">123456</p>
+        </div>
+    </div>
+</footer>

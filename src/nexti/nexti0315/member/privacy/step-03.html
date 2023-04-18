@@ -1,0 +1,106 @@
+<?php
+include_once('../common/header.html');
+?>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+	
+	<section class="bodyWrap">
+		<div class="contentInnerWrap">
+			<div class="pageTitleBtn marB50">
+				<h1>개인정보 제공</h1>
+			</div>
+			
+			<div class="pri_componentWrap">
+				<div class="pristep02">
+					<div class="pristepContent">
+						<div class="marB46">
+							<label class="step02label"><b>3</b>다운로드가 가능하게 할까요?</label>
+							<div class="popRadio">
+								<div class="check poprCheck">
+									<input type="radio" class="radio" name="porim" id="가능" value="가능">
+									<label for="가능"><em><dt></dt></em>가능</label>
+								</div>
+								<div class="check poprCheck">
+									<input type="radio" class="radio" name="porim" id="불가" value="불가">
+									<label for="불가"><em><dt></dt></em>불가</label>
+								</div>
+							</div>
+						</div>
+						<div class="marB100">
+							<label class="step02label"><b>4</b>제공할 개인정보을 정해주세요.</label>
+							<div class="popRadio">
+								<div class="check poprCheck">
+									<input type="radio" class="radio" name="aorpart" id="전체" value="전체">
+									<label for="전체"><em><dt></dt></em>전체</label>
+								</div>
+								<div class="check poprCheck">
+									<input type="radio" class="radio" name="aorpart" id="일부 개인정보" value="일부 개인정보">
+									<label for="일부 개인정보"><em><dt></dt></em>일부 개인정보</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="bottomProgBox">
+						<div class="bottomProgLine">
+							<div class="Prog_2 prog100"></div>
+						</div>
+					</div>
+					
+					<div class="pri_bottomBtnBox marT24">
+						<button class="pri_bottomBtn tippop" id="tip_btn01">다음</button>
+						<!--<a href="./step-03.html" class="pri_bottomBtn">다음</a>-->
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</section>
+	
+	<!-- [D] 미니 팝업 : 개인정보 제공 완료 팝업 -->
+	<div class="layerPopType" id="tip_box01">
+		<header class="popHeader">
+			<img src="/kokonut/member/public/img/common/minipop_pass.png" alt="">
+			<h4 class="popTit">개인정보 제공이 완료되었습니다.</h4>
+		</header>
+		<div class="popContents">
+			<p>
+				제공받은 사람에게 제공 기간을 알려주세요.
+			</p>
+		</div>
+		<div class="popcBtnBox">
+			<button type="button" id="tip_close01" class="layerBtn">확인</button>
+		</div>	
+	</div>
+	<!-- // [D] 미니 팝업 : 개인정보 제공 완료 팝업 -->
+	<script>
+	// 미니 팝업 스크립트
+	$(".tippop").each(function(i){
+		
+		var thisId = $(this).attr("id");
+		var idNum = thisId.substring(thisId.length-2);
+		
+		$('#tip_btn' + idNum).on('click', function(){
+			var display = $('#tip_box' + idNum).css('display');
+			if(display == 'none'){
+				$('#tip_box' + idNum).addClass('dp_b');
+			};
+			$('.dim').css('display','block');
+			$('.koko_popup').fadeOut(0);
+		});	
+
+		$('#tip_close' + idNum).on('click', function(){
+			$('#tip_box' + idNum).removeClass('dp_b');
+			$('.dim').css('display','none');
+			$('body').css('overflow','unset');
+		});			
+	});
+	</script>
+	
+
+
+	
+	
+<?php
+include_once('../common/footer.html');
+?>	

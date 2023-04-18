@@ -1,0 +1,336 @@
+<?php
+include_once('../common/header.html');
+?>
+	
+	<section class="bodyWrap">
+		<div class="contentInnerWrap">
+			<div class="pageTitleBtn marB50">
+				<h1>API Key 발급</h1>
+			</div>
+			
+			<div class="apikeyBox">
+				<div class="apikeyBtn">API Key 발급</div>
+				<script>
+				$('.apikeyBtn').on('click', function(){
+					$('.apikeyBtn').css('display','none');
+					$('.apiwrap').css('display','block');
+				});
+				</script>
+				<div class="apiwrap">
+					<div class="apicodeContentBox marB60">
+						<div class="codeContentBox">
+							<div class="codeTitle">
+								<h2>API Key</h2>
+								<div class="codeIconBox">
+									<div class="codeIcon_key"></div>
+									<div class="codeIcon_copy" id="clickcopy"></div>
+								</div>	
+							</div>
+							<div class="codeNormalContent">
+								<div class="codeNormal">
+									<div class="pwcode">bcf17c************************321eb073</div>
+									<textarea class="cote" id="copycode">bcf17c5648878523321156647ds321eb073</textarea>
+								</div>
+							</div>
+						</div>
+						
+						<button id="excel_download_pop">API Key 재발급</button>
+						
+					</div>
+					
+					<script>
+					$('.codeIcon_key').on('click', function(){
+						$('.pwcode').css('display','none');
+						$(".codeIcon_key").css({"background-image":"url(../public/img/common/eye_on_icon.png)"}); 
+						
+						$('.codeIcon_copy').css('display','inline-block');
+						$('#copycode').css('display','block');
+					});
+					
+					document.getElementById("clickcopy").onclick = function(){
+						const textarea = document.getElementById("copycode");
+						textarea.select();
+						document.execCommand('copy');
+						alert('API Key가 복사되었습니다.');
+					}
+					</script>
+					
+					<div>
+						<div class="ipseaBox marB20">
+							<div class="koinput">
+								<input type="text" name="" id="" class="wid236" placeholder="IP 검색">
+								<button><img src="/kokonut/member/public/img/common/icon_search_ver2.png" alt=""></button>
+							</div>
+							<div class="floatBtnBox">
+								<button class="del" id="ipdel_pop">삭제</button>
+								<button class="add" id="ipadd_pop">추가</button>
+							</div>
+						</div>
+						<div class="prtable">
+							<table>
+								<colgroup>
+									<col style="width:8.21%;">
+									<col style="width:71.14%;">
+									<col style="width:20.66%;">
+								</colgroup>
+								<thead>
+									<tr>
+										<th>
+											<div class="koko_check">
+												<input type="checkbox" name="allcheck" id="allcheck">
+												<label for="allcheck"><em></em></label>
+											</div>
+										</th>
+										<th>공인 IP</th>
+										<th>메모</th>
+									</tr>    
+								</thead>
+								<tbody>
+									<tr>
+										<th>
+											<div class="koko_check">
+												<input type="checkbox" value="" name="ip01" id="ip01" class="partcheck">
+												<label for="ip01"><em></em></label>
+											</div>
+										</th>
+										<th>121.134.227.161</th>
+										<th>2월대개봉_오피스IP</th>
+									</tr>
+									<tr>
+										<th>
+											<div class="koko_check">
+												<input type="checkbox" value="" name="ip02" id="ip02" class="partcheck">
+												<label for="ip02"><em></em></label>
+											</div>
+										</th>
+										<th>121.134.227.161</th>
+										<th>2월대개봉_오피스IP</th>
+									</tr>
+									<tr>
+										<th>
+											<div class="koko_check">
+												<input type="checkbox" value="" name="ip03" id="ip03" class="partcheck">
+												<label for="ip03"><em></em></label>
+											</div>
+										</th>
+										<th>121.134.227.161</th>
+										<th>2월대개봉_오피스IP</th>
+									</tr>
+									<tr>
+										<th>
+											<div class="koko_check">
+												<input type="checkbox" value="" name="ip04" id="ip04" class="partcheck">
+												<label for="ip04"><em></em></label>
+											</div>
+										</th>
+										<th>121.134.227.161</th>
+										<th>2월대개봉_오피스IP</th>
+									</tr>
+									<tr>
+										<th>
+											<div class="koko_check">
+												<input type="checkbox" value="" name="ip05" id="ip05" class="partcheck">
+												<label for="ip05"><em></em></label>
+											</div>
+										</th>
+										<th>121.134.227.161</th>
+										<th>2월대개봉_오피스IP</th>
+									</tr>
+									<tr>
+										<th>
+											<div class="koko_check">
+												<input type="checkbox" value="" name="ip06" id="ip06" class="partcheck">
+												<label for="ip06"><em></em></label>
+											</div>
+										</th>
+										<th>121.134.227.161</th>
+										<th>2월대개봉_오피스IP</th>
+									</tr>
+								</tbody>
+							</table>
+							<script>
+							// 체크박스 스크립트
+							$("#allcheck").click(function(){
+								if($("#allcheck").is(":checked")){
+									$(".partcheck").prop("checked",true);
+								}
+								else{
+									$(".partcheck").prop("checked",false);
+								}
+							});
+							</script>
+						</div>	
+					</div>
+				</div>
+				
+				<div>
+					<div class="foldcationBox marT60">
+						<div class="foldBox">
+							<div class="foldcainner">
+								<h2>주의사항</h2>
+								<dl class="marB12">API Key를 호출받을 수 있는 IP는 보안상 최대 5개로 제한합니다.</dl>
+								<dl class="">API Key를 특정 웹사이트로 제한하려면, HTTP 리퍼러를 사용하여 API Key를 사용할 수 있는 URL을 제한합니다. </dl>
+								<div class="foldexBox">
+									<div class="foldex"><span>예시</span>https://192/168.0.2/*</div>
+									<div class="foldex"><span>예시</span>https://34.64.64.12/api/test/*</div>
+								</div>
+								<dl>보안을 위해 주기적으로 API Key를 재발급하시면 좋습니다.</dl>     
+							</div>
+							<div class="foldcainner">
+								<h2>API 키를 특정 웹사이트로 제한하려면 어떻게 해야 하나요?</h2>
+								<dl class="marB12">HTTP 리퍼러를 사용하여 API 키를 사용할 수 있는 URL을 제한합니다. 다음은 리퍼러로 설정할 수 있는 URL의 몇 가지 예시입니다. </dl>
+								<div class="foldexBox">
+									<div class="foldex"><span>예시</span>확한 경로를 사용한 구체적인 URL: www.example.com/path</div>
+									<div class="foldex"><span>예시</span>와일드 카드 별표(*)를 사용한 단일 하위 도메인의 모든 URL: sub.example.com/*</div>
+									<div class="foldex">
+										<span>예시</span>
+										A domain and all its subdomains, using a wildcard asterisk (*):<br>
+										https://example.com<br>
+										https://*.example.com
+									</div>
+									<div class="foldex"><span>예시</span>비표준 포트가 포함된 URL: www.example.com:8000/*</div>
+								</div>
+								<dl>참고 : 쿼리 매개변수 및 프래그먼트는 현재 지원되지 않으므로 HTTP 리퍼러에 포함하면 무시됩니다.</dl>
+							</div>
+							
+							
+						</div>
+						<div class="gu_btnBox">
+							<div class="guoff_btn">
+								내용더보기<img src="/kokonut/member/public/img/common/gu_btnarrow.png" alt="">
+							</div>
+						</div>
+					</div>
+					<script>
+					$('.gu_btnBox').on('click', function(){
+						$('.foldcationBox').addClass('guidetablevisible');
+						$('.gu_btnBox').css('display','none');
+					});
+					
+					<!-- $('.guoff_on').on('click', function(){ -->
+						<!-- $('.gttablebbox').removeClass('guidetablevisible'); -->
+						<!-- $('.guoff_btn').css('display','inline-block'); -->
+						<!-- $('.guoff_on').css('display','none'); -->
+					<!-- }); -->
+					</script>
+				</div>
+			</div>	
+			
+		</div>
+	</section>
+	
+	<!-- [D] IP 삭제 팝업 -->
+	<div class="koko_popup ipdel_pop" data-popup="ipdel_pop">
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_titleh4">
+					<h4 class="">선택하신 IP를 정말 삭제하실 건가요?</h4>
+				</div>
+				<form>
+					<div class="kopopinput marB24">
+						<label>OTP</label>
+						<input type="text" name="" id="" class="" placeholder="OTP를 적어주세요."></input>
+					</div>
+					<div class="popcaseInfoBox">
+						<p>주의사항</p>
+						<dl>해당 IP로 접속 중인 관리자가 강제 로그아웃 될 수 있습니다.</span></dl>
+					</div>
+					<div class="koko_check">
+						<input type="checkbox" value="1" name="checkcation" id="checkcation">
+						<label for="checkcation">
+							<em></em>
+							<p class="check">주의사항에 대해 확인했습니다.</p>
+						</label>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel ipdel_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">확인</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close ipdel_pop_close" data-popup-close="ipdel_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] IP 삭제 팝업 -->
+	<script>
+	//----- IP 삭제 OPEN / CLOSE
+	$('#ipdel_pop').on('click', function() {
+		$('[data-popup="ipdel_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.ipdel_pop_close').on('click', function() {
+		$('[data-popup="ipdel_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+	
+	<!-- [D] IP 추가 팝업 -->
+	<div class="koko_popup ipadd_pop" data-popup="ipadd_pop" >
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title">
+					<h3 class="">접속 허용 IP 추가</h3>
+				</div>
+				<form>
+					<div class="marB24">
+						<div class="kopopMuntiinputBox">
+							<label>공인 IP</label>
+							<div class="kopopMuntiinputInner">	
+								<div class="kopopMuntiinput">
+									<input type="text" name="" id="" class="" placeholder=""></input>
+								</div>
+								<div class="kopopMuntiinput">
+									<input type="text" name="" id="" class="" placeholder=""></input>
+								</div>
+								<div class="kopopMuntiinput">
+									<input type="text" name="" id="" class="" placeholder=""></input>
+								</div>
+								<div class="kopopMuntiinput">
+									<input type="text" name="" id="" class="" placeholder=""></input>
+								</div>
+								<div class="kopopMuntiinput">
+									<input type="text" name="" id="" class="" placeholder=""></input>
+								</div>
+							</div>
+						</div>
+						<div class="koko_check">
+							<input type="checkbox" value="1" name="IPcheck" id="IPcheck">
+							<label for="IPcheck">
+								<em></em>
+								<p class="check">현재 접속한 IP</p>
+							</label>
+						</div>
+					</div>
+					<div class="kopopinput marB24">
+						<label>메모</label>
+						<input type="text" name="" id="" class="" placeholder="메모를 적어주세요."></input>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel ipadd_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">추가</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close ipadd_pop_close" data-popup-close="ipadd_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] IP 추가 팝업 -->
+	<script>
+	//----- IP 추가 OPEN / CLOSE
+	$('#ipadd_pop').on('click', function() {
+		$('[data-popup="ipadd_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.ipadd_pop_close').on('click', function() {
+		$('[data-popup="ipadd_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+	
+<?php
+include_once('../common/footer.html');
+?>	

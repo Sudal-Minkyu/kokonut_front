@@ -1,0 +1,537 @@
+<?php
+include_once('./common/header.html');
+?>
+
+<link href='public/css/main.css' rel='stylesheet' type='text/css'>
+
+
+<div class="mainWrap">
+	<section id="main_v">
+		<div class="mainInner">
+			<div class="stickyBox">
+				<div class="stickyInner">
+					<div class="mv_titleBox">
+						<div class="main_NumBox">
+							<p class="main_Num one here">01</p>
+							<p class="main_Num two">02</p>
+						</div>
+						<h1 class="text1">
+							<div class="mv_title line_1"><p class="wow AFadeInUp" data-wow-duration="1.2s">복잡한 개인정보보호를<br> 쉽게하는 가장 좋은</p></div>
+							<div class="text2">
+								<div class="mv_title"><p>SaaS 형 개인정보보호 <br>서비스 코코넛</p></div>
+							</div>
+						</h1>
+					</div>
+					<div class="slideWrap">
+						<div class="slide">
+							<div class="slideImgBox first wow AFadeInRight" data-wow-duration="1.2s"><img src="public/img/main/b_mainV01.jpg" alt="kokonutUXUI"></div>
+							<div class="slideImgBox second wow AFadeInRightsec" data-wow-duration="1.2s"><img src="public/img/main/b_mainV02.jpg" alt="kokonutUXUI"></div>
+						</div>
+					</div>
+					<div class="scrollDown">
+						<p>Scroll Down</p>
+						<div class="scrollstick"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section id="sure">
+		<div class="sstic">
+			<div class="ssticInner">
+				<div class="s_Title">
+					<div class="s_TitleBox">
+						<p>코코넛은 가능합니다.</p>
+						<span class="hid_02"></span>
+						<figure class="hid_02"><img src="public/img/main/b_koko_logo.png" alt="logo"></figure>
+					</div>
+					<div class="show02">
+						<div class="showTitle">
+							<div class="st02">항상 지켜야할 <span>보안</span>부터</div>
+							<div class="st03">앞으로 지켜야할 <span>관리</span>까지</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sc_cont_area">
+			<section id="a"></section>
+			<section id="b"></section>
+			<section id="c"></section>
+			<section id="d"></section>
+			<section id="e"></section>
+		</div>
+	</section>
+
+	<script>
+	sa = $('#a').position().top;
+	sb = $("#b").position().top;
+	sc = $('#c').position().top;
+	sd = $('#e').position().top;
+
+	$(window).scroll(function() {
+		var scroll = $(window).scrollTop();
+
+		if (scroll < sa) 
+		{
+			$("#sure .sstic").removeClass("active01");
+		} 
+		if (sa <= scroll && scroll< sb) 
+		{
+			$("#sure .sstic").removeClass("active01");
+			$("#sure .sstic").removeClass("active02");
+		} 
+		else if (sb <= scroll && scroll < sc) 
+		{
+			$("#sure .sstic").addClass("active01");
+			$("#sure .sstic").removeClass("active02");
+		}
+		else if (sc <= scroll && scroll < sd )
+		{
+		  $("#sure .sstic").addClass("active02");
+		  $("#sure .sstic").removeClass("active01");
+		  $("#sure .sstic").removeClass("active03");
+		}
+		else if (sd <= scroll)
+		{
+		  $("#sure .sstic").addClass("active03");
+		}
+	});	
+	</script>
+	
+	<div id="managerial">
+		<div class="sstic">
+			<div class="ssticInner">
+				<div class="s_Title">
+					<div class="s_TitleBox">
+						<p class="greenTxt"><span>Managerial</span> Safeguards</p>
+						<p class="boldTxt"><span>관리적</span> 보호조치</p>
+					</div>
+					<figure class="imgBox">
+						<img src="public/img/main/imgBox.jpg">
+					</figure>
+				</div>
+			</div>
+		</div>	
+		<div class="sc_cont_area">
+			<section id="ma">
+				<div class="mInner">
+					<div class="m_ContBox">
+						<div class="m_ContTitleBox">
+							<p class="mContGreen">수집 관리</p>
+							<p class="mContTitle">모든 개인정보는 수집부터 철저하게</p>
+							<p class="mContsTxt">수집 목적, 항목, 보유 기간을 명확하게 관리하세요.</p>
+						</div>
+						<div class="m_ContBoxCont">
+							<div class="m_ContImgBox">
+								<img src="">
+							</div>
+							<div class="m_ConttxtBox">
+								<ul class="">
+									<li>
+										<span class="gnum">01</span>
+										<p class="gTxt">회원가입 시 기입 정보와 연동하여<br> 고객 개인정보 알아서 착착 수집</p>
+									</li>
+									
+									<li>
+										<span class="gnum">02</span>
+										<p class="gTxt">이름, 전화번호 등 텍스트는 물론<br>개인정보가 담긴 이미지, 영상까지</p>
+									</li>
+									
+									<li>
+										<span class="gnum">03</span>
+										<p class="gTxt">정해진 양식에 업로드만 한다면<br>일괄적으로 수기 입력 가능</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section><!-- active01 -->
+			<section id="mb">
+				<div class="mInner">
+					<div class="m_ContBox">
+						<div class="m_ContTitleBox">
+							<p class="mContGreen">파기</p>
+							<p class="mContTitle">모든 개인정보는 수집부터 철저하게</p>
+							<p class="mContsTxt">수집 목적, 항목, 보유 기간을 명확하게 관리하세요.</p>
+						</div>
+						<div class="m_ContBoxCont">
+							<div class="m_ContImgBox">
+								<img src="">
+							</div>
+							<div class="m_ConttxtBox">
+								<ul class="">
+									<li>
+										<span class="gnum">01</span>
+										<p class="gTxt">수집 목적이 달성된 개인정보</p>
+									</li>
+									<li>
+										<span class="gnum">02</span>
+										<p class="gTxt">보유 기간이 경과된 개인정보</p>
+									</li>
+									
+									<li>
+										<span class="gnum">03</span>
+										<div class="">
+											<p class="gTxt">완전한 파기</p>
+											<p class="gsTxt">별도 법령에 따라 보존이 필요할 시 별도 보관</p>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section><!-- active02 -->
+			<section id="mc">
+				<div class="mInner">
+					<div class="m_ContBox">
+						<div class="m_ContTitleBox">
+							<p class="mContGreen">제공 관리</p>
+							<p class="mContTitle">모든 개인정보는 수집부터 철저하게</p>
+							<p class="mContsTxt">수집 목적, 항목, 보유 기간을 명확하게 관리하세요.</p>
+						</div>
+						<div class="m_ContBoxCont">
+							<div class="m_ContImgBox">
+								<img src="">
+							</div>
+							<div class="m_ConttxtBox">
+								<ul class="">
+									<li>
+										<span class="gnum">01</span>
+										<p class="gTxt">위탁, 수탁, 3자 제공에 맞춰<br> 체계적으로 대상 관리</p>
+									</li>
+									<li>
+										<span class="gnum">02</span>
+										<p class="gTxt">제공 방법에 따른 책임 소재, 필요 사항 등을 한 눈에 정리해 혼선없는 관리</p>
+									</li>
+									<li>
+										<span class="gnum">03</span>
+										<p class="gTxt">교육 및 증빙에 필요한<br> 문서화 기능 제공</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="md">
+				<div class="mInner">
+					<div class="m_ContBox">
+						<div class="m_ContTitleBox">
+							<p class="mContGreen">관리자 관리</p>
+							<p class="mContTitle">모든 개인정보는 수집부터 철저하게</p>
+							<p class="mContsTxt">수집 목적, 항목, 보유 기간을 명확하게 관리하세요.</p>
+						</div>
+						<div class="m_ContBoxCont">
+							<div class="m_ContImgBox">
+								<img src="">
+							</div>
+							<div class="m_ConttxtBox">
+								<ul class="">
+									<li>
+										<span class="gnum">01</span>
+										<p class="gTxt">위탁, 수탁, 3자 제공에 맞춰<br> 체계적으로 대상 관리</p>
+									</li>
+									<li>
+										<span class="gnum">02</span>
+										<p class="gTxt">제공 방법에 따른 책임 소재, 필요 사항 등을 한 눈에 정리해 혼선없는 관리</p>
+									</li>
+									<li>
+										<span class="gnum">03</span>
+										<p class="gTxt">교육 및 증빙에 필요한<br> 문서화 기능 제공</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+	<div class="" id="managerialGreen">
+		<div class="colorchange">
+			<div class="panel" data-color="white"></div>
+			<div class="panel" data-color="green">
+				<div class="mainInner">
+					<div class="mgTitleBox">
+						<p class="managertxt">Managerial</p>
+						<p class="managertitle">
+							당연히 해야하지만<br>
+							놓치기 쉬운<br>
+							기본적인 관리
+						</p>
+					</div>
+					<div class="mgContGroup">
+						<div class="mgContBoxWrap">
+							<div class="mgContBox">
+								<p class="mgContBoxTitle">손쉬운<br>개인정보처리방침 작성</p>
+								<p class="mgContBoxtxt">개인정보보호법에 맞춘 샘플링 제공을 통해<br> 손쉽게 작성이 가능</p>
+								<div class="mgContImgBox"></div>
+							</div>
+							<div class="mgContBox matg10">
+								<p class="mgContBoxTitle">법령에 맞춘<br> 내부 접속 기록 보관</p>
+								<p class="mgContBoxtxt">법이 요구하는 보관 기간을<br class="mo_br"> 서비스 특성에 맞게 적용</p>
+								<div class="mgContImgBox"></div>
+							</div>
+						</div>			
+						<div class="mgContBoxWrap">
+							<div class="mgContBox">
+								<p class="mgContBoxTitle">주기적인<br> 개인정보 이용내역 통지</p>
+								<p class="mgContBoxtxt">고객에게 이용내역을 통지해야 할때는<br class="mo_br"> 알아서 딱딱</p>
+								<div class="mgContImgBox"></div>
+							</div>
+							<div class="mgContBox matg10">
+								<p class="mgContBoxTitle">이상행위 모니터링</p>
+								<p class="mgContBoxtxt">해외 로그인 시도 전체 DB 다운로드 등<br class="mo_br"> 이상행위<br class="pc_br"> 모니터링 및 알림</p>
+								<div class="mgContImgBox h66"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 기술적 보호 관리 -->
+	<div id="technical">
+		<div class="sstic">
+			<div class="ssticInner">
+				<div class="s_Title">
+					<div class="s_TitleBox">
+						<p class="greenTxt"><span>Technical</span> Safeguards</p>
+						<p class="boldTxt"><span class="color">기술적</span> 보호조치</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sc_cont_area">
+			<section id="ta" data-show="show01">
+				<div class="mInner">
+					<div class="m_ContBox">
+						<div class="m_ContTitleBox">
+							<p class="mContpurple">보안</p>
+							<p class="mContTitle">클라우드 기반 철저한 보안 체계 구축</p>
+							<p class="mContsTxt">외부 공격으로부터 접근을 통제하고, 안전한 알고리즘과 키관리로 개인정보를 암호화합니다.</p>
+						</div>
+						<div class="t_ContBoxCont">
+							<div class="t_CB">
+								<div class="t_CBTxtBox">
+									<p class="t_CBTitle">접근 통제</p>
+									<ul>
+										<li><p class="t_CBTxt">방화벽, 2단계 인증, 최대 접속시간 제한</p></li>
+										<li><p class="t_CBTxt">로그 모니터링, 탐지, 대응</p></li>
+										<li><p class="t_CBTxt">취약점 점검</p></li>
+									</ul>
+								</div>
+								<div class="t_CBImg"></div>
+							</div>
+							
+							<div class="t_CB">
+								<div class="t_CBTxtBox">
+									<p class="t_CBTitle">안전 조치</p>
+									<ul>
+										<li><p class="t_CBTxt">소프트웨어 안전조치</p></li>
+										<li><p class="t_CBTxt">DDOS 대응</p></li>
+									</ul>
+								</div>
+								<div class="t_CBImg"></div>
+							</div>
+							<div class="t_CB">
+								<div class="t_CBTxtBox">
+									<p class="t_CBTitle">권한 관리</p>
+									<ul>
+										<li><p class="t_CBTxt">취급자별 계정 할당</p></li>
+										<li><p class="t_CBTxt">비밀번호 규칙 고도화</p></li>
+									</ul>
+								</div>
+								<div class="t_CBImg"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="tb" data-show="show02">
+					<div class="mInner">
+					<div class="m_ContBox">
+						<div class="m_ContTitleBox">
+							<p class="mContpurple">암호화</p>
+							<p class="mContTitle">정교한 알고리즘과 키관리를 통한 개인정보 암호화</p>
+						</div>
+						<div class="t_ContBoxCont">
+							<div class="t_CB">
+								<div class="t_CBTxtBox">
+									<p class="t_CBTitle">접근 통제</p>
+									<p class="t_CBTxt">국제 표준 알고리즘, 솔트(Salt)를 이용한 해시 등 안전한 알고리즘으로 보호<p>
+								</div>
+								<div class="t_CBImg"></div>
+							</div>
+							
+							<div class="t_CB">
+								<div class="t_CBTxtBox">
+									<p class="t_CBTitle">안전 조치</p>
+									<p class="t_CBTxt">하드웨어 보안모듈(HSM)을<br> 이용하여 암호화 키를 안전하게 관리<p>
+								</div>
+								<div class="t_CBImg"></div>
+							</div>
+							<div class="t_CB">
+								<div class="t_CBTxtBox">
+									<p class="t_CBTitle">권한 관리</p>
+									<p class="t_CBTxt">고유식별정보, 금융정보 등 법규에서 규정한 개인정보 이외에도 고객이 암호화 대상으로 설정한 모든 개인정보를 암호화</p>
+								</div>
+								<div class="t_CBImg"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="tc" data-show="show03">
+				<div class="mInner">
+					<div class="m_ContBox">
+						<div class="m_ContTitleBox">
+							<p class="mContpurple">재난대비</p>
+							<p class="mContTitle">정교한 알고리즘과 키관리를 통한 개인정보 암호화</p>
+							<p class="mContsTxt">원격에 개인정보를 백업하고 문제 발생 시 신속하게 복구합니다.</p>
+						</div>
+						<div class="m_ContBoxCont">
+							<div class="m_ContImgBox">
+								<img src="">
+							</div>
+							<div class="m_ConttxtBox">
+								<ul class="">
+									<li>
+										<span class="gnum">01</span>
+										<p class="gTxt">회원가입 시 기입 정보와 연동하여<br> 고객 개인정보 알아서 착착 수집</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+	
+	<div class="" id="techBlue">
+		<div class="colorchange">
+			<div class="panel" data-color="white"></div>
+			<div class="panel" data-color="blue">
+				<div class="mainInner">
+					<div class="techTitleBox">
+						<p class="managertxt">Managerial</p>
+						<p class="managertitle">
+							안전성을 공식적으로<br>
+							인정받는 서비스로 나아갑니다.
+						</p>
+						<p class="managerstitle">국내 최고 수준의 개인정보보호 전문가와 함께 글로벌 인증 등을 통해 보안을 강화합니다.</p>
+					</div>
+					<div class="techContGroup">
+						<div class="techContBox">
+							<figure class="techserImg"></figure>
+							<p class="techserTxt">ISO/IEC 27001<p>
+						</div>
+						<div class="techContBox">
+							<figure class="techserImg"></figure>
+							<p class="techserTxt">ISO/IEC 27001<p>
+						</div>
+						<div class="techContBox">
+							<figure class="techserImg"></figure>
+							<p class="techserTxt">ISO/IEC 27001<p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- ::::: Scroll ::::: -->
+<script>
+	$(window).scroll(function() {
+		var scroll = $(window).scrollTop();
+		if (scroll >= 80) {
+			$(".main_Num").removeClass("here");
+			$(".main_Num.two").addClass("here");
+			$(".text1").addClass("hidn");
+			$(".slideImgBox.second").addClass("show");
+			$(".slideImgBox.first").addClass("hidn");
+			$(".text2").addClass("show");
+			$(".main_vImgBox").addClass("rolling");
+		} else {
+			$(".text1").removeClass("hidn");
+			$(".text2").removeClass("show");
+			$(".slideImgBox.second").removeClass("show");
+			$(".slideImgBox.first").removeClass("hidn");
+			$(".main_Num").removeClass("here");
+			$(".main_Num.one").addClass("here");
+			$(".main_vImgBox").removeClass("rolling");
+		}
+	});
+</script>
+
+<!-- 배경색 변경 -->
+<script>
+	$(window).scroll(function() {
+		var $window = $(window),
+		  $body = $('.colorchange'),
+		  $panel = $('.panel');
+	 
+		var scroll = $window.scrollTop() + ($window.height() / 2);
+	 
+		$panel.each(function () {
+			var $this = $(this);
+			if ($this.position().top <= scroll && $this.position().top + $this.height() > scroll) {
+				$body.removeClass(function (index, css) {
+					return (css.match (/(^|\s)color-\S+/g) || []).join(' ');
+				});
+				$body.addClass('color-' + $(this).data('color'));
+			}
+		});    
+	}).scroll();
+</script>
+
+<!-- 기술적 보호 조치 -->
+<script>
+	$(window).scroll(function() {
+		var $window = $(window),
+		
+		$tech = $('#managerial'),
+		$techCont = $('#managerial section');
+		  
+		var windowTop = $(window).scrollTop();
+		var scroll = $window.scrollTop() + ($window.height() / 2);
+		var area = $(window).scrollTop();
+	
+		$techCont.each(function () {
+			var $this = $(this);
+			if ($this.position().top <= scroll && $this.position().top + $this.height() > scroll) {
+				$tech.addClass("titleUp");
+				$tech.addClass('showArea-' + $(this).data('show'));
+			}
+		});    
+	}).scroll();
+</script>
+
+<!-- 기술적 보호 조치 -->
+<script>
+	$(window).scroll(function() {
+		var $window = $(window),
+		$tech = $('#technical'),
+		$techCont = $('#technical section');
+		var windowTop = $(window).scrollTop();
+		var scroll = $window.scrollTop() + ($window.height() / 1);
+		var area = $(window).scrollTop();
+		$techCont.each(function () {
+			var $this = $(this);
+			if ($this.position().top <= scroll && $this.position().top + $this.height() > scroll) {
+				$tech.addClass("titleUp");
+				$tech.addClass('showArea-' + $(this).data('show'));
+			}
+		});    
+	}).scroll();
+</script>
+
+<?php
+include_once('./common/footer.html');
+?>

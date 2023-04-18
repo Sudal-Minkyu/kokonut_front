@@ -1,0 +1,33 @@
+<?php
+include_once('../common/header.html');
+?>
+
+<link href="/kokonut/member/public/css/join.css" rel="stylesheet">
+
+<div class="join_membership" id="join_finWrap">
+	<div class="joinCont">
+		<div class="joinBg"></div>
+		<div class="joinContArea">
+			<div class="joinContBox">
+				<p class="joinmTitle">회원가입</p>
+				<figure class="f_emailImg"><img src="/assets/images/join/join_f.png"></figure>
+				<div class="findContArea">
+					<p class="findEx">회원가입이 완료되었습니다.<br>코코넛과 함께 만들어가요!</p>
+				</div>
+				<div class="find_bottom login">
+					<a href="login.html"><p>로그인</p></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$('#joinWrap input').change(function() {
+		($(this).parent('.input-field').addClass("filled"));
+	});
+</script>
+
+<?php
+include_once('../common/footer.html');
+?>

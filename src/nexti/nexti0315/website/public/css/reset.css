@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+html,body,div,p,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,address,blockquote,table,caption,tr,td,th,thead,tbody,form,fieldset,legend,header,nav,aside,section,article,main,footer,figure,figcaption {margin: 0; padding: 0;}
+
+header,nav,aside,main,section,article,footer,figure {display: block;}
+li {list-style: none;}
+a {text-decoration: none; color: inherit;}
+table {border-collapse: collapse;}
+em,i,cite,address {font-style: normal;} /*이탤릭체로 표현되는 태그들의 기울기를 없앰*/
+h1,h2,h3,h4,h5,h6,strong {font-weight: normal;} /*글자진하기를 모두 초기화*/
+
+/*텍스트 블라인드*/
+.blind {font-size: 0; line-height: 0; height: 0; overflow: hidden; text-indent: -9999px;}
+
+/*float를 해제하는 클래스*/
+.clear:before, .clear:after {clear:both; content: ''; display: block;}

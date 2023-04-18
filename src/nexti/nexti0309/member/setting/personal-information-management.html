@@ -1,0 +1,636 @@
+<?php
+include_once('../common/header.html');
+?>
+	
+	
+	
+	<section class="bodyWrap">
+		<div class="contentInnerWrap">
+			<div class="pageTitleBtn marB70">
+				<h1>개인정보 항목 관리</h1>
+			</div>
+			<div class="prDivideBox">
+			
+				<div class="prPart1_box"><!-- 개인정보 항목 컨텐츠 -->
+					<div class="prptitle">
+						<h2>항목 분류</h2>
+					</div>
+					<div class="categorydivision_box">
+						<div>
+							<div class="cateiBox">
+								<div class="cateinput">
+									<input type="text" name="" id="" class="catesea" placeholder="찾고 싶은 항목을 검색해 보세요">
+								</div>
+								<div class="showcateinBox">
+									<div class="showcateinner">
+										<div class="cateS_check">
+											<input type="checkbox" value="1" name="shcate_01" id="shcate_01">
+											<label for="shcate_01">
+												<em></em>
+												<p class="check"><span>주소</span>(시군구)</p>
+											</label>
+										</div>
+										<div class="cateS_check">
+											<input type="checkbox" value="1" name="shcate_02" id="shcate_02">
+											<label for="shcate_02">
+												<em></em>
+												<p class="check"><span>주소</span>(동호수)</p>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<script>
+							$(".catesea").focus(function() { 
+								$(".showcateinBox").addClass("showon");
+							});
+							<!-- $('.catesea').focusout(function() { -->
+								<!-- $(".showcateinBox").removeClass("showon"); -->
+							<!-- }); -->
+							
+							$('.cateS_check').on('click', function(e) {
+								$(".showcateinBox").removeClass("showon");
+							});
+							</script>
+							
+							<div class="cateListBox">
+								<div class="cateScrollBox">
+									<div class="cateScrollInner">
+										<div class="cateS_Items">
+											<ul>
+												<li class="cs_tab on_cateS">고유식별정보</li>
+												<li class="cs_tab">인적정보</li>
+												<li class="cs_tab">가족정보</li>
+												<li class="cs_tab">신체정보</li>
+												<li class="cs_tab">의료/건강 정보</li>
+												<li class="cs_tab">기호/성 정보</li>
+												<li class="cs_tab">비밀정보</li>
+												<li class="cs_tab">교육정보</li>
+												<li class="cs_tab">가족정보</li>
+												<li class="cs_tab">신체정보</li>
+												<li class="cs_tab">의료/건강 정보</li>
+												<li class="cs_tab">기호/성 정보</li>
+												<li class="cs_tab">비밀정보</li>
+												<li class="cs_tab">교육정보</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="cateS_checkWrap">
+									<div class="nonecateS_Box"><p>추가하고 싶은 항목을<br> 선택해 주세요</p></div><!-- 항목 선택이 없을 시 -->
+									<div class="cateS_checkBox"><!-- 항목 선택이 있을 시 -->
+										<div class="cateS_checkInner">
+											<div class="cateS_check">
+												<input type="checkbox" value="1" name="cates_01" id="cates_01">
+												<label for="cates_01">
+													<em></em>
+													<p class="check">이름</p>
+												</label>
+											</div>	
+											<div class="cateS_check">
+												<input type="checkbox" value="1" name="cates_02" id="cates_02">
+												<label for="cates_02">
+													<em></em>
+													<p class="check">휴대전화 번호</p>
+												</label>
+											</div>
+											<div class="cateS_check">
+												<input type="checkbox" value="1" name="cates_03" id="cates_03">
+												<label for="cates_03">
+													<em></em>
+													<p class="check">주민등록번호</p>
+												</label>
+											</div>
+											<div class="cateS_check">
+												<input type="checkbox" value="1" name="cates_04" id="cates_04">
+												<label for="cates_04">
+													<em></em>
+													<p class="check">출생지</p>
+												</label>
+											</div>
+										</div>	
+										<div class="cateS_checkInner" style="display:none;">	
+											<div class="cateS_check">
+												<input type="checkbox" value="1" name="cates_05" id="cates_05">
+												<label for="cates_05">
+													<em></em>
+													<p class="check">주소(시군구)</p>
+												</label>
+											</div>
+											<div class="cateS_check">
+												<input type="checkbox" value="1" name="cates_06" id="cates_06">
+												<label for="cates_06">
+													<em></em>
+													<p class="check">생년월일</p>
+												</label>
+											</div>
+											<div class="cateS_check">
+												<input type="checkbox" value="1" name="cates_07" id="cates_07">
+												<label for="cates_07">
+													<em></em>
+													<p class="check">주소(동호수)</p>
+												</label>
+											</div>
+										</div>	
+										<div class="cateS_checkInner" style="display:none;">
+											<div class="cateS_check">
+												<input type="checkbox" value="1" name="cates_08" id="cates_08">
+												<label for="cates_08">
+													<em></em>
+													<p class="check">성별</p>
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="sel_cateListBox">
+							<div class="sel_cateList">
+								<div class="sel_cate">이름<button></button></div>
+								<div class="sel_cate">생년월일<button></button></div>
+								<div class="sel_cate">휴대전화번호<button></button></div>
+								<div class="sel_cate">주민등록번호<button></button></div>
+							</div>
+							<div class="sel_cateBtnBox">
+								<button class="cateResetBtn">초기화</button>
+								<button class="cateAddBtn">오른쪽에 추가</button>
+							</div>
+						</div>	
+						<div class="cateAddInfoBox">
+							<div class="cateAddInfo" id="commerce_pop">전자상거래법 적용 대상이세요?</div><br>
+							<div class="cateAddInfo" id="create_item_pop">원하시는 개인정보 항목이 없나요?</div>
+						</div>						
+					</div>
+				</div>
+				
+				<div class="prPart2_box"><!-- 개인정보 항목 컨텐츠 -->
+					<div class="prptitle">
+						<h2>개인정보 항목</h2>
+						<button class="addBtn" id="add_tab_pop">탭추가</button>
+					</div>
+					<div class="bo_tabBox">
+						<div class="tabWrap">
+							<div class="bo_tab on_bo">기본<div class="tab_delteBtn open_del_tab_pop" ></div></div>
+							<div class="bo_tab">민감정보<div class="tab_delteBtn open_del_tab_pop"></div></div>
+							<div class="bo_tab">가족정보<div class="tab_delteBtn open_del_tab_pop"></div></div>
+							<div class="bo_tab">비밀정보<div class="tab_delteBtn open_del_tab_pop"></div></div>
+						</div>
+					</div>
+					<script>
+					</script>
+					<div class="boaTabBox">
+						<div class="prDelBtn">
+							<button class="" id="delete_pr_pop">삭제</button>
+						</div>
+						<div class="bo_tabContentBox">
+							<div class="boContent"><!-- 탭컨텐츠 영역 -->
+								<div class="prtable">
+									<table>
+										<colgroup>
+											<col style="width:8.21%;">
+											<col style="width:71.14%;">
+											<col style="width:20.66%;">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>선택</th>
+												<th>항목</th>
+												<th>수정</th>
+											</tr>    
+										</thead>
+										<tbody>
+											<tr>
+												<th>
+													<div class="koko_check">
+														<input type="checkbox" value="" name="ip01" id="ip01" class="partcheck">
+														<label for="ip01"><em></em></label>
+													</div>
+												</th>
+												<th>
+													<div class="lockicon"></div>
+													주민등록번호
+													<span class="subElement redtext">민감정보</span>
+												</th>
+												<th>
+													<button>수정하기</button>
+												</th>
+											</tr>
+											<tr>
+												<th>
+													<div class="koko_check">
+														<input type="checkbox" value="" name="ip02" id="ip02" class="partcheck">
+														<label for="ip02"><em></em></label>
+													</div>
+												</th>
+												<th>
+													<div class="lockicon"></div>
+													휴대전화번호
+													<span class="subElement yeltext">휴대전화번호</span>
+												</th>
+												<th>
+													<button>수정하기</button>
+												</th>
+											</tr>
+											<tr>
+												<th>
+													<div class="koko_check">
+														<input type="checkbox" value="" name="ip03" id="ip03" class="partcheck">
+														<label for="ip03"><em></em></label>
+													</div>
+												</th>
+												<th>
+													<div class="lockicon"></div>
+													생년월일
+													<span class="subElement bluetext">전자상거래법</span>
+												</th>
+												<th>
+													<button>수정하기</button>
+												</th>
+											</tr>
+											<tr>
+												<th>
+													<div class="koko_check">
+														<input type="checkbox" value="" name="ip04" id="ip04" class="partcheck">
+														<label for="ip04"><em></em></label>
+													</div>
+												</th>
+												<th>
+													<div class="lockicon"></div>
+													패스워드
+													<span class="subElement bluetext">전자상거래법</span>
+												</th>
+												<th>
+													<button>수정하기</button>
+												</th>
+											</tr>
+											<tr>
+												<th>
+													<div class="koko_check">
+														<input type="checkbox" value="" name="ip05" id="ip05" class="partcheck">
+														<label for="ip05"><em></em></label>
+													</div>
+												</th>
+												<th>
+													아이디
+												</th>
+												<th>
+													<div class="nonereviseBtn">수정불가</div>
+												</th>
+											</tr>
+										</tbody>
+									</table>
+									<div class="prbott">
+										<ul>
+											<li>항목의 추가, 수정, 삭제 시 데이터 양에 따라 최대 3일까지 소요될 수 있습니다.</li>
+											<li>테이블 및 항목 삭제 시 데이터는 모두 삭제되며 복구 불가능합니다.</li>
+											<li>테이블 및 항목 삭제 시 OTP 인증을 진행해야 합니다.</li>
+										</ul>
+									</div>
+								</div>	
+							</div>
+							<div class="boContent" style="display:none;"><!-- 탭컨텐츠 영역 -->
+								<div class="prtable">
+									<table>
+										<colgroup>
+											<col style="width:8.21%;">
+											<col style="width:71.14%;">
+											<col style="width:20.66%;">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>선택</th>
+												<th>항목</th>
+												<th>수정</th>
+											</tr>    
+										</thead>
+									</table>	
+									<div class="noneprtable">항목을 추가해 주세요</div>
+								</div>
+							</div>
+							<div class="boContent" style="display:none;"><!-- 탭컨텐츠 영역 -->
+								<div class="prtable">
+									<table>
+										<colgroup>
+											<col style="width:8.21%;">
+											<col style="width:71.14%;">
+											<col style="width:20.66%;">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>선택</th>
+												<th>항목</th>
+												<th>수정</th>
+											</tr>    
+										</thead>
+									</table>	
+									<div class="noneprtable">항목을 추가해 주세요</div>
+								</div>
+							</div>
+							<div class="boContent" style="display:none;"><!-- 탭컨텐츠 영역 -->
+								<div class="prtable">
+									<table>
+										<colgroup>
+											<col style="width:8.21%;">
+											<col style="width:71.14%;">
+											<col style="width:20.66%;">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>선택</th>
+												<th>항목</th>
+												<th>수정</th>
+											</tr>    
+										</thead>
+									</table>	
+									<div class="noneprtable">항목을 추가해 주세요</div>
+								</div>
+							</div>
+						</div>
+						<div class="prAddBtnBox">
+							<div class="prAddBtn">
+								<div class="noneAdd">적용하기</div>
+								<!--<button type="submit">적용하기</button>-->
+							</div>
+						</div>
+					</div>	
+				</div>
+			</div>
+			
+		</div>
+	</section>
+	
+	
+	<!-- [D] 전자상거래 적용 대상 팝업 -->
+	<div class="koko_popup commerce_pop" data-popup="commerce_pop" style="display:block;">
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_titleh4">
+					<h4 class="">
+						<span>전자상거래법 적용 대상</span> 이신가요?
+					</h4>
+				</div>
+				<form>
+					<div class="popcaseInfoBoxType02">
+						<dl>
+							정보주체(고객)의 개인정보 파기 이후에도 일정 기간 거래기록을 보존해야 하는 사업자는 체크박스에 체크해주세요. 이 경우 최소한의 개인정보 식별을 위한 <span>이름, 생년월일, 휴대전화번호를 필수로 등록</span>하게 됩니다.
+						</dl>
+					</div>
+					<div class="popRadioBox">
+						<div class="check popRadioType02">
+							<input type="radio" class="radio" name="commerce_yesno" id="commerce_yes" value="commerce_yes" checked>
+							<label for="commerce_yes"><em><dt></dt></em><p class="ox_o"></p><span class="colgr">네,</span> 전자상거래법 적용 대상입니다.</label>
+						</div>
+						<div class="check popRadioType02">
+							<input type="radio" class="radio" name="commerce_yesno" id="commerce_no" value="commerce_no">
+							<label for="commerce_no"><em><dt></dt></em><p class="ox_x"></p><span class="colred">아니요,</span> 이 팝업을 1년간 안 보이게 해주세요.</label>
+						</div>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel commerce_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">확인</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close commerce_pop_close" data-popup-close="commerce_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 전자상거래 적용 대상 팝업 -->
+	<script>
+	//----- 전자상거래 적용 대상 OPEN / CLOSE
+	$('#commerce_pop').on('click', function() {
+		$('[data-popup="commerce_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.commerce_pop_close').on('click', function() {
+		$('[data-popup="commerce_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	<!-- [D] 개인정보 항목 만들기 팝업 -->
+	<div class="koko_popup create_item_pop" data-popup="create_item_pop" >
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title">
+					<h3 class="">개인정보 항목 만들기</h3>
+				</div>
+				<form>
+					<div class="kopopinput marB24">
+						<label>항목명</label>
+						<input type="text" name="" id="" class="" placeholder="항목명을 적어주세요."></input>
+					</div>
+					<div class="kopopinput ">
+						<label>암호화</label>
+						<div class="popRadio">
+							<div class="check poprCheck">
+								<input type="radio" class="radio" name="secret" id="비암호화" value="비암호화" checked="">
+								<label for="비암호화"><em><dt></dt></em>비암호화</label>
+							</div>
+							<div class="check poprCheck">
+								<input type="radio" class="radio" name="secret" id="암호화" value="암호화">
+								<label for="암호화"><em><dt></dt></em>암호화</label>
+							</div>
+						</div>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel create_item_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">추가</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close create_item_pop_close" data-popup-close="create_item_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 개인정보 항목 만들기 팝업 -->	
+	<script>
+	//----- 개인정보 항목 만들기 OPEN / CLOSE
+	$('#create_item_pop').on('click', function() {
+		$('[data-popup="create_item_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.create_item_pop_close').on('click', function() {
+		$('[data-popup="create_item_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+	<!-- [D] 탭추가 팝업 -->
+	<div class="koko_popup add_tab_pop" data-popup="add_tab_pop">
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title">
+					<h3 class="">
+						탭 추가
+					</h3>
+				</div>
+				<form>
+					<div class="kopopinput marB24">
+						<label>이름</label>
+						<input type="text" name="" id="" class="" placeholder="이름를 적어주세요."></input>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel add_tab_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">추가</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close add_tab_pop_close" data-popup-close="add_tab_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 탭추가 팝업 -->
+	<script>
+	//----- 탭추가 OPEN / CLOSE
+	$('#add_tab_pop').on('click', function() {
+		$('[data-popup="add_tab_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.add_tab_pop_close').on('click', function() {
+		$('[data-popup="add_tab_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+	<!-- [D] 탭삭제 팝업 -->
+	<div class="koko_popup del_tab_pop" data-popup="del_tab_pop">
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_titleh4">
+					<h4 class="">
+						선택하신 <span>기본</span> 테이블을<br>
+						삭제하시겠습니까?
+					</h4>
+				</div>
+				<form>
+					<div class="kopopinput marB24">
+						<label>OTP</label>
+						<input type="text" name="" id="" class="" placeholder="OTP를 적어주세요."></input>
+					</div>
+					<div class="popcaseInfoBox">
+						<p>주의사항</p>
+						<dl>삭제할 경우 <span>해당 항목의 개인정보 데이터가 모두 삭제됩니다.</span></dl>
+						<dl>개인정보 데이터가 많을 경우 최대 3일까지 소요될 수 있습니다.</dl>
+						<dl><span>삭제하면 다시 복구 할 수 없습니다.</span></dl>
+					</div>
+					<div class="koko_check">
+						<input type="checkbox" value="1" name="delcheck" id="delcheck">
+						<label for="delcheck">
+							<em></em>
+							<p class="check">테이블 삭제에 동의합니다.</p>
+						</label>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel del_tab_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">확인</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close del_tab_pop_close" data-popup-close="del_tab_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 탭삭제 팝업 -->
+	<script>
+	//----- 탭삭제 팝업 OPEN / CLOSE
+	$('.open_del_tab_pop').on('click', function() {
+		$('[data-popup="del_tab_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.del_tab_pop_close').on('click', function() {
+		$('[data-popup="del_tab_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+	<!-- [D] 개인정보 선택 항목 삭제 팝업 -->
+	<div class="koko_popup delete_pr_pop" data-popup="delete_pr_pop">
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_titleh4">
+					<h4 class="">
+						선택하신 <span>생년월일, 휴대전화번호</span> 항목을<br>
+						삭제하시겠습니까?
+					</h4>
+				</div>
+				<form>
+					<div class="kopopinput marB24">
+						<label>OTP</label>
+						<input type="text" name="" id="" class="" placeholder="OTP를 적어주세요."></input>
+					</div>
+					<div class="popcaseInfoBox">
+						<p>주의사항</p>
+						<dl>삭제할 경우 <span>해당 항목의 개인정보 데이터가 모두 삭제됩니다.</span></dl>
+						<dl>개인정보 데이터가 많을 경우 최대 3일까지 소요될 수 있습니다.</dl>
+						<dl><span>삭제하면 다시 복구 할 수 없습니다.</span></dl>
+					</div>
+					<div class="koko_check">
+						<input type="checkbox" value="1" name="selcheck" id="selcheck">
+						<label for="selcheck">
+							<em></em>
+							<p class="check">주의사항에 대해 확인했습니다.</p>
+						</label>
+					</div>
+					<div class="kokopopBtnBox">
+						<div class="koko_cancel delete_pr_pop_close">취소</div>
+						<div class="koko_go"><button type="submit">확인</button></div>
+					</div>
+				</form>
+			</div>
+			<div class="koko-popup-close delete_pr_pop_close" data-popup-close="delete_pr_pop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 개인정보 선택 항목 삭제 팝업 -->
+	<script>
+	//----- 개인정보 선택 항목 삭제 OPEN / CLOSE
+	$('#delete_pr_pop').on('click', function() {
+		$('[data-popup="delete_pr_pop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.delete_pr_pop_close').on('click', function() {
+		$('[data-popup="delete_pr_pop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+	<script>
+	// 항목분류 탭메뉴 스크립트
+	$(document.body).on('click','.cs_tab', function() {
+
+		var inx = $(this).parent().parent().find('.cs_tab').index(this);
+		
+		var arr_firstrows = $(this).parent().parent().find('.cs_tab');
+		arr_firstrows.removeClass('on_cateS');
+		$(this).addClass('on_cateS');
+		
+		//console.log();
+		$(this).parent().parent().parent().parent().parent().find('.cateS_checkBox > div').hide();
+		$(this).parent().parent().parent().parent().parent().find('.cateS_checkBox > div:nth-child('+ (inx+1) +')').show();
+		
+	});
+	</script>
+	
+	<script>
+	// 개인정보항목 탭메뉴 스크립트
+	$(document.body).on('click','.bo_tab', function() {
+
+		var inx = $(this).parent().parent().find('.bo_tab').index(this);
+		
+		var arr_firstrows = $(this).parent().parent().find('.bo_tab');
+		arr_firstrows.removeClass('on_bo');
+		$(this).addClass('on_bo');
+		
+		//console.log();
+		$(this).parent().parent().parent().parent().parent().find('.bo_tabContentBox > div').hide();
+		$(this).parent().parent().parent().parent().parent().find('.bo_tabContentBox > div:nth-child('+ (inx+1) +')').show();
+		
+	});
+	</script>
+	
+	
+<?php
+include_once('../common/footer.html');
+?>	

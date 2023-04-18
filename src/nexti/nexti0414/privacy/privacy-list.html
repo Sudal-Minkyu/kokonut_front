@@ -1,0 +1,679 @@
+<?php
+include_once('../common/header.html');
+?>
+	
+	<!-- 범위 캘린더 스크립트 -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="/kokonut/member/public/js/daterangepicker.min.js"></script>
+	
+	<section class="bodyWrap">
+		<div class="contentInnerWrap">
+			<div class="pageTitleBtn marB50">
+				<h1>개인정보 제공리스트</h1>
+				<div class="TitleBtn">
+					<a href="step-01.html">
+						<button id="adm_registration_pop">개인정보 제공</button>
+					</a>
+				</div>
+			</div>
+			
+			<!-- 상단 검색 영역 -->
+			<div class="seaWrap marB50">
+				<div class="kotopBtn"><button><img src="/kokonut/member/public/img/common/top_down_arrow.png" alt="" class="top_down_arrow">이력 다운로드</button></div>
+				<form>
+					<div class="koinput marB32">
+						<input type="text" name="" id="" class="wid360" placeholder="담당자 검색"></input>
+						<button><img src="/kokonut/member/public/img/common/icon_search.png" alt=""></button>
+					</div>
+					<div class="seaContentBox">
+						<div class="seaContentLine borB">
+							<div class="seaCont wid500">
+								<dl>제공 날짜</dl>
+								<div class="calenderBox">
+									<div class="calenderInput">
+										<input id="stime" type="text" name="stime" class="form-control" placeholer="날짜선택" aria-describedby="stime_addon" />
+									</div>
+								</div>
+							</div>
+							<script>
+							// 캘린더 스크립트
+							$('#stime').daterangepicker({
+								timePicker: true,
+								startDate: moment().startOf('day').add(-1, 'month'),
+								endDate: moment().endOf('day'),
+								showDropdowns: true,
+								showDropdowns: false,
+								timePicker: false,
+								timePicker24Hour: false,
+								changeYear: false,
+								changeMonth: false,
+								locale: {
+									format: 'YYYY-MM-DD',
+									customRangeLabel: '사용자 정의',
+									daysOfWeek: ["일", "월", "화", "수", "목", "금", "토"],
+									monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+								}
+							});
+							$("#stime").on('show.daterangepicker', function (ev, picker) {
+								$(".yearselect").css("float", "left");
+								$(".monthselect").css("float", "right");
+							});
+							</script>
+							<div class="seaRadioBox borL">
+								<div class="seaRadio">
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="오늘" value="오늘" checked>
+										<label for="오늘"><em><dt></dt></em>오늘</label>
+									</div>
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="1주일" value="1주일">
+										<label for="1주일"><em><dt></dt></em>1주일</label>
+									</div>
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="1개월" value="1개월">
+										<label for="1개월"><em><dt></dt></em>1개월</label>
+									</div>
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="3개월" value="3개월">
+										<label for="3개월"><em><dt></dt></em>3개월</label>
+									</div>
+									<div class="check radioCheck">
+										<input type="radio" class="radio" name="period" id="6개월" value="6개월">
+										<label for="6개월"><em><dt></dt></em>6개월</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="seaContentLine">
+							<div class="seaCont wid33per">
+								<dl>다운로드 유무</dl>
+								<div class="sc_SelBox">
+									<div class="selectBox wid164">
+										<div class="label" id="">활동 전체</div>
+										<ul class="optionList">
+											<li class="optionItem">Y</li>
+											<li class="optionItem">N</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="seaCont wid33per">
+								<dl>제공 현황</dl>
+								<div class="sc_SelBox">
+									<div class="selectBox wid164">
+										<div class="label" id="">활동 전체</div>
+										<ul class="optionList">
+											<li class="optionItem">제공 함</li>
+											<li class="optionItem">제공 받음</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="seaCont wid33per">
+								<dl>상태</dl>
+								<div class="sc_SelBox">
+									<div class="selectBox wid164">
+										<div class="label" id="">활동 전체</div>
+										<ul class="optionList">
+											<li class="optionItem">대기 중</li>
+											<li class="optionItem">제공 중</li>
+											<li class="optionItem">제공 완료</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			
+			<!-- 테이블 영역 -->
+			<div class="kotable privacyList">
+				
+				<table>
+					<caption>개인정보 처리이력 리스트</caption>
+					<colgroup>
+						<col style="width:5.48%;">
+						<col style="width:9.59%;">
+						<col style="width:10.96%;">
+						<col style="width:10.96%;">
+						<col style="width:13.70%;">
+						<col style="width:19.18%;">
+						<col style="width:9.59%;">
+						<col style="width:9.59%;">
+						<col style="width:10.96%;">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>상태</th>
+							<th>제공 현황</th>
+							<th>담당자</th>
+							<th>만든 날짜</th>
+							<th>제공 기간</th>
+							<th>다운로드 유무</th>
+							<th>다운로드 횟수</th>
+							<th>IP</th>
+						</tr>    
+					</thead>
+					<tbody>
+						<tr>
+							<td>10</td>
+							<td>
+								<div class="condition waiting">대기중</div>
+							</td>
+							<td>대기 중</td>
+							<td>최*리</td>
+							<td>2023. 01. 01</td>
+							<td>23.03.03 ~ 23.04.04</td>
+							<td>Y</td>
+							<td><div class="dcount downcountPop">3</div></td>
+							<td><div class="dlink dlinkPop">상세보기</div></td>
+						</tr>
+						<tr>
+							<td>9</td>
+							<td>
+								<div class="condition ing">제공중</div>
+							</td>
+							<td>제공 중</td>
+							<td>최*리</td>
+							<td>2023. 01. 01</td>
+							<td>23.03.03 ~ 23.04.04</td>
+							<td>Y</td>
+							<td><div class="dcount downcountPop">3</div></td>
+							<td><div class="dlink dlinkPop">상세보기</div></td>
+						</tr>
+						<tr>
+							<td>8</td>
+							<td>
+								<div class="condition complete">제공완료</div>
+							</td>
+							<td>제공 완료</td>
+							<td>최*리</td>
+							<td>2023. 01. 01</td>
+							<td>23.03.03 ~ 23.04.04</td>
+							<td>Y</td>
+							<td><div class="dcount downcountPop">3</div></td>
+							<td><div class="dlink dlinkPop">상세보기</div></td>
+						</tr>
+						<tr>
+							<td>7</td>
+							<td>
+								<div class="condition waiting">대기중</div>
+							</td>
+							<td>대기 중</td>
+							<td>최*리</td>
+							<td>2023. 01. 01</td>
+							<td>23.03.03 ~ 23.04.04</td>
+							<td>Y</td>
+							<td><div class="dcount downcountPop">3</div></td>
+							<td><div class="dlink dlinkPop">상세보기</div></td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td>
+								<div class="condition ing">제공중</div>
+							</td>
+							<td>제공 중</td>
+							<td>최*리</td>
+							<td>2023. 01. 01</td>
+							<td>23.03.03 ~ 23.04.04</td>
+							<td>Y</td>
+							<td><div class="dcount downcountPop">3</div></td>
+							<td><div class="dlink dlinkPop">상세보기</div></td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>
+								<div class="condition complete">제공완료</div>
+							</td>
+							<td>제공 완료</td>
+							<td>최*리</td>
+							<td>2023. 01. 01</td>
+							<td>23.03.03 ~ 23.04.04</td>
+							<td>Y</td>
+							<td><div class="dcount downcountPop">3</div></td>
+							<td><div class="dlink dlinkPop">상세보기</div></td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>
+								<div class="condition waiting">대기중</div>
+							</td>
+							<td>대기 중</td>
+							<td>최*리</td>
+							<td>2023. 01. 01</td>
+							<td>23.03.03 ~ 23.04.04</td>
+							<td>Y</td>
+							<td><div class="dcount downcountPop">3</div></td>
+							<td><div class="dlink dlinkPop">상세보기</div></td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>
+								<div class="condition ing">제공중</div>
+							</td>
+							<td>제공 중</td>
+							<td>최*리</td>
+							<td>2023. 01. 01</td>
+							<td>23.03.03 ~ 23.04.04</td>
+							<td>Y</td>
+							<td><div class="dcount downcountPop">3</div></td>
+							<td><div class="dlink dlinkPop">상세보기</div></td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>
+								<div class="condition complete">제공완료</div>
+							</td>
+							<td>제공 완료</td>
+							<td>최*리</td>
+							<td>2023. 01. 01</td>
+							<td>23.03.03 ~ 23.04.04</td>
+							<td>Y</td>
+							<td><div class="dcount downcountPop">3</div></td>
+							<td><div class="dlink dlinkPop">상세보기</div></td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>
+								<div class="condition waiting">대기중</div>
+							</td>
+							<td>대기 중</td>
+							<td>최*리</td>
+							<td>2023. 01. 01</td>
+							<td>23.03.03 ~ 23.04.04</td>
+							<td>Y</td>
+							<td><div class="dcount downcountPop">3</div></td>
+							<td><div class="dlink dlinkPop">상세보기</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- 페이징 영역 -->
+			<div class="paginationBox marT40">
+				<ul class="pagination">
+					<li class="page-item page-pre disabled"><a class="page-link" aria-label="previous page" href="javascript:void(0)"></a></li>
+					<li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">1</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 2" href="javascript:void(0)">2</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 3" href="javascript:void(0)">3</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 4" href="javascript:void(0)">4</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 5" href="javascript:void(0)">5</a></li>
+					<li class="page-item page-last-separator disabled"><a class="page-link" aria-label="" href="javascript:void(0)">...</a></li>
+					<li class="page-item"><a class="page-link" aria-label="to page 93" href="javascript:void(0)">93</a></li>
+					<li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)"></a></li>
+				</ul>
+			</div>
+			
+		</div>
+	</section>
+	
+	<!-- [D] 다운로드 내역 팝업 -->
+	<div class="koko_popup open_downcountPop" data-popup="open_downcountPop">
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title">
+					<h3 class="">다운로드 내역</h3>
+				</div>
+				
+				<div class="prilistpop">
+					<div class="kt_tableTopBox marB16">
+						<div class="kt_total">총 <span>11</span>건</div>
+						<div class="kt_selbox wid108">
+							<div class="selectBox wid100per nonePad">
+								<div class="label" id="">최근 등록순</div>
+								<ul class="optionList">
+									<li class="optionItem">최근 등록순</li>
+									<li class="optionItem">정확도순</li>
+									<li class="optionItem">오름차순</li>
+									<li class="optionItem">내림차순</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="">
+						<div class="prtable">
+							<table>
+								<colgroup>
+									<col style="width:10.91%;">
+									<col style="width:38.18%;">
+									<col style="width:25.45%;">
+									<col style="width:25.45%;">
+								</colgroup>
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>일시</th>
+										<th>시간</th>
+										<th>담당자</th>
+									</tr>    
+								</thead>
+								<tbody>
+									<tr>
+										<td>10</td>
+										<td>2023. 01. 01</td>
+										<td>오전 10:23</td>
+										<td>김코코</td>
+									</tr>
+									<tr>
+										<td>9</td>
+										<td>2023. 01. 01</td>
+										<td>오전 10:23</td>
+										<td>김코코</td>
+									</tr>
+									<tr>
+										<td>8</td>
+										<td>2023. 01. 01</td>
+										<td>오전 10:23</td>
+										<td>김코코</td>
+									</tr>
+									<tr>
+										<td>7</td>
+										<td>2023. 01. 01</td>
+										<td>오전 10:23</td>
+										<td>김코코</td>
+									</tr>
+									<tr>
+										<td>6</td>
+										<td>2023. 01. 01</td>
+										<td>오전 10:23</td>
+										<td>김코코</td>
+									</tr>
+									<tr>
+										<td>5</td>
+										<td>2023. 01. 01</td>
+										<td>오전 10:23</td>
+										<td>김코코</td>
+									</tr>
+									<tr>
+										<td>4</td>
+										<td>2023. 01. 01</td>
+										<td>오전 10:23</td>
+										<td>김코코</td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td>2023. 01. 01</td>
+										<td>오전 10:23</td>
+										<td>김코코</td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td>2023. 01. 01</td>
+										<td>오전 10:23</td>
+										<td>김코코</td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td>2023. 01. 01</td>
+										<td>오전 10:23</td>
+										<td>김코코</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>	
+						<!-- 페이징 영역 -->
+						<div class="paginationBox marT20">
+							<ul class="pagination">
+								<li class="page-item page-pre disabled"><a class="page-link" aria-label="previous page" href="javascript:void(0)"></a></li>
+								<li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">1</a></li>
+								<li class="page-item"><a class="page-link" aria-label="to page 2" href="javascript:void(0)">2</a></li>
+								<li class="page-item"><a class="page-link" aria-label="to page 3" href="javascript:void(0)">3</a></li>
+								<li class="page-item"><a class="page-link" aria-label="to page 4" href="javascript:void(0)">4</a></li>
+								<li class="page-item"><a class="page-link" aria-label="to page 5" href="javascript:void(0)">5</a></li>
+								<li class="page-item page-last-separator disabled"><a class="page-link" aria-label="" href="javascript:void(0)">...</a></li>
+								<li class="page-item"><a class="page-link" aria-label="to page 93" href="javascript:void(0)">93</a></li>
+								<li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="koko-popup-close downcountPop_close" data-popup-close="downcountPop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 다운로드 내역 팝업 -->
+	<script>
+	//----- 다운로드 내역 OPEN / CLOSE
+	$('.downcountPop').on('click', function() {
+		$('.open_downcountPop').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.downcountPop_close').on('click', function() {
+		$('.open_downcountPop').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	<!-- [D] 상세보기 팝업 -->
+	<div class="koko_popup open_dlinkPop" data-popup="open_dlinkPop" >
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title">
+					<h3 class="">상세보기</h3>
+				</div>
+				<div class="prilistpop">
+					<div class="pritopgr marB36">
+						<ul>
+							<li class="borB porR">
+								<span>제공 현황</span>
+								<dl>본인 제공</dl>
+							</li>
+							<li class="porB">
+								<span>담당자(제공자)</span>
+								<dl>김무무</dl>
+							</li>
+							<li class="porR">
+								<span>만든 날짜</span>
+								<dl>23. 01. 01</dl>
+							</li>
+							<li>
+								<span>제공 기간</span>
+								<dl>03. 03 ~ 23. 04. 04</dl>
+							</li>
+						</ul>
+					</div>
+					<div class="memseaBox marB24">
+						<div class="koinput">
+							<input type="text" name="" id="" class="wid210" placeholder="검색어를 입력해 주세요">
+							<button><img src="/kokonut/member/public/img/common/icon_search_ver2.png" alt=""></button>
+						</div>
+						<div class="pridownBtn" id="pridownPop">
+							개인정보 다운로드
+						</div>
+					</div>
+					<div class="kt_tableTopBox marB16">
+						<div class="kt_total">총 <span>11</span>건</div>
+						<div class="kt_selbox wid108">
+							<div class="selectBox wid100per nonePad">
+								<div class="label" id="">최근 등록순</div>
+								<ul class="optionList">
+									<li class="optionItem">최근 등록순</li>
+									<li class="optionItem">정확도순</li>
+									<li class="optionItem">오름차순</li>
+									<li class="optionItem">내림차순</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="">
+						<div class="prtable">
+							<table>
+								<colgroup>
+									<col style="width:9.09%;">
+									<col style="width:34.55%;">
+									<col style="width:12.73%;">
+									<col style="width:18.18%;">
+									<col style="width:25.45%;">
+								</colgroup>
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>이메일</th>
+										<th>이름</th>
+										<th>생년월일</th>
+										<th>휴대전화번호</th>
+									</tr>    
+								</thead>
+								<tbody>
+									<tr>
+										<td>100</td>
+										<td>abcde1234@kokonut.me</td>
+										<td>김코코</td>
+										<td>1991. 01. 01</td>
+										<td>010-1234-5678</td>
+									</tr>
+									<tr>
+										<td>99</td>
+										<td>abcde1234@kokonut.me</td>
+										<td>김코코</td>
+										<td>1991. 01. 01</td>
+										<td>010-1234-5678</td>
+									</tr>
+									<tr>
+										<td>98</td>
+										<td>abcde1234@kokonut.me</td>
+										<td>김코코</td>
+										<td>1991. 01. 01</td>
+										<td>010-1234-5678</td>
+									</tr>
+									<tr>
+										<td>97</td>
+										<td>abcde1234@kokonut.me</td>
+										<td>김코코</td>
+										<td>1991. 01. 01</td>
+										<td>010-1234-5678</td>
+									</tr>
+									<tr>
+										<td>96</td>
+										<td>abcde1234@kokonut.me</td>
+										<td>김코코</td>
+										<td>1991. 01. 01</td>
+										<td>010-1234-5678</td>
+									</tr>
+									<tr>
+										<td>95</td>
+										<td>abcde1234@kokonut.me</td>
+										<td>김코코</td>
+										<td>1991. 01. 01</td>
+										<td>010-1234-5678</td>
+									</tr>
+									<tr>
+										<td>94</td>
+										<td>abcde1234@kokonut.me</td>
+										<td>김코코</td>
+										<td>1991. 01. 01</td>
+										<td>010-1234-5678</td>
+									</tr>
+									<tr>
+										<td>93</td>
+										<td>abcde1234@kokonut.me</td>
+										<td>김코코</td>
+										<td>1991. 01. 01</td>
+										<td>010-1234-5678</td>
+									</tr>
+									<tr>
+										<td>92</td>
+										<td>abcde1234@kokonut.me</td>
+										<td>김코코</td>
+										<td>1991. 01. 01</td>
+										<td>010-1234-5678</td>
+									</tr>
+									<tr>
+										<td>91</td>
+										<td>abcde1234@kokonut.me</td>
+										<td>김코코</td>
+										<td>1991. 01. 01</td>
+										<td>010-1234-5678</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>	
+						<!-- 페이징 영역 -->
+						<div class="paginationBox marT20">
+							<ul class="pagination">
+								<li class="page-item page-pre disabled"><a class="page-link" aria-label="previous page" href="javascript:void(0)"></a></li>
+								<li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">1</a></li>
+								<li class="page-item"><a class="page-link" aria-label="to page 2" href="javascript:void(0)">2</a></li>
+								<li class="page-item"><a class="page-link" aria-label="to page 3" href="javascript:void(0)">3</a></li>
+								<li class="page-item"><a class="page-link" aria-label="to page 4" href="javascript:void(0)">4</a></li>
+								<li class="page-item"><a class="page-link" aria-label="to page 5" href="javascript:void(0)">5</a></li>
+								<li class="page-item page-last-separator disabled"><a class="page-link" aria-label="" href="javascript:void(0)">...</a></li>
+								<li class="page-item"><a class="page-link" aria-label="to page 93" href="javascript:void(0)">93</a></li>
+								<li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)"></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="koko-popup-close dlinkPop_close" data-popup-close="dlinkPop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 상세보기 팝업 -->
+	<script>
+	//----- 상세보기 OPEN / CLOSE
+	$('.dlinkPop').on('click', function() {
+		$('.open_dlinkPop').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.dlinkPop_close').on('click', function() {
+		$('.open_dlinkPop').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+	
+	<!-- [D] 개인정보 다운로드 팝업 -->
+	<div class="koko_popup pridownPop" data-popup="pridownPop" >
+		<div class="koko_popup_inner">
+			<div class="koko_popup_container">
+				<div class="koko_popup_title">
+					<h3 class="">개인정보 다운로드</h3>
+				</div>
+				<div class="kopopinput marB24">
+					<label>사용목적</label>
+					<input type="text" name="" id="" class="" placeholder="예) 마케팅 활용, 택배 발송">
+				</div>
+				<div class="popcaseInfoBox pi_noneicon marB32">
+					<p>주의사항</p>
+					<dl>다운로드 한 개인정보는 사용 즉시 <span>반드시 해당 파일을 삭제</span>해야 합니다.</dl>
+					<dl>다운로드 파일은 <span>지정된 사용목적 외 사용할 수 없습니다.</span></dl>
+					<dl>다운로드 사용목적 외에 다른 목적으로 해당 파일을 사용하여 문제 발생시, <span>법적인 모든 책임은 다운로드 당사자</span>에게 있습니다.</dl>
+					<dl>다운로드 url은 <span>담당자 이메일</span>로 발송됩니다.</dl>
+					<dl>다운로드 가능 시간은 이메일 발송 후 <span>48시간</span>입니다.</dl>
+				</div>
+				<div class="koko_checkDoubleBox">
+					<div class="koko_check">
+						<input type="checkbox" value="1" name="downcheck" id="downcheck">
+						<label for="downcheck">
+							<em></em>
+							<p class="check">상기 내용에 동의합니다.</p>
+						</label>
+					</div>
+				</div>
+				<div class="payBtnBox">
+					<div class="koko_cancel pridownPop_close">취소</div>
+					<div class="koko_go"><button class="">다운로드</button></div><!-- 구독해지 성공 -->
+				</div>
+			</div>
+			<div class="koko-popup-close pridownPop_close" data-popup-close="pridownPop_close"></div>
+		</div>
+	</div>
+	<!-- // [D] 개인정보 다운로드 팝업 -->
+	<script>
+	//----- 개인정보 다운로드 OPEN / CLOSE
+	$('#pridownPop').on('click', function() {
+		$('.open_dlinkPop').fadeOut(0);
+		$('[data-popup="pridownPop"]').fadeIn(0);
+		$('body').css('overflow','hidden');
+	});
+	$('.pridownPop_close').on('click', function() {
+		$('[data-popup="pridownPop"]').fadeOut(0);
+		$('body').css('overflow','unset');
+	});
+	</script>
+	
+<?php
+include_once('../common/footer.html');
+?>	
