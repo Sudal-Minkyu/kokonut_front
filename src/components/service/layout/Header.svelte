@@ -26,7 +26,7 @@
                     }
                 )
             } else {
-                alert("세션이 종료되어 로그아웃됩니다.");
+                // alert("세션이 종료되어 로그아웃됩니다.");
                 console.log("로그아웃 하였습니다.");
                 is_login.set(false);
             }
