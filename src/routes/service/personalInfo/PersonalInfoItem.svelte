@@ -14,34 +14,59 @@
 
     import { onMount } from 'svelte'
     import restapi from "../../../lib/api.js";
+    import PersonalInfoCreateItemPop
+        from "../../../components/service/environment/personalInfo/PersonalInfoCreateItemPop.svelte";
+    import PersonalInfoAddTabPop
+        from "../../../components/service/environment/personalInfo/PersonalInfoAddTabPop.svelte";
 
     // 사용자 추가카테고리 확인
     onMount(async ()=>{
         await addCategoryList();
+        await basicCategoryList();
+        await userTableList();
     })
 
     let personallInfoLayout = 0;
 
 
-    let category_list = [];
+    let item_list_additional = [];
     // 회사의 추가 카테고리항목 호출 함수
     function addCategoryList() {
 
-        console.log("추가 카테고리 가져오기");
-
-        let url = "/v2/api/Company/addCategoryList";
+        let url = "/v2/api/Company/addItemList";
 
         restapi('v2', 'get', url, "", {}, 'application/json',
             (json_success) => {
-                console.log(json_success);
                 if(json_success.data.status === 200) {
-                    category_list = json_success.data.sendData.categoryList;
+                    item_list_additional = json_success.data.sendData.categoryList;
+                    console.log('추가 카테고리 리스트', item_list_additional);
 
-                    if(category_list.length === 0) {
+                    if(item_list_additional.length === 0) {
                         jQuery("#defaultField").css("display","block");
                     }
+                } else {
+                    // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+                    alert(json_success.data.err_msg);
+                    is_login.set(false);
+                    accessToken.set("");
+                    push('/login');
+                }
+            },
+            (json_error) => {
+                console.log(json_error);
+                console.log("추가 카테고리항목 호출 실패");
+            }
+        )
+    }
 
-                    userTableList();
+    let category_list;
+    // 기본으로 제공되는 카테고리 항목
+    function basicCategoryList() {
+        restapi('v2', 'get', '/v2/api/Company/categoryList', '', {}, 'application/json',
+            (json_success) => {
+                if(json_success.data.status === 200) {
+                    category_list = json_success.data.sendData.defaultCategoryList;
+                    console.log('기본 카테고리 리스트', category_list);
                 } else {
                     // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                     alert(json_success.data.err_msg);
@@ -64,23 +89,18 @@
     // 회사의 테이블리스트 호출 함수
     function userTableList() {
 
-        console.log("테이블리스트 가져오기");
-
         let url = "/v2/api/Company/userTableList";
 
         restapi('v2', 'get', url, "", {}, 'application/json',
             (json_success) => {
-                console.log(json_success);
                 if(json_success.data.status === 200) {
-
+                    console.log('사용자탭리스트', json_success);
                     // table_list = json_success.data.sendData.companyTableList;
                     // column_list = json_success.data.sendData.companyColumnList;
 
                     table_list = json_success.data.sendData.companyTableList;
-                    console.log(table_list);
                     if(table_list.length !== 0) {
                         tableName = table_list[0].ctName;
-                        // console.log("tableName : "+tableName);
 
                         userTableClick(tableName);
                     }
@@ -102,8 +122,6 @@
 
     // 테이블 클릭 -> 클릭한 테이블의 컬럼 호출 함수
     function userTableClick(clickTable) {
-        console.log("테이블컬럼 리스트!");
-        console.log("clickTable : "+clickTable);
 
         let url = "/v2/api/DynamicUser/tableColumnCall";
 
@@ -113,7 +131,6 @@
 
         restapi('v2', 'get', url, "param", sendData, 'application/json',
             (json_success) => {
-                console.log(json_success);
                 if(json_success.data.status === 200) {
                     tableName = clickTable;
                     column_list = json_success.data.sendData.fieldList;
@@ -131,7 +148,6 @@
                 console.log("테이블컬럼 리스트 호출 실패");
             }
         )
-
     }
 
     let titleMessage = "";
@@ -146,6 +162,25 @@
         }, 1000)
     }
 
+    const createItemPopController = {
+        visible: false,
+        show() {
+            createItemPopController.visible = true;
+        },
+        hide() {
+            createItemPopController.visible = false;
+        },
+    }
+
+    const addTabPopController = {
+        visible: false,
+        show() {
+            addTabPopController.visible = true;
+        },
+        hide() {
+            addTabPopController.visible = false;
+        },
+    }
 
     jQuery(function(){
 
@@ -158,7 +193,6 @@
             arr_firstrows.removeClass('on_cateS');
             jQuery(this).addClass('on_cateS');
 
-            //console.log();
             jQuery(this).parent().parent().parent().parent().parent().find('.cateS_checkBox > div').hide();
             jQuery(this).parent().parent().parent().parent().parent().find('.cateS_checkBox > div:nth-child('+ (inx+1) +')').show();
 
@@ -173,7 +207,6 @@
             arr_firstrows.removeClass('on_bo');
             jQuery(this).addClass('on_bo');
 
-            //console.log();
             jQuery(this).parent().parent().parent().parent().parent().find('.bo_tabContentBox > div').hide();
             jQuery(this).parent().parent().parent().parent().parent().find('.bo_tabContentBox > div:nth-child('+ (inx+1) +')').show();
         });
@@ -209,17 +242,22 @@
             </div>
         {:else}
             <div class="prDivideBox" in:fade>
-
-                <PersonalInfoCategory {userTableClick} {titleStart} {tableName} {category_list} />
-
-                <PersonalInfoTable {userTableClick} {userTableList} {tableName} {table_list} {column_list} />
-
+                <PersonalInfoCategory {userTableClick} {titleStart} {tableName} {category_list} {item_list_additional} {createItemPopController}/>
+                <PersonalInfoTable {userTableClick} {userTableList} {tableName} {table_list} {column_list} {addTabPopController}/>
             </div>
         {/if}
 
     </div>
 </section>
 
+
+{#if createItemPopController.visible}
+    <PersonalInfoCreateItemPop {createItemPopController}/>
+{/if}
+
+{#if addTabPopController.visible}
+    <PersonalInfoAddTabPop {addTabPopController}/>
+{/if}
 
 <!-- [D] 전자상거래 적용 대상 팝업 -->
 <!--<div class="koko_popup commerce_pop" data-popup="commerce_pop" style="display:block;">-->

@@ -37,11 +37,6 @@ const restapi = (type, operation, url, dataType, sendData, content_type, success
         headers["ApiKey"] = "ff5873bbf9faa2218b369a577ea9e452";
     }
 
-    // // 고객사 입장의 API Key 호출 -> 항상 주석 상태이며 테스트할때만 풀고 할 것.
-    // if(type === 'v3') {
-    //     headers["ApiKey"] = "ff5873bbf9faa2218b369a577ea9e452";
-    // }
-
     // type이 'v0' 일 경우 -> JWT토큰 불필요
 
     if(operation === 'logout') {

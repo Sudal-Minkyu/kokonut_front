@@ -19,6 +19,7 @@
 
     export let userTableList;
     export let userTableClick;
+    export let addTabPopController;
 
     // 테이블삭제 및 이름수정
     function tableUpdate() {
@@ -58,7 +59,7 @@
 
     <div class="prptitle marB24">
         <h2>개인정보 항목
-            <button class="addtabBtn" id="add_tab_pop">
+            <button class="addtabBtn" id="add_tab_pop"  on:click={addTabPopController.show}>
                 <img src="/assets/images/common/tab_add_button_ver2.png" alt="탭추가">
             </button>
         </h2>
