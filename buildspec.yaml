@@ -12,7 +12,7 @@ phases:
 artifacts:
   files:
     - build/libs/*.jar
-    - appspec.yml   # CodeDeploy 적용 시 추가
+    - appspec.yaml   # CodeDeploy 적용 시 추가
     - scripts/start.sh    # CodeDeploy 적용 시 추가
   discard-paths: yes
 cache:

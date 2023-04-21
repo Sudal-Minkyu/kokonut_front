@@ -89,18 +89,18 @@
     const cols = document.querySelectorAll('#columns .column');
     [].forEach.call(cols, addDnDHandlers);
 
-    const swiper = new Swiper(".mySwiper", {
-        direction: "vertical",
-        loop: true,
-        autoplay: {
-            delay: 2500,
-            disableOnInteraction: false,
-        },
-        navigation: {   // 버튼
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-    });
+    // const swiper = new Swiper(".mySwiper", {
+    //     direction: "vertical",
+    //     loop: true,
+    //     autoplay: {
+    //         delay: 2500,
+    //         disableOnInteraction: false,
+    //     },
+    //     navigation: {   // 버튼
+    //         nextEl: ".swiper-button-next",
+    //         prevEl: ".swiper-button-prev",
+    //     },
+    // });
 
 </script>
 
