@@ -1,5 +1,8 @@
 <script>
+    import restapi from "../../../../lib/api.js";
+
     export let createItemPopController;
+    export let addCategoryList;
 
     const createItemData = {
         ciName: '',
@@ -12,9 +15,21 @@
     }
 
     const handleCreateItem = () => {
-
-        console.log(createItemData);
-        initCreateItemData();
+        restapi('v2', 'post', '/v2/api/Company/saveItem', "body", createItemData, 'application/json',
+            (json_success) => {
+                console.log('아이템 추가 성공', json_success);
+                if(json_success.data.status === 200) {
+                    addCategoryList();
+                } else if (json_success.data.err_code === 'KO087') {
+                    alert('이미 등록되어 있는 항목입니다.');
+                }
+                initCreateItemData();
+            },
+            (json_error) => {
+                console.log('아이템 추가 실패', json_error);
+                initCreateItemData();
+            }
+        );
     }
 
 </script>

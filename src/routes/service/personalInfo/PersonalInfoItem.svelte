@@ -252,11 +252,11 @@
 
 
 {#if createItemPopController.visible}
-    <PersonalInfoCreateItemPop {createItemPopController}/>
+    <PersonalInfoCreateItemPop {createItemPopController}  {addCategoryList} />
 {/if}
 
 {#if addTabPopController.visible}
-    <PersonalInfoAddTabPop {addTabPopController}/>
+    <PersonalInfoAddTabPop {addTabPopController} {userTableList} />
 {/if}
 
 <!-- [D] 전자상거래 적용 대상 팝업 -->
