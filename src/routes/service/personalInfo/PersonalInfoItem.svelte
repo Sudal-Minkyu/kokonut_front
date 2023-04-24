@@ -38,7 +38,8 @@
         restapi('v2', 'get', url, "", {}, 'application/json',
             (json_success) => {
                 if(json_success.data.status === 200) {
-                    item_list_additional = json_success.data.sendData.categoryList;
+                    console.log('추가', json_success);
+                    item_list_additional = json_success.data.sendData.itemList;
                     console.log('추가 카테고리 리스트', item_list_additional);
 
                     if(item_list_additional.length === 0) {
@@ -66,6 +67,12 @@
             (json_success) => {
                 if(json_success.data.status === 200) {
                     category_list = json_success.data.sendData.defaultCategoryList;
+                    for (const {categoryItemListDtoList} of category_list) {
+                        for (const item of categoryItemListDtoList) {
+                            item.combinedValue =
+                                `${item.cddName}_${item.cddSecurity}_${item.cddSubName}_${item.cddClassName}`;
+                        }
+                    }
                     console.log('기본 카테고리 리스트', category_list);
                 } else {
                     // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
@@ -94,6 +101,7 @@
         restapi('v2', 'get', url, "", {}, 'application/json',
             (json_success) => {
                 if(json_success.data.status === 200) {
+                    console.log(json_success);
                     console.log('사용자탭리스트', json_success);
                     // table_list = json_success.data.sendData.companyTableList;
                     // column_list = json_success.data.sendData.companyColumnList;

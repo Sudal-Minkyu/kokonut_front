@@ -28,6 +28,7 @@
 
     function addSelectedItemsToTable(e) {
 
+        console.log(checkedCategoryList);
         if (e.target.checked) {
             let target = e.target.defaultValue.split("_");
             if(target.length === 4) {
@@ -35,10 +36,10 @@
 
                 chose_category_list = [...chose_category_list, { ciName: target[0], ciSecurity: target[1], categoryName: target[2], textColor: target[3]}];
             }
-            console.log('선택 카테고리', chose_category_list);
         } else {
             const index = chose_category_list.indexOf(e.target.defaultValue);
             chose_category_list.splice(index, 1);
+            chose_category_list = [...chose_category_list];
         }
     }
 
@@ -85,6 +86,58 @@
         }
     }
 
+    document.addEventListener('mouseup', (e) => {
+        const parent = e.target.closest('.showcateinBox') || e.target.closest('.cateiBox');
+        if (!parent) {
+            autoCompleteBoxController.hide();
+        }
+    });
+
+    const autoCompleteBoxController = {
+        visible: false,
+        searchResultItemList: [],
+        usedSearchText: '',
+        show() {
+            autoCompleteBoxController.visible = true;
+        },
+        hide() {
+            autoCompleteBoxController.visible = false;
+            autoCompleteBoxController.searchResultItemList = [];
+        },
+        handleAutocompleteSearchTextChange(searchText) {
+            console.log('catList', category_list);
+            console.log('itmList', item_list_additional);
+
+            let result = [];
+            if (searchText) {
+                // 기본 제공 항목들에게서 이름이 일치하는 항목이 있을 경우 반환
+                for (const {categoryItemListDtoList} of category_list) {
+                    result.push(...categoryItemListDtoList.filter(item => item.cddName.includes(searchText)));
+                }
+                if (result.length) {
+                    autoCompleteBoxController.show();
+                    autoCompleteBoxController.usedSearchText = searchText;
+                } else {
+                    result = autoCompleteBoxController.searchResultItemList;
+                }
+            } else {
+                autoCompleteBoxController.hide();
+            }
+
+            return result;
+        },
+        handleCheckedItemChange(e) {
+            if (e.target.checked) {
+                checkedCategoryList = [...checkedCategoryList, e.target.value];
+            } else {
+                checkedCategoryList = [...checkedCategoryList.filter(v => v !== e.target.value)];
+            }
+            addSelectedItemsToTable(e);
+            console.log('event', e);
+        },
+    }
+    $: autoCompleteBoxController.searchResultItemList = autoCompleteBoxController.handleAutocompleteSearchTextChange(autocompleteSearchText);
+
     export let createItemPopController;
 </script>
 
@@ -100,7 +153,7 @@
                     <input type="text" bind:value={autocompleteSearchText} class="catesea" placeholder="찾고 싶은 항목을 검색해 보세요">
                 </div>
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <AutoCompleteBox />
+                <AutoCompleteBox {autoCompleteBoxController} {addSelectedItemsToTable} />
             </div>
 
             <div class="cateListBox">
@@ -145,9 +198,9 @@
 
                         {#each category_list as {cdName, categoryItemListDtoList}, i}
                             <div class="cateS_checkInner" style="display:none;">
-                                {#each categoryItemListDtoList as {cddName, cddSecurity, cddSubName, cddClassName}, j}
+                                {#each categoryItemListDtoList as {cddName, cddSubName, combinedValue}, j}
                                     <div class="cateS_check">
-                                        <input type="checkbox" bind:group={checkedCategoryList} value="{cddName}_{cddSecurity}_{cddSubName}_{cddClassName}" on:change={addSelectedItemsToTable} id="cates_{i + 1}{j}">
+                                        <input type="checkbox" bind:group={checkedCategoryList} value={combinedValue} on:change={addSelectedItemsToTable} id="cates_{i + 1}{j}">
                                         <label for="cates_{i + 1}{j}">
                                             <em></em>
                                             <p class="check">{cddName}</p>

@@ -1,18 +1,18 @@
-<div class="showcateinBox">
+<script>
+    export let autoCompleteBoxController;
+    export let addSelectedItemsToTable;
+</script>
+
+<div class="showcateinBox {autoCompleteBoxController.visible ? 'showon' : ''}">
     <div class="showcateinner">
-        <div class="cateS_check">
-            <input type="checkbox" value="1" name="shcate_01" id="shcate_01">
-            <label for="shcate_01">
-                <em></em>
-                <p class="check"><span>주소</span>(시군구)</p>
-            </label>
-        </div>
-        <div class="cateS_check">
-            <input type="checkbox" value="1" name="shcate_02" id="shcate_02">
-            <label for="shcate_02">
-                <em></em>
-                <p class="check"><span>주소</span>(동호수)</p>
-            </label>
-        </div>
+        {#each autoCompleteBoxController.searchResultItemList as {combinedValue, cddName}, i}
+            <div class="cateS_check">
+                <input type="checkbox" on:change={autoCompleteBoxController.handleCheckedItemChange} value={combinedValue} id="shcate_{i}">
+                <label for="shcate_{i}">
+                    <em></em>
+                    <p class="check"><span>{cddName}</span></p>
+                </label>
+            </div>
+        {/each}
     </div>
 </div>

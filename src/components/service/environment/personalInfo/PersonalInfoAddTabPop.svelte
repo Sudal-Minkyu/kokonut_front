@@ -15,7 +15,7 @@
 
     const handleAddItem = () => {
         console.log(addTabData);
-        restapi('v2', 'post', '/v2/api/Company/userTableSave', "body", addTabData, 'application/json',
+        restapi('v2', 'post', '/v2/api/Company/userTableSave', "param", addTabData, 'application/json',
             (json_success) => {
                 console.log('아이템 추가 성공', json_success);
                 if(json_success.data.status === 200) {
