@@ -2,17 +2,11 @@
 
     import restapi from "../../../../lib/api.js";
     import jQuery from "jquery";
-    import {accessToken, is_login} from "../../../../lib/store.js";
+    import {accessToken, is_login, personalInfoTableData} from "../../../../lib/store.js";
     import {push} from "svelte-spa-router";
 
     export let tableName;
-    export let table_list;
     export let column_list;
-
-    console.log("tableName : "+tableName);
-    console.log(table_list);
-    console.log(column_list);
-    console.log(column_list.length);
 
     // console.log(column_list[0].columnList);
     // console.log(column_list[1].columnList);
@@ -67,8 +61,8 @@
 
     <div class="bo_tabBox" style="overflow: scroll">
         <div class="tabWrap">
-            {#if table_list.length !== 0}
-                {#each table_list as table, i}
+            {#if $personalInfoTableData.userTableData.length !== 0}
+                {#each $personalInfoTableData.userTableData as table, i}
                     {#if i === 0}
                         <div class="bo_tab on_bo" on:click={() => userTableClick(table.ctName)}>
                             {table.ctDesignation}

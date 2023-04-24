@@ -9,7 +9,7 @@
     import {link, push} from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
 
-    import {accessToken, backBtn, is_login} from '../../../lib/store.js'
+    import {accessToken, backBtn, is_login, personalInfoCategoryData, personalInfoTableData} from '../../../lib/store.js'
     import jQuery from "jquery";
 
     import { onMount } from 'svelte'
@@ -21,17 +21,15 @@
 
     // 사용자 추가카테고리 확인
     onMount(async ()=>{
-        await addCategoryList();
+        await addItemList();
         await basicCategoryList();
         await userTableList();
     })
 
     let personallInfoLayout = 0;
 
-
-    let item_list_additional = [];
     // 회사의 추가 카테고리항목 호출 함수
-    function addCategoryList() {
+    function addItemList() {
 
         let url = "/v2/api/Company/addItemList";
 
@@ -39,10 +37,13 @@
             (json_success) => {
                 if(json_success.data.status === 200) {
                     console.log('추가', json_success);
-                    item_list_additional = json_success.data.sendData.itemList;
-                    console.log('추가 카테고리 리스트', item_list_additional);
+                    personalInfoCategoryData.update(obj => {
+                        obj.addItemList = json_success.data.sendData.itemList;
+                        return obj;
+                    });
+                    console.log('추가 카테고리 리스트', $personalInfoCategoryData.addItemList);
 
-                    if(item_list_additional.length === 0) {
+                    if($personalInfoCategoryData.addItemList.length === 0) {
                         jQuery("#defaultField").css("display","block");
                     }
                 } else {
@@ -66,14 +67,17 @@
         restapi('v2', 'get', '/v2/api/Company/categoryList', '', {}, 'application/json',
             (json_success) => {
                 if(json_success.data.status === 200) {
-                    category_list = json_success.data.sendData.defaultCategoryList;
-                    for (const {categoryItemListDtoList} of category_list) {
-                        for (const item of categoryItemListDtoList) {
-                            item.combinedValue =
-                                `${item.cddName}_${item.cddSecurity}_${item.cddSubName}_${item.cddClassName}`;
+                    personalInfoCategoryData.update(obj => {
+                        obj.basicCategoryList = json_success.data.sendData.defaultCategoryList;
+                        for (const {categoryItemListDtoList} of obj.basicCategoryList) {
+                            for (const item of categoryItemListDtoList) {
+                                item.combinedValue =
+                                    `${item.cddName}_${item.cddSecurity}_${item.cddSubName}_${item.cddClassName}`;
+                            }
                         }
-                    }
-                    console.log('기본 카테고리 리스트', category_list);
+                        return obj;
+                    });
+                    console.log('기본 카테고리 리스트', $personalInfoCategoryData.basicCategoryList);
                 } else {
                     // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                     alert(json_success.data.err_msg);
@@ -90,7 +94,6 @@
     }
 
     let tableName= ""; // 테이블명
-    let table_list = []; // 테이블리스트
     let column_list = []; // 컬럼리스트
 
     // 회사의 테이블리스트 호출 함수
@@ -101,14 +104,12 @@
         restapi('v2', 'get', url, "", {}, 'application/json',
             (json_success) => {
                 if(json_success.data.status === 200) {
-                    console.log(json_success);
-                    console.log('사용자탭리스트', json_success);
-                    // table_list = json_success.data.sendData.companyTableList;
-                    // column_list = json_success.data.sendData.companyColumnList;
-
-                    table_list = json_success.data.sendData.companyTableList;
-                    if(table_list.length !== 0) {
-                        tableName = table_list[0].ctName;
+                    personalInfoTableData.update(obj => {
+                        obj.userTableData = json_success.data.sendData.companyTableList;
+                        return obj;
+                    });
+                    if($personalInfoTableData.userTableData.length !== 0) {
+                        tableName = $personalInfoTableData.userTableData[0].ctName;
 
                         userTableClick(tableName);
                     }
@@ -219,18 +220,7 @@
             jQuery(this).parent().parent().parent().parent().parent().find('.bo_tabContentBox > div:nth-child('+ (inx+1) +')').show();
         });
 
-    })
-
-    // $(".catesea").focus(function() {
-    //     $(".showcateinBox").addClass("showon");
-    // });
-    //     <!-- $('.catesea').focusout(function() { -->
-    //     <!-- $(".showcateinBox").removeClass("showon"); -->
-    //     <!-- }); -->
-    //
-    //     $('.cateS_check').on('click', function(e) {
-    //     $(".showcateinBox").removeClass("showon");
-    // });
+    });
 
 </script>
 
@@ -250,8 +240,8 @@
             </div>
         {:else}
             <div class="prDivideBox" in:fade>
-                <PersonalInfoCategory {userTableClick} {titleStart} {tableName} {category_list} {item_list_additional} {createItemPopController}/>
-                <PersonalInfoTable {userTableClick} {userTableList} {tableName} {table_list} {column_list} {addTabPopController}/>
+                <PersonalInfoCategory {userTableClick} {titleStart} {tableName} {createItemPopController}/>
+                <PersonalInfoTable {userTableClick} {userTableList} {tableName} {column_list} {addTabPopController}/>
             </div>
         {/if}
 
@@ -259,8 +249,8 @@
 </section>
 
 
-{#if createItemPopController.visible}
-    <PersonalInfoCreateItemPop {createItemPopController}  {addCategoryList} />
+{#if $personalInfoCategoryData.createItemPop.visible}
+    <PersonalInfoCreateItemPop {addItemList} />
 {/if}
 
 {#if addTabPopController.visible}

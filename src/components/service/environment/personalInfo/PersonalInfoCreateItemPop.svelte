@@ -1,8 +1,8 @@
 <script>
     import restapi from "../../../../lib/api.js";
+    import {personalInfoCategoryData} from "../../../../lib/store.js";
 
-    export let createItemPopController;
-    export let addCategoryList;
+    export let addItemList;
 
     const createItemData = {
         ciName: '',
@@ -19,7 +19,7 @@
             (json_success) => {
                 console.log('아이템 추가 성공', json_success);
                 if(json_success.data.status === 200) {
-                    addCategoryList();
+                    addItemList();
                 } else if (json_success.data.err_code === 'KO087') {
                     alert('이미 등록되어 있는 항목입니다.');
                 }
@@ -59,10 +59,10 @@
                 </div>
             </div>
             <div class="kokopopBtnBox">
-                <div class="koko_cancel" on:click={createItemPopController.hide}>취소</div>
+                <div class="koko_cancel" on:click={()=>{personalInfoCategoryData.update(obj => {obj.createItemPop.visible = false; return obj;})}}>취소</div>
                 <div class="koko_go" on:click={handleCreateItem}><button type="submit">추가</button></div>
             </div>
         </div>
-        <div class="koko-popup-close create_item_pop_close" on:click={createItemPopController.hide}></div>
+        <div class="koko-popup-close create_item_pop_close" on:click={()=>{personalInfoCategoryData.update(obj => {obj.createItemPop.visible = false; return obj;})}}></div>
     </div>
 </div>

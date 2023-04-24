@@ -2,13 +2,12 @@
     import restapi from "../../../../lib/api.js";
     import AutoCompleteBox from "./AutoCompleteBox.svelte";
 
+    import {personalInfoCategoryData} from "../../../../lib/store.js";
     export let titleStart;
     export let userTableClick;
 
     export let tableName;
-    export let category_list;
     let checkedCategoryList = [];
-    export let item_list_additional;
 
     let autocompleteSearchText = '';
     let chose_category_list = [];
@@ -105,13 +104,11 @@
             autoCompleteBoxController.searchResultItemList = [];
         },
         handleAutocompleteSearchTextChange(searchText) {
-            console.log('catList', category_list);
-            console.log('itmList', item_list_additional);
 
             let result = [];
             if (searchText) {
                 // 기본 제공 항목들에게서 이름이 일치하는 항목이 있을 경우 반환
-                for (const {categoryItemListDtoList} of category_list) {
+                for (const {categoryItemListDtoList} of $personalInfoCategoryData.basicCategoryList) {
                     result.push(...categoryItemListDtoList.filter(item => item.cddName.includes(searchText)));
                 }
                 if (result.length) {
@@ -138,13 +135,12 @@
     }
     $: autoCompleteBoxController.searchResultItemList = autoCompleteBoxController.handleAutocompleteSearchTextChange(autocompleteSearchText);
 
-    export let createItemPopController;
 </script>
 
 <div class="prPart1_box">
     <div class="prptitle">
         <h2>항목 분류</h2>
-        <div class="myAddBtn" on:click={createItemPopController.show}>나만의 항목 추가</div>
+        <div class="myAddBtn" on:click={()=>{personalInfoCategoryData.update(obj => {obj.createItemPop.visible = true; return obj;})}}>나만의 항목 추가</div>
     </div>
     <div class="categorydivision_box">
         <div>
@@ -161,11 +157,11 @@
                     <div class="cateScrollInner">
                         <div class="cateS_Items">
                             <ul>
-                                {#if item_list_additional.length}
+                                {#if $personalInfoCategoryData.addItemList.length}
                                     <li class="cs_tab on_cateS">추가카테고리</li>
                                 {/if}
-                                {#each category_list as {cdName}, i}
-                                    {#if !item_list_additional.length && i === 0 }
+                                {#each $personalInfoCategoryData.basicCategoryList as {cdName}, i}
+                                    {#if !$personalInfoCategoryData.addItemList.length && i === 0 }
                                         <li class="cs_tab on_cateS">{cdName}</li>
                                     {:else}
                                         <li class="cs_tab">{cdName}</li>
@@ -181,9 +177,9 @@
 
                     <div class="cateS_checkBox">
 
-                        {#if item_list_additional.length}
+                        {#if $personalInfoCategoryData.addItemList.length}
                             <div class="cateS_checkInner">
-                                {#each item_list_additional as category, i}
+                                {#each $personalInfoCategoryData.addItemList as category, i}
                                     <div class="cateS_check">
                                         <input type="checkbox" id="cates_0{i}" bind:group={checkedCategoryList} on:change={addSelectedItemsToTable} value="{category.ciName}_{category.ciSecurity}_추가항목_greentext">
                                         <label for="cates_0{i}">
@@ -196,7 +192,7 @@
                             </div>
                         {/if}
 
-                        {#each category_list as {cdName, categoryItemListDtoList}, i}
+                        {#each $personalInfoCategoryData.basicCategoryList as {cdName, categoryItemListDtoList}, i}
                             <div class="cateS_checkInner" style="display:none;">
                                 {#each categoryItemListDtoList as {cddName, cddSubName, combinedValue}, j}
                                     <div class="cateS_check">

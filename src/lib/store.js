@@ -35,3 +35,15 @@ export const findEmail = writable("이메일 찾는중..."); // 이메일 찾기
 export const findPwd = writable(""); // 비밀번호 찾기의 이메일변수
 export const tempPwd = writable(""); // 임시비밀번호 변수
 export const openDiv = writable(0); // 이메일/비번찾기 페이지용 open 컴포넌트 번호
+
+export const personalInfoCategoryData = writable({
+    basicCategoryList: [],
+    addItemList: [],
+    createItemPop: {
+        visible: false,
+    },
+});
+
+export const personalInfoTableData = writable({
+    userTableData: [],
+});
