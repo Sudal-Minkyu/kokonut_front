@@ -1,8 +1,6 @@
 <script>
-    import jQuery from "jquery";
     import restapi from "../../../../lib/api.js";
-    import {accessToken, is_login} from "../../../../lib/store.js";
-    import {push} from "svelte-spa-router";
+    import AutoCompleteBox from "./AutoCompleteBox.svelte";
 
     export let titleStart;
     export let userTableClick;
@@ -12,15 +10,7 @@
     let checkedCategoryList = [];
     export let item_list_additional;
 
-
-    function test() {
-        jQuery(".showcateinBox").addClass("showon");
-    }
-
-    function test2() {
-        jQuery(".showcateinBox").removeClass("showon");
-    }
-
+    let autocompleteSearchText = '';
     let chose_category_list = [];
 
     // 선택항목을 삭제하고 체크 상태를 반영한다.
@@ -36,7 +26,7 @@
         checkedCategoryList = [];
     }
 
-    function test3(e) {
+    function addSelectedItemsToTable(e) {
 
         if (e.target.checked) {
             let target = e.target.defaultValue.split("_");
@@ -107,27 +97,10 @@
         <div>
             <div class="cateiBox">
                 <div class="cateinput">
-                    <input type="text" name="" id="" class="catesea" on:click={test} placeholder="찾고 싶은 항목을 검색해 보세요">
+                    <input type="text" bind:value={autocompleteSearchText} class="catesea" placeholder="찾고 싶은 항목을 검색해 보세요">
                 </div>
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <div class="showcateinBox" on:click={test2}>
-                    <div class="showcateinner">
-                        <div class="cateS_check">
-                            <input type="checkbox" value="1" name="shcate_01" id="shcate_01">
-                            <label for="shcate_01">
-                                <em></em>
-                                <p class="check"><span>주소</span>(시군구)</p>
-                            </label>
-                        </div>
-                        <div class="cateS_check">
-                            <input type="checkbox" value="1" name="shcate_02" id="shcate_02">
-                            <label for="shcate_02">
-                                <em></em>
-                                <p class="check"><span>주소</span>(동호수)</p>
-                            </label>
-                        </div>
-                    </div>
-                </div>
+                <AutoCompleteBox />
             </div>
 
             <div class="cateListBox">
@@ -159,7 +132,7 @@
                             <div class="cateS_checkInner">
                                 {#each item_list_additional as category, i}
                                     <div class="cateS_check">
-                                        <input type="checkbox" id="cates_0{i}" bind:group={checkedCategoryList} on:change={test3} value="{category.ciName}_{category.ciSecurity}_추가항목_greentext">
+                                        <input type="checkbox" id="cates_0{i}" bind:group={checkedCategoryList} on:change={addSelectedItemsToTable} value="{category.ciName}_{category.ciSecurity}_추가항목_greentext">
                                         <label for="cates_0{i}">
                                             <em></em>
                                             <p class="check">{category.ciName}</p>
@@ -174,7 +147,7 @@
                             <div class="cateS_checkInner" style="display:none;">
                                 {#each categoryItemListDtoList as {cddName, cddSecurity, cddSubName, cddClassName}, j}
                                     <div class="cateS_check">
-                                        <input type="checkbox" bind:group={checkedCategoryList} value="{cddName}_{cddSecurity}_{cddSubName}_{cddClassName}" on:change={test3} id="cates_{i + 1}{j}">
+                                        <input type="checkbox" bind:group={checkedCategoryList} value="{cddName}_{cddSecurity}_{cddSubName}_{cddClassName}" on:change={addSelectedItemsToTable} id="cates_{i + 1}{j}">
                                         <label for="cates_{i + 1}{j}">
                                             <em></em>
                                             <p class="check">{cddName}</p>
@@ -198,11 +171,6 @@
                         <button on:click={() => removeSelectedCategoryList(i)}>X</button>
                     </div>
                 {/each}
-
-<!--                <div class="sel_cate">이름<button></button></div>-->
-<!--                <div class="sel_cate">생년월일<button></button></div>-->
-<!--                <div class="sel_cate">휴대전화번호<button></button></div>-->
-<!--                <div class="sel_cate">주민등록번호<button></button></div>-->
             </div>
             <div class="sel_cateBtnBox">
                 <button class="cateResetBtn" on:click={resetCategoryList}>초기화</button>

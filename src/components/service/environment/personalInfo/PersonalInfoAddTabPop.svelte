@@ -1,7 +1,9 @@
 <script>
     import {onDestroy} from "svelte";
+    import restapi from "../../../../lib/api.js";
 
     export let addTabPopController;
+    export let userTableList;
 
     const addTabData = {
         ctDesignation: '',
@@ -13,8 +15,23 @@
 
     const handleAddItem = () => {
         console.log(addTabData);
-        addTabPopController.hide();
-        initAddTabPop();
+        restapi('v2', 'post', '/v2/api/Company/userTableSave', "body", addTabData, 'application/json',
+            (json_success) => {
+                console.log('아이템 추가 성공', json_success);
+                if(json_success.data.status === 200) {
+                    userTableList();
+                } else if (json_success.data.err_code === 'KO088') {
+                    alert('이미 등록되어 있는 테이블 명입니다.');
+                }
+                addTabPopController.hide();
+                initAddTabPop();
+            },
+            (json_error) => {
+                console.log('아이템 추가 실패', json_error);
+                addTabPopController.hide();
+                initAddTabPop();
+            }
+        );
     }
 
     const handleCancel = () => {
