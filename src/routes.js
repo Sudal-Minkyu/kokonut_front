@@ -26,6 +26,9 @@ import QnaDetail from "./routes/service/qna/QnaDetail.svelte"
 
 import PersonalInfoItem from "./routes/service/personalInfo/PersonalInfoItem.svelte"
 
+import PolicyList from "./routes/service/policy/PolicyList.svelte"
+import PolicyWrite from "./routes/service/policy/PolicyWrite.svelte"
+
 export default {
     // API 테스트하는 화면
     "/Apitest": wrap({
@@ -95,6 +98,15 @@ export default {
 
     // 개인정보항목관리 페이지
     "/service/environment/personalInfoItem": PersonalInfoItem,
+
+    // 개인정보처리방침 리스트 페이지
+    "/service/policyList": PolicyList,
+    // 개인정보처리방침 작성페이지
+    "/service/policyWrite": PolicyWrite,
+    // 개인정보처리방침 모든작성페이지
+    "/service/policyWriteAll": wrap({
+        asyncComponent: () => import("./routes/service/policy/policyWriteAll.svelte"),
+    }),
 
     "*": wrap({
         asyncComponent: () => import("./routes/NotFound.svelte"),

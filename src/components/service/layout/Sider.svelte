@@ -34,7 +34,7 @@
             </div>
             <div class="subNav">
                 <ul>
-                    <li class="onedepth noneMarB"><a use:link href="/service"><img src="/assets/images/common/menu_icon_manage.png" alt="">개인정보처리방침 관리</a></li>
+                    <li class="onedepth noneMarB"><a use:link href="/service/policyList"><img src="/assets/images/common/menu_icon_manage.png" alt="">개인정보처리방침 관리</a></li>
                 </ul>
             </div>
             <div class="subNav">
