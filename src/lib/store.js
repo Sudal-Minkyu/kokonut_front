@@ -36,6 +36,9 @@ export const findPwd = writable(""); // 비밀번호 찾기의 이메일변수
 export const tempPwd = writable(""); // 임시비밀번호 변수
 export const openDiv = writable(0); // 이메일/비번찾기 페이지용 open 컴포넌트 번호
 
+export const piId = writable(0); // 개인정보처리방침 saveId
+export const piStage = writable(0); // 개인정보처리방침 작성중인 글이 존재할 경우 보내는 단계
+
 export const personalInfoCategoryData = writable({
     basicCategoryList: [],
     addItemList: [],
