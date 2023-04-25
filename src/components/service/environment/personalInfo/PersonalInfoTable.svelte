@@ -5,15 +5,10 @@
     import {accessToken, is_login, personalInfoTableData} from "../../../../lib/store.js";
     import {push} from "svelte-spa-router";
 
-    export let tableName;
-    export let column_list;
+    export let personalInfoItemProp;
 
-    // console.log(column_list[0].columnList);
-    // console.log(column_list[1].columnList);
-
-    export let userTableList;
     export let userTableClick;
-    export let addTabPopController;
+    export let personalInfoTableService;
 
     // 테이블삭제 및 이름수정
     function tableUpdate() {
@@ -22,7 +17,7 @@
 
         let url = "/v2/api/DynamicUser/tableColumnUpdate";
         let sendData = {
-            tableName : tableName
+            tableName : personalInfoItemProp.currentSelectedTab,
         }
 
         restapi('v2', 'post', url, "param", sendData, 'application/json',
@@ -53,7 +48,7 @@
 
     <div class="prptitle marB24">
         <h2>개인정보 항목
-            <button class="addtabBtn" id="add_tab_pop"  on:click={addTabPopController.show}>
+            <button class="addtabBtn" id="add_tab_pop"  on:click={personalInfoTableService.addTabPop.show}>
                 <img src="/assets/images/common/tab_add_button_ver2.png" alt="탭추가">
             </button>
         </h2>
@@ -96,8 +91,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {#if column_list.length !== 0}
-                        {#each column_list as column, i}
+                    {#if $personalInfoTableData.columnList.length !== 0}
+                        {#each $personalInfoTableData.columnList as column, i}
                             <tr>
                                 <td>{i+1}</td>
                                 {#if column.fieldName === "ID" || column.fieldName === "PASSWORD" }
@@ -144,7 +139,7 @@
         </div>
     </div>
 
-    {#if column_list.length !== 0}
+    {#if $personalInfoTableData.columnList.length}
         <div class="prDelBtn marT20">
             <button id="delete_pr_pop">삭제</button>
         </div>

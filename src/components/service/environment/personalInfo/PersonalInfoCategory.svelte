@@ -3,10 +3,11 @@
     import AutoCompleteBox from "./AutoCompleteBox.svelte";
 
     import {personalInfoCategoryData} from "../../../../lib/store.js";
+    export let personalInfoCategoryService;
     export let titleStart;
     export let userTableClick;
 
-    export let tableName;
+    export let personalInfoItemProp;
     let checkedCategoryList = [];
 
     let autocompleteSearchText = '';
@@ -50,7 +51,7 @@
             let url = "/v2/api/DynamicUser/tableColumnAdd";
 
             let sendData = {
-                tableName : tableName,
+                tableName : personalInfoItemProp.currentSelectedTab,
                 kokonutAddColumnListDtos : chose_category_list
             }
 
@@ -61,11 +62,11 @@
                         titleStart("선택한 항목을 추가하였습니다.");
                         // init();
 
-                        // tableName = clickTable;
+                        // personalInfoItemProp.setCurrentSelectedTab(clickTable);
                         // field_list = json_success.data.sendData.fieldList;
                         // personallInfoLayout = 1;
 
-                        userTableClick(tableName);
+                        userTableClick(personalInfoItemProp.currentSelectedTab);
                         resetCategoryList();
                     } else {
                         // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
@@ -140,7 +141,7 @@
 <div class="prPart1_box">
     <div class="prptitle">
         <h2>항목 분류</h2>
-        <div class="myAddBtn" on:click={()=>{personalInfoCategoryData.update(obj => {obj.createItemPop.visible = true; return obj;})}}>나만의 항목 추가</div>
+        <div class="myAddBtn" on:click={personalInfoCategoryService.createItemPop.show}>나만의 항목 추가</div>
     </div>
     <div class="categorydivision_box">
         <div>

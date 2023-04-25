@@ -41,9 +41,17 @@ export const personalInfoCategoryData = writable({
     addItemList: [],
     createItemPop: {
         visible: false,
+        inputData: {
+            ciName: '',
+            ciSecurity: '0',
+        },
     },
 });
 
 export const personalInfoTableData = writable({
     userTableData: [],
+    columnList: [],
+    addTabPop: {
+        visible: false,
+    },
 });

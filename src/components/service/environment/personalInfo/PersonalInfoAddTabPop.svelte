@@ -2,8 +2,8 @@
     import {onDestroy} from "svelte";
     import restapi from "../../../../lib/api.js";
 
-    export let addTabPopController;
     export let userTableList;
+    export let personalInfoTableService;
 
     const addTabData = {
         ctDesignation: '',
@@ -23,19 +23,19 @@
                 } else if (json_success.data.err_code === 'KO088') {
                     alert('이미 등록되어 있는 테이블 명입니다.');
                 }
-                addTabPopController.hide();
+                personalInfoTableService.addTabPop.hide();
                 initAddTabPop();
             },
             (json_error) => {
                 console.log('아이템 추가 실패', json_error);
-                addTabPopController.hide();
+                personalInfoTableService.addTabPop.hide();
                 initAddTabPop();
             }
         );
     }
 
     const handleCancel = () => {
-        addTabPopController.hide();
+        personalInfoTableService.addTabPop.hide();
         initAddTabPop();
     }
 

@@ -1,6 +1,5 @@
 <script>
     export let autoCompleteBoxController;
-    export let addSelectedItemsToTable;
 </script>
 
 <div class="showcateinBox {autoCompleteBoxController.visible ? 'showon' : ''}">
