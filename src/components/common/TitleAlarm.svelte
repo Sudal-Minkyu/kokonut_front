@@ -1,9 +1,7 @@
 <script>
 
     import { fade } from 'svelte/transition'
-
-    export let titleMessage;
-    export let titleClick;
+    export let personalInfoItemProp;
 
 </script>
 <style>
@@ -25,8 +23,8 @@
     }
 </style>
 
-{#if titleClick}
+{#if personalInfoItemProp.banner.titleClick}
     <div class="titleDiv" in:fade out:fade>
-        <p class="titleMessage">{titleMessage}</p>
+        <p class="titleMessage">{personalInfoItemProp.banner.titleMessage}</p>
     </div>
 {/if}

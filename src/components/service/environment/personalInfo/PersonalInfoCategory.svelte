@@ -4,9 +4,6 @@
 
     import {personalInfoCategoryData} from "../../../../lib/store.js";
     export let personalInfoCategoryService;
-    export let titleStart;
-    export let userTableClick;
-
     export let personalInfoItemProp;
     let checkedCategoryList = [];
 
@@ -59,14 +56,9 @@
                 (json_success) => {
                     console.log(json_success);
                     if(json_success.data.status === 200) {
-                        titleStart("선택한 항목을 추가하였습니다.");
-                        // init();
+                        personalInfoItemProp.banner.activateBanner("선택한 항목을 추가하였습니다.");
 
-                        // personalInfoItemProp.setCurrentSelectedTab(clickTable);
-                        // field_list = json_success.data.sendData.fieldList;
-                        // personallInfoLayout = 1;
-
-                        userTableClick(personalInfoItemProp.currentSelectedTab);
+                        personalInfoItemProp.userTableClick(personalInfoItemProp.currentSelectedTab)
                         resetCategoryList();
                     } else {
                         // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
@@ -82,7 +74,7 @@
                 }
             )
         } else {
-            titleStart("추가할 항목을 선택해주세요.");
+            personalInfoItemProp.banner.activateBanner("추가할 항목을 선택해주세요.");
         }
     }
 

@@ -23,6 +23,50 @@
         setCurrentSelectedTab(tabName) {
             personalInfoItemProp.currentSelectedTab = tabName;
         },
+        userTableClick(clickTable) {
+
+            let url = "/v2/api/DynamicUser/tableColumnCall";
+
+            let sendData = {
+                tableName : clickTable
+            }
+
+            restapi('v2', 'get', url, "param", sendData, 'application/json',
+                (json_success) => {
+                    if(json_success.data.status === 200) {
+                        personalInfoItemProp.setCurrentSelectedTab(clickTable);
+                        personalInfoTableData.update(obj => {
+                            obj.columnList = json_success.data.sendData.fieldList;
+                            return obj;
+                        });
+                        personalInfoItemProp.isLoadingScreenOn = false;
+                    } else {
+                        // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+                        alert(json_success.data.err_msg);
+                        is_login.set(false);
+                        accessToken.set("");
+                        push('/login');
+                    }
+                },
+                (json_error) => {
+                    console.log(json_error);
+                    console.log("테이블컬럼 리스트 호출 실패");
+                }
+            )
+        },
+        banner: {
+            titleMessage: '',
+            titleClick: false,
+            activateBanner(message) {
+                personalInfoItemProp.banner.titleMessage = message;
+                personalInfoItemProp.banner.titleClick = true;
+                setTimeout(() => {
+                    if(personalInfoItemProp.banner.titleClick) {
+                        personalInfoItemProp.banner.titleClick = false;
+                    }
+                }, 1000);
+            }
+        }
     }
 
     const personalInfoCategoryService = {
@@ -97,46 +141,41 @@
                     return obj;
                 });
             },
-            userTableClick(clickTable) {
-
-                let url = "/v2/api/DynamicUser/tableColumnCall";
-
-                let sendData = {
-                    tableName : clickTable
-                }
-
-                restapi('v2', 'get', url, "param", sendData, 'application/json',
-                    (json_success) => {
-                        if(json_success.data.status === 200) {
-                            personalInfoItemProp.setCurrentSelectedTab(clickTable);
-                            personalInfoTableData.update(obj => {
-                                obj.columnList = json_success.data.sendData.fieldList;
-                                return obj;
-                            });
-                            personalInfoItemProp.isLoadingScreenOn = false;
-                        } else {
-                            // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                            alert(json_success.data.err_msg);
-                            is_login.set(false);
-                            accessToken.set("");
-                            push('/login');
-                        }
-                    },
-                    (json_error) => {
-                        console.log(json_error);
-                        console.log("테이블컬럼 리스트 호출 실패");
-                    }
-                )
-            },
         },
-
+        getUserTableList() {
+            let url = "/v2/api/Company/userTableList";
+            restapi('v2', 'get', url, "", {}, 'application/json',
+                (json_success) => {
+                    if(json_success.data.status === 200) {
+                        personalInfoTableData.update(obj => {
+                            obj.userTableData = json_success.data.sendData.companyTableList;
+                            return obj;
+                        });
+                        if($personalInfoTableData.userTableData.length !== 0) {
+                            personalInfoItemProp.setCurrentSelectedTab($personalInfoTableData.userTableData[0].ctName);
+                            personalInfoItemProp.userTableClick(personalInfoItemProp.currentSelectedTab);
+                        }
+                    } else {
+                        // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+                        alert(json_success.data.err_msg);
+                        is_login.set(false);
+                        accessToken.set("");
+                        push('/login');
+                    }
+                },
+                (json_error) => {
+                    console.log(json_error);
+                    console.log("회사의 테이블리스트 호출 실패");
+                }
+            )
+        },
     };
 
     // 사용자 추가카테고리 확인
     onMount(async ()=>{
         await personalInfoCategoryService.getAdditionalItemList();
         await basicCategoryList();
-        await userTableList();
+        await personalInfoTableService.getUserTableList();
     });
 
     // 기본으로 제공되는 카테고리 항목
@@ -170,83 +209,8 @@
         )
     }
 
-
-    // 회사의 테이블리스트 호출 함수
-    function userTableList() {
-
-        let url = "/v2/api/Company/userTableList";
-
-        restapi('v2', 'get', url, "", {}, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    personalInfoTableData.update(obj => {
-                        obj.userTableData = json_success.data.sendData.companyTableList;
-                        return obj;
-                    });
-                    if($personalInfoTableData.userTableData.length !== 0) {
-                        personalInfoItemProp.setCurrentSelectedTab($personalInfoTableData.userTableData[0].ctName);
-
-                        userTableClick(personalInfoItemProp.currentSelectedTab);
-                    }
-                } else {
-                    // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                    alert(json_success.data.err_msg);
-                    is_login.set(false);
-                    accessToken.set("");
-                    push('/login');
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("회사의 테이블리스트 호출 실패");
-            }
-        )
-    }
-
-    // 테이블 클릭 -> 클릭한 테이블의 컬럼 호출 함수
-    function userTableClick(clickTable) {
-
-        let url = "/v2/api/DynamicUser/tableColumnCall";
-
-        let sendData = {
-            tableName : clickTable
-        }
-
-        restapi('v2', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    personalInfoItemProp.setCurrentSelectedTab(clickTable);
-                    personalInfoTableData.update(obj => {
-                        obj.columnList = json_success.data.sendData.fieldList;
-                        return obj;
-                    });
-                    personalInfoItemProp.isLoadingScreenOn = false;
-                } else {
-                    // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                    alert(json_success.data.err_msg);
-                    is_login.set(false);
-                    accessToken.set("");
-                    push('/login');
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("테이블컬럼 리스트 호출 실패");
-            }
-        )
-    }
-
     let titleMessage = "";
     let titleClick = false;
-    function titleStart(message) {
-        titleMessage = message;
-        titleClick = true;
-        setTimeout(() => {
-            if(titleClick) {
-                titleClick = false;
-            }
-        }, 1000)
-    }
 
     jQuery(function(){
 
@@ -289,7 +253,7 @@
             <h1>개인정보 항목 관리</h1>
         </div>
 
-        <TitleAlarm {titleMessage} {titleClick} />
+        <TitleAlarm {personalInfoItemProp} />
 
         {#if personalInfoItemProp.isLoadingScreenOn}
             <div class="loaderParent">
@@ -297,8 +261,8 @@
             </div>
         {:else}
             <div class="prDivideBox" in:fade>
-                <PersonalInfoCategory {userTableClick} {titleStart} {personalInfoItemProp} {personalInfoCategoryService} />
-                <PersonalInfoTable {userTableClick} {userTableList} {personalInfoItemProp} {personalInfoTableService} />
+                <PersonalInfoCategory {personalInfoItemProp} {personalInfoCategoryService} />
+                <PersonalInfoTable {personalInfoItemProp} {personalInfoTableService} />
             </div>
         {/if}
 
@@ -311,7 +275,7 @@
 {/if}
 
 {#if $personalInfoTableData.addTabPop.visible}
-    <PersonalInfoAddTabPop {userTableList} {personalInfoTableService} />
+    <PersonalInfoAddTabPop {personalInfoTableService} />
 {/if}
 
 <!-- [D] 전자상거래 적용 대상 팝업 -->
