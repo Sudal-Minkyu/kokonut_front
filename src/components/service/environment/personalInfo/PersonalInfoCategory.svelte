@@ -38,6 +38,7 @@
             chose_category_list.splice(index, 1);
             chose_category_list = [...chose_category_list];
         }
+        console.log(chose_category_list);
     }
 
     // 항목(컬럼) 추가 버튼
@@ -81,6 +82,7 @@
     document.addEventListener('mouseup', (e) => {
         const parent = e.target.closest('.showcateinBox') || e.target.closest('.cateiBox');
         if (!parent) {
+            autocompleteSearchText = '';
             autoCompleteBoxController.hide();
         }
     });
