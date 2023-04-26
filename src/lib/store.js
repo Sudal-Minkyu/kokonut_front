@@ -39,6 +39,39 @@ export const openDiv = writable(0); // 이메일/비번찾기 페이지용 open 
 export const piId = writable(0); // 개인정보처리방침 saveId
 export const piStage = writable(0); // 개인정보처리방침 작성중인 글이 존재할 경우 보내는 단계
 
+// 개인정보처리방침 정보데이터
+export const policyInfoData = writable({
+    policyData1: {
+        piVersion : '',
+        piDate : '',
+        piHeader : '',
+    },
+    purposeDataList: [],
+
+    collectionDataList: [],
+    createDataList: [],
+    policyData2: {
+        piInternetChose : '',
+        piContractChose : '',
+        piPayChose : '',
+        piConsumerChose : '',
+        piAdvertisementChose : '',
+    },
+
+    outDataList: [],
+    outDetailDataList: [],
+
+    thirdDataList: [],
+    thirdOverseasDataList: [],
+
+    reponsibleDataList: [],
+    policyData3: {
+        piYear : '',
+        piMonth : '',
+        piDay : '',
+    }
+});
+
 export const personalInfoCategoryData = writable({
     basicCategoryList: [],
     addItemList: [],
