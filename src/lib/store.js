@@ -91,3 +91,8 @@ export const personalInfoTableData = writable({
         visible: false,
     },
 });
+
+export const categoryAutocompleteBoxData = writable({
+    checkedItemNameList: [],
+    checkedItemObjList: [],
+});

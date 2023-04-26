@@ -1,8 +1,6 @@
 <script>
-    import {onDestroy} from "svelte";
     import restapi from "../../../../lib/api.js";
 
-    export let userTableList;
     export let personalInfoTableService;
 
     const addTabData = {
@@ -19,7 +17,7 @@
             (json_success) => {
                 console.log('아이템 추가 성공', json_success);
                 if(json_success.data.status === 200) {
-                    userTableList();
+                    personalInfoTableService.getUserTableList();
                 } else if (json_success.data.err_code === 'KO088') {
                     alert('이미 등록되어 있는 테이블 명입니다.');
                 }

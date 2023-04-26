@@ -1,13 +1,10 @@
 <script>
 
     import restapi from "../../../../lib/api.js";
-    import jQuery from "jquery";
     import {accessToken, is_login, personalInfoTableData} from "../../../../lib/store.js";
     import {push} from "svelte-spa-router";
 
     export let personalInfoItemProp;
-
-    export let userTableClick;
     export let personalInfoTableService;
 
     // 테이블삭제 및 이름수정
@@ -59,11 +56,11 @@
             {#if $personalInfoTableData.userTableData.length !== 0}
                 {#each $personalInfoTableData.userTableData as table, i}
                     {#if i === 0}
-                        <div class="bo_tab on_bo" on:click={() => userTableClick(table.ctName)}>
+                        <div class="bo_tab on_bo" on:click={() => personalInfoItemProp.userTableClick(table.ctName)}>
                             {table.ctDesignation}
                         </div>
                     {:else}
-                        <div class="bo_tab" on:click={() => userTableClick(table.ctName)}>
+                        <div class="bo_tab" on:click={() => personalInfoItemProp.userTableClick(table.ctName)}>
                             {table.ctDesignation}
                         </div>
                     {/if}
