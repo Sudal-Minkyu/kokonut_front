@@ -1,58 +1,6 @@
 <script>
-    import restapi from "../../../../lib/api.js";
-
     import {personalInfoCategoryData} from "../../../../lib/store.js";
     export let personalInfoCategoryService;
-    export let personalInfoItemProp;
-
-
-    // 선택항목을 삭제하고 체크 상태를 반영한다.
-    function removeSelectedCategoryList(index) {
-        chose_category_list.splice(index, 1);
-        chose_category_list = [...chose_category_list];
-        checkedCategoryList.splice(index, 1);
-        checkedCategoryList = [...checkedCategoryList];
-    }
-
-
-
-    // 항목(컬럼) 추가 버튼
-    function columnAdd() {
-
-        if($personalInfoCategoryData.checkedItemObjList.length !== 0) {
-
-            let url = "/v2/api/DynamicUser/tableColumnAdd";
-
-            let sendData = {
-                tableName : personalInfoItemProp.currentSelectedTab,
-                kokonutAddColumnListDtos : $personalInfoCategoryData.checkedItemObjList
-            }
-
-            restapi('v2', 'post', url, "body", sendData, 'application/json',
-                (json_success) => {
-                    console.log(json_success);
-                    if(json_success.data.status === 200) {
-                        personalInfoItemProp.banner.activateBanner("선택한 항목을 추가하였습니다.");
-
-                        personalInfoItemProp.userTableClick(personalInfoItemProp.currentSelectedTab)
-                        personalInfoCategoryService.resetCheckedItemState();
-                    } else {
-                        // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                        // alert(json_success.data.err_msg);
-                        // is_login.set(false);
-                        // accessToken.set("");
-                        // push('/login');
-                    }
-                },
-                (json_error) => {
-                    console.log(json_error);
-                    console.log("카테고리(컬럼) 추가 호출 실패");
-                }
-            )
-        } else {
-            personalInfoItemProp.banner.activateBanner("추가할 항목을 선택해주세요.");
-        }
-    }
 
     document.addEventListener('mouseup', (e) => {
         const parent = e.target.closest('.showcateinBox') || e.target.closest('.cateiBox');
@@ -61,7 +9,6 @@
             personalInfoCategoryService.autoCompleteBox.hide();
         }
     });
-
 </script>
 
 <div class="prPart1_box">
@@ -163,13 +110,13 @@
                 {#each $personalInfoCategoryData.checkedItemObjList as {ciName}, i}
                     <div class="sel_cate" id="choseCategory{i}">
                         {ciName}
-                        <button on:click={() => personalInfoCategoryService.removeCheckedItem(i)}>X</button>
+                        <button on:click={() => personalInfoCategoryService.removeCheckedItem(ciName)}>X</button>
                     </div>
                 {/each}
             </div>
             <div class="sel_cateBtnBox">
                 <button class="cateResetBtn" on:click={personalInfoCategoryService.resetCheckedItemState}>초기화</button>
-                <button class="cateAddBtn" on:click={columnAdd}>오른쪽에 추가</button>
+                <button class="cateAddBtn" on:click={personalInfoCategoryService.addItemListToTable}>오른쪽에 추가</button>
             </div>
         </div>
 <!--                    <div class="cateAddInfoBox">-->

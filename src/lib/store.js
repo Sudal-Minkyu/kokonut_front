@@ -72,6 +72,7 @@ export const policyInfoData = writable({
     }
 });
 
+// 개인정보 항목관리 항목분류
 export const personalInfoCategoryData = writable({
     basicCategoryList: [],
     addItemList: [],
@@ -92,10 +93,14 @@ export const personalInfoCategoryData = writable({
     },
 });
 
+// 개인정보 항목관리의 탭과 탭에 속한 항목
 export const personalInfoTableData = writable({
     userTableData: [],
     columnList: [],
     addTabPop: {
         visible: false,
+        inputData: {
+            ctDesignation: '',
+        },
     },
 });

@@ -1,43 +1,7 @@
 <script>
-
-    import restapi from "../../../../lib/api.js";
-    import {accessToken, is_login, personalInfoTableData} from "../../../../lib/store.js";
-    import {push} from "svelte-spa-router";
-
+    import {personalInfoTableData} from "../../../../lib/store.js";
     export let personalInfoItemProp;
     export let personalInfoTableService;
-
-    // 테이블삭제 및 이름수정
-    function tableUpdate() {
-
-        console.log("테이블 삭제 및 이름수정 호출")
-
-        let url = "/v2/api/DynamicUser/tableColumnUpdate";
-        let sendData = {
-            tableName : personalInfoItemProp.currentSelectedTab,
-        }
-
-        restapi('v2', 'post', url, "param", sendData, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-
-                } else {
-                    // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                    alert(json_success.data.err_msg);
-                    is_login.set(false);
-                    accessToken.set("");
-                    push('/login');
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("테이블삭제 및 이름수정 실패");
-            }
-        )
-
-    }
-
 </script>
 
 <div class="prPart2_box" >
@@ -53,25 +17,17 @@
 
     <div class="bo_tabBox" style="overflow: scroll">
         <div class="tabWrap">
-            {#if $personalInfoTableData.userTableData.length !== 0}
-                {#each $personalInfoTableData.userTableData as table, i}
-                    {#if i === 0}
-                        <div class="bo_tab on_bo" on:click={() => personalInfoItemProp.userTableClick(table.ctName)}>
-                            {table.ctDesignation}
-                        </div>
-                    {:else}
-                        <div class="bo_tab" on:click={() => personalInfoItemProp.userTableClick(table.ctName)}>
-                            {table.ctDesignation}
-                        </div>
-                    {/if}
-                {/each}
-            {/if}
+            {#each $personalInfoTableData.userTableData as table, i}
+                <div class="bo_tab {!i ? 'on_bo' : ''}" on:click={() => personalInfoItemProp.userTableClick(table.ctName)}>
+                    {table.ctDesignation}
+                </div>
+            {/each}
         </div>
     </div>
 
     <div class="boaTabBox">
         <div class="bo_tabContentBox">
-            <div class="prtable">
+            <div class="prtable" style="height: 38em;">
                 <table>
                     <colgroup>
                         <col style="width:8.21%;">
@@ -88,44 +44,43 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {#if $personalInfoTableData.columnList.length !== 0}
-                        {#each $personalInfoTableData.columnList as column, i}
-                            <tr>
-                                <td>{i+1}</td>
-                                {#if column.fieldName === "ID" || column.fieldName === "PASSWORD" }
-                                    <td></td>
-                                {:else}
-                                    <td>
-                                        <div class="koko_check">
-                                            <input type="checkbox" value="{column.fieldName}" id="ip{i}" class="partcheck">
-                                            <label for="ip{i}"><em></em></label>
-                                        </div>
-                                    </td>
-                                {/if}
-                                {#if column.fieldSecrity === 1}
-                                    <td>
-                                        <div class="lockicon"></div>
-                                        {column.fieldComment}
-                                        <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
-                                    </td>
-                                {:else}
-                                    <td>
-                                        {column.fieldComment}
-                                        <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
-                                    </td>
-                                {/if}
-                                {#if column.fieldName === "ID" || column.fieldName === "PASSWORD" }
-                                    <td>
-                                        <div class="nonereviseBtn">수정불가</div>
-                                    </td>
-                                {:else}
-                                    <td>
-                                        <button>수정하기</button>
-                                    </td>
-                                {/if}
-                            </tr>
-                        {/each}
-                    {:else}
+                    {#each $personalInfoTableData.columnList as column, i}
+                        <tr>
+                            <td>{i+1}</td>
+                            {#if column.fieldName === "ID" || column.fieldName === "PASSWORD" }
+                                <td></td>
+                            {:else}
+                                <td>
+                                    <div class="koko_check">
+                                        <input type="checkbox" value="{column.fieldName}" id="ip{i}" class="partcheck">
+                                        <label for="ip{i}"><em></em></label>
+                                    </div>
+                                </td>
+                            {/if}
+                            {#if column.fieldSecrity === 1}
+                                <td>
+                                    <div class="lockicon"></div>
+                                    {column.fieldComment}
+                                    <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
+                                </td>
+                            {:else}
+                                <td>
+                                    {column.fieldComment}
+                                    <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
+                                </td>
+                            {/if}
+                            {#if column.fieldName === "ID" || column.fieldName === "PASSWORD" }
+                                <td>
+                                    <div class="nonereviseBtn">수정불가</div>
+                                </td>
+                            {:else}
+                                <td>
+                                    <button>수정하기</button>
+                                </td>
+                            {/if}
+                        </tr>
+                    {/each}
+                    {#if !$personalInfoTableData.columnList.length}
                         <tr class="none_inq">
                             <td>추가된 항목이 없습니다.</td>
                         </tr>
@@ -136,11 +91,9 @@
         </div>
     </div>
 
-    {#if $personalInfoTableData.columnList.length}
-        <div class="prDelBtn marT20">
-            <button id="delete_pr_pop">삭제</button>
-        </div>
-    {/if}
+    <div class="prDelBtn marT20" style="visibility: {$personalInfoTableData.columnList.length ? 'visible' : 'hidden'};">
+        <button id="delete_pr_pop">삭제</button>
+    </div>
     <div class="prbott">
         <ul>
             <li>항목의 추가, 수정, 삭제 시 데이터 양에 따라 최대 3일까지 소요될 수 있습니다.</li>
