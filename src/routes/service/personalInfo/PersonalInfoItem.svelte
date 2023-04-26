@@ -94,6 +94,86 @@
                 });
             }
         },
+        autoCompleteBox: {
+            show() {
+                personalInfoCategoryData.update(obj => {
+                    obj.autoCompleteBox.visible = true;
+                    return obj;
+                });
+            },
+            hide() {
+                personalInfoCategoryData.update(obj => {
+                    obj.autoCompleteBox.visible = false;
+                    obj.autoCompleteBox.searchResultItemList = [];
+                    return obj;
+                });
+            },
+            handleAutocompleteSearchTextChange() {
+                let result = [];
+                if ($personalInfoCategoryData.autoCompleteBox.searchInputText) {
+                    // 기본 제공 항목들에게서 이름이 일치하는 항목이 있을 경우 반환
+                    for (const {categoryItemListDtoList} of $personalInfoCategoryData.basicCategoryList) {
+                        result.push(...categoryItemListDtoList.filter(item => item.cddName.includes($personalInfoCategoryData.autoCompleteBox.searchInputText)));
+                    }
+                    if (result.length) {
+                        personalInfoCategoryService.autoCompleteBox.show();
+                        personalInfoCategoryData.update(obj => {
+                            obj.autoCompleteBox.usedSearchText = $personalInfoCategoryData.autoCompleteBox.searchInputText;
+                            return obj;
+                        });
+                    } else {
+                        result = $personalInfoCategoryData.autoCompleteBox.searchResultItemList;
+                    }
+                } else {
+                    personalInfoCategoryService.autoCompleteBox.hide();
+                }
+                personalInfoCategoryData.update(obj => {
+                    obj.autoCompleteBox.searchResultItemList = result;
+                    return obj;
+                });
+            },
+        },
+        handleCheckedItemChange(e) {
+            if (e.target.checked) {
+                personalInfoCategoryData.update(obj => {
+                    let itemsFromBasicCategoryList = [];
+                    for (const {categoryItemListDtoList} of obj.basicCategoryList) {
+                        itemsFromBasicCategoryList = [
+                            ...itemsFromBasicCategoryList,
+                            ...categoryItemListDtoList.filter(item => item.ciName === e.target.value)
+                        ];
+                    }
+                    obj.checkedItemObjList = [
+                        ...obj.checkedItemObjList,
+                        ...obj.addItemList.filter(item => item.ciName === e.target.value),
+                        ...itemsFromBasicCategoryList,
+                    ];
+                    console.log(obj.checkedItemObjList);
+                    return obj;
+                });
+            } else {
+                personalInfoCategoryData.update(obj => {
+                    obj.checkedItemObjList = obj.checkedItemObjList.filter(item => item.ciName !== e.target.value);
+                    console.log('체크된 아이템 오브젝트', obj.checkedItemObjList);
+                    console.log('체크된 아이템 이름리스트', obj.checkedItemNameList);
+                    return obj;
+                });
+            }
+        },
+        resetCheckedItemState() {
+            personalInfoCategoryData.update(obj => {
+                obj.checkedItemNameList = [];
+                obj.checkedItemObjList = [];
+                return obj;
+            });
+        },
+        removeCheckedItem(index) {
+            personalInfoCategoryData.update(obj => {
+                obj.checkedItemNameList.splice(index, 1);
+                obj.checkedItemObjList.splice(index, 1);
+                return obj;
+            });
+        },
         getAdditionalItemList() {
 
             let url = "/v2/api/Company/addItemList";

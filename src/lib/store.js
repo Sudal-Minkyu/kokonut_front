@@ -75,12 +75,20 @@ export const policyInfoData = writable({
 export const personalInfoCategoryData = writable({
     basicCategoryList: [],
     addItemList: [],
+    checkedItemNameList: [],
+    checkedItemObjList: [],
     createItemPop: {
         visible: false,
         inputData: {
             ciName: '',
             ciSecurity: '0',
         },
+    },
+    autoCompleteBox: {
+        visible: false,
+        searchInputText: '',
+        searchResultItemList: [],
+        usedSearchText: '',
     },
 });
 
@@ -90,9 +98,4 @@ export const personalInfoTableData = writable({
     addTabPop: {
         visible: false,
     },
-});
-
-export const categoryAutocompleteBoxData = writable({
-    checkedItemNameList: [],
-    checkedItemObjList: [],
 });

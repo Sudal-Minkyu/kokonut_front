@@ -1,14 +1,10 @@
 <script>
     import restapi from "../../../../lib/api.js";
-    import AutoCompleteBox from "./AutoCompleteBox.svelte";
 
     import {personalInfoCategoryData} from "../../../../lib/store.js";
     export let personalInfoCategoryService;
     export let personalInfoItemProp;
-    let checkedCategoryList = [];
 
-    let autocompleteSearchText = '';
-    let chose_category_list = [];
 
     // 선택항목을 삭제하고 체크 상태를 반영한다.
     function removeSelectedCategoryList(index) {
@@ -18,39 +14,18 @@
         checkedCategoryList = [...checkedCategoryList];
     }
 
-    function resetCategoryList() {
-        chose_category_list = [];
-        checkedCategoryList = [];
-    }
 
-    function addSelectedItemsToTable(e) {
-
-        console.log(checkedCategoryList);
-        if (e.target.checked) {
-            let target = e.target.defaultValue.split("_");
-            if(target.length === 4) {
-                // chose_category_list.push({ ciName: target[0], ciSecurity: target[1], categoryName: target[2], textColor: target[3]});
-
-                chose_category_list = [...chose_category_list, { ciName: target[0], ciSecurity: target[1], categoryName: target[2], textColor: target[3]}];
-            }
-        } else {
-            const index = chose_category_list.indexOf(e.target.defaultValue);
-            chose_category_list.splice(index, 1);
-            chose_category_list = [...chose_category_list];
-        }
-        console.log(chose_category_list);
-    }
 
     // 항목(컬럼) 추가 버튼
     function columnAdd() {
 
-        if(chose_category_list.length !== 0) {
+        if($personalInfoCategoryData.checkedItemObjList.length !== 0) {
 
             let url = "/v2/api/DynamicUser/tableColumnAdd";
 
             let sendData = {
                 tableName : personalInfoItemProp.currentSelectedTab,
-                kokonutAddColumnListDtos : chose_category_list
+                kokonutAddColumnListDtos : $personalInfoCategoryData.checkedItemObjList
             }
 
             restapi('v2', 'post', url, "body", sendData, 'application/json',
@@ -60,7 +35,7 @@
                         personalInfoItemProp.banner.activateBanner("선택한 항목을 추가하였습니다.");
 
                         personalInfoItemProp.userTableClick(personalInfoItemProp.currentSelectedTab)
-                        resetCategoryList();
+                        personalInfoCategoryService.resetCheckedItemState();
                     } else {
                         // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                         // alert(json_success.data.err_msg);
@@ -82,69 +57,42 @@
     document.addEventListener('mouseup', (e) => {
         const parent = e.target.closest('.showcateinBox') || e.target.closest('.cateiBox');
         if (!parent) {
-            autocompleteSearchText = '';
-            autoCompleteBoxController.hide();
+            $personalInfoCategoryData.autoCompleteBox.searchInputText = '';
+            personalInfoCategoryService.autoCompleteBox.hide();
         }
     });
-
-    const autoCompleteBoxController = {
-        visible: false,
-        searchResultItemList: [],
-        usedSearchText: '',
-        show() {
-            autoCompleteBoxController.visible = true;
-        },
-        hide() {
-            autoCompleteBoxController.visible = false;
-            autoCompleteBoxController.searchResultItemList = [];
-        },
-        handleAutocompleteSearchTextChange(searchText) {
-
-            let result = [];
-            if (searchText) {
-                // 기본 제공 항목들에게서 이름이 일치하는 항목이 있을 경우 반환
-                for (const {categoryItemListDtoList} of $personalInfoCategoryData.basicCategoryList) {
-                    result.push(...categoryItemListDtoList.filter(item => item.cddName.includes(searchText)));
-                }
-                if (result.length) {
-                    autoCompleteBoxController.show();
-                    autoCompleteBoxController.usedSearchText = searchText;
-                } else {
-                    result = autoCompleteBoxController.searchResultItemList;
-                }
-            } else {
-                autoCompleteBoxController.hide();
-            }
-
-            return result;
-        },
-        handleCheckedItemChange(e) {
-            if (e.target.checked) {
-                checkedCategoryList = [...checkedCategoryList, e.target.value];
-            } else {
-                checkedCategoryList = [...checkedCategoryList.filter(v => v !== e.target.value)];
-            }
-            addSelectedItemsToTable(e);
-            console.log('event', e);
-        },
-    }
-    $: autoCompleteBoxController.searchResultItemList = autoCompleteBoxController.handleAutocompleteSearchTextChange(autocompleteSearchText);
 
 </script>
 
 <div class="prPart1_box">
     <div class="prptitle">
         <h2>항목 분류</h2>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="myAddBtn" on:click={personalInfoCategoryService.createItemPop.show}>나만의 항목 추가</div>
     </div>
     <div class="categorydivision_box">
         <div>
             <div class="cateiBox">
                 <div class="cateinput">
-                    <input type="text" bind:value={autocompleteSearchText} class="catesea" placeholder="찾고 싶은 항목을 검색해 보세요">
+                    <input type="text" class="catesea" placeholder="찾고 싶은 항목을 검색해 보세요"
+                           bind:value={$personalInfoCategoryData.autoCompleteBox.searchInputText}
+                           on:keyup={personalInfoCategoryService.autoCompleteBox.handleAutocompleteSearchTextChange} >
                 </div>
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <AutoCompleteBox {autoCompleteBoxController} {addSelectedItemsToTable} />
+                <div class="showcateinBox {$personalInfoCategoryData.autoCompleteBox.visible ? 'showon' : ''}">
+                    <div class="showcateinner">
+                        {#each $personalInfoCategoryData.autoCompleteBox.searchResultItemList as {ciName}, i}
+                            <div class="cateS_check">
+                                <input type="checkbox" name="itemCheck" value={ciName} id="shcate_{i}"
+                                       bind:group={$personalInfoCategoryData.checkedItemNameList}
+                                       on:change={personalInfoCategoryService.handleCheckedItemChange} >
+                                <label for="shcate_{i}">
+                                    <em></em>
+                                    <p class="check"><span>{ciName}</span></p>
+                                </label>
+                            </div>
+                        {/each}
+                    </div>
+                </div>
             </div>
 
             <div class="cateListBox">
@@ -174,14 +122,16 @@
 
                         {#if $personalInfoCategoryData.addItemList.length}
                             <div class="cateS_checkInner">
-                                {#each $personalInfoCategoryData.addItemList as category, i}
+                                {#each $personalInfoCategoryData.addItemList as {ciName, categoryName}, i}
                                     <div class="cateS_check">
-                                        <input type="checkbox" id="cates_0{i}" bind:group={checkedCategoryList} on:change={addSelectedItemsToTable} value="{category.ciName}_{category.ciSecurity}_추가항목_greentext">
+                                        <input type="checkbox" name="itemCheck" id="cates_0{i}" value={ciName}
+                                               bind:group={$personalInfoCategoryData.checkedItemNameList}
+                                               on:change={personalInfoCategoryService.handleCheckedItemChange}>
                                         <label for="cates_0{i}">
                                             <em></em>
-                                            <p class="check">{category.ciName}</p>
+                                            <p class="check">{ciName}</p>
                                         </label>
-                                        <span class="subElement greentext">추가항목</span>
+                                        <span class="subElement greentext">{categoryName}</span>
                                     </div>
                                 {/each}
                             </div>
@@ -189,19 +139,20 @@
 
                         {#each $personalInfoCategoryData.basicCategoryList as {cdName, categoryItemListDtoList}, i}
                             <div class="cateS_checkInner" style="display:none;">
-                                {#each categoryItemListDtoList as {cddName, cddSubName, combinedValue}, j}
+                                {#each categoryItemListDtoList as {ciName, categoryName}, j}
                                     <div class="cateS_check">
-                                        <input type="checkbox" bind:group={checkedCategoryList} value={combinedValue} on:change={addSelectedItemsToTable} id="cates_{i + 1}{j}">
+                                        <input type="checkbox" name="itemCheck" id="cates_{i + 1}{j}" value={ciName}
+                                               bind:group={$personalInfoCategoryData.checkedItemNameList}
+                                               on:change={personalInfoCategoryService.handleCheckedItemChange}>
                                         <label for="cates_{i + 1}{j}">
                                             <em></em>
-                                            <p class="check">{cddName}</p>
+                                            <p class="check">{ciName}</p>
                                         </label>
-                                        <span class="subElement redtext">{cddSubName}</span>
+                                        <span class="subElement redtext">{categoryName}</span>
                                     </div>
                                 {/each}
                             </div>
                         {/each}
-
                     </div>
                 </div>
             </div>
@@ -209,15 +160,15 @@
 
         <div class="sel_cateListBox">
             <div class="sel_cateList">
-                {#each chose_category_list as {ciName}, i}
+                {#each $personalInfoCategoryData.checkedItemObjList as {ciName}, i}
                     <div class="sel_cate" id="choseCategory{i}">
                         {ciName}
-                        <button on:click={() => removeSelectedCategoryList(i)}>X</button>
+                        <button on:click={() => personalInfoCategoryService.removeCheckedItem(i)}>X</button>
                     </div>
                 {/each}
             </div>
             <div class="sel_cateBtnBox">
-                <button class="cateResetBtn" on:click={resetCategoryList}>초기화</button>
+                <button class="cateResetBtn" on:click={personalInfoCategoryService.resetCheckedItemState}>초기화</button>
                 <button class="cateAddBtn" on:click={columnAdd}>오른쪽에 추가</button>
             </div>
         </div>
