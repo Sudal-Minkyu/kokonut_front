@@ -1,5 +1,6 @@
 <script>
     import {personalInfoTableData} from "../../../../lib/store.js";
+    import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
     export let personalInfoTableService;
 
 </script>
@@ -18,7 +19,7 @@
                 <div class="kopopinput marB24">
                     <label>OTP</label>
                     <input type="text" bind:value={$personalInfoTableData.removeColumnPop.otpValue} placeholder="OTP를 적어주세요." />
-                    <p style="text-align: left" class="notxt">OTP를 입력해 주세요.</p>
+                    <ErrorHighlight message="{$personalInfoTableData.removeColumnPop.otpErrorMsg}"></ErrorHighlight>
                 </div>
                 <div class="popcaseInfoBox pi_noneicon">
                     <p>주의사항</p>
@@ -31,9 +32,9 @@
                     <label for="selcheck">
                         <em></em>
                         <p class="check">주의사항에 대해 확인했습니다.</p>
-                        <p class="notxt">OTP를 입력해 주세요.</p>
                     </label>
                 </div>
+                <ErrorHighlight message="{$personalInfoTableData.removeColumnPop.cautionAgreeErrorMsg}"></ErrorHighlight>
                 <div class="kokopopBtnBox">
                     <div class="koko_cancel delete_pr_pop_close" on:click={personalInfoTableService.removeColumnPop.hide} >취소</div>
                     <div class="koko_go"><button type="submit" on:click={personalInfoTableService.removeColumnPop.removeUserTableColumnByColumnNameList}>확인</button></div>

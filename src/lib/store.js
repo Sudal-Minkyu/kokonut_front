@@ -110,5 +110,7 @@ export const personalInfoTableData = writable({
         visible: false,
         otpValue: '',
         checkPreCautionAgree: false,
+        otpErrorMsg: '',
+        cautionAgreeErrorMsg: '',
     }
 });

@@ -61,6 +61,7 @@
             activateBanner(message) {
                 personalInfoItemProp.banner.titleMessage = message;
                 personalInfoItemProp.banner.titleClick = true;
+                personalInfoItemProp.userTableClick(personalInfoItemProp.currentSelectedTab);
                 setTimeout(() => {
                     if(personalInfoItemProp.banner.titleClick) {
                         personalInfoItemProp.banner.titleClick = false;
@@ -334,6 +335,7 @@
             },
             hide() {
                 personalInfoTableData.update(obj => {
+                    personalInfoTableService.removeColumnPop.initInput();
                     obj.removeColumnPop.visible = false;
                     return obj;
                 });
@@ -349,8 +351,26 @@
                 });
             },
             removeUserTableColumnByColumnNameList() {
+                personalInfoTableData.update(obj => {
+                    obj.removeColumnPop.otpErrorMsg = '';
+                    obj.removeColumnPop.cautionAgreeErrorMsg = '';
+                    return obj;
+                });
+                if ($personalInfoTableData.removeColumnPop.otpValue.length !== 6) {
+                    console.log($personalInfoTableData.removeColumnPop.otpErrorMsg.length);
+                    personalInfoTableData.update(obj => {
+                        obj.removeColumnPop.otpErrorMsg = 'OTP 6자리를 입력해 주세요.';
+                        return obj;
+                    });
+                }
                 if (!$personalInfoTableData.removeColumnPop.checkPreCautionAgree) {
                     // 삭제팝업 주의사항 하단에 주의사항 확인 체크 요청
+                    personalInfoTableData.update(obj => {
+                        obj.removeColumnPop.cautionAgreeErrorMsg = '주의사항을 확인하시고 체크해 주세요.';
+                        return obj;
+                    });
+                }
+                if($personalInfoTableData.removeColumnPop.cautionAgreeErrorMsg || $personalInfoTableData.removeColumnPop.otpErrorMsg) {
                     return;
                 }
 
@@ -363,7 +383,8 @@
                 restapi('v2', 'post', '/v2/api/DynamicUser/tableColumnDelete', 'body', targetData, 'application/json',
                     (json_success) => {
                         if(json_success.data.status === 200) {
-                            personalInfoTableService.removeColumnPop.initInput();
+                            personalInfoTableService.removeColumnPop.hide();
+                            personalInfoItemProp.banner.activateBanner('선택하신 개인정보 항목을 삭제하였습니다.');
                         } else {
                             // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                             alert(json_success.data.err_msg);
