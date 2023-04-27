@@ -116,7 +116,7 @@
             </div>
             <div class="sel_cateBtnBox">
                 <button class="cateResetBtn" on:click={personalInfoCategoryService.resetCheckedItemState}>초기화</button>
-                <button class="cateAddBtn" on:click={personalInfoCategoryService.addItemListToTable}>오른쪽에 추가</button>
+                <button class="cateAddBtn" on:click={personalInfoCategoryService.insertItemPop.show}>오른쪽에 추가</button>
             </div>
         </div>
 <!--                    <div class="cateAddInfoBox">-->

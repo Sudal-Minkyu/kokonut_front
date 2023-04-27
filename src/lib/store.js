@@ -85,6 +85,10 @@ export const personalInfoCategoryData = writable({
             ciSecurity: '0',
         },
     },
+    insertItemPop: {
+        visible: false,
+        checkedItemNameString: '',
+    },
     autoCompleteBox: {
         visible: false,
         searchInputText: '',

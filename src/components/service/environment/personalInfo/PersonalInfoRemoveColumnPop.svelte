@@ -37,7 +37,7 @@
                 <ErrorHighlight message="{$personalInfoTableData.removeColumnPop.cautionAgreeErrorMsg}"></ErrorHighlight>
                 <div class="kokopopBtnBox">
                     <div class="koko_cancel delete_pr_pop_close" on:click={personalInfoTableService.removeColumnPop.hide} >취소</div>
-                    <div class="koko_go"><button type="submit" on:click={personalInfoTableService.removeColumnPop.removeUserTableColumnByColumnNameList}>확인</button></div>
+                    <div class="koko_go"><button type="button" on:click={personalInfoTableService.removeColumnPop.removeUserTableColumnByColumnNameList}>확인</button></div>
                 </div>
             </form>
         </div>

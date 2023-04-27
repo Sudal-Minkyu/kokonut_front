@@ -18,6 +18,9 @@
     import {accessToken, backBtn, is_login, personalInfoCategoryData, personalInfoTableData} from '../../../lib/store.js'
     import PersonalInfoRemoveColumnPop
         from "../../../components/service/environment/personalInfo/PersonalInfoRemoveColumnPop.svelte";
+    import PersonalInfoInsertItemPop
+        from "../../../components/service/environment/personalInfo/PersonalInfoInsertItemPop.svelte";
+    import CustomAlert from "../../../components/common/ui/CustomAlert.svelte";
 
     const personalInfoItemProp = {
         isLoadingScreenOn: true,
@@ -61,7 +64,6 @@
             activateBanner(message) {
                 personalInfoItemProp.banner.titleMessage = message;
                 personalInfoItemProp.banner.titleClick = true;
-                personalInfoItemProp.userTableClick(personalInfoItemProp.currentSelectedTab);
                 setTimeout(() => {
                     if(personalInfoItemProp.banner.titleClick) {
                         personalInfoItemProp.banner.titleClick = false;
@@ -95,6 +97,53 @@
                     return obj;
                 });
             }
+        },
+        insertItemPop: {
+            show() {
+                personalInfoCategoryData.update(obj => {
+                    obj.insertItemPop.visible = true;
+                    return obj;
+                });
+            },
+            hide() {
+                personalInfoCategoryData.update(obj => {
+                    obj.insertItemPop.visible = false;
+                    return obj;
+                });
+            },
+            addItemListToTable() {
+                if ($personalInfoCategoryData.checkedItemObjList.length !== 0) {
+                    let url = "/v2/api/DynamicUser/tableColumnAdd";
+                    let sendData = {
+                        tableName: personalInfoItemProp.currentSelectedTab,
+                        kokonutAddColumnListDtos: $personalInfoCategoryData.checkedItemObjList
+                    }
+
+                    restapi('v2', 'post', url, "body", sendData, 'application/json',
+                        (json_success) => {
+                            console.log(json_success);
+                            if (json_success.data.status === 200) {
+                                personalInfoItemProp.banner.activateBanner("선택한 항목을 추가하였습니다.");
+
+                                personalInfoItemProp.userTableClick(personalInfoItemProp.currentSelectedTab)
+                                personalInfoCategoryService.resetCheckedItemState();
+                            } else {
+                                // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+                                // alert(json_success.data.err_msg);
+                                // is_login.set(false);
+                                // accessToken.set("");
+                                // push('/login');
+                            }
+                        },
+                        (json_error) => {
+                            console.log(json_error);
+                            console.log("카테고리(컬럼) 추가 호출 실패");
+                        }
+                    )
+                } else {
+                    personalInfoItemProp.banner.activateBanner("추가할 항목을 선택해주세요.");
+                }
+            },
         },
         autoCompleteBox: {
             show() {
@@ -241,39 +290,6 @@
                 }
             )
         },
-        addItemListToTable() {
-            if ($personalInfoCategoryData.checkedItemObjList.length !== 0) {
-                let url = "/v2/api/DynamicUser/tableColumnAdd";
-                let sendData = {
-                    tableName: personalInfoItemProp.currentSelectedTab,
-                    kokonutAddColumnListDtos: $personalInfoCategoryData.checkedItemObjList
-                }
-
-                restapi('v2', 'post', url, "body", sendData, 'application/json',
-                    (json_success) => {
-                        console.log(json_success);
-                        if (json_success.data.status === 200) {
-                            personalInfoItemProp.banner.activateBanner("선택한 항목을 추가하였습니다.");
-
-                            personalInfoItemProp.userTableClick(personalInfoItemProp.currentSelectedTab)
-                            personalInfoCategoryService.resetCheckedItemState();
-                        } else {
-                            // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                            // alert(json_success.data.err_msg);
-                            // is_login.set(false);
-                            // accessToken.set("");
-                            // push('/login');
-                        }
-                    },
-                    (json_error) => {
-                        console.log(json_error);
-                        console.log("카테고리(컬럼) 추가 호출 실패");
-                    }
-                )
-            } else {
-                personalInfoItemProp.banner.activateBanner("추가할 항목을 선택해주세요.");
-            }
-        },
     };
 
     const personalInfoTableService = {
@@ -357,7 +373,6 @@
                     return obj;
                 });
                 if ($personalInfoTableData.removeColumnPop.otpValue.length !== 6) {
-                    console.log($personalInfoTableData.removeColumnPop.otpErrorMsg.length);
                     personalInfoTableData.update(obj => {
                         obj.removeColumnPop.otpErrorMsg = 'OTP 6자리를 입력해 주세요.';
                         return obj;
@@ -385,6 +400,7 @@
                         if(json_success.data.status === 200) {
                             personalInfoTableService.removeColumnPop.hide();
                             personalInfoItemProp.banner.activateBanner('선택하신 개인정보 항목을 삭제하였습니다.');
+                            personalInfoItemProp.userTableClick(targetData.tableName);
                         } else {
                             // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                             alert(json_success.data.err_msg);
@@ -487,7 +503,7 @@
             </div>
         {:else}
             <div class="prDivideBox" in:fade>
-                <PersonalInfoCategory {personalInfoItemProp} {personalInfoCategoryService} />
+                <PersonalInfoCategory {personalInfoCategoryService} />
                 <PersonalInfoTable {personalInfoItemProp} {personalInfoTableService} />
             </div>
         {/if}
@@ -500,6 +516,10 @@
     <PersonalInfoCreateItemPop {personalInfoCategoryService} />
 {/if}
 
+{#if $personalInfoCategoryData.insertItemPop.visible}
+    <PersonalInfoInsertItemPop {personalInfoCategoryService} />
+{/if}
+
 {#if $personalInfoTableData.addTabPop.visible}
     <PersonalInfoAddTabPop {personalInfoTableService} />
 {/if}
@@ -507,6 +527,8 @@
 {#if $personalInfoTableData.removeColumnPop.visible}
     <PersonalInfoRemoveColumnPop {personalInfoTableService} />
 {/if}
+
+<CustomAlert prop={{visible: true}} />
 
 <!-- [D] 전자상거래 적용 대상 팝업 -->
 <!--<div class="koko_popup commerce_pop" data-popup="commerce_pop" style="display:block;">-->
