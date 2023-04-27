@@ -38,4 +38,9 @@ export const commonCode = [
 	{label : "email_type", text : "주요공지", value: "1"},
 	{label : "email_type", text : "광고/홍보", value: "2"},
 
+	// 개인정보처리방침 검색필터
+	{label : "policy_search", text : "제작일", value: "1"},
+	{label : "policy_search", text : "개정일", value: "2"},
+	{label : "policy_search", text : "시행일", value: "3"},
+
 ]

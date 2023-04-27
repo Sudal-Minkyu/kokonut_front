@@ -5,7 +5,7 @@
     import {link, push} from 'svelte-spa-router'
     import { backBtn } from '../../../lib/store.js'
     import {onMount} from "svelte";
-    import {headerLayoutOn, popOpenBtn} from "../../../lib/common.js";
+    import {popOpenBtn} from "../../../lib/common.js";
     import jQuery from "jquery";
     import restapi from "../../../lib/api.js";
     import CustumAlert from '../../../components/common/CustumAlert.svelte';
@@ -36,12 +36,11 @@
     let qnaContent = "";
     let startFun;
 
+    let textState= 0;
     function qnaStart() {
         if(qnaTitle === "" || qnaTitle.search(/\s/) !== -1) {
-            jQuery(".textBlank").css("display","block");
+            textState = 1;
             return false;
-        } else {
-            jQuery(".textBlank").css("display","none");
         }
 
         popType = 2;
@@ -165,7 +164,6 @@
         console.log("filesArr.length : "+filesArr.length);
         console.log("delete before filesArr : "+filesArr);
 
-        // 요소 제거하기.. 재대로 되는게 없네 진짜
         // filesArr = filesArr.filter((file, i) => i !== num);
         // filesArr = [...filesArr.slice(0, num), ...filesArr.slice(num + 1)];
 
@@ -201,7 +199,7 @@
                 </div>
                 <div class="seaContentLine borB">
                     <div class="seaCont wid100per">
-                        <dl>제목<p class="textBlank">제목을 입력해주세요.</p></dl>
+                        <dl>제목<p class="{textState === 1 ? 'textShake' : 'noText'}">제목을 입력해주세요.</p></dl>
                         <div class="sc_inputBox">
                             <input type="text" bind:value={qnaTitle} placeholder="제목을 적어주세요.">
                         </div>

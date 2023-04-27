@@ -7,7 +7,7 @@
     import { backBtn, role } from '../../../lib/store.js'
 
     import { onMount } from 'svelte';
-    import { headerLayoutOn, popOpenBtn } from "../../../lib/common.js";
+    import { popOpenBtn } from "../../../lib/common.js";
 
     import CustumAlert from '../../../components/common/CustumAlert.svelte';
 
@@ -20,7 +20,6 @@
 
     // 나의정보 가져오기
     onMount( () => {
-        headerLayoutOn();
         qnaId = window.location.href.split('/').pop();
         qnaDetail(qnaId);
     });

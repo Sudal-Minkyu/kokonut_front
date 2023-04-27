@@ -2,6 +2,7 @@
     import Header from "../../../components/service/layout/Header.svelte"
 
     import jQuery from "jquery";
+    import {backBtn} from "../../../lib/store.js";
     
     // 미니 툴팁 스크립트
     jQuery(".tiptool").each(function(i){
@@ -83,7 +84,7 @@
     <div class="contentInnerWrap">
         <div class="pageTitleBtn marB50">
             <h1>개인정보처리방침 제작</h1>
-            <dl>해당 페이지는 최고관리자만 수정할 수 있습니다.</dl>
+            <dl>해당 페이지는 최고관리자만 이용할 수 있습니다.</dl>
         </div>
 
         <div class="pri_versionBox marB50">
@@ -174,7 +175,7 @@
                                         </div>
                                     </div>
                                 <!-- // [D] 처리목적 -->
-                                </span>
+                                </span>입
                         </div>
                         <div class="prtt_area"><textarea type="text" name="" placeholder="">서비스 제공 및 운영, 개선</textarea></div>
                     </div>

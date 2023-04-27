@@ -200,10 +200,10 @@
                 </div>
             </form>
             <div class="kokopopBtnBox">
-                <div class="koko_cancel password_pop_close" on:click={() => changeStatePop(0)}>취소</div>
                 <div class="koko_go">
                     <button type="button" on:click={pwdChageBefore}>변경</button>
                 </div>
+                <div class="koko_cancel" on:click={() => changeStatePop(0)}>취소</div>
             </div>
         </div>
         <div class="koko-popup-close password_pop_close" data-popup-close="password_pop_close" on:click={() => changeStatePop(0)}></div>

@@ -5,6 +5,24 @@
     import { link } from 'svelte-spa-router'
     import { page } from '../../../lib/store.js'
 
+    import {setCustomSelectBox, setDateRangePicker, setOptionItem} from "../../../lib/libSearch.js";
+    import {onMount} from "svelte";
+
+    onMount(async ()=>{
+        await fatchSearchModule();
+
+    })
+
+    async function fatchSearchModule(){
+        setDateRangePicker('stime', true, 'period');
+        setCustomSelectBox();
+        setOptionItem(customSelectBoxOpt);
+    }
+
+    let customSelectBoxOpt = [
+        {id : "policySelect", use_all : true, codeName : "policy_search"},
+    ]; // 선택 박스 옵션
+
 </script>
 
 <Header />
@@ -23,7 +41,7 @@
         <div class="seaWrap marB50">
             <form>
                 <div class="koinput marB32">
-                    <input type="text" class="wid360" placeholder="담당자 검색" />
+                    <input type="text" class="wid360" placeholder="작성자 검색" />
                     <button><img src="/assets/images/common/icon_search.png" alt=""></button>
                 </div>
                 <div class="seaContentBox">
@@ -33,17 +51,15 @@
                             <div class="seaflexBox">
                                 <div class="sc_SelBox">
                                     <div class="selectBox wid162">
-                                        <div class="label" id="">제작일</div>
+                                        <div class="label" id="policySelect" ></div>
                                         <ul class="optionList">
-                                            <li class="optionItem">제작일</li>
-                                            <li class="optionItem">개정일</li>
-                                            <li class="optionItem">시행일</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="calenderBox borL">
                                     <div class="calenderInput">
-                                        <input id="stime" type="text" name="stime" class="form-control" placeholer="날짜선택" aria-describedby="stime_addon" />
+                                        <input id="stime" type="text" class="form-control" placeholer="날짜선택" aria-describedby="stime_addon" readonly />
+                                        <img src="/assets/images/common/callendericon.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -51,24 +67,28 @@
                         <div class="seaRadioBox borL">
                             <div class="seaRadio">
                                 <div class="check radioCheck">
-                                    <input type="radio" class="radio" name="period" id="오늘" value="오늘" checked>
-                                    <label for="오늘"><em><dt></dt></em>오늘</label>
+                                    <input type="radio" class="radio" name="period" id="당일" value="1" checked>
+                                    <label for="당일"><em><dt></dt></em>당일</label>
                                 </div>
                                 <div class="check radioCheck">
-                                    <input type="radio" class="radio" name="period" id="1주일" value="1주일">
-                                    <label for="1주일"><em><dt></dt></em>1주일</label>
+                                    <input type="radio" class="radio" name="period" id="최근 1주일" value="7" >
+                                    <label for="최근 1주일"><em><dt></dt></em>최근 1주일</label>
                                 </div>
                                 <div class="check radioCheck">
-                                    <input type="radio" class="radio" name="period" id="1개월" value="1개월">
-                                    <label for="1개월"><em><dt></dt></em>1개월</label>
+                                    <input type="radio" class="radio" name="period" id="최근 한 달" value="30" >
+                                    <label for="최근 한 달"><em><dt></dt></em>최근 한 달</label>
                                 </div>
                                 <div class="check radioCheck">
-                                    <input type="radio" class="radio" name="period" id="3개월" value="3개월">
-                                    <label for="3개월"><em><dt></dt></em>3개월</label>
+                                    <input type="radio" class="radio" name="period" id="최근 3개월" value="90">
+                                    <label for="최근 3개월"><em><dt></dt></em>최근 3개월</label>
                                 </div>
                                 <div class="check radioCheck">
-                                    <input type="radio" class="radio" name="period" id="6개월" value="6개월">
-                                    <label for="6개월"><em><dt></dt></em>6개월</label>
+                                    <input type="radio" class="radio" name="period" id="최근 6개월" value="180">
+                                    <label for="최근 6개월"><em><dt></dt></em>최근 6개월</label>
+                                </div>
+                                <div class="check radioCheck">
+                                    <input type="radio" class="radio" name="period" id="사용자 지정" value="0">
+                                    <label for="사용자 지정"><em><dt></dt></em>사용자 지정</label>
                                 </div>
                             </div>
                         </div>
