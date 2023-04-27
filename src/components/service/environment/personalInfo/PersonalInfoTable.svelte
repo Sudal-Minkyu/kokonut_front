@@ -52,7 +52,7 @@
                             {:else}
                                 <td>
                                     <div class="koko_check">
-                                        <input type="checkbox" value="{column.fieldName}" id="ip{i}" class="partcheck">
+                                        <input type="checkbox" bind:group={$personalInfoTableData.checkedColumnNameList} on:change={personalInfoTableService.handleColumnChecked} value="{column.fieldName}" id="ip{i}" class="partcheck">
                                         <label for="ip{i}"><em></em></label>
                                     </div>
                                 </td>
@@ -92,7 +92,7 @@
     </div>
 
     <div class="prDelBtn marT20" style="visibility: {$personalInfoTableData.columnList.length ? 'visible' : 'hidden'};">
-        <button id="delete_pr_pop">삭제</button>
+        <button id="delete_pr_pop" on:click={personalInfoTableService.removeColumnPop.show}>삭제</button>
     </div>
     <div class="prbott">
         <ul>

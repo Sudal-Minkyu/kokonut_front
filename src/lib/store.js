@@ -97,10 +97,18 @@ export const personalInfoCategoryData = writable({
 export const personalInfoTableData = writable({
     userTableData: [],
     columnList: [],
+    checkedColumnNameList: [],
+    checkedColumnObjList: [],
+    checkedColumnTitleString: '',
     addTabPop: {
         visible: false,
         inputData: {
             ctDesignation: '',
         },
     },
+    removeColumnPop: {
+        visible: false,
+        otpValue: '',
+        checkPreCautionAgree: false,
+    }
 });

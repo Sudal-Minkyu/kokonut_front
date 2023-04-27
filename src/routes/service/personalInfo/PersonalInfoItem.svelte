@@ -16,6 +16,8 @@
     import jQuery from "jquery";
     import restapi from "../../../lib/api.js";
     import {accessToken, backBtn, is_login, personalInfoCategoryData, personalInfoTableData} from '../../../lib/store.js'
+    import PersonalInfoRemoveColumnPop
+        from "../../../components/service/environment/personalInfo/PersonalInfoRemoveColumnPop.svelte";
 
     const personalInfoItemProp = {
         isLoadingScreenOn: true,
@@ -319,6 +321,77 @@
                 personalInfoTableService.addTabPop.initInput();
             },
         },
+        removeColumnPop: {
+            show() {
+                personalInfoTableData.update(obj => {
+                    if (obj.checkedColumnNameList.length) {
+                        obj.removeColumnPop.visible = true;
+                    } else {
+                        // 먼저 삭제할 개인정보 항목을 선택해 달라는 팝업 추가
+                    }
+                    return obj;
+                });
+            },
+            hide() {
+                personalInfoTableData.update(obj => {
+                    obj.removeColumnPop.visible = false;
+                    return obj;
+                });
+            },
+            initInput() {
+                personalInfoTableData.update(obj => {
+                    obj.removeColumnPop = {
+                        ...obj.removeColumnPop,
+                        otpValue: '',
+                        checkPreCautionAgree: false,
+                    };
+                    return obj;
+                });
+            },
+            removeUserTableColumnByColumnNameList() {
+                if (!$personalInfoTableData.removeColumnPop.checkPreCautionAgree) {
+                    // 삭제팝업 주의사항 하단에 주의사항 확인 체크 요청
+                    return;
+                }
+
+                const targetData = {
+                    otpValue: $personalInfoTableData.removeColumnPop.otpValue,
+                    tableName: personalInfoItemProp.currentSelectedTab,
+                    fieldNames: $personalInfoTableData.checkedColumnNameList
+                };
+                console.log(targetData);
+                restapi('v2', 'post', '/v2/api/DynamicUser/tableColumnDelete', 'body', targetData, 'application/json',
+                    (json_success) => {
+                        if(json_success.data.status === 200) {
+                            personalInfoTableService.removeColumnPop.initInput();
+                        } else {
+                            // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+                            alert(json_success.data.err_msg);
+                            is_login.set(false);
+                            accessToken.set('');
+                            push('/login');
+                        }
+                    },
+                    (json_error) => {
+                        console.log(json_error);
+                        console.log('회사의 테이블리스트 호출 실패');
+                    }
+                )
+            },
+        },
+        handleColumnChecked() {
+            personalInfoTableData.update(obj => {
+                // bind를 통해 checkedColumnList 에 이름이 모이고, 체크된 컬럼이 담긴다.
+                obj.checkedColumnObjList = obj.columnList.filter(colObj => obj.checkedColumnNameList.includes(colObj.fieldName));
+                // 삭제창에 보여줄 대상 컬럼에 대한 문자열
+                let generateStringGround = '';
+                for (const [i, colObj] of obj.checkedColumnObjList.entries()) {
+                    generateStringGround += (i ? ', ' : '') + colObj.fieldComment;
+                }
+                obj.checkedColumnTitleString = generateStringGround;
+                return obj;
+            });
+        },
         getUserTableList() {
             let url = "/v2/api/Company/userTableList";
             restapi('v2', 'get', url, "", {}, 'application/json',
@@ -408,6 +481,10 @@
 
 {#if $personalInfoTableData.addTabPop.visible}
     <PersonalInfoAddTabPop {personalInfoTableService} />
+{/if}
+
+{#if $personalInfoTableData.removeColumnPop.visible}
+    <PersonalInfoRemoveColumnPop {personalInfoTableService} />
 {/if}
 
 <!-- [D] 전자상거래 적용 대상 팝업 -->
