@@ -73,23 +73,23 @@
                     <dl>오후 5시 30분</dl>
                 </div>
                 <div class="currentSlideBox">
-                    <Swiper {options}>
-                        <SwiperSlide class="swiper-slide">
-                            <div class="cursItem">금일 파기된(될) 개인정보 <span class="curCou">32</span><dt>건</dt></div>
-                        </SwiperSlide>
-                        <SwiperSlide class="swiper-slide">
-                            <div class="cursItem">오늘의 개인정보 다운로드 <span class="curCou">32</span><dt>건</dt>, <span class="curCou">50</span><dt>회</dt>, <span class="curCou">김코코</span></div>
-                        </SwiperSlide>
-                        <SwiperSlide class="swiper-slide">
-                            <div class="cursItem">개인정보 제공건수 : 외부 <span class="curCou">32</span><dt>건</dt>, 내부 <span class="curCou">50</span><dt>건</dt></div>
-                        </SwiperSlide>
-                        <div class="curs_btnBox">
-                            <div class="curs_btnInner">
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                            </div>
-                        </div>
-                    </Swiper>
+<!--                    <Swiper {options}>-->
+<!--                        <SwiperSlide class="swiper-slide">-->
+<!--                            <div class="cursItem">금일 파기된(될) 개인정보 <span class="curCou">32</span><dt>건</dt></div>-->
+<!--                        </SwiperSlide>-->
+<!--                        <SwiperSlide class="swiper-slide">-->
+<!--                            <div class="cursItem">오늘의 개인정보 다운로드 <span class="curCou">32</span><dt>건</dt>, <span class="curCou">50</span><dt>회</dt>, <span class="curCou">김코코</span></div>-->
+<!--                        </SwiperSlide>-->
+<!--                        <SwiperSlide class="swiper-slide">-->
+<!--                            <div class="cursItem">개인정보 제공건수 : 외부 <span class="curCou">32</span><dt>건</dt>, 내부 <span class="curCou">50</span><dt>건</dt></div>-->
+<!--                        </SwiperSlide>-->
+<!--                        <div class="curs_btnBox">-->
+<!--                            <div class="curs_btnInner">-->
+<!--                                <div class="swiper-button-next"></div>-->
+<!--                                <div class="swiper-button-prev"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </Swiper>-->
                 </div>
                 <div class="curUpdateBox">
                     <button>새로고침</button>
