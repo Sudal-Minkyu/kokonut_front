@@ -40,7 +40,7 @@
 </script>
 
 {#if actualProp.visible}
-<div class="dim"></div>
+<div class="dim" style="display: block"></div>
 <div class="layerPopType dp_b" id="tip_box">
     <header class="popHeader">
         {#if actualProp.icon === 'success'}
@@ -65,8 +65,8 @@
         {#if actualProp.type === 'confirm'}
             <button on:click={btnCheck} type="button" class="popCheck">{actualProp.btnCheck}</button>
         {:else if actualProp.type === 'ask'}
-            <button on:click={btnStart} type="button" class="popStart">{actualProp.btnStart}</button>
-            <button on:click={btnCancel} type="button" class="popCancel">{actualProp.btnCancel}</button>
+            <button on:click={btnStart} type="button" class="popCancel">{actualProp.btnStart}</button>
+            <button on:click={btnCancel} type="button" class="popStart">{actualProp.btnCancel}</button>
         {/if}
     </div>
 </div>

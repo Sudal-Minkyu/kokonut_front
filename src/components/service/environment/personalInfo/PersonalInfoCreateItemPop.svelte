@@ -1,6 +1,7 @@
 <script>
     import restapi from "../../../../lib/api.js";
     import {personalInfoCategoryData} from "../../../../lib/store.js";
+    import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
 
     export let personalInfoCategoryService;
 
@@ -34,6 +35,7 @@
             <div class="kopopinput marB24">
                 <label>항목명</label>
                 <input type="text" bind:value={$personalInfoCategoryData.createItemPop.inputData.ciName} placeholder="항목명을 적어주세요." />
+                <ErrorHighlight message={$personalInfoCategoryData.createItemPop.ciNameErrorMsg} />
             </div>
             <div class="kopopinput ">
                 <label>암호화</label>

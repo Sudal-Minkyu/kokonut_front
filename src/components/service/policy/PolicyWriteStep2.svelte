@@ -26,38 +26,38 @@
     let policyPurposeSaveDtoList = [];
     let policyPurposeDeleteIdList = [];
 
-    // $: purposeDataList = $policyInfoData.purposeDataList;
-    // jQuery(document).ready(function() {
-    //     const max_fields2 = 5;
-    //     const wrapper2 = jQuery(".prcontainer1");
-    //     const add_button2 = jQuery(".add_pr_field1");
-    //     let x = 1;
-    //
-    //     jQuery(add_button2).click(function(e){
-    //         e.preventDefault();
-    //         if(x < max_fields2){
-    //             x++;
-    //             jQuery(wrapper2).append(
-    //                 '<div class="addelement">' +
-    //                 '<div class="prboxtext">' +
-    //                 '<div class="prbte1 w1528per">' +
-    //                 '<input type="text" name="" placeholder="내용입력" />' +
-    //                 '</div>' +
-    //                 '<div class="prbte2 w8472per">' +
-    //                 '<input type="text" name="" placeholder="내용입력" />' +
-    //                 '</div>' +
-    //                 '</div>' +
-    //                 '<a href="#" class="pr_delete"></a></div>'
-    //             );
-    //         } else {
-    //             alert('해당 정보는 4개 입력이 최대입니다.')
-    //         }
-    //     });
-    //
-    //     jQuery(wrapper2).on("click",".pr_delete", function(e){
-    //         e.preventDefault(); jQuery(this).parent('div').remove(); x--;
-    //     })
-    // });
+    $: purposeDataList = $policyInfoData.purposeDataList;
+    jQuery(document).ready(function() {
+        const max_fields2 = 5;
+        const wrapper2 = jQuery(".prcontainer1");
+        const add_button2 = jQuery(".add_pr_field1");
+        let x = 1;
+
+        jQuery(add_button2).click(function(e){
+            e.preventDefault();
+            if(x < max_fields2){
+                x++;
+                jQuery(wrapper2).append(
+                    '<div class="addelement">' +
+                    '<div class="prboxtext">' +
+                    '<div class="prbte1 w1528per">' +
+                    '<input type="text" name="" placeholder="내용입력" />' +
+                    '</div>' +
+                    '<div class="prbte2 w8472per">' +
+                    '<input type="text" name="" placeholder="내용입력" />' +
+                    '</div>' +
+                    '</div>' +
+                    '<a href="#" class="pr_delete"></a></div>'
+                );
+            } else {
+                alert('해당 정보는 4개 입력이 최대입니다.')
+            }
+        });
+
+        jQuery(wrapper2).on("click",".pr_delete", function(e){
+            e.preventDefault(); jQuery(this).parent('div').remove(); x--;
+        })
+    });
 
 
 
