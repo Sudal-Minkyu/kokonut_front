@@ -2,7 +2,7 @@
 <script>
 
     import { fade } from 'svelte/transition'
-    import {personalInfoCategoryData, piId, policyInfoData} from '../../../lib/store.js'
+    import {piId, policyInfoData} from '../../../lib/store.js'
 
     import jQuery from "jquery";
     import {onMount} from "svelte";
@@ -20,13 +20,17 @@
         }
     })
 
+    window.cd = () => {
+        console.log($policyInfoData);
+    }
+
     export let policyWriting;
     export let stateChange;
 
     let policyPurposeSaveDtoList = [];
     let policyPurposeDeleteIdList = [];
 
-    $: purposeDataList = $policyInfoData.purposeDataList;
+    $: purposeDataList = $policyInfoData;
     jQuery(document).ready(function() {
         const max_fields2 = 5;
         const wrapper2 = jQuery(".prcontainer1");
