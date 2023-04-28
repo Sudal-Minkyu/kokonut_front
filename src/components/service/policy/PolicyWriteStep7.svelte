@@ -2,6 +2,7 @@
 
     import { fade } from 'svelte/transition'
     import {backBtn,policyInfoData,piId} from "../../../lib/store.js";
+    import TitleAlarm from "../../common/TitleAlarm.svelte";
 
     export let policyWriting;
     export let stateChange;
@@ -12,10 +13,24 @@
 
 
     }
+
+    // function titleClickFun() {
+    //     titleClick = true;
+    //     setTimeout(() => {
+    //         if(titleClick) {
+    //             titleClick = false;
+    //         }
+    //     }, 1000)
+    // }
+    // let titleMessage = "동의여부를 클릭해주세요.";
+    // let titleClick = false;
+
+
 </script>
 
-<div in:fade>
+<!--<TitleAlarm {titleMessage} {titleClick} />-->
 
+<div in:fade>
     <!------------ No.3 ------------>
     <div class="priContentBox" style="border-top:0;padding: 0">
         <div class="priC_title marB24">7. 개인정보의 파기에 관한 사항</div>
@@ -132,8 +147,20 @@
             <dd class="pradfont"><span></span>경찰청 : (국번없이) 182 (ecrm.cyber.go.kr)</dd>
         </div>
     </div>
-</div>
 
+    <div class="priContentBox">
+        <div class="koko_checkDoubleBox">
+            <div class="koko_check">
+                <input type="checkbox" value="1" name="selcheck02" id="selcheck02">
+                <label for="selcheck02">
+                    <em></em>
+                    <p style="font-size: 18px;font-weight: 500;" class="check">모든 사항을 확인하였고 동의합니다.</p>
+                </label>
+            </div>
+        </div>
+    </div>
+
+</div>
 <div class="fixstepInnerWrap">
     <div class="fixstepInnerWrapInner">
         <div class="fixstepInner">

@@ -89,14 +89,7 @@
                     if($piId === 0) {
                         piId.set(json_success.data.sendData.saveId);
                     }
-                    policyInfoData.update(obj => {
-                        obj.policyData1 = {
-                            piVersion : piVersion,
-                            piDate : piDate,
-                            piHeader : piHeader,
-                        };
-                        return obj;
-                    });
+
                     stateChange(2);
                 }
             },
