@@ -50,7 +50,7 @@
             </div>
             <div class="kokopopBtnBox">
                 <div class="koko_cancel" on:click={personalInfoCategoryService.createItemPop.hide}>취소</div>
-                <div class="koko_go" on:click={handleCreateItem}><button type="submit">추가</button></div>
+                <div class="koko_go" on:click={personalInfoCategoryService.createItemPop.handleCreateItemClick}><button type="submit">추가</button></div>
             </div>
         </div>
         <div class="koko-popup-close create_item_pop_close" on:click={personalInfoCategoryService.createItemPop.hide}></div>

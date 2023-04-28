@@ -1,11 +1,8 @@
 <script>
-
     import { fade } from 'svelte/transition'
-
-    export let titleMessage;
-    export let titleClick;
-
+    export let prop;
 </script>
+
 <style>
     .titleDiv {
         padding: 10px 20px 10px 20px;
@@ -25,8 +22,8 @@
     }
 </style>
 
-{#if titleClick}
+{#if prop.titleClick}
     <div class="titleDiv" in:fade out:fade>
-        <p class="titleMessage">{titleMessage}</p>
+        <p class="titleMessage">{prop.titleMessage}</p>
     </div>
 {/if}

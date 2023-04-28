@@ -3,7 +3,6 @@
     import Header from "../../../components/service/layout/Header.svelte"
     import PersonalInfoCategory from "../../../components/service/environment/personalInfo/PersonalInfoCategory.svelte"
     import PersonalInfoTable from "../../../components/service/environment/personalInfo/PersonalInfoTable.svelte"
-    import TitleAlarm from '../../../components/common/TitleAlarm.svelte'
     import PersonalInfoCreateItemPop
         from "../../../components/service/environment/personalInfo/PersonalInfoCreateItemPop.svelte";
     import PersonalInfoAddTabPop
@@ -20,7 +19,8 @@
         from "../../../components/service/environment/personalInfo/PersonalInfoRemoveColumnPop.svelte";
     import PersonalInfoInsertItemPop
         from "../../../components/service/environment/personalInfo/PersonalInfoInsertItemPop.svelte";
-    import CustomAlert from "../../../components/common/ui/CustomAlert.svelte";
+    import CustomAlert from "../../../components/common/ui/CustomConfirm.svelte";
+    import Banner from "../../../components/common/ui/Banner.svelte";
 
     const personalInfoItemProp = {
         isLoadingScreenOn: true,
@@ -65,12 +65,14 @@
                 personalInfoItemProp.banner.titleMessage = message;
                 personalInfoItemProp.banner.titleClick = true;
                 setTimeout(() => {
-                    if(personalInfoItemProp.banner.titleClick) {
+                    if (personalInfoItemProp.banner.titleClick) {
                         personalInfoItemProp.banner.titleClick = false;
                     }
                 }, 2000);
             }
-        }
+        },
+        customConfirmControl: {
+        },
     }
 
     const personalInfoCategoryService = {
@@ -96,6 +98,26 @@
                     }
                     return obj;
                 });
+            },
+            handleCreateItemClick() {
+                //여기 중복검사가 필요
+                personalInfoCategoryService.createItemPop.sendCreateItem();
+            },
+            sendCreateItem() {
+                restapi('v2', 'post', '/v2/api/Company/saveItem', "param", $personalInfoCategoryData.createItemPop.inputData, 'application/json',
+                    (json_success) => {
+                        if(json_success.data.status === 200) {
+                            personalInfoCategoryService.getAdditionalItemList();
+                        } else if (json_success.data.err_code === 'KO087') {
+                            alert('이미 등록되어 있는 항목입니다.');
+                        }
+                        personalInfoCategoryService.createItemPop.initInputData();
+                        personalInfoCategoryService.createItemPop.hide();
+                    },
+                    (json_error) => {
+                        console.log('아이템 추가 실패', json_error);
+                    }
+                );
             }
         },
         insertItemPop: {
@@ -111,38 +133,50 @@
                     return obj;
                 });
             },
-            addItemListToTable() {
+            handleAddItemBtnClick() {
                 if ($personalInfoCategoryData.checkedItemObjList.length !== 0) {
-                    let url = "/v2/api/DynamicUser/tableColumnAdd";
-                    let sendData = {
-                        tableName: personalInfoItemProp.currentSelectedTab,
-                        kokonutAddColumnListDtos: $personalInfoCategoryData.checkedItemObjList
+                    personalInfoItemProp.customConfirmControl = {
+                        visible: true, // 팝업 보임의 여부 통제
+                        type: 'ask', // 'confirm' 버튼하나, 'ask' 여부 묻기
+                        callback: personalInfoCategoryService.insertItemPop.addItemListToTable, // 확인버튼시 동작
+                        icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: '선택 항목 등록 확인', // 제목
+                        contents1: '선택하신 항목을', // 내용
+                        contents2: '등록 하시겠습니까?',
+                        btnStart: '확인', // 실행 버튼의 텍스트
+                        btnCancel: '취소', // 취소 버튼의 텍스트
                     }
-
-                    restapi('v2', 'post', url, "body", sendData, 'application/json',
-                        (json_success) => {
-                            console.log(json_success);
-                            if (json_success.data.status === 200) {
-                                personalInfoItemProp.banner.activateBanner("선택한 항목을 추가하였습니다.");
-
-                                personalInfoItemProp.userTableClick(personalInfoItemProp.currentSelectedTab)
-                                personalInfoCategoryService.resetCheckedItemState();
-                            } else {
-                                // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                                // alert(json_success.data.err_msg);
-                                // is_login.set(false);
-                                // accessToken.set("");
-                                // push('/login');
-                            }
-                        },
-                        (json_error) => {
-                            console.log(json_error);
-                            console.log("카테고리(컬럼) 추가 호출 실패");
-                        }
-                    )
                 } else {
                     personalInfoItemProp.banner.activateBanner("추가할 항목을 선택해주세요.");
                 }
+            },
+            addItemListToTable() {
+                let url = "/v2/api/DynamicUser/tableColumnAdd";
+                let sendData = {
+                    tableName: personalInfoItemProp.currentSelectedTab,
+                    kokonutAddColumnListDtos: $personalInfoCategoryData.checkedItemObjList
+                }
+
+                restapi('v2', 'post', url, "body", sendData, 'application/json',
+                    (json_success) => {
+                        if (json_success.data.status === 200) {
+                            personalInfoItemProp.banner.activateBanner("선택한 항목을 추가하였습니다.");
+
+                            personalInfoItemProp.userTableClick(personalInfoItemProp.currentSelectedTab)
+                            personalInfoCategoryService.resetCheckedItemState();
+                        } else {
+                            // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+                            // alert(json_success.data.err_msg);
+                            // is_login.set(false);
+                            // accessToken.set("");
+                            // push('/login');
+                        }
+                    },
+                    (json_error) => {
+                        console.log(json_error);
+                        console.log("카테고리(컬럼) 추가 호출 실패");
+                    }
+                );
             },
         },
         autoCompleteBox: {
@@ -236,7 +270,7 @@
                     if(json_success.data.status === 200) {
                         personalInfoCategoryData.update(obj => {
                             obj.addItemList = json_success.data.sendData.itemList.map((innerObj) => {
-                                return {...innerObj, categoryName: '추가항목', textColor: 'greenText'};
+                                return {...innerObj, categoryName: '추가항목', textColor: 'greentext'};
                             });
                             return obj;
                         });
@@ -495,7 +529,7 @@
             <h1>개인정보 항목 관리</h1>
         </div>
 
-        <TitleAlarm {personalInfoItemProp} />
+        <Banner prop={personalInfoItemProp.banner} />
 
         {#if personalInfoItemProp.isLoadingScreenOn}
             <div class="loaderParent">
@@ -528,7 +562,7 @@
     <PersonalInfoRemoveColumnPop {personalInfoTableService} />
 {/if}
 
-<CustomAlert prop={{visible: true}} />
+<CustomAlert prop={personalInfoItemProp.customConfirmControl} />
 
 <!-- [D] 전자상거래 적용 대상 팝업 -->
 <!--<div class="koko_popup commerce_pop" data-popup="commerce_pop" style="display:block;">-->
