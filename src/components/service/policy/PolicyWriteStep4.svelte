@@ -127,7 +127,7 @@
             <div class="title_check">
                 <input type="checkbox" value="1" name="pr5-1_involve" id="pr5-1_involve" checked>
                 <label for="pr5-1_involve">
-                    <p class="check">포함</p>
+                    <p class="check">포함여부</p>
                     <em></em>
                 </label>
             </div>

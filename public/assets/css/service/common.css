@@ -1502,7 +1502,7 @@
 .prformBtnBox button:hover{background:#00BA83;}
 
 /* 타이틀 체크박스 */
-.title_check {display: flex;position: absolute;align-items: center;right: 0rem;top: 2.7rem;}
+.title_check {display: flex;align-items: center;margin-left: 10px;top: 2.7rem;}
 .title_check p {font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;}
 .title_check p .colgr{color:#00C389;}
 .title_check p .colred{color:#FF6752;}

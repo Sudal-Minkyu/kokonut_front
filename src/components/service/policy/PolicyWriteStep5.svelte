@@ -13,20 +13,18 @@
     <div class="priContentBox" style="border-top:0;padding: 0">
         <div class="priC_title marB24">4. 개인정보 제3자 제공에 관한 사항
             <span class="tiptool" id="tool_btn14">
-                        <!-- [D] tooltip : 개인정보 제3자 제공에 관한 사항 -->
-                        <div class="layerToolType pmtool_02" id="tool_box14">
-                            <div class="tipContents">
-                                <p>
-                                    개인정보를 제3자에 제공하는 고객사만 작성합니다. 개인정보 처리 위탁에 관한 사항은 5. 개인정보 처리 업무의 위탁에 관한 사항에 작성합니다.
-                                </p>
-                            </div>
-                        </div>
-                <!-- // [D] 개인정보 제3자 제공에 관한 사항 -->
-                    </span>
-            <div class="title_check">
+                <div class="layerToolType pmtool_02" id="tool_box14">
+                    <div class="tipContents">
+                        <p>
+                            개인정보를 제3자에 제공하는 고객사만 작성합니다. 개인정보 처리 위탁에 관한 사항은 5. 개인정보 처리 업무의 위탁에 관한 사항에 작성합니다.
+                        </p>
+                    </div>
+                </div>
+            </span>
+            <div class="title_check" style="top: 0">
                 <input type="checkbox" value="1" name="pr6_involve" id="pr6_involve" checked>
                 <label for="pr6_involve">
-                    <p class="check">포함</p>
+                    <p class="check">포함여부</p>
                     <em></em>
                 </label>
             </div>
@@ -105,20 +103,18 @@
     <div class="priContentBox">
         <div class="priC_title marB24">4-1. 개인정보의 국외 제3자 제공에 관한 사항
             <span class="tiptool" id="tool_btn15">
-                        <!-- [D] tooltip : 개인정보의 국외 제3자 제공에 관한 사항 -->
-                        <div class="layerToolType pmtool_02" id="tool_box15">
-                            <div class="tipContents">
-                                <p>
-                                    개인정보를 국외의 업체에 제3자 제공 방식으로 이전할 때 작성합니다.
-                                </p>
-                            </div>
-                        </div>
-                <!-- // [D] 개인정보의 국외 제3자 제공에 관한 사항 -->
-                    </span>
+                <div class="layerToolType pmtool_02" id="tool_box15">
+                    <div class="tipContents">
+                        <p>
+                            개인정보를 국외의 업체에 제3자 제공 방식으로 이전할 때 작성합니다.
+                        </p>
+                    </div>
+                </div>
+            </span>
             <div class="title_check">
                 <input type="checkbox" value="1" name="pr6-1_involve" id="pr6-1_involve" checked>
                 <label for="pr6-1_involve">
-                    <p class="check">포함</p>
+                    <p class="check">포함여부</p>
                     <em></em>
                 </label>
             </div>
