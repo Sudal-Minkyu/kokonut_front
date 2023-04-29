@@ -1,4 +1,5 @@
 <script>
+    import { fade } from 'svelte/transition'
     import restapi from "../../../../lib/api.js";
     import {personalInfoCategoryData} from "../../../../lib/store.js";
     import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
@@ -26,7 +27,7 @@
 </script>
 
 <!-- [D] 개인정보 항목 만들기 팝업 -->
-<div class="koko_popup create_item_pop" data-popup="create_item_pop">
+<div class="koko_popup create_item_pop" data-popup="create_item_pop" in:fade>
     <div class="koko_popup_inner">
         <div class="koko_popup_container">
             <div class="koko_popup_title">

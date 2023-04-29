@@ -1,10 +1,11 @@
 <script>
+    import { fade } from 'svelte/transition'
     import {personalInfoTableData} from "../../../../lib/store.js";
     export let personalInfoTableService;
 </script>
 
 <!-- [D] 탭추가 팝업 -->
-<div class="koko_popup add_tab_pop" data-popup="add_tab_pop">
+<div class="koko_popup add_tab_pop" data-popup="add_tab_pop" in:fade>
     <div class="koko_popup_inner">
         <div class="koko_popup_container">
             <div class="koko_popup_title">

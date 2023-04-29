@@ -1,24 +1,28 @@
 <script>
+    import { fade } from 'svelte/transition'
     import {personalInfoTableData} from "../../../../lib/store.js";
     import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
+    import {onlyNumber} from "../../../../lib/common.js";
     export let personalInfoTableService;
 
 </script>
 
 <!-- [D] 개인정보 선택 항목 삭제 팝업 -->
-<div class="koko_popup delete_pr_pop" data-popup="delete_pr_pop">
+<div class="koko_popup delete_pr_pop" data-popup="delete_pr_pop" in:fade>
     <div class="koko_popup_inner">
         <div class="koko_popup_container">
             <div class="koko_popup_titleh4">
                 <h4 class="">
-                    선택하신 <span>{$personalInfoTableData.checkedColumnTitleString}</span> 항목을<br>
-                    삭제하시겠습니까?
+                    선택하신<br>
+                    <span>{$personalInfoTableData.checkedColumnTitleString}</span><br>
+                    항목을 삭제하시겠습니까?
                 </h4>
             </div>
             <form>
                 <div class="kopopinput marB24">
-                    <label>OTP</label>
-                    <input type="text" bind:value={$personalInfoTableData.removeColumnPop.otpValue} placeholder="OTP를 적어주세요." />
+                    <label>구글 OTP 인증번호(6자리)</label>
+                    <input type="text" bind:value={$personalInfoTableData.removeColumnPop.otpValue} maxlength="6"
+                           on:keyup={() => $personalInfoTableData.removeColumnPop.otpValue = onlyNumber($personalInfoTableData.removeColumnPop.otpValue)} placeholder="OTP를 적어주세요." />
                     <ErrorHighlight message="{$personalInfoTableData.removeColumnPop.otpErrorMsg}" />
                 </div>
                 <div class="popcaseInfoBox pi_noneicon">

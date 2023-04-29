@@ -29,6 +29,9 @@ import PersonalInfoItem from "./routes/service/personalInfo/PersonalInfoItem.sve
 import PolicyList from "./routes/service/policy/PolicyList.svelte"
 import PolicyWrite from "./routes/service/policy/PolicyWrite.svelte"
 
+import PrivacyList from "./routes/service/privacy/PrivacyList.svelte"
+import PrivacyWrite from "./routes/service/privacy/PrivacyWrite.svelte"
+
 export default {
     // API 테스트하는 화면
     "/Apitest": wrap({
@@ -107,6 +110,12 @@ export default {
     "/service/policyWriteAll": wrap({
         asyncComponent: () => import("./routes/service/policy/policyWriteAll.svelte"),
     }),
+
+    // 개인정보제공 리스트 페이지
+    "/service/privacyList": PrivacyList,
+    // 개인정보 제공페이지
+    "/service/privacyWrite": PrivacyWrite,
+
 
     "*": wrap({
         asyncComponent: () => import("./routes/NotFound.svelte"),

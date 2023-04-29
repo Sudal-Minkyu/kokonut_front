@@ -32,7 +32,7 @@
             <h1>개인정보처리방침 목록</h1>
             <div class="TitleBtn">
                 <a use:link href="/service/policyWrite" on:click="{() => {$page = 0}}">
-                    <button id="adm_registration_pop">새로 만들기</button>
+                    <button id="adm_registration_pop">개인정보처리방침 제작</button>
                 </a>
             </div>
         </div>
