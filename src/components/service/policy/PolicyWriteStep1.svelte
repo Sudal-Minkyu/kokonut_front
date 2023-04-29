@@ -1,41 +1,12 @@
-
 <script>
 
     import { fade } from 'svelte/transition'
-    import {backBtn, policyInfoData, piId} from "../../../lib/store.js";
-    import {onlyDouble, onlyNumber} from "../../../lib/common.js"
+    import {policyInfoData, piId} from "../../../lib/store.js";
     import jQuery from "jquery";
+
     import restapi from "../../../lib/api.js";
-    import {push} from "svelte-spa-router";
     import {onMount} from "svelte";
-
-    jQuery(function() {
-
-        //모든 datepicker에 대한 공통 옵션 설정
-        // jQuery("#startdate").data('daterangepicker') ({
-        //     dateFormat: 'yy. mm. dd' //Input Display Format 변경
-        //     ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-        //     ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
-        //     ,changeYear: true //콤보박스에서 년 선택 가능
-        //     ,changeMonth: true //콤보박스에서 월 선택 가능
-        //     ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트
-        //     ,yearSuffix: "" //달력의 년도 부분 뒤에 붙는 텍스트
-        //     ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
-        //     ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
-        //     ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
-        //     ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
-        //     ,minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-        //     ,maxDate: "+5Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
-        // });
-
-        // //input을 datepicker로 선언
-        // jQuery("#startdate").datepicker();
-        // jQuery("#startdate").data('daterangepicker');
-        //From의 초기값을 오늘 날짜로 설정
-        //$('#datepicker').datepicker('setDate', '-7D'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
-        //To의 초기값을 내일로 설정
-        //$('#datepicker2').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
-    });
+    import {singleDatePicker} from "../../../lib/libSearch.js";
 
     onMount(async () => {
         console.log("첫번째 뎁스 piId : "+$piId);
@@ -45,28 +16,35 @@
             console.log("조회함");
             policyWriting();
         }
-    })
+        singleDatePicker('startdate', (result) => {
+            policyInfoData.update(obj => {
+                obj.policyData1.piDate = result.format('YYYY-MM-DD');
+                return obj;
+            });
+            console.log($policyInfoData.policyData1.piDate);
+        });
+    });
+
+    window.gogo = () => {
+        stateChange(2);
+    }
 
     export let policyWriting;
     export let stateChange;
 
-    let piVersion = $policyInfoData.policyData1.piVersion;
-    let piDate = $policyInfoData.policyData1.piDate;
-    let piHeader = $policyInfoData.policyData1.piHeader;
-
     let textState = 0;
     function firstDepthSave() {
-        if(piVersion === "" || piVersion.toString().search(/\s/) !== -1) {
+        if($policyInfoData.policyData1.piVersion === "" || $policyInfoData.policyData1.piVersion.toString().search(/\s/) !== -1) {
             textState = 1;
             return false;
         }
 
-        if(piDate === "") {
+        if($policyInfoData.policyData1.piDate === "") {
             textState = 2;
             return false;
         }
 
-        if(piHeader === "" || piHeader.toString().search(/\s/) !== -1) {
+        if($policyInfoData.policyData1.piHeader === "" || $policyInfoData.policyData1.piHeader.toString().search(/\s/) !== -1) {
             textState = 3;
             return false;
         }
@@ -77,9 +55,9 @@
 
         let sendData = {
             piId : $piId,
-            piVersion : piVersion,
-            piDate : piDate,
-            piHeader : piHeader,
+            piVersion : $policyInfoData.policyData1.piVersion,
+            piDate : $policyInfoData.policyData1.piDate,
+            piHeader : $policyInfoData.policyData1.piHeader,
         }
 
         restapi('v2', 'post', url, "body", sendData, 'application/json',
@@ -99,6 +77,11 @@
         )
 
     }
+
+    const startdateChanged = (e) => {
+        console.log(e);
+        console.log($policyInfoData.policyData1.piDate);
+    };
 </script>
 
 <div in:fade>
@@ -109,7 +92,7 @@
         <div class="priverInput">
             <p>Ver.</p>
             <div class="koinput">
-                <input type="text" bind:value={piVersion} maxlength="10" placeholder="버전을 입력해 주세요" />
+                <input type="text" bind:value={$policyInfoData.policyData1.piVersion} maxlength="10" placeholder="버전을 입력해 주세요" />
             </div>
         </div>
         <a class="{textState === 1 ? 'textShake' : 'noText'}">개정본버전을 입력해주세요.</a>
@@ -119,7 +102,7 @@
         <dl>개정일</dl>
         <div class="priverCal">
             <div class="time_input">
-                <input type="text" id="startdate" bind:value={piDate} placeholder="개정일을 선택해 주세요." autocomplete="off" maxlength="20" />
+                <input type="text" id="startdate" bind:value={$policyInfoData.policyData1.piDate} placeholder="개정일을 선택해 주세요." autocomplete="off" maxlength="20" />
             </div>
         </div>
         <a class="{textState === 2 ? 'textShake' : 'noText'}">개정일을 선택해주세요.</a>
@@ -141,7 +124,7 @@
         <div class="priCIntrotext">
             개인정보 처리방침
             <div class="koinput wid220">
-                <input bind:value={piHeader} type="text" placeholder="기업명">
+                <input bind:value={$policyInfoData.policyData1.piHeader} type="text" placeholder="기업명">
             </div>
             (이하 회사)은(는) 고객의 개인정보를 중시하며, 개인정보보호법 등 관련 법규를 준수하기 위해 노력하고 있습니다.
             <dl>회사는 개인정보 처리방침을 통해 고객의 개인정보를 어떠한 용도와 방식으로 이용하고 있으며, 개인정보보호를 위해 어떠한 조치를 취하고 있는지 알려드립니다.</dl>

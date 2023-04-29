@@ -92,6 +92,7 @@
             },
             initInputData() {
                 personalInfoCategoryData.update(obj => {
+                    obj.createItemPop.ciNameErrorMsg = '';
                     obj.createItemPop.inputData = {
                         ciName: '',
                         ciSecurity: '0',
@@ -100,14 +101,37 @@
                 });
             },
             handleCreateItemClick() {
-                //여기 중복검사가 필요
-                personalInfoCategoryService.createItemPop.sendCreateItem();
+                const addItemName = $personalInfoCategoryData.createItemPop.inputData.ciName;
+
+                const isAlreadyExist = function () {
+                    const chkFromAddItem = $personalInfoCategoryData.addItemList.filter(item => item.ciName === addItemName).length;
+                    let chkFromBasicItem = 0;
+                    for (const {categoryItemListDtoList} of $personalInfoCategoryData.basicCategoryList) {
+                        chkFromBasicItem += categoryItemListDtoList.filter(item => item.ciName === addItemName).length;
+                    }
+                    return chkFromAddItem || chkFromBasicItem;
+                }();
+
+                if (isAlreadyExist) {
+                    personalInfoCategoryData.update(obj => {
+                        obj.createItemPop.ciNameErrorMsg = '이미 존재하는 항목명 입니다.';
+                        return obj;
+                    });
+                } else  if (!addItemName) {
+                    personalInfoCategoryData.update(obj => {
+                        obj.createItemPop.ciNameErrorMsg = '항목명을 입력해 주세요.';
+                        return obj;
+                    });
+                } else {
+                    personalInfoCategoryService.createItemPop.sendCreateItem();
+                }
             },
             sendCreateItem() {
                 restapi('v2', 'post', '/v2/api/Company/saveItem', "param", $personalInfoCategoryData.createItemPop.inputData, 'application/json',
                     (json_success) => {
-                        if(json_success.data.status === 200) {
+                        if (json_success.data.status === 200) {
                             personalInfoCategoryService.getAdditionalItemList();
+                            personalInfoItemProp.banner.activateBanner("선택한 항목을 추가하였습니다.");
                         } else if (json_success.data.err_code === 'KO087') {
                             alert('이미 등록되어 있는 항목입니다.');
                         }
@@ -115,10 +139,12 @@
                         personalInfoCategoryService.createItemPop.hide();
                     },
                     (json_error) => {
+
+
                         console.log('아이템 추가 실패', json_error);
                     }
                 );
-            }
+            },
         },
         insertItemPop: {
             show() {

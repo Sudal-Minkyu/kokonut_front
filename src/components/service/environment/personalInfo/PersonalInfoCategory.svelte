@@ -78,7 +78,7 @@
                                             <em></em>
                                             <p class="check">{ciName}</p>
                                         </label>
-                                        <span class="subElement greentext">{categoryName}</span>
+                                        <button class="cateReviseIcon"></button>
                                     </div>
                                 {/each}
                             </div>

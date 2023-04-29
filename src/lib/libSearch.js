@@ -5,12 +5,21 @@
  ********************************/
 import jQuery from 'jquery';
 import moment from 'moment';  
-import daterangepicker from 'daterangepicker';
+import 'daterangepicker';
 
 export let stimeVal = ""
 
 // 공통 코드 정의 파일, 사용 검토
 import { commonCode } from './commonCode.js';
+
+
+let localeKr = {
+	format: 'YYYY-MM-DD',
+	applyLabel: '확인',
+	cancelLabel: '취소',
+	daysOfWeek: ["일", "월", "화", "수", "목", "금", "토"],
+	monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+};
 
 /**
  * 검색 조건 내 dateRangePicker 설정 함수
@@ -58,6 +67,7 @@ export const setDateRangePicker = (id, use_range, periodName) => {
 	// return jQuery(dtIptId).val();
 }
 
+
 /**
  * dateRangePicker 세팅값 설정 함수
  * @param id daterangepicker가 적용될 input 태그 Id
@@ -65,12 +75,6 @@ export const setDateRangePicker = (id, use_range, periodName) => {
  * @param periodTags 선택 라디오 박스 객체
  */
 const setOptDateRangePicker = (id, periodDays, periodTags) => {
-	let localeOpt = {};
-    localeOpt['format'] = 'YYYY-MM-DD';
-    localeOpt['applyLabel'] = '확인';
-    localeOpt['cancelLabel'] = '취소';
-    localeOpt['daysOfWeek'] = ["일", "월", "화", "수", "목", "금", "토"];
-    localeOpt['monthNames'] = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
 
 	if(periodDays < 0){
 		// negative -  all_days
@@ -90,7 +94,7 @@ const setOptDateRangePicker = (id, periodDays, periodTags) => {
 			dateLimit: {
 				'days': 180
 			},
-			locale : localeOpt
+			locale : localeKr
 		});
 	}else if(periodDays === 0){
 		// zero - custom
@@ -100,7 +104,7 @@ const setOptDateRangePicker = (id, periodDays, periodTags) => {
 			dateLimit: {
 				'days': 180
 			},
-			locale : localeOpt
+			locale : localeKr
 		});
 		jQuery(id).val('');
 	}else{
@@ -114,7 +118,7 @@ const setOptDateRangePicker = (id, periodDays, periodTags) => {
 			dateLimit: {
 				'days': 180
 			},
-			locale : localeOpt
+			locale : localeKr
 		});
 	}
 	
@@ -258,3 +262,13 @@ const removeHandleSelectEvent = () => {
 }
 
 
+export const singleDatePicker = (elementId, callback, additionalProp = {}) => {
+	jQuery('#' + elementId).daterangepicker({
+		singleDatePicker: true,
+		showDropdowns: true,
+		minYear: 1990,
+		maxYear: parseInt(moment().format('YYYY'),10),
+		locale : localeKr,
+		...additionalProp,
+	}, callback);
+}

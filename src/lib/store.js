@@ -84,6 +84,7 @@ export const personalInfoCategoryData = writable({
             ciName: '',
             ciSecurity: '0',
         },
+        ciNameErrorMsg: '',
     },
     insertItemPop: {
         visible: false,
