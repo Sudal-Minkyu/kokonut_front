@@ -24,12 +24,13 @@
             </label>
         </div>
         <div class="pri_fornt">
+            <span style="font-size: 50px">현재 준비중입니다.</span>
             <input type="radio" class="priradio" name="inorout" id="외부" value="외부">
-            <label for="외부">
+            <label style="background-color: #c3c3c3;opacity: 0.5" for="외부">
                 <div class="pri_forntImg"><img src="/assets/images/common/privacy_step_img_02.png" alt=""></div>
                 <div class="priletext">
                     <h2>외부 제공</h2>
-                    <h3>
+                    <h3 style="color: #222">
                         외부 위탁 회사의 관리자에게<br>
                         개인정보를 제공하는 기능입니다.
                     </h3>
