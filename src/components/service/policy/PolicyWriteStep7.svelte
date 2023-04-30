@@ -1,8 +1,12 @@
 <script>
 
+    import { push } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
-    import {backBtn,policyInfoData,piId} from "../../../lib/store.js";
+    import {backBtn, policyInfoData, piId, page} from "../../../lib/store.js";
     import TitleAlarm from "../../common/TitleAlarm.svelte";
+    import {stimeVal} from "../../../lib/libSearch.js";
+    import jQuery from "jquery";
+    import restapi from "../../../lib/api.js";
 
     export let policyWriting;
     export let stateChange;
@@ -11,9 +15,28 @@
     function policySave() {
         console.log("개인정보처리방침 제작완료!");
 
+        let url = "/v2/api/Policy/privacyPolicyFinalSave";
+
+        let sendData = {
+            piId : $piId,
+        };
+
+        restapi('v2', 'post', url, "param", sendData, 'application/json',
+            (json_success) => {
+                if(json_success.data.status === 200) {
+                    alert("제작을 완료했습니다."); // 조프리 마무리 요청
+                    push("/service/policyList")
+                }
+            },
+            (json_error) => {
+                console.log(json_error);
+                console.log("개인정보처리방침 제작 호출 실패");
+            }
+        )
 
     }
 
+    // 조프리 요청
     // function titleClickFun() {
     //     titleClick = true;
     //     setTimeout(() => {
