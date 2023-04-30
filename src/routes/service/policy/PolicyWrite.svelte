@@ -123,79 +123,30 @@
         let url = "/v2/api/Policy/privacyPolicyWriting"
         let sendData = {
             piId : $piId,
-            piStage : $piStage
         }
 
         restapi('v2', 'get', url, "param", sendData, 'application/json',
             (json_success) => {
                 if(json_success.data.status === 200) {
                     stage = $piStage;
-                    if($piStage === 1) {
-                        console.log("1번실행");
-                        policyInfoData.update(obj => {
-                            obj.policyData1 = json_success.data.sendData.policyInfo1;
-                            return obj;
-                        });
-                    } else if($piStage === 2) {
-                        console.log("2번실행");
-                        policyInfoData.update(obj => {
-                            obj.policyData1 = json_success.data.sendData.policyInfo1;
-                            obj.purposeDataList = json_success.data.sendData.purposeInfo;
-                            return obj;
-                        });
-                    } else if($piStage === 3) {
-                        console.log("3번실행");
-                        policyInfoData.update(obj => {
-                            obj.policyData1 = json_success.data.sendData.policyInfo1;
-                            obj.purposeDataList = json_success.data.sendData.purposeInfo;
-                            obj.collectionDataList = json_success.data.sendData.collectionInfo;
-                            obj.createDataList = json_success.data.sendData.createInfo;
-                            obj.policyData2 = json_success.data.sendData.policyInfo2;
-                            return obj;
-                        });
-                    } else if($piStage === 4) {
-                        console.log("4번실행");
-                        policyInfoData.update(obj => {
-                            obj.policyData1 = json_success.data.sendData.policyInfo1;
-                            obj.purposeDataList = json_success.data.sendData.purposeInfo;
-                            obj.collectionDataList = json_success.data.sendData.collectionInfo;
-                            obj.createDataList = json_success.data.sendData.createInfo;
-                            obj.policyData2 = json_success.data.sendData.policyInfo2;
-                            obj.outDataList = json_success.data.sendData.outInfo;
-                            obj.outDetailDataList = json_success.data.sendData.outDetailInfo;
-                            return obj;
-                        });
-                    } else if($piStage === 5) {
-                        console.log("5번실행");
-                        policyInfoData.update(obj => {
-                            obj.policyData1 = json_success.data.sendData.policyInfo1;
-                            obj.purposeDataList = json_success.data.sendData.purposeInfo;
-                            obj.collectionDataList = json_success.data.sendData.collectionInfo;
-                            obj.createDataList = json_success.data.sendData.createInfo;
-                            obj.policyData2 = json_success.data.sendData.policyInfo2;
-                            obj.outDataList = json_success.data.sendData.outInfo;
-                            obj.outDetailDataList = json_success.data.sendData.outDetailInfo;
-                            obj.thirdDataList = json_success.data.sendData.thirdInfo;
-                            obj.thirdOverseasDataList = json_success.data.sendData.thirdOverseasInfo;
-                            return obj;
-                        });
-                    } else if($piStage === 6) {
-                        console.log("6번실행");
-                        policyInfoData.update(obj => {
-                            obj.policyData1 = json_success.data.sendData.policyInfo1;
-                            obj.purposeDataList = json_success.data.sendData.purposeInfo;
-                            obj.collectionDataList = json_success.data.sendData.collectionInfo;
-                            obj.createDataList = json_success.data.sendData.createInfo;
-                            obj.policyData2 = json_success.data.sendData.policyInfo2;
-                            obj.outDataList = json_success.data.sendData.outInfo;
-                            obj.outDetailDataList = json_success.data.sendData.outDetailInfo;
-                            obj.thirdDataList = json_success.data.sendData.thirdInfo;
-                            obj.thirdOverseasDataList = json_success.data.sendData.thirdOverseasInfo;
-                            obj.reponsibleDataList = json_success.data.sendData.reponsibleInfo;
-                            obj.policyData3 = json_success.data.sendData.policyInfo3;
-                            return obj;
-                        });
-                    }
+                    console.log("현재까지 작성된 데이터 가져오기");
+                    console.log(json_success)
+                    policyInfoData.update(obj => {
+                        obj.policyData1 = json_success.data.sendData.policyInfo1;
+                        obj.purposeDataList = json_success.data.sendData.purposeInfo;
+                        obj.beforeDataList = json_success.data.sendData.beforeDataList;
+                        obj.afterDataList = json_success.data.sendData.afterDataList;
+                        obj.serviceAutoDataList = json_success.data.sendData.serviceAutoDataList;
+                        obj.policyData2 = json_success.data.sendData.policyInfo2;
+                        obj.outDataList = json_success.data.sendData.outInfo;
+                        obj.outDetailDataList = json_success.data.sendData.outDetailInfo;
+                        obj.thirdDataList = json_success.data.sendData.thirdInfo;
+                        obj.thirdOverseasDataList = json_success.data.sendData.thirdOverseasInfo;
+                        obj.reponsibleDataList = json_success.data.sendData.reponsibleInfo;
+                        obj.policyData3 = json_success.data.sendData.policyInfo3;
+                        return obj;
+                    });
+
                 }else {
                     // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                     alert(json_success.data.err_msg);

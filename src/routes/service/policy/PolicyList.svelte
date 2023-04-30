@@ -1,16 +1,23 @@
 
 <script>
     import Header from "../../../components/service/layout/Header.svelte"
-
+    import PolicyTable from "../../../components/service/policy/PolicyTable.svelte";
     import { link } from 'svelte-spa-router'
     import { page } from '../../../lib/store.js'
+    import { fade } from 'svelte/transition'
 
-    import {setCustomSelectBox, setDateRangePicker, setOptionItem} from "../../../lib/libSearch.js";
+    import {setCustomSelectBox, setDateRangePicker, setOptionItem, stimeVal} from "../../../lib/libSearch.js";
     import {onMount} from "svelte";
+    import Paging from "../../../components/common/Paging.svelte";
+    import restapi from "../../../lib/api.js";
+    import jQuery from "jquery";
 
     onMount(async ()=>{
         await fatchSearchModule();
 
+        // 페이지번호 초기화
+        page.set(0);
+        policyList($page);
     })
 
     async function fatchSearchModule(){
@@ -22,6 +29,59 @@
     let customSelectBoxOpt = [
         {id : "policySelect", use_all : true, codeName : "policy_search"},
     ]; // 선택 박스 옵션
+
+    let policyLayout = 0;
+
+    let searchText;
+    let policy_list = [];
+    let size = 10;
+    let total = 0;
+    let total_page;
+    $: total_page = Math.ceil(total/size)
+
+    function policyList(pageNum) {
+        console.log("개인정보처리방침 리스트 호출 클릭!");
+
+        page.set(pageNum);
+
+        let url = "/v2/api/Policy/policyList?page=" + pageNum+"&size="+size;
+
+        let sendData = {
+            searchText : searchText,
+            stime : stimeVal,
+            filterDate : jQuery("#policySelect").text()
+        };
+
+        restapi('v2', 'get', url, "param", sendData, 'application/json',
+            (json_success) => {
+                console.log(json_success);
+                if(json_success.data.status === 200) {
+                    console.log("조회된 데이터가 있습니다.");
+                    policy_list = json_success.data.datalist
+                    total = json_success.data.total_rows
+                } else {
+                    policy_list = [];
+                    total = 0;
+                    console.log("조회된 데이터가 없습니다.");
+                }
+                policyLayout = 1;
+            },
+            (json_error) => {
+                console.log(json_error);
+                console.log("개인정보처리방침 리스트 호출 실패");
+            }
+        )
+
+    }
+
+    // 엔터키 클릭.. 모듈화필요..
+    function enterPress(event) {
+        if(event.keyCode === 13) {
+            // 페이지번호 초기화
+            page.set(0);
+            policyList($page);
+        }
+    }
 
 </script>
 
@@ -38,16 +98,16 @@
         </div>
 
         <!-- 상단 검색 영역 -->
-        <div class="seaWrap marB50">
+        <div class="seaWrap marB28">
             <form>
                 <div class="koinput marB32">
-                    <input type="text" class="wid360" placeholder="작성자 검색" />
+                    <input type="text" bind:value="{searchText}" on:keypress={enterPress} class="wid360" placeholder="작성자 검색" />
                     <button><img src="/assets/images/common/icon_search.png" alt=""></button>
                 </div>
                 <div class="seaContentBox">
                     <div class="seaContentLine borB">
                         <div class="seaCont wid662">
-                            <dl>제공 날짜</dl>
+                            <dl>날짜 선택</dl>
                             <div class="seaflexBox">
                                 <div class="sc_SelBox">
                                     <div class="selectBox wid162">
@@ -67,27 +127,27 @@
                         <div class="seaRadioBox borL">
                             <div class="seaRadio">
                                 <div class="check radioCheck">
-                                    <input type="radio" class="radio" name="period" id="당일" value="1" checked>
+                                    <input type="radio" class="radio" name="period" id="당일" value="1" />
                                     <label for="당일"><em><dt></dt></em>당일</label>
                                 </div>
                                 <div class="check radioCheck">
-                                    <input type="radio" class="radio" name="period" id="최근 1주일" value="7" >
+                                    <input type="radio" class="radio" name="period" id="최근 1주일" value="7" />
                                     <label for="최근 1주일"><em><dt></dt></em>최근 1주일</label>
                                 </div>
                                 <div class="check radioCheck">
-                                    <input type="radio" class="radio" name="period" id="최근 한 달" value="30" >
+                                    <input type="radio" class="radio" name="period" id="최근 한 달" value="30" checked />
                                     <label for="최근 한 달"><em><dt></dt></em>최근 한 달</label>
                                 </div>
                                 <div class="check radioCheck">
-                                    <input type="radio" class="radio" name="period" id="최근 3개월" value="90">
+                                    <input type="radio" class="radio" name="period" id="최근 3개월" value="90" />
                                     <label for="최근 3개월"><em><dt></dt></em>최근 3개월</label>
                                 </div>
                                 <div class="check radioCheck">
-                                    <input type="radio" class="radio" name="period" id="최근 6개월" value="180">
+                                    <input type="radio" class="radio" name="period" id="최근 6개월" value="180" />
                                     <label for="최근 6개월"><em><dt></dt></em>최근 6개월</label>
                                 </div>
                                 <div class="check radioCheck">
-                                    <input type="radio" class="radio" name="period" id="사용자 지정" value="0">
+                                    <input type="radio" class="radio" name="period" id="사용자 지정" value="0" />
                                     <label for="사용자 지정"><em><dt></dt></em>사용자 지정</label>
                                 </div>
                             </div>
@@ -97,60 +157,21 @@
             </form>
         </div>
 
-        <!-- 테이블 영역 -->
-        <div class="kotable policyList">
-            <div class="kt_tableTopBox marB20">
-                <div class="kt_total">총 <span>910</span>건</div>
-                <div class="kt_selbox wid120">
-                    <div class="selectBox wid100per nonePad">
-                        <div class="label" >최근 등록순</div>
-                        <ul class="optionList">
-                            <li class="optionItem">최근 등록순</li>
-                            <li class="optionItem">정확도순</li>
-                            <li class="optionItem">오름차순</li>
-                            <li class="optionItem">내림차순</li>
-                        </ul>
-                    </div>
-                </div>
+        {#if policyLayout === 0}
+            <div class="loaderParent">
+                <div class="loader"></div>
             </div>
-            <table>
-                <caption>개인정보 처리이력 리스트</caption>
-                <colgroup>
-                    <col style="width:5.48%;">
-                    <col style="width:9.59%;">
-                    <col style="width:10.96%;">
-                    <col style="width:12.33%;">
-                    <col style="width:15.07%;">
-                    <col style="width:15.07%;">
-                    <col style="width:15.07%;">
-                    <col style="width:16.44%;">
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>No</th>
-                    <th>버전</th>
-                    <th>작성자</th>
-                    <th>등급</th>
-                    <th>제작일</th>
-                    <th>개정일</th>
-                    <th>시행일</th>
-                    <th>전문확인</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>10</td>
-                        <td>1.4</td>
-                        <td>김*코</td>
-                        <td>최고관리자<div class="mastericon"></div></td>
-                        <td>2023. 03. 28</td>
-                        <td>2023. 03. 28</td>
-                        <td>2023. 03. 28</td>
-                        <td><div class="dlink"><a href="policy-detail.html">상세보기</a></div></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        {:else}
+            <div in:fade>
+
+                <!-- 테이블 영역 -->
+                <PolicyTable {policy_list} {size} {total} />
+
+                <!-- 페이징 영역 -->
+                <Paging total_page="{total_page}" data_list="{policy_list}" dataFunction="{policyList}" />
+
+            </div>
+        {/if}
 
     </div>
 </section>

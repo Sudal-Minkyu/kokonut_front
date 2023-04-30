@@ -48,8 +48,9 @@ export const policyInfoData = writable({
     },
     purposeDataList: [],
 
-    collectionDataList: [],
-    createDataList: [],
+    beforeDataList: [],
+    afterDataList: [],
+    serviceAutoDataList: [],
     policyData2: {
         piInternetChose : '',
         piContractChose : '',

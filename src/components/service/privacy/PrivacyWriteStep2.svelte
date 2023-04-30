@@ -63,28 +63,16 @@
                             <div class="teamSeaBox">
                                 <div class="memseaBox marB32">
                                     <div class="koinput">
-                                        <input type="text" name="" id="" class="wid236" placeholder="아이디, 이메일 검색">
-                                        <button><img src="/kokonut/member/public/img/common/icon_search_ver2.png" alt=""></button>
-                                    </div>
-                                    <div class="mu_SelBox wid130">
-                                        <div class="selectBox wid100per nonePad">
-                                            <div class="label" id="">부서</div>
-                                            <ul class="optionList">
-                                                <li class="optionItem">부서명1</li>
-                                                <li class="optionItem">부서명2</li>
-                                                <li class="optionItem">부서명3</li>
-                                                <li class="optionItem">부서명4</li>
-                                            </ul>
-                                        </div>
+                                        <input type="text" class="wid236" placeholder="이메일 검색">
+                                        <button><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
                                     </div>
                                     <div class="mu_SelBox wid150 noneMarR">
                                         <div class="selectBox wid100per nonePad">
                                             <div class="label popgrade" id="">관리자 등급</div>
                                             <ul class="optionList">
-                                                <li class="optionItem popanoGrade">게스트</li>
-                                                <li class="optionItem popanoGrade">관리자</li>
                                                 <li class="optionItem popanoGrade">최고관리자</li>
-                                                <li class="optionItem popmasterSel">최고관리자<span></span></li>
+                                                <li class="optionItem popanoGrade">일반관리자</li>
+                                                <li class="optionItem popanoGrade">임시관리자</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -143,126 +131,6 @@
                                                 <td>인사팀</td>
                                                 <td>최고관리자</td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="koko_check">
-                                                        <input type="checkbox" value="" name="mem02" id="mem02" class="partcheck">
-                                                        <label for="mem02"><em></em></label>
-                                                    </div>
-                                                </td>
-                                                <td>koko1@kokonut.me</td>
-                                                <td>김코코</td>
-                                                <td>인사팀</td>
-                                                <td>최고관리자</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="koko_check">
-                                                        <input type="checkbox" value="" name="mem03" id="mem03" class="partcheck">
-                                                        <label for="mem03"><em></em></label>
-                                                    </div>
-                                                </td>
-                                                <td>koko1@kokonut.me</td>
-                                                <td>김코코</td>
-                                                <td>인사팀</td>
-                                                <td>최고관리자</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="koko_check">
-                                                        <input type="checkbox" value="" name="mem04" id="mem04" class="partcheck">
-                                                        <label for="mem04"><em></em></label>
-                                                    </div>
-                                                </td>
-                                                <td>koko1@kokonut.me</td>
-                                                <td>김코코</td>
-                                                <td>인사팀</td>
-                                                <td>최고관리자</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="koko_check">
-                                                        <input type="checkbox" value="" name="mem05" id="mem05" class="partcheck">
-                                                        <label for="mem05"><em></em></label>
-                                                    </div>
-                                                </td>
-                                                <td>koko1@kokonut.me</td>
-                                                <td>김코코</td>
-                                                <td>인사팀</td>
-                                                <td>최고관리자</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="koko_check">
-                                                        <input type="checkbox" value="" name="mem06" id="mem06" class="partcheck">
-                                                        <label for="mem06"><em></em></label>
-                                                    </div>
-                                                </td>
-                                                <td>koko1@kokonut.me</td>
-                                                <td>김코코</td>
-                                                <td>인사팀</td>
-                                                <td>최고관리자</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="koko_check">
-                                                        <input type="checkbox" value="" name="mem07" id="mem07" class="partcheck">
-                                                        <label for="mem07"><em></em></label>
-                                                    </div>
-                                                </td>
-                                                <td>koko1@kokonut.me</td>
-                                                <td>김코코</td>
-                                                <td>인사팀</td>
-                                                <td>최고관리자</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="koko_check">
-                                                        <input type="checkbox" value="" name="mem08" id="mem08" class="partcheck">
-                                                        <label for="mem08"><em></em></label>
-                                                    </div>
-                                                </td>
-                                                <td>koko1@kokonut.me</td>
-                                                <td>김코코</td>
-                                                <td>인사팀</td>
-                                                <td>최고관리자</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="koko_check">
-                                                        <input type="checkbox" value="" name="mem09" id="mem09" class="partcheck">
-                                                        <label for="mem09"><em></em></label>
-                                                    </div>
-                                                </td>
-                                                <td>koko1@kokonut.me</td>
-                                                <td>김코코</td>
-                                                <td>인사팀</td>
-                                                <td>최고관리자</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="koko_check">
-                                                        <input type="checkbox" value="" name="mem10" id="mem10" class="partcheck">
-                                                        <label for="mem10"><em></em></label>
-                                                    </div>
-                                                </td>
-                                                <td>koko1@kokonut.me</td>
-                                                <td>김코코</td>
-                                                <td>인사팀</td>
-                                                <td>최고관리자</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="koko_check">
-                                                        <input type="checkbox" value="" name="mem11" id="mem11" class="partcheck">
-                                                        <label for="mem11"><em></em></label>
-                                                    </div>
-                                                </td>
-                                                <td>koko1@kokonut.me</td>
-                                                <td>김코코</td>
-                                                <td>인사팀</td>
-                                                <td>최고관리자</td>
-                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -274,49 +142,7 @@
                                 <div class="tmResetBtn">초기화</div>
                                 <div class="memselBox">
                                     <div class="memName">김코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">정코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">최코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">박코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">이코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">오코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">한코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">박코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">강코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">장코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">주코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">김코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">정코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">최코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">박코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">이코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">오코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">한코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">박코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">강코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">장코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">주코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">김코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">정코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">최코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">박코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">이코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">오코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">한코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">박코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">강코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">장코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">주코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">김코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">정코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">최코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">박코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">이코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">오코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">한코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">박코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">강코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">장코코(인사팀)<button class="memdel"></button></div>
-                                    <div class="memName">주코코(인사팀)<button class="memdel"></button></div>
+
                                 </div>
                             </div>
                         </div>
