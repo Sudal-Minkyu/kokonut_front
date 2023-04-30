@@ -23,7 +23,6 @@
     "svelte-images": "^0.0.95",
     "svelte-spa-router": "^3.3.0",
     "svelte-swiper": "^1.0.1",
-    "swiper": "^9.2.4",
     "verbal-expressions": "^1.0.2"
   }
 }

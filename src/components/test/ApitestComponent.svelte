@@ -337,6 +337,22 @@
             open(images, idx);
         }, 0);
 
+    import {Swiper, SwiperSlide} from 'svelte-swiper';
+    import 'swiper/swiper-bundle.css';
+    let swiper_options = {
+        direction: "vertical",
+        loop: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        navigation: {   // 버튼
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    };
+
+
 </script>
 
 <!--{#if $is_login}-->
@@ -414,17 +430,27 @@
     <button on:click={uploadFiles}>Upload</button>
 </div>
 
-<div class="testDiv">
-    <h1>이미지 라이브러리 테스트</h1><br/>
-    <Images {images} gutter={2}  />
+<!--<div class="testDiv">-->
+<!--    <h1>이미지 라이브러리 테스트</h1><br/>-->
+<!--    <Images {images} gutter={2}  />-->
 
-    <div class="gallery">
-        {#each images as image, i}
-            <img
-                {...image}
-                src={image.src}
-                alt={image.alt || ''}
-                on:click={() => popModal(image.src)} />
-        {/each}
-    </div>
+<!--    <div class="gallery">-->
+<!--        {#each images as image, i}-->
+<!--            <img-->
+<!--                {...image}-->
+<!--                src={image.src}-->
+<!--                alt={image.alt || ''}-->
+<!--                on:click={() => popModal(image.src)} />-->
+<!--        {/each}-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="testDiv">
+    <h1>스와이퍼 테스트</h1><br/>
+    <Swiper {swiper_options}>
+        <SwiperSlide>Slide 1</SwiperSlide>
+        <SwiperSlide>Slide 2</SwiperSlide>
+        <SwiperSlide>Slide 3</SwiperSlide>
+        <SwiperSlide>Slide 4</SwiperSlide>
+    </Swiper>
 </div>

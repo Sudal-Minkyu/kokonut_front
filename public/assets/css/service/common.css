@@ -482,6 +482,10 @@
 .gallery-thumbs .swiper-slide-thumb-active .sl_tab:hover .tab_delteBtn{display:inline-block;}
 .tab_delteBtn {display:none;z-index: 20;width: 1.4rem;height: 1.4rem;position: absolute;right: 0.5rem;top: 0.5rem;background-image: url(/assets/images/common/tab_Button_Edit.png);background-size: 1.4rem;background-repeat: no-repeat;background-position: center;}
 
+.swiper-slide{
+    display: block;
+    height: 2px;
+}
 .bo_tabContentBox .swiper-slide-active{opacity:1;}
 .bo_tabContentBox .swiper-slide{opacity:0;}
 .bo_tabContentBox .prtable{max-height:40rem;overflow: auto;}
