@@ -1,10 +1,138 @@
 <script>
-
     import { fade } from 'svelte/transition'
     import {backBtn,policyInfoData,piId} from "../../../lib/store.js";
+    import {onMount} from "svelte";
+    import restapi from "../../../lib/api.js";
 
     export let policyWriting;
     export let stateChange;
+
+    const beforeRemoveIdList = [];
+    const createBeforeItem = () => {
+        policyInfoData.update(obj => {
+            obj.beforeDataList = [
+                ...obj.beforeDataList, {
+                    pibId: 0,
+                    pibPurpose: '',
+                    pibInfo: '',
+                    pibChose: '',
+                    pibPeriod: '',
+                }
+            ];
+            return obj;
+        });
+    }
+    const removeBeforeItem = (index) => {
+        policyInfoData.update((obj) => {
+            if (obj.beforeDataList[index].pibId) {
+                beforeRemoveIdList.push(obj.beforeDataList[index].pibId);
+            }
+            obj.beforeDataList.splice(index, 1);
+            return obj;
+        });
+    }
+
+    const afterRemoveIdList = [];
+    const createAfterItem = () => {
+        policyInfoData.update(obj => {
+            obj.afterDataList = [
+                ...obj.afterDataList, {
+                    piaId: 0,
+                    piaPurpose: '',
+                    piaInfo: '',
+                    piaChose: '',
+                    piaPeriod: '',
+                }
+            ];
+            return obj;
+        });
+    }
+    const removeAfterItem = (index) => {
+        policyInfoData.update((obj) => {
+            if (obj.afterDataList[index].pibId) {
+                afterRemoveIdList.push(obj.afterDataList[index].pibId);
+            }
+            obj.afterDataList.splice(index, 1);
+            return obj;
+        });
+    }
+
+    const serviceAutoRemoveIdList = [];
+    const createServiceAutoItem = () => {
+        policyInfoData.update(obj => {
+            obj.serviceAutoDataList = [
+                ...obj.serviceAutoDataList, {
+                    pisaId: 0,
+                    pisaPurpose: '',
+                    pisaInfo: '',
+                    pisaMethodology: '',
+                    pisaPeriod: '',
+                }
+            ];
+            return obj;
+        });
+    }
+    const removeServiceAutoItem = (index) => {
+        policyInfoData.update((obj) => {
+            if (obj.serviceAutoDataList[index].pibId) {
+                serviceAutoRemoveIdList.push(obj.serviceAutoDataList[index].pibId);
+            }
+            obj.serviceAutoDataList.splice(index, 1);
+            return obj;
+        });
+    }
+
+    let piInternetChose = false;
+    let piContractChose = false;
+    let piPayChose = false;
+    let piConsumerChose = false;
+    let piAdvertisementChose = false;
+
+    onMount(async () => {
+        piInternetChose = !!$policyInfoData.policyData2.piInternetChose;
+        piContractChose = !!$policyInfoData.policyData2.piContractChose;
+        piPayChose = !!$policyInfoData.policyData2.piPayChose;
+        piConsumerChose = !!$policyInfoData.policyData2.piConsumerChose;
+        piAdvertisementChose = !!$policyInfoData.policyData2.piAdvertisementChose;
+    });
+
+    const handleCheckPolicyData2 = (e, key) => {
+        policyInfoData.update(obj => {
+            obj.policyData2[key] = e.target.checked ? 1 : 0;
+            return obj;
+        });
+    }
+
+    const thirdDepthSave = (goToState) => {
+        console.log('저장전데이터', $policyInfoData);
+        let url = "/v2/api/Policy/privacyPolicyThirdSave";
+
+        let sendData = {
+            piId : $piId,
+            policyBeforeSaveDtoList: $policyInfoData.beforeDataList,
+            policyBeforeDeleteIdList: beforeRemoveIdList,
+            policyAfterSaveDtoList: $policyInfoData.afterDataList,
+            policyAfterDeleteIdList: afterRemoveIdList,
+            policyServiceAutoSaveDtoList: $policyInfoData.serviceAutoDataList,
+            policyServiceAutoDeleteIdList: serviceAutoRemoveIdList,
+            piInternetChose: $policyInfoData.policyData2.piInternetChose,
+            piContractChose: $policyInfoData.policyData2.piContractChose,
+            piPayChose: $policyInfoData.policyData2.piPayChose,
+            piConsumerChose: $policyInfoData.policyData2.piConsumerChose,
+            piAdvertisementChose: $policyInfoData.policyData2.piAdvertisementChose,
+        }
+        restapi('v2', 'post', url, "body", sendData, 'application/json',
+            (json_success) => {
+                if(json_success.data.status === 200) {
+                    // 완료후
+                    stateChange(goToState);
+                }
+            },
+            (json_error) => {
+                console.log(json_error);
+            }
+        );
+    }
 
 </script>
 
@@ -61,50 +189,28 @@
                     <div class="prtt_area"><textarea type="text" name="" placeholder="">탈퇴 또는 계약 종료 시까지</textarea></div>
                 </div>
             </div>
-            <script>
-                jQuery(document).ready(function() {
-                    var max_fields2     = 5;
-                    var wrapper2        = jQuery(".prcontainer3");
-                    var add_button2      = jQuery(".add_pr_field3");
-                    var x = 1;
-
-                    jQuery(add_button2).click(function(e){
-                        e.preventDefault();
-                        if(x < max_fields2){
-                            x++;
-                            jQuery(wrapper2).append(
-                                '<div class="addelement">' +
-                                '<div class="prtextTableBox">' +
-                                '<div class="prtextTable wid25per">' +
-                                '<div class="prtt_area"><textarea type="text" name="" placeholder="내용입력"></textarea></div>' +
-                                '</div>' +
-                                '<div class="prtextTable wid25per">' +
-                                '<div class="prtt_area"><textarea type="text" name="" placeholder="내용입력"></textarea></div>' +
-                                '</div>' +
-                                '<div class="prtextTable wid25per">' +
-                                '<div class="prtt_area"><textarea type="text" name="" placeholder="내용입력"></textarea></div>' +
-                                '</div>' +
-                                '<div class="prtextTable wid25per">' +
-                                '<div class="prtt_area"><textarea type="text" name="" placeholder="내용입력"></textarea></div>' +
-                                '</div>' +
-                                '</div>' +
-                                '<a href="#" class="pr_delete"></a></div>'
-                            ); //add input box
-                        }
-                        else
-                        {
-                            alert('해당 정보는 4개 입력이 최대입니다.')
-                        }
-                    });
-
-                    jQuery(wrapper2).on("click",".pr_delete", function(e){
-                        e.preventDefault(); jQuery(this).parent('div').remove(); x--;
-                    })
-                });
-            </script>
-            <div class="prcontainer3"></div>
+            <div class="prcontainer3">
+                {#each $policyInfoData.beforeDataList as {pibPurpose, pibInfo, pibChose, pibPeriod}, i}
+                    <div class="addelement">
+                    <div class="prtextTableBox">
+                        <div class="prtextTable wid25per">
+                            <div class="prtt_area"><textarea type="text" bind:value={pibPurpose} placeholder="내용입력"></textarea></div>
+                            </div>
+                        <div class="prtextTable wid25per">
+                            <div class="prtt_area"><textarea type="text" bind:value={pibInfo} placeholder="내용입력"></textarea></div>
+                            </div>
+                        <div class="prtextTable wid25per">
+                            <div class="prtt_area"><textarea type="text" bind:value={pibChose} placeholder="내용입력"></textarea></div>
+                            </div>
+                        <div class="prtextTable wid25per">
+                            <div class="prtt_area"><textarea type="text" bind:value={pibPeriod} placeholder="내용입력"></textarea></div>
+                            </div>
+                        </div>
+                    <a on:click={()=>{removeBeforeItem(i)}} class="pr_delete"></a></div>
+                {/each}
+            </div>
             <div class="pr_fieldBtnInner">
-                <button class="add_pr_field3 pr_fieldBtn"></button>
+                <button on:click={createBeforeItem} class="add_pr_field3 pr_fieldBtn"></button>
             </div>
             <div class="prdot_text marT16">기기 정보를 수집하는 경우에는 일방향 암호화(Hash)를 통해 기기를 식별할 수 없는 방법으로 변환하여 보관합니다.</div>
         </div>
@@ -158,50 +264,28 @@
                     <div class="prtt_area"><textarea type="text" name="" placeholder="">탈퇴 또는 계약 종료 시까지</textarea></div>
                 </div>
             </div>
-            <script>
-                jQuery(document).ready(function() {
-                    var max_fields2     = 5;
-                    var wrapper2        = jQuery(".prcontainer3");
-                    var add_button2      = jQuery(".add_pr_field3");
-                    var x = 1;
-
-                    jQuery(add_button2).click(function(e){
-                        e.preventDefault();
-                        if(x < max_fields2){
-                            x++;
-                            jQuery(wrapper2).append(
-                                '<div class="addelement">' +
-                                '<div class="prtextTableBox">' +
-                                '<div class="prtextTable wid25per">' +
-                                '<div class="prtt_area"><textarea type="text" name="" placeholder="내용입력"></textarea></div>' +
-                                '</div>' +
-                                '<div class="prtextTable wid25per">' +
-                                '<div class="prtt_area"><textarea type="text" name="" placeholder="내용입력"></textarea></div>' +
-                                '</div>' +
-                                '<div class="prtextTable wid25per">' +
-                                '<div class="prtt_area"><textarea type="text" name="" placeholder="내용입력"></textarea></div>' +
-                                '</div>' +
-                                '<div class="prtextTable wid25per">' +
-                                '<div class="prtt_area"><textarea type="text" name="" placeholder="내용입력"></textarea></div>' +
-                                '</div>' +
-                                '</div>' +
-                                '<a href="#" class="pr_delete"></a></div>'
-                            ); //add input box
-                        }
-                        else
-                        {
-                            alert('해당 정보는 4개 입력이 최대입니다.')
-                        }
-                    });
-
-                    jQuery(wrapper2).on("click",".pr_delete", function(e){
-                        e.preventDefault(); jQuery(this).parent('div').remove(); x--;
-                    })
-                });
-            </script>
-            <div class="prcontainer3"></div>
+            <div class="prcontainer3">
+                {#each $policyInfoData.afterDataList as {piaPurpose, piaInfo, piaChose, piaPeriod}, i}
+                    <div class="addelement">
+                        <div class="prtextTableBox">
+                            <div class="prtextTable wid25per">
+                                <div class="prtt_area"><textarea type="text" bind:value={piaPurpose} placeholder="내용입력"></textarea></div>
+                            </div>
+                            <div class="prtextTable wid25per">
+                                <div class="prtt_area"><textarea type="text" bind:value={piaInfo} placeholder="내용입력"></textarea></div>
+                            </div>
+                            <div class="prtextTable wid25per">
+                                <div class="prtt_area"><textarea type="text" bind:value={piaChose} placeholder="내용입력"></textarea></div>
+                            </div>
+                            <div class="prtextTable wid25per">
+                                <div class="prtt_area"><textarea type="text" bind:value={piaPeriod} placeholder="내용입력"></textarea></div>
+                            </div>
+                        </div>
+                        <a on:click={()=>{removeAfterItem(i)}} class="pr_delete"></a></div>
+                {/each}
+            </div>
             <div class="pr_fieldBtnInner">
-                <button class="add_pr_field3 pr_fieldBtn"></button>
+                <button on:click={createAfterItem} class="add_pr_field3 pr_fieldBtn"></button>
             </div>
         </div>
         <div class="prtextaddbox marB40">
@@ -234,50 +318,28 @@
                     <div class="prtt_area"><textarea type="text" name="" placeholder="">탈퇴 또는 계약 종료 시까지</textarea></div>
                 </div>
             </div>
-            <script>
-                jQuery(document).ready(function() {
-                    var max_fields2     = 5;
-                    var wrapper2        = jQuery(".prcontainer3");
-                    var add_button2      = jQuery(".add_pr_field3");
-                    var x = 1;
-
-                    jQuery(add_button2).click(function(e){
-                        e.preventDefault();
-                        if(x < max_fields2){
-                            x++;
-                            jQuery(wrapper2).append(
-                                '<div class="addelement">' +
-                                '<div class="prtextTableBox">' +
-                                '<div class="prtextTable wid25per">' +
-                                '<div class="prtt_area"><textarea type="text" name="" placeholder="내용입력"></textarea></div>' +
-                                '</div>' +
-                                '<div class="prtextTable wid25per">' +
-                                '<div class="prtt_area"><textarea type="text" name="" placeholder="내용입력"></textarea></div>' +
-                                '</div>' +
-                                '<div class="prtextTable wid25per">' +
-                                '<div class="prtt_area"><textarea type="text" name="" placeholder="내용입력"></textarea></div>' +
-                                '</div>' +
-                                '<div class="prtextTable wid25per">' +
-                                '<div class="prtt_area"><textarea type="text" name="" placeholder="내용입력"></textarea></div>' +
-                                '</div>' +
-                                '</div>' +
-                                '<a href="#" class="pr_delete"></a></div>'
-                            ); //add input box
-                        }
-                        else
-                        {
-                            alert('해당 정보는 4개 입력이 최대입니다.')
-                        }
-                    });
-
-                    jQuery(wrapper2).on("click",".pr_delete", function(e){
-                        e.preventDefault(); jQuery(this).parent('div').remove(); x--;
-                    })
-                });
-            </script>
-            <div class="prcontainer3"></div>
+            <div class="prcontainer3">
+                {#each $policyInfoData.serviceAutoDataList as {pisaPurpose, pisaInfo, pisaMethodology, pisaPeriod}, i}
+                    <div class="addelement">
+                        <div class="prtextTableBox">
+                            <div class="prtextTable wid25per">
+                                <div class="prtt_area"><textarea type="text" bind:value={pisaPurpose} placeholder="내용입력"></textarea></div>
+                            </div>
+                            <div class="prtextTable wid25per">
+                                <div class="prtt_area"><textarea type="text" bind:value={pisaInfo} placeholder="내용입력"></textarea></div>
+                            </div>
+                            <div class="prtextTable wid25per">
+                                <div class="prtt_area"><textarea type="text" bind:value={pisaMethodology} placeholder="내용입력"></textarea></div>
+                            </div>
+                            <div class="prtextTable wid25per">
+                                <div class="prtt_area"><textarea type="text" bind:value={pisaPeriod} placeholder="내용입력"></textarea></div>
+                            </div>
+                        </div>
+                        <a on:click={()=>{removeServiceAutoItem(i)}} class="pr_delete"></a></div>
+                {/each}
+            </div>
             <div class="pr_fieldBtnInner">
-                <button class="add_pr_field3 pr_fieldBtn"></button>
+                <button on:click={createServiceAutoItem} class="add_pr_field3 pr_fieldBtn"></button>
             </div>
             <div class="prdot_text marT16">기기 정보를 수집하는 경우에는 일방향 암호화(Hash)를 통해 기기를 식별할 수 없는 방법으로 변환하여 보관합니다.</div>
         </div>
@@ -313,7 +375,9 @@
                     <tr>
                         <td>
                             <div class="prarea">
-                                <input type="checkbox" value="" name="prt01" id="prt01" class="">
+                                <input type="checkbox" name="prt01" id="prt01"
+                                       bind:checked={piInternetChose}
+                                       on:change={(e) => {handleCheckPolicyData2(e, 'piInternetChose')}}>
                                 <label for="prt01"><em></em></label>
                             </div>
                         </td>
@@ -324,7 +388,9 @@
                     <tr>
                         <td>
                             <div class="prarea">
-                                <input type="checkbox" value="" name="prt02" id="prt02" class="">
+                                <input type="checkbox" name="prt02" id="prt02"
+                                       bind:checked={piContractChose}
+                                       on:change={(e) => {handleCheckPolicyData2(e, 'piContractChose')}}>
                                 <label for="prt02"><em></em></label>
                             </div>
                         </td>
@@ -335,7 +401,9 @@
                     <tr>
                         <td>
                             <div class="prarea">
-                                <input type="checkbox" value="" name="prt03" id="prt03" class="">
+                                <input type="checkbox" name="prt03" id="prt03"
+                                       bind:checked={piPayChose}
+                                       on:change={(e) => {handleCheckPolicyData2(e, 'piPayChose')}}>
                                 <label for="prt03"><em></em></label>
                             </div>
                         </td>
@@ -346,7 +414,9 @@
                     <tr>
                         <td>
                             <div class="prarea">
-                                <input type="checkbox" value="" name="prt04" id="prt04" class="">
+                                <input type="checkbox" name="prt04" id="prt04"
+                                       bind:checked={piConsumerChose}
+                                       on:change={(e) => {handleCheckPolicyData2(e, 'piConsumerChose')}}>
                                 <label for="prt04"><em></em></label>
                             </div>
                         </td>
@@ -357,7 +427,9 @@
                     <tr>
                         <td>
                             <div class="prarea">
-                                <input type="checkbox" value="" name="prt05" id="prt05" class="">
+                                <input type="checkbox" name="prt05" id="prt05"
+                                       bind:checked={piAdvertisementChose}
+                                       on:change={(e) => {handleCheckPolicyData2(e, 'piAdvertisementChose')}}>
                                 <label for="prt05"><em></em></label>
                             </div>
                         </td>
@@ -421,13 +493,13 @@
             </div>
 
             <div class="pri_bottomBtnBox marT32">
-                <button on:click="{() => stateChange(2)}" class="pri_prevBtn">이전</button>
+                <button on:click="{() => {thirdDepthSave(2)}}" class="pri_prevBtn">이전</button>
 
                 <div class="pris_num">
                     <dl><span>3</span> / 7</dl>
                 </div>
 
-                <button on:click="{() => stateChange(4)}" class="pri_nextBtn">다음</button>
+                <button on:click="{() => {thirdDepthSave(4)}}" class="pri_nextBtn">다음</button>
             </div>
         </div>
     </div>

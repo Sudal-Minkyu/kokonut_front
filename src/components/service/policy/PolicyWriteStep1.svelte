@@ -2,7 +2,6 @@
 
     import { fade } from 'svelte/transition'
     import {policyInfoData, piId} from "../../../lib/store.js";
-    import jQuery from "jquery";
 
     import restapi from "../../../lib/api.js";
     import {onMount} from "svelte";

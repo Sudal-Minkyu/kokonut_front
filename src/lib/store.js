@@ -52,11 +52,11 @@ export const policyInfoData = writable({
     afterDataList: [],
     serviceAutoDataList: [],
     policyData2: {
-        piInternetChose : '',
-        piContractChose : '',
-        piPayChose : '',
-        piConsumerChose : '',
-        piAdvertisementChose : '',
+        piInternetChose : 0,
+        piContractChose : 0,
+        piPayChose : 0,
+        piConsumerChose : 0,
+        piAdvertisementChose : 0,
     },
 
     outDataList: [],

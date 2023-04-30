@@ -127,6 +127,7 @@
 
         restapi('v2', 'get', url, "param", sendData, 'application/json',
             (json_success) => {
+            console.log('저장된 데이터', json_success);
                 if(json_success.data.status === 200) {
                     stage = $piStage;
                     console.log("현재까지 작성된 데이터 가져오기");
