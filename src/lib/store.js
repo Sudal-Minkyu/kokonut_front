@@ -87,6 +87,16 @@ export const personalInfoCategoryData = writable({
         },
         ciNameErrorMsg: '',
     },
+    editItemPop: {
+        visible: false,
+        currentMode: 'modify',
+        checkPreCautionAgree: false,
+        cautionAgreeErrorMsg: '',
+        inputData: {
+            ciId: 0,
+            ciName: '',
+        },
+    },
     insertItemPop: {
         visible: false,
         checkedItemNameString: '',

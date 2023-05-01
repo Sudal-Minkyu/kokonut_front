@@ -21,6 +21,8 @@
         from "../../../components/service/environment/personalInfo/PersonalInfoInsertItemPop.svelte";
     import CustomAlert from "../../../components/common/ui/CustomConfirm.svelte";
     import Banner from "../../../components/common/ui/Banner.svelte";
+    import PersonalInfoEditItemPop
+        from "../../../components/service/environment/personalInfo/PersonalInfoEditItemPop.svelte";
 
     const personalInfoItemProp = {
         isLoadingScreenOn: true,
@@ -144,6 +146,86 @@
                         console.log('아이템 추가 실패', json_error);
                     }
                 );
+            },
+        },
+        editItemPop: {
+            show(index) {
+                personalInfoCategoryData.update(obj => {
+                    obj.editItemPop.visible = true;
+                    obj.editItemPop.inputData.ciId = obj.addItemList[index].ciId;
+                    obj.editItemPop.inputData.ciName = obj.addItemList[index].ciName;
+                    obj.editItemPop.currentMode = 'modify';
+                    obj.editItemPop.checkPreCautionAgree = false;
+                    obj.editItemPop.cautionAgreeErrorMsg = '';
+                    return obj;
+                });
+            },
+            hide() {
+                personalInfoCategoryData.update(obj => {
+                    obj.editItemPop.visible = false;
+                    return obj;
+                });
+            },
+            handleSelectMode(modeName) {
+                personalInfoCategoryData.update(obj => {
+                    obj.editItemPop.currentMode = modeName;
+                    return obj;
+                });
+            },
+            handleCommitAction() {
+                if ($personalInfoCategoryData.editItemPop.currentMode === 'modify') {
+                    // 중복검사 추가
+
+                    let sendData = {
+                        ciId: $personalInfoCategoryData.editItemPop.inputData.ciId,
+                        ciName: $personalInfoCategoryData.editItemPop.inputData.ciName,
+                    }
+
+                    restapi('v2', 'post', "/v2/api/Company/updateItem", "body", sendData, 'application/json',
+                        (json_success) => {
+                            if (json_success.data.status === 200) {
+                                personalInfoCategoryService.getAdditionalItemList();
+                                personalInfoItemProp.banner.activateBanner("선택한 항목명을 수정하였습니다.");
+                            } else {
+                                // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+                                // alert(json_success.data.err_msg);
+                                // is_login.set(false);
+                                // accessToken.set("");
+                                // push('/login');
+                            }
+                        },
+                        (json_error) => {
+                            console.log(json_error);
+                            console.log("카테고리(컬럼) 추가 호출 실패");
+                        }
+                    );
+                } else if ($personalInfoCategoryData.editItemPop.currentMode === 'delete') {
+                    if (!$personalInfoCategoryData.editItemPop.checkPreCautionAgree) {
+                        // 에러메시지 표출
+                        return;
+                    }
+                    let sendData = {
+                        ciId: $personalInfoCategoryData.editItemPop.inputData.ciId,
+                    }
+                    restapi('v2', 'post', "/v2/api/Company/deleteItem", "param", sendData, 'application/json',
+                        (json_success) => {
+                            if (json_success.data.status === 200) {
+                                personalInfoCategoryService.getAdditionalItemList();
+                                personalInfoItemProp.banner.activateBanner("선택한 항목을 삭제하였습니다.");
+                            } else {
+                                // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+                                // alert(json_success.data.err_msg);
+                                // is_login.set(false);
+                                // accessToken.set("");
+                                // push('/login');
+                            }
+                        },
+                        (json_error) => {
+                            console.log(json_error);
+                            console.log("카테고리(컬럼) 추가 호출 실패");
+                        }
+                    );
+                }
             },
         },
         insertItemPop: {
@@ -574,6 +656,10 @@
 
 {#if $personalInfoCategoryData.createItemPop.visible}
     <PersonalInfoCreateItemPop {personalInfoCategoryService} />
+{/if}
+
+{#if $personalInfoCategoryData.editItemPop.visible}
+    <PersonalInfoEditItemPop {personalInfoCategoryService} />
 {/if}
 
 {#if $personalInfoCategoryData.insertItemPop.visible}

@@ -78,7 +78,7 @@
                                             <em></em>
                                             <p class="check">{ciName}</p>
                                         </label>
-                                        <button class="cateReviseIcon"></button>
+                                        <button on:click={()=>{personalInfoCategoryService.editItemPop.show(i)}} class="cateReviseIcon"></button>
                                     </div>
                                 {/each}
                             </div>
