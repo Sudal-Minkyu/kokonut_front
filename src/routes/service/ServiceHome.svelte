@@ -1,9 +1,9 @@
 <script>
     // 레이아웃
     import Header from "../../components/service/layout/Header.svelte"
-    import { knEmailHeader } from "../../lib/store.js"
+    import {knEmailHeader} from "../../lib/store.js"
 
-    import {Swiper, SwiperSlide} from 'svelte-swiper';
+    import { Swiper } from "svelte-swiper";
 
     // Swiper 옵션
     let options = {
@@ -31,8 +31,6 @@
             <div class="pageH1_type01">
                 <h1><span>{$knEmailHeader}</span>님, 안녕하세요!</h1>
             </div>
-
-
             <div class="currentWrap">
                 <div class="curTitmeInfoBox">
                     <span>23. 03. 31</span>
@@ -45,15 +43,15 @@
                         const prevBtn = document.querySelector('.swiper-button-prev');
                         nextBtn.addEventListener('click', () => swiper.slideNext());
                         prevBtn.addEventListener('click', () => swiper.slidePrev());}}>
-                        <SwiperSlide class="swiper-slide">
-                            <div class="cursItem">개인정보 제공건수 : 외부 <span class="curCou">32</span><dt>건</dt>, 내부 <span class="curCou">50</span><dt>건</dt></div>
-                        </SwiperSlide>
-                        <SwiperSlide class="swiper-slide">
-                            <div class="cursItem">오늘의 개인정보 다운로드 <span class="curCou">32</span><dt>건</dt>, <span class="curCou">50</span><dt>회</dt>, <span class="curCou">김코코</span></div>
-                        </SwiperSlide>
-                        <SwiperSlide class="swiper-slide">
+                        <div class="swiper-slide">
                             <div class="cursItem">금일 파기된(될) 개인정보 <span class="curCou">32</span><dt>건</dt></div>
-                        </SwiperSlide>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="cursItem">오늘의 개인정보 다운로드 <span class="curCou">32</span><dt>건</dt>, <span class="curCou">50</span><dt>회</dt>, <span class="curCou">김코코</span></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="cursItem">개인정보 제공건수 : 외부 <span class="curCou">32</span><dt>건</dt>, 내부 <span class="curCou">50</span><dt>건</dt></div>
+                        </div>
                     </Swiper>
                     <div class="curs_btnBox">
                         <div class="curs_btnInner">
