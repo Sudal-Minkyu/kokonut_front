@@ -1,18 +1,12 @@
 
 <script>
     import { link } from 'svelte-spa-router'
-    import {page} from "../../../lib/store"
+    import { page } from "../../../lib/store"
+    import { addTwoWeeks } from "../../../lib/common"
 
     export let size;
     export let total;
     export let policy_list;
-
-    function addTwoWeeks(dateString) {
-        const dateParts = dateString.split("-").map(Number);
-        const date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-        date.setDate(date.getDate() + 14);
-        return `${date.getFullYear()}. ${("0" + (date.getMonth() + 1)).slice(-2)}. ${("0" + date.getDate()).slice(-2)}`;
-    }
 
 </script>
 
@@ -70,14 +64,6 @@
             <tr class="none_inq">
                 <td>제젝하신 개인정보처리방침이 없습니다.</td>
             </tr>
-<!--            <tr >-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--                <td></td>-->
-<!--                <td style="color: #BBBBBB!important;">제젝하신 개인정보처리방침이 없습니다.</td>-->
-<!--                <td></td>-->
-<!--            </tr>-->
         {/if}
         </tbody>
     </table>

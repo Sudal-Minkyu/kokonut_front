@@ -18,7 +18,6 @@
 
     let qnaId;
 
-    // 나의정보 가져오기
     onMount( () => {
         qnaId = window.location.href.split('/').pop();
         qnaDetail(qnaId);

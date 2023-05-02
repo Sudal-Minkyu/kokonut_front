@@ -82,11 +82,11 @@
         <div class="pr_wrap">
             <div class="prbox">
                 <div class="prti w1528per">서비스 제공 및 운영</div>
-                <div class="prst w8472per">사용자 인증, 회원 관리, 서비스 제공, 서비스의 보안, 이용약관 위반 고객 제재 등 서비스의 제공과 운영을 위해 이용합니다.</div>
+                <div class="prst w8472per">사용자 인증, 회원 관리, 서비스 제공, 서비스의 보안, 이용약관 위반 고객 제재 등 서비스의 제공과 운영을 위해 이용합니다. </div>
             </div>
             <div class="prbox">
                 <div class="prti w1528per">서비스 개선</div>
-                <div class="prst w8472per">사용자 인증, 회원 관리, 서비스 제공, 서비스의 보안, 이용약관 위반 고객 제재 등 서비스의 제공과 운영을 위해 이용합니다.</div>
+                <div class="prst w8472per">서비스 개선: 기존 서비스의 개선, 신규 서비스의 발굴 등 고객에 대한 서비스를 개선하는 데 이용합니다.</div>
             </div>
             {#each $policyInfoData.purposeDataList as {pipTitle, pipContent}, i}
                 <div class="addelement">

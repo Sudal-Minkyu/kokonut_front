@@ -115,14 +115,22 @@
 
     <!------------ No.10 ------------>
     <div class="priContentBox">
-        <div class="priC_title marB24">6. 개인정보 처리방침의 변경에 관한 사항</div>
+        <div class="priC_title marB24">6. 개인정보 처리방침의 변경에 관한 사항
+            <div class="title_check">
+                <input type="checkbox" value="1" name="pr6-1_involve" id="pr6-1_involve" checked>
+                <label for="pr6-1_involve">
+                    <p class="check">포함여부</p>
+                    <em></em>
+                </label>
+            </div>
+        </div>
         <div class="prinortext marB16">
             개인정보 처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 홈페이지 또는 이메일 등 개별 통지 방법을 통해 고지할 것입니다.
         </div>
         <div class="prnor_text">
             <div class="prnort dateinput">
                 <dt></dt>
-                현 개인정보 처리방침 시행 일자 :
+                이전 개인정보 처리방침 시행 일자 :
                 <div class="koinput wid64 marL8">
                     <input type="text" name="" id="" class="" placeholder="2023">
                 </div>
@@ -135,33 +143,6 @@
                     <input type="text" name="" id="" class="" placeholder="01">
                 </div>
                 일
-
-                <span class="tiptool" id="tool_btn19">
-                            <!-- [D] tooltip : 현 개인정보 처리방침 시행 일자 -->
-                            <div class="layerToolType pmtool_02" id="tool_box19">
-                                <div class="tipContents">
-                                    <p>
-                                        현 개인정보 처리방침에서 이전 개인정보 처리방침을 찾을 수 있어야 합니다.
-                                    </p>
-                                </div>
-                            </div>
-                    <!-- // [D] 현 개인정보 처리방침 시행 일자 -->
-                        </span>
-            </div>
-        </div>
-        <div class="prnor_text">
-            <div class="prnort"><dt></dt>이전 개인정보 처리방침 시행 일자 : 2022. 12. 12.
-                <span class="tiptool" id="tool_btn20">
-                            <!-- [D] tooltip : 이전 개인정보 처리방침 시행 일자 -->
-                            <div class="layerToolType pmtool_02" id="tool_box20">
-                                <div class="tipContents">
-                                    <p>
-                                        코코넛에 개인정보 처리방침을 저장했다면, 그 링크를 이용할 수 있습니다.
-                                    </p>
-                                </div>
-                            </div>
-                    <!-- // [D] 이전 개인정보 처리방침 시행 일자 -->
-                        </span>
             </div>
         </div>
     </div>

@@ -81,4 +81,12 @@ function imgView(url) {
     console.log("url : "+url);
 }
 
-export { phoneNumver, ipCheck, getToday, emailCheck, onlyNumber, onlyDouble, callCapsLock, popOpenBtn, imgView };
+// 2주후인 날짜로 반환하는 함수 ex) 2022-03-01 -> 2022. 03. 15 로 반환
+function addTwoWeeks(dateString) {
+    const dateParts = dateString.split("-").map(Number);
+    const date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+    date.setDate(date.getDate() + 14);
+    return `${date.getFullYear()}. ${("0" + (date.getMonth() + 1)).slice(-2)}. ${("0" + date.getDate()).slice(-2)}`;
+}
+
+export { phoneNumver, ipCheck, getToday, emailCheck, onlyNumber, onlyDouble, callCapsLock, popOpenBtn, imgView, addTwoWeeks };

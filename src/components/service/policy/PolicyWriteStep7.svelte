@@ -193,7 +193,7 @@
                 </div>
             </div>
             <div class="pri_bottomBtnBox marT32">
-                <button on:click="{() => stateChange(5)}" class="pri_prevBtn">이전</button>
+                <button on:click="{() => stateChange(6)}" class="pri_prevBtn">이전</button>
 
                 <div class="pris_num">
                     <dl><span>7</span> / 7</dl>
