@@ -2,9 +2,61 @@
 
     import { fade } from 'svelte/transition'
     import {backBtn,policyInfoData,piId} from "../../../lib/store.js";
+    import restapi from "../../../lib/api.js";
 
-    export let policyWriting;
     export let stateChange;
+
+    const policyResponsibleDeleteIdList = [];
+    const createResponsibleItem = () => {
+        policyInfoData.update(obj => {
+            obj.reponsibleDataList = [
+                ...obj.reponsibleDataList, {
+                    pirId: 0,
+                    pirName: '',
+                    pirPosition: '',
+                    pirEmail: '',
+                    pirContact: '',
+                    pirDepartment: '',
+                }
+            ];
+            return obj;
+        });
+    }
+    const removeResponsibleItem = (index) => {
+        policyInfoData.update((obj) => {
+            if (obj.reponsibleDataList[index].pirId) {
+                policyResponsibleDeleteIdList.push(obj.reponsibleDataList[index].pirId);
+            }
+            obj.reponsibleDataList.splice(index, 1);
+            return obj;
+        });
+    }
+
+    let piChangeChose = !!$policyInfoData.reponsibleDataList.length;
+
+    const sixthDepthSave = (goToState) => {
+        console.log('저장전데이터', $policyInfoData);
+        let url = "/v2/api/Policy/privacyPolicySixthSave";
+        let sendData = {
+            piId : $piId,
+            policyResponsibleSaveDtoList: $policyInfoData.reponsibleDataList,
+            policyResponsibleDeleteIdList: policyResponsibleDeleteIdList,
+            piYear: $policyInfoData.policyData3.piYear,
+            piMonth: $policyInfoData.policyData3.piMonth,
+            piDay: $policyInfoData.policyData3.piDay,
+        }
+        restapi('v2', 'post', url, "body", sendData, 'application/json',
+            (json_success) => {
+                if(json_success.data.status === 200) {
+                    // 완료후
+                    stateChange(goToState);
+                }
+            },
+            (json_error) => {
+                console.log(json_error);
+            }
+        );
+    }
 
 </script>
 
@@ -46,70 +98,32 @@
             </div>
             <div class="prtti">담당부서</div>
         </div>
-        <div class="prtextTableBox">
-            <div class="prtextTable colum5">
-                <div class="prtt_area"><input type="text" name="" placeholder="김코코" value=""/></div>
-            </div>
-            <div class="prtextTable colum5">
-                <div class="prtt_area"><input type="text" name="" placeholder="CEO" value=""/></div>
-            </div>
-            <div class="prtextTable colum5">
-                <div class="prtt_area"><input type="text" name="" placeholder="privacy@abc.com" value=""/></div>
-            </div>
-            <div class="prtextTable colum5">
-                <div class="prtt_area"><input type="text" name="" placeholder="02-1234-7890" value=""/></div>
-            </div>
-            <div class="prtextTable colum5">
-                <div class="prtt_area"><input type="text" name="" placeholder="보안팀" value=""/></div>
-            </div>
+        <div class="prcontainer8">
+            {#each $policyInfoData.reponsibleDataList as {pirName, pirPosition, pirEmail, pirContact, pirDepartment}, i}
+                <div class="addelement">
+                    <div class="prtextTableBox">
+                        <div class="prtextTable colum5">
+                            <div class="prtt_area"><textarea type="text" bind:value={pirName} placeholder="예) 김코코"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum5">
+                            <div class="prtt_area"><textarea type="text" bind:value={pirPosition} placeholder="예) CEO"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum5">
+                            <div class="prtt_area"><textarea type="text" bind:value={pirEmail} placeholder="예) privacy@abc.com"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum5">
+                            <div class="prtt_area"><textarea type="text" bind:value={pirContact} placeholder="예) 02-1234-7890"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum5">
+                            <div class="prtt_area"><textarea type="text" bind:value={pirDepartment} placeholder="예) 보안팀"></textarea></div>
+                        </div>
+                    </div>
+                    <a on:click={()=>{removeResponsibleItem(i)}} class="pr_delete"></a>
+                </div>
+            {/each}
         </div>
-        <script>
-            jQuery(document).ready(function() {
-                var max_fields2     = 5;
-                var wrapper2        = jQuery(".prcontainer8");
-                var add_button2      = jQuery(".add_pr_field8");
-                var x = 1;
-
-                jQuery(add_button2).click(function(e){
-                    e.preventDefault();
-                    if(x < max_fields2){
-                        x++;
-                        jQuery(wrapper2).append(
-                            '<div class="addelement">' +
-                            '<div class="prtextTableBox">' +
-                            '<div class="prtextTable colum5">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable colum5">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable colum5">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable colum5">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable colum5">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '</div>' +
-                            '<a href="#" class="pr_delete"></a></div>'
-                        ); //add input box
-                    }
-                    else
-                    {
-                        alert('해당 정보는 4개 입력이 최대입니다.')
-                    }
-                });
-
-                jQuery(wrapper2).on("click",".pr_delete", function(e){
-                    e.preventDefault(); jQuery(this).parent('div').remove(); x--;
-                })
-            });
-        </script>
-        <div class="prcontainer8"></div>
         <div class="pr_fieldBtnInner">
-            <button class="add_pr_field8 pr_fieldBtn"></button>
+            <button type="button" on:click={createResponsibleItem} class="add_pr_field8 pr_fieldBtn"></button>
         </div>
     </div>
 
@@ -117,7 +131,7 @@
     <div class="priContentBox">
         <div class="priC_title marB24">6. 개인정보 처리방침의 변경에 관한 사항
             <div class="title_check">
-                <input type="checkbox" value="1" name="pr6-1_involve" id="pr6-1_involve" checked>
+                <input type="checkbox" value="1" name="pr6-1_involve" id="pr6-1_involve" bind:checked={piChangeChose} >
                 <label for="pr6-1_involve">
                     <p class="check">포함여부</p>
                     <em></em>
@@ -132,15 +146,15 @@
                 <dt></dt>
                 이전 개인정보 처리방침 시행 일자 :
                 <div class="koinput wid64 marL8">
-                    <input type="text" name="" id="" class="" placeholder="2023">
+                    <input type="text" bind:value={$policyInfoData.policyData3.piYear} placeholder="2023" maxlength="4">
                 </div>
                 년
                 <div class="koinput wid44 marL16">
-                    <input type="text" name="" id="" class="" placeholder="01">
+                    <input type="text" bind:value={$policyInfoData.policyData3.piMonth} placeholder="01" maxlength="2">
                 </div>
                 월
                 <div class="koinput wid44 marL16">
-                    <input type="text" name="" id="" class="" placeholder="01">
+                    <input type="text" bind:value={$policyInfoData.policyData3.piDay} placeholder="01" maxlength="2">
                 </div>
                 일
             </div>
@@ -158,13 +172,13 @@
                 </div>
             </div>
             <div class="pri_bottomBtnBox marT32">
-                <button on:click="{() => stateChange(5)}" class="pri_prevBtn">이전</button>
+                <button type="button" on:click="{() => {sixthDepthSave(5)}}" class="pri_prevBtn">이전</button>
 
                 <div class="pris_num">
                     <dl><span>6</span> / 7</dl>
                 </div>
 
-                <button on:click="{() => stateChange(7)}" class="pri_nextBtn">다음</button>
+                <button type="button" on:click="{() => {sixthDepthSave(7)}}" class="pri_nextBtn">다음</button>
             </div>
 
         </div>
