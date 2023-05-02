@@ -82,26 +82,27 @@
         });
     }
 
-    let piInternetChose = false;
-    let piContractChose = false;
-    let piPayChose = false;
-    let piConsumerChose = false;
-    let piAdvertisementChose = false;
-
     onMount(async () => {
-        piInternetChose = !!$policyInfoData.policyData2.piInternetChose;
-        piContractChose = !!$policyInfoData.policyData2.piContractChose;
-        piPayChose = !!$policyInfoData.policyData2.piPayChose;
-        piConsumerChose = !!$policyInfoData.policyData2.piConsumerChose;
-        piAdvertisementChose = !!$policyInfoData.policyData2.piAdvertisementChose;
-    });
+        // 툴팁 아이콘 클릭시 툴팁을 보이고 숨기기 위함.
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('tiptool')) {
+                var children = e.target.children;
 
-    const handleCheckPolicyData2 = (e, key) => {
-        policyInfoData.update(obj => {
-            obj.policyData2[key] = e.target.checked ? 1 : 0;
-            return obj;
+                for (var i = 0; i < children.length; i++) {
+                    var child = children[i];
+                    if (child.classList.contains('layerToolType')) {
+                        child.style.display = 'block';
+                        break;
+                    }
+                }
+            } else {
+                const toolTipElements = document.getElementsByClassName('layerToolType');
+                for (const el of toolTipElements) {
+                    el.style.display = 'none';
+                }
+            }
         });
-    }
+    });
 
     const thirdDepthSave = (goToState) => {
         console.log('저장전데이터', $policyInfoData);
@@ -154,7 +155,6 @@
                             </div>
                         </span>
                     </div>
-                    <div class="prtt_area"><textarea type="text" name="" placeholder="">서비스 제공 및 운영</textarea></div>
                 </div>
                 <div class="prtextTable wid25per">
                     <div class="prtti">수집 항목
@@ -168,11 +168,9 @@
                             </div>
                         </span>
                     </div>
-                    <div class="prtt_area reviseBtn"><textarea type="text" name="" placeholder="">IP 주소, 기기 정보, 서비스 접속 및 이용 기록</textarea></div>
                 </div>
                 <div class="prtextTable wid25per">
                     <div class="prtti">필수 / 선택</div>
-                    <div class="prtt_area"><textarea type="text" name="" placeholder="">필수 / 선택</textarea></div>
                 </div>
                 <div class="prtextTable wid25per">
                     <div class="prtti">처리 및 보유 기간
@@ -186,7 +184,6 @@
                             </div>
                         </span>
                     </div>
-                    <div class="prtt_area"><textarea type="text" name="" placeholder="">탈퇴 또는 계약 종료 시까지</textarea></div>
                 </div>
             </div>
             <div class="prcontainer3">
@@ -194,16 +191,16 @@
                     <div class="addelement">
                     <div class="prtextTableBox">
                         <div class="prtextTable wid25per">
-                            <div class="prtt_area"><textarea type="text" bind:value={pibPurpose} placeholder="내용입력"></textarea></div>
+                            <div class="prtt_area"><textarea type="text" bind:value={pibPurpose} placeholder="예) 서비스 제공 및 운영"></textarea></div>
                             </div>
                         <div class="prtextTable wid25per">
-                            <div class="prtt_area"><textarea type="text" bind:value={pibInfo} placeholder="내용입력"></textarea></div>
+                            <div class="prtt_area"><textarea type="text" bind:value={pibInfo} placeholder="예) IP 주소, 기기 정보, 서비스 접속 및 이용 기록"></textarea></div>
                             </div>
                         <div class="prtextTable wid25per">
-                            <div class="prtt_area"><textarea type="text" bind:value={pibChose} placeholder="내용입력"></textarea></div>
+                            <div class="prtt_area"><textarea type="text" bind:value={pibChose} placeholder="예) 필수 / 선택"></textarea></div>
                             </div>
                         <div class="prtextTable wid25per">
-                            <div class="prtt_area"><textarea type="text" bind:value={pibPeriod} placeholder="내용입력"></textarea></div>
+                            <div class="prtt_area"><textarea type="text" bind:value={pibPeriod} placeholder="예) 처리 및 보유 기간"></textarea></div>
                             </div>
                         </div>
                     <a on:click={()=>{removeBeforeItem(i)}} class="pr_delete"></a></div>
@@ -229,7 +226,6 @@
                             </div>
                         </span>
                     </div>
-                    <div class="prtt_area"><textarea type="text" name="" placeholder="">서비스 제공 및 운영</textarea></div>
                 </div>
                 <div class="prtextTable wid25per">
                     <div class="prtti">수집 항목
@@ -243,11 +239,9 @@
                             </div>
                         </span>
                     </div>
-                    <div class="prtt_area reviseBtn"><textarea type="text" name="" placeholder="">IP 주소, 기기 정보, 서비스 접속 및 이용 기록</textarea></div>
                 </div>
                 <div class="prtextTable wid25per">
                     <div class="prtti">필수 / 선택</div>
-                    <div class="prtt_area"><textarea type="text" name="" placeholder="">필수 / 선택</textarea></div>
                 </div>
                 <div class="prtextTable wid25per">
                     <div class="prtti">처리 및 보유 기간
@@ -261,7 +255,6 @@
                             </div>
                         </span>
                     </div>
-                    <div class="prtt_area"><textarea type="text" name="" placeholder="">탈퇴 또는 계약 종료 시까지</textarea></div>
                 </div>
             </div>
             <div class="prcontainer3">
@@ -269,16 +262,16 @@
                     <div class="addelement">
                         <div class="prtextTableBox">
                             <div class="prtextTable wid25per">
-                                <div class="prtt_area"><textarea type="text" bind:value={piaPurpose} placeholder="내용입력"></textarea></div>
+                                <div class="prtt_area"><textarea type="text" bind:value={piaPurpose} placeholder="예) 서비스 제공 및 운영"></textarea></div>
                             </div>
                             <div class="prtextTable wid25per">
-                                <div class="prtt_area"><textarea type="text" bind:value={piaInfo} placeholder="내용입력"></textarea></div>
+                                <div class="prtt_area"><textarea type="text" bind:value={piaInfo} placeholder="예) IP 주소, 기기 정보, 서비스 접속 및 이용 기록"></textarea></div>
                             </div>
                             <div class="prtextTable wid25per">
-                                <div class="prtt_area"><textarea type="text" bind:value={piaChose} placeholder="내용입력"></textarea></div>
+                                <div class="prtt_area"><textarea type="text" bind:value={piaChose} placeholder="예) 필수 / 선택"></textarea></div>
                             </div>
                             <div class="prtextTable wid25per">
-                                <div class="prtt_area"><textarea type="text" bind:value={piaPeriod} placeholder="내용입력"></textarea></div>
+                                <div class="prtt_area"><textarea type="text" bind:value={piaPeriod} placeholder="예) 탈퇴 또는 계약 종료 시까지"></textarea></div>
                             </div>
                         </div>
                         <a on:click={()=>{removeAfterItem(i)}} class="pr_delete"></a></div>
@@ -303,19 +296,15 @@
             <div class="prtextTableBox">
                 <div class="prtextTable wid25per">
                     <div class="prtti">처리목적</div>
-                    <div class="prtt_area"><textarea type="text" name="" placeholder="">서비스 제공 및 운영</textarea></div>
                 </div>
                 <div class="prtextTable wid25per">
                     <div class="prtti">수집 항목</div>
-                    <div class="prtt_area reviseBtn"><textarea type="text" name="" placeholder="">IP 주소, 기기 정보, 서비스 접속 및 이용 기록</textarea></div>
                 </div>
                 <div class="prtextTable wid25per">
                     <div class="prtti">수집 방법</div>
-                    <div class="prtt_area"><textarea type="text" name="" placeholder="">서비스 이용 시 생성, 수집</textarea></div>
                 </div>
                 <div class="prtextTable wid25per">
                     <div class="prtti">처리 및 보유 기간</div>
-                    <div class="prtt_area"><textarea type="text" name="" placeholder="">탈퇴 또는 계약 종료 시까지</textarea></div>
                 </div>
             </div>
             <div class="prcontainer3">
@@ -323,16 +312,16 @@
                     <div class="addelement">
                         <div class="prtextTableBox">
                             <div class="prtextTable wid25per">
-                                <div class="prtt_area"><textarea type="text" bind:value={pisaPurpose} placeholder="내용입력"></textarea></div>
+                                <div class="prtt_area"><textarea type="text" bind:value={pisaPurpose} placeholder="예) 서비스 제공 및 운영"></textarea></div>
                             </div>
                             <div class="prtextTable wid25per">
-                                <div class="prtt_area"><textarea type="text" bind:value={pisaInfo} placeholder="내용입력"></textarea></div>
+                                <div class="prtt_area"><textarea type="text" bind:value={pisaInfo} placeholder="예) IP 주소, 기기 정보, 서비스 접속 및 이용 기록"></textarea></div>
                             </div>
                             <div class="prtextTable wid25per">
-                                <div class="prtt_area"><textarea type="text" bind:value={pisaMethodology} placeholder="내용입력"></textarea></div>
+                                <div class="prtt_area"><textarea type="text" bind:value={pisaMethodology} placeholder="예) 서비스 이용 시 생성, 수집"></textarea></div>
                             </div>
                             <div class="prtextTable wid25per">
-                                <div class="prtt_area"><textarea type="text" bind:value={pisaPeriod} placeholder="내용입력"></textarea></div>
+                                <div class="prtt_area"><textarea type="text" bind:value={pisaPeriod} placeholder="예) 탈퇴 또는 계약 종료 시까지"></textarea></div>
                             </div>
                         </div>
                         <a on:click={()=>{removeServiceAutoItem(i)}} class="pr_delete"></a></div>
@@ -376,8 +365,7 @@
                         <td>
                             <div class="prarea">
                                 <input type="checkbox" name="prt01" id="prt01"
-                                       bind:checked={piInternetChose}
-                                       on:change={(e) => {handleCheckPolicyData2(e, 'piInternetChose')}}>
+                                       bind:checked={$policyInfoData.policyData2.piInternetChose} />
                                 <label for="prt01"><em></em></label>
                             </div>
                         </td>
@@ -389,8 +377,7 @@
                         <td>
                             <div class="prarea">
                                 <input type="checkbox" name="prt02" id="prt02"
-                                       bind:checked={piContractChose}
-                                       on:change={(e) => {handleCheckPolicyData2(e, 'piContractChose')}}>
+                                       bind:checked={$policyInfoData.policyData2.piContractChose} />
                                 <label for="prt02"><em></em></label>
                             </div>
                         </td>
@@ -402,8 +389,7 @@
                         <td>
                             <div class="prarea">
                                 <input type="checkbox" name="prt03" id="prt03"
-                                       bind:checked={piPayChose}
-                                       on:change={(e) => {handleCheckPolicyData2(e, 'piPayChose')}}>
+                                       bind:checked={$policyInfoData.policyData2.piPayChose} />
                                 <label for="prt03"><em></em></label>
                             </div>
                         </td>
@@ -415,8 +401,7 @@
                         <td>
                             <div class="prarea">
                                 <input type="checkbox" name="prt04" id="prt04"
-                                       bind:checked={piConsumerChose}
-                                       on:change={(e) => {handleCheckPolicyData2(e, 'piConsumerChose')}}>
+                                       bind:checked={$policyInfoData.policyData2.piConsumerChose} />
                                 <label for="prt04"><em></em></label>
                             </div>
                         </td>
@@ -428,8 +413,7 @@
                         <td>
                             <div class="prarea">
                                 <input type="checkbox" name="prt05" id="prt05"
-                                       bind:checked={piAdvertisementChose}
-                                       on:change={(e) => {handleCheckPolicyData2(e, 'piAdvertisementChose')}}>
+                                       bind:checked={$policyInfoData.policyData2.piAdvertisementChose} />
                                 <label for="prt05"><em></em></label>
                             </div>
                         </td>
