@@ -15,12 +15,17 @@
             console.log("조회함");
             policyWriting();
         }
+
         singleDatePicker('startdate', (result) => {
             policyInfoData.update(obj => {
                 obj.policyData1.piDate = result.format('YYYY-MM-DD');
                 return obj;
             });
             console.log($policyInfoData.policyData1.piDate);
+        });
+        policyInfoData.update(obj => {
+            obj.policyData1.piDate = document.getElementById('startdate').value;
+            return obj;
         });
     });
 

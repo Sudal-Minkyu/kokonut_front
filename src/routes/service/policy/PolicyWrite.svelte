@@ -139,11 +139,11 @@
                         obj.afterDataList = json_success.data.sendData.afterDataList;
                         obj.serviceAutoDataList = json_success.data.sendData.serviceAutoDataList;
                         obj.policyData2 = json_success.data.sendData.policyInfo2;
-                        obj.outDataList = json_success.data.sendData.outInfo;
-                        obj.outDetailDataList = json_success.data.sendData.outDetailInfo;
-                        obj.thirdDataList = json_success.data.sendData.thirdInfo;
-                        obj.thirdOverseasDataList = json_success.data.sendData.thirdOverseasInfo;
-                        obj.reponsibleDataList = json_success.data.sendData.reponsibleInfo;
+                        obj.outDataList = json_success.data.sendData.outDataList;
+                        obj.outDetailDataList = json_success.data.sendData.outDetailDataList;
+                        obj.thirdDataList = json_success.data.sendData.thirdDataList;
+                        obj.thirdOverseasDataList = json_success.data.sendData.thirdOverseasDataList;
+                        obj.reponsibleDataList = json_success.data.sendData.reponsibleDataList;
                         obj.policyData3 = json_success.data.sendData.policyInfo3;
                         return obj;
                     });

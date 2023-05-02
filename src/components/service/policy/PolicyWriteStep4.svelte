@@ -2,9 +2,89 @@
 
     import { fade } from 'svelte/transition'
     import {backBtn,policyInfoData,piId} from "../../../lib/store.js";
+    import restapi from "../../../lib/api.js";
 
-    export let policyWriting;
     export let stateChange;
+    console.log($policyInfoData);
+
+    const outRemoveIdList = [];
+    const createOutItem = () => {
+        policyInfoData.update(obj => {
+            obj.outDataList = [
+                ...obj.outDataList, {
+                    pioId: 0,
+                    pioOutsourcingCompany: '',
+                    pioChose: '',
+                    pioConsignmentCompany: '',
+                    pioPeriod: '',
+                }
+            ];
+            return obj;
+        });
+    }
+    const removeOutItem = (index) => {
+        policyInfoData.update((obj) => {
+            if (obj.outDataList[index].pioId) {
+                outRemoveIdList.push(obj.outDataList[index].pioId);
+            }
+            obj.outDataList.splice(index, 1);
+            return obj;
+        });
+    }
+
+    const outDetailRemoveIdList = [];
+    const createOutDetailItem = () => {
+        policyInfoData.update(obj => {
+            obj.outDetailDataList = [
+                ...obj.outDetailDataList, {
+                    piodId: 0,
+                    piodCompany: '',
+                    piodLocation: '',
+                    piodMethod: '',
+                    piodContact: '',
+                    piodInfo: '',
+                    piodDetail: '',
+                    piodPeriod: '',
+                }
+            ];
+            return obj;
+        });
+    }
+    const removeOutDetailItem = (index) => {
+        policyInfoData.update((obj) => {
+            if (obj.outDetailDataList[index].piodId) {
+                outDetailRemoveIdList.push(obj.outDetailDataList[index].piodId);
+            }
+            obj.outDetailDataList.splice(index, 1);
+            return obj;
+        });
+    }
+
+    let policyOutDetailYn = !!$policyInfoData.outDetailDataList.length;
+
+    const fourthDepthSave = (goToState) => {
+        console.log('저장전데이터', $policyInfoData);
+        let url = "/v2/api/Policy/privacyPolicyFourthSave";
+        let sendData = {
+            piId : $piId,
+            policyOutSaveDtoList : $policyInfoData.outDataList,
+            policyOutDeleteIdList: outRemoveIdList,
+            policyOutDetailSaveDtoList: $policyInfoData.outDetailDataList,
+            policyOutDetailDeleteIdList: outDetailRemoveIdList,
+            policyOutDetailYn: policyOutDetailYn,
+        }
+        restapi('v2', 'post', url, "body", sendData, 'application/json',
+            (json_success) => {
+                if(json_success.data.status === 200) {
+                    // 완료후
+                    stateChange(goToState);
+                }
+            },
+            (json_error) => {
+                console.log(json_error);
+            }
+        );
+    }
 
 </script>
 
@@ -38,77 +118,52 @@
                         <!-- // [D] 위탁 업무 -->
                             </span>
                 </div>
-                <div class="prtt_area"><input type="text" name="" placeholder="" value="(주)2월대개봉"/></div>
             </div>
             <div class="prtextTable wid25per">
                 <div class="prtti">필수 / 선택</div>
-                <div class="prtt_area"><input type="text" name="" placeholder="" value="필수"/></div>
             </div>
             <div class="prtextTable wid25per">
                 <div class="prtti">위탁 업무
                     <span class="tiptool" id="tool_btn12">
-                                <!-- [D] tooltip : 위탁 업무 -->
-                                <div class="layerToolType pmtool_02" id="tool_box12">
-                                    <div class="tipContents">
-                                        <p>
-                                            개인정보 처리 업무 위탁에 관해서 작성합니다. ex) 물품 배송, IT 개발 및 운영, 콜센터 업무 등
-                                        </p>
-                                    </div>
-                                </div>
+                        <!-- [D] tooltip : 위탁 업무 -->
+                        <div class="layerToolType pmtool_02" id="tool_box12">
+                            <div class="tipContents">
+                                <p>
+                                    개인정보 처리 업무 위탁에 관해서 작성합니다. ex) 물품 배송, IT 개발 및 운영, 콜센터 업무 등
+                                </p>
+                            </div>
+                        </div>
                         <!-- // [D] 위탁 업무 -->
-                            </span>
+                        </span>
                 </div>
-                <div class="prtt_area"><input type="text" name="" placeholder="" value="개인정보의 처리"/></div>
             </div>
             <div class="prtextTable wid25per">
                 <div class="prtti">처리 및 보유 기간</div>
-                <div class="prtt_area"><input type="text" name="" placeholder="" value="탈퇴 또는 보유기간 만료까지"/></div>
             </div>
         </div>
-        <script>
-            jQuery(document).ready(function() {
-                var max_fields2     = 5;
-                var wrapper2        = jQuery(".prcontainer4");
-                var add_button2      = jQuery(".add_pr_field4");
-                var x = 1;
-
-                jQuery(add_button2).click(function(e){
-                    e.preventDefault();
-                    if(x < max_fields2){
-                        x++;
-                        jQuery(wrapper2).append(
-                            '<div class="addelement">' +
-                            '<div class="prtextTableBox">' +
-                            '<div class="prtextTable wid25per">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable wid25per">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable wid25per">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable wid25per">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '</div>' +
-                            '<a href="#" class="pr_delete"></a></div>'
-                        ); //add input box
-                    }
-                    else
-                    {
-                        alert('해당 정보는 4개 입력이 최대입니다.')
-                    }
-                });
-
-                jQuery(wrapper2).on("click",".pr_delete", function(e){
-                    e.preventDefault(); jQuery(this).parent('div').remove(); x--;
-                })
-            });
-        </script>
-        <div class="prcontainer4"></div>
+        <div class="prcontainer4">
+            {#each $policyInfoData.outDataList as {pioOutsourcingCompany, pioChose, pioConsignmentCompany, pioPeriod}, i}
+                <div class="addelement">
+                    <div class="prtextTableBox">
+                        <div class="prtextTable wid25per">
+                            <div class="prtt_area"><textarea type="text" bind:value={pioOutsourcingCompany} placeholder="예) (주)2월대개봉"></textarea></div>
+                        </div>
+                        <div class="prtextTable wid25per">
+                            <div class="prtt_area"><textarea type="text" bind:value={pioChose} placeholder="예) 필수"></textarea></div>
+                        </div>
+                        <div class="prtextTable wid25per">
+                            <div class="prtt_area"><textarea type="text" bind:value={pioConsignmentCompany} placeholder="예) 서비스 이용 시 생성, 수집"></textarea></div>
+                        </div>
+                        <div class="prtextTable wid25per">
+                            <div class="prtt_area"><textarea type="text" bind:value={pioPeriod} placeholder="예) 탈퇴 또는 계약 종료 시까지"></textarea></div>
+                        </div>
+                    </div>
+                    <a on:click={()=>{removeOutItem(i)}} class="pr_delete"></a>
+                </div>
+            {/each}
+        </div>
         <div class="pr_fieldBtnInner">
-            <button class="add_pr_field4 pr_fieldBtn"></button>
+            <button type="button" on:click={createOutItem} class="add_pr_field4 pr_fieldBtn"></button>
         </div>
     </div>
 
@@ -125,7 +180,7 @@
                 </div>
             </span>
             <div class="title_check">
-                <input type="checkbox" value="1" name="pr5-1_involve" id="pr5-1_involve" checked>
+                <input type="checkbox" value="1" name="pr5-1_involve" id="pr5-1_involve" bind:checked={policyOutDetailYn}>
                 <label for="pr5-1_involve">
                     <p class="check">포함여부</p>
                     <em></em>
@@ -141,33 +196,39 @@
             <div class="prtti">위탁 업무 내용</div>
             <div class="prtti">위탁 업무 내용개인정보의 보유 및 이용기간</div>
         </div>
-        <div class="prtextTableBox">
-            <div class="prtextTable colum7">
-                <div class="prtt_area"><textarea type="text" name="" placeholder="(주)2월대개봉"></textarea></div>
-            </div>
-            <div class="prtextTable colum7">
-                <div class="prtt_area"><textarea type="text" name="" placeholder="○국가 ○시 ○구 ○동 건물명"></textarea></div>
-            </div>
-            <div class="prtextTable colum7">
-                <div class="prtt_area"><textarea type="text" name="" placeholder="○년 ○월 ○일 인터넷을 이용한 원격지 전송"></textarea></div>
-            </div>
-            <div class="prtextTable colum7">
-                <div class="prtt_area"><textarea type="text" name="" placeholder="010-0000-0000"></textarea></div>
-            </div>
-            <div class="prtextTable colum7">
-                <div class="prtt_area"><textarea type="text" name="" placeholder="이름, 주소, 이메일"></textarea></div>
-            </div>
-            <div class="prtextTable colum7">
-                <div class="prtt_area"><textarea type="text" name="" placeholder="데이터 보호를 위한 국가간 데이터 백업(보관)"></textarea></div>
-            </div>
-            <div class="prtextTable colum7">
-                <div class="prtt_area"><textarea type="text" name="" placeholder="탈퇴 또는 보유기간 만료까지"></textarea></div>
-            </div>
-        </div>
 
-        <div class="prcontainer5"></div>
+        <div class="prcontainer5">
+            {#each $policyInfoData.outDetailDataList as {piodCompany, piodLocation, piodMethod, piodContact, piodInfo, piodDetail, piodPeriod}, i}
+                <div class="addelement">
+                    <div class="prtextTableBox">
+                        <div class="prtextTable colum7">
+                            <div class="prtt_area"><textarea type="text" bind:value={piodCompany} placeholder="예) (주)2월대개봉"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum7">
+                            <div class="prtt_area"><textarea type="text" bind:value={piodLocation} placeholder="예) ○국가 ○시 ○구 ○동 건물명"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum7">
+                            <div class="prtt_area"><textarea type="text" bind:value={piodMethod} placeholder="예) ○년 ○월 ○일 인터넷을 이용한 원격지 전송"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum7">
+                            <div class="prtt_area"><textarea type="text" bind:value={piodContact} placeholder="예) 010-0000-0000"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum7">
+                            <div class="prtt_area"><textarea type="text" bind:value={piodInfo} placeholder="예) 이름, 주소, 이메일"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum7">
+                            <div class="prtt_area"><textarea type="text" bind:value={piodDetail} placeholder="예) 데이터 보호를 위한 국가간 데이터 백업(보관)"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum7">
+                            <div class="prtt_area"><textarea type="text" bind:value={piodPeriod} placeholder="예) 탈퇴 또는 보유기간 만료까지"></textarea></div>
+                        </div>
+                    </div>
+                    <a on:click={()=>{removeOutDetailItem(i)}} class="pr_delete"></a>
+                </div>
+            {/each}
+        </div>
         <div class="pr_fieldBtnInner">
-            <button class="add_pr_field5 pr_fieldBtn"></button>
+            <button type="button" on:click={createOutDetailItem} class="add_pr_field5 pr_fieldBtn"></button>
         </div>
     </div>
 </div>
@@ -182,13 +243,13 @@
             </div>
 
             <div class="pri_bottomBtnBox marT32">
-                <button on:click="{() => stateChange(3)}" class="pri_prevBtn">이전</button>
+                <button on:click="{() => {fourthDepthSave(3)}}" class="pri_prevBtn">이전</button>
 
                 <div class="pris_num">
                     <dl><span>4</span> / 7</dl>
                 </div>
 
-                <button on:click="{() => stateChange(5)}" class="pri_nextBtn">다음</button>
+                <button on:click="{() => {fourthDepthSave(5)}}" class="pri_nextBtn">다음</button>
             </div>
         </div>
     </div>

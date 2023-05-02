@@ -324,7 +324,8 @@
                                 <div class="prtt_area"><textarea type="text" bind:value={pisaPeriod} placeholder="예) 탈퇴 또는 계약 종료 시까지"></textarea></div>
                             </div>
                         </div>
-                        <a on:click={()=>{removeServiceAutoItem(i)}} class="pr_delete"></a></div>
+                        <a on:click={()=>{removeServiceAutoItem(i)}} class="pr_delete"></a>
+                    </div>
                 {/each}
             </div>
             <div class="pr_fieldBtnInner">
