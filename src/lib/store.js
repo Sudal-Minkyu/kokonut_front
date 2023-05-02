@@ -91,6 +91,7 @@ export const personalInfoCategoryData = writable({
         visible: false,
         currentMode: 'modify',
         checkPreCautionAgree: false,
+        ciNameErrorMsg: '',
         cautionAgreeErrorMsg: '',
         inputData: {
             ciId: 0,

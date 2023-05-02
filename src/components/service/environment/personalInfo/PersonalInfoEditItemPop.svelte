@@ -1,5 +1,6 @@
 <script>
-    import {personalInfoCategoryData} from "../../../../lib/store.js";
+    import {personalInfoCategoryData, personalInfoTableData} from "../../../../lib/store.js";
+    import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
     export let personalInfoCategoryService;
 </script>
 
@@ -26,6 +27,7 @@
                                     <input type="text" placeholder="항목명을 적어주세요."
                                            bind:value={$personalInfoCategoryData.editItemPop.inputData.ciName} />
                                 </div>
+                                <ErrorHighlight message="{$personalInfoCategoryData.editItemPop.ciNameErrorMsg}" />
                             </div>
                         {/if}
                         {#if $personalInfoCategoryData.editItemPop.currentMode === 'delete'}
@@ -42,6 +44,7 @@
                                         <p class="check" >주의사항을 확인하였고 삭제에 동의합니다.</p>
                                     </label>
                                 </div>
+                                <ErrorHighlight message="{$personalInfoCategoryData.editItemPop.cautionAgreeErrorMsg}" />
                             </div>
                         {/if}
                     </div>

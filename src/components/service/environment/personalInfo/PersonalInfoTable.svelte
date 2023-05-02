@@ -32,15 +32,15 @@
                     <colgroup>
                         <col style="width:8.21%;">
                         <col style="width:11.00%;">
-                        <col style="width:60.14%;">
                         <col style="width:20.66%;">
+                        <col style="width:60.14%;">
                     </colgroup>
                     <thead>
                     <tr>
                         <th>No</th>
                         <th>선택</th>
+                        <th>고유번호</th>
                         <th>항목</th>
-                        <th>수정</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,6 +57,9 @@
                                     </div>
                                 </td>
                             {/if}
+                            <td>
+                                {column.fieldCode}
+                            </td>
                             {#if column.fieldSecrity === 1}
                                 <td>
                                     <div class="lockicon"></div>
@@ -69,15 +72,15 @@
                                     <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
                                 </td>
                             {/if}
-                            {#if column.fieldName === "ID" || column.fieldName === "PASSWORD" }
-                                <td>
-                                    <div class="nonereviseBtn">수정불가</div>
-                                </td>
-                            {:else}
-                                <td>
-                                    <button>수정하기</button>
-                                </td>
-                            {/if}
+                            <!--{#if column.fieldName === "ID" || column.fieldName === "PASSWORD" }-->
+                            <!--    <td>-->
+                            <!--        <div class="nonereviseBtn">수정불가</div>-->
+                            <!--    </td>-->
+                            <!--{:else}-->
+                            <!--    <td>-->
+                            <!--        <button>수정하기</button>-->
+                            <!--    </td>-->
+                            <!--{/if}-->
                         </tr>
                     {/each}
                     {#if !$personalInfoTableData.columnList.length}
