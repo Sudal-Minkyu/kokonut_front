@@ -352,6 +352,50 @@
         },
     };
 
+    import { Bootpay } from '@bootpay/client-js'
+
+    function bootpay() {
+        Bootpay.requestPayment({
+            "application_id": "6369c021cf9f6d001b23e2ef",
+            "price": 5000,
+            "order_name": "테스트결제",
+            "order_id": "주문번호얌",
+            "pg": "나이스페이",
+            "method": "카드",
+            "tax_free": 0,
+            "user": {
+                "id": "회원아이디",
+                "username": "김민규",
+                "phone": "01022223344",
+                "email": "woody@kokonut.com"
+            },
+            "items": [
+                {
+                    "id": "item_id1",
+                    "name": "테스트아이템1",
+                    "qty": 1,
+                    "price": 1000
+                },
+                {
+                    "id": "item_id2",
+                    "name": "테스트아이템2",
+                    "qty": 1,
+                    "price": 3000
+                },
+                {
+                    "id": "item_id3",
+                    "name": "테스트아이템3",
+                    "qty": 2,
+                    "price": 500
+                }
+            ],
+            "extra": {
+                "open_type": "iframe",
+                "card_quota": "0,2,3",
+                "escrow": false
+            }
+        })
+    }
 
 </script>
 
@@ -446,11 +490,13 @@
 <!--</div>-->
 
 <div class="testDiv">
-    <h1>스와이퍼 테스트</h1><br/>
-    <Swiper {swiper_options}>
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-    </Swiper>
+    <h1>부트페이 테스트</h1><br/>
+    <input type="button" on:click|preventDefault="{bootpay}" value="부트페이결제 열기"><br/>
+
+
+
+
+
+
+
 </div>

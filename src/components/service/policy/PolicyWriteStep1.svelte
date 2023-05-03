@@ -104,17 +104,17 @@
     <div class="priv_divider"></div>
     <div class="priverBox">
         <dl>개정일</dl>
-        <div class="priverCal">
-            <div class="time_input">
-                <input type="text" id="startdate" bind:value={$policyInfoData.policyData1.piDate} placeholder="개정일을 선택해 주세요." autocomplete="off" maxlength="20" />
-            </div>
-        </div>
-        <a class="{textState === 2 ? 'textShake' : 'noText'}">개정일을 선택해주세요.</a>
+        <span>개정일은 제작완료된 날짜로 자동 입력됩니다.</span>
     </div>
     <div class="priv_divider"></div>
     <div class="priverBox">
         <dl>시행일</dl>
-        <span>개정일의 2주 뒤로 자동 입력됩니다.</span>
+        <div class="priverCal">
+            <div class="time_input">
+                <input type="text" id="startdate" bind:value={$policyInfoData.policyData1.piDate} placeholder="시행일을 선택해 주세요." autocomplete="off" maxlength="20" />
+            </div>
+        </div>
+        <a class="{textState === 2 ? 'textShake' : 'noText'}">시행일을 선택해주세요.</a>
     </div>
     <div class="priv_divider"></div>
     <div class="priverBox">
