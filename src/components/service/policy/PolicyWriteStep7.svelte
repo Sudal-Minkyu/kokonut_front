@@ -12,14 +12,25 @@
     let checkAgree = false;
     let checkAgreeErrorMsg = '';
 
+
+    function scrollToBottom() {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
+    }
+
     const handleComplete = () => {
         if (checkAgree) {
             finalSave();
         } else {
+            scrollToBottom();
             checkAgreeErrorMsg = '동의여부를 클릭해주세요.';
         }
     }
-    let customConfirmProp = {};
+
+    export let customConfirmPropFun;
+    export let customConfirmProp = {};
 
     const finalSave = () => {
         console.log('저장전데이터', $policyInfoData);
@@ -41,11 +52,13 @@
                             push(pathName);
                         }, // 확인버튼시 동작
                         icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                        title: '저장 완료', // 제목
-                        contents1: '개인정보처리방침을 저장하였습니다.', // 내용
+                        title: '제작 완료', // 제목
+                        contents1: '개인정보처리방침 제작을 완료하였습니다.', // 내용
                         contents2: '',
                         btnCheck: '확인', // 확인 버튼의 텍스트
                     }
+                    customConfirmPropFun(customConfirmProp);
+
                 }
             },
             (json_error) => {
@@ -208,4 +221,3 @@
         </div>
     </div>
 </div>
-<CustomConfirm prop={customConfirmProp}/>

@@ -3,9 +3,10 @@
     import Header from "../../../components/service/layout/Header.svelte"
     import PolicySearch from "../../../components/service/policy/PolicySearch.svelte";
     import PolicyTable from "../../../components/service/policy/PolicyTable.svelte";
+    import PolicyElectronic from "../../../components/service/policy/PolicyElectronic.svelte";
 
     import { link } from 'svelte-spa-router'
-    import { page } from '../../../lib/store.js'
+    import {page, electronic} from '../../../lib/store.js'
     import { fade } from 'svelte/transition'
 
     import {setCustomSelectBox, setDateRangePicker, setOptionItem, stimeVal} from "../../../lib/libSearch.js";
@@ -16,6 +17,8 @@
 
     onMount(async ()=>{
         await fatchSearchModule();
+
+        companyElectronicCheck();
 
         // 페이지번호 초기화
         page.set(0);
@@ -31,6 +34,34 @@
     let customSelectBoxOpt = [
         {id : "policySelect", use_all : true, codeName : "policy_search"},
     ]; // 선택 박스 옵션
+
+    let electronicCheck = false;
+    function electronicCheckChange() {
+        electronicCheck = false;
+    }
+    // 전자상거래법 적용대상 체크
+    function companyElectronicCheck() {
+        if($electronic === "0") {
+            electronicCheck = true;
+        }
+    }
+
+    let startFun = function() {
+        console.log("전자상거랩 업데이트 함수");
+
+        let url = "/v2/api/Company/companyElectronicUpdate"
+
+        restapi('v2', 'post', url, "", {}, 'application/json',
+            (json_success) => {
+                if(json_success.data.status === 200) {
+                    console.log("전자상거랩 업데이트완료");
+                }
+            },
+            (json_error) => {
+                console.log(json_error);
+            }
+        )
+    }
 
     let policyLayout = 0;
 
@@ -125,3 +156,7 @@
 
     </div>
 </section>
+
+{#if electronicCheck}
+    <PolicyElectronic {startFun} {electronicCheckChange} />
+{/if}

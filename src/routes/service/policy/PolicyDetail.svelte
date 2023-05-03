@@ -203,7 +203,7 @@
 
                 <!------------ No.1 ------------>
                 <div class="priContentBox">
-                    <div class="priC_title marB24">1. 개인정보의 처리 목적</div>
+                    <div class="priC_title marB24">{step}. 개인정보의 처리 목적</div>
                     <div class="pr_wrap">
                         <div class="prbox">
                             <div class="prti w1528per">서비스 제공 및 운영</div>
@@ -224,7 +224,7 @@
 
                 <!------------ No.2 ------------>
                 <div class="priContentBox">
-                    <div class="priC_title marB24">2. 수집하는 개인정보의 항목 및 수집방법</div>
+                    <div class="priC_title marB24">{++step}. 수집하는 개인정보의 항목 및 수집방법</div>
                     <div class="prtextaddbox marB40">
                         <dl>(1) 서비스 가입 시 수집하는 개인정보</dl>
                         <div class="prtextTableBox">
@@ -390,7 +390,7 @@
 
                 <!------------ No.5 ------------>
                 <div class="priContentBox">
-                    <div class="priC_title marB24">3. 개인정보 처리 업무의 위탁에 관한 사항</div>
+                    <div class="priC_title marB24">{++step}. 개인정보 처리 업무의 위탁에 관한 사항</div>
 
                     <div class="prtextTablethBox colum4Line borT">
                         <div class="prtti">수탁 업체</div>
@@ -420,7 +420,7 @@
                 <!------------ No.5-1 ------------>
                 {#if policyInfoData.policyData.piOutChose}
                 <div class="priContentBox">
-                    <div class="priC_title marB24">3-1. 개인정보 처리 업무의 위탁에 관한 사항</div>
+                    <div class="priC_title marB24">{step}-1. 개인정보 처리 업무의 위탁에 관한 사항</div>
                     <div class="prtextTablethBox colum7Line borT">
                         <div class="prtti">수탁 업체</div>
                         <div class="prtti">수탁업체의 위치(국가, 도시 등 구체적 주소 작성)</div>
@@ -462,7 +462,7 @@
                 <!------------ No.6 ------------>
                 {#if policyInfoData.policyData.piThirdChose}
                 <div class="priContentBox">
-                    <div class="priC_title marB24">4. 개인정보 제3자 제공에 관한 사항</div>
+                    <div class="priC_title marB24">{++step}. 개인정보 제3자 제공에 관한 사항</div>
                     <div class="prinortext">
                         회사는 원칙적으로 개인정보를 외부에 제공하지 않습니다. 단, 개인정보보호법에 근거해 정보주체의 별도 동의나 관련 법령에 의해 개인정보 제출의 의무가 있는 경우, 또는 정보주체의 생명이나 안전에 급박한 위험이 확인되어 이를 해소하기 위한 경우에 한하여 개인정보를 제공합니다.
                     </div>
@@ -495,7 +495,7 @@
                 <!------------ No.6-1 ------------>
                 {#if policyInfoData.policyData.piThirdOverseasChose}
                 <div class="priContentBox">
-                    <div class="priC_title marB24">4-1. 개인정보의 국외 제3자 제공에 관한 사항</div>
+                    <div class="priC_title marB24">{step}-1. 개인정보의 국외 제3자 제공에 관한 사항</div>
                     <div class="prtextTablethBox colum5Line borT">
                         <div class="prtti">제공받는 자</div>
                         <div class="prtti">제공받는 자의 이용 목적</div>
@@ -529,7 +529,7 @@
 
                 <!------------ No.9 ------------>
                 <div class="priContentBox">
-                    <div class="priC_title marB24">5. 개인정보보호 책임자에 관한 사항</div>
+                    <div class="priC_title marB24">{++step}. 개인정보보호 책임자에 관한 사항</div>
                     <div class="prinortext marB24">
                         정보주체는 개인정보 보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보보호 책임자에게 문의하실 수 있습니다. 개인정보보호 책임자는 이용자의 문의에 대해 지체없이 답변 및 처리해 드릴 것입니다.
                     </div>
@@ -565,7 +565,7 @@
                 <!------------ No.10 ------------>
                 {#if policyInfoData.policyData.piChangeChose}
                     <div class="priContentBox">
-                        <div class="priC_title marB24">6. 개인정보 처리방침의 변경에 관한 사항</div>
+                        <div class="priC_title marB24">{++step}. 개인정보 처리방침의 변경에 관한 사항</div>
                         <div class="prinortext marB16">
                             개인정보 처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 홈페이지 또는 이메일 등 개별 통지 방법을 통해 고지할 것입니다.
                         </div>
@@ -582,7 +582,7 @@
 
                 <!------------ No.3 ------------>
                 <div class="priContentBox">
-                    <div class="priC_title marB24">7. 개인정보의 파기에 관한 사항</div>
+                    <div class="priC_title marB24">{++step}. 개인정보의 파기에 관한 사항</div>
                     <div class="prinortext">
                         회사는 보유기간의 경과, 처리목적 달성 등 개인정보가 불필요하게 되었을 때에는 지체없이 해당 개인정보를 파기합니다. 개인정보 보유기간이 경과하거나 처리목적이 달성되었음에도 불구하고 다른 법령에 따라 개인정보를 계속 보존하여야 하는 경우에는, 해당 개인정보를 별도의 데이터베이스(DB)로 옮기거나 보관장소를 달리하여 보존합니다. 이때, DB로 옮겨진 개인정보는 해당 법령에서 허용된 목적 이외의 다른 목적으로 이용되지 않습니다.
                     </div>
@@ -601,7 +601,7 @@
 
                 <!------------ No.4 ------------>
                 <div class="priContentBox">
-                    <div class="priC_title marB24">8. 서비스 미이용자의 개인정보 파기 등에 관한 조치</div>
+                    <div class="priC_title marB24">{++step}. 서비스 미이용자의 개인정보 파기 등에 관한 조치</div>
                     <div class="prinortext">
                         회사는 1년 동안 서비스를 이용하지 않은 이용자의 개인정보는 파기하거나 별도로 보관합니다. 별도 보관하는 개인정보는 서비스에 이용하지 않습니다.
                     </div>
@@ -610,7 +610,7 @@
 
                 <!------------ No.7 ------------>
                 <div class="priContentBox">
-                    <div class="priC_title marB24">9. 정보주체의 권리**·의무** 및 그 행사방법에 관한 사항</div>
+                    <div class="priC_title marB24">{++step}. 정보주체의 권리**·의무** 및 그 행사방법에 관한 사항</div>
                     <div class="prnor_text">
                         <p><span>1.</span>이용자는 계약 기간 내에 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며 자신의 개인정보에 대해 정보삭제 및 처리정지 요구 등의 권리를 행사할 수 있습니다.</p>
                     </div>
@@ -627,7 +627,7 @@
 
                 <!------------ No.8 ------------>
                 <div class="priContentBox pri8cont">
-                    <div class="priC_title marB24">10. 개인정보의 안전성 확보 조치에 관한 사항</div>
+                    <div class="priC_title marB24">{++step}. 개인정보의 안전성 확보 조치에 관한 사항</div>
                     <div class="prinortext marB16">
                         회사는 개인정보의 안전성 확보를 위해 다음과 같은 조치를 취하고 있습니다.</div>
                     <div class="prnor_text">
@@ -644,7 +644,7 @@
 
                 <!------------ No.11 ------------>
                 <div class="priContentBox noneMarB">
-                    <div class="priC_title marB24">11. 개인정보의 권익침해에 대한 구제방법</div>
+                    <div class="priC_title marB24">{++step}. 개인정보의 권익침해에 대한 구제방법</div>
                     <div class="prinortext marB16">
                         이용자는 개인정보침해로 인한 구제를 받기 위하여 개인정보분쟁조정위원회, 한국인터넷진흥원 개인정보침해신고센터 등에 분쟁해결이나 상담 등을 신청할 수 있습니다. 이 밖에 기타 개인정보침해의 신고, 상담에 대하여는 아래의 기관에 문의하시기 바랍니다.
                     </div>

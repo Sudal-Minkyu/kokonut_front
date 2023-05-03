@@ -13,7 +13,7 @@
     }
 
     function noClick() {
-        startFun(1);
+        startFun();
         writingCheckChange();
     }
 

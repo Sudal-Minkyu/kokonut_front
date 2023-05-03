@@ -14,11 +14,11 @@
     import PolicyWriteStep6 from '../../../components/service/policy/PolicyWriteStep6.svelte'
     import PolicyWriteStep7 from '../../../components/service/policy/PolicyWriteStep7.svelte'
 
-    import CustumAlert from "../../../components/common/CustumAlert.svelte";
+    import {backBtn, policyInfoData, piId, piStage, is_login, accessToken, initialPolicyInfo} from '../../../lib/store.js'
 
-    import {backBtn, policyInfoData, piId, piStage, is_login, accessToken} from '../../../lib/store.js'
-    import { popOpenBtn } from "../../../lib/common.js";
     import restapi from "../../../lib/api.js";
+
+    import CustomConfirm from "../../../components/common/ui/CustomConfirm.svelte";
 
     const tooltipEvent = (e) => {
         console.log('act');
@@ -96,25 +96,36 @@
 
     let stage = $piStage;
 
-    let popType = 2; // 1: 버튼하나, 2: 여부를 묻는 버튼 두개
-    let imgState = 4; // 1 : 성공, 2 : 경고, 3: 실패, 4: 물음표
-    let popTitle = "제작을 중단하시겠습니까?"; // 제목 텍스트
-    let popContents1 = "중단하게 되면 작성중인 글은 삭제됩니다.";  // 내용1 텍스트
-    let popStart = "예"; // 예 텍스트
-    let popCancel = "아니오"; // 아니오 텍스트
+    // let popType = 2; // 1: 버튼하나, 2: 여부를 묻는 버튼 두개
+    // let imgState = 4; // 1 : 성공, 2 : 경고, 3: 실패, 4: 물음표
+    // let popTitle = "제작을 중단하시겠습니까?"; // 제목 텍스트
+    // let popContents1 = "중단하게 되면 작성중인 글은 삭제됩니다.";  // 내용1 텍스트
+    // let popStart = "예"; // 예 텍스트
+    // let popCancel = "아니오"; // 아니오 텍스트
+
     function stopWrite() {
         console.log("작성중단 함수");
         if(stage === 1 && $piId === 0) {
             push("/service/policyList")
         } else {
-            popOpenBtn();
+            customConfirmProp = {
+                visible: true, // 팝업 보임의 여부 통제
+                type: 'ask', // 'confirm' 버튼하나, 'ask' 여부 묻기
+                callback: startFun, // 확인버튼시 동작
+                icon: 'question', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: '제작을 중단하시겠습니까?', // 제목
+                contents1: '중단하게 되면 작성중인 글은 삭제됩니다.', // 내용
+                contents2: '',
+                btnStart: '예', // 확인 버튼의 텍스트
+                btnCancel: '아니오'
+            }
+            customConfirmPropFun(customConfirmProp);
         }
     }
 
-    let startFun = function deletePolicy(trigger) {
+    let startFun = function deletePolicy() {
         console.log("중단후 작성중이던 글 삭제호출 함수");
         console.log("삭제할 piId : "+$piId);
-        console.log("트리거 : "+trigger);
 
         let url = "/v2/api/Policy/privacyPolicyDelete"
 
@@ -124,11 +135,10 @@
         restapi('v2', 'post', url, "param", sendData, 'application/json',
             (json_success) => {
                 if(json_success.data.status === 200) {
-                    if(trigger === undefined) {
-                        push("/service/policyList");
-                    }
                     piId.set(0);
-                    stateChange(1)
+                    piStage.set(0);
+                    policyInfoData.set(JSON.parse(JSON.stringify(initialPolicyInfo)));
+                    push("/service/policyList");
                 }
             },
             (json_error) => {
@@ -186,6 +196,10 @@
         )
     }
 
+    let customConfirmProp;
+    function customConfirmPropFun(customConfirm) {
+        customConfirmProp = customConfirm;
+    }
 </script>
 
 <Header />
@@ -214,7 +228,7 @@
         {:else if stage === 6}
             <PolicyWriteStep6 {stateChange} {policyWriting} />
         {:else if stage === 7}
-            <PolicyWriteStep7 {stateChange} />
+            <PolicyWriteStep7 {stateChange} {customConfirmPropFun} {customConfirmProp} />
         {/if}
 
     </div>
@@ -224,4 +238,4 @@
     <PolicyWritingCheck {startFun} {policyWriting} {writingCheckChange} />
 {/if}
 
-<CustumAlert {popType} {imgState} {startFun} {popTitle} {popContents1} {popStart} {popCancel} />
+<CustomConfirm prop={customConfirmProp} />

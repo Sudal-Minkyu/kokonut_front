@@ -18,12 +18,12 @@
         <caption>개인정보 처리이력 리스트</caption>
         <colgroup>
             <col style="width:5.48%;">
-            <col style="width:9.59%;">
+            <col style="width:13.59%;">
             <col style="width:10.96%;">
-            <col style="width:12.33%;">
-            <col style="width:15.07%;">
-            <col style="width:15.07%;">
-            <col style="width:15.07%;">
+            <col style="width:15.4%;">
+<!--            <col style="width:15.07%;">-->
+            <col style="width:20.07%;">
+            <col style="width:20.07%;">
             <col style="width:16.44%;">
         </colgroup>
         <thead>
@@ -32,7 +32,7 @@
             <th>버전</th>
             <th>작성자</th>
             <th>등급</th>
-            <th>제작일</th>
+<!--            <th>제작일</th>-->
             <th>개정일</th>
             <th>시행일</th>
             <th>전문확인</th>
@@ -50,7 +50,7 @@
                     {:else}
                         <td>{policy.knRoleDesc}</td>
                     {/if}
-                    <td>{policy.insert_date}</td>
+<!--                    <td>{policy.insert_date}</td>-->
                     <td>{policy.piDate.replaceAll("-",". ")}</td>
                     <td>{addTwoWeeks(policy.piDate)}</td>
                     <td>
