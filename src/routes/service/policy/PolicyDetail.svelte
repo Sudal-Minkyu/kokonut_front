@@ -76,8 +76,29 @@
 
                     console.log(json_success)
                     policyInfoData.policyData = json_success.data.sendData.policyData;
-                    
-                    console.log( policyInfoData.policyData)
+
+                    policyInfoData.purposeDataList = json_success.data.sendData.purposeDataList;
+
+                    policyInfoData.beforeDataList = json_success.data.sendData.beforeDataList;
+                    policyInfoData.afterDataList = json_success.data.sendData.afterDataList;
+                    policyInfoData.serviceAutoDataList = json_success.data.sendData.serviceAutoDataList;
+
+                    policyInfoData.outDataList = json_success.data.sendData.outDataList;
+                    if(policyInfoData.policyData.piOutChose) {
+                        policyInfoData.outDetailDataList = json_success.data.sendData.outDetailDataList;
+                    }
+
+                    if(policyInfoData.policyData.piThirdChose) {
+                        policyInfoData.thirdDataList = json_success.data.sendData.thirdDataList;
+                    }
+
+                    if(policyInfoData.policyData.piThirdOverseasChose) {
+                        policyInfoData.thirdOverseasDataList = json_success.data.sendData.thirdOverseasDataList;
+                    }
+
+                    policyInfoData.reponsibleDataList = json_success.data.sendData.reponsibleDataList;
+
+                    console.log(policyInfoData)
 
                     policyDetailLayout = 1;
                 }
@@ -173,11 +194,8 @@
 
                 <div class="priContentBox">
                     <div class="priC_title marB24">머리말</div>
-                    <div class="priCIntrotext marB24">
-                        (주) 2월대개봉 개인정보 처리방침
-                    </div>
                     <div class="priCIntrotext">
-                        <dl>(주) 2월대개봉 (이하 회사)은(는) 고객의 개인정보를 중시하며, 개인정보보호법 등 관련 법규를 준수하기 위해 노력하고 있습니다.</dl>
+                        <dl>개인정보 처리방침 {policyInfoData.policyData.piHeader}(이하 회사)은(는) 고객의 개인정보를 중시하며, 개인정보보호법 등 관련 법규를 준수하기 위해 노력하고 있습니다.</dl>
                         <dl>회사는 개인정보 처리방침을 통해 고객의 개인정보를 어떠한 용도와 방식으로 이용하고 있으며, 개인정보보호를 위해 어떠한 조치를 취하고 있는지 알려드립니다.</dl>
                         <dl>회사의 개인정보 처리방침은 다음과 같습니다.</dl>
                     </div>
@@ -193,9 +211,14 @@
                         </div>
                         <div class="prbox">
                             <div class="prti w1528per">서비스 개선</div>
-                            <div class="prst w8472per">서비스 개선: 기존 서비스의 개선, 신규 서비스의 발굴 등 고객에 대한 서비스를 개선하는 데 이용합니다.</div>
+                            <div class="prst w8472per">기존 서비스의 개선, 신규 서비스의 발굴 등 고객에 대한 서비스를 개선하는 데 이용합니다.</div>
                         </div>
-
+                        {#each policyInfoData.purposeDataList as {pipTitle, pipContent}, i}
+                            <div class="prbox">
+                                <div class="prti w1528per">{pipTitle}</div>
+                                <div class="prst w8472per">{pipContent}</div>
+                            </div>
+                        {/each}
                     </div>
                 </div>
 
@@ -207,59 +230,91 @@
                         <div class="prtextTableBox">
                             <div class="prtextTable wid25per">
                                 <div class="prtti">처리목적</div>
-                                <div class="prtt_value_area">서비스 제공 및 운영, 개선</div>
+                                {#each policyInfoData.beforeDataList as {pibPurpose}, i}
+                                    <div class="prtt_value_area">{pibPurpose}</div>
+                                {/each}
                             </div>
                             <div class="prtextTable wid25per">
                                 <div class="prtti">수집 항목</div>
-                                <div class="prtt_value_area">아이디, 이메일 주소, 이름, 휴대전화 번호, 비밀번호</div>
+                                {#each policyInfoData.beforeDataList as {pibInfo}, i}
+                                    <div class="prtt_value_area">{pibInfo}</div>
+                                {/each}
                             </div>
-                            <div class="prtextTable wid50per">
+                            <div class="prtextTable wid25per">
+                                <div class="prtti">필수/선택</div>
+                                {#each policyInfoData.beforeDataList as {pibChose}, i}
+                                    <div class="prtt_value_area">{pibChose}</div>
+                                {/each}
+                            </div>
+                            <div class="prtextTable wid25per">
                                 <div class="prtti">처리 및 보유 기간</div>
-                                <div class="prtt_value_area">탈퇴 또는 계약 종료 시까지</div>
+                                {#each policyInfoData.beforeDataList as {pibPeriod}, i}
+                                    <div class="prtt_value_area">{pibPeriod}</div>
+                                {/each}
                             </div>
                         </div>
+                        <div class="prdot_text marT16">기기 정보를 수집하는 경우에는 일방향 암호화(Hash)를 통해 기기를 식별할 수 없는 방법으로 변환하여 보관합니다.</div>
                     </div>
                     <div class="prtextaddbox marB40">
                         <dl>(2) 서비스 가입 후 수집하는 개인정보</dl>
                         <div class="prtextTableBox">
                             <div class="prtextTable wid25per">
                                 <div class="prtti">처리목적</div>
-                                <div class="prtt_value_area">서비스 제공 및 운영, 개선</div>
+                                {#each policyInfoData.afterDataList as {piaPurpose}, i}
+                                    <div class="prtt_value_area">{piaPurpose}</div>
+                                {/each}
                             </div>
                             <div class="prtextTable wid25per">
                                 <div class="prtti">수집 항목</div>
-                                <div class="prtt_value_area">아이디, 이메일 주소, 이름, 휴대전화 번호, 비밀번호</div>
+                                {#each policyInfoData.afterDataList as {piaPurpose}, i}
+                                    <div class="prtt_value_area">{piaPurpose}</div>
+                                {/each}
                             </div>
-                            <div class="prtextTable wid50per">
+                            <div class="prtextTable wid25per">
+                                <div class="prtti">필수/선택</div>
+                                {#each policyInfoData.afterDataList as {piaPurpose}, i}
+                                    <div class="prtt_value_area">{piaPurpose}</div>
+                                {/each}
+                            </div>
+                            <div class="prtextTable wid25per">
                                 <div class="prtti">처리 및 보유 기간</div>
-                                <div class="prtt_value_area">탈퇴 또는 계약 종료 시까지</div>
+                                {#each policyInfoData.afterDataList as {piaPurpose}, i}
+                                    <div class="prtt_value_area">{piaPurpose}</div>
+                                {/each}
                             </div>
                         </div>
                     </div>
                     <div class="prtextaddbox marB40">
-                        <dl>(2) 서비스 이용 중 생성, 수집하는 정보</dl>
+                        <dl>(3) 서비스 이용 중 자동 생성 및 수집하는 정보</dl>
                         <div class="prtextTableBox">
                             <div class="prtextTable wid25per">
                                 <div class="prtti">처리목적</div>
-                                <div class="prtt_value_area">서비스 제공 및 운영</div>
+                                {#each policyInfoData.serviceAutoDataList as {pisaPurpose}, i}
+                                    <div class="prtt_value_area">{pisaPurpose}</div>
+                                {/each}
                             </div>
                             <div class="prtextTable wid25per">
                                 <div class="prtti">수집 항목</div>
-                                <div class="prtt_value_area">IP 주소, 기기 정보, 서비스 접속 및 이용 기록</div>
+                                {#each policyInfoData.serviceAutoDataList as {pisaInfo}, i}
+                                    <div class="prtt_value_area">{pisaInfo}</div>
+                                {/each}
                             </div>
                             <div class="prtextTable wid25per">
                                 <div class="prtti">수집 방법</div>
-                                <div class="prtt_value_area">서비스 이용 시 생성, 수집</div>
+                                {#each policyInfoData.serviceAutoDataList as {pisaMethodology}, i}
+                                    <div class="prtt_value_area">{pisaMethodology}</div>
+                                {/each}
                             </div>
                             <div class="prtextTable wid25per">
                                 <div class="prtti">처리 및 보유 기간</div>
-                                <div class="prtt_value_area">탈퇴 또는 계약 종료 시까지</div>
+                                {#each policyInfoData.serviceAutoDataList as {pisaPeriod}, i}
+                                    <div class="prtt_value_area">{pisaPeriod}</div>
+                                {/each}
                             </div>
                         </div>
-                        <div class="prdot_text marT16">기기 정보를 수집하는 경우에는 일방향 암호화(Hash)를 통해 기기를 식별할 수 없는 방법으로 변환하여 보관합니다.</div>
                     </div>
                     <div class="prtextaddbox marB40">
-                        <dl>(3) 법령에 따른 개인정보의 보유기간</dl>
+                        <dl>(4) 법령에 따른 개인정보의 보유기간</dl>
                         <div class="prarea_table">
                             <table>
                                 <colgroup>
@@ -315,7 +370,7 @@
                         </div>
                     </div>
                     <div class="prtextaddbox nonebor">
-                        <dl>(4) 개인정보를 자동으로 수집하는 장치의 설치운영 및 그 거부에 관한 사항</dl>
+                        <dl>(5) 개인정보를 자동으로 수집하는 장치의 설치운영 및 그 거부에 관한 사항</dl>
                         <div class="prnor_text">
                             <div class="pttext"><dt>1.</dt>회사는 이용자에게 개별적인 맞춤서비스를 제공하기 위해 이용 정보를 저장하고 수시로 불러오는 ‘쿠키(cookie)’를 사용할 수 있습니다.</div>
                         </div>
@@ -333,9 +388,201 @@
                     </div>
                 </div>
 
+                <!------------ No.5 ------------>
+                <div class="priContentBox">
+                    <div class="priC_title marB24">3. 개인정보 처리 업무의 위탁에 관한 사항</div>
+
+                    <div class="prtextTablethBox colum4Line borT">
+                        <div class="prtti">수탁 업체</div>
+                        <div class="prtti">필수 / 선택</div>
+                        <div class="prtti">위탁 업무</div>
+                        <div class="prtti">처리 및 보유 기간</div>
+                    </div>
+
+                    {#each policyInfoData.outDataList as {pioOutsourcingCompany, pioChose, pioConsignmentCompany, pioPeriod}, i}
+                        <div class="prtextTableBox">
+                            <div class="prtextTable colum4">
+                                <div class="prtt_value_area">{pioOutsourcingCompany}</div>
+                            </div>
+                            <div class="prtextTable colum4">
+                                <div class="prtt_value_area">{pioChose}</div>
+                            </div>
+                            <div class="prtextTable colum4">
+                                <div class="prtt_value_area">{pioConsignmentCompany}</div>
+                            </div>
+                            <div class="prtextTable colum4">
+                                <div class="prtt_value_area">{pioPeriod}</div>
+                            </div>
+                        </div>
+                    {/each}
+                </div>
+
+                <!------------ No.5-1 ------------>
+                {#if policyInfoData.policyData.piOutChose}
+                <div class="priContentBox">
+                    <div class="priC_title marB24">3-1. 개인정보 처리 업무의 위탁에 관한 사항</div>
+                    <div class="prtextTablethBox colum7Line borT">
+                        <div class="prtti">수탁 업체</div>
+                        <div class="prtti">수탁업체의 위치(국가, 도시 등 구체적 주소 작성)</div>
+                        <div class="prtti">위탁 일시 및 방법</div>
+                        <div class="prtti">정보관리책임자의 연락처</div>
+                        <div class="prtti">위탁하는 개인정보 항목</div>
+                        <div class="prtti">위탁 업무 내용</div>
+                        <div class="prtti">위탁 업무 내용개인정보의 보유 및 이용기간</div>
+                    </div>
+                    {#each policyInfoData.outDetailDataList as
+                        {piodCompany, piodLocation, piodMethod, piodContact, piodInfo, piodDetail, piodPeriod}, i}
+                        <div class="prtextTableBox">
+                            <div class="prtextTable colum7">
+                                <div class="prtt_value_area">{piodCompany}</div>
+                            </div>
+                            <div class="prtextTable colum7">
+                                <div class="prtt_value_area">{piodLocation}</div>
+                            </div>
+                            <div class="prtextTable colum7">
+                                <div class="prtt_value_area">{piodMethod}</div>
+                            </div>
+                            <div class="prtextTable colum7">
+                                <div class="prtt_value_area">{piodContact}</div>
+                            </div>
+                            <div class="prtextTable colum7">
+                                <div class="prtt_value_area">{piodInfo}</div>
+                            </div>
+                            <div class="prtextTable colum7">
+                                <div class="prtt_value_area">{piodDetail}</div>
+                            </div>
+                            <div class="prtextTable colum7">
+                                <div class="prtt_value_area">{piodPeriod}</div>
+                            </div>
+                        </div>
+                    {/each}
+                </div>
+                {/if}
+
+                <!------------ No.6 ------------>
+                {#if policyInfoData.policyData.piThirdChose}
+                <div class="priContentBox">
+                    <div class="priC_title marB24">4. 개인정보 제3자 제공에 관한 사항</div>
+                    <div class="prinortext">
+                        회사는 원칙적으로 개인정보를 외부에 제공하지 않습니다. 단, 개인정보보호법에 근거해 정보주체의 별도 동의나 관련 법령에 의해 개인정보 제출의 의무가 있는 경우, 또는 정보주체의 생명이나 안전에 급박한 위험이 확인되어 이를 해소하기 위한 경우에 한하여 개인정보를 제공합니다.
+                    </div>
+                    <div class="prtextTablethBox colum4Line borT">
+                        <div class="prtti">제공받는 자</div>
+                        <div class="prtti">제공받는 자의 이용 목적</div>
+                        <div class="prtti">제공하는 개인정보 항목</div>
+                        <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
+                    </div>
+
+                    {#each policyInfoData.thirdDataList as {pitRecipient, pitPurpose, pitInfo, pitPeriod}, i}
+                        <div class="prtextTableBox">
+                            <div class="prtextTable colum4">
+                                <div class="prtt_value_area">{pitRecipient}</div>
+                            </div>
+                            <div class="prtextTable colum4">
+                                <div class="prtt_value_area">{pitPurpose}</div>
+                            </div>
+                            <div class="prtextTable colum4">
+                                <div class="prtt_value_area">{pitInfo}</div>
+                            </div>
+                            <div class="prtextTable colum4">
+                                <div class="prtt_value_area">{pitPeriod}</div>
+                            </div>
+                        </div>
+                    {/each}
+                </div>
+                {/if}
+
+                <!------------ No.6-1 ------------>
+                {#if policyInfoData.policyData.piThirdOverseasChose}
+                <div class="priContentBox">
+                    <div class="priC_title marB24">4-1. 개인정보의 국외 제3자 제공에 관한 사항</div>
+                    <div class="prtextTablethBox colum5Line borT">
+                        <div class="prtti">제공받는 자</div>
+                        <div class="prtti">제공받는 자의 이용 목적</div>
+                        <div class="prtti">제공하는 개인정보 항목</div>
+                        <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
+                        <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
+                    </div>
+
+                    {#each policyInfoData.thirdOverseasDataList as
+                        {pitoRecipient, pitoLocation, pitoPurpose, pitoPurpose, pitoPeriod}, i}
+                        <div class="prtextTableBox">
+                            <div class="prtextTable colum5">
+                                <div class="prtt_value_area">{pitoRecipient}</div>
+                            </div>
+                            <div class="prtextTable colum5">
+                                <div class="prtt_value_area">{pitoLocation}</div>
+                            </div>
+                            <div class="prtextTable colum5">
+                                <div class="prtt_value_area">{pitoPurpose}</div>
+                            </div>
+                            <div class="prtextTable colum5">
+                                <div class="prtt_value_area">{pitoPurpose}</div>
+                            </div>
+                            <div class="prtextTable colum5">
+                                <div class="prtt_value_area">{pitoPeriod}</div>
+                            </div>
+                        </div>
+                    {/each}
+                </div>
+                {/if}
+
+                <!------------ No.9 ------------>
+                <div class="priContentBox">
+                    <div class="priC_title marB24">5. 개인정보보호 책임자에 관한 사항</div>
+                    <div class="prinortext marB24">
+                        정보주체는 개인정보 보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보보호 책임자에게 문의하실 수 있습니다. 개인정보보호 책임자는 이용자의 문의에 대해 지체없이 답변 및 처리해 드릴 것입니다.
+                    </div>
+                    <div class="prtextTablethBox colum5Line borT">
+                        <div class="prtti">성명</div>
+                        <div class="prtti">직책</div>
+                        <div class="prtti">이메일</div>
+                        <div class="prtti">연락처</div>
+                        <div class="prtti">담당부서</div>
+                    </div>
+                    {#each policyInfoData.reponsibleDataList as
+                        {pirName, pirPosition, pirEmail, pirContact, pirDepartment}, i}
+                        <div class="prtextTableBox">
+                            <div class="prtextTable colum5">
+                                <div class="prtt_value_area">{pirName}</div>
+                            </div>
+                            <div class="prtextTable colum5">
+                                <div class="prtt_value_area">{pirPosition}</div>
+                            </div>
+                            <div class="prtextTable colum5">
+                                <div class="prtt_value_area">{pirEmail}</div>
+                            </div>
+                            <div class="prtextTable colum5">
+                                <div class="prtt_value_area">{pirContact}</div>
+                            </div>
+                            <div class="prtextTable colum5">
+                                <div class="prtt_value_area">{pirDepartment}</div>
+                            </div>
+                        </div>
+                    {/each}
+                </div>
+
+                <!------------ No.10 ------------>
+                {#if policyInfoData.policyData.piChangeChose}
+                    <div class="priContentBox">
+                        <div class="priC_title marB24">6. 개인정보 처리방침의 변경에 관한 사항</div>
+                        <div class="prinortext marB16">
+                            개인정보 처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 홈페이지 또는 이메일 등 개별 통지 방법을 통해 고지할 것입니다.
+                        </div>
+                        <div class="prnor_text">
+                            <div class="prnort"><dt></dt>
+                                이전 개인정보 처리방침 시행 일자 :
+                                {policyInfoData.policyData.piYear}.
+                                {policyInfoData.policyData.piMonth}.
+                                {policyInfoData.policyData.piDay}
+                            </div>
+                        </div>
+                    </div>
+                {/if}
+
                 <!------------ No.3 ------------>
                 <div class="priContentBox">
-                    <div class="priC_title marB24">3. 개인정보의 파기에 관한 사항</div>
+                    <div class="priC_title marB24">7. 개인정보의 파기에 관한 사항</div>
                     <div class="prinortext">
                         회사는 보유기간의 경과, 처리목적 달성 등 개인정보가 불필요하게 되었을 때에는 지체없이 해당 개인정보를 파기합니다. 개인정보 보유기간이 경과하거나 처리목적이 달성되었음에도 불구하고 다른 법령에 따라 개인정보를 계속 보존하여야 하는 경우에는, 해당 개인정보를 별도의 데이터베이스(DB)로 옮기거나 보관장소를 달리하여 보존합니다. 이때, DB로 옮겨진 개인정보는 해당 법령에서 허용된 목적 이외의 다른 목적으로 이용되지 않습니다.
                     </div>
@@ -354,203 +601,16 @@
 
                 <!------------ No.4 ------------>
                 <div class="priContentBox">
-                    <div class="priC_title marB24">4. 서비스 미이용자의 개인정보 파기 등에 관한 조치</div>
+                    <div class="priC_title marB24">8. 서비스 미이용자의 개인정보 파기 등에 관한 조치</div>
                     <div class="prinortext">
-                        회사는 1년 동안 서비스를 이용하지 않은 이용자의 개인정보는 파기하거나 별도로 보관합니다. 별도 보관하는 개인정보는 서비스에 이용하지 않습니다. 
+                        회사는 1년 동안 서비스를 이용하지 않은 이용자의 개인정보는 파기하거나 별도로 보관합니다. 별도 보관하는 개인정보는 서비스에 이용하지 않습니다.
                     </div>
                 </div>
 
-                <!------------ No.5 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">5. 개인정보 처리 업무의 위탁에 관한 사항</div>
-
-                    <div class="prtextTablethBox colum4Line borT">
-                        <div class="prtti">수탁 업체</div>
-                        <div class="prtti">필수 / 선택</div>
-                        <div class="prtti">위탁 업무</div>
-                        <div class="prtti">처리 및 보유 기간</div>
-                    </div>
-                    <div class="prtextTableBox">
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">(주)2월대개봉</div>
-                        </div>
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">필수</div>
-                        </div>
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">개인정보의 처리</div>
-                        </div>
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">탈퇴 또는 보유기간 만료까지</div>
-                        </div>
-                    </div>
-                    <div class="prtextTableBox">
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">(주)2월대개봉</div>
-                        </div>
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">필수</div>
-                        </div>
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">개인정보의 처리</div>
-                        </div>
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">탈퇴 또는 보유기간 만료까지</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!------------ No.5-1 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">5-1. 개인정보 처리 업무의 위탁에 관한 사항</div>
-                    <div class="prtextTablethBox colum7Line borT">
-                        <div class="prtti">수탁 업체</div>
-                        <div class="prtti">수탁업체의 위치(국가, 도시 등 구체적 주소 작성)</div>
-                        <div class="prtti">위탁 일시 및 방법</div>
-                        <div class="prtti">정보관리책임자의 연락처</div>
-                        <div class="prtti">위탁하는 개인정보 항목</div>
-                        <div class="prtti">위탁 업무 내용</div>
-                        <div class="prtti">위탁 업무 내용개인정보의 보유 및 이용기간</div>
-                    </div>
-                    <div class="prtextTableBox">
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">(주)2월대개봉</div>
-                        </div>
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">○국가 ○시 ○구 ○동 건물명</div>
-                        </div>
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">○년 ○월 ○일 인터넷을 이용한 원격지 전송</div>
-                        </div>
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">010-0000-0000</div>
-                        </div>
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">이름, 주소, 이메일</div>
-                        </div>
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">데이터 보호를 위한 국가간 데이터 백업(보관)</div>
-                        </div>
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">탈퇴 또는 보유기간 만료까지</div>
-                        </div>
-                    </div>
-                    <div class="prtextTableBox">
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">(주)2월대개봉</div>
-                        </div>
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">○국가 ○시 ○구 ○동 건물명</div>
-                        </div>
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">○년 ○월 ○일 인터넷을 이용한 원격지 전송</div>
-                        </div>
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">010-0000-0000</div>
-                        </div>
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">이름, 주소, 이메일</div>
-                        </div>
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">데이터 보호를 위한 국가간 데이터 백업(보관)</div>
-                        </div>
-                        <div class="prtextTable colum7">
-                            <div class="prtt_value_area">탈퇴 또는 보유기간 만료까지</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!------------ No.6 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">6. 개인정보 제3자 제공에 관한 사항</div>
-                    <div class="prinortext">
-                        회사는 원칙적으로 개인정보를 외부에 제공하지 않습니다. 단, 개인정보보호법에 근거해 정보주체의 별도 동의나 관련 법령에 의해 개인정보 제출의 의무가 있는 경우, 또는 정보주체의 생명이나 안전에 급박한 위험이 확인되어 이를 해소하기 위한 경우에 한하여 개인정보를 제공합니다.
-                    </div>
-                    <div class="prtextTablethBox colum4Line borT">
-                        <div class="prtti">제공받는 자</div>
-                        <div class="prtti">제공받는 자의 이용 목적</div>
-                        <div class="prtti">제공하는 개인정보 항목</div>
-                        <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
-                    </div>
-                    <div class="prtextTableBox">
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">김코코</div>
-                        </div>
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">보험 권유</div>
-                        </div>
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">김코코, 010-0000-0000</div>
-                        </div>
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">1년</div>
-                        </div>
-                    </div>
-                    <div class="prtextTableBox">
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">김코코</div>
-                        </div>
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">보험 권유</div>
-                        </div>
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">김코코, 010-0000-0000</div>
-                        </div>
-                        <div class="prtextTable colum4">
-                            <div class="prtt_value_area">1년</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!------------ No.6-1 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">6-1. 개인정보의 국외 제3자 제공에 관한 사항</div>
-                    <div class="prtextTablethBox colum5Line borT">
-                        <div class="prtti">제공받는 자</div>
-                        <div class="prtti">제공받는 자의 이용 목적</div>
-                        <div class="prtti">제공하는 개인정보 항목</div>
-                        <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
-                        <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
-                    </div>
-                    <div class="prtextTableBox">
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">김코코</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">미국, 샌프란시스코, www.xyz.com</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">마케팅 제휴</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">김코코, asd@naver.com, 남, 2000.12.12</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">1년</div>
-                        </div>
-                    </div>
-                    <div class="prtextTableBox">
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">김코코</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">미국, 샌프란시스코, www.xyz.com</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">마케팅 제휴</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">김코코, asd@naver.com, 남, 2000.12.12</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">1년</div>
-                        </div>
-                    </div>
-                </div>
 
                 <!------------ No.7 ------------>
                 <div class="priContentBox">
-                    <div class="priC_title marB24">7. 정보주체의 권리**·의무** 및 그 행사방법에 관한 사항</div>
+                    <div class="priC_title marB24">9. 정보주체의 권리**·의무** 및 그 행사방법에 관한 사항</div>
                     <div class="prnor_text">
                         <p><span>1.</span>이용자는 계약 기간 내에 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며 자신의 개인정보에 대해 정보삭제 및 처리정지 요구 등의 권리를 행사할 수 있습니다.</p>
                     </div>
@@ -567,7 +627,7 @@
 
                 <!------------ No.8 ------------>
                 <div class="priContentBox pri8cont">
-                    <div class="priC_title marB24">8. 개인정보의 안전성 확보 조치에 관한 사항</div>
+                    <div class="priC_title marB24">10. 개인정보의 안전성 확보 조치에 관한 사항</div>
                     <div class="prinortext marB16">
                         회사는 개인정보의 안전성 확보를 위해 다음과 같은 조치를 취하고 있습니다.</div>
                     <div class="prnor_text">
@@ -581,68 +641,6 @@
                     </div>
                 </div>
 
-                <!------------ No.9 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">9. 개인정보보호 책임자에 관한 사항</div>
-                    <div class="prinortext marB24">
-                        정보주체는 개인정보 보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보보호 책임자에게 문의하실 수 있습니다. 개인정보보호 책임자는 이용자의 문의에 대해 지체없이 답변 및 처리해 드릴 것입니다.
-                    </div>
-                    <div class="prtextTablethBox colum5Line borT">
-                        <div class="prtti">성명</div>
-                        <div class="prtti">직책</div>
-                        <div class="prtti">이메일</div>
-                        <div class="prtti">연락처</div>
-                        <div class="prtti">담당부서</div>
-                    </div>
-                    <div class="prtextTableBox">
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">김코코</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">CEO</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">privacy@abc.com</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">02-1234-7890</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">보안팀</div>
-                        </div>
-                    </div>
-                    <div class="prtextTableBox">
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">김코코</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">CEO</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">privacy@abc.com</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">02-1234-7890</div>
-                        </div>
-                        <div class="prtextTable colum5">
-                            <div class="prtt_value_area">보안팀</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!------------ No.10 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">10. 개인정보 처리방침의 변경에 관한 사항</div>
-                    <div class="prinortext marB16">
-                        개인정보 처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 홈페이지 또는 이메일 등 개별 통지 방법을 통해 고지할 것입니다.
-                    </div>
-                    <div class="prnor_text">
-                        <div class="prnort"><dt></dt>현 개인정보 처리방침 시행 일자 : 2023년 01월 01일</div>
-                    </div>
-                    <div class="prnor_text">
-                        <div class="prnort"><dt></dt>이전 개인정보 처리방침 시행 일자 : 2022. 12. 12</div>
-                    </div>
-                </div>
 
                 <!------------ No.11 ------------>
                 <div class="priContentBox noneMarB">
