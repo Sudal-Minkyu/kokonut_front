@@ -2,11 +2,12 @@
 
     import { push } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
-    import {backBtn, policyInfoData, piId, page} from "../../../lib/store.js";
+    import {backBtn, policyInfoData, piId, page, personalInfoCategoryData} from "../../../lib/store.js";
     import TitleAlarm from "../../common/TitleAlarm.svelte";
     import {stimeVal} from "../../../lib/libSearch.js";
     import jQuery from "jquery";
     import restapi from "../../../lib/api.js";
+    import ErrorHighlight from "../../common/ui/ErrorHighlight.svelte";
 
     export let policyWriting;
     export let stateChange;
@@ -33,25 +34,38 @@
                 console.log("개인정보처리방침 제작 호출 실패");
             }
         )
-
     }
 
-    // 조프리 요청
-    // function titleClickFun() {
-    //     titleClick = true;
-    //     setTimeout(() => {
-    //         if(titleClick) {
-    //             titleClick = false;
-    //         }
-    //     }, 1000)
-    // }
-    // let titleMessage = "동의여부를 클릭해주세요.";
-    // let titleClick = false;
+    let checkAgree = false;
+    let checkAgreeErrorMsg = '';
 
+    const handleComplete = () => {
+        if (checkAgree) {
+            finalSave();
+        } else {
+            checkAgreeErrorMsg = '동의여부를 클릭해주세요.';
+        }
+    }
 
+    const finalSave = (goToState) => {
+        console.log('저장전데이터', $policyInfoData);
+        let url = "/v2/api/Policy/privacyPolicyFinalSave";
+        let sendData = {
+            piId : $piId,
+        }
+        restapi('v2', 'post', url, "body", sendData, 'application/json',
+            (json_success) => {
+                if(json_success.data.status === 200) {
+                    // 완료후
+                    stateChange(goToState);
+                }
+            },
+            (json_error) => {
+                console.log(json_error);
+            }
+        );
+    }
 </script>
-
-<!--<TitleAlarm {titleMessage} {titleClick} />-->
 
 <div in:fade>
     <!------------ No.3 ------------>
@@ -174,12 +188,13 @@
     <div class="priContentBox">
         <div class="koko_checkDoubleBox">
             <div class="koko_check">
-                <input type="checkbox" value="1" name="selcheck02" id="selcheck02">
+                <input type="checkbox" value="1" name="selcheck02" id="selcheck02" bind:checked={checkAgree} >
                 <label for="selcheck02">
                     <em></em>
                     <p style="font-size: 18px;font-weight: 500;" class="check">모든 사항을 확인하였고 동의합니다.</p>
                 </label>
             </div>
+            <ErrorHighlight message={checkAgreeErrorMsg} fontSize={2} />
         </div>
     </div>
 
@@ -199,7 +214,7 @@
                     <dl><span>7</span> / 7</dl>
                 </div>
 
-                <button on:click="{policySave}" class="pri_nextBtn">완료</button>
+                <button on:click="{handleComplete}" class="pri_nextBtn">완료</button>
             </div>
 
         </div>

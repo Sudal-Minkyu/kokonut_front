@@ -2,10 +2,88 @@
 
     import { fade } from 'svelte/transition'
     import {backBtn,policyInfoData,piId} from "../../../lib/store.js";
+    import restapi from "../../../lib/api.js";
 
-    export let policyWriting;
     export let stateChange;
 
+    const policyThirdDeleteIdList = [];
+    const createThirdItem = () => {
+        policyInfoData.update(obj => {
+            obj.thirdDataList = [
+                ...obj.thirdDataList, {
+                    pitId: 0,
+                    pitRecipient: '',
+                    pitPurpose: '',
+                    pitInfo: '',
+                    pitPeriod: '',
+                }
+            ];
+            return obj;
+        });
+    }
+    const removeThirdItem = (index) => {
+        policyInfoData.update((obj) => {
+            if (obj.thirdDataList[index].pitId) {
+                policyThirdDeleteIdList.push(obj.thirdDataList[index].pitId);
+            }
+            obj.thirdDataList.splice(index, 1);
+            return obj;
+        });
+    }
+
+    const policyThirdOverseasDeleteIdList = [];
+    const createThirdOverseasItem = () => {
+        policyInfoData.update(obj => {
+            obj.thirdOverseasDataList = [
+                ...obj.thirdOverseasDataList, {
+                    pitoId: 0,
+                    pitoRecipient: '',
+                    pitoLocation: '',
+                    pitoPurpose: '',
+                    pitoInfo: '',
+                    pitoPeriod: '',
+                }
+            ];
+            return obj;
+        });
+    }
+    const removeThirdOverseasItem = (index) => {
+        policyInfoData.update((obj) => {
+            if (obj.thirdOverseasDataList[index].pitoId) {
+                policyThirdOverseasDeleteIdList.push(obj.thirdOverseasDataList[index].pitoId);
+            }
+            obj.thirdOverseasDataList.splice(index, 1);
+            return obj;
+        });
+    }
+
+    let policyThirdYn = !!$policyInfoData.thirdDataList.length;
+    let policyThirdOverseasYn = !!$policyInfoData.thirdOverseasDataList.length;
+
+    const fifthDepthSave = (goToState) => {
+        console.log('저장전데이터', $policyInfoData);
+        let url = "/v2/api/Policy/privacyPolicyFifthSave";
+        let sendData = {
+            piId : $piId,
+            policyThirdSaveDtoList: $policyInfoData.thirdDataList,
+            policyThirdYn: policyThirdYn,
+            policyThirdDeleteIdList: policyThirdDeleteIdList,
+            policyThirdOverseasSaveDtoList: $policyInfoData.thirdOverseasDataList,
+            policyThirdOverseasYn: policyThirdOverseasYn,
+            policyThirdOverseasDeleteIdList: policyThirdOverseasDeleteIdList,
+        }
+        restapi('v2', 'post', url, "body", sendData, 'application/json',
+            (json_success) => {
+                if(json_success.data.status === 200) {
+                    // 완료후
+                    stateChange(goToState);
+                }
+            },
+            (json_error) => {
+                console.log(json_error);
+            }
+        );
+    }
 </script>
 
 <div in:fade>
@@ -22,7 +100,7 @@
                 </div>
             </span>
             <div class="title_check" style="top: 0">
-                <input type="checkbox" value="1" name="pr6_involve" id="pr6_involve" checked>
+                <input type="checkbox" value="1" name="pr6_involve" id="pr6_involve" bind:checked={policyThirdYn} >
                 <label for="pr6_involve">
                     <p class="check">포함여부</p>
                     <em></em>
@@ -38,64 +116,29 @@
             <div class="prtti">제공하는 개인정보 항목</div>
             <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
         </div>
-        <div class="prtextTableBox">
-            <div class="prtextTable colum4">
-                <div class="prtt_area"><input type="text" name="" placeholder="김코코" value=""/></div>
-            </div>
-            <div class="prtextTable colum4">
-                <div class="prtt_area"><input type="text" name="" placeholder="보험 권유" value=""/></div>
-            </div>
-            <div class="prtextTable colum4">
-                <div class="prtt_area"><input type="text" name="" placeholder="이름, 휴대전화번호" value=""/></div>
-            </div>
-            <div class="prtextTable colum4">
-                <div class="prtt_area"><input type="text" name="" placeholder="1년" value=""/></div>
-            </div>
+        <div class="prcontainer6">
+            {#each $policyInfoData.thirdDataList as {pitRecipient, pitPurpose, pitInfo, pitPeriod}, i}
+                <div class="addelement">
+                    <div class="prtextTableBox">
+                        <div class="prtextTable colum4">
+                            <div class="prtt_area"><textarea type="text" bind:value={pitRecipient} placeholder="예) 김코코"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum4">
+                            <div class="prtt_area"><textarea type="text" bind:value={pitPurpose} placeholder="예) 보험 권유"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum4">
+                            <div class="prtt_area"><textarea type="text" bind:value={pitInfo} placeholder="예) 이름, 휴대전화번호"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum4">
+                            <div class="prtt_area"><textarea type="text" bind:value={pitPeriod} placeholder="예) 1년"></textarea></div>
+                        </div>
+                    </div>
+                    <a on:click={()=>{removeThirdItem(i)}} class="pr_delete"></a>
+                </div>
+            {/each}
         </div>
-        <script>
-            jQuery(document).ready(function() {
-                var max_fields2     = 5;
-                var wrapper2        = jQuery(".prcontainer6");
-                var add_button2      = jQuery(".add_pr_field6");
-                var x = 1;
-
-                jQuery(add_button2).click(function(e){
-                    e.preventDefault();
-                    if(x < max_fields2){
-                        x++;
-                        jQuery(wrapper2).append(
-                            '<div class="addelement">' +
-                            '<div class="prtextTableBox">' +
-                            '<div class="prtextTable colum4">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable colum4">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable colum4">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable colum4">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '</div>' +
-                            '<a href="#" class="pr_delete"></a></div>'
-                        ); //add input box
-                    }
-                    else
-                    {
-                        alert('해당 정보는 4개 입력이 최대입니다.')
-                    }
-                });
-
-                jQuery(wrapper2).on("click",".pr_delete", function(e){
-                    e.preventDefault(); jQuery(this).parent('div').remove(); x--;
-                })
-            });
-        </script>
-        <div class="prcontainer6"></div>
         <div class="pr_fieldBtnInner">
-            <button class="add_pr_field6 pr_fieldBtn"></button>
+            <button type="button" on:click={createThirdItem} class="add_pr_field6 pr_fieldBtn"></button>
         </div>
     </div>
 
@@ -112,7 +155,7 @@
                 </div>
             </span>
             <div class="title_check">
-                <input type="checkbox" value="1" name="pr6-1_involve" id="pr6-1_involve" checked>
+                <input type="checkbox" value="1" name="pr6-1_involve" id="pr6-1_involve"  bind:checked={policyThirdOverseasYn} >
                 <label for="pr6-1_involve">
                     <p class="check">포함여부</p>
                     <em></em>
@@ -126,70 +169,32 @@
             <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
             <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
         </div>
-        <div class="prtextTableBox">
-            <div class="prtextTable colum5">
-                <div class="prtt_area"><input type="text" name="" placeholder="김코코" value=""/></div>
-            </div>
-            <div class="prtextTable colum5">
-                <div class="prtt_area"><input type="text" name="" placeholder="미국, 샌프란시스코, www.xyz.com" value=""/></div>
-            </div>
-            <div class="prtextTable colum5">
-                <div class="prtt_area"><input type="text" name="" placeholder="마케팅 제휴" value=""/></div>
-            </div>
-            <div class="prtextTable colum5">
-                <div class="prtt_area"><input type="text" name="" placeholder="이름, 이메일, 성별, 생년월일" value=""/></div>
-            </div>
-            <div class="prtextTable colum5">
-                <div class="prtt_area"><input type="text" name="" placeholder="1년" value=""/></div>
-            </div>
+        <div class="prcontainer7">
+            {#each $policyInfoData.thirdOverseasDataList as {pitoRecipient, pitoLocation, pitoPurpose, pitoInfo, pitoPeriod}, i}
+                <div class="addelement">
+                    <div class="prtextTableBox">
+                        <div class="prtextTable colum5">
+                            <div class="prtt_area"><textarea type="text" bind:value={pitoRecipient} placeholder="예) 김코코"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum5">
+                            <div class="prtt_area"><textarea type="text" bind:value={pitoLocation} placeholder="예) 보험 권유"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum5">
+                            <div class="prtt_area"><textarea type="text" bind:value={pitoPurpose} placeholder="예) 이름, 휴대전화번호"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum5">
+                            <div class="prtt_area"><textarea type="text" bind:value={pitoInfo} placeholder="예) 1년"></textarea></div>
+                        </div>
+                        <div class="prtextTable colum5">
+                            <div class="prtt_area"><textarea type="text" bind:value={pitoPeriod} placeholder="예) 1년"></textarea></div>
+                        </div>
+                    </div>
+                    <a on:click={()=>{removeThirdOverseasItem(i)}} class="pr_delete"></a>
+                </div>
+            {/each}
         </div>
-        <script>
-            jQuery(document).ready(function() {
-                var max_fields2     = 5;
-                var wrapper2        = jQuery(".prcontainer7");
-                var add_button2      = jQuery(".add_pr_field7");
-                var x = 1;
-
-                jQuery(add_button2).click(function(e){
-                    e.preventDefault();
-                    if(x < max_fields2){
-                        x++;
-                        jQuery(wrapper2).append(
-                            '<div class="addelement">' +
-                            '<div class="prtextTableBox">' +
-                            '<div class="prtextTable colum5">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable colum5">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable colum5">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable colum5">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '<div class="prtextTable colum5">' +
-                            '<div class="prtt_area"><input type="text" name="" placeholder="내용입력" value=""/></div>' +
-                            '</div>' +
-                            '</div>' +
-                            '<a href="#" class="pr_delete"></a></div>'
-                        ); //add input box
-                    }
-                    else
-                    {
-                        alert('해당 정보는 4개 입력이 최대입니다.')
-                    }
-                });
-
-                jQuery(wrapper2).on("click",".pr_delete", function(e){
-                    e.preventDefault(); jQuery(this).parent('div').remove(); x--;
-                })
-            });
-        </script>
-        <div class="prcontainer7"></div>
         <div class="pr_fieldBtnInner">
-            <button class="add_pr_field7 pr_fieldBtn"></button>
+            <button on:click={createThirdOverseasItem} class="add_pr_field7 pr_fieldBtn"></button>
         </div>
     </div>
 
@@ -205,13 +210,13 @@
             </div>
 
             <div class="pri_bottomBtnBox marT32">
-                <button on:click="{() => stateChange(4)}" class="pri_prevBtn">이전</button>
+                <button type="button" on:click="{() => {fifthDepthSave(4)}}" class="pri_prevBtn">이전</button>
 
                 <div class="pris_num">
                     <dl><span>5</span> / 7</dl>
                 </div>
 
-                <button on:click="{() => stateChange(6)}" class="pri_nextBtn">다음</button>
+                <button type="button" on:click="{() => {fifthDepthSave(6)}}" class="pri_nextBtn">다음</button>
             </div>
         </div>
     </div>

@@ -243,13 +243,13 @@
             </div>
 
             <div class="pri_bottomBtnBox marT32">
-                <button on:click="{() => {fourthDepthSave(3)}}" class="pri_prevBtn">이전</button>
+                <button type="button" on:click="{() => {fourthDepthSave(3)}}" class="pri_prevBtn">이전</button>
 
                 <div class="pris_num">
                     <dl><span>4</span> / 7</dl>
                 </div>
 
-                <button on:click="{() => {fourthDepthSave(5)}}" class="pri_nextBtn">다음</button>
+                <button type="button" on:click="{() => {fourthDepthSave(5)}}" class="pri_nextBtn">다음</button>
             </div>
         </div>
     </div>
