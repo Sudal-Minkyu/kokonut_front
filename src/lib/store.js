@@ -74,7 +74,7 @@ export const initialPolicyInfo = {
 };
 
 // 개인정보처리방침 정보데이터
-export const policyInfoData = writable(initialPolicyInfo);
+export const policyInfoData = writable({...initialPolicyInfo});
 
 // 개인정보 항목관리 항목분류
 export const personalInfoCategoryData = writable({

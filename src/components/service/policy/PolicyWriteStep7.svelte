@@ -2,39 +2,12 @@
 
     import { push } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
-    import {backBtn, policyInfoData, piId, page, personalInfoCategoryData} from "../../../lib/store.js";
-    import TitleAlarm from "../../common/TitleAlarm.svelte";
-    import {stimeVal} from "../../../lib/libSearch.js";
-    import jQuery from "jquery";
+    import {policyInfoData, piId, initialPolicyInfo, piStage} from "../../../lib/store.js";
     import restapi from "../../../lib/api.js";
     import ErrorHighlight from "../../common/ui/ErrorHighlight.svelte";
+    import CustomConfirm from "../../common/ui/CustomConfirm.svelte";
 
-    export let policyWriting;
     export let stateChange;
-
-    // 개인정보처리방침 제작완료
-    function policySave() {
-        console.log("개인정보처리방침 제작완료!");
-
-        let url = "/v2/api/Policy/privacyPolicyFinalSave";
-
-        let sendData = {
-            piId : $piId,
-        };
-
-        restapi('v2', 'post', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    alert("제작을 완료했습니다."); // 조프리 마무리 요청
-                    push("/service/policyList")
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("개인정보처리방침 제작 호출 실패");
-            }
-        )
-    }
 
     let checkAgree = false;
     let checkAgreeErrorMsg = '';
@@ -46,18 +19,33 @@
             checkAgreeErrorMsg = '동의여부를 클릭해주세요.';
         }
     }
+    let customConfirmProp = {};
+    console.log(initialPolicyInfo);
 
-    const finalSave = (goToState) => {
+    const finalSave = () => {
         console.log('저장전데이터', $policyInfoData);
         let url = "/v2/api/Policy/privacyPolicyFinalSave";
         let sendData = {
             piId : $piId,
         }
-        restapi('v2', 'post', url, "body", sendData, 'application/json',
+        restapi('v2', 'post', url, "param", sendData, 'application/json',
             (json_success) => {
                 if(json_success.data.status === 200) {
-                    // 완료후
-                    stateChange(goToState);
+                    customConfirmProp = {
+                        visible: true, // 팝업 보임의 여부 통제
+                        type: 'confirm', // 'confirm' 버튼하나, 'ask' 여부 묻기
+                        callback: () => {
+                            piId.set(0);
+                            piStage.set(0);
+                            policyInfoData.set({...initialPolicyInfo});
+                            push('/service/policyDetail/' + $piId);
+                        }, // 확인버튼시 동작
+                        icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: '저장 완료', // 제목
+                        contents1: '개인정보처리방침을 저장하였습니다.', // 내용
+                        contents2: '',
+                        btnCheck: '확인', // 확인 버튼의 텍스트
+                    }
                 }
             },
             (json_error) => {
@@ -220,3 +208,4 @@
         </div>
     </div>
 </div>
+<CustomConfirm prop={customConfirmProp}/>

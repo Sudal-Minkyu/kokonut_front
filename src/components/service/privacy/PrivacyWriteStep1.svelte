@@ -2,10 +2,6 @@
 <script>
     import { fade } from 'svelte/transition'
     export let stateChange;
-
-
-
-
 </script>
 
 <div class="pri_forntWrap" in:fade>

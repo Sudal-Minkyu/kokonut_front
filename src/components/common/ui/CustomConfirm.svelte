@@ -43,7 +43,7 @@
 <div class="dim" style="display: block"></div>
 <div class="layerPopType dp_b" id="tip_box">
     <header class="popHeader">
-        {#if actualProp.icon === 'success'}
+        {#if actualProp.icon === 'pass'}
             <img src="/assets/images/common/minipop_pass.png" alt="popIcon">
         {:else if actualProp.icon === 'warning'}
             <img src="/assets/images/common/minipop_warring.png" alt="popIcon">

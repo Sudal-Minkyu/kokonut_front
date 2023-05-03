@@ -44,6 +44,7 @@
             piYear: $policyInfoData.policyData3.piYear,
             piMonth: $policyInfoData.policyData3.piMonth,
             piDay: $policyInfoData.policyData3.piDay,
+            piChangeChose: piChangeChose,
         }
         restapi('v2', 'post', url, "body", sendData, 'application/json',
             (json_success) => {
