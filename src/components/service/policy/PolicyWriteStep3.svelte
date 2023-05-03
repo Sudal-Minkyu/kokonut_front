@@ -84,24 +84,7 @@
 
     onMount(async () => {
         // 툴팁 아이콘 클릭시 툴팁을 보이고 숨기기 위함.
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('tiptool')) {
-                var children = e.target.children;
 
-                for (var i = 0; i < children.length; i++) {
-                    var child = children[i];
-                    if (child.classList.contains('layerToolType')) {
-                        child.style.display = 'block';
-                        break;
-                    }
-                }
-            } else {
-                const toolTipElements = document.getElementsByClassName('layerToolType');
-                for (const el of toolTipElements) {
-                    el.style.display = 'none';
-                }
-            }
-        });
     });
 
     const thirdDepthSave = (goToState) => {

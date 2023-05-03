@@ -1,13 +1,23 @@
 <script>
     import {personalInfoCategoryData} from "../../../../lib/store.js";
+    import {onDestroy, onMount} from "svelte";
     export let personalInfoCategoryService;
 
-    document.addEventListener('mouseup', (e) => {
+    // 카테고리를 선택했을 때 해당 카테고리에 맞는 항목들을 보여주기 위함
+    const catBoxControl = (e) => {
         const parent = e.target.closest('.showcateinBox') || e.target.closest('.cateiBox');
         if (!parent) {
             $personalInfoCategoryData.autoCompleteBox.searchInputText = '';
             personalInfoCategoryService.autoCompleteBox.hide();
         }
+    };
+
+    onMount(async => {
+        document.addEventListener('mouseup', catBoxControl);
+    });
+
+    onDestroy(async => {
+        document.removeEventListener('mouseup', catBoxControl);
     });
 </script>
 

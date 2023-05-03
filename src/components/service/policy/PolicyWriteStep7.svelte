@@ -20,7 +20,6 @@
         }
     }
     let customConfirmProp = {};
-    console.log(initialPolicyInfo);
 
     const finalSave = () => {
         console.log('저장전데이터', $policyInfoData);
@@ -35,10 +34,11 @@
                         visible: true, // 팝업 보임의 여부 통제
                         type: 'confirm', // 'confirm' 버튼하나, 'ask' 여부 묻기
                         callback: () => {
+                            const pathName = '/service/policyDetail/' + $piId;
                             piId.set(0);
                             piStage.set(0);
-                            policyInfoData.set({...initialPolicyInfo});
-                            push('/service/policyDetail/' + $piId);
+                            policyInfoData.set(JSON.parse(JSON.stringify(initialPolicyInfo)));
+                            push(pathName);
                         }, // 확인버튼시 동작
                         icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                         title: '저장 완료', // 제목

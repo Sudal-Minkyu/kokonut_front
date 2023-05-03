@@ -1,7 +1,7 @@
 <script>
 
     import { fade } from 'svelte/transition'
-    import {policyInfoData, piId} from "../../../lib/store.js";
+    import {policyInfoData, piId, initialPolicyInfo} from "../../../lib/store.js";
 
     import restapi from "../../../lib/api.js";
     import {onMount} from "svelte";
@@ -81,6 +81,8 @@
         )
 
     }
+
+    console.log('initialPolicyInfo', initialPolicyInfo);
 
     const startdateChanged = (e) => {
         console.log(e);

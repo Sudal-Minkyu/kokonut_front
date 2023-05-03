@@ -2,7 +2,7 @@
     import Header from "../../../components/service/layout/Header.svelte"
 
     import { push } from 'svelte-spa-router'
-    import { onMount } from "svelte";
+    import {onDestroy, onMount} from "svelte";
 
     import PolicyWritingCheck from '../../../components/service/policy/PolicyWritingCheck.svelte'
 
@@ -20,15 +20,39 @@
     import { popOpenBtn } from "../../../lib/common.js";
     import restapi from "../../../lib/api.js";
 
+    const tooltipEvent = (e) => {
+        console.log('act');
+        if (e.target.classList.contains('tiptool')) {
+            var children = e.target.children;
+
+            for (var i = 0; i < children.length; i++) {
+                var child = children[i];
+                if (child.classList.contains('layerToolType')) {
+                    child.style.display = 'block';
+                    break;
+                }
+            }
+        } else {
+            const toolTipElements = document.getElementsByClassName('layerToolType');
+            for (const el of toolTipElements) {
+                el.style.display = 'none';
+            }
+        }
+    }
+
     onMount(async () => {
-        // piStage.set(1)
-        // piId.set(10)
         if($piStage === 0) {
             policyCheck();
         } else {
             policyWriting();
         }
-    })
+        document.addEventListener('click', tooltipEvent);
+    });
+
+    onDestroy(async () => {
+        document.removeEventListener('click', tooltipEvent);
+    });
+
 
     let writingCheck = false;
     function writingCheckChange() {
