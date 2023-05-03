@@ -134,3 +134,53 @@ export const personalInfoTableData = writable({
         cautionAgreeErrorMsg: '',
     }
 });
+
+
+
+const initialProvidePrivacyWrite = {
+    currentStage: '',
+    step1: {
+        provideType: '',
+    },
+    step2: {
+        provideTargetType: '',
+        searchCondition: {
+            email: '',
+            managerRating: '',
+        },
+        orderBy: '',
+        managerData: [],
+        targetManagerList: [],
+    },
+    step3: {
+        providePeriod: {
+            fromDate: '',
+            toDate: '',
+        },
+        isDownloadAvailable: '',
+    },
+    step4: {
+        provideColumnScope: '',
+        tableList: [],
+        columnList: [],
+        targetColumnList: [],
+    },
+    step5: {
+        provideTargetMemberScope: '',
+        searchCondition: {
+            id: '',
+            regDate: {
+                fromDate: '',
+                toDate: '',
+            },
+            lastLoginDate: {
+                fromDate: '',
+                toDate: '',
+            }
+        },
+        memberList: [],
+    },
+}
+
+// 개인정보 제공 각 페이지의 기억
+export const providePrivacyWriteData = writable(JSON.parse(JSON.stringify(initialProvidePrivacyWrite)));

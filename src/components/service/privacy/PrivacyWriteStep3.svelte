@@ -1,10 +1,13 @@
 
 <script>
     import { fade } from 'svelte/transition'
+    import {providePrivacyWriteData} from "../../../lib/store.js";
+
+    const handleRadioPeriodClick = (e) => {
+
+        console.log(e.target.value);
+    }
     export let stateChange;
-
-
-
 </script>
 
 <div class="pri_componentWrap" in:fade>
@@ -29,24 +32,29 @@
 
                     <div class="seaRadio">
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="오늘" value="오늘">
-                            <label for="오늘"><em><dt></dt></em>오늘</label>
+                            <input type="radio" class="radio" name="period" id="radioToday" value="1"
+                                   on:click={handleRadioPeriodClick} />
+                            <label for="radioToday"><em><dt></dt></em>오늘</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="1주일" value="1주일">
-                            <label for="1주일"><em><dt></dt></em>1주일</label>
+                            <input type="radio" class="radio" name="period" id="radioWeek" value="7"
+                                   on:click={handleRadioPeriodClick} />
+                            <label for="radioWeek"><em><dt></dt></em>1주일</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="1개월" value="1개월">
-                            <label for="1개월"><em><dt></dt></em>1개월</label>
+                            <input type="radio" class="radio" name="period" id="radioMonth" value="30"
+                                   on:click={handleRadioPeriodClick} />
+                            <label for="radioMonth"><em><dt></dt></em>1개월</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="3개월" value="3개월">
-                            <label for="3개월"><em><dt></dt></em>3개월</label>
+                            <input type="radio" class="radio" name="period" id="radio3Month" value="90"
+                                   on:click={handleRadioPeriodClick} />
+                            <label for="radio3Month"><em><dt></dt></em>3개월</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="6개월" value="6개월">
-                            <label for="6개월"><em><dt></dt></em>6개월</label>
+                            <input type="radio" class="radio" name="period" id="radio6Month" value="180"
+                                   on:click={handleRadioPeriodClick} />
+                            <label for="radio6Month"><em><dt></dt></em>6개월</label>
                         </div>
                     </div>
                 </div>
@@ -55,12 +63,14 @@
                 <label class="steplabel">다운로드가 가능하게 할까요?</label>
                 <div class="step_radioBox">
                     <div class="step_radio">
-                        <input type="radio" class="stradio" name="porim" id="가능" value="가능">
-                        <label for="가능"><em><dt></dt></em>가능</label>
+                        <input type="radio" class="stradio" name="porim" id="radioAllow" value="allow"
+                               bind:group={$providePrivacyWriteData.step3.isDownloadAvailable} />
+                        <label for="radioAllow"><em><dt></dt></em>가능</label>
                     </div>
                     <div class="step_radio">
-                        <input type="radio" class="stradio" name="porim" id="불가능" value="불가능">
-                        <label for="불가능"><em><dt></dt></em>불가능</label>
+                        <input type="radio" class="stradio" name="porim" id="radioDeny" value="deny"
+                               bind:group={$providePrivacyWriteData.step3.isDownloadAvailable} />
+                        <label for="radioDeny"><em><dt></dt></em>불가능</label>
                     </div>
                 </div>
             </div>

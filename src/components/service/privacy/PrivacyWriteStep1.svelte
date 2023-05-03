@@ -1,14 +1,16 @@
 
 <script>
     import { fade } from 'svelte/transition'
+    import {providePrivacyWriteData} from "../../../lib/store.js";
     export let stateChange;
 </script>
 
 <div class="pri_forntWrap" in:fade>
     <div class="pri_forntBox marB100">
         <div class="pri_fornt">
-            <input type="radio" class="priradio" name="inorout" id="내부" value="내부">
-            <label for="내부">
+            <input type="radio" class="priradio" name="inorout" id="radioInside" value="inside"
+                   bind:group={$providePrivacyWriteData.step1.provideType} />
+            <label for="radioInside">
                 <div class="pri_forntImg"><img src="/assets/images/common/privacy_step_img_01.png" alt=""></div>
                 <div class="priletext">
                     <h2>내부 제공</h2>
@@ -21,8 +23,9 @@
         </div>
         <div class="pri_fornt">
             <span style="font-size: 50px">현재 준비중입니다.</span>
-            <input type="radio" class="priradio" name="inorout" id="외부" value="외부">
-            <label style="background-color: #c3c3c3;opacity: 0.5" for="외부">
+            <input type="radio" class="priradio" name="inorout" id="radioOutside" value="outside"
+                   bind:group={$providePrivacyWriteData.step1.provideType} />
+            <label style="background-color: #c3c3c3;opacity: 0.5" for="radioOutside">
                 <div class="pri_forntImg"><img src="/assets/images/common/privacy_step_img_02.png" alt=""></div>
                 <div class="priletext">
                     <h2>외부 제공</h2>

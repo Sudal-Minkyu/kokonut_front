@@ -1,14 +1,11 @@
 
 <script>
     import { fade } from 'svelte/transition'
+    import { providePrivacyWriteData } from "../../../lib/store.js";
     export let stateChange;
-
     function savePrivacy() {
         console.log("개인정보 제공 완료");
-
-
     }
-
 </script>
 
 <div class="pri_componentWrap" in:fade>
@@ -18,31 +15,16 @@
                 <label class="steplabel">개인정보를 제공할 회원을 선택해 주세요.</label>
                 <div class="step_radioBox">
                     <div class="step_radio">
-                        <input type="radio" class="stradio all" name="porim" id="전체 회원" value="전체 회원">
-                        <label for="전체 회원"><em><dt></dt></em>전체 회원</label>
+                        <input type="radio" class="stradio all" name="porim" id="radioEveryone" value="everyone"
+                               bind:group={$providePrivacyWriteData.step5.provideTargetMemberScope} />
+                        <label for="radioEveryone"><em><dt></dt></em>전체 회원</label>
                     </div>
                     <div class="step_radio">
-                        <input type="radio" class="stradio part" name="porim" id="일부 회원" value="일부 회원" checked>
-                        <label for="일부 회원"><em><dt></dt></em>일부 회원</label>
+                        <input type="radio" class="stradio part" name="porim" id="radioSomeone" value="someone"
+                               bind:group={$providePrivacyWriteData.step5.provideTargetMemberScope} />
+                        <label for="radioSomeone"><em><dt></dt></em>일부 회원</label>
                     </div>
                 </div>
-<!--                <script>-->
-<!--                    // 활성 비활성화 체크 여부 스크립트-->
-<!--                    $(".all").click(function(){-->
-<!--                        $('.teamtable').hide();-->
-<!--                    });-->
-<!--                    $(".part").click(function(){-->
-<!--                        $('.teamtable').show();-->
-<!--                    });-->
-<!--                    $(document).ready(function(){-->
-<!--                        if($(".part").is(":checked")){-->
-<!--                            $('.teamtable').show();-->
-<!--                        }-->
-<!--                        else{-->
-<!--                            $('.teamtable').hide();-->
-<!--                        }-->
-<!--                    });-->
-<!--                </script>-->
                 <div class="teamtable">
                     <label class="steplabel">회원을 선택해 주세요.<span>4명</span></label>
                     <div class="tea_ListFlexBox marT24">
@@ -61,7 +43,7 @@
                                     <div class="kt_total">총 <span>86</span>건</div>
                                     <div class="kt_selbox wid108">
                                         <div class="selectBox wid100per nonePad">
-                                            <div class="label" id="">최근 등록순</div>
+                                            <div class="label">최근 등록순</div>
                                             <ul class="optionList">
                                                 <li class="optionItem">최근 등록순</li>
                                                 <li class="optionItem">정확도순</li>

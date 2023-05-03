@@ -1195,7 +1195,7 @@
 .step_radio input[type=radio].stradio:checked+label{border: 1px solid #00C389;color:#00C389;font-weight: 600;}
 
 /* 좌측 테이블 */
-.teamtable {margin-top: 6.6rem;display: none;margin-bottom: 18rem;}
+.teamtable {margin-top: 6.6rem;display: block;margin-bottom: 18rem;}
 .teamSeaBox {width: 100%;position: relative;}
 .tea_ListFlexBox{display:flex;width:100%;position:relative;padding-left:2rem;}
 .tea_ListBox{position:relative;width:50%;}
