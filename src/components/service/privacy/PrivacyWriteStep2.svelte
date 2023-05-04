@@ -3,8 +3,79 @@
     import { fade } from 'svelte/transition'
     import jQuery from "jquery";
     import {providePrivacyWriteData} from "../../../lib/store.js";
+    import restapi from "../../../lib/api.js";
+    import {onMount} from "svelte";
 
     export let stateChange;
+    let isMasterCheckBoxChecked = false;
+
+    onMount(async => {
+        getProvideTargetAdminList();
+    });
+
+    const getProvideTargetAdminList = () => {
+        let sendData = {
+            type: '0',
+        }
+
+        restapi('v2', 'get', "/v2/api/Privacy/offerAdminList", "param", sendData, 'application/json',
+            (json_success) => {
+                if(json_success.data.status === 200) {
+                    providePrivacyWriteData.update(obj => {
+                        obj.step2.offerList = json_success.data.sendData.offerList;
+                        console.log('전달받은 데이터', obj.step2.offerList);
+                        return obj;
+                    });
+                }
+            },
+            (json_error) => {
+                console.log(json_error);
+            }
+        );
+    }
+
+    const handleChangeAdminSelection = () => {
+        providePrivacyWriteData.update(obj => {
+            obj.step2.selectedAdminObjList = [];
+            for (const adminId of obj.step2.selectedAdminIdList) {
+                obj.step2.selectedAdminObjList.push(...obj.step2.offerList.filter(item => item.adminId === adminId));
+            }
+            return obj;
+        });
+        if ($providePrivacyWriteData.step2.offerList.length === $providePrivacyWriteData.step2.selectedAdminIdList.length) {
+            isMasterCheckBoxChecked = true;
+        } else if (!$providePrivacyWriteData.step2.selectedAdminIdList.length) {
+            isMasterCheckBoxChecked = false;
+        }
+    }
+
+    const removeSelectedAdmin = (index) => {
+        providePrivacyWriteData.update(obj => {
+            obj.step2.selectedAdminIdList.splice(index, 1);
+            return obj;
+        });
+        handleChangeAdminSelection();
+    };
+
+    const resetSelectedAdmin = () => {
+        providePrivacyWriteData.update(obj => {
+            obj.step2.selectedAdminIdList = [];
+            return obj;
+        });
+        handleChangeAdminSelection();
+    };
+
+    const handleMasterCheckBoxChange = (e) => {
+        providePrivacyWriteData.update(obj => {
+            if (e.target.checked) {
+                obj.step2.selectedAdminIdList = obj.step2.offerList.map(item => item.adminId);
+            } else {
+                obj.step2.selectedAdminIdList = [];
+            }
+            return obj;
+        });
+        handleChangeAdminSelection();
+    }
 </script>
 
 <div class="pri_componentWrap" in:fade>
@@ -41,7 +112,6 @@
                                                 <ul class="optionList">
                                                     <li class="optionItem popanoGrade">최고관리자</li>
                                                     <li class="optionItem popanoGrade">일반관리자</li>
-                                                    <li class="optionItem popanoGrade">임시관리자</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -49,57 +119,67 @@
                                 </div>
                                 <div class="tea_listBox">
                                     <div class="kt_tableTopBox marB16">
-                                        <div class="kt_total">총 <span>86</span>건</div>
-                                        <div class="kt_selbox wid108">
-                                            <div class="selectBox wid100per nonePad">
-                                                <div class="label">최근 등록순</div>
-                                                <ul class="optionList">
-                                                    <li class="optionItem">최근 등록순</li>
-                                                    <li class="optionItem">정확도순</li>
-                                                    <li class="optionItem">오름차순</li>
-                                                    <li class="optionItem">내림차순</li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        <div class="kt_total">총 <span>{$providePrivacyWriteData.step2.offerList.length}</span>건</div>
+<!--                                        <div class="kt_selbox wid108">-->
+<!--                                            <div class="selectBox wid100per nonePad">-->
+<!--                                                <div class="label">최근 등록순</div>-->
+<!--                                                <ul class="optionList">-->
+<!--                                                    <li class="optionItem">최근 등록순</li>-->
+<!--                                                    <li class="optionItem">정확도순</li>-->
+<!--                                                    <li class="optionItem">오름차순</li>-->
+<!--                                                    <li class="optionItem">내림차순</li>-->
+<!--                                                </ul>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                     </div>
+
                                     <div class="emailtableBox">
-                                        <div class="prtable">
+                                        <div class="prtable crownTable">
                                             <table>
                                                 <caption>개인정보 제공 팀원 리스트</caption>
                                                 <colgroup>
                                                     <col style="width:7.27%;">
-                                                    <col style="width:41.82%;">
-                                                    <col style="width:14.55%;">
-                                                    <col style="width:14.55%;">
-                                                    <col style="width:21.82%;">
+                                                    <col style="width:45%;">
+                                                    <col style="width:22.74%;">
+                                                    <col style="width:25%;">
                                                 </colgroup>
                                                 <thead>
                                                 <tr>
                                                     <th>
                                                         <div class="koko_check">
-                                                            <input type="checkbox" name="allcheck" id="allcheck">
+                                                            <input type="checkbox" name="allcheck" id="allcheck"
+                                                                   bind:checked={isMasterCheckBoxChecked}
+                                                                   on:click={handleMasterCheckBoxChange} >
                                                             <label for="allcheck"><em></em></label>
                                                         </div>
                                                     </th>
-                                                    <th>아이디</th>
+                                                    <th>이메일</th>
                                                     <th>이름</th>
-                                                    <th>부서</th>
                                                     <th>관리자 등급</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="koko_check">
-                                                            <input type="checkbox" value="" name="mem01" id="mem01" class="partcheck">
-                                                            <label for="mem01"><em></em></label>
-                                                        </div>
-                                                    </td>
-                                                    <td>koko1@kokonut.me</td>
-                                                    <td>김코코</td>
-                                                    <td>인사팀</td>
-                                                    <td>최고관리자</td>
-                                                </tr>
+                                                {#each $providePrivacyWriteData.step2.offerList as
+                                                    {adminId, knEmail, knName, knRoleDesc, knRoleCode}, i}
+                                                    <tr>
+                                                        <td>
+                                                            <div class="koko_check">
+                                                                <input type="checkbox" name="mem01" id="mem01" class="partcheck"
+                                                                       value={adminId}
+                                                                       bind:group={$providePrivacyWriteData.step2.selectedAdminIdList}
+                                                                       on:change={handleChangeAdminSelection} />
+                                                                <label for="mem01"><em></em></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>{knEmail}</td>
+                                                        <td>{knName}</td>
+                                                        {#if knRoleCode === "ROLE_MASTER"}
+                                                            <td>{knRoleDesc}<div class="mastericon"></div></td>
+                                                        {:else}
+                                                            <td>{knRoleDesc}</td>
+                                                        {/if}
+                                                    </tr>
+                                                {/each}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -108,9 +188,13 @@
                             </div>
                             <div class="tea_ListBox">
                                 <div class="teaMemselBox marT110">
-                                    <div class="tmResetBtn">초기화</div>
+                                    <div class="tmResetBtn" on:click={resetSelectedAdmin}>초기화</div>
                                     <div class="memselBox">
-                                        <div class="memName">김코코(인사팀)<button class="memdel"></button></div>
+                                        {#each $providePrivacyWriteData.step2.selectedAdminObjList as {knEmail, knName}, i}
+                                            <div class="memName">{knName}({knEmail})
+                                                <button type="button" class="memdel" on:click={() => {removeSelectedAdmin(i)}}></button>
+                                            </div>
+                                        {/each}
                                     </div>
                                 </div>
                             </div>

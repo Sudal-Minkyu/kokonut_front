@@ -150,7 +150,10 @@ const initialProvidePrivacyWrite = {
         },
         orderBy: '',
         managerData: [],
-        targetManagerList: [],
+        offerList: [],
+        filteredOfferList: [],
+        selectedAdminIdList: [],
+        selectedAdminObjList: [],
     },
     step3: {
         providePeriod: {
