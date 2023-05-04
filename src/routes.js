@@ -104,9 +104,9 @@ export default {
     "/service/environment/personalInfoItem": PersonalInfoItem,
 
     // 개인정보처리방침 리스트 페이지
-    "/service/privacy/PolicyList": PolicyList,
+    "/service/PolicyList": PolicyList,
     // 개인정보처리방침 작성페이지
-    "/service/privacy/PolicyWrite": PolicyWrite,
+    "/service/PolicyWrite": PolicyWrite,
     // 1:1문의 상세보기페이지
     "/service/policyDetail/:piId": PolicyDetail,
     // 개인정보처리방침 모든작성페이지
