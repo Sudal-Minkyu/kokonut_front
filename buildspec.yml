@@ -11,19 +11,19 @@ phases:
       
   pre_build:
     commands:
-      - echo Installing dependencies...
+#     - echo Installing dependencies...
       - npm install
 
   build:
     commands:
-      - echo Building...
-      - npm run build
       - echo Build Starting on `date` 
+#     - echo Building...
+      - npm run build
       - pwd 
       - ls -al
 
 artifacts:
   files:
      - '**/*'
-  discard-path: no
-  base-directory: build
+#  discard-path: no
+#  base-directory: build
