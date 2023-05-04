@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 # Change directory to the location of the JAR file
 cd /root/kokonut_frontend/
