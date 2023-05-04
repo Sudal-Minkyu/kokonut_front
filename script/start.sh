@@ -4,4 +4,4 @@
 cd /root/kokonut_frontend/
 
 # Start the application
-npm run dev -- --host
+npm run dev -- --host &
