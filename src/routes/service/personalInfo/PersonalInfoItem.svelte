@@ -142,8 +142,6 @@
                         personalInfoCategoryService.createItemPop.hide();
                     },
                     (json_error) => {
-
-
                         console.log('아이템 추가 실패', json_error);
                     }
                 );

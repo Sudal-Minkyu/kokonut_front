@@ -2,7 +2,7 @@
 <script>
     import { fade } from 'svelte/transition'
     import jQuery from "jquery";
-    import {providePrivacyWriteData} from "../../../lib/store.js";
+    import {personalInfoCategoryData, providePrivacyWriteData} from "../../../lib/store.js";
     import restapi from "../../../lib/api.js";
     import {onMount} from "svelte";
 
@@ -23,6 +23,7 @@
                 if(json_success.data.status === 200) {
                     providePrivacyWriteData.update(obj => {
                         obj.step2.offerList = json_success.data.sendData.offerList;
+                        filterAdminList();
                         console.log('전달받은 데이터', obj.step2.offerList);
                         return obj;
                     });
@@ -34,7 +35,7 @@
         );
     }
 
-    const handleChangeAdminSelection = () => {
+    const updateByCheckedState = () => {
         providePrivacyWriteData.update(obj => {
             obj.step2.selectedAdminObjList = [];
             for (const adminId of obj.step2.selectedAdminIdList) {
@@ -42,11 +43,7 @@
             }
             return obj;
         });
-        if ($providePrivacyWriteData.step2.offerList.length === $providePrivacyWriteData.step2.selectedAdminIdList.length) {
-            isMasterCheckBoxChecked = true;
-        } else if (!$providePrivacyWriteData.step2.selectedAdminIdList.length) {
-            isMasterCheckBoxChecked = false;
-        }
+        isMasterCheckBoxChecked = $providePrivacyWriteData.step2.filteredOfferList.length === $providePrivacyWriteData.step2.selectedAdminIdList.length;
     }
 
     const removeSelectedAdmin = (index) => {
@@ -54,7 +51,7 @@
             obj.step2.selectedAdminIdList.splice(index, 1);
             return obj;
         });
-        handleChangeAdminSelection();
+        updateByCheckedState();
     };
 
     const resetSelectedAdmin = () => {
@@ -62,20 +59,36 @@
             obj.step2.selectedAdminIdList = [];
             return obj;
         });
-        handleChangeAdminSelection();
+        updateByCheckedState();
     };
 
     const handleMasterCheckBoxChange = (e) => {
         providePrivacyWriteData.update(obj => {
             if (e.target.checked) {
-                obj.step2.selectedAdminIdList = obj.step2.offerList.map(item => item.adminId);
+                obj.step2.selectedAdminIdList = obj.step2.filteredOfferList.map(item => item.adminId);
             } else {
                 obj.step2.selectedAdminIdList = [];
             }
             return obj;
         });
-        handleChangeAdminSelection();
+        updateByCheckedState();
     }
+
+    const filterAdminList = () => {
+        let result = [];
+        result.push(...$providePrivacyWriteData.step2.offerList
+            .filter(item => item.knEmail.includes($providePrivacyWriteData.step2.searchCondition.email))); // 관리자등급도 추가
+        if (!result.length && $providePrivacyWriteData.step2.searchCondition.email) {
+            result = $providePrivacyWriteData.step2.filteredOfferList;
+        } else if (!$providePrivacyWriteData.step2.searchCondition.email) {
+            result = $providePrivacyWriteData.step2.offerList;
+        }
+        providePrivacyWriteData.update(obj => {
+            obj.step2.filteredOfferList = result;
+            return obj;
+        });
+        updateByCheckedState();
+    };
 </script>
 
 <div class="pri_componentWrap" in:fade>
@@ -103,7 +116,9 @@
                                 <div class="teamSeaBox">
                                     <div class="memseaBox marB32">
                                         <div class="koinput">
-                                            <input type="text" class="wid236" placeholder="이메일 검색">
+                                            <input type="text" class="wid236" placeholder="이메일 검색"
+                                                   bind:value={$providePrivacyWriteData.step2.searchCondition.email}
+                                                   on:keyup={filterAdminList} />
                                             <button><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
                                         </div>
                                         <div class="mu_SelBox wid150 noneMarR">
@@ -119,7 +134,7 @@
                                 </div>
                                 <div class="tea_listBox">
                                     <div class="kt_tableTopBox marB16">
-                                        <div class="kt_total">총 <span>{$providePrivacyWriteData.step2.offerList.length}</span>건</div>
+                                        <div class="kt_total">총 <span>{$providePrivacyWriteData.step2.filteredOfferList.length}</span>건</div>
 <!--                                        <div class="kt_selbox wid108">-->
 <!--                                            <div class="selectBox wid100per nonePad">-->
 <!--                                                <div class="label">최근 등록순</div>-->
@@ -159,16 +174,16 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                {#each $providePrivacyWriteData.step2.offerList as
+                                                {#each $providePrivacyWriteData.step2.filteredOfferList as
                                                     {adminId, knEmail, knName, knRoleDesc, knRoleCode}, i}
                                                     <tr>
                                                         <td>
                                                             <div class="koko_check">
-                                                                <input type="checkbox" name="mem01" id="mem01" class="partcheck"
+                                                                <input type="checkbox" name="mem01" id="mem{i}" class="partcheck"
                                                                        value={adminId}
                                                                        bind:group={$providePrivacyWriteData.step2.selectedAdminIdList}
-                                                                       on:change={handleChangeAdminSelection} />
-                                                                <label for="mem01"><em></em></label>
+                                                                       on:change={updateByCheckedState} />
+                                                                <label for="mem{i}"><em></em></label>
                                                             </div>
                                                         </td>
                                                         <td>{knEmail}</td>
