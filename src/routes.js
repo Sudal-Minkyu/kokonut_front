@@ -104,20 +104,20 @@ export default {
     "/service/environment/personalInfoItem": PersonalInfoItem,
 
     // 개인정보처리방침 리스트 페이지
-    "/service/policyList": PolicyList,
+    "/service/privacy/policyList": PolicyList,
     // 개인정보처리방침 작성페이지
-    "/service/policyWrite": PolicyWrite,
+    "/service/privacy/policyWrite": PolicyWrite,
     // 1:1문의 상세보기페이지
     "/service/policyDetail/:piId": PolicyDetail,
     // 개인정보처리방침 모든작성페이지
-    "/service/policyWriteAll": wrap({
+    "/service/privacy/policyWriteAll": wrap({
         asyncComponent: () => import("./routes/service/policy/PolicyWriteAll.svelte"),
     }),
 
     // 개인정보제공 리스트 페이지
-    "/service/privacyList": PrivacyList,
+    "/service/privacy/privacyList": PrivacyList,
     // 개인정보 제공페이지
-    "/service/privacyWrite": PrivacyWrite,
+    "/service/privacy/privacyWrite": PrivacyWrite,
 
 
     "*": wrap({
