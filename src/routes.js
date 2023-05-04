@@ -110,8 +110,8 @@ export default {
     // 1:1문의 상세보기페이지
     "/service/policyDetail/:piId": PolicyDetail,
     // 개인정보처리방침 모든작성페이지
-    "/service/privacy/PolicyWriteAll": wrap({
-        asyncComponent: () => import("./routes/service/privacy/PolicyWriteAll.svelte"),
+    "/service/PolicyWriteAll": wrap({
+        asyncComponent: () => import("./routes/service/PolicyWriteAll.svelte"),
     }),
 
     // 개인정보제공 리스트 페이지
