@@ -49,7 +49,7 @@
                 if(json_success.data.status === 200) {
                     console.log("조회된 데이터가 있습니다.");
 
-                    role.set(json_success.data.sendData.role);
+                    // role.set(json_success.data.sendData.role);
                     qnaDetailData = json_success.data.sendData.qnaDetail;
                     qnaDetailFileData = json_success.data.sendData.qnaDetailFile;
 

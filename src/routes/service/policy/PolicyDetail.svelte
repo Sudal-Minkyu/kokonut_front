@@ -135,32 +135,35 @@
     <div class="contentInnerWrap">
         <div class="pageTitleBtn marB50">
             <a use:link href="/service/policyList">{$backBtn}</a><h1>개인정보처리방침 상세보기</h1>
-<!--            <div class="copyBtnBox">-->
-<!--                <div class="copyBtn">-->
-<!--                    <dt id="urlcopy">URL 복사</dt>-->
-<!--                    <span class="tiptool" id="tool_btn01">-->
-<!--                        <div class="layerToolType pmtool_02" id="tool_box01">-->
-<!--                            <div class="tipContents">-->
-<!--                                <p>-->
-<!--                                    개인정보처리방침을 위한 별도 페이지를 만들지 않고, 개인정보처리방침 버튼에 링크로 연결해서 사용 가능합니다.-->
-<!--                                </p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </span>-->
-<!--                </div>-->
-<!--                <div class="copyBtn">-->
-<!--                    <dt id="htmlcopy">HTML 복사</dt>-->
-<!--                    <span class="tiptool" id="tool_btn02">-->
-<!--                        <div class="layerToolType righttool_type" id="tool_box02">-->
-<!--                            <div class="tipContents">-->
-<!--                                <p>-->
-<!--                                    개인정보처리방침을 위한 별도 페이지가 존재하는 경우, HTML 복사를 이용해 작성하신 개인정보처리방침의 레이아웃까지 빠르게 복사가 가능합니다.-->
-<!--                                </p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </span>-->
-<!--                </div>-->
-<!--            </div>-->
+
+            {#if policyDetailLayout === 1}}
+                <div class="copyBtnBox" in:fade>
+                    <div class="copyBtn">
+                        <dt id="urlcopy">URL 복사</dt>
+                        <span class="tiptool" id="tool_btn01">
+                            <div class="layerToolType pmtool_02" id="tool_box01">
+                                <div class="tipContents">
+                                    <p>
+                                        개인정보처리방침을 위한 별도 페이지를 만들지 않고, 개인정보처리방침 버튼에 링크로 연결해서 사용 가능합니다.
+                                    </p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="copyBtn">
+                        <dt id="htmlcopy">HTML 복사</dt>
+                        <span class="tiptool" id="tool_btn02">
+                            <div class="layerToolType righttool_type" id="tool_box02">
+                                <div class="tipContents">
+                                    <p>
+                                        개인정보처리방침을 위한 별도 페이지가 존재하는 경우, HTML 복사를 이용해 작성하신 개인정보처리방침의 레이아웃까지 빠르게 복사가 가능합니다.
+                                    </p>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            {/if}
         </div>
 
         {#if policyDetailLayout === 0}
@@ -227,92 +230,86 @@
                     <div class="priC_title marB24">{++step}. 수집하는 개인정보의 항목 및 수집방법</div>
                     <div class="prtextaddbox marB40">
                         <dl>(1) 서비스 가입 시 수집하는 개인정보</dl>
-                        <div class="prtextTableBox">
-                            <div class="prtextTable wid25per">
-                                <div class="prtti">처리목적</div>
-                                {#each policyInfoData.beforeDataList as {pibPurpose}, i}
-                                    <div class="prtt_value_area">{pibPurpose}</div>
-                                {/each}
-                            </div>
-                            <div class="prtextTable wid25per">
-                                <div class="prtti">수집 항목</div>
-                                {#each policyInfoData.beforeDataList as {pibInfo}, i}
-                                    <div class="prtt_value_area">{pibInfo}</div>
-                                {/each}
-                            </div>
-                            <div class="prtextTable wid25per">
-                                <div class="prtti">필수/선택</div>
-                                {#each policyInfoData.beforeDataList as {pibChose}, i}
-                                    <div class="prtt_value_area">{pibChose}</div>
-                                {/each}
-                            </div>
-                            <div class="prtextTable wid25per">
-                                <div class="prtti">처리 및 보유 기간</div>
-                                {#each policyInfoData.beforeDataList as {pibPeriod}, i}
-                                    <div class="prtt_value_area">{pibPeriod}</div>
-                                {/each}
-                            </div>
+                        <div class="prtextTablethBox colum4Line borT">
+                            <div class="prtti">처리목적</div>
+                            <div class="prtti">수집 항목</div>
+                            <div class="prtti">필수/선택</div>
+                            <div class="prtti">처리 및 보유 기간</div>
                         </div>
+                        {#each policyInfoData.beforeDataList as {pibPurpose, pibInfo, pibChose, pibPeriod}, i}
+                            <div class="prtextTableBox">
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pibPurpose}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pibInfo}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pibChose}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pibPeriod}</div>
+                                </div>
+                            </div>
+                        {/each}
                         <div class="prdot_text marT16">기기 정보를 수집하는 경우에는 일방향 암호화(Hash)를 통해 기기를 식별할 수 없는 방법으로 변환하여 보관합니다.</div>
                     </div>
+
                     <div class="prtextaddbox marB40">
                         <dl>(2) 서비스 가입 후 수집하는 개인정보</dl>
-                        <div class="prtextTableBox">
-                            <div class="prtextTable wid25per">
-                                <div class="prtti">처리목적</div>
-                                {#each policyInfoData.afterDataList as {piaPurpose}, i}
-                                    <div class="prtt_value_area">{piaPurpose}</div>
-                                {/each}
-                            </div>
-                            <div class="prtextTable wid25per">
-                                <div class="prtti">수집 항목</div>
-                                {#each policyInfoData.afterDataList as {piaPurpose}, i}
-                                    <div class="prtt_value_area">{piaPurpose}</div>
-                                {/each}
-                            </div>
-                            <div class="prtextTable wid25per">
-                                <div class="prtti">필수/선택</div>
-                                {#each policyInfoData.afterDataList as {piaPurpose}, i}
-                                    <div class="prtt_value_area">{piaPurpose}</div>
-                                {/each}
-                            </div>
-                            <div class="prtextTable wid25per">
-                                <div class="prtti">처리 및 보유 기간</div>
-                                {#each policyInfoData.afterDataList as {piaPurpose}, i}
-                                    <div class="prtt_value_area">{piaPurpose}</div>
-                                {/each}
-                            </div>
+
+                        <div class="prtextTablethBox colum4Line borT">
+                            <div class="prtti">처리목적</div>
+                            <div class="prtti">수집 항목</div>
+                            <div class="prtti">필수/선택</div>
+                            <div class="prtti">처리 및 보유 기간</div>
                         </div>
+
+                        {#each policyInfoData.afterDataList as {piaPurpose, piaInfo, piaChose, piaPeriod}, i}
+                            <div class="prtextTableBox">
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{piaPurpose}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{piaInfo}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{piaChose}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{piaPeriod}</div>
+                                </div>
+                            </div>
+                        {/each}
                     </div>
+
                     <div class="prtextaddbox marB40">
                         <dl>(3) 서비스 이용 중 자동 생성 및 수집하는 정보</dl>
-                        <div class="prtextTableBox">
-                            <div class="prtextTable wid25per">
-                                <div class="prtti">처리목적</div>
-                                {#each policyInfoData.serviceAutoDataList as {pisaPurpose}, i}
-                                    <div class="prtt_value_area">{pisaPurpose}</div>
-                                {/each}
-                            </div>
-                            <div class="prtextTable wid25per">
-                                <div class="prtti">수집 항목</div>
-                                {#each policyInfoData.serviceAutoDataList as {pisaInfo}, i}
-                                    <div class="prtt_value_area">{pisaInfo}</div>
-                                {/each}
-                            </div>
-                            <div class="prtextTable wid25per">
-                                <div class="prtti">수집 방법</div>
-                                {#each policyInfoData.serviceAutoDataList as {pisaMethodology}, i}
-                                    <div class="prtt_value_area">{pisaMethodology}</div>
-                                {/each}
-                            </div>
-                            <div class="prtextTable wid25per">
-                                <div class="prtti">처리 및 보유 기간</div>
-                                {#each policyInfoData.serviceAutoDataList as {pisaPeriod}, i}
-                                    <div class="prtt_value_area">{pisaPeriod}</div>
-                                {/each}
-                            </div>
+                        <div class="prtextTablethBox colum4Line borT">
+                            <div class="prtti">처리목적</div>
+                            <div class="prtti">수집 항목</div>
+                            <div class="prtti">필수/선택</div>
+                            <div class="prtti">처리 및 보유 기간</div>
                         </div>
+
+                        {#each policyInfoData.serviceAutoDataList as {pisaPurpose, pisaInfo, pisaMethodology, pisaPeriod}, i}
+                            <div class="prtextTableBox">
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pisaPurpose}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pisaInfo}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pisaMethodology}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pisaPeriod}</div>
+                                </div>
+                            </div>
+                        {/each}
                     </div>
+
                     <div class="prtextaddbox marB40">
                         <dl>(4) 법령에 따른 개인정보의 보유기간</dl>
                         <div class="prarea_table">
