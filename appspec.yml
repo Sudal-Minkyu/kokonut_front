@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: build/
+  - source: /
     destination: /root/kokonut_frontend/
 permissions:
   - object: /root/kokonut_frontend/
