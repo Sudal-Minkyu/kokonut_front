@@ -7,7 +7,7 @@
     import { backBtn, role } from '../../../lib/store.js'
 
     import { onMount } from 'svelte';
-    import { headerLayoutOn, popOpenBtn } from "../../../lib/common.js";
+    import { popOpenBtn } from "../../../lib/common.js";
 
     import CustumAlert from '../../../components/common/CustumAlert.svelte';
 
@@ -18,9 +18,7 @@
 
     let qnaId;
 
-    // 나의정보 가져오기
     onMount( () => {
-        headerLayoutOn();
         qnaId = window.location.href.split('/').pop();
         qnaDetail(qnaId);
     });
@@ -51,7 +49,7 @@
                 if(json_success.data.status === 200) {
                     console.log("조회된 데이터가 있습니다.");
 
-                    role.set(json_success.data.sendData.role);
+                    // role.set(json_success.data.sendData.role);
                     qnaDetailData = json_success.data.sendData.qnaDetail;
                     qnaDetailFileData = json_success.data.sendData.qnaDetailFile;
 

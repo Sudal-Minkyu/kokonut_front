@@ -55,6 +55,11 @@ function onlyNumber(str) {
     return str.replace(regex, "");
 }
 
+// 소수숫자만 입력가능 함수
+function onlyDouble(str) {
+    // 조프리에게 요청해야댐
+}
+
 // CapsLock 감지함수
 function callCapsLock(event) {
     // console.log("이벤트 : "+event.getModifierState("CapsLock"));
@@ -71,19 +76,17 @@ function popOpenBtn() {
     jQuery('.koko_popup').fadeOut(0);
 }
 
-function headerLayoutOn() {
-    jQuery('#serviceHeader').css('display','block');
-    jQuery('.navMenu').css('display','block');
-}
-
-function headerLayoutOff() {
-    jQuery('#serviceHeader').css('display','none');
-    jQuery('.navMenu').css('display','none');
-}
-
+// 이미지 크게보기(미완성)
 function imgView(url) {
-    console.log("이미지 크게보기");
     console.log("url : "+url);
 }
 
-export { phoneNumver, ipCheck, getToday, emailCheck, onlyNumber, callCapsLock, popOpenBtn, headerLayoutOn, headerLayoutOff, imgView };
+// 2주후인 날짜로 반환하는 함수 ex) 2022-03-01 -> 2022. 03. 15 로 반환
+function addTwoWeeks(dateString) {
+    const dateParts = dateString.split("-").map(Number);
+    const date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+    date.setDate(date.getDate() + 14);
+    return `${date.getFullYear()}. ${("0" + (date.getMonth() + 1)).slice(-2)}. ${("0" + date.getDate()).slice(-2)}`;
+}
+
+export { phoneNumver, ipCheck, getToday, emailCheck, onlyNumber, onlyDouble, callCapsLock, popOpenBtn, imgView, addTwoWeeks };

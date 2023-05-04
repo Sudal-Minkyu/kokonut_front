@@ -64,11 +64,14 @@
                 </tr>
             {/each}
         {:else}
-            <tr >
-                <td></td>
-                <td></td>
-                <td style="color: #BBBBBB!important;">문의한 글이 없습니다.</td>
+            <tr class="none_inq">
+                <td>문의한 글이 없습니다.</td>
             </tr>
+<!--            <tr >-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--                <td style="color: #BBBBBB!important;">문의한 글이 없습니다.</td>-->
+<!--            </tr>-->
         {/if}
         </tbody>
     </table>

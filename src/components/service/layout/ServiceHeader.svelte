@@ -36,7 +36,7 @@
             <div class="topmyinfoBox">
                 <div class="myinfoBox">
                     <div class="myinfoIcon"></div>
-                    <span>{$knEmailHeader}님</span>
+                    <span>{$knEmailHeader}</span>
                 </div>
                 <div class="myinfoBox">
                     <span href={"#"} style="cursor: pointer;" on:click|once={logout}>로그아웃</span>

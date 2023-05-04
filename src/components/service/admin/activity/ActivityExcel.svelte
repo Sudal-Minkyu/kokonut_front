@@ -44,8 +44,8 @@
                 </div>
 
                 <div class="kokopopBtnBox">
-                    <div class="koko_cancel excel_download_pop_close" on:click={excelPopClick}>취소</div>
                     <div class="koko_go"><button>다운로드</button></div>
+                    <div class="koko_cancel" on:click={excelPopClick}>취소</div>
                 </div>
             </form>
         </div>

@@ -337,6 +337,97 @@
             open(images, idx);
         }, 0);
 
+    import {Swiper, SwiperSlide} from 'svelte-swiper';
+    import 'swiper/swiper-bundle.css';
+    let swiper_options = {
+        direction: "vertical",
+        loop: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        navigation: {   // 버튼
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    };
+
+    import { Bootpay } from '@bootpay/client-js'
+
+    // 부트페이 결제창
+    function bootpayPayment() {
+        Bootpay.requestPayment({
+            "application_id": "6369c021cf9f6d001b23e2ef",
+            "price": 5000,
+            "order_name": "테스트결제",
+            "order_id": "주문번호얌",
+            "pg": "나이스페이",
+            "method": "카드",
+            "tax_free": 0,
+            "user": {
+                "id": "회원아이디",
+                "username": "콩길동",
+                "phone": "01022223344",
+                "email": ""
+            },
+            "items": [
+                {
+                    "id": "item_id1",
+                    "name": "테스트아이템1",
+                    "qty": 1,
+                    "price": 1000
+                },
+                {
+                    "id": "item_id2",
+                    "name": "테스트아이템2",
+                    "qty": 1,
+                    "price": 3000
+                },
+                {
+                    "id": "item_id3",
+                    "name": "테스트아이템3",
+                    "qty": 2,
+                    "price": 500
+                }
+            ],
+            "extra": {
+                "open_type": "iframe",
+                "card_quota": "0,2,3",
+                "escrow": false
+            }
+        })
+    }
+
+    // 부트페이 정기결제 카드등록
+    function bootpayBilling() {
+        Bootpay.requestSubscription({
+            application_id: '6369c021cf9f6d001b23e2ef',
+            pg: '나이스페이',
+            price: 1000,
+            tax_free: 0,
+            order_name: '정기결제 테스트 입니다',
+            subscription_id: (new Date()).getTime(),
+            user: {
+                username: '홍길동',
+                phone: '01000000000'
+            },
+            extra: {
+                subscription_comment: '매월 1,000원이 결제됩니다',
+                subscribe_test_payment: true
+            }
+        }).then(
+            function (response) {
+                console.log(response)
+                if (response.event === 'done') {
+                    alert('빌링키 발급이 완료되었습니다.')
+                }
+            },
+            function (error) {
+                console.log(error.message)
+            }
+        )
+    }
+
 </script>
 
 <!--{#if $is_login}-->
@@ -414,17 +505,25 @@
     <button on:click={uploadFiles}>Upload</button>
 </div>
 
-<div class="testDiv">
-    <h1>이미지 라이브러리 테스트</h1><br/>
-    <Images {images} gutter={2}  />
+<!--<div class="testDiv">-->
+<!--    <h1>이미지 라이브러리 테스트</h1><br/>-->
+<!--    <Images {images} gutter={2}  />-->
 
-    <div class="gallery">
-        {#each images as image, i}
-            <img
-                {...image}
-                src={image.src}
-                alt={image.alt || ''}
-                on:click={() => popModal(image.src)} />
-        {/each}
-    </div>
+<!--    <div class="gallery">-->
+<!--        {#each images as image, i}-->
+<!--            <img-->
+<!--                {...image}-->
+<!--                src={image.src}-->
+<!--                alt={image.alt || ''}-->
+<!--                on:click={() => popModal(image.src)} />-->
+<!--        {/each}-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="testDiv">
+    <h1>부트페이 테스트</h1><br/>
+
+    <input type="button" on:click|preventDefault="{bootpayPayment}" value="부트페이 결제창 열기"><br/>
+
+    <input type="button" on:click|preventDefault="{bootpayBilling}" value="부트페이 카드빌링창 열기"><br/>
 </div>

@@ -123,10 +123,10 @@
                 <p style="margin-left: 7px;" class="{wanningText === true ? 'bottomText' : 'bottomText not_work'}">주의사항을 체크해주세요.</p>
             </div>
             <div class="kokopopBtnBox">
-                <div class="koko_cancel ipdel_pop_close" on:click={() => ipChange(0)}>취소</div>
                 <div class="koko_go">
                     <button type="button" on:click={accessIpDelete}>확인</button>
                 </div>
+                <div class="koko_cancel" on:click={() => ipChange(0)}>취소</div>
             </div>
         </div>
         <div class="koko-popup-close ipdel_pop_close" data-popup-close="ipdel_pop_close" on:click={() => ipChange(0)}></div>

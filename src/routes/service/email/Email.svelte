@@ -80,7 +80,7 @@
     }
 
     function enterPress(event) {
-        if(event.keyCode === 13) {
+        if(event.key === "Enter") {
             // 페이지번호 초기화
             page.set(0);
             emailSendList($page);

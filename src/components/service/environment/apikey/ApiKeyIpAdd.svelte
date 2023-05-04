@@ -131,10 +131,10 @@
                     <input type="text" bind:value={ipMemo} placeholder="메모를 적어주세요."/>
                 </div>
                 <div class="kokopopBtnBox">
-                    <div class="koko_cancel ipadd_pop_close" on:click={() => ipChange(0)}>취소</div>
                     <div class="koko_go">
                         <button type="button" on:click={accessIpAdd}>추가</button>
                     </div>
+                    <div class="koko_cancel" on:click={() => ipChange(0)}>취소</div>
                 </div>
             </form>
         </div>

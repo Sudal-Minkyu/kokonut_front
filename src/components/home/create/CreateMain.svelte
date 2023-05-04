@@ -5,8 +5,8 @@
 
     let stage = 0;
 
-    function conditionFun(nameParam, phoneParam) {
-        stage = 1;
+    function conditionFun(stageNum, nameParam, phoneParam) {
+        stage = stageNum;
         joinName = nameParam;
         joinPhone = phoneParam
     }

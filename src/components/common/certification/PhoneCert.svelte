@@ -52,7 +52,7 @@
     window.phoneCertCheck = function (state, keyEmail, otpKey) {
         console.log("휴대폰 본인인증 완료!");
 
-        // console.log("state : "+state);
+        console.log("state : "+state);
         // console.log("keyEmail : "+keyEmail);
         // console.log("otpKey : "+otpKey);
 

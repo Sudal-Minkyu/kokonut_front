@@ -341,8 +341,8 @@
                     </p>
                 </div>
                 <div class="kokopopBtnBox">
-                    <div class="koko_cancel method_pop_close">취소</div>
                     <div class="koko_go"><button type="submit">저장</button></div>
+                    <div class="koko_cancel">취소</div>
                 </div>
             </form>
         </div>

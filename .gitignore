@@ -1,4 +1,4 @@
 node_modules/
-.env
-.idea/.gitignore
-.idea/vcs.xml
+.idea/
+.dist/
+package-lock.json

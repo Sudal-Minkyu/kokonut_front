@@ -1,140 +1,62 @@
-<!--<svelte:head>-->
-<!--	<title>코코넛</title>-->
-<!--	<meta name="description" content="코코넛 서비스 인덱스" />-->
-<!--</svelte:head>-->
-
 <script>
     // 레이아웃
     import Header from "../../components/service/layout/Header.svelte"
-	import { link } from 'svelte-spa-router'
-    import {onMount} from "svelte";
+    import {knEmailHeader} from "../../lib/store.js"
 
-    onMount(async () => {
+    import { Swiper } from "svelte-swiper";
 
-    })
-
-    var dragSrcEl = null;
-
-    function handleDragStart(e) {
-    // Target (this) element is the source node.
-    dragSrcEl = this;
-
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', this.outerHTML);
-
-    this.classList.add('dragElem');
-    }
-    function handleDragOver(e) {
-    if (e.preventDefault) {
-        e.preventDefault(); // Necessary. Allows us to drop.
-    }
-    this.classList.add('over');
-
-    e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
-
-    return false;
-    }
-
-    function handleDragEnter(e) {
-    // this / e.target is the current hover target.
-    }
-
-    function handleDragLeave(e) {
-    this.classList.remove('over');  // this / e.target is previous target element.
-    }
-
-    function handleDrop(e) {
-    // this/e.target is current target element.
-
-    if (e.stopPropagation) {
-        e.stopPropagation(); // Stops some browsers from redirecting.
-    }
-
-    // Don't do anything if dropping the same column we're dragging.
-    if (dragSrcEl !== this) {
-        // Set the source column's HTML to the HTML of the column we dropped on.
-        //alert(this.outerHTML);
-        //dragSrcEl.innerHTML = this.innerHTML;
-        //this.innerHTML = e.dataTransfer.getData('text/html');
-        this.parentNode.removeChild(dragSrcEl);
-        var dropHTML = e.dataTransfer.getData('text/html');
-        this.insertAdjacentHTML('beforebegin',dropHTML);
-        var dropElem = this.previousSibling;
-        addDnDHandlers(dropElem);
-        
-    }
-    this.classList.remove('over');
-    return false;
-    }
-
-    function handleDragEnd(e) {
-    // this/e.target is the source node.
-    this.classList.remove('over');
-
-    /*[].forEach.call(cols, function (col) {
-        col.classList.remove('over');
-    });*/
-    }
-
-    function addDnDHandlers(elem) {
-    elem.addEventListener('dragstart', handleDragStart, false);
-    elem.addEventListener('dragenter', handleDragEnter, false)
-    elem.addEventListener('dragover', handleDragOver, false);
-    elem.addEventListener('dragleave', handleDragLeave, false);
-    elem.addEventListener('drop', handleDrop, false);
-    elem.addEventListener('dragend', handleDragEnd, false);
-
-    }
-
-    const cols = document.querySelectorAll('#columns .column');
-    [].forEach.call(cols, addDnDHandlers);
-
-    const swiper = new Swiper(".mySwiper", {
+    // Swiper 옵션
+    let options = {
         direction: "vertical",
         loop: true,
         autoplay: {
             delay: 2500,
             disableOnInteraction: false,
         },
-        navigation: {   // 버튼
+        simulateTouch: false,
+        // grabCursor: true, // 마우스 커서가 "손" 모양으로 변경
+        speed: 800, // 애니메이션 속도 조정 (밀리초 단위)
+        effect: "slide", // 효과를 slide, fade, cube, coverflow, flip 중 선택
+        navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
         },
-    });
+    };
 
 </script>
-
 <Header />
 <section class="bodyWrap">
     <div class="contentInnerWrap">
         <div class="maincontent">
             <div class="pageH1_type01">
-                <h1><span>코코넛</span>님, 안녕하세요!</h1>
+                <h1><span>{$knEmailHeader}</span>님, 안녕하세요!</h1>
             </div>
-
             <div class="currentWrap">
                 <div class="curTitmeInfoBox">
                     <span>23. 03. 31</span>
                     <dl>오후 5시 30분</dl>
                 </div>
                 <div class="currentSlideBox">
-                    <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="cursItem">금일 파기된(될) 개인정보 <span class="curCou">32</span><dt>건</dt></div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="cursItem">오늘의 개인정보 다운로드 <span class="curCou">32</span><dt>건</dt>, <span class="curCou">50</span><dt>회</dt>, <span class="curCou">김코코</span></div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="cursItem">개인정보 제공건수 : 외부 <span class="curCou">32</span><dt>건</dt>, 내부 <span class="curCou">50</span><dt>건</dt></div>
-                            </div>
+                    <Swiper {options} on:init={(e) => {
+                        const swiper = e.detail.swiper;
+                        const nextBtn = document.querySelector('.swiper-button-next');
+                        const prevBtn = document.querySelector('.swiper-button-prev');
+                        nextBtn.addEventListener('click', () => swiper.slideNext());
+                        prevBtn.addEventListener('click', () => swiper.slidePrev());}}>
+                        <div class="swiper-slide">
+                            <div class="cursItem">금일 파기된(될) 개인정보 <span class="curCou">32</span><dt>건</dt></div>
                         </div>
-                        <div class="curs_btnBox">
-                            <div class="curs_btnInner">
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                            </div>
+                        <div class="swiper-slide">
+                            <div class="cursItem">오늘의 개인정보 다운로드 <span class="curCou">32</span><dt>건</dt>, <span class="curCou">50</span><dt>회</dt>, <span class="curCou">김코코</span></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="cursItem">개인정보 제공건수 : 외부 <span class="curCou">32</span><dt>건</dt>, 내부 <span class="curCou">50</span><dt>건</dt></div>
+                        </div>
+                    </Swiper>
+                    <div class="curs_btnBox">
+                        <div class="curs_btnInner">
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
                         </div>
                     </div>
                 </div>
@@ -586,8 +508,6 @@
             <div class="wiLineBox">
                 <div class="wibtn" id="wiset"><img src="/assets/images/main/wi_seticon.png" alt="" >위젯 편집</div>
             </div>
-
         </div>
     </div>
 </section>
-

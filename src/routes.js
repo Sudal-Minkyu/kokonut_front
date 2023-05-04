@@ -26,6 +26,13 @@ import QnaDetail from "./routes/service/qna/QnaDetail.svelte"
 
 import PersonalInfoItem from "./routes/service/personalInfo/PersonalInfoItem.svelte"
 
+import PolicyList from "./routes/service/policy/PolicyList.svelte"
+import PolicyWrite from "./routes/service/policy/PolicyWrite.svelte"
+import PolicyDetail from "./routes/service/policy/PolicyDetail.svelte"
+
+import PrivacyList from "./routes/service/privacy/PrivacyList.svelte"
+import PrivacyWrite from "./routes/service/privacy/PrivacyWrite.svelte"
+
 export default {
     // API 테스트하는 화면
     "/Apitest": wrap({
@@ -91,10 +98,27 @@ export default {
     // 1:1문의 작성페이지
     "/service/environment/qnaWrite": QnaWrite,
     // 1:1문의 상세보기페이지
-    "/service/environment/qnaDetail/:qnaid": QnaDetail,
+    "/service/environment/qnaDetail/:qnaId": QnaDetail,
 
     // 개인정보항목관리 페이지
     "/service/environment/personalInfoItem": PersonalInfoItem,
+
+    // 개인정보처리방침 리스트 페이지
+    "/service/policyList": PolicyList,
+    // 개인정보처리방침 작성페이지
+    "/service/policyWrite": PolicyWrite,
+    // 1:1문의 상세보기페이지
+    "/service/policyDetail/:piId": PolicyDetail,
+    // 개인정보처리방침 모든작성페이지
+    "/service/policyWriteAll": wrap({
+        asyncComponent: () => import("./routes/service/policy/policyWriteAll.svelte"),
+    }),
+
+    // 개인정보제공 리스트 페이지
+    "/service/privacyList": PrivacyList,
+    // 개인정보 제공페이지
+    "/service/privacyWrite": PrivacyWrite,
+
 
     "*": wrap({
         asyncComponent: () => import("./routes/NotFound.svelte"),
