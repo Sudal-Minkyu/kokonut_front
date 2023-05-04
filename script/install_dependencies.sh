@@ -11,5 +11,5 @@ sudo yum update -y
 
 # install npm packages
 cd /root/kokonut_frontend/
-npm install --global npm
-
+#npm install --global npm
+npm install 
