@@ -9,5 +9,14 @@ sudo yum update -y
 #sudo yum install -y nodejs
 
 # install npm packages
+#cd /root/kokonut_frontend/
+#npm install --global npm
+
+# Change directory to the location of package.json file
 cd /root/kokonut_frontend/
-npm install --global npm
+
+# Remove node_modules folder
+rm -rf node_modules
+
+# Install dependencies
+npm install
