@@ -30,8 +30,8 @@ import PolicyList from "./routes/service/policy/PolicyList.svelte"
 import PolicyWrite from "./routes/service/policy/PolicyWrite.svelte"
 import PolicyDetail from "./routes/service/policy/PolicyDetail.svelte"
 
-import PrivacyList from "./routes/service/Privacy/privacyList.svelte"
-import PrivacyWrite from "./routes/service/Privacy/privacyWrite.svelte"
+import PrivacyList from "./routes/service/privacy/PrivacyList.svelte"
+import PrivacyWrite from "./routes/service/privacy/PrivacyWrite.svelte"
 
 export default {
     // API 테스트하는 화면
