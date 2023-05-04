@@ -85,9 +85,9 @@
     // 검색 변수
     let searchText = ""; // 이름 및 이메일 검색
 
-    // 엔터키 클릭.. 모듈화필요..
+    // 엔터키 클릭
     function enterPress(event) {
-        if(event.keyCode === 13) {
+        if(event.key === "Enter") {
             // 페이지번호 초기화
             page.set(0);
             adminList($page);

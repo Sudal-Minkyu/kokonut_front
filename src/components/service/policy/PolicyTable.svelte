@@ -2,7 +2,6 @@
 <script>
     import { link } from 'svelte-spa-router'
     import { page } from "../../../lib/store"
-    import { addTwoWeeks } from "../../../lib/common"
 
     export let size;
     export let total;
@@ -51,8 +50,8 @@
                         <td>{policy.knRoleDesc}</td>
                     {/if}
 <!--                    <td>{policy.insert_date}</td>-->
+                    <td>{policy.modify_date}</td>
                     <td>{policy.piDate.replaceAll("-",". ")}</td>
-                    <td>{addTwoWeeks(policy.piDate)}</td>
                     <td>
                         <div class="dlink">
                             <a use:link href="/service/policyDetail/{policy.piId}">상세보기</a>

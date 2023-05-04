@@ -23,7 +23,7 @@
     let otpTitle = "구글 OTP 2단계 인증 등록/재등록"
     // 엔터키 클릭
     function enterPress(event) {
-        if(event.keyCode === 13) {
+        if(event.key === "Enter") {
             googleOtpLogin(otpValue);
         }
     }

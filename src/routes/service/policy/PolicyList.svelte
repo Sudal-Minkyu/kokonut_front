@@ -1,6 +1,7 @@
 
 <script>
     import Header from "../../../components/service/layout/Header.svelte"
+
     import PolicySearch from "../../../components/service/policy/PolicySearch.svelte";
     import PolicyTable from "../../../components/service/policy/PolicyTable.svelte";
     import PolicyElectronic from "../../../components/service/policy/PolicyElectronic.svelte";
@@ -109,7 +110,7 @@
 
     // 엔터키 클릭.. 모듈화필요..
     function enterPress(event) {
-        if(event.keyCode === 13) {
+        if(event.key === "Enter") {
             // 페이지번호 초기화
             page.set(0);
             policyList($page);

@@ -13,7 +13,6 @@
     import {onMount} from "svelte";
 
     import {backBtn, role} from '../../../lib/store.js'
-    import {addTwoWeeks, popOpenBtn} from "../../../lib/common"
     import restapi from "../../../lib/api.js";
     import {writable} from "svelte/store";
 
@@ -181,12 +180,12 @@
                     <div class="priv_divider"></div>
                     <div class="priverBox hei60">
                         <dl>개정일</dl>
-                        <p>{policyInfoData.policyData.piDate.replaceAll("-",". ")}</p>
+                        <p>{policyInfoData.policyData.modify_date}</p>
                     </div>
                     <div class="priv_divider"></div>
                     <div class="priverBox hei60">
                         <dl>시행일</dl>
-                        <p>{addTwoWeeks(policyInfoData.policyData.piDate)}</p>
+                        <p>{policyInfoData.policyData.piDate.replaceAll("-",". ")}</p>
                     </div>
                     <div class="priv_divider"></div>
                     <div class="priverBox hei60">

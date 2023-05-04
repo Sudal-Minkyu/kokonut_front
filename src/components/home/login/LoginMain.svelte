@@ -109,7 +109,7 @@
 
     // 엔터키 클릭
     function enterPress(event) {
-        if(event.keyCode === 13) {
+        if(event.key === "Enter") {
             loginBtn()
         }
     }
