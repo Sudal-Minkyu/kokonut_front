@@ -12,4 +12,4 @@ sudo yum install -y nodejs
 # install npm packages
 cd /root/kokonut_frontend/
 #npm install --global npm
-npm install 
+npm install --save babel-core
