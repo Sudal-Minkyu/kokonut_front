@@ -12,5 +12,5 @@ sleep 10
 
 # 새로운 프로세스를 시작합니다.
 #npm run dev
-nohup npm run dev &
+nohup npm run dev -- --host &
 
