@@ -2,7 +2,7 @@
 
 # Stop existing process
 echo "Stopping existing process..."
-pkill -f node
+pkill -f npm
 
 # Change directory to the location of the JAR file
 cd /root/kokonut_frontend/
