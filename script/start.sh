@@ -1,16 +1,13 @@
 #!/bin/bash
 
-# Stop existing process
-echo "Stopping existing process..."
-pkill -f npm
-
-# Change directory to the location of the JAR file
 cd /root/kokonut_frontend/
+
+# 프로세스 종료
+PID=$(pgrep -f npm)
+kill $PID
 
 # 10초간 대기합니다.
 sleep 10
 
 # 새로운 프로세스를 시작합니다.
-#npm run dev
-nohup npm run dev -- --host &
-
+nohup npm run dev -- --host > /dev/null 2>&1 &
