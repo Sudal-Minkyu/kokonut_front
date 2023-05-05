@@ -2,11 +2,7 @@
 
 # Stop existing process
 echo "Stopping existing process..."
-PID=$(ps -ef | grep node | grep -v grep | awk '{print $2}')
-if [ -n "$PID" ]; then
-    echo "Killing process $PID"
-    kill -9 $PID
-fi
+pkill -f node
 
 # Change directory to the location of the JAR file
 cd /root/kokonut_frontend/
