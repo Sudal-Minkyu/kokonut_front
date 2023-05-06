@@ -19,4 +19,4 @@ cd /root/kokonut_frontend/
 rm -rf node_modules
 
 # Install dependencies
-npm install
+npm install --save cors
