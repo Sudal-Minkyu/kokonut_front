@@ -10,4 +10,4 @@ kill $PID
 sleep 10
 
 # 새로운 프로세스를 시작합니다.
-nohup npm run dev -- --host 0.0.0.0 &
+nohup npm run dev -- --host &
