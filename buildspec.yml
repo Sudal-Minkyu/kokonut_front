@@ -13,6 +13,8 @@ phases:
     commands:
 #     - echo Installing dependencies...
       - npm install
+      - npm install @aws-sdk/client-acm
+      - npm install aws-sdk
 
   build:
     commands:
