@@ -25,8 +25,8 @@ const getCertificateAndKey = async () => {
   const acm = new ACMClient({ region: REGION, credentials: await getCredentials() });
   const data = await acm.exportCertificate({ CertificateArn: CERTIFICATE_ARN });
   return {
-    certificate: data.Certificate!,
-    privateKey: data.PrivateKey!
+    certificate: data.Certificate,
+    privateKey: data.PrivateKey
   };
 };
 
