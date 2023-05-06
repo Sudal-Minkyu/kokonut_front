@@ -1,8 +1,14 @@
 #!/bin/bash
 
-# Change directory to the location of the JAR file
 cd /root/kokonut_frontend/
 
-# Start the application
-#npm run dev
-nohup npm run dev &
+# 프로세스 종료
+PID=$(pgrep -f npm)
+kill $PID
+
+# 10초간 대기합니다.
+sleep 10
+
+# 새로운 프로세스를 시작합니다.
+nohup npm run dev -- --host 0.0.0.0 --logLevel Info --base / > /dev/null 2>&1 &
+
