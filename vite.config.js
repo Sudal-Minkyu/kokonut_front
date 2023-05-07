@@ -20,7 +20,7 @@ export default defineConfig({
     target: '#svelte',
     vite: {
       server: {
-        host: 'beta.kokonut.me'
+        host: 'beta.kokonut.me',
         port: 5173,
         https: async () => {
           const certificateArn = 'arn:aws:acm:ap-northeast-2:352166812188:certificate/95fe692e-f69e-42d0-9f48-e7dc29375423';
