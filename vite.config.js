@@ -10,7 +10,7 @@ export default defineConfig({
    
    server: {
    https: async () => {
-      const certificateArn = 'arn:aws:acm:us-east-1:123456789012:certificate/abcdef123456-7890-abcd-1234-abcdef123456';     // 인증서 ARN 값
+      const certificateArn = 'arn:aws:acm:ap-northeast-2:352166812188:certificate/95fe692e-f69e-42d0-9f48-e7dc29375423';     // 인증서 ARN 값
       const { Certificate, PrivateKey } = await getCertificate({ CertificateArn: certificateArn, credentials: await getCredentials() });
       return {
         key: getPrivateKey(PrivateKey),
