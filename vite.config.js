@@ -6,7 +6,7 @@ import node from '@sveltejs/adapter-node';
 export default defineConfig({
   plugins: [svelte()],
   build: {
-    target: 'es2015',
+    target: 'es2018',
     outDir: 'build',
     assetsDir: 'static',
     minify: true,
