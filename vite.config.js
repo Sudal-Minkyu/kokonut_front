@@ -6,7 +6,7 @@ import { default as ACM } from '@aws-sdk/client-acm';
 
  // https://vitejs.dev/config/
 export default defineConfig({
-   plugins: [svelte()],
+  plugins: [svelte()],
    
   server: {
     https: async () => {
@@ -18,5 +18,9 @@ export default defineConfig({
         cert: Certificate
       };
     }
+  }
+  
+  build: {
+    outDir: 'dist' // 빌드된 파일의 경로 설정
   }
 });
