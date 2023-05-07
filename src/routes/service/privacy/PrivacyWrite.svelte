@@ -30,7 +30,7 @@
     <div class="stepcontentInnerWrap">
         <div class="spcontWrap">
             <div class="pageTitleBtn marB50">
-                <a style="cursor: pointer" use:link href="/service/privacyList">{$backBtn}</a><h1>개인정보 제공</h1>
+                <a style="cursor: pointer" use:link href="/service/privacy/privacyList">{$backBtn}</a><h1>개인정보 제공</h1>
                 <dl>
                     💡 더 이상 이메일로 회원의 소중한 개인정보를 공유하지 마세요. 코코넛을 통해 안전하게 개인정보를 제공하고 조회할 수 있습니다.
                 </dl>
