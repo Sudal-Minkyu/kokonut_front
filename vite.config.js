@@ -5,6 +5,7 @@ import node from '@sveltejs/adapter-node';
 
 export default defineConfig({
   plugins: [svelte()],
+  base: '/',
   build: {
     target: 'es2018',
     outDir: 'build',
@@ -17,6 +18,7 @@ export default defineConfig({
     target: '#svelte',
     vite: {
       server: {
+        port: 5173,
         https: async () => {
           const certificateArn = 'arn:aws:acm:ap-northeast-2:352166812188:certificate/95fe692e-f69e-42d0-9f48-e7dc29375423';
           const acm = new ACM({});
