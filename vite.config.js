@@ -6,7 +6,7 @@ import express from 'express';
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://52.79.252.55:8050', 
+  baseURL: 'http://127.0.0.1:8050', 
 });
 
 // https://vitejs.dev/config/
