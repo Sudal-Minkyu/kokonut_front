@@ -15,6 +15,7 @@ phases:
       - npm install @aws-sdk/client-acm
       - npm install @aws-sdk/credential-provider-env
       - npm install @sveltejs/adapter-node
+      - npm install express
 
   build:
     commands:
