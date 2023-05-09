@@ -4,6 +4,7 @@
     import { providePrivacyWriteData } from "../../../lib/store.js";
     import restapi from "../../../lib/api.js";
     import { onMount } from "svelte";
+    import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
 
     export let stateChange;
     let isMasterCheckBoxChecked = false;
@@ -50,8 +51,6 @@
             const itemCheckList = document.getElementsByName('itemCheck');
             for (const el of itemCheckList) {
                 el.checked = $providePrivacyWriteData.step2.selectedAdminIdList.includes(Number(el.value));
-                console.log($providePrivacyWriteData.step2.selectedAdminIdList);
-                console.log('eltrue', el.value);
             }
         }, 0);
     }
@@ -111,6 +110,10 @@
         });
         updateByCheckedState();
     };
+
+    const handleOnSelectBox = (el) => {
+        console.log(el.dataset.signal);
+    }
 </script>
 
 <div class="pri_componentWrap" in:fade>
@@ -144,12 +147,12 @@
                                             <button><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
                                         </div>
                                         <div class="mu_SelBox wid150 noneMarR">
-                                            <div class="selectBox wid100per nonePad">
-                                                <div class="label popgrade">관리자 등급</div>
+                                            <div class="selectBox wid100per nonePad" use:SelectBoxManager={handleOnSelectBox}>
+                                                <div class="label">관리자 등급</div>
                                                 <ul class="optionList">
-                                                    <li class="optionItem popanoGrade">전체</li>
-                                                    <li class="optionItem popanoGrade">최고관리자</li>
-                                                    <li class="optionItem popanoGrade">일반관리자</li>
+                                                    <li class="optionItem popanoGrade" data-signal="0">전체</li>
+                                                    <li class="optionItem popanoGrade" data-signal="1">최고관리자</li>
+                                                    <li class="optionItem popanoGrade" data-signal="2">일반관리자</li>
                                                 </ul>
                                             </div>
                                         </div>
