@@ -30,7 +30,7 @@
         <div class="pageTitleBtn marB50">
             <h1>개인정보 제공리스트</h1>
             <div class="TitleBtn">
-                <a use:link href="/service/privacyWrite">
+                <a use:link href="/service/privacy/privacyWrite">
                     <button id="adm_registration_pop">개인정보 제공</button>
                 </a>
             </div>
