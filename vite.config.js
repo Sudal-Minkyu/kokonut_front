@@ -3,6 +3,11 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { default as ACM } from '@aws-sdk/client-acm';
 import node from '@sveltejs/adapter-node';
 import express from 'express';
+import axios from 'axios';
+
+const instance = axios.create({
+  baseURL: 'http://52.79.252.55:8050', 
+});
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -43,3 +48,5 @@ export default defineConfig({
     });
   }
 });
+
+export { instance }; 
