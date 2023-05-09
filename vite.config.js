@@ -1,7 +1,8 @@
-import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
+import { defineConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { default as ACM } from '@aws-sdk/client-acm';
 import node from '@sveltejs/adapter-node';
+import express from 'express';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,16 +23,23 @@ export default defineConfig({
       server: {
         host: 'beta.kokonut.me',
         port: 5173,
+        middlewareMode: true,
         https: async () => {
           const certificateArn = 'arn:aws:acm:ap-northeast-2:352166812188:certificate/95fe692e-f69e-42d0-9f48-e7dc29375423';
           const acm = new ACM({});
           const { Certificate, PrivateKey } = await acm.getCertificate({ CertificateArn: certificateArn });
-          return {
-            key: PrivateKey,
-            cert: Certificate,
-          };
-        },
-      },
-    },
+          const credentials = { key: PrivateKey, cert: Certificate };
+          return credentials;
+        }
+      }
+    }
   },
+  middleware: async (app, { server }) => {
+    app.use((req, res, next) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      next();
+    });
+  }
 });
