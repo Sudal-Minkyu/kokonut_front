@@ -13,3 +13,4 @@ sleep 10
 nohup npm run dev -- --host 0.0.0.0 1>node.stdout 2>node.stderr &
 
 exit
+
