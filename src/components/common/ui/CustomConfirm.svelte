@@ -1,72 +1,53 @@
 <script>
-    export let prop = {};
-
-    if (typeof prop !== 'object') {
-        prop = {};
-    }
-
-    const defaultProp = {
-        visible: false, // 팝업 보임의 여부 통제
-        type: 'confirm', // 'confirm' 버튼하나, 'ask' 여부 묻기
-        callback: () => {}, // 확인버튼시 동작
-        icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-        title: '제목 미설정', // 제목
-        contents1: '내용 미설정', // 내용
-        contents2: '',
-        btnCheck: '확인', // 확인 버튼의 텍스트
-        btnStart: '실행', // 실행 버튼의 텍스트
-        btnCancel: '취소', // 취소 버튼의 텍스트
-    }
-
-    $: actualProp = {...defaultProp, ...prop};
+    import {customConfirmData} from "../../../lib/store.js";
 
     // 확인버튼
     function btnCheck() {
-        actualProp.callback();
-        prop.visible = false;
+        $customConfirmData.callback();
+        $customConfirmData.visible = false;
     }
 
     // 시작버튼
     function btnStart() {
-        actualProp.callback();
-        prop.visible = false;
+        $customConfirmData.callback();
+        $customConfirmData.visible = false;
     }
 
     // 취소버튼
     function btnCancel() {
-        prop.visible = false;
+        $customConfirmData.visible = false;
     }
 
 </script>
 
-{#if actualProp.visible}
+{#if $customConfirmData.visible}
 <div class="dim" style="display: block"></div>
 <div class="layerPopType dp_b" id="tip_box">
     <header class="popHeader">
-        {#if actualProp.icon === 'pass'}
+        {#if $customConfirmData.icon === 'pass'}
             <img src="/assets/images/common/minipop_pass.png" alt="popIcon">
-        {:else if actualProp.icon === 'warning'}
+        {:else if $customConfirmData.icon === 'warning'}
             <img src="/assets/images/common/minipop_warring.png" alt="popIcon">
-        {:else if actualProp.icon === 'fail'}
+        {:else if $customConfirmData.icon === 'fail'}
             <img src="/assets/images/common/minipop_stop.png" alt="popIcon">
-        {:else if actualProp.icon === 'question'}
+        {:else if $customConfirmData.icon === 'question'}
             <img src="/assets/images/common/minipop_confuse.png" alt="popIcon">
         {/if}
-        <h4 class="popTit">{actualProp.title}</h4>
+        <h4 class="popTit">{$customConfirmData.title}</h4>
     </header>
     <section class="popContents">
         <p>
-            {actualProp.contents1}
+            {$customConfirmData.contents1}
             <br>
-            {actualProp.contents2}
+            {$customConfirmData.contents2}
         </p>
     </section>
     <div class="popcBtnBox">
-        {#if actualProp.type === 'confirm'}
-            <button on:click={btnCheck} type="button" class="popCheck">{actualProp.btnCheck}</button>
-        {:else if actualProp.type === 'ask'}
-            <button on:click={btnStart} type="button" class="popCancel">{actualProp.btnStart}</button>
-            <button on:click={btnCancel} type="button" class="popStart">{actualProp.btnCancel}</button>
+        {#if $customConfirmData.type === 'confirm'}
+            <button on:click={btnCheck} type="button" class="popCheck">{$customConfirmData.btnCheck}</button>
+        {:else if $customConfirmData.type === 'ask'}
+            <button on:click={btnStart} type="button" class="popCancel">{$customConfirmData.btnStart}</button>
+            <button on:click={btnCancel} type="button" class="popStart">{$customConfirmData.btnCancel}</button>
         {/if}
     </div>
 </div>

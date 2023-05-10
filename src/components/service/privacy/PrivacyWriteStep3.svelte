@@ -35,7 +35,7 @@
 
                     <div class="seaRadio">
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="radioToday" value="-1" />
+                            <input type="radio" class="radio" name="period" id="radioToday" value="-1" checked/>
                             <label for="radioToday"><em><dt></dt></em>오늘</label>
                         </div>
                         <div class="check radioCheck">
@@ -55,7 +55,7 @@
                             <label for="radio6Month"><em><dt></dt></em>6개월</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="사용자 지정" value="-0" checked/>
+                            <input type="radio" class="radio" name="period" id="사용자 지정" value="-0"/>
                             <label for="사용자 지정"><em><dt></dt></em>사용자 지정</label>
                         </div>
                     </div>

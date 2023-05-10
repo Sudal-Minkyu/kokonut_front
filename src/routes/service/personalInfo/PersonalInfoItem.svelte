@@ -19,10 +19,10 @@
         from "../../../components/service/environment/personalInfo/PersonalInfoRemoveColumnPop.svelte";
     import PersonalInfoInsertItemPop
         from "../../../components/service/environment/personalInfo/PersonalInfoInsertItemPop.svelte";
-    import CustomAlert from "../../../components/common/ui/CustomConfirm.svelte";
     import Banner from "../../../components/common/ui/Banner.svelte";
     import PersonalInfoEditItemPop
         from "../../../components/service/environment/personalInfo/PersonalInfoEditItemPop.svelte";
+    import {openCustomConfirm} from "../../../components/common/ui/DialogManager.js";
 
     const personalInfoItemProp = {
         isLoadingScreenOn: true,
@@ -72,8 +72,6 @@
                     }
                 }, 2000);
             }
-        },
-        customConfirmControl: {
         },
     }
 
@@ -279,7 +277,7 @@
             },
             handleAddItemBtnClick() {
                 if ($personalInfoCategoryData.checkedItemObjList.length !== 0) {
-                    personalInfoItemProp.customConfirmControl = {
+                    openCustomConfirm({
                         visible: true, // 팝업 보임의 여부 통제
                         type: 'ask', // 'confirm' 버튼하나, 'ask' 여부 묻기
                         callback: personalInfoCategoryService.insertItemPop.addItemListToTable, // 확인버튼시 동작
@@ -289,7 +287,7 @@
                         contents2: '등록 하시겠습니까?',
                         btnStart: '확인', // 실행 버튼의 텍스트
                         btnCancel: '취소', // 취소 버튼의 텍스트
-                    }
+                    })
                 } else {
                     personalInfoItemProp.banner.activateBanner("추가할 항목을 선택해주세요.");
                 }
@@ -709,8 +707,6 @@
 {#if $personalInfoTableData.removeColumnPop.visible}
     <PersonalInfoRemoveColumnPop {personalInfoTableService} />
 {/if}
-
-<CustomAlert prop={personalInfoItemProp.customConfirmControl} />
 
 <!-- [D] 전자상거래 적용 대상 팝업 -->
 <!--<div class="koko_popup commerce_pop" data-popup="commerce_pop" style="display:block;">-->

@@ -5,7 +5,7 @@
     import {policyInfoData, piId, initialPolicyInfo, piStage} from "../../../lib/store.js";
     import restapi from "../../../lib/api.js";
     import ErrorHighlight from "../../common/ui/ErrorHighlight.svelte";
-    import CustomConfirm from "../../common/ui/CustomConfirm.svelte";
+    import {openCustomConfirm} from "../../common/ui/DialogManager.js";
 
     export let stateChange;
 
@@ -29,9 +29,6 @@
         }
     }
 
-    export let customConfirmPropFun;
-    export let customConfirmProp = {};
-
     const finalSave = () => {
         console.log('저장전데이터', $policyInfoData);
         let url = "/v2/api/Policy/privacyPolicyFinalSave";
@@ -41,7 +38,7 @@
         restapi('v2', 'post', url, "param", sendData, 'application/json',
             (json_success) => {
                 if(json_success.data.status === 200) {
-                    customConfirmProp = {
+                    const customConfirmProp = {
                         visible: true, // 팝업 보임의 여부 통제
                         type: 'confirm', // 'confirm' 버튼하나, 'ask' 여부 묻기
                         callback: () => {
@@ -57,7 +54,7 @@
                         contents2: '',
                         btnCheck: '확인', // 확인 버튼의 텍스트
                     }
-                    customConfirmPropFun(customConfirmProp);
+                    openCustomConfirm(customConfirmProp);
 
                 }
             },
