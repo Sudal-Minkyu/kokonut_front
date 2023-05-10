@@ -2,14 +2,12 @@ import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { default as ACM } from '@aws-sdk/client-acm';
 import node from '@sveltejs/adapter-node';
-import express from 'express';
 import axios from 'axios';
 
 const instance = axios.create({
   baseURL: 'http://127.0.0.1:8050', 
 });
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [svelte()],
 
@@ -21,6 +19,7 @@ export default defineConfig({
     minify: true,
     sourcemap: false,
   },
+
   kit: {
     adapter: node(),
     target: '#svelte',
@@ -35,10 +34,17 @@ export default defineConfig({
           const { Certificate, PrivateKey } = await acm.getCertificate({ CertificateArn: certificateArn });
           const credentials = { key: PrivateKey, cert: Certificate };
           return credentials;
-        }
-      }
-    }
+        },
+        proxy: {
+          '/^.*api\/.+': {
+            target: 'http://127.0.0.1:8050',
+            changeOrigin: true,
+          },
+        },
+      },
+    },
   },
+
   middleware: async (app, { server }) => {
     app.use((req, res, next) => {
       res.setHeader('Access-Control-Allow-Origin', '*');
@@ -46,7 +52,7 @@ export default defineConfig({
       res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
       next();
     });
-  }
+  },
 });
 
 export { instance }; 
