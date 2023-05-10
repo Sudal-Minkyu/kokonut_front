@@ -25,7 +25,7 @@ export default defineConfig({
     target: '#svelte',
     vite: {
       server: {
-        host: '0.0.0.0',
+        host: 'beta.kokonut.me',
         port: 5173,
         middlewareMode: true,
         https: async () => {
