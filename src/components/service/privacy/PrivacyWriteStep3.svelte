@@ -2,12 +2,19 @@
 <script>
     import { fade } from 'svelte/transition'
     import {providePrivacyWriteData} from "../../../lib/store.js";
+    import {onMount} from "svelte";
+    import {setCustomSelectBox, setDateRangePicker, setOptionItem} from "../../../lib/libSearch.js";
 
-    const handleRadioPeriodClick = (e) => {
-
-        console.log(e.target.value);
-    }
     export let stateChange;
+
+    onMount(async ()=>{
+        fatchSearchModule();
+    });
+
+    const fatchSearchModule = () => {
+        setDateRangePicker('stime', true, 'period');
+        setCustomSelectBox();
+    }
 </script>
 
 <div class="pri_componentWrap" in:fade>
@@ -18,43 +25,40 @@
                 <div class="callender_radio_box">
                     <div class="start_end_search_box">
                         <div class="start_end_search_Inner">
-                            <div class="time_input l_time_input">
-                                <input type="text" name="startdate" id="datepicker" class="" placeholder="시작일" autocomplete="off" maxlength="10" value="">
-                            </div>
-                            <div class="time_text">
-                                ~
-                            </div>
-                            <div class="time_input r_time_input">
-                                <input type="text" name="enddate" id="datepicker2" class="" placeholder="종료일" autocomplete="off" maxlength="10" value="">
+                            <div class="calenderBox">
+                                <div class="calenderInput">
+                                    <input id="stime" type="text" class="form-control" placeholer="날짜선택"
+                                           aria-describedby="stime_addon" style="background: #F4F5F7;" readonly />
+                                    <img src="/assets/images/common/callendericon.png" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="seaRadio">
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="radioToday" value="1"
-                                   on:click={handleRadioPeriodClick} />
+                            <input type="radio" class="radio" name="period" id="radioToday" value="-1" />
                             <label for="radioToday"><em><dt></dt></em>오늘</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="radioWeek" value="7"
-                                   on:click={handleRadioPeriodClick} />
+                            <input type="radio" class="radio" name="period" id="radioWeek" value="-7" />
                             <label for="radioWeek"><em><dt></dt></em>1주일</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="radioMonth" value="30"
-                                   on:click={handleRadioPeriodClick} />
+                            <input type="radio" class="radio" name="period" id="radioMonth" value="-30" />
                             <label for="radioMonth"><em><dt></dt></em>1개월</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="radio3Month" value="90"
-                                   on:click={handleRadioPeriodClick} />
+                            <input type="radio" class="radio" name="period" id="radio3Month" value="-90" />
                             <label for="radio3Month"><em><dt></dt></em>3개월</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="radio6Month" value="180"
-                                   on:click={handleRadioPeriodClick} />
+                            <input type="radio" class="radio" name="period" id="radio6Month" value="-180" />
                             <label for="radio6Month"><em><dt></dt></em>6개월</label>
+                        </div>
+                        <div class="check radioCheck">
+                            <input type="radio" class="radio" name="period" id="사용자 지정" value="-0" checked/>
+                            <label for="사용자 지정"><em><dt></dt></em>사용자 지정</label>
                         </div>
                     </div>
                 </div>

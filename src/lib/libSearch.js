@@ -76,7 +76,7 @@ export const setDateRangePicker = (id, use_range, periodName) => {
  */
 const setOptDateRangePicker = (id, periodDays, periodTags) => {
 
-	if(periodDays < 0){
+	if(periodDays === "t"){
 		// negative -  all_days
 		console.log("선택된 조회 기간은 '전체' 입니다.");
 		// daterangepicker 비활성화
@@ -84,11 +84,22 @@ const setOptDateRangePicker = (id, periodDays, periodTags) => {
 			jQuery(id).data('daterangepicker').container.remove();
 		}
 		jQuery(id).val('');
-	}else if(periodDays > 0){
+	}else if(Number(periodDays) < 0){
+		console.log("선택된 조회 기간은 " + periodDays +" 일 입니다.");
+		jQuery(id).daterangepicker({
+			startDate : moment(),
+			endDate : moment().subtract(Number(periodDays)+1, 'days'),
+			minDate: moment(),
+			dateLimit: {
+				'days': 180
+			},
+			locale : localeKr
+		});
+	}else if(Number(periodDays) > 0){
 		// positive
 		console.log("선택된 조회 기간은 " + periodDays +" 일 입니다.");
 		jQuery(id).daterangepicker({
-			startDate : moment().subtract(periodDays-1, 'days'),
+			startDate : moment().subtract(Number(periodDays)-1, 'days'),
 			endDate : moment(),
 			maxDate : moment(),
 			dateLimit: {
@@ -96,17 +107,30 @@ const setOptDateRangePicker = (id, periodDays, periodTags) => {
 			},
 			locale : localeKr
 		});
-	}else if(periodDays === 0){
+	}else if(periodDays === "-0"){
 		// zero - custom
 		console.log("선택된 조회 기간은 '사용자 지정' 입니다.");
 		jQuery(id).daterangepicker({
+			startDate : moment(),
+			endDate : moment(),
+			minDate : moment(),
+			dateLimit: {
+				'days': 180
+			},
+			locale : localeKr
+		});
+	}else if(periodDays === "0"){
+		// zero - custom
+		console.log("선택된 조회 기간은 '사용자 지정' 입니다.");
+		jQuery(id).daterangepicker({
+			startDate : moment(),
+			endDate : moment(),
 			maxDate : moment(),
 			dateLimit: {
 				'days': 180
 			},
 			locale : localeKr
 		});
-		jQuery(id).val('');
 	}else{
 		console.log("periodDays가 범위 밖 입니다.\n"
 		+"periodDays를 확인하세요. >> "+ periodDays +"\n"

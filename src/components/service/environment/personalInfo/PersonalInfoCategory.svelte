@@ -103,8 +103,10 @@
                                                on:change={personalInfoCategoryService.handleCheckedItemChange}>
                                         <label for="cates_{i + 1}{j}">
                                             <em></em>
+                                            <!-- 암호화 여부의 따라 해당 아이콘 넣어야 될지도? <div class="lockicon"></div>-->
                                             <p class="check">{ciName}</p>
                                         </label>
+                                        <!-- 클래스 받은값으로 색변경 -->
                                         <span class="subElement redtext">{categoryName}</span>
                                     </div>
                                 {/each}

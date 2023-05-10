@@ -30,7 +30,7 @@
         <div class="pageTitleBtn marB50">
             <h1>개인정보 제공리스트</h1>
             <div class="TitleBtn">
-                <a use:link href="/service/privacyWrite">
+                <a use:link href="/service/privacy/privacyWrite">
                     <button id="adm_registration_pop">개인정보 제공</button>
                 </a>
             </div>
@@ -117,10 +117,10 @@
                     <col style="width:5.48%;">
                     <col style="width:9.59%;">
                     <col style="width:10.96%;">
-                    <col style="width:10.96%;">
                     <col style="width:13.70%;">
                     <col style="width:19.18%;">
                     <col style="width:9.59%;">
+                    <col style="width:10.96%;">
                     <col style="width:9.59%;">
                     <col style="width:10.96%;">
                 </colgroup>
@@ -128,13 +128,13 @@
                 <tr>
                     <th>No</th>
                     <th>상태</th>
-                    <th>제공 현황</th>
                     <th>담당자</th>
                     <th>만든 날짜</th>
                     <th>제공 기간</th>
                     <th>다운로드 유무</th>
+                    <th>제공인원 수</th>
                     <th>다운로드 횟수</th>
-                    <th>IP</th>
+                    <th>상세보기</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -143,11 +143,11 @@
                     <td>
                         <div class="condition ing">제공중</div>
                     </td>
-                    <td>제공 중</td>
                     <td>최*리</td>
                     <td>2023. 01. 01</td>
                     <td>23.03.03 ~ 23.04.04</td>
                     <td>Y</td>
+                    <td><div>13</div></td>
                     <td><div class="dcount downcountPop">3</div></td>
                     <td><div class="dlink dlinkPop">상세보기</div></td>
                 </tr>
@@ -156,11 +156,11 @@
                     <td>
                         <div class="condition complete">제공완료</div>
                     </td>
-                    <td>제공 완료</td>
                     <td>최*리</td>
                     <td>2023. 01. 01</td>
                     <td>23.03.03 ~ 23.04.04</td>
                     <td>Y</td>
+                    <td><div>8</div></td>
                     <td><div class="dcount downcountPop">3</div></td>
                     <td><div class="dlink dlinkPop">상세보기</div></td>
                 </tr>
@@ -169,11 +169,11 @@
                     <td>
                         <div class="condition waiting">대기중</div>
                     </td>
-                    <td>대기 중</td>
                     <td>최*리</td>
                     <td>2023. 01. 01</td>
                     <td>23.03.03 ~ 23.04.04</td>
                     <td>Y</td>
+                    <td><div>15</div></td>
                     <td><div class="dcount downcountPop">3</div></td>
                     <td><div class="dlink dlinkPop">상세보기</div></td>
                 </tr>

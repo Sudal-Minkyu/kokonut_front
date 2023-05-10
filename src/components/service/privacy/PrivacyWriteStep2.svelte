@@ -1,10 +1,10 @@
 
 <script>
     import { fade } from 'svelte/transition'
-    import jQuery from "jquery";
-    import {personalInfoCategoryData, providePrivacyWriteData} from "../../../lib/store.js";
+    import { providePrivacyWriteData } from "../../../lib/store.js";
     import restapi from "../../../lib/api.js";
-    import {onMount} from "svelte";
+    import { onMount } from "svelte";
+    import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
 
     export let stateChange;
     let isMasterCheckBoxChecked = false;
@@ -43,7 +43,16 @@
             }
             return obj;
         });
-        isMasterCheckBoxChecked = $providePrivacyWriteData.step2.filteredOfferList.length === $providePrivacyWriteData.step2.selectedAdminIdList.length;
+
+        const filteredOfferIdList = $providePrivacyWriteData.step2.filteredOfferList.map(item => item.adminId);
+        isMasterCheckBoxChecked = filteredOfferIdList.every(item => $providePrivacyWriteData.step2.selectedAdminIdList.includes(item));
+
+        setTimeout(() => {
+            const itemCheckList = document.getElementsByName('itemCheck');
+            for (const el of itemCheckList) {
+                el.checked = $providePrivacyWriteData.step2.selectedAdminIdList.includes(Number(el.value));
+            }
+        }, 0);
     }
 
     const removeSelectedAdmin = (index) => {
@@ -74,14 +83,30 @@
         updateByCheckedState();
     }
 
+    const handleItemCheckBoxChange = (e) => {
+        providePrivacyWriteData.update(obj => {
+            if (e.target.checked) {
+                obj.step2.selectedAdminIdList = [...obj.step2.selectedAdminIdList, Number(e.target.value)];
+            } else {
+                obj.step2.selectedAdminIdList = obj.step2.selectedAdminIdList.filter(adminIdNumber => adminIdNumber !== Number(e.target.value));
+            }
+            return obj;
+        });
+        updateByCheckedState();
+    }
+
     const filterAdminList = () => {
         let result = [];
         result.push(...$providePrivacyWriteData.step2.offerList
-            .filter(item => item.knEmail.includes($providePrivacyWriteData.step2.searchCondition.email))); // 관리자등급도 추가
+            .filter(item => item.knEmail.includes($providePrivacyWriteData.step2.searchCondition.email)));
         if (!result.length && $providePrivacyWriteData.step2.searchCondition.email) {
             result = $providePrivacyWriteData.step2.filteredOfferList;
         } else if (!$providePrivacyWriteData.step2.searchCondition.email) {
             result = $providePrivacyWriteData.step2.offerList;
+        }
+        if ($providePrivacyWriteData.step2.searchCondition.managerRating) {
+            result = result.filter(item => item.knRoleDesc
+                === $providePrivacyWriteData.step2.searchCondition.managerRating);
         }
         providePrivacyWriteData.update(obj => {
             obj.step2.filteredOfferList = result;
@@ -89,6 +114,14 @@
         });
         updateByCheckedState();
     };
+
+    const handleOnSelectBox = (el) => {
+        providePrivacyWriteData.update(obj => {
+            obj.step2.searchCondition.managerRating = el.dataset.rating;
+            return obj;
+        });
+        filterAdminList();
+    }
 </script>
 
 <div class="pri_componentWrap" in:fade>
@@ -122,11 +155,12 @@
                                             <button><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
                                         </div>
                                         <div class="mu_SelBox wid150 noneMarR">
-                                            <div class="selectBox wid100per nonePad">
-                                                <div class="label popgrade">관리자 등급</div>
+                                            <div class="selectBox wid100per nonePad" use:SelectBoxManager={handleOnSelectBox}>
+                                                <div class="label">관리자 등급</div>
                                                 <ul class="optionList">
-                                                    <li class="optionItem popanoGrade">최고관리자</li>
-                                                    <li class="optionItem popanoGrade">일반관리자</li>
+                                                    <li class="optionItem popanoGrade" data-rating="">전체</li>
+                                                    <li class="optionItem popanoGrade" data-rating="최고관리자">최고관리자</li>
+                                                    <li class="optionItem popanoGrade" data-rating="일반관리자">일반관리자</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -179,10 +213,9 @@
                                                     <tr>
                                                         <td>
                                                             <div class="koko_check">
-                                                                <input type="checkbox" name="mem01" id="mem{i}" class="partcheck"
+                                                                <input type="checkbox" name="itemCheck" id="mem{i}" class="partcheck"
                                                                        value={adminId}
-                                                                       bind:group={$providePrivacyWriteData.step2.selectedAdminIdList}
-                                                                       on:change={updateByCheckedState} />
+                                                                       on:change={handleItemCheckBoxChange} />
                                                                 <label for="mem{i}"><em></em></label>
                                                             </div>
                                                         </td>

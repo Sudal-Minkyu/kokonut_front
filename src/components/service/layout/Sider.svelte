@@ -29,7 +29,7 @@
             </div>
             <div class="subNav">
                 <ul>
-                    <li class="onedepth noneMarB"><a use:link href="/service/privacyList"><img src="/assets/images/common/menu_icon_send.png" alt="">개인정보 제공</a></li>
+                    <li class="onedepth noneMarB"><a use:link href="/service/privacy/privacyList"><img src="/assets/images/common/menu_icon_send.png" alt="">개인정보 제공</a></li>
                 </ul>
             </div>
             <div class="subNav">
