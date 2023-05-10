@@ -1,7 +1,7 @@
 <script>
 	import ServiceHeader from "./ServiceHeader.svelte"
 	import Sider from "./Sider.svelte"
-    import {is_login, knEmailHeader, cpNameSider, role, electronic} from "../../../lib/store.js"
+    import {is_login, knNameHeader, knEmailHeader, cpNameSider, role, electronic} from "../../../lib/store.js"
     import restapi from "../../../lib/api.js";
     import {beforeUpdate} from "svelte";
 
@@ -18,7 +18,8 @@
                     (json_success) => {
                         console.log(json_success);
                         is_login.set(true);
-                        knEmailHeader.set(json_success.data.sendData.knName);
+                        knNameHeader.set(json_success.data.sendData.knName);
+                        knEmailHeader.set(json_success.data.sendData.knEmail);
                         cpNameSider.set(json_success.data.sendData.cpName);
                         role.set(json_success.data.sendData.role);
                         electronic.set(json_success.data.sendData.electronic)

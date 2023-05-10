@@ -2,7 +2,7 @@
     import restapi from "../../../lib/api.js";
     import jQuery from "jquery";
 
-    import { openDiv, findEmail, findPwd, tempPwd, knEmailHeader } from '../../../lib/store'
+    import { openDiv, findEmail, findPwd, tempPwd, knNameHeader } from '../../../lib/store'
 
     jQuery(function() {
         // 나이스 폼열기
@@ -281,7 +281,7 @@
                 if(json_success.data.status === 200) {
                     let filterPhone = phone.substring(0,3) + "-****-" + phone.substring(7,11);
                     initValue(name, filterPhone);
-                    knEmailHeader.set(name);
+                    knNameHeader.set(name);
                     conditionFun();
                 }
             },

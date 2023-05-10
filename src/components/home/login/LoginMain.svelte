@@ -83,6 +83,7 @@
 			(json_success) => {
 				if(json_success.data.status === 200) {
                     // console.log("로그인성공");
+                    knPassword= "";
 					$accessToken = json_success.data.sendData.jwtToken;
 					$is_login = true;
                     // alert("로그인 완료");
@@ -93,15 +94,18 @@
                     otp_err_msg = json_success.data.err_msg;
                 }  else if (json_success.data.err_code === "KO016") {
                     // console.log("가입된회원이 아님 or 아이디/비밀번호가 일치하지 않음");
+                    knPassword= "";
                     notJoinUser();
                 }
                 else {
 					console.log("로그인 에러");
+                    knPassword= "";
                     console.log(json_success);
 				}
 			},
 			(json_error) => {
 				console.log("에러");
+                knPassword= "";
 				console.log(json_error);
 			}
 		)
