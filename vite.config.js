@@ -5,7 +5,7 @@ import node from '@sveltejs/adapter-node';
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://beta.kokonut.me:8050', 
+  baseURL: 'https://beta.kokonut.me:8050', 
 });
 
 export default defineConfig({
@@ -38,7 +38,7 @@ export default defineConfig({
         proxy: {
 //      '/^.*api\/.+': {
         '*': {
-            target: 'http://beta.kokonut.me:8050',
+            target: 'https://beta.kokonut.me:8050',
             changeOrigin: true,
 //          logLevel : 'debug',
           },
@@ -55,27 +55,21 @@ export default defineConfig({
       next();
     });
 
-    try {
-      const token = localStorage.getItem('access_token');
-      const refreshToken = localStorage.getItem('refresh_token');
-      if (token) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      }
-
-      if (refreshToken) {
-      }
-
-      // 헤더에 Authorization을 포함시킴
-      const authorizationHeader = req.headers.authorization;
-      if (authorizationHeader) {
-        axios.defaults.headers.common['Authorization'] = authorizationHeader;
-        instance.defaults.headers.common['Authorization'] = authorizationHeader;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-
+try {
+  const token = localStorage.getItem('access_token');
+  if (!token) {
+    console.log('토큰이 없습니다.');
+    delete localStorage['access_token'];
+    axios.defaults.headers.common['Authorization'] = null;
+    instance.defaults.headers.common['Authorization'] = null;
+  } else {
+    // 토큰이 있을 경우, 헤더에 Authorization을 포함시킴
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
+} catch (error) {
+  console.log(error);
+}
     // next 함수 호출 위치 수정
     next();
   },
