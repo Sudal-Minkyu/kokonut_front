@@ -104,6 +104,10 @@
         } else if (!$providePrivacyWriteData.step2.searchCondition.email) {
             result = $providePrivacyWriteData.step2.offerList;
         }
+        if ($providePrivacyWriteData.step2.searchCondition.managerRating) {
+            result = result.filter(item => item.knRoleDesc
+                === $providePrivacyWriteData.step2.searchCondition.managerRating);
+        }
         providePrivacyWriteData.update(obj => {
             obj.step2.filteredOfferList = result;
             return obj;
@@ -112,7 +116,11 @@
     };
 
     const handleOnSelectBox = (el) => {
-        console.log(el.dataset.signal);
+        providePrivacyWriteData.update(obj => {
+            obj.step2.searchCondition.managerRating = el.dataset.rating;
+            return obj;
+        });
+        filterAdminList();
     }
 </script>
 
@@ -150,9 +158,9 @@
                                             <div class="selectBox wid100per nonePad" use:SelectBoxManager={handleOnSelectBox}>
                                                 <div class="label">관리자 등급</div>
                                                 <ul class="optionList">
-                                                    <li class="optionItem popanoGrade" data-signal="0">전체</li>
-                                                    <li class="optionItem popanoGrade" data-signal="1">최고관리자</li>
-                                                    <li class="optionItem popanoGrade" data-signal="2">일반관리자</li>
+                                                    <li class="optionItem popanoGrade" data-rating="">전체</li>
+                                                    <li class="optionItem popanoGrade" data-rating="최고관리자">최고관리자</li>
+                                                    <li class="optionItem popanoGrade" data-rating="일반관리자">일반관리자</li>
                                                 </ul>
                                             </div>
                                         </div>
