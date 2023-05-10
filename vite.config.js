@@ -97,6 +97,6 @@ export default defineConfig({
     } catch (error) {
       console.log(error);
     }
-
+})
 
 
