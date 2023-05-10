@@ -42,17 +42,19 @@ export default defineConfig({
     },
   },
 
-  middleware: async (app, { server }) => {
-    app.use((req, res, next) => {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-      next();
-    });
+middleware: async (app, { server }) => {
+  app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+  }); // Add closing parenthesis here
 
-    const instance = axios.create({
-      baseURL: 'https://beta.kokonut.me:8050',
-    });
+  const instance = axios.create({
+    baseURL: 'https://beta.kokonut.me:8050',
+  });
+
+}
 
     function saveToken(token) {
       localStorage.setItem('access_token', token);
