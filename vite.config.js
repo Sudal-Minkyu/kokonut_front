@@ -5,7 +5,7 @@ import node from '@sveltejs/adapter-node';
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://52.79.252.55:8050', 
+  baseURL: 'http://localhost:8050', 
 });
 
 export default defineConfig({
@@ -37,9 +37,9 @@ export default defineConfig({
         },
         proxy: {
           '/^.*api\/.+': {
-            target: 'http://52.79.252.55:8050',
+            target: 'http://localhost:8050',
             changeOrigin: true,
-            logLevel : 'debug',
+//          logLevel : 'debug',
           },
         },
       },
@@ -51,6 +51,23 @@ export default defineConfig({
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
       res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      next();
+    });
+    
+    app.use(async (req, res, next) => {
+      try {
+        const token = localStorage.getItem('access_token');
+        const refreshToken = localStorage.getItem('refresh_token');
+        if (token) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        }
+
+        if (refreshToken) {
+        }
+      } catch (error) {
+        console.log(error);
+      }
       next();
     });
   },
