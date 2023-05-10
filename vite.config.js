@@ -5,7 +5,7 @@ import node from '@sveltejs/adapter-node';
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://beta.kokonut.me:8050', 
+  baseURL: 'http://beta.kokonut.me:8050', 
 });
 
 export default defineConfig({
@@ -38,7 +38,7 @@ export default defineConfig({
         proxy: {
 //      '/^.*api\/.+': {
         '*': {
-            target: 'https://beta.kokonut.me:8050',
+            target: 'http://beta.kokonut.me:8050',
             changeOrigin: true,
 //          logLevel : 'debug',
           },
