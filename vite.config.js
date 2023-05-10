@@ -36,7 +36,8 @@ export default defineConfig({
           return credentials;
         },
         proxy: {
-          '/^.*api\/.+': {
+//      '/^.*api\/.+': {
+        '*': {
             target: 'http://localhost:8050',
             changeOrigin: true,
 //          logLevel : 'debug',
