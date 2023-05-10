@@ -54,32 +54,31 @@ export default defineConfig({
       res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
       next();
     });
-    
-    app.use(async (req, res, next) => {
-      try {
-        const token = localStorage.getItem('access_token');
-        const refreshToken = localStorage.getItem('refresh_token');
-        if (token) {
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        }
 
-        if (refreshToken) {
-        }
-        
-        // 헤더에 Authorization을 포함시킴
-        const authorizationHeader = req.headers.authorization;
-        if (authorizationHeader) {
-          axios.defaults.headers.common['Authorization'] = authorizationHeader;
-          instance.defaults.headers.common['Authorization'] = authorizationHeader;
-        }
-
-      } catch (error) {
-        console.log(error);
+    try {
+      const token = localStorage.getItem('access_token');
+      const refreshToken = localStorage.getItem('refresh_token');
+      if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       }
-      next();
-    });
+
+      if (refreshToken) {
+      }
+
+      // 헤더에 Authorization을 포함시킴
+      const authorizationHeader = req.headers.authorization;
+      if (authorizationHeader) {
+        axios.defaults.headers.common['Authorization'] = authorizationHeader;
+        instance.defaults.headers.common['Authorization'] = authorizationHeader;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    // next 함수 호출 위치 수정
+    next();
   },
 });
 
-export { instance }; 
+export { instance };
