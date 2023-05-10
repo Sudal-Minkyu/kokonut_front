@@ -22,7 +22,7 @@
     import Banner from "../../../components/common/ui/Banner.svelte";
     import PersonalInfoEditItemPop
         from "../../../components/service/environment/personalInfo/PersonalInfoEditItemPop.svelte";
-    import {openCustomConfirm} from "../../../components/common/ui/DialogManager.js";
+    import {openAsk} from "../../../components/common/ui/DialogManager.js";
 
     const personalInfoItemProp = {
         isLoadingScreenOn: true,
@@ -277,9 +277,7 @@
             },
             handleAddItemBtnClick() {
                 if ($personalInfoCategoryData.checkedItemObjList.length !== 0) {
-                    openCustomConfirm({
-                        visible: true, // 팝업 보임의 여부 통제
-                        type: 'ask', // 'confirm' 버튼하나, 'ask' 여부 묻기
+                    openAsk({
                         callback: personalInfoCategoryService.insertItemPop.addItemListToTable, // 확인버튼시 동작
                         icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                         title: '선택 항목 등록 확인', // 제목

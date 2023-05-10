@@ -18,7 +18,7 @@
 
     import restapi from "../../../lib/api.js";
 
-    import {openCustomConfirm} from "../../../components/common/ui/DialogManager.js";
+    import {openAsk} from "../../../components/common/ui/DialogManager.js";
 
     const tooltipEvent = (e) => {
         console.log('act');
@@ -109,8 +109,6 @@
             push("/service/policyList")
         } else {
             const customConfirmProp = {
-                visible: true, // 팝업 보임의 여부 통제
-                type: 'ask', // 'confirm' 버튼하나, 'ask' 여부 묻기
                 callback: startFun, // 확인버튼시 동작
                 icon: 'question', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                 title: '제작을 중단하시겠습니까?', // 제목
@@ -119,7 +117,7 @@
                 btnStart: '예', // 확인 버튼의 텍스트
                 btnCancel: '아니오'
             }
-            openCustomConfirm(customConfirmProp);
+            openAsk(customConfirmProp);
         }
     }
 
