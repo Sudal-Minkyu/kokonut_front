@@ -1,12 +1,9 @@
+
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { default as ACM } from '@aws-sdk/client-acm';
 import node from '@sveltejs/adapter-node';
 import axios from 'axios';
-
-const instance = axios.create({
-  baseURL: 'https://beta.kokonut.me:8050', 
-});
 
 export default defineConfig({
   plugins: [svelte()],
@@ -36,11 +33,9 @@ export default defineConfig({
           return credentials;
         },
         proxy: {
-//      '/^.*api\/.+': {
-        '*': {
+          '*': {
             target: 'https://beta.kokonut.me:8050',
             changeOrigin: true,
-//          logLevel : 'debug',
           },
         },
       },
@@ -55,24 +50,53 @@ export default defineConfig({
       next();
     });
 
-try {
-  const token = localStorage.getItem('access_token');
-  if (!token) {
-    console.log('토큰이 없습니다.');
-    delete localStorage['access_token'];
-    axios.defaults.headers.common['Authorization'] = null;
-    instance.defaults.headers.common['Authorization'] = null;
-  } else {
-    // 토큰이 있을 경우, 헤더에 Authorization을 포함시킴
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  }
-} catch (error) {
-  console.log(error);
-}
-    // next 함수 호출 위치 수정
-    next();
-  },
-});
+    const instance = axios.create({
+      baseURL: 'https://beta.kokonut.me:8050',
+    });
 
-export { instance };
+    function saveToken(token) {
+      localStorage.setItem('access_token', token);
+    }
+
+    function getToken() {
+      return localStorage.getItem('access_token');
+    }
+
+    instance.interceptors.request.use(
+      config => {
+        const token = getToken();
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },
+      error => {
+        return Promise.reject(error);
+      }
+    );
+
+    instance.interceptors.response.use(
+      response => response,
+      error => {
+        if (error.response.status === 401) {
+          console.log('토큰이 만료되었거나 잘못되었습니다.');
+          delete localStorage['access_token'];
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    try {
+      const token = getToken();
+      if (!token) {
+        console.log('토큰이 없습니다.');
+        delete localStorage['access_token'];
+      } else {
+        instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+
+
