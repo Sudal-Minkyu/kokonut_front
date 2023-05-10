@@ -16,8 +16,7 @@ phases:
       - npm install @aws-sdk/credential-provider-env
       - npm install @sveltejs/adapter-node
       - npm install express
-      - npm install cors
-
+      
   build:
     commands:
       - echo Build Starting on `date` 
