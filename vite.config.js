@@ -66,6 +66,14 @@ export default defineConfig({
 
         if (refreshToken) {
         }
+        
+        // 헤더에 Authorization을 포함시킴
+        const authorizationHeader = req.headers.authorization;
+        if (authorizationHeader) {
+          axios.defaults.headers.common['Authorization'] = authorizationHeader;
+          instance.defaults.headers.common['Authorization'] = authorizationHeader;
+        }
+
       } catch (error) {
         console.log(error);
       }
