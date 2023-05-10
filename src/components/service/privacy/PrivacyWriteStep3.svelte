@@ -25,11 +25,9 @@
                 <div class="callender_radio_box">
                     <div class="start_end_search_box">
                         <div class="start_end_search_Inner">
-                            <div class="calenderBox">
+                            <div class="calenderBox" style="padding: 1.5rem 3rem 1.5rem 0;">
                                 <div class="calenderInput">
-                                    <input id="stime" type="text" class="form-control" placeholer="날짜선택"
-                                           aria-describedby="stime_addon" style="background: #F4F5F7;" readonly />
-                                    <img src="/assets/images/common/callendericon.png" alt="">
+                                    <input id="stime" type="text" class="form-control" aria-describedby="stime_addon" style="width: 125%;" readonly />
                                 </div>
                             </div>
                         </div>
