@@ -1,6 +1,6 @@
 <script>
     import { push, link } from 'svelte-spa-router'
-    import { is_login, accessToken, page, knEmailHeader } from "../../../lib/store.js"
+    import { is_login, accessToken, page, knNameHeader, knEmailHeader, cpNameSider } from "../../../lib/store.js"
     import restapi from "../../../lib/api.js"
 
     function logout() {
@@ -13,6 +13,12 @@
         restapi('v1', 'logout', url, "param", sendData, 'application/json',
             (json_success) => {
                 console.log(json_success)
+
+                // 기본값 초기화처리
+                $knNameHeader = ""
+                $knEmailHeader = ""
+                $cpNameSider = ""
+
                 $is_login = false
                 $accessToken = ""
                 $page  = 0
@@ -37,7 +43,7 @@
             <div class="topmyinfoBox">
                 <div class="myinfoBox">
                     <div class="myinfoIcon"></div>
-                    <span>{$knEmailHeader}</span>
+                    <span>{$knNameHeader}</span>
                 </div>
                 <div class="myinfoBox">
                     <span style="cursor: pointer;" on:click|once={logout}>로그아웃</span>

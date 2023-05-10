@@ -1,7 +1,7 @@
 <script>
     // 레이아웃
     import Header from "../../components/service/layout/Header.svelte"
-    import {knEmailHeader} from "../../lib/store.js"
+    import {knNameHeader} from "../../lib/store.js"
 
     import { Swiper } from "svelte-swiper";
 
@@ -29,7 +29,7 @@
     <div class="contentInnerWrap">
         <div class="maincontent">
             <div class="pageH1_type01">
-                <h1><span>{$knEmailHeader}</span>님, 안녕하세요!</h1>
+                <h1><span>{$knNameHeader}</span>님, 안녕하세요!</h1>
             </div>
             <div class="currentWrap">
                 <div class="curTitmeInfoBox">
