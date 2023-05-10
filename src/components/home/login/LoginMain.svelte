@@ -5,7 +5,7 @@
     import LoginOTP from './LoginOTP.svelte'
     import { is_login, accessToken, emailSave } from '../../../lib/store'
     import { callCapsLock } from '../../../lib/common'
-    
+
     let emailBlank;
     let pwdBlank;
     let notRegister = false;
@@ -72,7 +72,7 @@
 		console.log("구글OTP 제출 클릭!");
 
 		let url = "/v1/api/Auth/authToken"
-		
+
 		let sendData = {
 			otpValue : otpValue,
 			knEmail : knEmail,

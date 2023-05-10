@@ -31,7 +31,8 @@
         <div class="topHeadInner">
             <div class="toplogo">
                 <a use:link href="/service" on:click="{() => {$page = 0}}">
-                    <img src="/assets/images/common/kokonutLogo.png" alt="kokonutLogo"></a>
+                    <img src="/assets/images/common/kokonutLogo.png" alt="kokonutLogo">
+                </a>
             </div>
             <div class="topmyinfoBox">
                 <div class="myinfoBox">
@@ -39,7 +40,7 @@
                     <span>{$knEmailHeader}</span>
                 </div>
                 <div class="myinfoBox">
-                    <span href={"#"} style="cursor: pointer;" on:click|once={logout}>로그아웃</span>
+                    <span style="cursor: pointer;" on:click|once={logout}>로그아웃</span>
                 </div>
                 <div class="myinfoMenu">
                     <div class="notiText">알림</div>

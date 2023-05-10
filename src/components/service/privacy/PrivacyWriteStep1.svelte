@@ -22,10 +22,9 @@
             </label>
         </div>
         <div class="pri_fornt">
-            <span style="font-size: 50px">현재 준비중입니다.</span>
             <input type="radio" class="priradio" name="inorout" id="radioOutside" value="outside"
                    bind:group={$providePrivacyWriteData.step1.provideType} />
-            <label style="background-color: #c3c3c3;opacity: 0.5" for="radioOutside">
+            <label for="radioOutside">
                 <div class="pri_forntImg"><img src="/assets/images/common/privacy_step_img_02.png" alt=""></div>
                 <div class="priletext">
                     <h2>외부 제공</h2>
