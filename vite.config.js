@@ -37,8 +37,9 @@ export default defineConfig({
         },
         proxy: {
           '/^.*api\/.+': {
-            target: 'http://127.0.0.1:8050',
+            target: 'http://127.0.0.1:8050/',
             changeOrigin: true,
+            logLevel : 'debug',
           },
         },
       },
