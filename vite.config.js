@@ -5,7 +5,7 @@ import node from '@sveltejs/adapter-node';
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:8050', 
+  baseURL: 'http://localhost:8050', 
 });
 
 export default defineConfig({
@@ -25,7 +25,7 @@ export default defineConfig({
     target: '#svelte',
     vite: {
       server: {
-        host: 'beta.kokonut.me',
+        host: '0.0.0.0',
         port: 5173,
         middlewareMode: true,
         https: async () => {
@@ -37,7 +37,7 @@ export default defineConfig({
         },
         proxy: {
           '/^.*api\/.+': {
-            target: 'http://127.0.0.1:8050/',
+            target: 'http://localhost:8050',
             changeOrigin: true,
             logLevel : 'debug',
           },
