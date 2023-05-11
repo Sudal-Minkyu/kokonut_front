@@ -1,4 +1,4 @@
-import {customConfirmData} from "../../../lib/store.js";
+import {bannerMessage, customConfirmData} from "../../../lib/store.js";
 
 const defaultAskProp = {
     visible: true, // 팝업 보임의 여부 통제
@@ -38,4 +38,8 @@ export const openConfirm = (prop) => {
         obj = {...defaultConfirmProp, ...prop};
         return obj;
     });
+}
+
+export const openBanner = (msg) => {
+    bannerMessage.set(msg);
 }

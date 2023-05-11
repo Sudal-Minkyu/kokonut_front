@@ -205,3 +205,5 @@ export const customConfirmData = writable({
     btnStart: '실행', // 실행 버튼의 텍스트
     btnCancel: '취소', // 취소 버튼의 텍스트
 });
+
+export const bannerMessage = writable('');
