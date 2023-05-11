@@ -47,6 +47,10 @@
     function provisionList(pageNum) {
         console.log("개인정보제공 리스트 호출 클릭!");
 
+        if(provisionLayout === 1) {
+            provisionLayout = 0;
+        }
+
         page.set(pageNum);
 
         let url = "/v2/api/Provision/provisionList?page=" + pageNum+"&size="+size;
