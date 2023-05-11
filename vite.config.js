@@ -31,7 +31,7 @@ export default defineConfig({
 
         proxy: {
           '/*': {
-            target: 'https://localhost:8050',
+            target: 'https://beta.kokonut.me:8050',
             changeOrigin: true,
             secure: true,
           },
