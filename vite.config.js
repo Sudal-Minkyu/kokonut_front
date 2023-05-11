@@ -1,27 +1,15 @@
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { default as ACM } from '@aws-sdk/client-acm';
-import https from 'https';
+import node from '@sveltejs/adapter-node';
+import axios from 'axios';
+
+const instance = axios.create({
+  baseURL: 'https://beta.kokonut.me:8050', 
+});
 
 export default defineConfig({
-  plugins: [
-    svelte(),
-    {
-      name: 'vite-proxy',
-      configureServer: server => {
-        const proxy = require('http-proxy').createProxyServer();
-        server.middlewares.use((req, res, next) => {
-          if (req.url.startsWith('/*')) {
-            proxy.web(req, res, { target: 'https://beta.kokonut.me:8050', changeOrigin: true, secure: true });
-          } else if (req.url.startsWith('/socket.io')) {
-            proxy.web(req, res, { target: 'wss://beta.kokonut.me:8050', ws: true });
-          } else {
-            next();
-          }
-        });
-      },
-    },
-  ],
+  plugins: [svelte()],
 
   base: '/',
   build: {
@@ -30,12 +18,10 @@ export default defineConfig({
     assetsDir: 'static',
     minify: true,
     sourcemap: false,
-    rollupOptions: {
-      input: './src/main.js',
-    },
   },
 
   kit: {
+    adapter: node(),
     target: '#svelte',
     vite: {
       server: {
@@ -49,15 +35,45 @@ export default defineConfig({
           const credentials = { key: PrivateKey, cert: Certificate };
           return credentials;
         },
-
         proxy: {
-          '/*': {
+//      '/^.*api\/.+': {
+        '*': {
             target: 'https://beta.kokonut.me:8050',
             changeOrigin: true,
-            secure: true,
+//          logLevel : 'debug',
           },
         },
       },
     },
   },
+
+  middleware: async (app, { server }) => {
+    app.use((req, res, next) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      next();
+    });
+
+try {
+  const token = localStorage.getItem('access_token');
+  if (!token) {
+    console.log('토큰이 없습니다.');
+    delete localStorage['access_token'];
+    axios.defaults.headers.common['Authorization'] = null;
+    instance.defaults.headers.common['Authorization'] = null;
+  } else {
+    // 토큰이 있을 경우, 헤더에 Authorization을 포함시킴
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
+} catch (error) {
+  console.log(error);
+}
+    // next 함수 호출 위치 수정
+    next();
+  },
 });
+
+export { instance };
+
