@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { default as ACM } from '@aws-sdk/client-acm';
+import https from 'https';
 
 export default defineConfig({
   plugins: [
@@ -8,9 +9,12 @@ export default defineConfig({
     {
       name: 'vite-proxy',
       configureServer: server => {
+        const proxy = require('http-proxy').createProxyServer();
         server.middlewares.use((req, res, next) => {
-          if (req.url.startsWith('/*')) {
-            proxy.web(req, res, { target: 'http://localhost:8050' });
+          if (req.url.startsWith('/api')) {
+            proxy.web(req, res, { target: 'https://beta.kokonut.me:8050', changeOrigin: true, secure: true });
+          } else if (req.url.startsWith('/socket.io')) {
+            proxy.web(req, res, { target: 'wss://beta.kokonut.me:8050', ws: true });
           } else {
             next();
           }
