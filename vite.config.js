@@ -32,7 +32,7 @@ export default defineConfig({
         
                 proxy: {
                     '/*': {
-                        target: 'http://localhost:8080',
+                        target: 'http://localhost:8050',
                         changeOrigin: true,
                         },
                     },
