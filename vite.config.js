@@ -7,10 +7,10 @@ export default defineConfig({
     svelte(),
     {
       name: 'vite-proxy',
-      options: {
-        target: 'https://beta.kokonut.me:8050',
+      options: () => ({
+        target: 'http://localhost:8050',
         changeOrigin: true,
-      },
+      }),
     },
   ],
 
@@ -36,6 +36,14 @@ export default defineConfig({
           const { Certificate, PrivateKey } = await acm.getCertificate({ CertificateArn: certificateArn });
           const credentials = { key: PrivateKey, cert: Certificate };
           return credentials;
+        },
+
+        proxy: {
+          '/*': {
+            target: 'https://beta.kokonut.me:8050',
+            changeOrigin: true,
+            secure: true,
+          },
         },
       },
     },
