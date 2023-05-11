@@ -133,7 +133,7 @@
         jQuery('.floatCheckBox').css("display", 'none');
     }
 
-    // 엔터키 클릭.. 모듈화필요..
+    // 엔터키 클릭
     function enterPress(event) {
         if(event.key === "Enter") {
             // 페이지번호 초기화
