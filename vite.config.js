@@ -21,6 +21,9 @@ export default defineConfig({
     assetsDir: 'static',
     minify: true,
     sourcemap: false,
+    rollupOptions: {
+      input: './src/index.js',
+    },
   },
 
   kit: {
