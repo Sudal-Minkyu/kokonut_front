@@ -1,33 +1,31 @@
 <script>
-    import { push, link } from 'svelte-spa-router'
+    import { link } from 'svelte-spa-router'
     import { is_login, accessToken, page, knNameHeader, knEmailHeader, cpNameSider } from "../../../lib/store.js"
-    import restapi from "../../../lib/api.js"
+    import { ajaxParam } from "../../common/ajax.js";
 
     function logout() {
-        let url = "/v1/api/Auth/logout"
-
         let sendData = {
-            accessToken : $accessToken
+            accessToken : $accessToken,
         }
 
-        restapi('v1', 'logout', url, "param", sendData, 'application/json',
+        ajaxParam('/v1/api/Auth/logout', sendData,
             (json_success) => {
-                console.log(json_success)
-
                 // 기본값 초기화처리
-                $knNameHeader = ""
-                $knEmailHeader = ""
-                $cpNameSider = ""
-
-                $is_login = false
-                $accessToken = ""
-                $page  = 0
-                push("/login");
+                knNameHeader.set('');
+                knEmailHeader.set('');
+                cpNameSider.set('');
+                is_login.set(false);
+                accessToken.set('');
+                page.set(0);
+                if (json_success.data.status === 500) {
+                    alert(json_success.data.err_msg);
+                }
+                location.href='/login';
             },
             (json_error) => {
                 alert(json_error.data.err_msg);
             }
-        )
+        );
     }
 
 </script>

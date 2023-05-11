@@ -1,10 +1,11 @@
 
 <script>
     import { fade } from 'svelte/transition'
-    import { providePrivacyWriteData } from "../../../lib/store.js";
+    import {pageTransitionData, providePrivacyWriteData} from "../../../lib/store.js";
     import restapi from "../../../lib/api.js";
     import { onMount } from "svelte";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    import {push} from "svelte-spa-router";
 
     export let stateChange;
     let isMasterCheckBoxChecked = false;
@@ -122,6 +123,19 @@
         });
         filterAdminList();
     }
+
+    console.log($providePrivacyWriteData.step1);
+    const handleGoToRegisterAdmin = () => {
+        pageTransitionData.update(obj => {
+            if ($providePrivacyWriteData.step1.provideType === 'inside') {
+                obj.createTarget = 'ROLE_USER';
+            } else if ($providePrivacyWriteData.step1.provideType === 'outside') {
+                obj.createTarget = 'ROLE_GUEST';
+            }
+            return obj;
+        });
+        push('/service/adminManagement');
+    }
 </script>
 
 <div class="pri_componentWrap" in:fade>
@@ -192,43 +206,54 @@
                                                     <col style="width:22.74%;">
                                                     <col style="width:25%;">
                                                 </colgroup>
-                                                <thead>
-                                                <tr>
-                                                    <th>
-                                                        <div class="koko_check">
-                                                            <input type="checkbox" name="allcheck" id="allcheck"
-                                                                   bind:checked={isMasterCheckBoxChecked}
-                                                                   on:click={handleMasterCheckBoxChange} >
-                                                            <label for="allcheck"><em></em></label>
-                                                        </div>
-                                                    </th>
-                                                    <th>이메일</th>
-                                                    <th>이름</th>
-                                                    <th>관리자 등급</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                {#each $providePrivacyWriteData.step2.filteredOfferList as
-                                                    {adminId, knEmail, knName, knRoleDesc, knRoleCode}, i}
+                                                {#if $providePrivacyWriteData.step2.offerList.length}
+                                                    <thead>
                                                     <tr>
-                                                        <td>
+                                                        <th>
                                                             <div class="koko_check">
-                                                                <input type="checkbox" name="itemCheck" id="mem{i}" class="partcheck"
-                                                                       value={adminId}
-                                                                       on:change={handleItemCheckBoxChange} />
-                                                                <label for="mem{i}"><em></em></label>
+                                                                <input type="checkbox" name="allcheck" id="allcheck"
+                                                                       bind:checked={isMasterCheckBoxChecked}
+                                                                       on:click={handleMasterCheckBoxChange} >
+                                                                <label for="allcheck"><em></em></label>
                                                             </div>
-                                                        </td>
-                                                        <td>{knEmail}</td>
-                                                        <td>{knName}</td>
-                                                        {#if knRoleCode === "ROLE_MASTER"}
-                                                            <td>{knRoleDesc}<div class="mastericon"></div></td>
-                                                        {:else}
-                                                            <td>{knRoleDesc}</td>
-                                                        {/if}
+                                                        </th>
+                                                        <th>이메일</th>
+                                                        <th>이름</th>
+                                                        <th>관리자 등급</th>
                                                     </tr>
-                                                {/each}
-                                                </tbody>
+                                                    </thead>
+                                                    <tbody>
+                                                    {#each $providePrivacyWriteData.step2.filteredOfferList as
+                                                        {adminId, knEmail, knName, knRoleDesc, knRoleCode}, i}
+                                                        <tr>
+                                                            <td>
+                                                                <div class="koko_check">
+                                                                    <input type="checkbox" name="itemCheck" id="mem{i}" class="partcheck"
+                                                                           value={adminId}
+                                                                           on:change={handleItemCheckBoxChange} />
+                                                                    <label for="mem{i}"><em></em></label>
+                                                                </div>
+                                                            </td>
+                                                            <td>{knEmail}</td>
+                                                            <td>{knName}</td>
+                                                            {#if knRoleCode === "ROLE_MASTER"}
+                                                                <td>{knRoleDesc}<div class="mastericon"></div></td>
+                                                            {:else}
+                                                                <td>{knRoleDesc}</td>
+                                                            {/if}
+                                                        </tr>
+                                                    {/each}
+                                                    </tbody>
+                                                {:else}
+                                                    <tbody>
+                                                        <tr style="height: 52.39px; background-color: #F7F8F9;">
+                                                            <td colspan="4" class="teaMemselBox" style="font-size: 2rem;cursor: pointer;"
+                                                                on:click={handleGoToRegisterAdmin}>
+                                                                여기를 눌러 팀원을 추가해 주세요.
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                {/if}
                                             </table>
                                         </div>
                                     </div>

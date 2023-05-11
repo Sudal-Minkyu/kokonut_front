@@ -152,7 +152,7 @@
             </div>
             <p class="{emailNotForm === false ? 'notxt' : 'notxt not_work'}" style="text-align: left;margin-bottom: 10px">이메일 형식이 올바르지 않습니다.</p>
             <p class="{emailConfirm === false ? 'notxt not_work' : 'notxt'}" style="text-align: left;margin-bottom: 10px">{error_msg}</p>
-            <p class="{emailPass === false ? 'notxt not_work' : 'notxt pass'}" style="text-align: left;margin-bottom: 10px">사용하실 수 있는 이메읿입니다.</p>
+            <p class="{emailPass === false ? 'notxt not_work' : 'notxt pass'}" style="text-align: left;margin-bottom: 10px">사용하실 수 있는 이메일입니다.</p>
 
             <div class="kopop_SelBox" style="margin-top: 10px">
                 <p>관리자 등급</p>

@@ -139,7 +139,7 @@ export const personalInfoTableData = writable({
 
 
 
-const initialProvidePrivacyWrite = {
+export const initialProvidePrivacyWrite = {
     currentStage: '',
     step1: {
         provideType: '',
@@ -189,3 +189,21 @@ const initialProvidePrivacyWrite = {
 
 // 개인정보 제공 각 페이지의 기억
 export const providePrivacyWriteData = writable(JSON.parse(JSON.stringify(initialProvidePrivacyWrite)));
+
+// 페이지간 이동시 일회성으로 건너갈 데이터를 담는다. (예. 페이지 이동 후 기본값이 세팅되어야할 경우 등)
+export const pageTransitionData = writable({});
+
+export const customConfirmData = writable({
+    visible: false, // 팝업 보임의 여부 통제
+    type: 'confirm', // 'confirm' 버튼하나, 'ask' 여부 묻기
+    callback: () => {}, // 확인버튼시 동작
+    icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+    title: '제목 미설정', // 제목
+    contents1: '내용 미설정', // 내용
+    contents2: '',
+    btnCheck: '확인', // 확인 버튼의 텍스트
+    btnStart: '실행', // 실행 버튼의 텍스트
+    btnCancel: '취소', // 취소 버튼의 텍스트
+});
+
+export const bannerMessage = writable('');

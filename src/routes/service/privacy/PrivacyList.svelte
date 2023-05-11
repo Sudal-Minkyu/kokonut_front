@@ -2,13 +2,26 @@
 <script>
     import Header from "../../../components/service/layout/Header.svelte"
     import { link } from 'svelte-spa-router'
+    import { fade } from 'svelte/transition'
 
-    import {setCustomSelectBox, setDateRangePicker, setOptionItem} from "../../../lib/libSearch.js";
+    import {setCustomSelectBox, setDateRangePicker, setOptionItem, stimeVal} from "../../../lib/libSearch.js";
     import {onMount} from "svelte";
+
+    import PrivacyTable from "../../../components/service/privacy/PrivacyTable.svelte";
+    import PrivacySearch from "../../../components/service/privacy/PrivacySearch.svelte";
+    import Paging from "../../../components/common/Paging.svelte";
+
+    import {page} from "../../../lib/store.js";
+    import jQuery from "jquery";
+    import restapi from "../../../lib/api.js";
 
     onMount(async ()=>{
         await fatchSearchModule();
+        // setTimeout(() => provisionLayout = 1, 500);
 
+        // 페이지번호 초기화
+        page.set(0);
+        provisionList($page);
     })
 
     async function fatchSearchModule() {
@@ -21,6 +34,60 @@
         {id : "privacyYnSelect", use_all : true, codeName : "privacy_yn"},
         {id : "privacyStatusSelect", use_all : true, codeName : "privacy_status"},
     ];
+
+    let provisionLayout = 0;
+
+    let searchText;
+    let provision_list = [];
+    let size = 10;
+    let total = 0;
+    let total_page;
+    $: total_page = Math.ceil(total/size)
+
+    function provisionList(pageNum) {
+        console.log("개인정보제공 리스트 호출 클릭!");
+
+        page.set(pageNum);
+
+        let url = "/v2/api/Provision/provisionList?page=" + pageNum+"&size="+size;
+
+        let sendData = {
+            searchText : searchText,
+            stime : stimeVal,
+            filterDownload : jQuery("#privacyYnSelect").text(),
+            filterState :  jQuery("#privacyStatusSelect").text(),
+        };
+
+        restapi('v2', 'get', url, "param", sendData, 'application/json',
+            (json_success) => {
+                console.log(json_success);
+                if(json_success.data.status === 200) {
+                    console.log("조회된 데이터가 있습니다.");
+                    provision_list = json_success.data.datalist
+                    total = json_success.data.total_rows
+                } else {
+                    provision_list = [];
+                    total = 0;
+                    console.log("조회된 데이터가 없습니다.");
+                }
+                provisionLayout = 1;
+            },
+            (json_error) => {
+                console.log(json_error);
+                console.log("개인정보제공 리스트 호출 실패");
+            }
+        )
+
+    }
+
+    // 엔터키 클릭
+    function enterPress(event) {
+        if(event.key === "Enter") {
+            // 페이지번호 초기화
+            page.set(0);
+            provisionList($page);
+        }
+    }
 
 </script>
 
@@ -36,164 +103,26 @@
             </div>
         </div>
 
+        <div class="koinput marB32">
+            <input type="text" bind:value="{searchText}" on:keypress={enterPress} class="wid360" placeholder="제공자 검색" />
+            <button on:click={() => provisionList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
+        </div>
+
         <!-- 상단 검색 영역 -->
-        <div class="seaWrap marB28">
-<!--            <div class="kotopBtn"><button><img src="/assets/images/common/top_down_arrow.png" alt="" class="top_down_arrow">이력 다운로드</button></div>-->
-            <div class="koinput marB32">
-                <input type="text" class="wid360" placeholder="담당자 검색" />
-                <button><img src="/assets/images/common/icon_search.png" alt=""></button>
+        <PrivacySearch />
+
+        {#if provisionLayout === 0}
+            <div class="loaderParent" style="left: 55%">
+                <div class="loader"></div>
             </div>
-            <div class="seaContentBox">
-                <div class="seaContentLine borB">
-                    <div class="seaCont wid500">
-                        <dl>만든 날짜</dl>
-                        <div class="calenderBox">
-                            <div class="calenderInput">
-                                <input id="stime" type="text" class="form-control" placeholer="날짜선택" aria-describedby="stime_addon" readonly />
-                                <img src="/assets/images/common/callendericon.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="seaRadioBox borL">
-                        <div class="seaRadio">
-                            <div class="check radioCheck">
-                                <input type="radio" class="radio" name="period" id="당일" value="1" checked>
-                                <label for="당일"><em><dt></dt></em>당일</label>
-                            </div>
-                            <div class="check radioCheck">
-                                <input type="radio" class="radio" name="period" id="최근 1주일" value="7" >
-                                <label for="최근 1주일"><em><dt></dt></em>최근 1주일</label>
-                            </div>
-                            <div class="check radioCheck">
-                                <input type="radio" class="radio" name="period" id="최근 한 달" value="30" >
-                                <label for="최근 한 달"><em><dt></dt></em>최근 한 달</label>
-                            </div>
-                            <div class="check radioCheck">
-                                <input type="radio" class="radio" name="period" id="최근 3개월" value="90">
-                                <label for="최근 3개월"><em><dt></dt></em>최근 3개월</label>
-                            </div>
-                            <div class="check radioCheck">
-                                <input type="radio" class="radio" name="period" id="최근 6개월" value="180">
-                                <label for="최근 6개월"><em><dt></dt></em>최근 6개월</label>
-                            </div>
-                            <div class="check radioCheck">
-                                <input type="radio" class="radio" name="period" id="사용자 지정" value="0">
-                                <label for="사용자 지정"><em><dt></dt></em>사용자 지정</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="seaContentLine">
-                    <div class="seaCont wid33per">
-                        <dl>다운로드 유무</dl>
-                        <div class="sc_SelBox">
-                            <div class="selectBox wid164">
-                                <div class="label" id="privacyYnSelect">활동 전체</div>
-                                <ul class="optionList">
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="seaCont wid33per">
-                        <dl>상태</dl>
-                        <div class="sc_SelBox">
-                            <div class="selectBox wid164">
-                                <div class="label" id="privacyStatusSelect">활동 전체</div>
-                                <ul class="optionList">
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        {:else}
+            <div in:fade>
+                <!-- 테이블 영역 -->
+                <PrivacyTable {provision_list} {size} {total} />
+
+                <!-- 페이징 영역 -->
+                <Paging total_page="{total_page}" data_list="{provision_list}" dataFunction="{provisionList}" />
             </div>
-        </div>
-
-        <!-- 테이블 영역 -->
-        <div class="kotable privacyList">
-
-            <table>
-                <caption>개인정보 처리이력 리스트</caption>
-                <colgroup>
-                    <col style="width:5.48%;">
-                    <col style="width:9.59%;">
-                    <col style="width:10.96%;">
-                    <col style="width:13.70%;">
-                    <col style="width:19.18%;">
-                    <col style="width:9.59%;">
-                    <col style="width:10.96%;">
-                    <col style="width:9.59%;">
-                    <col style="width:10.96%;">
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>No</th>
-                    <th>상태</th>
-                    <th>담당자</th>
-                    <th>만든 날짜</th>
-                    <th>제공 기간</th>
-                    <th>다운로드 유무</th>
-                    <th>제공인원 수</th>
-                    <th>다운로드 횟수</th>
-                    <th>상세보기</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>3</td>
-                    <td>
-                        <div class="condition ing">제공중</div>
-                    </td>
-                    <td>최*리</td>
-                    <td>2023. 01. 01</td>
-                    <td>23.03.03 ~ 23.04.04</td>
-                    <td>Y</td>
-                    <td><div>13</div></td>
-                    <td><div class="dcount downcountPop">3</div></td>
-                    <td><div class="dlink dlinkPop">상세보기</div></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>
-                        <div class="condition complete">제공완료</div>
-                    </td>
-                    <td>최*리</td>
-                    <td>2023. 01. 01</td>
-                    <td>23.03.03 ~ 23.04.04</td>
-                    <td>Y</td>
-                    <td><div>8</div></td>
-                    <td><div class="dcount downcountPop">3</div></td>
-                    <td><div class="dlink dlinkPop">상세보기</div></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>
-                        <div class="condition waiting">대기중</div>
-                    </td>
-                    <td>최*리</td>
-                    <td>2023. 01. 01</td>
-                    <td>23.03.03 ~ 23.04.04</td>
-                    <td>Y</td>
-                    <td><div>15</div></td>
-                    <td><div class="dcount downcountPop">3</div></td>
-                    <td><div class="dlink dlinkPop">상세보기</div></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <!-- 페이징 영역 -->
-        <div class="paginationBox marT40">
-            <ul class="pagination">
-                <li class="page-item page-pre disabled"><a class="page-link" aria-label="previous page" href="javascript:void(0)"></a></li>
-                <li class="page-item active"><a class="page-link" aria-label="to page 1" href="javascript:void(0)">1</a></li>
-                <li class="page-item"><a class="page-link" aria-label="to page 2" href="javascript:void(0)">2</a></li>
-                <li class="page-item"><a class="page-link" aria-label="to page 3" href="javascript:void(0)">3</a></li>
-                <li class="page-item"><a class="page-link" aria-label="to page 4" href="javascript:void(0)">4</a></li>
-                <li class="page-item"><a class="page-link" aria-label="to page 5" href="javascript:void(0)">5</a></li>
-                <li class="page-item page-last-separator disabled"><a class="page-link" aria-label="" href="javascript:void(0)">...</a></li>
-                <li class="page-item"><a class="page-link" aria-label="to page 93" href="javascript:void(0)">93</a></li>
-                <li class="page-item page-next"><a class="page-link" aria-label="next page" href="javascript:void(0)"></a></li>
-            </ul>
-        </div>
-
+        {/if}
     </div>
 </section>

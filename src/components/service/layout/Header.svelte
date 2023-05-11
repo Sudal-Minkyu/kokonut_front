@@ -4,6 +4,8 @@
     import {is_login, knNameHeader, knEmailHeader, cpNameSider, role, electronic} from "../../../lib/store.js"
     import restapi from "../../../lib/api.js";
     import {beforeUpdate} from "svelte";
+    import CustomConfirm from "../../common/ui/CustomConfirm.svelte";
+    import Banner from "../../common/ui/Banner.svelte";
 
     // let auth = false;
     //
@@ -44,3 +46,5 @@
 <Sider />
 <!--{/if}-->
 
+<CustomConfirm />
+<Banner />

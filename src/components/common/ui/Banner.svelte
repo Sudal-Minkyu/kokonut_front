@@ -1,6 +1,19 @@
 <script>
     import { fade } from 'svelte/transition'
-    export let prop;
+    import {bannerMessage} from "../../../lib/store.js";
+    import {afterUpdate} from "svelte";
+
+    // 배너가 구현되고 나서 2초 후에 배너를 사라지게 한다.
+    // 동시에 여러개의 배너가 뜰 경우 마지막 배너를 기준으로 2초 뒤 사라진다.
+    afterUpdate(async => {
+        console.log($bannerMessage)
+        const msgWhenStart = $bannerMessage;
+        setTimeout(() => {
+            if (msgWhenStart === $bannerMessage) {
+                bannerMessage.set('');
+            }
+        }, 2000);
+    });
 </script>
 
 <style>
@@ -11,6 +24,7 @@
         right: 40%;
         font-size: 22px;
         text-align: center;
+        z-index: 1500;
     }
 
     .titleMessage{
@@ -22,8 +36,8 @@
     }
 </style>
 
-{#if prop.titleClick}
+{#if $bannerMessage}
     <div class="titleDiv" in:fade out:fade>
-        <p class="titleMessage">{prop.titleMessage}</p>
+        <p class="titleMessage">{$bannerMessage}</p>
     </div>
 {/if}

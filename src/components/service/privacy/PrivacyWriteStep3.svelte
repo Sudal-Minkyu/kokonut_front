@@ -25,11 +25,9 @@
                 <div class="callender_radio_box">
                     <div class="start_end_search_box">
                         <div class="start_end_search_Inner">
-                            <div class="calenderBox">
+                            <div class="calenderBox" style="padding: 1.5rem 3rem 1.5rem 0;">
                                 <div class="calenderInput">
-                                    <input id="stime" type="text" class="form-control" placeholer="날짜선택"
-                                           aria-describedby="stime_addon" style="background: #F4F5F7;" readonly />
-                                    <img src="/assets/images/common/callendericon.png" alt="">
+                                    <input id="stime" type="text" class="form-control" aria-describedby="stime_addon" style="width: 125%;" readonly />
                                 </div>
                             </div>
                         </div>
@@ -37,7 +35,7 @@
 
                     <div class="seaRadio">
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="radioToday" value="-1" />
+                            <input type="radio" class="radio" name="period" id="radioToday" value="-1" checked/>
                             <label for="radioToday"><em><dt></dt></em>오늘</label>
                         </div>
                         <div class="check radioCheck">
@@ -57,7 +55,7 @@
                             <label for="radio6Month"><em><dt></dt></em>6개월</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="사용자 지정" value="-0" checked/>
+                            <input type="radio" class="radio" name="period" id="사용자 지정" value="-0"/>
                             <label for="사용자 지정"><em><dt></dt></em>사용자 지정</label>
                         </div>
                     </div>

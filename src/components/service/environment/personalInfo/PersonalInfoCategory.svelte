@@ -96,7 +96,7 @@
 
                         {#each $personalInfoCategoryData.basicCategoryList as {cdName, categoryItemListDtoList}, i}
                             <div class="cateS_checkInner" style="display:none;">
-                                {#each categoryItemListDtoList as {ciName, categoryName}, j}
+                                {#each categoryItemListDtoList as {ciName, categoryName, textColor}, j}
                                     <div class="cateS_check">
                                         <input type="checkbox" name="itemCheck" id="cates_{i + 1}{j}" value={ciName}
                                                bind:group={$personalInfoCategoryData.checkedItemNameList}
@@ -107,7 +107,7 @@
                                             <p class="check">{ciName}</p>
                                         </label>
                                         <!-- 클래스 받은값으로 색변경 -->
-                                        <span class="subElement redtext">{categoryName}</span>
+                                        <span class="subElement {textColor}">{categoryName}</span>
                                     </div>
                                 {/each}
                             </div>

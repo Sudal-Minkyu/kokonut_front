@@ -19,10 +19,11 @@
         from "../../../components/service/environment/personalInfo/PersonalInfoRemoveColumnPop.svelte";
     import PersonalInfoInsertItemPop
         from "../../../components/service/environment/personalInfo/PersonalInfoInsertItemPop.svelte";
-    import CustomAlert from "../../../components/common/ui/CustomConfirm.svelte";
-    import Banner from "../../../components/common/ui/Banner.svelte";
     import PersonalInfoEditItemPop
         from "../../../components/service/environment/personalInfo/PersonalInfoEditItemPop.svelte";
+    import {openAsk, openBanner} from "../../../components/common/ui/DialogManager.js";
+    import Banner from "../../../components/common/ui/Banner.svelte";
+    import {ajaxBody, ajaxGet, ajaxParam} from "../../../components/common/ajax.js";
 
     const personalInfoItemProp = {
         isLoadingScreenOn: true,
@@ -59,21 +60,6 @@
                     console.log("테이블컬럼 리스트 호출 실패");
                 }
             )
-        },
-        banner: {
-            titleMessage: '',
-            titleClick: false,
-            activateBanner(message) {
-                personalInfoItemProp.banner.titleMessage = message;
-                personalInfoItemProp.banner.titleClick = true;
-                setTimeout(() => {
-                    if (personalInfoItemProp.banner.titleClick) {
-                        personalInfoItemProp.banner.titleClick = false;
-                    }
-                }, 2000);
-            }
-        },
-        customConfirmControl: {
         },
     }
 
@@ -134,7 +120,7 @@
                     (json_success) => {
                         if (json_success.data.status === 200) {
                             personalInfoCategoryService.getAdditionalItemList();
-                            personalInfoItemProp.banner.activateBanner("선택한 항목을 추가하였습니다.");
+                            openBanner("선택한 항목을 추가하였습니다.");
                         } else if (json_success.data.err_code === 'KO087') {
                             alert('이미 등록되어 있는 항목입니다.');
                         }
@@ -224,7 +210,7 @@
                         if (json_success.data.status === 200) {
                             personalInfoCategoryService.getAdditionalItemList();
                             personalInfoCategoryService.editItemPop.hide();
-                            personalInfoItemProp.banner.activateBanner("선택한 항목명을 수정하였습니다.");
+                            openBanner("선택한 항목명을 수정하였습니다.");
                         } else {
                             // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                             // alert(json_success.data.err_msg);
@@ -243,12 +229,12 @@
                 let sendData = {
                     ciId: $personalInfoCategoryData.editItemPop.inputData.ciId,
                 }
-                restapi('v2', 'post', "/v2/api/Company/deleteItem", "param", sendData, 'application/json',
+                ajaxParam('/v2/api/Company/deleteItem', sendData,
                     (json_success) => {
                         if (json_success.data.status === 200) {
                             personalInfoCategoryService.getAdditionalItemList();
                             personalInfoCategoryService.editItemPop.hide();
-                            personalInfoItemProp.banner.activateBanner("선택한 항목을 삭제하였습니다.");
+                            openBanner("선택한 항목을 삭제하였습니다.");
                         } else {
                             // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                             // alert(json_success.data.err_msg);
@@ -279,9 +265,7 @@
             },
             handleAddItemBtnClick() {
                 if ($personalInfoCategoryData.checkedItemObjList.length !== 0) {
-                    personalInfoItemProp.customConfirmControl = {
-                        visible: true, // 팝업 보임의 여부 통제
-                        type: 'ask', // 'confirm' 버튼하나, 'ask' 여부 묻기
+                    openAsk({
                         callback: personalInfoCategoryService.insertItemPop.addItemListToTable, // 확인버튼시 동작
                         icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                         title: '선택 항목 등록 확인', // 제목
@@ -289,22 +273,21 @@
                         contents2: '등록 하시겠습니까?',
                         btnStart: '확인', // 실행 버튼의 텍스트
                         btnCancel: '취소', // 취소 버튼의 텍스트
-                    }
+                    })
                 } else {
-                    personalInfoItemProp.banner.activateBanner("추가할 항목을 선택해주세요.");
+                    openBanner("추가할 항목을 선택해주세요.");
                 }
             },
             addItemListToTable() {
-                let url = "/v2/api/DynamicUser/tableColumnAdd";
                 let sendData = {
                     tableName: personalInfoItemProp.currentSelectedTab,
                     kokonutAddColumnListDtos: $personalInfoCategoryData.checkedItemObjList
                 }
 
-                restapi('v2', 'post', url, "body", sendData, 'application/json',
+                ajaxBody('/v2/api/DynamicUser/tableColumnAdd', sendData,
                     (json_success) => {
                         if (json_success.data.status === 200) {
-                            personalInfoItemProp.banner.activateBanner("선택한 항목을 추가하였습니다.");
+                            openBanner("선택한 항목을 추가하였습니다.");
 
                             personalInfoItemProp.userTableClick(personalInfoItemProp.currentSelectedTab)
                             personalInfoCategoryService.resetCheckedItemState();
@@ -406,10 +389,7 @@
             });
         },
         getAdditionalItemList() {
-
-            let url = "/v2/api/Company/addItemList";
-
-            restapi('v2', 'get', url, "", {}, 'application/json',
+            ajaxGet('/v2/api/Company/addItemList', false,
                 (json_success) => {
                     if(json_success.data.status === 200) {
                         personalInfoCategoryData.update(obj => {
@@ -435,7 +415,7 @@
                     console.log(json_error);
                     console.log("추가 카테고리항목 호출 실패");
                 }
-            )
+            );
         },
         getBasicCategoryList() {
             restapi('v2', 'get', '/v2/api/Company/categoryList', '', {}, 'application/json',
@@ -577,7 +557,7 @@
                     (json_success) => {
                         if(json_success.data.status === 200) {
                             personalInfoTableService.removeColumnPop.hide();
-                            personalInfoItemProp.banner.activateBanner('선택하신 개인정보 항목을 삭제하였습니다.');
+                            openBanner('선택하신 개인정보 항목을 삭제하였습니다.');
                             personalInfoItemProp.userTableClick(targetData.tableName);
                         } else {
                             // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
@@ -673,8 +653,6 @@
             <h1>개인정보 항목 관리</h1>
         </div>
 
-        <Banner prop={personalInfoItemProp.banner} />
-
         {#if personalInfoItemProp.isLoadingScreenOn}
             <div class="loaderParent">
                 <div class="loader"></div>
@@ -710,7 +688,6 @@
     <PersonalInfoRemoveColumnPop {personalInfoTableService} />
 {/if}
 
-<CustomAlert prop={personalInfoItemProp.customConfirmControl} />
 
 <!-- [D] 전자상거래 적용 대상 팝업 -->
 <!--<div class="koko_popup commerce_pop" data-popup="commerce_pop" style="display:block;">-->

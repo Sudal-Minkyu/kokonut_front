@@ -9,19 +9,40 @@
     import Paging from '../../../components/common/Paging.svelte'
 
     import { onMount } from 'svelte';
-    import { page } from "../../../lib/store.js";
+    import { page, pageTransitionData } from "../../../lib/store.js";
     import restapi from "../../../lib/api.js";
 
     import {setCustomSelectBox, setOptionItem} from "../../../lib/libSearch.js";
+    import {commonCode} from "../../../lib/commonCode.js";
 
     onMount(async ()=>{
         await fatchSearchModule();
-
-
         // 페이지번호 초기화
         page.set(0);
         adminList($page);
+        checkPageTransitionDataExists();
     })
+
+    // 입장시 다른페이지로부터 관리자등록 팝업을 열어 특정 관리자 등급을 선택하기를 요청한 경우
+    // 페이지가 열리고 검사를 통해 팝업을 열어주고 관리자 등급을 선택시킨 화면을 띄운다.
+    const checkPageTransitionDataExists = () => {
+        if ($pageTransitionData.createTarget) {
+            const role = commonCode.filter(obj => obj.label === 'admin_create_role_code')
+                .filter(obj => obj.value === $pageTransitionData.createTarget);
+
+            if (role.length) {
+                adminSavePopChange();
+                setTimeout(() => {
+                    const selectBox = document.getElementById('createAdminRoleSelect');
+                    selectBox.innerHTML = role[0].text;
+                    selectBox.dataset.value = role[0].value;
+                    pageTransitionData.set({});
+                }, 0);
+            } else {
+                pageTransitionData.set({});
+            }
+        }
+    }
 
     async function fatchSearchModule(){
         setCustomSelectBox();

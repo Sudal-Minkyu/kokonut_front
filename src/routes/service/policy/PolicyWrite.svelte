@@ -18,7 +18,7 @@
 
     import restapi from "../../../lib/api.js";
 
-    import CustomConfirm from "../../../components/common/ui/CustomConfirm.svelte";
+    import {openAsk} from "../../../components/common/ui/DialogManager.js";
 
     const tooltipEvent = (e) => {
         console.log('act');
@@ -108,9 +108,7 @@
         if(stage === 1 && $piId === 0) {
             push("/service/policyList")
         } else {
-            customConfirmProp = {
-                visible: true, // 팝업 보임의 여부 통제
-                type: 'ask', // 'confirm' 버튼하나, 'ask' 여부 묻기
+            const customConfirmProp = {
                 callback: startFun, // 확인버튼시 동작
                 icon: 'question', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                 title: '제작을 중단하시겠습니까?', // 제목
@@ -119,7 +117,7 @@
                 btnStart: '예', // 확인 버튼의 텍스트
                 btnCancel: '아니오'
             }
-            customConfirmPropFun(customConfirmProp);
+            openAsk(customConfirmProp);
         }
     }
 
@@ -195,11 +193,6 @@
             }
         )
     }
-
-    let customConfirmProp;
-    function customConfirmPropFun(customConfirm) {
-        customConfirmProp = customConfirm;
-    }
 </script>
 
 <Header />
@@ -228,7 +221,7 @@
         {:else if stage === 6}
             <PolicyWriteStep6 {stateChange} {policyWriting} />
         {:else if stage === 7}
-            <PolicyWriteStep7 {stateChange} {customConfirmPropFun} {customConfirmProp} />
+            <PolicyWriteStep7 {stateChange} />
         {/if}
 
     </div>
@@ -237,5 +230,3 @@
 {#if writingCheck}
     <PolicyWritingCheck {startFun} {policyWriting} {writingCheckChange} />
 {/if}
-
-<CustomConfirm prop={customConfirmProp} />
