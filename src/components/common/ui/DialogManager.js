@@ -26,6 +26,10 @@ const defaultConfirmProp = {
     btnCancel: '', // 취소 버튼의 텍스트
 }
 
+/**
+ * 두개의 버튼을 가진 물음창을 연다.
+ * @param prop : object - 전달할 설정값
+ */
 export const openAsk = (prop) => {
     customConfirmData.update(obj => {
         obj = {...defaultAskProp, ...prop};
@@ -33,6 +37,10 @@ export const openAsk = (prop) => {
     });
 }
 
+/**
+ * 한개의 버튼을 가진 확인창을 연다.
+ * @param prop : object - 전달할 설정값
+ */
 export const openConfirm = (prop) => {
     customConfirmData.update(obj => {
         obj = {...defaultConfirmProp, ...prop};
@@ -40,6 +48,10 @@ export const openConfirm = (prop) => {
     });
 }
 
+/**
+ * 화면 중앙상단에 잠시 나타났다가 사라지는 메시지를 띄운다.
+ * @param msg : string - 전달할 메시지
+ */
 export const openBanner = (msg) => {
     bannerMessage.set(msg);
 }
