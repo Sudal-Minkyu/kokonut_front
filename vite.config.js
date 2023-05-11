@@ -1,9 +1,6 @@
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { default as ACM } from '@aws-sdk/client-acm';
-import node from '@sveltejs/adapter-node';
-import axios from 'axios';
-import https from 'https';
 
 export default defineConfig({
     plugins: [svelte()],
@@ -15,7 +12,7 @@ export default defineConfig({
         assetsDir: 'static',
         minify: true,
         sourcemap: false,
-        },
+        }, 
 
     kit: {
         adapter: node(),
@@ -34,74 +31,13 @@ export default defineConfig({
                     },
         
                 proxy: {
-                    '*': {
-                    target: 'https://beta.kokonut.me:8050',
-                    changeOrigin: true,
-                    https: true,
-                    agent: new https.Agent({
-                    rejectUnauthorized: false,
-                    }),
-                  },
-                },
+                    '/*': {
+                        target: 'http://localhost:8080',
+                        changeOrigin: true,
+                        },
+                    },
             },
         },
-    },
+    }, //kit
     
-    
-    async middleware({ app, server }) {
-    app.use((req, res, next) => {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-      next();
-    });
-
-    const instance = axios.create({
-      baseURL: '/',
-    });
-
-    function saveToken(token) {
-      localStorage.setItem('access_token', token);
-    }
-
-    function getToken() {
-      return localStorage.getItem('access_token');
-    }
-
-    instance.interceptors.request.use(
-      config => {
-        const token = getToken();
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-      },
-      error => {
-        return Promise.reject(error);
-      }
-    );
-
-    instance.interceptors.response.use(
-      response => response,
-      error => {
-        if (error.response.status === 401) {
-          console.log('토큰이 만료되었거나 잘못되었습니다.');
-          delete localStorage['access_token'];
-        }
-        return Promise.reject(error);
-      }
-    );
-
-    try {
-      const token = getToken();
-      if (!token) {
-        console.log('토큰이 없습니다.');
-        delete localStorage['access_token'];
-      } else {
-        instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  },
 });
