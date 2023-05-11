@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
- https from 'https';import { default as ACM } from '@aws-sdk/client-acm';
+import { default as ACM } from '@aws-sdk/client-acm';
 import node from '@sveltejs/adapter-node';
 import axios from 'axios';
 import https from 'https';
