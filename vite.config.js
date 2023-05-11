@@ -3,6 +3,7 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { default as ACM } from '@aws-sdk/client-acm';
 import node from '@sveltejs/adapter-node';
 import axios from 'axios';
+import https from 'https';
 
 export default defineConfig({
     plugins: [svelte()],
@@ -20,32 +21,39 @@ export default defineConfig({
         adapter: node(),
         target: '#svelte',
         vite: {
-        server: {
-            host: '0.0.0.0',
-            port: 5173,
-            middlewareMode: true,
-            https: async () => {
-        const certificateArn = 'arn:aws:acm:ap-northeast-2:352166812188:certificate/95fe692e-f69e-42d0-9f48-e7dc29375423';
-        const acm = new ACM({});
-        const { Certificate, PrivateKey } = await acm.getCertificate({ CertificateArn: certificateArn });
-        const credentials = { key: PrivateKey, cert: Certificate };
-        return credentials;
-        },
+            server: {
+                host: '0.0.0.0',
+                port: 5173,
+                middlewareMode: true,
+                https: async () => {
+                    const certificateArn = 'arn:aws:acm:ap-northeast-2:352166812188:certificate/95fe692e-f69e-42d0-9f48-e7dc29375423';
+                    const acm = new ACM({});
+                    const { Certificate, PrivateKey } = await acm.getCertificate({ CertificateArn: certificateArn });
+                    const credentials = { key: PrivateKey, cert: Certificate };
+                    return credentials;
+                    },
         
-    proxy: {
-    '*': {
-        target: 'https://beta.kokonut.me:8050',
-        changeOrigin: true,
+                proxy: {
+                    '*': {
+                    target: 'https://beta.kokonut.me:8050',
+                    changeOrigin: true,
+                    https: true,
+                    agent: new https.Agent({
+                    rejectUnauthorized: false,
+                    }),
+                  },
+                },
+            },
         },
     },
-    },
-
-    middlewares: async (app, { server }) => {   
-        app.use((req, res, next) => {
-        res.setHeader('Access-Control-Allow-Origin', '');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-        next();
+    
+    
+    async middleware({ app, server }) {
+    app.use((req, res, next) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      next();
     });
 
     const instance = axios.create({
@@ -96,7 +104,4 @@ export default defineConfig({
       console.log(error);
     }
   },
-},
-
-},
 });
