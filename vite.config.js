@@ -11,7 +11,7 @@ export default defineConfig({
       configureServer: server => {
         const proxy = require('http-proxy').createProxyServer();
         server.middlewares.use((req, res, next) => {
-          if (req.url.startsWith('/api')) {
+          if (req.url.startsWith('/*')) {
             proxy.web(req, res, { target: 'https://beta.kokonut.me:8050', changeOrigin: true, secure: true });
           } else if (req.url.startsWith('/socket.io')) {
             proxy.web(req, res, { target: 'wss://beta.kokonut.me:8050', ws: true });
