@@ -15,7 +15,7 @@ export default defineConfig({
         }, 
 
     kit: {
-        adapter: node(),
+  //    adapter: node(),
         target: '#svelte',
         vite: {
             server: {
