@@ -22,9 +22,9 @@ export default defineConfig({
     minify: true,
     sourcemap: false,
     rollupOptions: {
-      input: './src/index.js',
+        input: './src/main.js',
+        },
     },
-  },
 
   kit: {
     target: '#svelte',
