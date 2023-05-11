@@ -7,10 +7,15 @@ export default defineConfig({
     svelte(),
     {
       name: 'vite-proxy',
-      options: () => ({
-        target: 'http://localhost:8050',
-        changeOrigin: true,
-      }),
+      configureServer: server => {
+        server.middlewares.use((req, res, next) => {
+          if (req.url.startsWith('/*')) {
+            proxy.web(req, res, { target: 'http://localhost:8050' });
+          } else {
+            next();
+          }
+        });
+      },
     },
   ],
 
@@ -22,9 +27,9 @@ export default defineConfig({
     minify: true,
     sourcemap: false,
     rollupOptions: {
-        input: './src/main.js',
-        },
+      input: './src/index.js',
     },
+  },
 
   kit: {
     target: '#svelte',
