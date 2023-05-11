@@ -33,8 +33,8 @@ export default defineConfig({
         },
         
     proxy: {
-    '': {
-        target: 'http://localhost:8050',
+    '/*': {
+        target: 'https://beta.kokonut.me:8050',
         changeOrigin: true,
         },
     },
@@ -49,7 +49,7 @@ export default defineConfig({
     });
 
     const instance = axios.create({
-      baseURL: 'http://localhost:8050',
+      baseURL: '/*',
     });
 
     function saveToken(token) {
