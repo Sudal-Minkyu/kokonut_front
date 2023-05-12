@@ -37,7 +37,7 @@ export default defineConfig({
         },
         proxy: {
 //      '/^.*api\/.+': {
-        '*': {
+        '/**': {
             target: 'https://beta.kokonut.me:8050',
             changeOrigin: true,
 //          logLevel : 'debug',
