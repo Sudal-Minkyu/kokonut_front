@@ -170,6 +170,8 @@ export const initialProvidePrivacyWrite = {
         tableList: [],
         columnList: [],
         targetColumnList: [],
+        sendDataList: [],
+        displayColumnList: [],
     },
     step5: {
         provideTargetMemberScope: '',
