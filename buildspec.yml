@@ -13,7 +13,7 @@ phases:
     commands:
       - npm install
       - npm uninstall vite-plugin-proxy
-      - npm install vite-plugin-proxy@1.6.3 --save-dev
+      - npm install vite-plugin-proxy@2.0.0 --save-dev
       
   build:
     commands:
