@@ -65,7 +65,7 @@ export default defineConfig({
 
     // API 요청 처리
     app.use(async (req, res, next) => {
-      if (req.url.startsWith('/api/')) {
+      if (req.url.startsWith('/v*/api/')) {
         try {
           const response = await instance.request({
             url: req.url,
