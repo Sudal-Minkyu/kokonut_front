@@ -7,6 +7,8 @@
     export let total;
     export let provision_list;
 
+    export let downloadHistoryClick;
+
 </script>
 
 <div class="kotable privacyList">
@@ -54,7 +56,7 @@
                     <td>{provision.proStartDate} ~ {provision.proExpDate}</td>
                     <td>{provision.proDownloadYn}</td>
                     <td>{provision.offerCount}</td>
-                    <td><div class="dcount downcountPop">{provision.downloadCount}</div></td>
+                    <td><div class="dcount downcountPop" on:click={() => downloadHistoryClick(provision.proCode)}>{provision.downloadCount}</div></td>
                     <td>
                         <div class="dlink">
                             <a use:link href="/service/privacyDetail/{provision.proCode}">상세보기</a>
