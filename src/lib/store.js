@@ -142,7 +142,7 @@ export const personalInfoTableData = writable({
 export const initialProvidePrivacyWrite = {
     currentStage: '',
     step1: {
-        provideType: '',
+        proProvide: '', // 0 내부제공, 1 외부제공
     },
     step2: {
         provideTargetType: '',
@@ -158,14 +158,12 @@ export const initialProvidePrivacyWrite = {
         selectedAdminObjList: [],
     },
     step3: {
-        providePeriod: {
-            fromDate: '',
-            toDate: '',
-        },
-        isDownloadAvailable: '',
+        proStartDate: '',
+        proExpDate: '',
+        proDownloadYn: '', // 다운로드 유무 - 0: NO, 1:YES
     },
     step4: {
-        provideColumnScope: '',
+        proTargetType: '', // 제공 개인정보 여부 - 0: 전체 개인정보, 1: 일부 개인정보
         tableList: [],
         columnList: [],
         targetColumnList: [],
@@ -176,16 +174,20 @@ export const initialProvidePrivacyWrite = {
         provideTargetMemberScope: '',
         searchCondition: {
             id: '',
-            regDate: {
+            registerDate: {
                 fromDate: '',
                 toDate: '',
             },
             lastLoginDate: {
                 fromDate: '',
                 toDate: '',
-            }
+            },
+            orderBy: '',
         },
         memberList: [],
+        filteredMemberList: [],
+        piplTargetIdxs: [],
+        displayColumnList: [],
     },
 }
 
