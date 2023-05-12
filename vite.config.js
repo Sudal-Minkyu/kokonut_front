@@ -5,13 +5,13 @@ export default defineConfig({
   plugins: [svelte()],
   server: {
     proxy: {
-      '/v*/api': {
+      '/v*/api/**': {
         target: 'https://beta.kokonut.me:8050',
         changeOrigin: true,
         secure: false,
         headers: {
           'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Methods': 'GET, POST',
           'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Authorization',
         },
         rewrite: (path) => path.replace(/^\/v+\//, '/')
