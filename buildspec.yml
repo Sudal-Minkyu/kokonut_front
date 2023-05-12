@@ -12,7 +12,6 @@ phases:
   pre_build:
     commands:
       - npm install
-      - npm install vite-plugin-proxy --save-dev
       - npm install --save-dev vite-plugin-proxy
       
       - npm install @aws-sdk/client-acm
