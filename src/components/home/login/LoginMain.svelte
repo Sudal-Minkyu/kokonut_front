@@ -5,6 +5,7 @@
     import LoginOTP from './LoginOTP.svelte'
     import { is_login, accessToken, emailSave } from '../../../lib/store'
     import { callCapsLock } from '../../../lib/common'
+    import {ajaxGet} from "../../common/ajax.js";
 
     let emailBlank;
     let pwdBlank;
@@ -118,6 +119,16 @@
         }
     }
 
+    const ajaxTest = () => {
+        ajaxGet('/v1/api/Auth/checkKnEmail', {knEmail: 'joffrey@kokonut.me'}, (success) => {
+            alert('API 호출 성공입니다.');
+            console.log('성공콘솔', success);
+        }, (fail) => {
+            alert('API 호출 실패입니다. 콘솔참조');
+            console.log('실패콘솔', fail);
+        });
+    }
+
 </script>
 
 {#if stage === 0}
@@ -149,6 +160,7 @@
     </div>
     <div class="join_bottom login">
         <button type="button" on:click={loginBtn}><p>로그인</p></button>
+        <button type="button" on:click={ajaxTest}><p>통신테스트</p></button>
     </div>
 {:else}
     <LoginOTP {stageChange} {notJoinUser} {googleOtpLogin} {knEmail} {otpError} {otp_err_msg} />

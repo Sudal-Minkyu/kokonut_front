@@ -24,6 +24,7 @@ export const knNameHeader = writable(""); // 헤더바에 나올 사용자명
 export const knEmailHeader = writable(""); // 기본적으로 가져오는 나의 이메일스토어값
 export const cpNameSider = writable(""); // 사이드바에 나올 소속명
 export const backBtn = writable("<-"); // 뒤로가기버튼 텍스트
+export const popupPage = writable(0); // 팝업용 페이지번호
 
 export const role = writable(""); // 현재 권한
 export const electronic = writable(""); // 전자상거래법 대상 여부 : 0 -> 전자상거래법여부를 모르거나 최초일경우, 1->전자상거래법대상 일경우, 2->전자상거래법대상이 아닐경우
@@ -142,7 +143,7 @@ export const personalInfoTableData = writable({
 export const initialProvidePrivacyWrite = {
     currentStage: '',
     step1: {
-        provideType: '',
+        proProvide: '', // 0 내부제공, 1 외부제공
     },
     step2: {
         provideTargetType: '',
@@ -158,32 +159,36 @@ export const initialProvidePrivacyWrite = {
         selectedAdminObjList: [],
     },
     step3: {
-        providePeriod: {
-            fromDate: '',
-            toDate: '',
-        },
-        isDownloadAvailable: '',
+        proStartDate: '',
+        proExpDate: '',
+        proDownloadYn: '', // 다운로드 유무 - 0: NO, 1:YES
     },
     step4: {
-        provideColumnScope: '',
+        proTargetType: '', // 제공 개인정보 여부 - 0: 전체 개인정보, 1: 일부 개인정보
         tableList: [],
         columnList: [],
         targetColumnList: [],
+        sendDataList: [],
+        displayColumnList: [],
     },
     step5: {
         provideTargetMemberScope: '',
         searchCondition: {
             id: '',
-            regDate: {
+            registerDate: {
                 fromDate: '',
                 toDate: '',
             },
             lastLoginDate: {
                 fromDate: '',
                 toDate: '',
-            }
+            },
+            orderBy: '',
         },
         memberList: [],
+        filteredMemberList: [],
+        piplTargetIdxs: [],
+        displayColumnList: [],
     },
 }
 

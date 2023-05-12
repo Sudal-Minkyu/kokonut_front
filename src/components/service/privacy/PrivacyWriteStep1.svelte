@@ -8,8 +8,8 @@
 <div class="pri_forntWrap" in:fade>
     <div class="pri_forntBox marB100">
         <div class="pri_fornt">
-            <input type="radio" class="priradio" name="inorout" id="radioInside" value="inside"
-                   bind:group={$providePrivacyWriteData.step1.provideType} />
+            <input type="radio" class="priradio" name="inorout" id="radioInside" value={0}
+                   bind:group={$providePrivacyWriteData.step1.proProvide} />
             <label for="radioInside">
                 <div class="pri_forntImg"><img src="/assets/images/common/privacy_step_img_01.png" alt=""></div>
                 <div class="priletext">
@@ -22,8 +22,8 @@
             </label>
         </div>
         <div class="pri_fornt">
-            <input type="radio" class="priradio" name="inorout" id="radioOutside" value="outside"
-                   bind:group={$providePrivacyWriteData.step1.provideType} />
+            <input type="radio" class="priradio" name="inorout" id="radioOutside" value={1}
+                   bind:group={$providePrivacyWriteData.step1.proProvide} />
             <label for="radioOutside">
                 <div class="pri_forntImg"><img src="/assets/images/common/privacy_step_img_02.png" alt=""></div>
                 <div class="priletext">

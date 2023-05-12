@@ -1,6 +1,7 @@
 <script>
     import {onMount} from "svelte";
     import {Swiper} from "swiper/bundle";
+    import {personalInfoTableData, providePrivacyWriteData} from "../../../lib/store.js";
 
     onMount(async => {
         const galleryThumbs = new Swiper('.gallery-thumbs', {
@@ -26,6 +27,40 @@
             },
         });
     });
+
+    const handleTargetColumnCheckChange = () => {
+        refineTargetColumnObjByTable();
+    };
+
+    const handleUncheckColumnByCode = (fieldCode) => {
+        providePrivacyWriteData.update(obj => {
+            obj.step4.targetColumnList = obj.step4.targetColumnList.filter(code => code !== fieldCode);
+            return obj;
+        });
+        refineTargetColumnObjByTable();
+    };
+
+    const refineTargetColumnObjByTable = () => {
+        providePrivacyWriteData.update(obj => {
+            for (const [i, tab] of obj.step4.tableList.entries()) {
+                obj.step4.sendDataList[i] = {
+                    pipeTableName: tab.ctName,
+                    pipeTableTargets: [],
+                }
+                obj.step4.displayColumnList[i] = {
+                    categoryName: tab.ctDesignation,
+                    targetObjList: [],
+                }
+                for (const columnObj of obj.step4.columnList[i]) {
+                    if (obj.step4.targetColumnList.includes(columnObj.fieldCode)) {
+                        obj.step4.sendDataList[i].pipeTableTargets.push(columnObj.fieldCode);
+                        obj.step4.displayColumnList[i].targetObjList.push(columnObj);
+                    }
+                }
+            }
+            return obj;
+        });
+    };
 </script>
 
 <div class="teamtable">
@@ -36,24 +71,11 @@
             <div class="prslideTabBox">
                 <div class="swiper-container gallery-thumbs" scrollbar-hide="true">
                     <div class="swiper-wrapper disflextop">
-                        <div class="swiper-slide">
-                            <div class="sl_tab">기본</div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="sl_tab">민감정보</div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="sl_tab">가족정보</div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="sl_tab">비밀번호</div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="sl_tab">신체정보</div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="sl_tab">교육정보</div>
-                        </div>
+                        {#each $providePrivacyWriteData.step4.tableList as {ctDesignation, ctName}, i}
+                            <div class="swiper-slide">
+                                <div class="sl_tab">{ctDesignation}</div>
+                            </div>
+                        {/each}
                     </div>
                 </div>
                 <!--<button class="addBtn" id="add_tab_pop"></button>-->
@@ -62,269 +84,69 @@
                 <div class="bo_tabContentBox">
                     <div class="swiper-container gallery-top">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><!-- 탭컨텐츠 영역 -->
-                                <div class="prtable">
-                                    <table>
-                                        <colgroup>
-                                            <col style="width:8.57%;">
-                                            <col style="width:91.43%;">
-                                        </colgroup>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip01" id="ip01" class="partcheck">
-                                                    <label for="ip01"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="lockicon"></div>
-                                                주민등록번호
-                                                <span class="subElement redtext">민감정보</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip02" id="ip02" class="partcheck">
-                                                    <label for="ip02"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="lockicon"></div>
-                                                휴대전화번호
-                                                <span class="subElement yeltext">휴대전화번호</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip03" id="ip03" class="partcheck">
-                                                    <label for="ip03"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="lockicon"></div>
-                                                생년월일
-                                                <span class="subElement bluetext">전자상거래법</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip04" id="ip04" class="partcheck">
-                                                    <label for="ip04"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="lockicon"></div>
-                                                패스워드
-                                                <span class="subElement bluetext">전자상거래법</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip05" id="ip05" class="partcheck">
-                                                    <label for="ip05"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                아이디
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip06" id="ip06" class="partcheck">
-                                                    <label for="ip06"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                아이디
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip07" id="ip07" class="partcheck">
-                                                    <label for="ip07"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                아이디
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip08" id="ip08" class="partcheck">
-                                                    <label for="ip08"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                아이디
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip09" id="ip09" class="partcheck">
-                                                    <label for="ip09"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                아이디
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip05" id="ip05" class="partcheck">
-                                                    <label for="ip05"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                아이디
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip06" id="ip06" class="partcheck">
-                                                    <label for="ip06"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                아이디
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip07" id="ip07" class="partcheck">
-                                                    <label for="ip07"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                아이디
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip08" id="ip08" class="partcheck">
-                                                    <label for="ip08"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                아이디
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip09" id="ip09" class="partcheck">
-                                                    <label for="ip09"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                아이디
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                            {#each $providePrivacyWriteData.step4.columnList as singleTabColumnList, i}
+                                <div class="swiper-slide"><!-- 탭컨텐츠 영역 -->
+                                    <div class="prtable">
+                                        <table>
+                                            <colgroup>
+                                                <col style="width:8.57%;">
+                                                <col style="width:15%;">
+                                                <col style="width:86.43%;">
+                                            </colgroup>
+                                            <tbody>
+                                            {#each singleTabColumnList as col, j}
+                                                <tr>
+                                                    <td>
+                                                        <div class="koko_check">
+                                                            <input type="checkbox" id="ip{i}c{j}" class="partcheck"
+                                                                   value={col.fieldCode}
+                                                                   bind:group={$providePrivacyWriteData.step4.targetColumnList}
+                                                                   on:change={handleTargetColumnCheckChange} />
+                                                            <label for="ip{i}c{j}"><em></em></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {col.fieldCode !== 'default' ? col.fieldCode : ''}
+                                                    </td>
+                                                    <td>
+                                                        <div class="{col.fieldSecrity ? 'lockicon' : ''}"></div>
+                                                        {col.fieldComment}
+                                                        <span class="subElement {col.fieldColor}">{col.fieldCategory}</span>
+                                                    </td>
+                                                </tr>
+                                            {/each}
+                                            {#if !singleTabColumnList.length}
+                                                <tr class="none_inq">
+                                                    <td>존재하는 항목이 없습니다.</td>
+                                                </tr>
+                                            {/if}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="swiper-slide"><!-- 탭컨텐츠 영역 -->
-                                <div class="prtable">
-                                    <table>
-                                        <colgroup>
-                                            <col style="width:8.57%;">
-                                            <col style="width:91.43%;">
-                                        </colgroup>
-                                    </table>
-                                    <div class="noneprtable">항목을 추가해 주세요</div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide"><!-- 탭컨텐츠 영역 -->
-                                <div class="prtable">
-                                    <table>
-                                        <colgroup>
-                                            <col style="width:8.57%;">
-                                            <col style="width:91.43%;">
-                                        </colgroup>
-                                    </table>
-                                    <div class="noneprtable">항목을 추가해 주세요</div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide"><!-- 탭컨텐츠 영역 -->
-                                <div class="prtable">
-                                    <table>
-                                        <colgroup>
-                                            <col style="width:8.57%;">
-                                            <col style="width:91.43%;">
-                                        </colgroup>
-                                    </table>
-                                    <div class="noneprtable">항목을 추가해 주세요</div>
-                                </div>
-                            </div>
+                            {/each}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
-
         <div class="tea_ListBox">
             <div class="teaMemselBox marT68">
                 <div class="tmResetBtn">초기화</div>
                 <div class="memselBox maxH410impor">
-                    <div class="mspartBox">
-                        <p>기본정보</p>
-                        <div class="memName">아이디<button class="memdel"></button></div>
-                        <div class="memName">패스워드<button class="memdel"></button></div>
-                        <div class="memName">휴대전화번호<button class="memdel"></button></div>
-                        <div class="memName">주민등록번호<button class="memdel"></button></div>
-                        <div class="memName">아이디<button class="memdel"></button></div>
-                        <div class="memName">패스워드<button class="memdel"></button></div>
-                        <div class="memName">휴대전화번호<button class="memdel"></button></div>
-                        <div class="memName">주민등록번호<button class="memdel"></button></div>
-                    </div>
-                    <div class="mspartBox">
-                        <p>인적정보</p>
-                        <div class="memName">아이디<button class="memdel"></button></div>
-                        <div class="memName">패스워드<button class="memdel"></button></div>
-                        <div class="memName">휴대전화번호<button class="memdel"></button></div>
-                        <div class="memName">주민등록번호<button class="memdel"></button></div>
-                        <div class="memName">아이디<button class="memdel"></button></div>
-                        <div class="memName">패스워드<button class="memdel"></button></div>
-                        <div class="memName">휴대전화번호<button class="memdel"></button></div>
-                        <div class="memName">주민등록번호<button class="memdel"></button></div>
-                    </div>
-                    <div class="mspartBox">
-                        <p>기본정보</p>
-                        <div class="memName">아이디<button class="memdel"></button></div>
-                        <div class="memName">패스워드<button class="memdel"></button></div>
-                        <div class="memName">휴대전화번호<button class="memdel"></button></div>
-                        <div class="memName">주민등록번호<button class="memdel"></button></div>
-                        <div class="memName">아이디<button class="memdel"></button></div>
-                        <div class="memName">패스워드<button class="memdel"></button></div>
-                        <div class="memName">휴대전화번호<button class="memdel"></button></div>
-                        <div class="memName">주민등록번호<button class="memdel"></button></div>
-                    </div>
-                    <div class="mspartBox">
-                        <p>인적정보</p>
-                        <div class="memName">아이디<button class="memdel"></button></div>
-                        <div class="memName">패스워드<button class="memdel"></button></div>
-                        <div class="memName">휴대전화번호<button class="memdel"></button></div>
-                        <div class="memName">주민등록번호<button class="memdel"></button></div>
-                        <div class="memName">아이디<button class="memdel"></button></div>
-                        <div class="memName">패스워드<button class="memdel"></button></div>
-                        <div class="memName">휴대전화번호<button class="memdel"></button></div>
-                        <div class="memName">주민등록번호<button class="memdel"></button></div>
-                    </div>
+                    {#each $providePrivacyWriteData.step4.displayColumnList as {categoryName, targetObjList}}
+                        {#if targetObjList.length}
+                            <div class="mspartBox">
+                                <p>{categoryName}</p>
+                                {#each targetObjList as {fieldComment, fieldCode}}
+                                    <div class="memName">{fieldComment}({fieldCode})
+                                        <button type="button" class="memdel" on:click={() => {handleUncheckColumnByCode(fieldCode)}}></button>
+                                    </div>
+                                {/each}
+                            </div>
+                        {/if}
+                    {/each}
                 </div>
             </div>
         </div>

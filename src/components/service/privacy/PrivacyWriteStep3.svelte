@@ -15,6 +15,16 @@
         setDateRangePicker('stime', true, 'period');
         setCustomSelectBox();
     }
+
+    const toNextStage = () => {
+        const stime = document.getElementById('stime').value;
+        providePrivacyWriteData.update(obj => {
+            obj.step3.proStartDate = stime.substring(0, 10);
+            obj.step3.proExpDate = stime.substring(13, 23);
+            return obj;
+        });
+        stateChange(4);
+    }
 </script>
 
 <div class="pri_componentWrap" in:fade>
@@ -65,13 +75,13 @@
                 <label class="steplabel">다운로드가 가능하게 할까요?</label>
                 <div class="step_radioBox">
                     <div class="step_radio">
-                        <input type="radio" class="stradio" name="porim" id="radioAllow" value="allow"
-                               bind:group={$providePrivacyWriteData.step3.isDownloadAvailable} />
+                        <input type="radio" class="stradio" name="porim" id="radioAllow" value={0}
+                               bind:group={$providePrivacyWriteData.step3.proDownloadYn} />
                         <label for="radioAllow"><em><dt></dt></em>가능</label>
                     </div>
                     <div class="step_radio">
-                        <input type="radio" class="stradio" name="porim" id="radioDeny" value="deny"
-                               bind:group={$providePrivacyWriteData.step3.isDownloadAvailable} />
+                        <input type="radio" class="stradio" name="porim" id="radioDeny" value={1}
+                               bind:group={$providePrivacyWriteData.step3.proDownloadYn} />
                         <label for="radioDeny"><em><dt></dt></em>불가능</label>
                     </div>
                 </div>
@@ -93,7 +103,7 @@
                 <div class="pris_num">
                     <dl style="padding: 3px"><span>3</span> / 5</dl>
                 </div>
-                <button on:click={() => stateChange(4)} class="pri_nextBtn">다음</button>
+                <button on:click={toNextStage} class="pri_nextBtn">다음</button>
             </div>
         </div>
     </div>

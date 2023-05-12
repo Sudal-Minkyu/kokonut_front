@@ -19,7 +19,7 @@
             type: '0',
         }
 
-        restapi('v2', 'get', "/v2/api/Privacy/offerAdminList", "param", sendData, 'application/json',
+        restapi('v2', 'get', "/v2/api/Provision/offerAdminList", "param", sendData, 'application/json',
             (json_success) => {
                 if(json_success.data.status === 200) {
                     providePrivacyWriteData.update(obj => {
@@ -31,7 +31,7 @@
                 }
             },
             (json_error) => {
-                console.log(json_error);
+                console.log('어드민목록실패', json_error);
             }
         );
     }
@@ -124,12 +124,11 @@
         filterAdminList();
     }
 
-    console.log($providePrivacyWriteData.step1);
     const handleGoToRegisterAdmin = () => {
         pageTransitionData.update(obj => {
-            if ($providePrivacyWriteData.step1.provideType === 'inside') {
+            if ($providePrivacyWriteData.step1.proProvide === 0) {
                 obj.createTarget = 'ROLE_USER';
-            } else if ($providePrivacyWriteData.step1.provideType === 'outside') {
+            } else if ($providePrivacyWriteData.step1.proProvide === 1) {
                 obj.createTarget = 'ROLE_GUEST';
             }
             return obj;
