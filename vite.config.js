@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
-import proxy from 'vite-plugin-proxy';
+import { createProxy } from 'vite-plugin-proxy';
 
 export default defineConfig({
   plugins: [svelte(), proxy({
@@ -12,3 +12,4 @@ export default defineConfig({
     }
   })],
 });
+
