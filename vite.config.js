@@ -6,11 +6,11 @@ export default defineConfig({
   plugins: [svelte()],
   server: {
     proxy: {
-      '/**': {
+      '/v*/**': {
         target: 'http://localhost:8050',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/**, '')
+        rewrite: (path) => path.replace(/^\/v*/**, '')
       }
     }
   }
