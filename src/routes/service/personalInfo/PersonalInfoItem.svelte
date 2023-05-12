@@ -31,13 +31,11 @@
         setCurrentSelectedTab(tabName) {
             personalInfoItemProp.currentSelectedTab = tabName;
         },
-        userTableClick(tableName) {
-            console.log('테이블클릭', tableName);
+        getTableColumnList(tableName) {
             let sendData = {
                 tableName
             }
-
-            restapi('v2', 'get', "/v2/api/DynamicUser/tableColumnCall", "param", sendData, 'application/json',
+            ajaxGet('/v2/api/DynamicUser/tableColumnCall', sendData,
                 (json_success) => {
                     if(json_success.data.status === 200) {
                         personalInfoItemProp.setCurrentSelectedTab(tableName);
@@ -59,7 +57,7 @@
                     console.log(json_error);
                     console.log("테이블컬럼 리스트 호출 실패");
                 }
-            )
+            );
         },
     }
 
@@ -289,7 +287,7 @@
                         if (json_success.data.status === 200) {
                             openBanner("선택한 항목을 추가하였습니다.");
 
-                            personalInfoItemProp.userTableClick(personalInfoItemProp.currentSelectedTab)
+                            personalInfoItemProp.getTableColumnList(personalInfoItemProp.currentSelectedTab)
                             personalInfoCategoryService.resetCheckedItemState();
                         } else {
                             // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
@@ -558,7 +556,7 @@
                         if(json_success.data.status === 200) {
                             personalInfoTableService.removeColumnPop.hide();
                             openBanner('선택하신 개인정보 항목을 삭제하였습니다.');
-                            personalInfoItemProp.userTableClick(targetData.tableName);
+                            personalInfoItemProp.getTableColumnList(targetData.tableName);
                         } else {
                             // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                             alert(json_success.data.err_msg);
@@ -588,9 +586,9 @@
             });
         },
         getUserTableList() {
-            let url = "/v2/api/Company/userTableList";
-            restapi('v2', 'get', url, "", {}, 'application/json',
+            ajaxGet('/v2/api/Company/userTableList', false,
                 (json_success) => {
+                console.log('테이블리스트', json_success)
                     if(json_success.data.status === 200) {
                         personalInfoTableData.update(obj => {
                             obj.userTableData = json_success.data.sendData.companyTableList;
@@ -598,7 +596,7 @@
                         });
                         if($personalInfoTableData.userTableData.length !== 0) {
                             personalInfoItemProp.setCurrentSelectedTab($personalInfoTableData.userTableData[0].ctName);
-                            personalInfoItemProp.userTableClick(personalInfoItemProp.currentSelectedTab);
+                            personalInfoItemProp.getTableColumnList(personalInfoItemProp.currentSelectedTab);
                         }
                     } else {
                         // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
@@ -612,7 +610,7 @@
                     console.log(json_error);
                     console.log("회사의 테이블리스트 호출 실패");
                 }
-            )
+            );
         },
     };
 

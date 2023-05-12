@@ -18,7 +18,7 @@
     <div class="bo_tabBox" style="overflow: scroll">
         <div class="tabWrap">
             {#each $personalInfoTableData.userTableData as table, i}
-                <div class="bo_tab {!i ? 'on_bo' : ''}" on:click={() => personalInfoItemProp.userTableClick(table.ctName)}>
+                <div class="bo_tab {!i ? 'on_bo' : ''}" on:click={() => personalInfoItemProp.getTableColumnList(table.ctName)}>
                     {table.ctDesignation}
                 </div>
             {/each}
@@ -47,7 +47,7 @@
                     {#each $personalInfoTableData.columnList as column, i}
                         <tr>
                             <td>{i+1}</td>
-                            {#if column.fieldName === "ID" || column.fieldName === "PASSWORD" }
+                            {#if column.fieldCode === "default" }
                                 <td></td>
                             {:else}
                                 <td>
@@ -58,7 +58,7 @@
                                 </td>
                             {/if}
                             <td>
-                                {column.fieldCode}
+                                {column.fieldCode !== 'default' ? column.fieldCode : ''}
                             </td>
                             {#if column.fieldSecrity === 1}
                                 <td>
