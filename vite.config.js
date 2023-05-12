@@ -1,8 +1,17 @@
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
-import { default as ACM } from '@aws-sdk/client-acm';
-
+import { createProxy } from 'vite';
 
 export default defineConfig({
-  plugins: [svelte()]
+  plugins: [svelte()],
+  server: {
+    proxy: {
+      '/**': {
+        target: 'http://localhost:8050',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/**, '')
+      }
+    }
+  }
 });
