@@ -12,7 +12,8 @@ phases:
   pre_build:
     commands:
       - npm install
-      - npm install vite-plugin-proxy
+      - nnpm uninstall vite-plugin-proxy
+      - npm install axios
       
   build:
     commands:
