@@ -99,7 +99,6 @@
     let setProCode;
     function downloadHistoryClick(proCode) {
         console.log("proCode : "+proCode);
-
         downloadPop = 1;
         setProCode = proCode;
 
@@ -150,6 +149,7 @@
     function downloadPopClose() {
         downloadPop = 0;
         setProCode = "";
+        provisionDownloadHistory_list = [];
         popupPage.set(0);
     }
 
