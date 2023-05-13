@@ -12,8 +12,7 @@ phases:
   pre_build:
     commands:
       - npm install
-      - npm install morgan
-      
+
   build:
     commands:
       - echo Build Starting on `date` 
