@@ -6,9 +6,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/v*/api/**': {
-        target: 'http://localhost:8080',
+        target: 'https://beta.kokonut.me:8050', 
         changeOrigin: true,
-        secure: false,
+        secure: true, // 보안 설정 활성화
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, POST',
@@ -18,4 +18,4 @@ export default defineConfig({
       }
     }
   }
-})
+});
