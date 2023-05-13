@@ -4,6 +4,9 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 export default defineConfig({
   plugins: [svelte()],
   server: {
+    middleware: [
+      morgan('combined')
+    ],
     proxy: {
       '*': {
         target: 'http://beta.kokonut.me:8050',
