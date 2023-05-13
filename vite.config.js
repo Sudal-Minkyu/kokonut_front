@@ -1,12 +1,16 @@
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import morgan from 'morgan';
+import fs from 'fs';
+import path from 'path';
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 
 export default defineConfig({
   plugins: [svelte()],
   server: {
     middleware: [
-      morgan('combined')
+      morgan('combined', { stream: accessLogStream })
     ],
     proxy: {
       '*': {
