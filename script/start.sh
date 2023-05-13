@@ -1,5 +1,5 @@
 #!/bin/bash
-
+sudo su -
 cd /root/kokonut_frontend/
 
 PID=$(pgrep -f npm)
