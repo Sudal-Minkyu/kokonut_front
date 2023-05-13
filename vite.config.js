@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [svelte()],
   server: {
     proxy: {
-      '/v*/api/**': {
+      '*': {
         target: 'http://beta.kokonut.me:8050',
         changeOrigin: true,
         headers: {
