@@ -11,9 +11,6 @@ export default defineConfig({
         'Origin': 'https://beta.kokonut.me:5173',
       },
       rewrite: (path) => path.replace(/^\/v+\//, '/'),
-      onProxyRes: (proxyRes) => {
-        proxyRes.headers['Access-Control-Allow-Origin'] = 'https://beta.kokonut.me:5173';
-      }
     }
   }
 })
