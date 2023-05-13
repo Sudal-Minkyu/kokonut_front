@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '*': {
-        target: 'http://beta.kokonut.me:8050',
+        target: 'https://beta.kokonut.me:8050',
         changeOrigin: true,
         headers: {
           'Origin': 'https://beta.kokonut.me:5173',
