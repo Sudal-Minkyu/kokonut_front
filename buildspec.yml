@@ -12,11 +12,11 @@ phases:
   pre_build:
     commands:
       - npm install
-      - npm remove vite-plugin-proxy
-      - npm install @aws-sdk/client-acm
-      - npm install @aws-sdk/credential-provider-env
-      - npm install @sveltejs/adapter-node
-      - npm install express
+#      - npm remove vite-plugin-proxy
+#      - npm install @aws-sdk/client-acm
+#      - npm install @aws-sdk/credential-provider-env
+#      - npm install @sveltejs/adapter-node
+#      - npm install express
       
   build:
     commands:
