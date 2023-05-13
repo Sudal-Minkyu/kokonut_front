@@ -11,7 +11,6 @@ export default defineConfig({
         'Origin': 'https://beta.kokonut.me:5173',
       },
       rewrite: (path) => path.replace(/^\/v+\//, '/'),
-//      prependPath: false
     }
   }
 })
