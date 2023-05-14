@@ -6,4 +6,4 @@ export default defineConfig({
 });
 
 // JWT 시크릿 키를 설정합니다.
-export const KOKONUT_JWT_SECRET = JSON.parse(process.env.KOKONUT_JWT_SECRET);
+export const KOKONUT_JWT_SECRET = process.env.KOKONUT_JWT_SECRET ? JSON.stringify(process.env.KOKONUT_JWT_SECRET) : '';
