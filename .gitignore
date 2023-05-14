@@ -1,8 +1,0 @@
-node_modules/
-.idea/
-dist/
-lib/
-routes/
-components/
-template/
-package-lock.json
