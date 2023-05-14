@@ -3,4 +3,5 @@ node_modules/
 dist/
 lib/
 routes/
+!src/
 package-lock.json
