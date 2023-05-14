@@ -3,5 +3,10 @@ node_modules/
 dist/
 lib/
 routes/
-!src/
+components/
+template/
+src/App.svelte
+src/main.js
+src/routes.js
+src/vite-env.d.ts
 package-lock.json
