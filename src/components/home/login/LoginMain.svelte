@@ -120,13 +120,34 @@
     }
 
     const ajaxTest = () => {
-        ajaxGet('/v1/api/Auth/checkKnEmail', {knEmail: 'joffrey@kokonut.me'}, (success) => {
-            alert('API 호출 성공입니다.');
-            console.log('성공콘솔', success);
-        }, (fail) => {
-            alert('API 호출 실패입니다. 콘솔참조');
-            console.log('실패콘솔', fail);
-        });
+
+        // ajaxGet('/v1/api/Auth/checkKnEmail', {knEmail: 'joffrey@kokonut.me'}, (success) => {
+        //     alert('API 호출 성공입니다.');
+        //     console.log('성공콘솔', success);
+        // }, (fail) => {
+        //     alert('API 호출 실패입니다. 콘솔참조');
+        //     console.log('실패콘솔', fail);
+        // });
+
+        const xhr = new XMLHttpRequest();
+        const url = '/v1/api/Auth/checkKnEmail';
+        const params = 'knEmail=' + encodeURIComponent('joffrey@kokonut.me');
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    alert('API 호출 성공입니다.');
+                    console.log('성공콘솔', xhr);
+                } else {
+                    alert('API 호출 실패입니다. 콘솔참조');
+                    console.log('실패콘솔', xhr);
+                }
+            }
+        };
+
+        xhr.open('GET', url + '?' + params, true);
+        xhr.send();
+
     }
 
 </script>
