@@ -8,6 +8,7 @@ const env = {
 export default defineConfig({
   plugins: [svelte()],
   server: {
+    port: 5173,
     proxy: {
       '/v*/api/**': {
         target: 'https://beta-api.kokonut.me:8050',
@@ -21,3 +22,4 @@ export default defineConfig({
     },
   },
 });
+
