@@ -6,6 +6,7 @@
     import { onMount } from "svelte";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
     import {push} from "svelte-spa-router";
+    import {openConfirm} from "../../common/ui/DialogManager.js";
 
     export let stateChange;
     let isMasterCheckBoxChecked = false;
@@ -16,7 +17,7 @@
 
     const getProvideTargetAdminList = () => {
         let sendData = {
-            type: '0',
+            type: $providePrivacyWriteData.step1.proProvide,
         }
 
         restapi('v2', 'get', "/v2/api/Provision/offerAdminList", "param", sendData, 'application/json',
@@ -135,26 +136,53 @@
         });
         push('/service/adminManagement');
     }
+
+    const handleNext = () => {
+        const confirmProps = {
+            icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+            title: '', // 제목
+            contents1: '', // 내용
+            contents2: '',
+            btnCheck: '확인', // 확인 버튼의 텍스트
+        };
+        if ($providePrivacyWriteData.step1.proProvide === 0 && $providePrivacyWriteData.step2.provideTargetType === '') {
+            confirmProps.title = '제공 대상 선택';
+            confirmProps.contents1 = '제공받을 대상을 선택해 주세요.';
+        } else if (($providePrivacyWriteData.step2.provideTargetType === 'teammate' || $providePrivacyWriteData.step1.proProvide === 1) && !$providePrivacyWriteData.step2.selectedAdminObjList.length) {
+            confirmProps.title = '팀원 선택';
+            confirmProps.contents1 = '팀원을 선택해 주세요.';
+        }
+        if (confirmProps.title) {
+            openConfirm(confirmProps);
+            // 임시 팀원 등록까지 임시 주석
+            // return;
+        }
+
+        stateChange(3);
+    }
 </script>
 
 <div class="pri_componentWrap" in:fade>
     <div class="pristep">
         <div class="pristepContent">
             <div class="marB46">
-                <label class="steplabel">제공받을 사람을 선택해 주세요.</label>
-                <div class="step_radioBox">
-                    <div class="step_radio">
-                        <input type="radio" class="stradio solo" name="solo_team" id="radioSelf" value="self"
-                               bind:group={$providePrivacyWriteData.step2.provideTargetType} />
-                        <label for="radioSelf">본인</label>
+                {#if $providePrivacyWriteData.step1.proProvide === 0}
+                    <label class="steplabel">제공받을 사람을 선택해 주세요.</label>
+                    <div class="step_radioBox">
+                        <div class="step_radio">
+                            <input type="radio" class="stradio solo" name="solo_team" id="radioSelf" value="self"
+                                   bind:group={$providePrivacyWriteData.step2.provideTargetType} />
+                            <label for="radioSelf">본인</label>
+                        </div>
+                        <div class="step_radio">
+                            <input type="radio" class="stradio team" name="solo_team" id="radioTeammate" value="teammate"
+                                   bind:group={$providePrivacyWriteData.step2.provideTargetType} />
+                            <label for="radioTeammate">내부 팀원</label>
+                        </div>
                     </div>
-                    <div class="step_radio">
-                        <input type="radio" class="stradio team" name="solo_team" id="radioTeammate" value="teammate"
-                               bind:group={$providePrivacyWriteData.step2.provideTargetType} />
-                        <label for="radioTeammate">내부 팀원</label>
-                    </div>
-                </div>
-                {#if $providePrivacyWriteData.step2.provideTargetType === 'teammate' }
+                {/if}
+
+                {#if $providePrivacyWriteData.step2.provideTargetType === 'teammate' || $providePrivacyWriteData.step1.proProvide === 1 }
                     <div class="teamtable">
                         <label class="steplabel">팀원을 선택해 주세요.</label>
                         <div class="tea_ListFlexBox marT24">
@@ -167,7 +195,7 @@
                                                    on:keyup={filterAdminList} />
                                             <button><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
                                         </div>
-                                        <div class="mu_SelBox wid150 noneMarR">
+                                        <div class="mu_SelBox wid150 noneMarR" style="visibility: {$providePrivacyWriteData.step1.proProvide === 0 ? 'visible' : 'hidden'}">
                                             <div class="selectBox wid100per nonePad" use:SelectBoxManager={handleOnSelectBox}>
                                                 <div class="label">관리자 등급</div>
                                                 <ul class="optionList">
@@ -291,7 +319,7 @@
                 <div class="pris_num">
                     <dl style="padding: 3px"><span>2</span> / 5</dl>
                 </div>
-                <button on:click={() => stateChange(3)} class="pri_nextBtn">다음</button>
+                <button on:click={handleNext} class="pri_nextBtn">다음</button>
             </div>
         </div>
     </div>

@@ -4,6 +4,7 @@
     import {providePrivacyWriteData} from "../../../lib/store.js";
     import {onMount} from "svelte";
     import {setCustomSelectBox, setDateRangePicker, setOptionItem} from "../../../lib/libSearch.js";
+    import {openConfirm} from "../../common/ui/DialogManager.js";
 
     export let stateChange;
 
@@ -16,8 +17,29 @@
         setCustomSelectBox();
     }
 
-    const toNextStage = () => {
+    const handleNext = () => {
         const stime = document.getElementById('stime').value;
+
+        const confirmProps = {
+            icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+            title: '', // 제목
+            contents1: '', // 내용
+            contents2: '',
+            btnCheck: '확인', // 확인 버튼의 텍스트
+        };
+        console.log(stime.length)
+        if (stime.length !== 23) {
+            confirmProps.title = '제공 기간 선택';
+            confirmProps.contents1 = '제공하실 기간을 선택해 주세요.';
+        } else if ($providePrivacyWriteData.step3.proDownloadYn === '') {
+            confirmProps.title = '다운로드 여부 선택';
+            confirmProps.contents1 = '다운로드 가능 여부를 선택해 주세요.';
+        }
+        if (confirmProps.title) {
+            openConfirm(confirmProps);
+            return;
+        }
+
         providePrivacyWriteData.update(obj => {
             obj.step3.proStartDate = stime.substring(0, 10);
             obj.step3.proExpDate = stime.substring(13, 23);
@@ -103,7 +125,7 @@
                 <div class="pris_num">
                     <dl style="padding: 3px"><span>3</span> / 5</dl>
                 </div>
-                <button on:click={toNextStage} class="pri_nextBtn">다음</button>
+                <button on:click={handleNext} class="pri_nextBtn">다음</button>
             </div>
         </div>
     </div>
