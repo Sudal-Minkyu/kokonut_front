@@ -5,8 +5,29 @@
     import {onMount} from "svelte";
     import {ajaxBody, ajaxGet} from "../../common/ajax.js";
     import PrivacyWriteStep5FilterPop from "./PrivacyWriteStep5FilterPop.svelte";
+    import {openConfirm} from "../../common/ui/DialogManager.js";
     export let stateChange;
-    function savePrivacy() {
+    function handleSave() {
+        const confirmProps = {
+            icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+            title: '', // 제목
+            contents1: '', // 내용
+            contents2: '',
+            btnCheck: '확인', // 확인 버튼의 텍스트
+        };
+        if ($providePrivacyWriteData.step5.provideTargetMemberScope === '') {
+            confirmProps.title = '제공 대상 선택';
+            confirmProps.contents1 = '제공될 회원 범위를 선택해 주세요.';
+        } else if ($providePrivacyWriteData.step5.provideTargetMemberScope === 'someone'
+            && !$providePrivacyWriteData.step5.piplTargetIdxs.length) {
+            confirmProps.title = '제공 대상 회원 선택';
+            confirmProps.contents1 = '개인 정보 제공될 회원을 선택해 주세요.';
+        }
+        if (confirmProps.title) {
+            openConfirm(confirmProps);
+            return;
+        }
+
         const ppd = $providePrivacyWriteData;
         const sendData = {
             proProvide: ppd.step1.proProvide,
@@ -221,7 +242,7 @@
                 <div class="pris_num">
                     <dl style="padding: 3px"><span>5</span> / 5</dl>
                 </div>
-                <button on:click={savePrivacy} class="pri_nextBtn">완료</button>
+                <button on:click={handleSave} class="pri_nextBtn">완료</button>
             </div>
         </div>
     </div>

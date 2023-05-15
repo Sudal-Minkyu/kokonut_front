@@ -8,13 +8,35 @@
     import {onMount} from "svelte";
     import {ajaxGet} from "../../common/ajax.js";
     import {push} from "svelte-spa-router";
+    import {openConfirm} from "../../common/ui/DialogManager.js";
 
     onMount(async => {
 
     });
 
 
+    const handleNext = () => {
+        const confirmProps = {
+            icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+            title: '', // 제목
+            contents1: '', // 내용
+            contents2: '',
+            btnCheck: '확인', // 확인 버튼의 텍스트
+        };
+        if ($providePrivacyWriteData.step4.proTargetType === '') {
+            confirmProps.title = '제공 정보 범위 선택';
+            confirmProps.contents1 = '제공하실 개인정보 범위를 선택해 주세요.';
+        } else if ($providePrivacyWriteData.step4.proTargetType === 1 && !$providePrivacyWriteData.step4.targetColumnList.length) {
+            confirmProps.title = '제공 개인 정보 선택';
+            confirmProps.contents1 = '제공하실 개인정보 항목을 선택해 주세요.';
+        }
+        if (confirmProps.title) {
+            openConfirm(confirmProps);
+            return;
+        }
 
+        stateChange(5);
+    }
 
 </script>
 
@@ -56,7 +78,7 @@
                 <div class="pris_num">
                     <dl style="padding: 3px"><span>4</span> / 5</dl>
                 </div>
-                <button on:click={() => stateChange(5)} class="pri_nextBtn">다음</button>
+                <button on:click={handleNext} class="pri_nextBtn">다음</button>
             </div>
         </div>
     </div>

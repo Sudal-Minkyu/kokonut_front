@@ -2,7 +2,22 @@
 <script>
     import { fade } from 'svelte/transition'
     import {providePrivacyWriteData} from "../../../lib/store.js";
+    import {openConfirm} from "../../common/ui/DialogManager.js";
     export let stateChange;
+
+    const handleNext = () => {
+        if ($providePrivacyWriteData.step1.proProvide === '') {
+            openConfirm({
+                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: '제공 대상 선택', // 제목
+                contents1: '제공 대상을 선택해 주세요.', // 내용
+                contents2: '',
+                btnCheck: '확인', // 확인 버튼의 텍스트
+            });
+            return;
+        }
+        stateChange(2);
+    }
 </script>
 
 <div class="pri_forntWrap" in:fade>
@@ -50,7 +65,7 @@
                 <div class="pris_num">
                     <dl style="padding: 3px"><span>1</span> / 5</dl>
                 </div>
-                <button on:click={() => stateChange(2)} class="pri_nextBtn">다음</button>
+                <button on:click={handleNext} class="pri_nextBtn">다음</button>
             </div>
         </div>
     </div>

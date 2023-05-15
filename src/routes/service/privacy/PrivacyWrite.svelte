@@ -48,10 +48,6 @@
                 (json_success) => {
                     providePrivacyWriteData.update(obj => {
                         obj.step4.columnList[i] = json_success.data.sendData.fieldList.filter(item => item.fieldName !== 'PASSWORD');
-                        obj.step4.targetColumnList[i] = {
-                            pipeTableName: ctName,
-                            checkedColumnObj: [],
-                        }
                         return obj;
                     });
                 },
