@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: "https://beta-api.kokonut.me/",
+    baseURL: "https://betaapi.kokonut.me",
     headers: {
         "Content-Type": "application/json"
     }
