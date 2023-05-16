@@ -11,8 +11,8 @@
                 <ul>
                     <li class="onedepth"><img src="/assets/images/common/menu_icon_privacy.png" alt="">개인정보 현황</li>
                     <li><a use:link href="/service">대시보드</a></li>
-                    <li><a use:link href="/service">개인정보 검색</a></li>
-                    <li><a use:link href="/service">개인정보 처리 이력</a></li>
+                    <li><a use:link href="/service/privacy/PrivacySearch">개인정보 검색</a></li>
+                    <li><a use:link href="/service/privacy/PrivacyHistory" on:click="{() => {$page = 0}}">개인정보 처리 이력</a></li>
                 </ul>
             </div>
             <div class="subNav">

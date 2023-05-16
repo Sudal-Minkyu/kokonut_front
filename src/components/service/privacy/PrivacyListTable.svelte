@@ -59,7 +59,7 @@
                     <td><div class="dcount downcountPop" on:click={() => downloadHistoryClick(provision.proCode)}>{provision.downloadCount}</div></td>
                     <td>
                         <div class="dlink">
-                            <a use:link href="/service/privacyDetail/{provision.proCode}">상세보기</a>
+                            <a use:link href="/service/privacy/privacyDetail/{provision.proId}">상세보기</a>
                         </div>
                     </td>
                 </tr>

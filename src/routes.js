@@ -32,6 +32,8 @@ import PolicyDetail from "./routes/service/policy/PolicyDetail.svelte"
 
 import PrivacyList from "./routes/service/privacy/PrivacyList.svelte"
 import PrivacyWrite from "./routes/service/privacy/PrivacyWrite.svelte"
+import PrivacyHistory from "./routes/service/privacy/PrivacyHistory.svelte"
+import PrivacySearch from "./routes/service/privacy/PrivacySearch.svelte"
 
 export default {
     // API 테스트하는 화면
@@ -115,6 +117,10 @@ export default {
     // 개인정보 제공페이지
     "/service/privacy/PrivacyWrite": PrivacyWrite,
 
+    // 개인정보 처리이력 페이지
+    "/service/privacy/PrivacyHistory": PrivacyHistory,
+    // 개인정보 검색 페이지
+    "/service/privacy/PrivacySearch": PrivacySearch,
 
     "*": wrap({
         asyncComponent: () => import("./routes/NotFound.svelte"),

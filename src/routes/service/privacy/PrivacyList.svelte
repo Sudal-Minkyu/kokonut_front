@@ -7,8 +7,8 @@
     import { setDateRangePicker, setOptionItem, stimeVal } from "../../../lib/libSearch.js";
     import { onMount } from "svelte";
 
-    import PrivacyTable from "../../../components/service/privacy/PrivacyTable.svelte";
-    import PrivacySearch from "../../../components/service/privacy/PrivacySearch.svelte";
+    import PrivacyListTable from "../../../components/service/privacy/PrivacyListTable.svelte";
+    import PrivacyListSearch from "../../../components/service/privacy/PrivacyListSearch.svelte";
     import PrivacyDownloadHistory from "../../../components/service/privacy/PrivacyDownloadHistory.svelte";
     import Paging from "../../../components/common/Paging.svelte";
 
@@ -31,7 +31,6 @@
 
     let provisionLayout = 0;
 
-    let searchText;
     let provision_list = [];
     let size = 10;
     let total = 0;
@@ -120,7 +119,6 @@
 
         restapi('v2', 'get', url, "param", sendData, 'application/json',
             (json_success) => {
-                console.log(json_success);
                 if(json_success.data.status === 200) {
                     console.log("조회된 데이터가 있습니다.");
                     provisionDownloadHistory_list = json_success.data.datalist
@@ -167,7 +165,7 @@
         </div>
 
         <!-- 상단 검색 영역 -->
-        <PrivacySearch {searchCondition}/>
+        <PrivacyListSearch {searchCondition}/>
 
         {#if provisionLayout === 0}
             <div class="loaderParent" style="left: 55%">
@@ -176,7 +174,7 @@
         {:else}
             <div in:fade>
                 <!-- 테이블 영역 -->
-                <PrivacyTable {downloadHistoryClick} {provision_list} {size} {total} />
+                <PrivacyListTable {downloadHistoryClick} {provision_list} {size} {total} />
 
                 <!-- 페이징 영역 -->
                 <Paging total_page="{total_page}" data_list="{provision_list}" dataFunction="{provisionList}" />
