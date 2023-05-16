@@ -154,8 +154,7 @@
         }
         if (confirmProps.title) {
             openConfirm(confirmProps);
-            // 임시 팀원 등록까지 임시 주석
-            // return;
+            return;
         }
 
         stateChange(3);

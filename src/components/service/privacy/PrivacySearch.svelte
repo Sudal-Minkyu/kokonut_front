@@ -1,4 +1,15 @@
+<script>
+    import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    export let searchCondition;
 
+    const handleFilterDownload = (el) => {
+        searchCondition.filterDownload = el.innerHTML;
+    }
+    const handleFilterState = (el) => {
+        searchCondition.filterState = el.innerHTML;
+    }
+
+</script>
 
 <div class="seaWrap marB28">
 <!--            <div class="kotopBtn"><button><img src="/assets/images/common/top_down_arrow.png" alt="" class="top_down_arrow">이력 다운로드</button></div>-->
@@ -45,20 +56,27 @@
         <div class="seaContentLine">
             <div class="seaCont wid33per">
                 <dl>다운로드 유무</dl>
-                <div class="sc_SelBox">
-                    <div class="selectBox wid164">
-                        <div class="label" id="privacyYnSelect"></div>
+                <div class="sc_SelBox" >
+                    <div class="selectBox wid164" use:SelectBoxManager={handleFilterDownload}>
+                        <div class="label" id="privacyYnSelect" data-value="">전체</div>
                         <ul class="optionList">
+                            <li class="optionItem curv" data-value="">전체</li>
+                            <li class="optionItem curv" data-value="0">N</li>
+                            <li class="optionItem curv" data-value="1">Y</li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="seaCont wid33per">
                 <dl>상태</dl>
-                <div class="sc_SelBox">
-                    <div class="selectBox wid164">
-                        <div class="label" id="privacyStatusSelect"></div>
+                <div class="sc_SelBox" >
+                    <div class="selectBox wid164" use:SelectBoxManager={handleFilterState}>
+                        <div class="label" id="privacyStatusSelect" data-value="">전체</div>
                         <ul class="optionList">
+                            <li class="optionItem curv" data-value="">전체</li>
+                            <li class="optionItem curv" data-value="0">대기중</li>
+                            <li class="optionItem curv" data-value="1">제공중</li>
+                            <li class="optionItem curv" data-value="2">제공완료</li>
                         </ul>
                     </div>
                 </div>

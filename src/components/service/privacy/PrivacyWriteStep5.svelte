@@ -9,6 +9,12 @@
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
 
     export let stateChange;
+
+    // 전체 체크박스 꺼지고 켜짐 상태 동기화
+    $: isMasterCheckBoxChecked = $providePrivacyWriteData.step5.filteredMemberList.length
+        && $providePrivacyWriteData.step5.filteredMemberList
+            .every(item => $providePrivacyWriteData.step5.piplTargetIdxs.includes(item.kokonut_IDX));
+
     function handleSave() {
         const confirmProps = {
             icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
@@ -73,11 +79,11 @@
 
     /**
      * 회원 리스트의 늘어나고 줄어드는 요소들에 대한 처리를 바르게 하기 위해, 컬럼이 포함될 것인지,
-     * 그리고, 각 추가될 컬럼들의 퍼센트 너비는 어마나 되는지를 구한다.
+     * 그리고, 각 추가될 컬럼들의 퍼센트 너비는 얼마나 되는지를 구한다.
      */
     const pickColumnAndDetermineWidth = () => {
         const calculateRelativeWidth = (displayColumnList) => {
-            const TARGET_TOTAL_WIDTH_PERCENT = 92.4;
+            const TARGET_TOTAL_WIDTH_PERCENT = 82.4;
             const totalRatio = displayColumnList.reduce(
                 (accumulator, currentObj) => accumulator + currentObj.columnWidthRatio, 0);
             for (const propObj of displayColumnList) {
@@ -116,12 +122,10 @@
 
     const filterMemberList = () => {
         providePrivacyWriteData.update(obj => {
-
-
             obj.step5.filteredMemberList = obj.step5.memberList.filter(member => {
                 let textExam = true;
                 if (member.basicEmail && obj.step5.searchCondition.text) {
-                    textExam = member.basicEmail?.includes(obj.step5.searchCondition.text);
+                    textExam = member.ID?.includes(obj.step5.searchCondition.text) || member.basicEmail?.includes(obj.step5.searchCondition.text);
                 }
                 let registerDateExam = true;
                 if (member.kokonut_REGISTER_DATE && obj.step5.searchCondition) {
@@ -158,6 +162,18 @@
         turnOffDateConditionPop();
     }
 
+    const handleMasterCheckBoxChange = (e) => {
+        providePrivacyWriteData.update(obj => {
+            console.log(obj.step5.filteredMemberList);
+            const filteredMemberIdxList = obj.step5.filteredMemberList.map(item => item.kokonut_IDX);
+            obj.step5.piplTargetIdxs = obj.step5.piplTargetIdxs.filter(idx => !filteredMemberIdxList.includes(idx));
+            if (e.target.checked) {
+                obj.step5.piplTargetIdxs = [...obj.step5.piplTargetIdxs, ...filteredMemberIdxList];
+            }
+            return obj;
+        });
+    }
+
 </script>
 
 <div class="pri_componentWrap" in:fade>
@@ -177,7 +193,8 @@
                         <label for="radioSomeone"><em><dt></dt></em>일부 회원</label>
                     </div>
                 </div>
-                <div class="teamtable">
+                {#if $providePrivacyWriteData.step5.provideTargetMemberScope === 'someone'}
+                    <div class="teamtable">
                     <label class="steplabel">회원을 선택해 주세요.<span>{$providePrivacyWriteData.step5.piplTargetIdxs.length}명</span></label>
                     <div class="tea_ListFlexBox marT24">
                         <div class="tea_ListBox" style="width: 100%">
@@ -212,20 +229,22 @@
                                     <div class="prtable">
                                         <table>
                                             <caption>개인정보 제공 팀원 리스트</caption>
-                                            <colgroup>
-                                                <col style="width:7.27%;">
-                                                {#each $providePrivacyWriteData.step5.displayColumnList as {relativeWidth}}
-                                                    <col style={relativeWidth}>
-                                                {/each}
-                                            </colgroup>
+<!--                                            <colgroup>-->
+<!--                                                <col style="width:7.27%;">-->
+<!--                                                <col style="width: 10%;">-->
+<!--                                                {#each $providePrivacyWriteData.step5.displayColumnList as {relativeWidth}}-->
+<!--                                                    <col style={relativeWidth}>-->
+<!--                                                {/each}-->
+<!--                                            </colgroup>-->
                                             <thead>
                                             <tr>
                                                 <th>
                                                     <div class="koko_check">
-                                                        <input type="checkbox" name="allcheck" id="allcheck">
+                                                        <input type="checkbox" id="allcheck" bind:checked={isMasterCheckBoxChecked} on:click={handleMasterCheckBoxChange}>
                                                         <label for="allcheck"><em></em></label>
                                                     </div>
                                                 </th>
+                                                <th>ID</th>
                                                 {#each $providePrivacyWriteData.step5.displayColumnList as {columnName}}
                                                     <th>{columnName}</th>
                                                 {/each}
@@ -233,7 +252,7 @@
                                             </thead>
                                             <tbody>
                                             {#each $providePrivacyWriteData.step5.filteredMemberList as
-                                                {basicEmail, basicPhone, basicName, basicBirth, basicGender, kokonut_IDX}, i}
+                                                {ID, basicEmail, basicPhone, basicName, basicBirth, basicGender, kokonut_IDX}, i}
                                                 <tr>
                                                     <td>
                                                         <div class="koko_check">
@@ -243,7 +262,7 @@
                                                             <label for="mem{i}"><em></em></label>
                                                         </div>
                                                     </td>
-
+                                                    <td>{ID}</td>
                                                     {#if typeof basicEmail !== 'undefined'}
                                                         <td>{basicEmail}</td>
                                                     {/if}
@@ -269,6 +288,7 @@
                         </div>
                     </div>
                 </div>
+                {/if}
             </div>
         </div>
     </div>
