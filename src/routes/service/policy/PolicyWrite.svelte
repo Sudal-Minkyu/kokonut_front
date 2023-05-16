@@ -135,7 +135,7 @@
                 if(json_success.data.status === 200) {
                     piId.set(0);
                     piStage.set(0);
-                    policyInfoData.set(JSON.parse(JSON.stringify(initialPolicyInfo)));
+                    policyInfoData.set(JSON.parse(initialPolicyInfo));
                     push("/service/policyList");
                 }
             },
