@@ -25,6 +25,7 @@ import QnaWrite from "./routes/service/qna/QnaWrite.svelte"
 import QnaDetail from "./routes/service/qna/QnaDetail.svelte"
 
 import PersonalInfoItem from "./routes/service/personalInfo/PersonalInfoItem.svelte"
+import DevsTableManagement from "./routes/service/DevsTableManagement.svelte"
 
 import PolicyList from "./routes/service/policy/PolicyList.svelte"
 import PolicyWrite from "./routes/service/policy/PolicyWrite.svelte"
@@ -104,6 +105,9 @@ export default {
 
     // 개인정보항목관리 페이지
     "/service/environment/personalInfoItem": PersonalInfoItem,
+
+    // 개발자 테이블 관리 페이지
+    "/service/environment/devsTableManagement": DevsTableManagement,
 
     // 개인정보처리방침 리스트 페이지
     "/service/PolicyList": PolicyList,

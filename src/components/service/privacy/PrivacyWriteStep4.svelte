@@ -3,11 +3,8 @@
     import { fade } from 'svelte/transition'
     import { providePrivacyWriteData} from "../../../lib/store.js";
     export let stateChange;
-    import 'swiper/css/bundle';
     import PrivacyWriteStep4PersonalInfoList from "./PrivacyWriteStep4PersonalInfoList.svelte";
     import {onMount} from "svelte";
-    import {ajaxGet} from "../../common/ajax.js";
-    import {push} from "svelte-spa-router";
     import {openConfirm} from "../../common/ui/DialogManager.js";
 
     onMount(async => {
