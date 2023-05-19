@@ -1,7 +1,8 @@
 <script>
     import {onMount} from "svelte";
     import {Swiper} from "swiper/bundle";
-    import {personalInfoTableData, providePrivacyWriteData} from "../../../lib/store.js";
+    import 'swiper/css/bundle';
+    import {providePrivacyWriteData} from "../../../lib/store.js";
 
     onMount(async => {
         const galleryThumbs = new Swiper('.gallery-thumbs', {

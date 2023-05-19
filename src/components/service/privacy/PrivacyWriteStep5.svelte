@@ -5,8 +5,9 @@
     import {onMount} from "svelte";
     import {ajaxBody, ajaxGet} from "../../common/ajax.js";
     import PrivacyWriteStep5FilterPop from "./PrivacyWriteStep5FilterPop.svelte";
-    import {openConfirm} from "../../common/ui/DialogManager.js";
+    import {openBanner, openConfirm} from "../../common/ui/DialogManager.js";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    import {push} from "svelte-spa-router";
 
     export let stateChange;
 
@@ -53,8 +54,8 @@
         console.log('저장데이터', sendData);
         ajaxBody('/v2/api/Provision/provisionSave', sendData, (json_success) => {
             providePrivacyWriteData.set(JSON.parse(initialProvidePrivacyWrite));
-            console.info('저장성공', json_success);
-            // 성공후 이동 정의
+            openBanner('개인 정보 제공을 등록하였습니다.');
+            push('/service/privacy/privacyList');
         });
     }
 

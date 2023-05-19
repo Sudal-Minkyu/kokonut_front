@@ -25,7 +25,7 @@
 .curCou{font-weight:700;color:#00C389;}
 .cursItem dt{display:inline-block;font-weight:400;}
 
-.curs_btnBox{z-index:20;position:absolute;right:3rem;top:2rem;height:4rem;width:1.6rem;}
+.curs_btnBox{z-index:20;position:absolute;right:0rem;top:0.1rem;height:4rem;width:1.6rem;}
 .curs_btnInner{position:relative;width:100%;height:100%;}
 .swiper-button-next:after, .swiper-button-prev:after{content:none!important;}
 .curs_btnInner .swiper-button-prev{position: absolute;left:0rem;top: 0rem;width: 1.6rem;height: 1.6rem;margin-top: 0;z-index: 10;cursor: pointer;display: flex;align-items: center;justify-content: center;background-image: url(/assets/images/main/swiper_prev.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;}
