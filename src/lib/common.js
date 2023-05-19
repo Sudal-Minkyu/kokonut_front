@@ -1,6 +1,7 @@
 
 import VerEx from 'verbal-expressions';
 import jQuery from "jquery";
+import {keyBufferSto, ivSto} from "./store.js"
 
 // 핸드폰 정규식 함수 -> true, false 반환
 function phoneNumver(number) {
@@ -89,4 +90,66 @@ function addTwoWeeks(dateString) {
     return `${date.getFullYear()}. ${("0" + (date.getMonth() + 1)).slice(-2)}. ${("0" + date.getDate()).slice(-2)}`;
 }
 
-export { phoneNumver, ipCheck, getToday, emailCheck, onlyNumber, onlyDouble, callCapsLock, popOpenBtn, imgView, addTwoWeeks };
+// AES 암호화 함수
+function encryptData(data) {
+    const algorithm = 'AES-GCM';
+    const encoder = new TextEncoder();
+    const dataBuffer = encoder.encode(data);
+    const keyBuffer = crypto.getRandomValues(new Uint8Array(32));
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    keyBufferSto.set(uint8ArrayToBase64(keyBuffer));
+    ivSto.set(uint8ArrayToBase64(iv));
+    return crypto.subtle.importKey('raw', keyBuffer, algorithm, false, ['encrypt'])
+        .then((cryptoKey) =>
+            crypto.subtle.encrypt({ name: algorithm, iv }, cryptoKey, dataBuffer)
+        )
+        .then((encryptedBuffer) => {
+            const encryptedArray = Array.from(new Uint8Array(encryptedBuffer));
+            const encryptedData = new TextDecoder().decode(new Uint8Array(encryptedArray));
+            const ivHex = Array.from(iv)
+                .map((byte) => byte.toString(16).padStart(2, '0'))
+                .join('');
+
+            return uint8ArrayToBase64(encryptedArray);
+        });
+}
+
+// AES 암호화 데이터 복호화하는 함수
+function decryptData(encryptedData, keyBuffer, iv) {
+    const algorithm = 'AES-GCM';
+    const decoder = new TextDecoder();
+    const encryptedBuffer = base64ToUint8Array(encryptedData);
+    const keyArray = base64ToUint8Array(keyBuffer);
+    const ivArray = base64ToUint8Array(iv);
+
+    return crypto.subtle.importKey('raw', keyArray, algorithm, false, ['decrypt'])
+        .then(cryptoKey =>
+            crypto.subtle.decrypt({name: algorithm, iv: ivArray}, cryptoKey, encryptedBuffer)
+        )
+        .then(decryptedBuffer => {
+            const decryptedArray = new Uint8Array(decryptedBuffer);
+            return decoder.decode(decryptedArray);
+        });
+}
+
+// 바이너리(byte)형태의 데이터 -> Base64로 변환
+function uint8ArrayToBase64(uint8Array) {
+    let binary = '';
+    uint8Array.forEach((byte) => {
+        binary += String.fromCharCode(byte);
+    });
+    return btoa(binary);
+}
+
+// Base64 -> 바이너리(byte)로 변환
+function base64ToUint8Array(base64String) {
+    const binaryString = window.atob(base64String);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes;
+}
+
+export { phoneNumver, ipCheck, getToday, emailCheck, onlyNumber, onlyDouble, callCapsLock, popOpenBtn, imgView, addTwoWeeks, encryptData, decryptData };

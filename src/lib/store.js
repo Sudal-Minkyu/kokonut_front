@@ -26,6 +26,9 @@ export const cpNameSider = writable(""); // 사이드바에 나올 소속명
 export const backBtn = writable("<-"); // 뒤로가기버튼 텍스트
 export const popupPage = writable(0); // 팝업용 페이지번호
 
+export const keyBufferSto = writable(""); // 테스트 key
+export const ivSto = writable(""); // 테스트 iv
+
 export const role = writable(""); // 현재 권한
 export const electronic = writable(""); // 전자상거래법 대상 여부 : 0 -> 전자상거래법여부를 모르거나 최초일경우, 1->전자상거래법대상 일경우, 2->전자상거래법대상이 아닐경우
 

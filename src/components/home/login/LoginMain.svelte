@@ -3,8 +3,8 @@
     import restapi from "../../../lib/api"
 
     import LoginOTP from './LoginOTP.svelte'
-    import { is_login, accessToken, emailSave } from '../../../lib/store'
-    import { callCapsLock } from '../../../lib/common'
+    import { is_login, accessToken, emailSave, keyBufferSto, ivSto } from '../../../lib/store'
+    import { callCapsLock, encryptData } from '../../../lib/common'
     import {ajaxGet} from "../../common/ajax.js";
 
     let emailBlank;
@@ -65,31 +65,54 @@
         emailSaveCheckBox = !emailSaveCheckBox;
     }
 
+    // Google OTP 제출
+    async function initiateGoogleOtpLogin(otpValue) {
+        console.log("구글OTP 제출 클릭!");
+
+        try {
+            const encryptedPassword = await processData(knPassword);
+            googleOtpLogin(otpValue, knEmail, encryptedPassword);
+        } catch (error) {
+            console.error("Error during password encryption: ", error);
+        }
+    }
+
+    // 암호화처리
+    async function processData(knPassword) {
+        try {
+            return await encryptData(knPassword);
+        } catch (error) {
+            console.error("Error during encryption: ", error);
+        }
+    }
+
     let otpError = false;
     let otp_err_msg = "";
     let login_err_msg = "";
-    // Google OTP 제출
-	function googleOtpLogin(otpValue) {
-		console.log("구글OTP 제출 클릭!");
+    // 로그인시작
+	function googleOtpLogin(otpValue, knEmail, encryptedPassword) {
 
-		let url = "/v1/api/Auth/authToken"
+        let url = "/v1/api/Auth/authToken"
 
 		let sendData = {
 			otpValue : otpValue,
 			knEmail : knEmail,
-			knPassword : knPassword
+			knPassword : encryptedPassword
 		}
 
-		restapi('v1', 'post', url, "param", sendData, 'application/json',
-			(json_success) => {
-				if(json_success.data.status === 200) {
+        restapi('login', 'post', url, "param", sendData, 'application/json',
+            (json_success) => {
+                if(json_success.data.status === 200) {
                     // console.log("로그인성공");
                     knPassword= "";
-					$accessToken = json_success.data.sendData.jwtToken;
-					$is_login = true;
+                    $accessToken = json_success.data.sendData.jwtToken;
+                    $is_login = true;
+                    $keyBufferSto = "";
+                    $ivSto = "";
+
                     // alert("로그인 완료");
-					push("/service");
-				} else if (json_success.data.err_code === "KO012" || json_success.data.err_code === "KO011" || json_success.data.err_code === "KO010") {
+                    push("/service");
+                } else if (json_success.data.err_code === "KO012" || json_success.data.err_code === "KO011" || json_success.data.err_code === "KO010") {
                     // console.log("로그인실패");
                     otpError = true;
                     otp_err_msg = json_success.data.err_msg;
@@ -99,18 +122,20 @@
                     notJoinUser();
                 }
                 else {
-					console.log("로그인 에러");
+                    console.log("로그인 에러");
                     knPassword= "";
                     console.log(json_success);
-				}
-			},
-			(json_error) => {
-				console.log("에러");
+                }
+            },
+            (json_error) => {
+                console.log("에러");
                 knPassword= "";
-				console.log(json_error);
-			}
-		)
-	}
+                console.log(json_error);
+            }
+        )
+
+
+    }
 
     // 엔터키 클릭
     function enterPress(event) {
@@ -184,5 +209,5 @@
         <button type="button" on:click={ajaxTest}><p>통신테스트</p></button>
     </div>
 {:else}
-    <LoginOTP {stageChange} {notJoinUser} {googleOtpLogin} {knEmail} {otpError} {otp_err_msg} />
+    <LoginOTP {stageChange} {notJoinUser} {initiateGoogleOtpLogin} {knEmail} {otpError} {otp_err_msg} />
 {/if}

@@ -14,7 +14,7 @@
     export let knEmail; // 입력한 이메일
     let otpValue=""; // 입력 OTP값
     export let stageChange; // 가입된 회원이 아니거나, 뒤로 돌아가야 할 경우
-    export let googleOtpLogin; // 최종 OTP 로그인
+    export let initiateGoogleOtpLogin; // 최종 OTP 로그인
     export let notJoinUser;
 
     export let otpError;
@@ -24,7 +24,7 @@
     // 엔터키 클릭
     function enterPress(event) {
         if(event.key === "Enter") {
-            googleOtpLogin(otpValue);
+            initiateGoogleOtpLogin(otpValue);
         }
     }
    
@@ -84,7 +84,7 @@
     <a on:click|preventDefault={otpCreate}><p class="go_find">구글 OTP 2단계 인증 등록/재등록</p></a>
 </div>
 <div class="join_bottom login">
-    <button on:click|preventDefault={() => googleOtpLogin(otpValue)} type="button"><p>인증</p></button>
+    <button on:click|preventDefault={() => initiateGoogleOtpLogin(otpValue)} type="button"><p>인증</p></button>
 </div>
 <div class="checkArea" style="display: block; text-align:center">
     <a on:click={stageChange}><p class="go_find">뒤로가기</p></a>

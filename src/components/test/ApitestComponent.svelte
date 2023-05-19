@@ -43,7 +43,7 @@
     import CustumAlert from "../common/CustumAlert.svelte"
     import restapi from "../../lib/api.js"
     import jQuery from 'jquery';
-    import { ipCheck, popOpenBtn} from "../../lib/common.js"
+    import { ipCheck, popOpenBtn, encryptData, decryptData} from "../../lib/common.js"
 
     export let state;
 
@@ -257,7 +257,7 @@
     import { chart } from "svelte-apexcharts";
     import axios from "axios";
     import {get} from "svelte/store";
-    import {accessToken} from "../../lib/store.js";
+    import {accessToken, keyBufferSto, ivSto} from "../../lib/store.js";
     let options = {
         chart: {
             type: "bar",
@@ -428,6 +428,25 @@
         )
     }
 
+    // 사용 예시
+    const dataToEncrypt = 'Hello, World!';
+    // const encryptionKey = "kokonuttest123123456431234512323"
+    console.log("dataToEncrypt : "+dataToEncrypt);
+    // console.log("encryptionKey : "+encryptionKey)
+    let testpw;
+    function aesfun() {
+        testpw = encryptData(dataToEncrypt)
+            .then((encryptedData) => {
+                console.log("암호화 : "+encryptedData);
+                // 암호화된 데이터를 서버로 전송하거나 다른 처리를 수행합니다.
+                decryptData(encryptedData, $keyBufferSto, $ivSto)
+                    .then((decryptData) => {
+                        console.log("복호화 : "+decryptData);
+                    })
+            })
+
+    }
+
 </script>
 
 <!--{#if $is_login}-->
@@ -526,4 +545,11 @@
     <input type="button" on:click|preventDefault="{bootpayPayment}" value="부트페이 결제창 열기"><br/>
 
     <input type="button" on:click|preventDefault="{bootpayBilling}" value="부트페이 카드빌링창 열기"><br/>
+</div>
+
+<div class="testDiv">
+    <h1>AES 암호화 테스트</h1><br/>
+
+    <input type="button" on:click|preventDefault="{aesfun}" value="AES 암호화"><br/>
+
 </div>
