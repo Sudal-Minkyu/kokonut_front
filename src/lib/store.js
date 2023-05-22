@@ -12,9 +12,6 @@ const persist_storage = (key, initValue) => {
 // UI 적인 변수만 설정할 것
 // export const 변수명 = persist_storage("변수명","값");
 
-// 리플레쉬 토큰 유효기간 : 7일, 엑세스토큰 유효기간 : 30분
-export const accessToken = persist_storage("accessToken","");
-
 // 로그인 여부
 export const is_login = persist_storage("is_login",false);
 

@@ -257,7 +257,7 @@
     import { chart } from "svelte-apexcharts";
     import axios from "axios";
     import {get} from "svelte/store";
-    import {accessToken, keyBufferSto, ivSto} from "../../lib/store.js";
+    import { keyBufferSto, ivSto} from "../../lib/store.js";
     let options = {
         chart: {
             type: "bar",
@@ -303,7 +303,7 @@
         axios.post('/v2/api/Qna/qnaSave', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-                "Authorization": get(accessToken),
+                "Authorization": get(),
             }
         }).then((response) => {
             console.log(response);

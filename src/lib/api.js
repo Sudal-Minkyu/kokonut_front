@@ -1,4 +1,4 @@
-import { is_login, accessToken, keyBufferSto, ivSto } from "./store.js"
+import { is_login, keyBufferSto, ivSto } from "./store.js"
 
 import { get } from 'svelte/store'
 import { push } from 'svelte-spa-router'
@@ -28,12 +28,8 @@ const restapi = (type, operation, url, dataType, sendData, content_type, success
     }
 
     let headers = {};
-    
-    // if(type === 'v2' || type === 'v3') {
-    if(type === 'v2') {
-        // type이 'v2', 'v3' 일 경우 -> JWT토큰 필수
-        headers["Authorization"] = get(accessToken);
-    } else if(type === 'v3') {
+
+    if(type === 'v3') {
         headers["ApiKey"] = "ff5873bbf9faa2218b369a577ea9e452";
     } else if(type === 'login') {
         headers["keyBufferSto"] = get(keyBufferSto);
@@ -61,20 +57,13 @@ const restapi = (type, operation, url, dataType, sendData, content_type, success
     })
     .then(response => {
 
-        // 토큰만료시 재발급
-        let newJwtAccessToken = response.headers.get("Authorization");
-        if(newJwtAccessToken !== null && newJwtAccessToken !== undefined) {
-            accessToken.set(newJwtAccessToken);
-            // console.log("새로발급한 토큰 : "+newJwtAccessToken);
-        }
-
         if(response.data.status === 200) {
             // console.log("Rest API 호출 성공");
             success_callback(response)
         } else {
             if (operation === 'logout' && response.data.status === 500) { // token time out
                 console.log("토큰 만료시 토큰새로고침 작동해야될 듯");
-                // accessToken.set('')
+                // .set('')
                 // refreshToken.set('')
                 // refreshTokenExpirationTime.set('')
                 // is_login.set(false)

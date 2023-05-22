@@ -15,7 +15,7 @@
     import jQuery from 'jquery';
 
     import { onMount } from "svelte";
-
+    import {fade} from "svelte/transition"
 
     import {stimeVal, setDateRangePicker} from "../../../lib/libSearch.js";
 
@@ -38,6 +38,7 @@
     let total_page;
     $: total_page = Math.ceil(total/size)
 
+    let adminActivityLayout = 0;
     function activityList(pageNum) {
         console.log("관리자 활동이력 리스트 데이터 호출");
 
@@ -70,6 +71,8 @@
                     total = 0;
                     console.log("조회된 데이터가 없습니다.");
                 }
+
+                adminActivityLayout = 1;
                 // console.log("관리자활동이력 리스트 호출 성공");
             },
             (json_error) => {
@@ -169,9 +172,21 @@
 
         <ActivitySearch {choseMax} {choseMaxText} {activityCancel} {activityConfirm} />
 
-        <ActivityTable {activityList} {activity_list} {total} {size} {total_page} />
+        {#if adminActivityLayout === 0}
+            <div class="loaderParent" style="left: 55%">
+                <div class="loader"></div>
+            </div>
+        {:else}
+            <div in:fade>
 
-        <Paging total_page="{total_page}" data_list="{activity_list}" dataFunction="{activityList}" />
+                <!-- 테이블 영역 -->
+                <ActivityTable {activityList} {activity_list} {total} {size} {total_page} />
+
+                <!-- 페이징 영역 -->
+                <Paging total_page="{total_page}" data_list="{activity_list}" dataFunction="{activityList}" />
+
+            </div>
+        {/if}
 
     </div>
 </section>

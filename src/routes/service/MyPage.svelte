@@ -59,7 +59,7 @@
                 } else {
                     // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                     alert(json_success.data.err_msg);
-                    is_login.set(false);
+
                     push('/login');
                 }
             },

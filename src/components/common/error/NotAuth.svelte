@@ -2,16 +2,6 @@
 <script>
     import { link } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
-    import { onMount } from 'svelte';
-    import { is_login } from "../../../lib/store.js"
-
-    onMount(async () => {
-        if(is_login) {
-
-        } else {
-
-        }
-    });
 
     export let pageErrMsg;
     export let pageErrUrl;

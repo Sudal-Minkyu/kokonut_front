@@ -6,8 +6,6 @@
 
     import {
         backBtn,
-        is_login,
-        accessToken,
         providePrivacyWriteData,
         initialProvidePrivacyWrite
     } from '../../../lib/store.js'
