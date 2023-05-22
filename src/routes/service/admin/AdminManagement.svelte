@@ -9,11 +9,14 @@
     import Paging from '../../../components/common/Paging.svelte'
 
     import { onMount } from 'svelte';
+    import {fade} from "svelte/transition"
+
     import { page, pageTransitionData } from "../../../lib/store.js";
     import restapi from "../../../lib/api.js";
 
     import {setCustomSelectBox, setOptionItem} from "../../../lib/libSearch.js";
     import {commonCode} from "../../../lib/commonCode.js";
+    import PolicyTable from "../../../components/service/policy/PolicyTable.svelte";
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -69,6 +72,7 @@
     let total_page;
     $: total_page = Math.ceil(total/size)
 
+    let adminManagementLayout = 0;
     // 관리자 목록 호출 함수
     function adminList(pageNum) {
         console.log("관리자 목록호출 클릭!");
@@ -96,6 +100,8 @@
                     total = 0;
                     console.log("조회된 데이터가 없습니다.");
                 }
+
+                adminManagementLayout = 1;
             },
             (json_error) => {
                 console.log(json_error);
@@ -139,13 +145,21 @@
         <!-- 상단 검색 영역 -->
         <AdminSearch />
 
-        <!-- 테이블 영역 -->
-        <AdminTable {admin_list} {size} {total} />
+        {#if adminManagementLayout === 0}
+            <div class="loaderParent" style="left: 55%">
+                <div class="loader"></div>
+            </div>
+        {:else}
+            <div in:fade>
 
-        <!-- 페이징 영역 -->
-        <Paging total_page="{total_page}" data_list="{admin_list}" dataFunction="{adminList}" />
+                <!-- 테이블 영역 -->
+                <AdminTable {admin_list} {size} {total} />
 
+                <!-- 페이징 영역 -->
+                <Paging total_page="{total_page}" data_list="{admin_list}" dataFunction="{adminList}" />
 
+            </div>
+        {/if}
     </div>
 </section>
 

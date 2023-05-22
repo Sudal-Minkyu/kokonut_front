@@ -7,7 +7,7 @@
 
     import { onMount } from 'svelte';
     import restapi from "../../lib/api.js";
-    import { is_login, accessToken } from "../../lib/store.js"
+    import { is_login,  } from "../../lib/store.js"
 
     import { push } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
