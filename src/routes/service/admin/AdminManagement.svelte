@@ -76,6 +76,7 @@
 
         page.set(pageNum);
 
+        console.log(jQuery("#roleSelect"));
         let url = "/v2/api/Admin/list?page=" + pageNum+"&size="+size;
         let sendData = {
             searchText : searchText,

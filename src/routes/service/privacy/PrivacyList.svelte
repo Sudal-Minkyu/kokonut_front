@@ -4,16 +4,15 @@
     import { link } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
 
-    import {setCustomSelectBox, setDateRangePicker, setOptionItem, stimeVal} from "../../../lib/libSearch.js";
-    import {onMount} from "svelte";
+    import { setDateRangePicker, setOptionItem, stimeVal } from "../../../lib/libSearch.js";
+    import { onMount } from "svelte";
 
-    import PrivacyTable from "../../../components/service/privacy/PrivacyTable.svelte";
-    import PrivacySearch from "../../../components/service/privacy/PrivacySearch.svelte";
+    import PrivacyListTable from "../../../components/service/privacy/PrivacyListTable.svelte";
+    import PrivacyListSearch from "../../../components/service/privacy/PrivacyListSearch.svelte";
     import PrivacyDownloadHistory from "../../../components/service/privacy/PrivacyDownloadHistory.svelte";
     import Paging from "../../../components/common/Paging.svelte";
 
-    import {page, popupPage} from "../../../lib/store.js";
-    import jQuery from "jquery";
+    import { page, popupPage } from "../../../lib/store.js";
     import restapi from "../../../lib/api.js";
 
     onMount(async ()=>{
@@ -27,26 +26,27 @@
 
     async function fatchSearchModule() {
         setDateRangePicker('stime', true, 'period');
-        setCustomSelectBox();
-        setOptionItem(customSelectBoxOpt);
     }
 
-    let customSelectBoxOpt = [
-        {id : "privacyYnSelect", use_all : true, codeName : "privacy_yn"},
-        {id : "privacyStatusSelect", use_all : true, codeName : "privacy_status"},
-    ];
 
     let provisionLayout = 0;
 
-    let searchText;
     let provision_list = [];
     let size = 10;
     let total = 0;
     let total_page;
     $: total_page = Math.ceil(total/size)
 
+    const searchCondition = {
+        searchText: '',
+        stime: '',
+        filterDownload: '',
+        filterState: '',
+    }
+
     function provisionList(pageNum) {
-        console.log("개인정보제공 리스트 호출 클릭!");
+        searchCondition.stime = stimeVal;
+        console.log("개인정보제공 리스트 호출 클릭!", searchCondition);
 
         if(provisionLayout === 1) {
             provisionLayout = 0;
@@ -56,14 +56,7 @@
 
         let url = "/v2/api/Provision/provisionList?page=" + pageNum+"&size="+size;
 
-        let sendData = {
-            searchText : searchText,
-            stime : stimeVal,
-            filterDownload : jQuery("#privacyYnSelect").text(),
-            filterState :  jQuery("#privacyStatusSelect").text(),
-        };
-
-        restapi('v2', 'get', url, "param", sendData, 'application/json',
+        restapi('v2', 'get', url, "param", searchCondition, 'application/json',
             (json_success) => {
                 console.log(json_success);
                 if(json_success.data.status === 200) {
@@ -126,7 +119,6 @@
 
         restapi('v2', 'get', url, "param", sendData, 'application/json',
             (json_success) => {
-                console.log(json_success);
                 if(json_success.data.status === 200) {
                     console.log("조회된 데이터가 있습니다.");
                     provisionDownloadHistory_list = json_success.data.datalist
@@ -168,12 +160,12 @@
         </div>
 
         <div class="koinput marB32">
-            <input type="text" bind:value="{searchText}" on:keypress={enterPress} class="wid360" placeholder="제공자 검색" />
+            <input type="text" bind:value="{searchCondition.searchText}" on:keypress={enterPress} class="wid360" placeholder="제공자 검색" />
             <button on:click={() => provisionList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
         </div>
 
         <!-- 상단 검색 영역 -->
-        <PrivacySearch />
+        <PrivacyListSearch {searchCondition}/>
 
         {#if provisionLayout === 0}
             <div class="loaderParent" style="left: 55%">
@@ -182,7 +174,7 @@
         {:else}
             <div in:fade>
                 <!-- 테이블 영역 -->
-                <PrivacyTable {downloadHistoryClick} {provision_list} {size} {total} />
+                <PrivacyListTable {downloadHistoryClick} {provision_list} {size} {total} />
 
                 <!-- 페이징 영역 -->
                 <Paging total_page="{total_page}" data_list="{provision_list}" dataFunction="{provisionList}" />

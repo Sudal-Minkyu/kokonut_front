@@ -30,6 +30,16 @@
                     </a>
                 </li>
                 <li>
+                    <a use:link href="/service/environment/devsTableManagement">
+                        <div class="setlistBox">
+                            <div class="setitemBox">
+                                <div class="seticon"><img src="/assets/images/common/setlist_icon_04.png" alt=""></div>
+                                <div class="settitle">개발자 테이블 관리</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
                     <a use:link href="/service/environment/apikey">
                         <div class="setlistBox">
                             <div class="setitemBox">

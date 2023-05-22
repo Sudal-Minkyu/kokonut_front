@@ -4,7 +4,13 @@
 
     import { link } from 'svelte-spa-router'
 
-    import {backBtn, is_login, accessToken, providePrivacyWriteData} from '../../../lib/store.js'
+    import {
+        backBtn,
+        is_login,
+        accessToken,
+        providePrivacyWriteData,
+        initialProvidePrivacyWrite
+    } from '../../../lib/store.js'
 
     import PrivacyWriteStep1 from "../../../components/service/privacy/PrivacyWriteStep1.svelte";
     import PrivacyWriteStep2 from "../../../components/service/privacy/PrivacyWriteStep2.svelte";
@@ -17,7 +23,8 @@
     onMount(async () => {
         setTimeout(() => priavacyStage = 1, 500);
         getUserTableList();
-    })
+        providePrivacyWriteData.set(JSON.parse(initialProvidePrivacyWrite));
+    });
 
     function stateChange(val) {
         priavacyStage = val;

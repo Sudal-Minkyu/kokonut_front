@@ -101,10 +101,10 @@
                                 <input type="checkbox" name="activity" class="act_sel" id="개인정보 DB항목 변경" value="AC_12"/>
                                 <label for="개인정보 DB항목 변경">개인정보 DB항목 변경</label>
                             </div>
-                            <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 등록" value="AC_13"/>
-                                <label for="개인정보 등록">개인정보 등록</label>
-                            </div>
+<!--                            <div class="actCheck">-->
+<!--                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 등록" value="AC_13"/>-->
+<!--                                <label for="개인정보 등록">개인정보 등록</label>-->
+<!--                            </div>-->
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="정보제공 목록" value="AC_14"/>
                                 <label for="정보제공 목록">정보제공 목록</label>

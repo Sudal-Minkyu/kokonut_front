@@ -26,6 +26,9 @@ export const cpNameSider = writable(""); // 사이드바에 나올 소속명
 export const backBtn = writable("<-"); // 뒤로가기버튼 텍스트
 export const popupPage = writable(0); // 팝업용 페이지번호
 
+export const keyBufferSto = writable(""); // 테스트 key
+export const ivSto = writable(""); // 테스트 iv
+
 export const role = writable(""); // 현재 권한
 export const electronic = writable(""); // 전자상거래법 대상 여부 : 0 -> 전자상거래법여부를 모르거나 최초일경우, 1->전자상거래법대상 일경우, 2->전자상거래법대상이 아닐경우
 
@@ -42,7 +45,7 @@ export const piId = writable(0); // 개인정보처리방침 saveId
 export const piStage = writable(0); // 개인정보처리방침 작성중인 글이 존재할 경우 보내는 단계
 
 
-export const initialPolicyInfo = {
+export const initialPolicyInfo = JSON.stringify({
     policyData1: {
         piVersion : '',
         piDate : '',
@@ -73,10 +76,10 @@ export const initialPolicyInfo = {
         piMonth : '',
         piDay : '',
     }
-};
+});
 
 // 개인정보처리방침 정보데이터
-export const policyInfoData = writable(JSON.parse(JSON.stringify(initialPolicyInfo)));
+export const policyInfoData = writable(JSON.parse(initialPolicyInfo));
 
 // 개인정보 항목관리 항목분류
 export const personalInfoCategoryData = writable({
@@ -140,7 +143,7 @@ export const personalInfoTableData = writable({
 
 
 
-export const initialProvidePrivacyWrite = {
+export const initialProvidePrivacyWrite = JSON.stringify({
     currentStage: '',
     step1: {
         proProvide: '', // 0 내부제공, 1 외부제공
@@ -174,7 +177,8 @@ export const initialProvidePrivacyWrite = {
     step5: {
         provideTargetMemberScope: '',
         searchCondition: {
-            id: '',
+            popVisible: false,
+            text: '',
             registerDate: {
                 fromDate: '',
                 toDate: '',
@@ -190,10 +194,10 @@ export const initialProvidePrivacyWrite = {
         piplTargetIdxs: [],
         displayColumnList: [],
     },
-}
+});
 
 // 개인정보 제공 각 페이지의 기억
-export const providePrivacyWriteData = writable(JSON.parse(JSON.stringify(initialProvidePrivacyWrite)));
+export const providePrivacyWriteData = writable(JSON.parse(initialProvidePrivacyWrite));
 
 // 페이지간 이동시 일회성으로 건너갈 데이터를 담는다. (예. 페이지 이동 후 기본값이 세팅되어야할 경우 등)
 export const pageTransitionData = writable({});
