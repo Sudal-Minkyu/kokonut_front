@@ -1,6 +1,7 @@
 <head>
     <!-- Home CSS -->
     <link href='/assets/css/home/maincommon.css' rel='stylesheet'>
+    <link href='/assets/css/home/animate.css' rel='stylesheet'>
     <link href='/assets/css/home/main.css' rel='stylesheet'>
     <link href='/assets/css/home/mainprice.css' rel='stylesheet'>
     <link href='/assets/css/home/mainreset.css' rel='stylesheet'>

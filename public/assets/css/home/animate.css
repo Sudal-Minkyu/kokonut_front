@@ -1,0 +1,252 @@
+@charset "UTF-8";
+
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.animated.infinite {
+  animation-iteration-count: infinite;
+}
+
+.animated.hinge {
+  animation-duration: 2s;
+}
+
+.animated.flipOutX,
+.animated.flipOutY,
+.animated.bounceIn,
+.animated.bounceOut {
+  animation-duration: .75s;
+}
+
+
+
+@keyframes AFadeInUp {
+	from {opacity:0; transform: translateY(4.5rem);}
+	to {opacity:1; transform: translateY(0px);}
+}
+.AFadeInUp {
+	animation-name: AFadeInUp;
+	animation-duration: 0.6s;
+    animation-delay: 0.8s;
+}
+.IntroTechnical.AFadeInUp {
+	animation-name: AFadeInUp;
+	animation-duration: 0.6s;
+    animation-delay: 1.3s;
+}
+.s_TitleBox.AFadeInUp {
+	animation-duration: 0.6s;
+    animation-delay: 0.4s;
+}
+@media (max-width:991px) {.IntroTechnical.AFadeInUp {animation-name: AFadeInUp; animation-delay: 0.8s;}}
+
+@keyframes AFadeInLeft {
+	from {opacity:0; transform: translateX(-10rem);}
+	to {opacity:1; transform: translateX(0px);}
+}
+.AFadeInLeft { animation-name: AFadeInLeft;}
+
+@keyframes AFadeInRight {
+	from {opacity:0; transform: translateX(10rem);}
+	to {opacity:1; transform: translateX(0px);}
+}
+.AFadeInRight { animation-name: AFadeInRight;}
+
+@keyframes AFadeInRightsec {
+	from {opacity:0; transform: translate(0rem,10rem);}
+	to {opacity:1; transform: translate(10rem, 10rem);}
+}
+.AFadeInRightsec { animation-name: AFadeInRightsec;}
+
+
+@media (max-width:991px) {
+	@keyframes AFadeInLeft {
+		from {opacity:0; transform: translateX(-5rem);}
+		to {opacity:1; transform: translateX(0px);}
+	}
+	
+	@keyframes AFadeInRight {
+		from {opacity:0; transform: translateX(5rem);}
+		to {opacity:1; transform: translateX(0px);}
+	}
+}
+
+.TitleUp {animation-name: TitleUp; animation-duration: 0.5s;}
+
+.mContGreen.TitleUp, .mContpurple.TitleUp, .p_comStitle.TitleUp {animation-delay: 0.6s;}
+
+.mContTitle.TitleUp, .p_comTitle.TitleUp {animation-delay: 0.6s;}
+.mContsTxt.TitleUp, .p_comTxt.TitleUp {animation-delay: 0.7s;}
+
+.managertxt.TitleUp {animation-delay: 0.5s;}
+.managertitle.TitleUp {animation-delay: 0.5s;}
+.managerstitle.TitleUp {animation-delay: 0.6s;}
+
+
+@keyframes TitleUp {
+	from {opacity:0; transform: translateY(2rem);}
+	to {opacity:1; transform: translateY(0px);}
+}
+
+
+/* ma */
+.siteImgUp {
+	animation-name: siteImgUp;
+	animation-duration: 0.3s;
+}
+.ma_figure01.siteImgUp {animation-delay: 0.9s;}
+.ma_figure02.siteImgUp {animation-delay: 1s;}
+@keyframes siteImgUp {
+	from {opacity:0; transform: translateY(2rem);}
+	to {opacity:1; transform: translateY(0px);}
+}
+
+.siteImgUpCenter {
+	animation-name: siteImgUpCenter;
+	animation-duration: 0.5s;
+}
+@keyframes siteImgUpCenter {
+	from {opacity:0; transform:translateY(2rem);}
+	to {opacity:1; transform: translateY(0px);}
+}
+@media (max-width:991px) {
+	@keyframes siteImgUpCenter {
+		from {opacity:0; transform: translateX(-50%) translateY(2rem);}
+		to {opacity:1; transform: translateX(-50%) translateY(0px);}
+	}
+}
+
+.m_ConttxtBoxUp {
+	animation-name: TitleUp;
+	animation-duration: 0.6s;
+	animation-delay: 0.8s;
+}
+@keyframes m_ConttxtBoxUp {
+	from {opacity:0; transform: translateY(2rem);}
+	to {opacity:1; transform: translateY(0px);}
+}
+@media (max-width:767px) {
+	.m_ConttxtBoxUp {animation-delay: 0.5s;}
+}
+
+/* mb */
+#mb .m_ConttxtBox.m_ConttxtBoxUp {animation-delay: 0.7s;}
+.t_ContBoxCont.m_ConttxtBoxUp {animation-delay: 0.8s;}
+
+/* mc */
+.ThreeStepUp {animation-name: ThreeStepUp; animation-duration: 0.4s;}
+.mc_figure01.ThreeStepUp {animation-delay: 0.8s;}
+.mc_figure02.ThreeStepUp {animation-delay: 1s;}
+.mc_figure03.ThreeStepUp {animation-delay: 1.2s;}
+@keyframes ThreeStepUp {
+	from {opacity:0; transform: translateY(8rem);}
+	to {opacity:1; transform: translateY(0px);}
+}
+#mc .m_ConttxtBoxUp {animation-delay: 0.8s;}
+@media (max-width:767px) {
+	#mc .m_ConttxtBoxUp {animation-delay: 0.3s;}
+}
+/* // mc */
+
+/* md */
+.pop {
+	animation-name: pop;
+	animation-duration: 0.1s;
+	animation-delay: 1.2s;
+}
+@keyframes pop {
+	from {transform: scale(0);}
+	top {transform: scale(1);}
+}
+/* // md */
+
+
+/* 기본적인 관리, 기술적 보호조치 */
+.Imglong.ImgScrollUp02 {	
+	animation-name: ImgScrollUp02;
+	animation-duration: 2s;
+	animation-delay: 0.8s;
+}
+@keyframes ImgScrollUp02 {
+	0% { transform: translateY(0%);}
+	100% { transform: translateY(-32%);}
+}
+
+@media (max-width:767px) {
+	@keyframes ImgScrollUp02 {
+		0% { transform: translateY(0%);}
+		100% { transform: translateY(0%);}
+	}
+}
+
+/* 개인정보처리방침 작성 알림 */
+.Apop {
+	animation-name: Apop;
+	animation-duration: 0.1s;
+	animation-delay: 3s;
+}
+@keyframes Apop {
+	0% {transform: scale(0) translateY(10px);}
+	100% {transform:  scale(1) translateY(0px);}
+}
+
+.alret02.Apop {animation-delay: 2.5s;}
+.alret03.Apop {animation-delay: 2.6s;}
+.alret04.Apop {animation-delay: 2.7s;}
+.alret05.Apop {animation-delay: 2.5s;}
+
+#tb .t_ContBoxCont.m_ConttxtBoxUp {	animation-delay: 1s;}
+
+
+@media (max-width:991px) {
+	.Apop {animation-delay: 1s;}
+	.alret02.Apop {animation-delay: 1.1s;}
+	.alret03.Apop {animation-delay: 1.2s;}
+	.alret04.Apop {animation-delay: 1.3s;}
+	.alret05.Apop {animation-delay: 1.4s;}
+}
+
+/* // 기본적인 관리, 기술적 보호조치 */
+
+
+/* 편의성 */
+.fa_figure01.siteImgUp {animation-delay: 0.8s;}
+.fa_figure02.siteImgUp {animation-delay: 0.9s;}
+
+.fb_figure01.siteImgUp {animation-delay: 0.8s;}
+.fb_figure02.siteImgUpCenter {animation-delay: 0.9s;}
+
+.fc_figure02.siteImgUp {animation-delay: 0.8s;}
+.fc_figure03.siteImgUp {animation-delay: 0.9s;}
+
+/* 로고 */
+.logoGroup.TitleUp {animation-delay: 0.7s; animation-duration:0.6s;}
+
+@media (max-width:767px) {.logoGroup.TitleUp {animation-delay: 0.6s;}}
+
+@media (min-width:992px) {
+.mgContBox:nth-child(1).AFadeInUp {animation-delay: 0.5s;}
+.mgContBox:nth-child(2).AFadeInUp {animation-delay: 0.7s;}
+.mgContBox:nth-child(3).AFadeInUp {animation-delay: 0.9s;}
+}
+
+/* 요금안내 */
+
+@keyframes  PriceAFadeInUp {
+	from {opacity:0; transform: translateY(4.5rem);}
+	to {opacity:1; transform: translateY(0px);}
+}
+.PriceAFadeInUp {
+	animation-name: PriceAFadeInUp;
+	animation-duration: 0.8s;
+	animation-delay: 0.2s;
+}
+.pr_stxt.PriceAFadeInUp {animation-delay: 0.4s;}
+
+.pricTLeft.PriceAFadeInUp {animation-delay: 0.6s;}
+.pricTRight.PriceAFadeInUp {animation-delay: 0.8s;}
+
+@media (max-width:991px) {.pricTRight.PriceAFadeInUp {animation-delay: 0.2s;}}

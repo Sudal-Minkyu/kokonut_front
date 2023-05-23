@@ -1,12 +1,57 @@
 <footer>
     <div class="footerInner">
-        <div class="footerBox">
-            <ul>
-                <li><p>text01</p><p>text01-1</p></li>
-                <li><p>text02</p><p>text02-1</p></li>
-                <li><p>text03</p><p>text04</p><p>text05</p><p>text06</p></li>
+        <div class="footerBox left">
+            <ul class="pp_ul pc_only">
+                <a href=""><li>개인정보처리방침</li></a>
+                <a href=""><li>이용약관</li></a>
+                <a href=""><li>임원모집</li></a>
             </ul>
-            <p class="copy">© txttxttxt <br class="mo_br">123456</p>
+            <div class="f_logoBox left">
+                <figure class="f_logo"><img src="/assets/images/main/f_logo.png" alt="개인정보보호 서비스 코코넛 로고"></figure>
+                <p class="copy">Copyright© 2022 Everyfeb. All Rights Reserved</p>
+            </div>
         </div>
+        <div class="footerBox right">
+            <ul class="notice_ul">
+                <li class="width100">
+                    <p class="ul_title">상호</p>
+                    <p class="ul_txt">(주)2월대개봉</p>
+                </li>
+                <li>
+                    <p class="ul_title">대표</p>
+                    <p class="ul_txt">곽호림</p>
+                </li>
+                <li>
+                    <p class="ul_title">개인정보관리책임자</p>
+                    <p class="ul_txt">곽호림</p>
+                </li>
+                <li>
+                    <p class="ul_title">메인</p>
+                    <p class="ul_txt">contact@kokonut.me</p>
+                </li>
+                <li>
+                    <p class="ul_title">전화번호</p>
+                    <p class="ul_txt">0507-1348-6533</p>
+                </li>
+                <li class="width100">
+                    <p class="ul_title">주소</p>
+                    <p class="ul_txt">지사 : 서울시 강남구 역삼로 165, TIPS 타운 3층 (주)2월대개봉<br>본사 : 전북 전주시 오공로 123, 전북창조경제혁신센터 510호</p>
+                </li>
+                <li>
+                    <p class="ul_title">사업자등록번호</p>
+                    <p class="ul_txt">348-81-01536</p>
+                </li>
+                <li>
+                    <p class="ul_title">통신판매</p>
+                    <p class="ul_txt">제 2020-전주완산-1013호</p>
+                </li>
+
+            </ul>
+        </div>
+        <ul class="pp_ul mo_only">
+            <a href=""><li>개인정보처리방침</li></a>
+            <a href=""><li>이용약관</li></a>
+            <a href=""><li>임원모집</li></a>
+        </ul>
     </div>
 </footer>
