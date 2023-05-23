@@ -1,16 +1,21 @@
 <script>
     import { link } from 'svelte-spa-router'
-    import { is_login, page, knNameHeader, knEmailHeader, cpNameSider } from "../../../lib/store.js"
+    import { is_login, accessToken, page, knNameHeader, knEmailHeader, cpNameSider } from "../../../lib/store.js"
     import { ajaxParam } from "../../common/ajax.js";
 
     function logout() {
-        ajaxParam('/v1/api/Auth/logout', "",
+        let sendData = {
+            accessToken : $accessToken,
+        }
+
+        ajaxParam('/v1/api/Auth/logout', sendData,
             (json_success) => {
                 // 기본값 초기화처리
                 knNameHeader.set('');
                 knEmailHeader.set('');
                 cpNameSider.set('');
-
+                is_login.set(false);
+                accessToken.set('');
                 page.set(0);
                 if (json_success.data.status === 500) {
                     alert(json_success.data.err_msg);
