@@ -3,7 +3,7 @@
     import restapi from "../../../lib/api"
 
     import LoginOTP from './LoginOTP.svelte'
-    import { is_login, emailSave, keyBufferSto, ivSto } from '../../../lib/store'
+    import { is_login, accessToken, emailSave, keyBufferSto, ivSto } from '../../../lib/store'
     import { callCapsLock, encryptData } from '../../../lib/common'
     import {ajaxGet} from "../../common/ajax.js";
 
@@ -105,7 +105,7 @@
                 if(json_success.data.status === 200) {
                     // console.log("로그인성공");
                     knPassword= "";
-                    // $ = json_success.data.sendData.jwtToken;
+                    $accessToken = json_success.data.sendData.jwtToken;
                     $is_login = true;
                     $keyBufferSto = "";
                     $ivSto = "";

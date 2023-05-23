@@ -1,3 +1,5 @@
+import {is_login, accessToken} from "../../lib/store.js";
+import { get } from 'svelte/store';
 import axios from 'axios';
 
 export const ajaxGet = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
@@ -57,7 +59,10 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
     headers["Content-Type"] = contentType;
 
     // type이 'v0' 일 경우 -> JWT토큰 불필요
-    if(url.slice(0, 5).includes('v3/')) {
+    if (url.slice(0, 5).includes('v2/')) {
+        // type이 'v2', 'v3' 일 경우 -> JWT토큰 필수
+        headers["Authorization"] = get(accessToken);
+    } else if(url.slice(0, 5).includes('v3/')) {
         headers["ApiKey"] = "ff5873bbf9faa2218b369a577ea9e452";
     }
 
@@ -69,7 +74,13 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         headers,
         withCredentials: true, // 쿠키 값 보내기 설정
     }).then(response => {
-    
+        // 토큰만료시 재발급
+        let newJwtAccessToken = response.headers.get("Authorization");
+        if (newJwtAccessToken !== null && newJwtAccessToken !== undefined) {
+            accessToken.set(newJwtAccessToken);
+            // console.log("새로발급한 토큰 : "+newJwtAccessToken);
+        }
+
         if (response.data.status === 200) {
             // console.log("Rest API 호출 성공");
             handleSuccess(response);
@@ -88,7 +99,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         if (operation !== 'logout') {
             if (error.response.status === 401) {
                 alert("인증되지 않은 사용자입니다. 다시 로그인해주세요.");
-                
+                is_login.set(false);
                 location.href = '/login';
             } else if (error.response.status === 403) {
                 handleFail();
@@ -101,7 +112,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
                 console.log(error);
             }
         } else {
-            
+            is_login.set(false);
             location.href = '/login';
         }
     });

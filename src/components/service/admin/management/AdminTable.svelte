@@ -1,7 +1,6 @@
 
 <script>
     import {page} from "../../../../lib/store"
-    import {openBanner} from "../../../common/ui/DialogManager.js";
 
     export let size;
     export let total;
@@ -80,8 +79,8 @@
                     </td>
 
                     <td>
-                        <button on:click={()=>{openBanner("현재 준비중인 서비스입니다.")}}>사업자 변경</button>
-                        <button on:click={()=>{openBanner("현재 준비중인 서비스입니다.")}}>비밀번호 변경</button>
+                        <button>사업자 변경</button>
+                        <button>비밀번호 변경</button>
                     </td>
                 </tr>
             {/each}

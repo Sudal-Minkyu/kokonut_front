@@ -14,7 +14,7 @@
     import PolicyWriteStep6 from '../../../components/service/policy/PolicyWriteStep6.svelte'
     import PolicyWriteStep7 from '../../../components/service/policy/PolicyWriteStep7.svelte'
 
-    import {backBtn, policyInfoData, piId, piStage, is_login, initialPolicyInfo} from '../../../lib/store.js'
+    import {backBtn, policyInfoData, piId, piStage, is_login, accessToken, initialPolicyInfo} from '../../../lib/store.js'
 
     import restapi from "../../../lib/api.js";
 
@@ -78,8 +78,8 @@
                 } else {
                     // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                     alert(json_success.data.err_msg);
-
-
+                    is_login.set(false);
+                    accessToken.set("");
                     push('/login');
                 }
             },
@@ -183,8 +183,8 @@
                 }else {
                     // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                     alert(json_success.data.err_msg);
-
-
+                    is_login.set(false);
+                    accessToken.set("");
                     push('/login');
                 }
             },

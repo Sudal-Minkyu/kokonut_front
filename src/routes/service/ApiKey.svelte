@@ -8,7 +8,7 @@
 
     import { onMount } from 'svelte';
     import restapi from "../../lib/api.js";
-    import { is_login,  } from "../../lib/store.js"
+    import { is_login, accessToken } from "../../lib/store.js"
 
     import { push } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
@@ -166,8 +166,8 @@
                 } else {
                     // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                     alert(json_success.data.err_msg);
-
-
+                    is_login.set(false);
+                    accessToken.set("");
                     push('/login');
                 }
             },
