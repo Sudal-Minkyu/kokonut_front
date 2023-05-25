@@ -45,28 +45,24 @@
 // +++++++ ~ 코코넛은 가능합니다 END +++++++
 
 // +++++++ 관리적 보호 조치 START ~ +++++++
-	$(window).scroll(function() {
-		var $window = $(window),
-		
-		$tech = $('#managerial'),
-		$techCont = $('#managerial .section');
-		  
-		var windowTop = $(window).scrollTop();
-		var scroll = $window.scrollTop() + ($window.height() / 2);
-		var area = $(window).scrollTop();
-	
-		$techCont.each(function () {
-			var $this = $(this);
-			if ($this.position().top <= scroll && $this.position().top + $this.height() > scroll) {
-				$tech.addClass("titleUp");
-				$tech.addClass('showArea-' + $(this).data('show'));
-				<!-- $tech.removeClass(function (index, css) { -->
-					<!-- return (html) -->
-				<!-- }); -->
-			}
-		});    
-	}).scroll();
-	
+    $(window).scroll(function() {
+         var $window = $(window);
+         var $tech = $('#managerial');
+         var $techCont = $('#managerial .section');
+         var scroll = $window.scrollTop() + ($window.height() / 2);
+
+        $techCont.each(function () {
+            var $this = $(this);
+            if ($this.position().top <= scroll && $this.position().top + $this.height() > scroll) {
+                $tech.addClass("titleUp");
+                $tech.addClass('showArea-' + $(this).data('show'));
+                    /*$tech.removeClass(function (index, css) {
+                        return (html)
+                    });*/
+            }
+        });
+    }).scroll();
+
 	// 제공 관리
 	$(window).scroll(function() {
 		var $window = $(window),
