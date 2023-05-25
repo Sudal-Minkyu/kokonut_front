@@ -62,7 +62,6 @@
                     {:else}
                         <td><div class="condition complete">알수없음</div></td>
                     {/if}
-                    <td>{privacyHistory.privacyHistoryCode}</td>
                     <td>{privacyHistory.knName}</td>
                     {#if privacyHistory.knRoleCode === "ROLE_MASTER"}
                         <td style="left: 10px">{privacyHistory.knRoleDesc}<div class="mastericon"></div></td>
@@ -70,7 +69,7 @@
                         <td>{privacyHistory.knRoleDesc}</td>
                     {/if}
                     <td>{privacyHistory.knEmail}</td>
-                    <td>{privacyHistory.insert_date}</td>
+                    <td>{privacyHistory.insert_date} 빨강색</td>
                     <td>{privacyHistory.kphIpAddr}</td>
                 </tr>
             {/each}

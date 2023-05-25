@@ -1407,7 +1407,7 @@
 .prcontainer1{position:relative;}
 
 .addelement{position:relative;}
-.pr_delete {top: 50%;position: absolute;right: -2rem;width: 2rem;height: 2rem;background-image: url(/assets/images/common/pr_delete_button.png);background-size: cover;background-repeat: no-repeat;background-position: center;transform: translateY(-50%);}
+.pr_delete {top: 50%;position: absolute;right: -2rem;width: 2rem;height: 2rem;background-image: url(/assets/images/common/pr_delete_button.png);background-size: cover;background-repeat: no-repeat;background-position: center;transform: translateY(-50%); cursor: pointer;}
 
 .pr_fieldBtnInner{display:block;text-align:center;margin-top:1.6rem;}
 .pr_fieldBtn{display:inline-block;width: 2rem;height: 2rem;background-image: url(/assets/images/common/add_pr_field.png);background-size: cover;background-repeat: no-repeat;background-position: center;}

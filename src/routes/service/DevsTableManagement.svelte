@@ -6,6 +6,7 @@
     import {Swiper} from "swiper/bundle";
     import 'swiper/css/bundle';
     import {onMount} from "svelte";
+    import {ajaxMultipart} from "../../components/common/ajax.js";
 
     onMount(async => {
         const galleryThumbs = new Swiper('.gallery-thumbs', {
@@ -30,6 +31,24 @@
             },
         });
     });
+
+    const testAddCustomer = () => {
+        let input = document.getElementById('myFile');
+        let file = input.files[0];
+
+        let formData = new FormData();
+        formData.set('1_ID', 'testAjaxID');
+        formData.set('1_PASSWORD', '123789');
+        formData.set('1_1', '테스트문자열');
+        // formData.set('1_3', file);
+        formData.set('2_3', '추가테이블문자열');
+
+        ajaxMultipart('/v1/abcdef', formData, (success_response) => {
+            console.log('성공신호다', success_response);
+        });
+
+        console.log('전송시도한 데이터', Object.fromEntries(formData))
+    }
 </script>
 
 <Header />
@@ -38,6 +57,8 @@
         <div class="pageTitleBtn marB70">
             <a use:link href="/service/environment">{$backBtn}</a>
             <h1>개발자 테이블 관리</h1>
+            <input type="file" id="myFile">
+            <button type="button" on:click={testAddCustomer}>회원가입테스트</button>
         </div>
         <div class="prDivideBox" in:fade>
             <div class="categorydivision_box" >

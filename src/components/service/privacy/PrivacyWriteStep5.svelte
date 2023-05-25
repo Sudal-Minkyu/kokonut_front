@@ -252,34 +252,36 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {#each $providePrivacyWriteData.step5.filteredMemberList as
+                                            {#each $providePrivacyWriteData.step5.memberList as
                                                 {ID, basicEmail, basicPhone, basicName, basicBirth, basicGender, kokonut_IDX}, i}
-                                                <tr>
-                                                    <td>
-                                                        <div class="koko_check">
-                                                            <input type="checkbox" id="mem{i}" class="partcheck"
-                                                                   value={kokonut_IDX}
-                                                                   bind:group={$providePrivacyWriteData.step5.piplTargetIdxs}>
-                                                            <label for="mem{i}"><em></em></label>
-                                                        </div>
-                                                    </td>
-                                                    <td>{ID}</td>
-                                                    {#if typeof basicEmail !== 'undefined'}
-                                                        <td>{basicEmail}</td>
-                                                    {/if}
-                                                    {#if typeof basicPhone !== 'undefined'}
-                                                        <td>{basicPhone}</td>
-                                                    {/if}
-                                                    {#if typeof basicName !== 'undefined'}
-                                                        <td>{basicName}</td>
-                                                    {/if}
-                                                    {#if typeof basicBirth !== 'undefined'}
-                                                        <td>{basicBirth}</td>
-                                                    {/if}
-                                                    {#if typeof basicGender !== 'undefined'}
-                                                        <td>{basicGender}</td>
-                                                    {/if}
-                                                </tr>
+                                                {#if $providePrivacyWriteData.step5.filteredMemberList.find(item => item.kokonut_IDX === kokonut_IDX)}
+                                                    <tr>
+                                                        <td>
+                                                            <div class="koko_check">
+                                                                <input type="checkbox" id="mem{i}" class="partcheck"
+                                                                       value={kokonut_IDX}
+                                                                       bind:group={$providePrivacyWriteData.step5.piplTargetIdxs}>
+                                                                <label for="mem{i}"><em></em></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>{ID}</td>
+                                                        {#if typeof basicEmail !== 'undefined'}
+                                                            <td>{basicEmail}</td>
+                                                        {/if}
+                                                        {#if typeof basicPhone !== 'undefined'}
+                                                            <td>{basicPhone}</td>
+                                                        {/if}
+                                                        {#if typeof basicName !== 'undefined'}
+                                                            <td>{basicName}</td>
+                                                        {/if}
+                                                        {#if typeof basicBirth !== 'undefined'}
+                                                            <td>{basicBirth}</td>
+                                                        {/if}
+                                                        {#if typeof basicGender !== 'undefined'}
+                                                            <td>{basicGender}</td>
+                                                        {/if}
+                                                    </tr>
+                                                {/if}
                                             {/each}
                                             </tbody>
                                         </table>
