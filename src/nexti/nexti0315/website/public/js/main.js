@@ -2,10 +2,10 @@
 
 // 관리적 보호조치
 <script>
-	sa = $('#a').position().top;
-	sb = $("#b").position().top;
-	sc = $('#c').position().top;
-	sd = $('#e').position().top;
+    var sa = $('#a').position().top;
+    var sb = $("#b").position().top;
+    var sc = $('#c').position().top;
+    var sd = $('#e').position().top;
 
 	$(window).scroll(function() {
 		var scroll = $(window).scrollTop();
@@ -36,3 +36,4 @@
 		}
 	});	
 </script>
+
