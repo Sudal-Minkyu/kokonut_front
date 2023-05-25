@@ -919,7 +919,7 @@ p.letters {font-family: Pretendard; font-size: 6rem; font-weight: 700; line-heig
 	height:1.2rem;
 	position:absolute;
 	transform:translateY(-50%);
-	background:url(../img/main/t_checkIcon.png) no-repeat center / cover;
+	background:url(../../images/main/t_checkIcon.png) no-repeat center / cover;
 }
 li:last-child .t_CBTxt {padding-bottom:0;}
 .t_CBImg {

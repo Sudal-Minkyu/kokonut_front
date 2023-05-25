@@ -216,3 +216,13 @@ export const customConfirmData = writable({
 });
 
 export const bannerMessage = writable('');
+
+export const initialPrivacySearch = JSON.stringify({
+    searchConditionList: [{
+        searchColumn: '1_ID',
+        searchValue: '',
+        currentLabel: '',
+    }],
+});
+
+export const privacySearchData = writable(JSON.parse(initialPrivacySearch));

@@ -254,7 +254,7 @@
                                             <tbody>
                                             {#each $providePrivacyWriteData.step5.memberList as
                                                 {ID, basicEmail, basicPhone, basicName, basicBirth, basicGender, kokonut_IDX}, i}
-                                                {#if $providePrivacyWriteData.step5.filteredMemberList.find(item => item.kokonutIDX === kokonut_IDX)}
+                                                {#if $providePrivacyWriteData.step5.filteredMemberList.find(item => item.kokonut_IDX === kokonut_IDX)}
                                                     <tr>
                                                         <td>
                                                             <div class="koko_check">

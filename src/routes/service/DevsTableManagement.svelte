@@ -36,35 +36,18 @@
         let input = document.getElementById('myFile');
         let file = input.files[0];
 
-        let reader = new FileReader();
-        reader.onloadend = function() {
-            let base64data = reader.result;
-            let base64String = base64data.substr(base64data.indexOf(',') + 1); // 'data:[MIME_TYPE];base64,' 부분 제거
+        let formData = new FormData();
+        formData.set('1_ID', 'testAjaxID');
+        formData.set('1_PASSWORD', '123789');
+        formData.set('1_1', '테스트문자열');
+        // formData.set('1_3', file);
+        formData.set('2_3', '추가테이블문자열');
 
-            let sendData = [
-                {
-                    '1_1': '01012345678',
-                    // '1_3': base64String, //파일은 일단 전송 안함
-                    '1_5': '김김김',
-                    '2_7': 5700,
-                },
-                {
-                    '1_1': '01023456789',
-                    // '1_3': base64String, //파일은 일단 전송 안함
-                    '1_5': '박박박',
-                    '2_7': 9000,
-                }
-            ];
+        ajaxMultipart('/v1/abcdef', formData, (success_response) => {
+            console.log('성공신호다', success_response);
+        });
 
-            let formData = new FormData();
-            formData.append('dataList', JSON.stringify(sendData));
-            ajaxMultipart('/v1/abcdef', formData, (success_response) => {
-                console.log('성공신호다', success_response);
-            });
-
-            console.log('전송시도한 데이터', Object.fromEntries(formData))
-        }
-        reader.readAsDataURL(file);
+        console.log('전송시도한 데이터', Object.fromEntries(formData))
     }
 </script>
 

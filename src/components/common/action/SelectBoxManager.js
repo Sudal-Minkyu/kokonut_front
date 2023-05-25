@@ -26,24 +26,18 @@ export const SelectBoxManager = (targetEl, onSelect = () => {}) => {
     }
 
     label.addEventListener('click', handleSelectBoxClick);
-
+    optionItems.forEach((opt) => {
+        opt.addEventListener('click', () => {
+            handleSelect(opt);
+        });
+    });
 
 
     const clickLabel = () => {
         if(label.parentNode.classList.contains('active')) {
             label.parentNode.classList.remove('active');
-            optionItems.forEach((opt) => {
-                opt.removeEventListener('click', () => {
-                    handleSelect(opt);
-                });
-            });
         } else {
             label.parentNode.classList.add('active');
-            optionItems.forEach((opt) => {
-                opt.addEventListener('click', () => {
-                    handleSelect(opt);
-                });
-            });
         }
     }
 
