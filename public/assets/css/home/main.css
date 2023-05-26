@@ -15,7 +15,7 @@
 .stickyInner {justify-content: flex-end; align-items: center; overflow: hidden; height: 100%; display: flex; width: 100%;}
 
 .main_NumBox {display:flex; margin-bottom: 2rem;}
-.main_Num {font-family: 'Outfit', sans-serif; font-size: 2.4rem; font-weight: 700; line-height: 3.4rem; text-align: left; opacity:0.3; color:#00C389; padding-right:3rem;}
+.main_Num {font-family: Outfit, sans-serif; font-size: 2.4rem; font-weight: 700; line-height: 3.4rem; text-align: left; opacity:0.3; color:#00C389; padding-right:3rem;}
 .main_Num:last-child {padding-right:none;}
 .main_Num.here {opacity:1;}
 
@@ -45,7 +45,7 @@ h1.text1 {position: relative; opacity:1; transition:none;}
 
 /*/스크롤/*/
 .scrollDown {bottom: 0; left: 50%; overflow: hidden; position: absolute; transform: translateX(-50%); height: 8.2rem; z-index:1;}
-.scrollDown p {font-family: "Outfit"; font-size: 1.4rem; font-weight: 600; line-height: 1.6rem ; letter-spacing: 0.05em; text-align: center;}
+.scrollDown p {font-family: Outfit, sans-serif; font-size: 1.4rem; font-weight: 600; line-height: 1.6rem ; letter-spacing: 0.05em; text-align: center;}
 
 .scrollstick {
 	height: 7rem;
@@ -132,11 +132,11 @@ h1.text1 {position: relative; opacity:1; transition:none;}
 .introBox ul li figure img {width:100%; height:auto;}
 .introBox ul li p.introBTxt {font-size: 2rem; font-weight: 500; margin-left:1rem; line-height: 2.6rem;}
 
-#intro .title {font-family: 'Outfit'; font-size: 2rem; font-weight: 400; line-height: 2.2rem; letter-spacing: 0.03em;}
+#intro .title {font-family: Outfit, sans-serif; font-size: 2rem; font-weight: 400; line-height: 2.2rem; letter-spacing: 0.03em;}
 #intro .title span {font-weight:600;}
 #intro .ktitle {font-size: 3.6rem; font-weight: 700; line-height: 4rem; margin-top:2rem;}
 
-.introBoxTitle {font-family: 'Outfit'; font-size: 2rem; font-weight: 400;line-height: 2.2rem; letter-spacing: 0.03em;}
+.introBoxTitle {font-family: Outfit, sans-serif; font-size: 2rem; font-weight: 400;line-height: 2.2rem; letter-spacing: 0.03em;}
 .introBoxTitle span {font-weight:600;}
 .InBoxTitle	{font-size: 3.6rem; font-weight: 700; line-height: 4rem; margin-top:2rem;}
 
@@ -346,7 +346,7 @@ h1.text1 {position: relative; opacity:1; transition:none;}
 }
 #managerial .up .s_Title::before {width:100%;}
 #managerial .s_Title p {font-size: 10rem; font-weight: 700; line-height: 10rem;}
-#managerial .s_Title p.greenTxt {font-family: "Outfit"; font-size: 3.8rem; font-weight: 200; text-align: left; line-height: 4.2rem; letter-spacing: 0em; margin-bottom: 3rem; transition: all 0.4s;}
+#managerial .s_Title p.greenTxt {font-family: Outfit, sans-serif; font-size: 3.8rem; font-weight: 200; text-align: left; line-height: 4.2rem; letter-spacing: 0em; margin-bottom: 3rem; transition: all 0.4s;}
 #managerial.titleUp .s_Title p.boldTxt span {color:#00C389;}
 #managerial .s_Title p.greenTxt span {color:#222; font-weight: 600;}
 #managerial .s_Title p.boldTxt {font-size: 8rem; font-weight: 700; line-height: 10rem;}
@@ -395,7 +395,7 @@ h1.text1 {position: relative; opacity:1; transition:none;}
 
 .ml3 {
 	width:100%;
-	font-family: Pretendard;
+	font-family: Pretendard, sans-serif;
 	font-size: 6rem;
 	font-weight: 700;
 	line-height: 8rem;
@@ -406,14 +406,14 @@ h1.text1 {position: relative; opacity:1; transition:none;}
 	top: 50%;
 	transform: translate(-50%,-50%);
 }
-p.letters {font-family: Pretendard; font-size: 6rem; font-weight: 700; line-height: 8rem; text-align: center;}
+p.letters {font-family: Pretendard, sans-serif; font-size: 6rem; font-weight: 700; line-height: 8rem; text-align: center;}
 .m_ContImgBox img {width: 100%; height: auto; position:relative; vertical-align: bottom; }
 .mContsTxt {font-size: 2.2rem; font-weight: 400; line-height: 3.2rem; margin-top: 2rem; word-break: keep-all;}
 
 .m_ConttxtBox {width: 24.3%; position:relative; word-break: keep-all;}
 .m_ConttxtBox ul li {display:flex; background:#F6F6F6; border-radius:2rem; margin-bottom:1.8rem; padding:3rem 3rem 3.7rem; flex-direction: column;}
 .m_ConttxtBox ul li:last-child {margin-bottom:0;}
-.m_ConttxtBox ul li .gnum {font-family: 'Outfit'; font-size: 2.4rem; font-weight: 700; line-height: 3.4rem; margin-bottom: 1.2rem; color:#00C389;}
+.m_ConttxtBox ul li .gnum {font-family: Outfit, sans-serif; font-size: 2.4rem; font-weight: 700; line-height: 3.4rem; margin-bottom: 1.2rem; color:#00C389;}
 .m_ConttxtBox ul li .gTxt {word-break: keep-all; font-size: 1.8rem; font-weight: 400; line-height: 3rem;}
 .m_ConttxtBox ul li .gsTxt {color: #888; font-weight: 400; font-size: 1.4rem; line-height: 1.6rem; padding-top: 1.2rem;}
 
@@ -541,7 +541,7 @@ p.letters {font-family: Pretendard; font-size: 6rem; font-weight: 700; line-heig
 #container {
 	width: 32%;
 	word-break: keep-all;
-	font-family: Pretendard;
+	font-family: Pretendard, sans-serif;
 	font-size: 4rem;
 	font-weight: 700;
 	line-height: 5.6rem;
@@ -559,7 +559,7 @@ p.letters {font-family: Pretendard; font-size: 6rem; font-weight: 700; line-heig
 @media (min-width:2000px) {.ko_test .mInner {top:22rem;}}
 @media (max-width:991px) {
 	#container {
-		font-family: Outfit;
+		font-family: Outfit, sans-serif;
 		font-size: 3rem;
 		font-weight: 700;
 		line-height: 4.5rem;
@@ -669,7 +669,7 @@ p.letters {font-family: Pretendard; font-size: 6rem; font-weight: 700; line-heig
 #managerialGreen {background:#FFF;}
 #managerialGreen .mainInner {width:100%; margin:0 auto; max-width:144rem; padding:16rem 2rem 0;}
 .managertxt {
-	font-family: 'Outfit';
+	font-family: Outfit, sans-serif;
 	text-align:left;
 	color:#00C389;
 	font-size: 2rem;
@@ -859,12 +859,12 @@ p.letters {font-family: Pretendard; font-size: 6rem; font-weight: 700; line-heig
 #technical .boldTxt span {color:#FFF;}
 #technical.titleUp {background:#fff;}
 #technical .s_Title p {font-size: 10rem; font-weight: 600; line-height: 10rem;}
-#technical .s_Title p.greenTxt {font-size: 3.8rem; font-weight: 300; line-height: 4.2rem; margin-bottom: 3rem; text-align: left; font-family: 'Outfit'; transition: all 0.8s; color: #222;}
+#technical .s_Title p.greenTxt {font-size: 3.8rem; font-weight: 300; line-height: 4.2rem; margin-bottom: 3rem; text-align: left; font-family: Outfit, sans-serif; transition: all 0.8s; color: #222;}
 #technical.titleUp .s_Title p.greenTxt {font-size: 1.8rem; line-height: 2.4rem; margin-bottom: 1.4rem;}
 #technical .s_TitleBox p.greenTxt span {color: #222; font-weight:600;}
 #technical .s_Title p.boldTxt {font-size: 8rem; font-weight: 700; line-height: 10rem; text-align: left; transition:all 0.8s;}
 #technical .s_Title p.boldTxt span {font-weight:700;}
-#technical .mContpurple {font-family: Pretendard; font-size: 2rem; font-weight: 700; line-height: 3rem; color:#737AEA; margin-bottom: 2rem;}
+#technical .mContpurple {font-family: Pretendard, sans-serif; font-size: 2rem; font-weight: 700; line-height: 3rem; color:#737AEA; margin-bottom: 2rem;}
 #technical .section {width: 100%; height: auto; margin: 0 0 12rem 0;}
 #technical  .m_ContBox {width: 100%; height: auto; padding: 0rem 2rem 0rem; transform: translateY(10rem); transition:all 0.8s ease-in-out;}
 
@@ -1120,7 +1120,7 @@ p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; lette
 #funjs .s_TitleBox {z-index: 1;}
 
 #funjs .s_Title p {font-size: 10rem; font-weight: 600; line-height: 10rem; }
-#funjs .s_Title p.greenTxt {font-size: 3.8rem; font-weight: 300; line-height: 4.2rem; color:#FFF; margin-bottom:3rem; text-align: left; font-family: 'Pretendard'; color:#222;}
+#funjs .s_Title p.greenTxt {font-size: 3.8rem; font-weight: 300; line-height: 4.2rem; color:#FFF; margin-bottom:3rem; text-align: left; font-family: Pretendard, sans-serif; color:#222;}
 #funjs .s_TitleBox p.greenTxt span {color: #222; font-weight:600;}
 #funjs .s_Title p.boldTxt {font-size: 8rem; font-weight: 700; line-height: 10rem; text-align: left;}
 #funjs .s_Title p.boldTxt span {color:#FFF;}
@@ -1130,7 +1130,7 @@ p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; lette
 #funjs figure.imgBox img {width: 100%; height: auto;}
 
 #funjs.titleUp .s_Title p.greenTxt {font-weight: 300; font-size: 1.8rem; line-height: 2.4rem; margin-bottom:1.4rem;}
-#funjs .mContpurple {font-family: Pretendard; font-size: 2rem; font-weight: 700; line-height: 3rem; color:#FF9E0D; margin-bottom: 2rem;}
+#funjs .mContpurple {font-family: Pretendard, sans-serif; font-size: 2rem; font-weight: 700; line-height: 3rem; color:#FF9E0D; margin-bottom: 2rem;}
 #funjs .section {width:100%; height:auto;}
 #funjs .m_ContBox {opacity:1; width: 100%; height: auto; padding: 5rem 2rem 10rem; transition:all 0.8s ease-in-out;}
 
@@ -1233,7 +1233,7 @@ p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; lette
 .logoBox {height: 0; overflow: hidden; margin-top:2.4rem; border-radius:10px; padding-bottom: 13.143%; width: calc(100%/4 - 1.8rem);}
 .logoBox img {width:100%; height:auto;}
 
-.p_comStitle {color:#00C389; font-family: 'Outfit'; font-size: 2rem; font-weight: 600; line-height: 3rem; margin-bottom: 3rem;}
+.p_comStitle {color:#00C389; font-family: Outfit, sans-serif; font-size: 2rem; font-weight: 600; line-height: 3rem; margin-bottom: 3rem;}
 
 @media (max-width:991px) {
 	#p_company .mInner {padding: 6rem 2rem 5.1rem;}

@@ -4,22 +4,23 @@
 .priceTop {background:#F2FAF6;}
 .priceInner {width:100%; max-width:98.4rem; margin:0 auto; padding:22rem 2rem 10rem;}
 .pricTTileBox {text-align: center;}
-.pr_gtitle {font-family: 'Outfit'; font-size: 1.8rem; font-weight: 600; line-height: 2.6rem; letter-spacing: 0.1em; color:#00C389;}
+.pr_gtitle {font-family: Outfit, sans-serif; font-size: 1.8rem; font-weight: 600; line-height: 2.6rem; letter-spacing: 0.1em; color:#00C389;}
 .pr_title {font-size: 5.4rem; font-weight: 700; line-height: 6.8rem; text-align: center; margin: 3rem 0 2rem 0;}
 .pr_stxt {font-size: 2.6rem; font-weight: 400; line-height: 3.4rem;}
 .pricTCont {width: 100%; display: flex; margin-top:10rem; justify-content: space-between;}
 .pricTLeft, .pricTRight {background:#fff; padding:6rem 4rem; border-radius: 14px; width:calc(50% - 1.2rem); filter: drop-shadow(0px 0px 40px rgba(0, 195, 137, 0.1));}
 .pc_titleBox {display: flex; align-items: center; flex-direction: column;}
 
-.gtype {font-family: 'Outfit'; font-size: 2.4rem; font-weight: 700; line-height: 2.8rem; text-align: center; color:#00C389;}
+.gtype {
+	font-family: Outfit, sans-serif; font-size: 2.4rem; font-weight: 700; line-height: 2.8rem; text-align: center; color:#00C389;}
 .btype {font-size: 1.8rem; font-weight: 500; line-height: 2.2rem; text-align: center; margin-top:1rem;}
-.pc_price {font-family: 'Outfit'; font-size: 6.2rem; font-weight: 700; line-height: 6.4rem; letter-spacing: 0em; text-align: center; margin:4rem 0 1.4rem;}
+.pc_price {font-family: Outfit, sans-serif; font-size: 6.2rem; font-weight: 700; line-height: 6.4rem; letter-spacing: 0em; text-align: center; margin:4rem 0 1.4rem;}
 .pc_pricefree {font-size: 1.8rem; font-weight: 600; line-height: 2.4rem; letter-spacing: -0.02em; text-align: center; padding:1rem 2.4rem; background: #DEF7EB; border-radius: 99px; display: inline-block; color: #00B47E;}
 
 ul.cus_list {margin-top: 3.4rem;}
 ul.cus_list li {
 	position:relative;
-	font-family: Pretendard;
+	font-family: Pretendard, sans-serif;
 	font-size: 1.6rem;
 	font-weight: 400;
 	line-height: 2.1rem;
@@ -40,8 +41,8 @@ ul.cus_list li::before {
 	transform:translateY(-50%);
 	background:url(/assets/images/main/price/cus_check_circle.png) no-repeat center / cover;
 }
-.pricTRight .pc_price {font-family: "Pretendard"; font-size: 2.4rem; font-weight: 700; line-height: 4.1rem; text-align: center; position:relative;}
-.pricTRight .pc_price span {font-family: 'Outfit'; font-size: 6.2rem; font-weight: 700; line-height: 6.4rem; text-align: center; position:relative; padding-left:3.1rem;}
+.pricTRight .pc_price {font-family: Pretendard, sans-serif; font-size: 2.4rem; font-weight: 700; line-height: 4.1rem; text-align: center; position:relative;}
+.pricTRight .pc_price span {font-family: Outfit, sans-serif; font-size: 6.2rem; font-weight: 700; line-height: 6.4rem; text-align: center; position:relative; padding-left:3.1rem;}
 .pricTRight .pc_price span::before {
 	content: '';
 	top: 0;

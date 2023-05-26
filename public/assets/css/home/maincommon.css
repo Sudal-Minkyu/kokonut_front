@@ -16,7 +16,7 @@ h1,h2,h3,h4,h5,h6,strong {font-weight: normal;} /*글자진하기를 모두 초�
 /*float를 해제하는 클래스*/
 .clear:before, .clear:after {clear:both; content: ''; display: block;}
 
-html {font-size:10px; font-family: 'Pretendard', sans-serif; color:#222;}
+html {font-size:10px; font-family: Pretendard, sans-serif; color:#222;}
 div {box-sizing:border-box; transition:all 0.2s ease-in-out;}
 .mo_only, .mo_br, .ph_only {display:none!important;}
 @media (max-width:1300px) and (min-width:992px) {html {font-size:51%;}}
@@ -215,7 +215,7 @@ footer {background: #F6F6F6;}
 
 .footerBotm {border-top: 1px solid #222; padding-top: 2rem; font-size: 1.5rem;}
 .copy {
-	font-family: 'Outfit';
+	font-family: Outfit, sans-serif;
 	font-size: 1.4rem;
 	font-weight: 300;
 	line-height: 2.6rem;

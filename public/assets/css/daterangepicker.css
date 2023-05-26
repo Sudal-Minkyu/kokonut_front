@@ -12,7 +12,7 @@
   left: 20px;
   z-index: 3001;
   display: none;
-  font-family: arial;
+  font-family: arial, sans-serif;
   font-size: 15px;
   line-height: 1em;
   filter: drop-shadow(0px 4px 20px rgba(122, 124, 129, 0.2));
@@ -183,7 +183,7 @@
 
 .daterangepicker .calendar-table td {
   position:relative;
-  font-family: Pretendard;
+  font-family: Pretendard, sans-serif;
   white-space: nowrap;
   text-align: center;
   vertical-align: middle;
@@ -288,7 +288,7 @@
   position: relative;
   top: 0.2rem;
   text-align: center;
-  font-family: Pretendard;
+  font-family: Pretendard, sans-serif;
   padding: 0.8rem 0rem 2.5rem 0rem;
   height: auto;
   line-height: 2.4rem;
@@ -354,7 +354,8 @@
 
 .daterangepicker .drp-selected {
   display: inline-block;
-  transform: translateY(-50%);top: 50%;position: absolute;background: #F4F5F7;border-radius: 0.6rem;padding: 0.5rem 1.4rem 0.5rem 1.4rem;color: #888888;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;left: 2rem;
+  transform: translateY(-50%);top: 50%;position: absolute;background: #F4F5F7;border-radius: 0.6rem;padding: 0.5rem 1.4rem 0.5rem 1.4rem;color: #888888;
+  font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;left: 2rem;
 }
 
 .daterangepicker .drp-buttons .btn {

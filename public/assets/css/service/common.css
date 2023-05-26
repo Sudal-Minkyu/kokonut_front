@@ -14,10 +14,10 @@
 .topmyinfoBox {position: absolute;right: 6rem;top: 1.7rem;display: flex;align-items: center;}
 .myinfoBox {margin-right:2.4rem;display: flex;align-items: center;}
 .myinfoIcon {margin-right: 1rem;border-radius: 50%;width: 3rem;height: 3rem;background: #f4f5f7;}
-.myinfoBox span{font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;}
+.myinfoBox span{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;}
 .myinfoMenu{display:inline-block;position:relative;}
 .notiText{
-    font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;
+    font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;
 }
 .notiText:hover{cursor:pointer;}
 
@@ -60,12 +60,12 @@
 .notiBox ul li:last-child{padding-bottom:0rem;}
 .notiBox ul li:last-child:after{content:none;}
 .notiBox ul li:after{content:'';width:100%;height:1px;background:#eee;position:absolute;left:0rem;bottom:0rem;}
-.notiBox ul li .no_new{display:inline-block;background: #FF6752;border-radius: 0.4rem;padding:0.4rem 0.7rem;font-family: Pretendard;font-size: 1.2rem;font-weight: 800;line-height: 1.4rem;letter-spacing: 0em;text-align: left;color:#fff;margin-bottom:0.6rem;}
-.notiBox ul li dl{display:block;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#444;margin-bottom:0.6rem;}
-.notiBox ul li span{font-family: Pretendard;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0em;text-align: left;color:#aaa;}
+.notiBox ul li .no_new{display:inline-block;background: #FF6752;border-radius: 0.4rem;padding:0.4rem 0.7rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 800;line-height: 1.4rem;letter-spacing: 0em;text-align: left;color:#fff;margin-bottom:0.6rem;}
+.notiBox ul li dl{display:block;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#444;margin-bottom:0.6rem;}
+.notiBox ul li span{font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0em;text-align: left;color:#aaa;}
 
 .notiallBtn{width:100%;position:relative;margin-top:2rem;height: 5rem;background: #F6F6F6;border-radius: 0.4rem;}
-.notiallBtn a {display: flex;position: absolute;left: 0rem;top: 0rem;width: 100%;height: 100%;font-family: Pretendard;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #444;align-items: center;justify-content: center;}
+.notiallBtn a {display: flex;position: absolute;left: 0rem;top: 0rem;width: 100%;height: 100%;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #444;align-items: center;justify-content: center;}
 .notiallBtn:hover{background:#E2E5EA;}
 /* ==== // 알림 영역 ==== */
 
@@ -83,26 +83,26 @@
 -----------------------------------------------------------------------------------------*/
 .pageTitleBtn{width:100%;position:relative;text-align:left;}
 .pageTitleBtn h1{display:inline-block;font-size: 4rem;font-weight: 700;line-height: 5rem;letter-spacing: 0em;text-align: left;color:#222;}
-.pageTitleBtn dl{display:block;margin-top:2.4rem;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#666;}
+.pageTitleBtn dl{display:block;margin-top:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#666;}
 .pageTitleBtn a{margin-left: -50px;margin-right: 10px;display:inline-block;font-size: 4rem;font-weight: 700;line-height: 5rem;letter-spacing: 0em;text-align: left;color:#00C389;}
 .pageTitleBtn a:hover{color:#05de9e;}
 
 .TitleBtn{position:absolute;right:0rem;top:0rem;}
-.TitleBtn button {padding: 1.2rem 3rem 1.2rem 3rem;background: #00C389;border-radius: 1.2rem;font-family: Pretendard;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: center;color: #fff;}
+.TitleBtn button {padding: 1.2rem 3rem 1.2rem 3rem;background: #00C389;border-radius: 1.2rem;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: center;color: #fff;}
 .TitleBtn button:hover{background: #00BA83;}
 
 .seaWrap{width:100%;position:relative;}
 .seaWrap .kotopBtn {display: inline-block;position: absolute;right: 0px;top: 0.3rem;}
-.seaWrap .kotopBtn button{padding:1.2rem 1.6rem 1.2rem 1.6rem;background: #E4F8F2;border-radius: 0.8rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#00C389;}
+.seaWrap .kotopBtn button{padding:1.2rem 1.6rem 1.2rem 1.6rem;background: #E4F8F2;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#00C389;}
 .seaWrap .kotopBtn button:hover{background: #D9F5ED;}
 
 .page_backarrow{display:inline-block;width:2.8rem;height:2.8rem;background-image: url(/assets/images/common/page_backarrow.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 
 /* ==== 검색 input + 버튼 영역 ==== */
 .koinput{display:inline-block;position:relative;}
-.koinput input{position:relative;height:5.4rem;background: #fff;border-radius: 1rem;padding:0rem 1rem 0rem 4.4rem;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;letter-spacing: 0em;text-align: left;color:#444444;z-index:10;border:1px solid #E2E5EA;}
+.koinput input{position:relative;height:5.4rem;background: #fff;border-radius: 1rem;padding:0rem 1rem 0rem 4.4rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;letter-spacing: 0em;text-align: left;color:#444444;z-index:10;border:1px solid #E2E5EA;}
 .koinput input:focus{padding:0rem 0.9rem 0rem 4.3rem;background:#fff;border:2px solid #00C389;}
-.koinput input::placeholder{font-family: Pretendard;font-size: 1.8rem;font-weight: 400;letter-spacing: 0em;text-align: left;color:#aaa;}
+.koinput input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;letter-spacing: 0em;text-align: left;color:#aaa;}
 .koinput input:-webkit-autofill,
 .koinput input:-webkit-autofill:hover,
 .koinput input:-webkit-autofill:focus,
@@ -118,16 +118,16 @@
 
 .seaContentLine{position:relative;display:flex;}
 .seaCont{display:block;position:relative;padding-left:20rem;}
-.seaCont dl {display: flex;position: absolute;left: 0px;top: 0px;width: 20rem;height: 100%;background: #F4F5F7;font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #444;padding-left: 2rem;align-items: center;justify-content: flex-start;}
+.seaCont dl {display: flex;position: absolute;left: 0px;top: 0px;width: 20rem;height: 100%;background: #F4F5F7;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #444;padding-left: 2rem;align-items: center;justify-content: flex-start;}
 .scBox{display:block;position:relative;min-height:5.2rem;}
 
 .sctextBox {min-height:5.6rem;padding: 1.4rem 2rem 1.4rem 2rem;display: block;width: 100%;position: relative;}
-.sctextBox span {display: inline-block;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #666;}
+.sctextBox span {display: inline-block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #666;}
 .sctextBox span.font400{font-weight:400!important}
 /* ==== 조회기간 캘린더 영역 ==== */
 .calenderBox {height: 100%;display: flex;position: relative;padding: 1.5rem 2rem 1.5rem 2rem;align-items: center;}
 .calenderInput{width:100%;position:relative;}
-.calenderInput input {background-image: url(/assets/images/common/callendericon.png);background-size: 2.4rem;background-repeat: no-repeat;background-position: right;cursor:pointer;padding: 0;width: 100%;position: relative;font-family: Pretendard;height: 2.6rem;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #666;box-sizing: border-box;}
+.calenderInput input {background-image: url(/assets/images/common/callendericon.png);background-size: 2.4rem;background-repeat: no-repeat;background-position: right;cursor:pointer;padding: 0;width: 100%;position: relative;font-family: Pretendard, sans-serif;height: 2.6rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #666;box-sizing: border-box;}
 .calenderInput img {top: 0.1rem;height: 2.4rem;position: absolute;right: 0rem;}
 .callenderBox input:after{content:'';width:2.4rem;height:2.4rem;position:absolute;right:0rem;top:0rem;background-image: url(/assets/images/common/callendericon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 
@@ -136,16 +136,16 @@
     /* border-bottom: 0.6rem solid #fff; */
     /* border-top: 1.2rem solid #fff; */
 }
-.daterangepicker .calendar-table thead tr:nth-child(2) th {font-weight: 500;font-family: Pretendard;padding-top: 0rem;min-width: 3.2rem!important;width: 3.2rem!important;height: 3.2rem!important;line-height: 3.2rem!important;font-size: 1.3rem!important;text-align:center;}
+.daterangepicker .calendar-table thead tr:nth-child(2) th {font-weight: 500;font-family: Pretendard, sans-serif;padding-top: 0rem;min-width: 3.2rem!important;width: 3.2rem!important;height: 3.2rem!important;line-height: 3.2rem!important;font-size: 1.3rem!important;text-align:center;}
 .daterangepicker .calendar-table tbody tr{
     border-bottom: 0.6rem solid #fff;
 }
 .daterangepicker .prev.available:hover{background:#fff!important;cursor:pointer;}
 .daterangepicker .next.available:hover{background:#fff!important;cursor:pointer;}
 .daterangepicker .next.available{text-align:right;}
-.drp-buttons .cancelBtn{color: #888;background: #EBEDEF;border-radius: 6px;padding: 0.5rem 1.4rem 0.5rem 1.4rem!important;font-family: Pretendard;font-size: 1.4rem!important;font-weight: 500!important;line-height: 2.2rem!important;letter-spacing: 0em;text-align: center;}
+.drp-buttons .cancelBtn{color: #888;background: #EBEDEF;border-radius: 6px;padding: 0.5rem 1.4rem 0.5rem 1.4rem!important;font-family: Pretendard, sans-serif;font-size: 1.4rem!important;font-weight: 500!important;line-height: 2.2rem!important;letter-spacing: 0em;text-align: center;}
 .drp-buttons .cancelBtn:hover{background:#E4E7EB;}
-.drp-buttons .applyBtn {color: #fff;background: #00C389;border-radius: 6px;padding: 0.5rem 1.4rem 0.5rem 1.4rem!important;font-family: Pretendard;font-size: 1.4rem!important;font-weight: 500!important;line-height: 2.2rem!important;letter-spacing: 0em;text-align: center;}
+.drp-buttons .applyBtn {color: #fff;background: #00C389;border-radius: 6px;padding: 0.5rem 1.4rem 0.5rem 1.4rem!important;font-family: Pretendard, sans-serif;font-size: 1.4rem!important;font-weight: 500!important;line-height: 2.2rem!important;letter-spacing: 0em;text-align: center;}
 .drp-buttons .applyBtn:hover{background:#00BA83;}
 /* ==== // 조회기간 캘린더 영역 ==== */
 
@@ -172,7 +172,7 @@
 .kotable{width:100%;position:relative;}
 
 .kt_tableTopBox {display: flex;position: relative;width: 100%;height: 4.4rem;background: #fff;align-items: center;justify-content: space-between;}
-.kt_total{display:inline-block;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#444;}
+.kt_total{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#444;}
 .kt_total span{font-weight: 600;}
 .kt_selbox{padding: 1rem 1.4rem;position:relative;}
 .kt_selbox .selectBox .label {font-size: 1.5rem;line-height: 2.4rem;}
@@ -186,7 +186,7 @@
 .kotable table thead:before{content:'';position:absolute;left:0rem;top:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 .kotable table thead:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 .kotable table thead tr{background: #F4F5F7;position:relative;}
-.kotable table thead tr th {vertical-align: middle;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #444;padding: 1.1rem 0.4rem 1.1rem 0.4rem;}
+.kotable table thead tr th {vertical-align: middle;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #444;padding: 1.1rem 0.4rem 1.1rem 0.4rem;}
 
 .kotable table tbody tr{position:relative;}
 .kotable table tbody tr:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
@@ -194,7 +194,7 @@
 
 .adminManagement table tbody tr td {padding: 0.7rem 0.4rem 0.7rem 0.4rem;}
 .adminActivityManagement table tbody tr td {padding: 1.1rem 0.4rem 1.1rem 0.4rem;}
-.kotable table tbody tr td{vertical-align: middle;position:relative;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#666;}
+.kotable table tbody tr td{vertical-align: middle;position:relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#666;}
 .kotable table tbody tr td .normal{display: inline-block;width:auto;position: relative;padding-left: 2.6rem;font-size: 1.5rem;line-height: 1.8rem;}
 .kotable table tbody tr td .normal:before {content: '';width: 2rem;height: 2rem;position: absolute;left: 0rem;top: -0.1rem;background: url(/assets/images/common/normal_check.png) no-repeat center/cover;}
 .kotable table tbody tr td .dormancy {display: inline-block;width: auto;position: relative;padding-left: 2.6rem;font-size: 1.5rem;line-height: 1.8rem;}
@@ -204,7 +204,7 @@
 .kotable table tbody tr td .wait{display: inline-block;width: auto;position: relative;padding-left: 2.6rem;font-size: 1.5rem;line-height: 1.8rem;}
 .kotable table tbody tr td .wait:before {content: '';width: 2rem;height: 2rem;position: absolute;left: 0rem;top: -0.1rem;background: url(/assets/images/common/wait.png) no-repeat center/cover;}
 
-.kotable table tbody tr td button {margin: 0rem 0.1rem 0rem 0.1rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color: #666;padding: 0.4rem 1rem 0.4rem 1rem;background: #E9EBED;border-radius: 0.6rem;}
+.kotable table tbody tr td button {margin: 0rem 0.1rem 0rem 0.1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color: #666;padding: 0.4rem 1rem 0.4rem 1rem;background: #E9EBED;border-radius: 0.6rem;}
 .kotable table tbody tr td button:hover{background: #E2E5EA;}
 .kotable table tbody tr td .reason {padding: 0rem 1rem 0rem 1rem;text-align: left;display: block;display: -webkit-box;overflow: hidden;white-space: normal;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
 /* .kotable table tbody tr td a{text-decoration:underline;} */
@@ -217,7 +217,7 @@
 .selectBox{position: relative;border-radius: 0.4rem;cursor: pointer;display: inline-block;padding: 1.4rem 2rem 1.4rem 2rem;}
 
 .selectBox .label:after{content:'';position:absolute;top: 0.5rem;right:0rem;width:1.8rem;height:1.8rem;background-image: url(/assets/images/common/select-nav-arrow.png);background-size: 1.8rem;background-repeat: no-repeat;background-position: right;}
-.selectBox .label {position: relative;display: flex;align-items: center;width: 100%;height: inherit;border: 0 none;outline: 0 none;padding-left: 0px;background: transparent;cursor: pointer;color:#666;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0px;text-align: left;padding-right:0;}
+.selectBox .label {position: relative;display: flex;align-items: center;width: 100%;height: inherit;border: 0 none;outline: 0 none;padding-left: 0px;background: transparent;cursor: pointer;color:#666;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0px;text-align: left;padding-right:0;}
 
 .selectBox .optionList {position: absolute;top: 5.5rem;right: 0;width: 100%;color: #666;list-style-type: none;padding: 0;overflow: hidden;height: 0;transition: .3s ease-in;background: #FFFFFF;border: 1px solid #EEEEEE;box-shadow: 0px 6px 15px rgba(122, 124, 129, 0.15);border-radius:0.8rem;display:none;}
 .selectBox .optionList::-webkit-scrollbar {width: 6px;}
@@ -225,7 +225,7 @@
 .selectBox .optionList::-webkit-scrollbar-thumb {background: #F8F8F8; border-radius: 45px;}
 .selectBox .optionList::-webkit-scrollbar-thumb:hover {background: #F8F8F8;}
 .selectBox.active .optionList {display:block;opacity:1;z-index: 20;height:auto;border: 1px solid #EEE;box-shadow: 0px 5px 20px 0px #0000001a;}
-.selectBox .optionItem {position:relative;font-family: Pretendard;font-size: 1.7rem;font-weight: 500;line-height: 2rem;letter-spacing: 0px;text-align: left;color:#666;padding: 1.6rem 2rem 1.6rem 2rem;transition: .1s;}
+.selectBox .optionItem {position:relative;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;line-height: 2rem;letter-spacing: 0px;text-align: left;color:#666;padding: 1.6rem 2rem 1.6rem 2rem;transition: .1s;}
 .selectBox .optionItem:hover {background: #F8F8F8;}
 .selectBox .optionItem:last-child {border-bottom: 0 none;}
 
@@ -239,7 +239,7 @@
 .sc_multiBox{position:relative;padding:1.8rem 2rem 1.8rem 2rem;}
 
 .fccheckText{display:block;}
-.fccheckText span{cursor:pointer;display:inline-block;font-family: Pretendard;font-size: 1.7rem;font-weight: 500;line-height: 2rem;letter-spacing: 0em;text-align: left;color:#666;padding-right:8rem;position:relative;}
+.fccheckText span{cursor:pointer;display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;line-height: 2rem;letter-spacing: 0em;text-align: left;color:#666;padding-right:8rem;position:relative;}
 .fccheckText span:after {content: '';position: absolute;top: 0.1rem;right: 0rem;width: 1.8rem;height: 1.8rem;background-image: url(/assets/images/common/select-nav-arrow.png);background-size: 1.8rem;background-repeat: no-repeat;background-position: right;}
 
 .floatCheckBox {display:none;width: 72rem;background: #fff;position: absolute;left: 0rem;top: 6rem;border: 1px solid #EEEEEE;filter: drop-shadow(0px 6px 15px rgba(122, 124, 129, 0.15));z-index: 40;border-radius:0.8rem ;}
@@ -248,14 +248,14 @@
 .actCheck{display:inline-block;position:relative;}
 .actCheck input{position:absolute;display:none;}
 .actCheck:last-child{margin-right:0rem;}
-.actCheck input[type=checkbox]+label {cursor:pointer;border-radius: 1.7rem;position: relative;display: inline-block;margin-right: 0.6rem;margin-bottom:1.2rem;vertical-align: middle;background: #F4F5F7;border: 1px solid #F4F5F7;padding: 0.3rem 1.3rem 0.3rem 1.3rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color: #666;}
+.actCheck input[type=checkbox]+label {cursor:pointer;border-radius: 1.7rem;position: relative;display: inline-block;margin-right: 0.6rem;margin-bottom:1.2rem;vertical-align: middle;background: #F4F5F7;border: 1px solid #F4F5F7;padding: 0.3rem 1.3rem 0.3rem 1.3rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color: #666;}
 .actCheck input[type=checkbox]+label:hover{border: 1px solid #ACE2D2;}
 .actCheck input[type=checkbox]:checked+label {border: 1px solid #00C389;background: #fff;color:#00C389;}
 
 .floatBtnList {position: relative;border-radius: 0rem 0rem 0.8rem 0.8rem;padding: 1.2rem 1.8rem 1.2rem 1.8rem;display: flex;justify-content: flex-end;}
-.activityConfirm{margin-left:1rem;display:inline-block;cursor:pointer;width: 8rem;height: 3.2rem;background: #00C389;border-radius: 0.8rem;color:#fff;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height:3.2rem;letter-spacing: 0em;text-align: center;}
+.activityConfirm{margin-left:1rem;display:inline-block;cursor:pointer;width: 8rem;height: 3.2rem;background: #00C389;border-radius: 0.8rem;color:#fff;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height:3.2rem;letter-spacing: 0em;text-align: center;}
 .activityConfirm:hover{background: #00BA83;}
-.activityCancel{display:inline-block;cursor:pointer;width:  8rem;height:3.2rem;background: #EBEDEF;border-radius: 0.8rem;color:#888;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height:3.2rem;letter-spacing: 0em;text-align: center;}
+.activityCancel{display:inline-block;cursor:pointer;width:  8rem;height:3.2rem;background: #EBEDEF;border-radius: 0.8rem;color:#888;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height:3.2rem;letter-spacing: 0em;text-align: center;}
 .activityCancel:hover{background:#E4E7EB;}
 /* ==== // 커스텀 멀티 체크 박스 영역 ==== */
 
@@ -265,7 +265,7 @@
 .page-item{margin:0rem 0.2rem 0rem 0.2rem;display:inline-block;cursor: pointer;}
 .page-item.active button{background: #00C389;color:#fff;font-weight:500;}
 .page-item.active button:hover{color:#fff;}
-.page-item button {width: 3.6rem;height: 3.6rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #aaa;border-radius: 0.6rem;padding: 0.6rem 1.095rem 0.6rem 1.095rem;}
+.page-item button {width: 3.6rem;height: 3.6rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #aaa;border-radius: 0.6rem;padding: 0.6rem 1.095rem 0.6rem 1.095rem;}
 .page-item button:hover{color:#00C389;}
 .page-pre.disabled{background-image: url(/assets/images/common/page_arrow_prev_disabled.png);}
 .page-pre {width: 3.2rem;background-image: url(/assets/images/common/page_arrow_prev.png);background-size: cover;background-repeat: no-repeat;background-position: center;height: 3.2rem;}
@@ -281,18 +281,18 @@
 .koko_popup_inner {display: inline-block;position: relative;padding-bottom: 10rem;}
 .koko_popup_container {height: auto;outline: none;position: relative;box-sizing: border-box;background-color: #fff;padding: 4rem 4rem 4rem 4rem;border-radius: 2.4rem;filter: drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.15));}
 .koko_popup_title{display:block;margin-bottom:4.8rem;}
-.koko_popup_title h3 {font-family: Pretendard;font-size: 3rem;font-weight: 700;line-height: 3.8rem;letter-spacing: 0em;text-align: left;color:#222;}
+.koko_popup_title h3 {font-family: Pretendard, sans-serif;font-size: 3rem;font-weight: 700;line-height: 3.8rem;letter-spacing: 0em;text-align: left;color:#222;}
 .koko_popup_title h3 span{color:#00C389;}
 .koko_popup_titleh4{display:block;margin-bottom:3rem;padding-top: 5rem;}
-.koko_popup_titleh4 h4 {font-family: Pretendard;font-size: 2.4rem;font-weight: 600;line-height: 3.4rem;letter-spacing: 0em;text-align: center;color:#222;}
+.koko_popup_titleh4 h4 {font-family: Pretendard, sans-serif;font-size: 2.4rem;font-weight: 600;line-height: 3.4rem;letter-spacing: 0em;text-align: center;color:#222;}
 .koko_popup_titleh4 h4 span{color:#00C389;}
 .koko-popup-close{cursor:pointer;border: none;z-index: 1!important;width: 1.6rem;height: 1.6rem;padding-top: 0px;display: inline-block;position: absolute;top: 2rem;right: 2rem;text-align: center;line-height: 100%;background-image: url(/assets/images/common/kokopop_button_close.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;}
 
 .kopopinput{display:block;position:relative;}
-.kopopinput label{display:block;font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#444;margin-bottom:1.2rem;}
-.kopopinput input{position:relative;height:5.2rem;background: #fff;border-radius: 1rem;padding:0rem 2rem 0rem 2rem;width: 100%;font-family: Pretendard;font-size: 1.7rem;font-weight: 500;letter-spacing: 0em;text-align: left;color:#666;z-index:10;border: 1px solid #E2E5EA;}
+.kopopinput label{display:block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#444;margin-bottom:1.2rem;}
+.kopopinput input{position:relative;height:5.2rem;background: #fff;border-radius: 1rem;padding:0rem 2rem 0rem 2rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;letter-spacing: 0em;text-align: left;color:#666;z-index:10;border: 1px solid #E2E5EA;}
 .kopopinput input:focus{border:2px solid #00C389;padding:0rem 1.9rem 0rem 1.9rem;}
-.kopopinput input::placeholder{font-family: Pretendard;font-size: 1.6rem;font-weight: 400;letter-spacing: 0em;text-align: left;color:#bbb;}
+.kopopinput input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;letter-spacing: 0em;text-align: left;color:#bbb;}
 .kopopinput input:-webkit-autofill,
 .kopopinput input:-webkit-autofill:hover,
 .kopopinput input:-webkit-autofill:focus,
@@ -300,35 +300,35 @@
 
 
 .kopop_SelBox{display:block;}
-.kopop_SelBox p{display:block;font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#444;margin-bottom:1.2rem;}
+.kopop_SelBox p{display:block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#444;margin-bottom:1.2rem;}
 .kopop_SelBox .selectBox {width: 100%;height: 5.2rem;border-radius: 1rem;border: 1px solid #E2E5EA;padding: 1.6rem 2rem 1.6rem 2rem;}
 .kopop_SelBox .selectBox .label{height:2rem;}
 .kopop_SelBox .selectBox .optionList{top: 5.6rem;}
 .kopop_SelBox .selectBox .label:after {top: 0rem;}
 
-.kopopinput textarea{position:relative;height:10.4rem;background: #fff;border-radius: 1rem;padding:1.7rem 2rem 1.7rem 2rem;width: 100%;font-family: Pretendard;font-size: 1.7rem;font-weight: 500;letter-spacing: 0em;text-align: left;color:#666;z-index:10;border: 1px solid #E2E5EA;resize: none;}
+.kopopinput textarea{position:relative;height:10.4rem;background: #fff;border-radius: 1rem;padding:1.7rem 2rem 1.7rem 2rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;letter-spacing: 0em;text-align: left;color:#666;z-index:10;border: 1px solid #E2E5EA;resize: none;}
 .kopopinput textarea:focus{border:1px solid #00C389;}
-.kopopinput textarea::placeholder{font-family: Pretendard;font-size: 1.7rem;font-weight: 500;letter-spacing: 0em;text-align: left;color:#bbb;}
+.kopopinput textarea::placeholder{font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;letter-spacing: 0em;text-align: left;color:#bbb;}
 
-.kopopinput button {position: absolute;right: 0rem;bottom: 0rem;width: 10rem;height: 5.2rem;background: #E4F8F2;border-radius: 1rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2rem;letter-spacing: 0em;text-align: center;color: #00C389;}
+.kopopinput button {position: absolute;right: 0rem;bottom: 0rem;width: 10rem;height: 5.2rem;background: #E4F8F2;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2rem;letter-spacing: 0em;text-align: center;color: #00C389;}
 .kopopinput button:hover{background: #D9F5ED;}
 
 .pi_noneicon p{padding-left:0rem!important;}
 .pi_noneicon p:before{content:none!important}
 .popcaseInfoBox{width:100%;position:relative;padding:2rem 2.4rem 2rem 2.4rem;background: #F4F5F7;border-radius: 1rem;}
-.popcaseInfoBox p{position:relative;padding-left:2rem;display:block;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;margin-bottom:0.8rem;}
+.popcaseInfoBox p{position:relative;padding-left:2rem;display:block;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;margin-bottom:0.8rem;}
 .popcaseInfoBox p:before{content:'';position:absolute;left:0rem;top:0.4rem;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/common/black_infoicon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
-.popcaseInfoBox dl{display:block;margin-top:0.4rem;position:relative;padding-left:1rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666;}
+.popcaseInfoBox dl{display:block;margin-top:0.4rem;position:relative;padding-left:1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666;}
 .popcaseInfoBox dl span{font-weight:700;}
 .popcaseInfoBox dl dd{display:inline-block;text-decoration:underline;}
 .popcaseInfoBox dl:before{content:'';position:absolute;left:0rem;top:1rem;width:0.2rem;height:0.2rem;background: #666;border-radius:50%;}
 
 .koko_checkDoubleBox .koko_check:last-child{margin-top:0.4rem;}
 .koko_check {margin-top: 1.6rem;display: flex;position: relative;align-items: center;}
-.koko_check p {font-family: Pretendard;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666;}
+.koko_check p {font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666;}
 .koko_check p .colgr{color:#00C389;}
 .koko_check p .colred{color:#FF6752;}
-.koko_check b{display:inline-block;font-family: Pretendard;font-size: 1.4rem;font-weight: 400;line-height: 1.4rem;letter-spacing: 0em;text-align: left;color:#9A9A9A;margin-left:0.8rem;text-decoration:underline;}
+.koko_check b{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 1.4rem;letter-spacing: 0em;text-align: left;color:#9A9A9A;margin-left:0.8rem;text-decoration:underline;}
 .koko_check input {display: none;}
 .koko_check label{cursor:pointer;position:relative;padding-left:2.4rem;}
 .koko_check input[type=checkbox]+label em {left: 0rem;border-radius: 0.4rem;position: absolute;top: 0.3rem;display: inline-block;margin-right: 0.8rem;vertical-align: middle;width: 1.6rem;height: 1.6rem;border: 2px solid #E2E5EA;}
@@ -352,13 +352,13 @@
 
 
 .kokopopBtnBox {display: flex;margin-top: 5rem;align-items: center;justify-content: center;}
-.koko_cancel{cursor:pointer;width: 9rem;height: 4.8rem;background: #E9EBED;border-radius:0.9rem;margin:0rem 0.4rem 0rem 0.4rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0em;text-align: center;color:#666;position:relative;}
+.koko_cancel{cursor:pointer;width: 9rem;height: 4.8rem;background: #E9EBED;border-radius:0.9rem;margin:0rem 0.4rem 0rem 0.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0em;text-align: center;color:#666;position:relative;}
 .koko_cancel:hover{background:#E2E5EA;}
-.koko_reset {padding: 0rem 1.3rem 0rem 1.3rem;cursor: pointer;width: 9rem;height: 4.8rem;background: #E9EBED;border-radius: 0.9rem;margin: 0rem 0.4rem 0rem 0.4rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0em;text-align: right;color: #666;position: relative;}
+.koko_reset {padding: 0rem 1.3rem 0rem 1.3rem;cursor: pointer;width: 9rem;height: 4.8rem;background: #E9EBED;border-radius: 0.9rem;margin: 0rem 0.4rem 0rem 0.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0em;text-align: right;color: #666;position: relative;}
 .koko_reset:before {content: '';position: absolute;left: 1.3rem;top: 1.5rem;width: 1.6rem;height: 1.6rem;background-image: url(/assets/images/common/resetbtn_icon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 .koko_reset:hover{background:#E2E5EA;}
 .koko_go{display:inline-block;margin:0rem 0.4rem 0rem 0.4rem;width: 9rem;height: 4.8rem;background: #00C389;border-radius:0.9rem;position:relative;}
-.koko_go button{border-radius:0.9rem;position:absolute;top:0rem;left:0rem;width:100%;height:100%;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0em;text-align: center;color:#fff;}
+.koko_go button{border-radius:0.9rem;position:absolute;top:0rem;left:0rem;width:100%;height:100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0em;text-align: center;color:#fff;}
 .koko_go button:hover{background:#00BA83;}
 /* ==== // 팝업 컨텐츠 영역 ==== */
 
@@ -388,7 +388,7 @@
 .setitemBox{display:block;text-align:left;}
 .seticon{display:inline-block;}
 .seticon img{max-width:100%;height:4.8rem;}
-.settitle{margin-top:2.4rem;display:block;font-family: Pretendard;font-size: 2.8rem;font-weight: 600;line-height: 3.8rem;letter-spacing: 0em;text-align: left;color:#444;}
+.settitle{margin-top:2.4rem;display:block;font-family: Pretendard, sans-serif;font-size: 2.8rem;font-weight: 600;line-height: 3.8rem;letter-spacing: 0em;text-align: left;color:#444;}
 @media (max-width: 1700px){
     .setlistBox {min-height: 27rem;border-radius: 2rem;padding: 3rem;}
     .settitle {margin-top: 2rem;font-size: 2.4rem;line-height: 3.4rem;}
@@ -411,39 +411,39 @@
 
 /* ==== input 입력 영역 ==== */
 .sc_inputBox{padding:1.4rem 2rem 1.4rem 2rem;position:relative;width:100%;}
-.sc_inputBox input {width: 100%;position: relative;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #444;padding: 0;}
-.sc_inputBox input::placeholder{font-family: Pretendard;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#bbb;}
+.sc_inputBox input {width: 100%;position: relative;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #444;padding: 0;}
+.sc_inputBox input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#bbb;}
 /* ==== // input 입력 영역 ==== */
 
 /* ==== textarea 입력 영역 ==== */
 .sc_textareaBox{padding:1.6rem 2rem 1.6rem 2rem;position:relative;width:100%;}
-.sc_textareaBox textarea {height: 26.7rem;resize: none;width: 100%;position: relative;font-family: Pretendard;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #444;padding: 0;border: none;}
-.sc_textareaBox textarea::placeholder{font-family: Pretendard;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#bbb;}
+.sc_textareaBox textarea {height: 26.7rem;resize: none;width: 100%;position: relative;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #444;padding: 0;border: none;}
+.sc_textareaBox textarea::placeholder{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#bbb;}
 /* ==== // textarea 입력 영역 ==== */
 
 /* ==== 파일 입력 영역 ==== */
 .sc_fileBox{padding:1.4rem 2rem 1.4rem 2rem;position:relative;width:100%;}
 .fileInner{display:flex;}
-.fileInner label {display: inline-block;color: #666;vertical-align: middle;background: #EBEDEF;cursor: pointer;border-radius:0.8rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;height: 3.6rem;padding:0.6rem 1.4rem 0.6rem 1.4rem;position:relative;}
-.fileInner label:after {top: 1rem;width: 11.2rem;position: absolute;left: 8.6rem;content: '*최대 5장 첨부 가능';font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 1.7rem;letter-spacing: 0em;text-align: center;color: #888;}
+.fileInner label {display: inline-block;color: #666;vertical-align: middle;background: #EBEDEF;cursor: pointer;border-radius:0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;height: 3.6rem;padding:0.6rem 1.4rem 0.6rem 1.4rem;position:relative;}
+.fileInner label:after {top: 1rem;width: 11.2rem;position: absolute;left: 8.6rem;content: '*최대 5장 첨부 가능';font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 1.7rem;letter-spacing: 0em;text-align: center;color: #888;}
 .fileInner label:hover{background: #E2E5EA;}
 .fileInner input[type="file"] {position: absolute;width: 0;height: 0;padding: 0;overflow: hidden;border: 0;}
 
 .fileInner .file-list {display:inline-block;}
-.fileInner .filebox {margin-bottom: 0.6rem;padding: 0.6rem 3.6rem 0.6rem 1.2rem;vertical-align: middle;color: #00C389;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;background: #E4F8F2;border-radius: 0.8rem;position:relative;margin-right:0.8rem;}
+.fileInner .filebox {margin-bottom: 0.6rem;padding: 0.6rem 3.6rem 0.6rem 1.2rem;vertical-align: middle;color: #00C389;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;background: #E4F8F2;border-radius: 0.8rem;position:relative;margin-right:0.8rem;}
 .fileInner .filebox:last-child{margin-bottom:0rem;}
 .fileInner .filebox p {display: inline-block;}
 .fileInner .filebox .delete {right: 1rem;display: inline-block;width: 1.6rem;height: 1.6rem;background-image: url(/assets/images/common/file_close.png);background-size: cover;background-repeat: no-repeat;background-position: center;position: absolute;top: 1rem;cursor: pointer;}
 /* ==== // 파일 입력 영역 ==== */
 
 .bottomBtnBox{display:block;text-align:right;}
-.bottomBtn{display:inline-block;padding:1.2rem 1.6rem 1.2rem 1.6rem;background: #00C389;border-radius: 1rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#fff;}
+.bottomBtn{display:inline-block;padding:1.2rem 1.6rem 1.2rem 1.6rem;background: #00C389;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#fff;}
 .bottomBtn:hover{background: #00BA83;}
 
 .wr_BtnBox {display: flex;width: 100%;position: relative;justify-content: flex-end;}
-.wr_del{padding: 1.2rem 1.6rem;background: #EBEDEF;border-radius:1rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#666;}
+.wr_del{padding: 1.2rem 1.6rem;background: #EBEDEF;border-radius:1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#666;}
 .wr_del:hover{background: #E2E5EA;}
-.wr_revise{margin-left:0.8rem;padding:  1.2rem 1.6rem;background: #00C389;border-radius:1rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#fff;}
+.wr_revise{margin-left:0.8rem;padding:  1.2rem 1.6rem;background: #00C389;border-radius:1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#fff;}
 .wr_revise:hover{background: #00BA83;}
 
 
@@ -453,15 +453,15 @@
 /* ==== 전자상거래 적용 대상 팝업 영역 ==== */
 .commerce_pop .koko_popup_inner {top: 8rem;width: 63rem;}
 .popcaseInfoBoxType02 {width: 100%;position: relative;padding: 2rem 2.4rem 2rem 2.4rem;background: #F4F5F7;border-radius: 1rem;}
-.popcaseInfoBoxType02 dl {display: block;position: relative;font-family: Pretendard;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color: #666;}
+.popcaseInfoBoxType02 dl {display: block;position: relative;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color: #666;}
 .popcaseInfoBoxType02 dl span{font-weight: 700;}
 /* ==== // 전자상거래 적용 대상 팝업 영역 ==== */
 
 .prDivideBox{display:flex;width:100%;position:relative;}
 .prptitle{width:100%;position:relative;display:block;text-align:left;}
-.prptitle h2{display: flex;font-family: Pretendard;font-size: 2.4rem;font-weight: 600;line-height: 3.4rem;letter-spacing: 0em;text-align: left;color:#222;}
+.prptitle h2{display: flex;font-family: Pretendard, sans-serif;font-size: 2.4rem;font-weight: 600;line-height: 3.4rem;letter-spacing: 0em;text-align: left;color:#222;}
 
-.myAddBtn{cursor:pointer;background: #EBEDEF;border-radius: 6px;padding:0.4rem 1rem 0.4rem 1rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666666;position:absolute;right:0rem;top:0.2rem;z-index:10;}
+.myAddBtn{cursor:pointer;background: #EBEDEF;border-radius: 6px;padding:0.4rem 1rem 0.4rem 1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666666;position:absolute;right:0rem;top:0.2rem;z-index:10;}
 .myAddBtn:hover{background:#E2E5EA;}
 
 .addtabBtn {display: flex;z-index: 10;width: 3.2rem;height: 3.4rem;position: relative;background: #F4F5F7;border-radius: 0.8rem;text-align: center;padding: 1.2rem 1.6rem 1.2rem 1.6rem;align-items: center;justify-content: center;margin-left: 0.8rem;}
@@ -503,7 +503,7 @@
 .cateiBox{position:relative;width:100%;}
 .cateinput {z-index:50;display: block;position: relative;}
 .cateinput:before {content: '';position: absolute;left: 1.6rem;top: 1.7rem;width: 2rem;height: 2rem;background-image: url(/assets/images/common/searchicon.png);background-size: 2rem;background-repeat: no-repeat;background-position: center;z-index: 20;}
-.cateinput input {border-radius: 0.8rem 0.8rem 0rem 0rem;border-top: 1px solid #E2E5EA;border-left: 1px solid #E2E5EA;border-right: 1px solid #E2E5EA;position: relative;height: 5.2rem;background: #fff;padding: 0rem 2rem 0rem 4.6rem;width: 100%;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;letter-spacing: 0em;text-align: left;color: #666;z-index: 10;}
+.cateinput input {border-radius: 0.8rem 0.8rem 0rem 0rem;border-top: 1px solid #E2E5EA;border-left: 1px solid #E2E5EA;border-right: 1px solid #E2E5EA;position: relative;height: 5.2rem;background: #fff;padding: 0rem 2rem 0rem 4.6rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;letter-spacing: 0em;text-align: left;color: #666;z-index: 10;}
 .cateinput input:focus .showcateinBox{display:block;}
 
 .showcateinBox.showon{z-index:40;}
@@ -530,12 +530,12 @@
 .cateS_Items ul{width:100%;position:relative;}
 .on_cateS{background: #E4F8F2!important;font-weight: 600!important;color:#00C389!important;}
 .on_cateS:before {content: '';position: absolute;right: 1.2rem;top: 1.5rem;width: 1.8rem;height: 1.8rem;background-image: url(/assets/images/common/oncate_arrow.png);background-size: 1.8rem;background-repeat: no-repeat;background-position: center;z-index: 20;}
-.cateS_Items ul li{cursor:pointer;width:100%;position:relative;text-align:left;padding:1.2rem 1.6rem 1.2rem 1.2rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;}
+.cateS_Items ul li{cursor:pointer;width:100%;position:relative;text-align:left;padding:1.2rem 1.6rem 1.2rem 1.2rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;}
 .cateS_Items ul li:hover{background: #F4F5F7;}
 
 .cateS_checkWrap{position:relative;width:100%;height:100%;}
 .nonecateS_Box {z-index: 20;position: absolute;left: 0rem;top: 0rem;width: 100%;height: 100%;background: #F4F5F7;border-radius: 0px 0px 0.8rem 0px;display: flex;justify-content: center;align-items: center;}
-.nonecateS_Box p{font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#9A9A9A;}
+.nonecateS_Box p{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#9A9A9A;}
 
 .cateS_checkBox{z-index:10;position:relative;width:100%;height:100%;padding:2.4rem 2.4rem 1.2rem 2.4rem;}
 
@@ -543,7 +543,7 @@
 .cateS_check {padding-right:1rem;width: calc(50% - 0px);position: relative;display: flex;align-items: center;margin-bottom: 1.2rem;}
 /* .cateS_check {display: flex;position: relative;} */
 .cateReviseIcon{width:1.8rem;height:1.8rem;display:inline-block;cursor:pointer;margin-left:0.8rem;background: url(/assets/images/common/cateReviseIcon.png) no-repeat center/cover;}
-.cateS_check p {font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;}
+.cateS_check p {font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;}
 .cateS_check input {display: none;}
 .cateS_check label {cursor: pointer;position: relative;padding-left: 2.4rem;}
 .cateS_check input[type=checkbox]+label em {left: 0rem;border-radius: 0.4rem;position: absolute;top: 0.3rem;display: inline-block;margin-right: 0.8rem;vertical-align: middle;width: 1.8rem;height: 1.8rem;}
@@ -554,18 +554,18 @@
 
 .sel_cateListBox{padding:2rem;margin-top:1.6rem;width:100%;position:relative;background: #FFFFFF;border: 1px solid #EEEEEE;border-radius: 0.8rem;}
 .sel_cateList{width:100%;position:relative;display:block;text-align:left;}
-.sel_cate{display:inline-block;font-family: Pretendard;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;position:relative;padding-right:1.8rem;margin:0rem 1rem 1rem 0rem;}
+.sel_cate{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;position:relative;padding-right:1.8rem;margin:0rem 1rem 1rem 0rem;}
 .sel_cate button{z-index:20;position:absolute;right:0rem;top:0.4rem;width:1.4rem;height:1.4rem;background-image: url(/assets/images/common/selcate_close.png);background-size: 1.4rem;background-repeat: no-repeat;background-position: center;}
 .sel_cateBtnBox {margin-top:1.4rem;display: flex;align-items: center;justify-content: flex-end;}
 
-.cateResetBtn{position:relative;display:inline-block;padding-left:1.8rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#9A9A9A;}
+.cateResetBtn{position:relative;display:inline-block;padding-left:1.8rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#9A9A9A;}
 .cateResetBtn:before {content: '';position: absolute;left: 0rem;top: 0.4rem;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/common/reset_icon.png);background-size: 1.4rem;background-repeat: no-repeat;background-position: center;z-index: 20;}
-.cateAddBtn{margin-left:1.6rem;background: #00C389;border-radius: 0.8rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color:#fff;padding:0.5rem 1.4rem 0.5rem 1.4rem;}
+.cateAddBtn{margin-left:1.6rem;background: #00C389;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color:#fff;padding:0.5rem 1.4rem 0.5rem 1.4rem;}
 .cateAddBtn:hover{background: #00BA83}
 
 .cateAddInfoBox{width:100%;margin-top:2.4rem;position:relative;text-align:left;}
 .cateAddInfo:last-child{margin-top:0.8rem;}
-.cateAddInfo{cursor:pointer;position:relative;display:inline-block;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;padding-left:2.4rem;padding-right:2rem;}
+.cateAddInfo{cursor:pointer;position:relative;display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;padding-left:2.4rem;padding-right:2rem;}
 .cateAddInfo:before{content: '';position: absolute;left: 0rem;top: 0.3rem;width: 1.6rem;height: 1.6rem;background-image: url(/assets/images/common/addinfo_icon.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;z-index: 10;}
 .cateAddInfo:after{content: '';position: absolute;right: 0rem;top: 0.3rem;width: 1.6rem;height: 1.6rem;background-image: url(/assets/images/common/addinfo_arrow.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;z-index: 10;}
 
@@ -618,26 +618,26 @@
 
 .poptabBox{display:flex;width:100%;}
 .poptab.on_ptab{font-weight: 600;color:#444;border-bottom:2px solid #444;}
-.poptab{padding:1.2rem 0rem 1.4rem 0rem;cursor:pointer;width:100%;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0em;text-align: center;color:#aaa;border-bottom:2px solid #EBEDEF;}
+.poptab{padding:1.2rem 0rem 1.4rem 0rem;cursor:pointer;width:100%;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0em;text-align: center;color:#aaa;border-bottom:2px solid #EBEDEF;}
 /* // 개인정보 탭수정 팝업 영역 */
 
 .boaTabBox {padding-top: 2rem;width: 100%;position: relative;}
 .bo_tabContentBox{width:100%;position:relative;overflow:hidden;}
 .prDelBtn{margin-bottom:2rem;display:block;text-align:right;}
-.prDelBtn button{padding:0.4rem 1rem 0.4rem 1rem;background: #EBEDEF;border-radius: 0.6rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color:#666;}
+.prDelBtn button{padding:0.4rem 1rem 0.4rem 1rem;background: #EBEDEF;border-radius: 0.6rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color:#666;}
 .prDelBtn button:hover{background: #E2E5EA;}
 
 .prAddBtnBox{margin-top:4rem;display:block;text-align:right;}
 .prAddBtn{display:inline-block;position:relative;min-width: 13rem;min-height: 5.4rem;}
-.prAddBtn button{z-index:10;padding:1.2rem 3rem 1.2rem 3rem;background: #00C389;border-radius: 1rem;font-family: Pretendard;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: center;color:#fff;}
+.prAddBtn button{z-index:10;padding:1.2rem 3rem 1.2rem 3rem;background: #00C389;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: center;color:#fff;}
 .prAddBtn button:hover{background: #00BA83;}
-.noneAdd{	border-radius: 1rem;z-index:20;position:absolute;left:0rem;top:0rem;font-family: Pretendard;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: center;padding:1.2rem 3rem 1.2rem 3rem;background: #EBEDEF!important;color:#bbb!important;}
+.noneAdd{	border-radius: 1rem;z-index:20;position:absolute;left:0rem;top:0rem;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: center;padding:1.2rem 3rem 1.2rem 3rem;background: #EBEDEF!important;color:#bbb!important;}
 .noneAdd:hover{cursor : no-drop;}
 
 .prbott{margin-top:2rem;display:block;width:100%;position:relative;}
 .prbott ul{display:block;width:100%;position:relative;}
 .prbott ul li:before{content:'';width:2px;height:2px;border-radius:50%;background:#888;position:absolute;left:0rem;top:1rem;}
-.prbott ul li{display:block;width:100%;position:relative;padding-left:0.8rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;}
+.prbott ul li{display:block;width:100%;position:relative;padding-left:0.8rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;}
 /* ==== // 개인정보항목 컨텐츠 영역 ==== */
 
 /* ==== 개인정보항목 테이블 영역 ==== */
@@ -648,12 +648,12 @@
 .prtable table thead:before{content:'';position:absolute;left:0rem;top:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 .prtable table thead:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 .prtable table thead tr{background: #F4F5F7;position:relative;}
-.prtable table thead tr th {vertical-align: middle;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #444;padding: 1.1rem 0.4rem 1.1rem 0.4rem;}
+.prtable table thead tr th {vertical-align: middle;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #444;padding: 1.1rem 0.4rem 1.1rem 0.4rem;}
 
 .prtable table tbody tr{position:relative;}
 .prtable table tbody tr:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 .prtable table tbody tr{background: #fff;position:relative;}
-.prtable table tbody tr td {padding: 0.8rem 1rem 0.8rem 1rem;vertical-align: middle;position: relative;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #666;}
+.prtable table tbody tr td {padding: 0.8rem 1rem 0.8rem 1rem;vertical-align: middle;position: relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #666;}
 
 
 
@@ -661,18 +661,18 @@
 .prtable .koko_check input[type=checkbox]+label em{margin-right:0rem;}
 .prtable .koko_check label {cursor: pointer;position: relative;padding-left: 1.6rem;}
 
-.prtable table tbody tr td button {margin: 0rem 0.1rem 0rem 0.1rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color: #666;padding: 0.4rem 1rem 0.4rem 1rem;background: #E9EBED;border-radius: 0.6rem;}
+.prtable table tbody tr td button {margin: 0rem 0.1rem 0rem 0.1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color: #666;padding: 0.4rem 1rem 0.4rem 1rem;background: #E9EBED;border-radius: 0.6rem;}
 .prtable table tbody tr td button:hover{background: #E2E5EA;}
-.prtable table tbody tr td .nonereviseBtn {display:inline-block;margin: 0rem 0.1rem 0rem 0.1rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: center;padding: 0.5rem 1rem 0.5rem 1rem;border-radius: 0.6rem;background: #F4F5F7!important;color: #BBBBBB!important;}
+.prtable table tbody tr td .nonereviseBtn {display:inline-block;margin: 0rem 0.1rem 0rem 0.1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: center;padding: 0.5rem 1rem 0.5rem 1rem;border-radius: 0.6rem;background: #F4F5F7!important;color: #BBBBBB!important;}
 .prtable table tbody tr td .nonereviseBtn:hover{cursor : no-drop;}
 
 .lockicon {margin-right: 0.4rem;width: 1.8rem;height: 1.8rem;display: inline-block;background: url(/assets/images/common/lock-closed.png) no-repeat center/cover;position: relative;top: 0.4rem;}
-.subElement{position: relative;display: inline-block;margin-left: 0.6rem;font-family: Pretendard;font-size: 1.2rem;font-weight: 500;line-height: 1.4rem;letter-spacing: 0em;text-align: center;border-radius: 1.1rem;padding: 0.4rem 0.8rem 0.4rem 0.8rem;top: -0.1rem;}
+.subElement{position: relative;display: inline-block;margin-left: 0.6rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 500;line-height: 1.4rem;letter-spacing: 0em;text-align: center;border-radius: 1.1rem;padding: 0.4rem 0.8rem 0.4rem 0.8rem;top: -0.1rem;}
 .redtext {color: #FF6752;background: #FFF0EE}
 .yeltext{color: #EB920E;background: #FFF4D9;}
 .bluetext{color: #4070E0;background: #EEF4FF;}
 .greentext{color: #00C389;background: #EEF4FF;}
-.noneprtable{width:100%;position:relative;padding:3.4rem 1rem 3.4rem 1rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#9A9A9A;border-bottom:1px solid #E2E5EA;}
+.noneprtable{width:100%;position:relative;padding:3.4rem 1rem 3.4rem 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#9A9A9A;border-bottom:1px solid #E2E5EA;}
 
 /* ==== 개인정보 선택 항목 삭제 팝업 영역 ==== */
 .delete_pr_pop .koko_popup_inner {top: 8rem;width: 63rem;}
@@ -685,7 +685,7 @@
 # 환경설정 > 내 정보 수정
 -----------------------------------------------------------------------------------------*/
 .myInfoBox {height: 5.6rem;padding: 0rem 2rem 0rem 2rem;display: flex;width: 100%;position: relative;align-items: center;justify-content: flex-start;}
-.myInfoBox span{display:inline-block;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#666;}
+.myInfoBox span{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#666;}
 .myInfoBox span dd{display:inline-block;font-weight:600;color:#444!important;}
 .myInfoBox .otptext{color:#00C389;}
 .myInfoBox .dotbox{display:flex;}
@@ -700,7 +700,7 @@
 .myInfoBox .dotbox dt:last-child{
     margin-right:0rem;
 }
-.myinfoChangeBtn{margin-left:1.6rem;background: #EBEDEF;border-radius: 0.8rem;height:3.6rem;padding:0.6rem 1.2rem 0.6rem 1.2rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#666666;}
+.myinfoChangeBtn{margin-left:1.6rem;background: #EBEDEF;border-radius: 0.8rem;height:3.6rem;padding:0.6rem 1.2rem 0.6rem 1.2rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#666666;}
 .myinfoChangeBtn:hover{background: #E2E5EA;}
 
 /* ==== 소속 변경 팝업 영역 ==== */
@@ -728,14 +728,14 @@
 .ks_noneicon dl:before{content:none!important}
 .koSubInfo{width:100%;position:relative;margin:1.6rem 0rem 4rem 0rem;}
 .koSubInfo dl:before {content: '';position: absolute;left: 0rem;top: 0.3rem;width: 1.8rem;height: 1.8rem;background-image: url(/assets/images/common/red_infoicon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
-.koSubInfo dl{padding-left:2.8rem;position:relative;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666666;}
+.koSubInfo dl{padding-left:2.8rem;position:relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666666;}
 .koSubInfo dl span{color:#FC5757;}
 
 .otpInfoBox{width:100%;position:relative;padding:2.8rem 2.4rem 2.8rem 2.4rem; background: #F4F5F7;border-radius: 1.2rem;margin-bottom:4rem;}
 .otpInfotext{width:100%;position:relative;padding-left:2.2rem;margin-bottom:3.6rem;}
 .otpInfotext:last-child{margin-bottom:0rem;}
-.otpInfotext d{position:absolute;left:0rem;top:0rem;display:inline-block;font-family: Pretendard;font-size:1.8rem;font-weight: 700;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#00C389;}
-.otpInfotext dl{font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#222222;}
+.otpInfotext d{position:absolute;left:0rem;top:0rem;display:inline-block;font-family: Pretendard, sans-serif;font-size:1.8rem;font-weight: 700;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#00C389;}
+.otpInfotext dl{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#222222;}
 .otpInfotext dl span{font-weight: 600;color:#00C389;}
 
 .otpqrBox {    padding: 0rem 4rem 0rem 4rem;display: flex;justify-content: space-around;margin-top: 2rem;width: 100%;justify-content: center;}
@@ -744,13 +744,13 @@
 .otpqrImg img{height:12rem;}
 
 .otpqrInfo {text-align: left;display: inline-block;position: relative;}
-.otpqrNum {display: inline-block;position: relative;background: #FFFFFF;padding: 0rem 1.6rem 0rem 1.6rem;border: 2px solid #E2E5EA;border-radius: 1rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 700;line-height: 3.8rem;letter-spacing: 0em;text-align: left;color: #444444;height: 4rem;}
+.otpqrNum {display: inline-block;position: relative;background: #FFFFFF;padding: 0rem 1.6rem 0rem 1.6rem;border: 2px solid #E2E5EA;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 700;line-height: 3.8rem;letter-spacing: 0em;text-align: left;color: #444444;height: 4rem;}
 
 .divider_line {margin: 0rem 4rem 0rem 4rem;width: 2px;height: 14.4rem;background-image: url(/assets/images/common/divider_line.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 
 .otpqrNumInfo{margin-top:1.2rem;display:block;position:relative;padding-left:2.4rem;}
 .otpqrNumInfo:before {content: '';position: absolute;left: 0rem;top: 0.4rem;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/common/black_infoicon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
-.otpqrNumInfo p{font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666;}
+.otpqrNumInfo p{font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666;}
 
 .otpqrInfoImg{display:block;margin-top:1.6rem;text-align:left;}
 .otpqrInfoImg img{display:block;height:4rem;max-width:100%;}
@@ -767,7 +767,7 @@
 /* } */
 /* } */
 .flex_sel {display: flex;align-items: center;}
-.flex_sel p{font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2rem;letter-spacing: 0em;text-align: left;color:#666;}
+.flex_sel p{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2rem;letter-spacing: 0em;text-align: left;color:#666;}
 .flex_sel dd{font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2rem;letter-spacing: 0em;text-align: left;color:#888;}
 
 .disableBox{position:absolute;left:0rem;top:0rem;width:100%;height:100%;z-index:50;}
@@ -1056,7 +1056,7 @@
 .filtercontbox {display: block;position: relative;}
 .filtercontbox p {display: block;font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color: #444;margin-bottom: 1.2rem;}
 .filtercontbox .start_end_search_box {display: block;margin-right: 0rem;}
-.filtercontbox .time_input input {text-align: center;background: #F4F5F7;width: 100%;height: 4.4rem;font-size: 1.8rem;font-weight: 500;color: #666;padding: 0px 1.6rem 0px 1.6rem;font-family: 'Pretendard';border-radius: 1rem;}
+.filtercontbox .time_input input {text-align: center;background: #F4F5F7;width: 100%;height: 4.4rem;font-size: 1.8rem;font-weight: 500;color: #666;padding: 0px 1.6rem 0px 1.6rem;font-family: Pretendard, sans-serif;border-radius: 1rem;}
 .filtercontbox .time_input input::placeholder{text-align:center;}
 
 .filtercontbox .seaRadio {text-align: left;padding: 1.6rem 0rem 0rem 0rem;display: block;}
@@ -1227,8 +1227,8 @@
 .time_input .ui-datepicker-trigger{position: absolute;right: 0rem;top: 0.9rem;width: 2.4rem;height: 2.4rem;cursor: pointer;}
 .time_input .ui-datepicker-trigger img{height:2.4rem;}
 
-.time_input input {letter-spacing: -0.3px;background: #F4F5F7;width: 13.5rem;height: 4.4rem;font-size: 1.8rem;font-weight: 500;color: #666666;padding: 0px 1.6rem 0px 1.6rem;font-family: 'Pretendard';border-radius: 1rem;}
-.time_input input::placeholder{font-family: 'Pretendard';font-size: 1.8rem;font-weight: 400;letter-spacing: 0px;text-align: left;color:#aaa;}
+.time_input input {letter-spacing: -0.3px;background: #F4F5F7;width: 13.5rem;height: 4.4rem;font-size: 1.8rem;font-weight: 500;color: #666666;padding: 0px 1.6rem 0px 1.6rem;font-family: Pretendard, sans-serif;border-radius: 1rem;}
+.time_input input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;letter-spacing: 0px;text-align: left;color:#aaa;}
 
 .time_text {display: inline-block;margin: 0px 0.8rem 0px 0.8rem;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 4.2rem;letter-spacing: 0em;text-align: center;}
 
@@ -1564,7 +1564,7 @@
 .mrtType01 .selectBox .optionList {top: 3.6rem;left: -1.6rem;width: 38.4rem;border-radius: 0.8rem;}
 .mrtType01 .selectBox .optionItem {font-size: 1.5rem;line-height: 1.8rem;color: #666;padding: 1.2rem 1.6rem 1.2rem 1.6rem;}
 
-.mrtType02 .time_input input {background: #F4F5F7;width: 12.3rem;height: 4rem;font-size: 1.6rem;font-weight: 500;color: #444;padding: 0px 1.2rem 0px 1.6rem;font-family: 'Pretendard';border-radius: 0.8rem;}
+.mrtType02 .time_input input {background: #F4F5F7;width: 12.3rem;height: 4rem;font-size: 1.6rem;font-weight: 500;color: #444;padding: 0px 1.2rem 0px 1.6rem;font-family: Pretendard, sans-serif;border-radius: 0.8rem;}
 .mrtType02 .time_input input::placeholder{font-size: 1.6rem;}
 .mrtType02 .mrtSelBox{width:20.5rem;}
 .mrtType02 .selectBox .optionList {top: 3.6rem;left: -1.6rem;width: 20.5rem;border-radius: 0.8rem;}
