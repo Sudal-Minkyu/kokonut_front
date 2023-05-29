@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600;700&display=swap');
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css");
-/* +++ Main START ~ +++ */고
+/* +++ Main START ~ +++ */
 
-/* ::::::::: ============== Main V Start ~ ============== ::::::::: */.
+/* ::::::::: ============== Main V Start ~ ============== ::::::::: */
 
-	/* 메인 비주얼 ~ */
+/* 메인 비주얼 ~ */
 .re_hid {overflow:hidden;}
 .mainWrap {width:100%; height:auto; position:relative;}
 .mainInner {width:100%; max-width:144rem; padding:0 2rem; margin:0 auto;}
@@ -21,7 +21,10 @@
 .main_Num.here {opacity:1;}
 
 #main_v .mv_title {font-size: 6.4rem; font-weight: 700; line-height: 8.6rem;}
-.mv_titleBox {position: relative; margin-left: 0; position: absolute; position: absolute; left: 50%; width: 100%; max-width: 144rem; padding: 0 2rem; margin: 0 auto; transform: translateX(-50%);}
+.mv_titleBox {
+	margin-left: 0;
+	position: absolute; left: 50%; width: 100%; max-width: 144rem; padding: 0 2rem;
+	transform: translateX(-50%);}
 .mv_title {overflow:hidden;}
 
 h1.text1 {position: relative; opacity:1; transition:none;}
@@ -65,8 +68,7 @@ h1.text1 {position: relative; opacity:1; transition:none;}
 	background: #00C389;
 	border-radius: 9.9rem;
 	position: absolute;
-	top: 0rem;
-	left: 50%;
+	top: 0;
 	transform: translate(-50%,-50%);
 	animation: scroll 3s infinite;
 	transition:none;
@@ -219,7 +221,6 @@ h1.text1 {position: relative; opacity:1; transition:none;}
 	max-width: 142rem;
 	margin: 0 auto;
 	padding: 0 2rem;
-	overflow: hidden;
 	box-sizing: border-box;
 	height: 100vh;
 	max-height: inherit;
@@ -232,8 +233,6 @@ h1.text1 {position: relative; opacity:1; transition:none;}
 	display: flex;
 	margin-top: 0;
 	bottom: unset;
-	transform: unset;
-	position: relative;
 	align-items: center;
 	justify-content: space-between;
 }
@@ -313,15 +312,13 @@ h1.text1 {position: relative; opacity:1; transition:none;}
 	justify-content: center;
 	align-items: center;
 	height: 100%;
-	justify-content: space-between;
-	width: 100%;
 	max-width: 144rem;
 	margin: 0 auto;
 }
 #managerial .s_Title::before {
 	content: '';
 	left: 0;
-	width: 0%;
+	width: 0;
 	bottom: 0;
 	height: 1px;
 	background: #222;
@@ -337,7 +334,7 @@ h1.text1 {position: relative; opacity:1; transition:none;}
 #managerial .section {min-height: 30vh;}
 #managerial .up .s_Title {
 	left: 0;
-	top: 0rem;
+	top: 0;
 	height: auto;
 	display: flex;
 	position: relative;
@@ -347,7 +344,7 @@ h1.text1 {position: relative; opacity:1; transition:none;}
 }
 #managerial .up .s_Title::before {width:100%;}
 #managerial .s_Title p {font-size: 10rem; font-weight: 700; line-height: 10rem;}
-#managerial .s_Title p.greenTxt {font-family: Outfit, sans-serif; font-size: 3.8rem; font-weight: 200; text-align: left; line-height: 4.2rem; letter-spacing: 0em; margin-bottom: 3rem; transition: all 0.4s;}
+#managerial .s_Title p.greenTxt {font-family: Outfit, sans-serif; font-size: 3.8rem; font-weight: 200; text-align: left; line-height: 4.2rem; letter-spacing: 0; margin-bottom: 3rem; transition: all 0.4s;}
 #managerial.titleUp .s_Title p.boldTxt span {color:#00C389;}
 #managerial .s_Title p.greenTxt span {color:#222; font-weight: 600;}
 #managerial .s_Title p.boldTxt {font-size: 8rem; font-weight: 700; line-height: 10rem;}
@@ -370,7 +367,6 @@ h1.text1 {position: relative; opacity:1; transition:none;}
 	border-radius: 20px;
 	position: relative;
 	overflow: hidden;
-	max-width: 73.6%;
 	margin-right: 3rem;
 	box-sizing: border-box;
 	max-width: 103.6rem;
@@ -424,7 +420,6 @@ p.letters {font-family: Pretendard, sans-serif; font-size: 6rem; font-weight: 70
 #managerial.titleUp .s_Title {
 	top: 0;
 	left: 0;
-	top: 0rem;
 	height: auto;
 	display: flex;
 	position: sticky;
@@ -433,14 +428,14 @@ p.letters {font-family: Pretendard, sans-serif; font-size: 6rem; font-weight: 70
 	justify-content: flex-start;
 }
 #managerial.titleUp  .imgBox {display:none;}
-#managerial.titleUp .s_Title::before {width: 100%; left: 0rem;}
+#managerial.titleUp .s_Title::before {width: 100%; left: 0;}
 #managerial.titleUp  .m_ContBox {opacity:1; width: 100%; height: auto; padding: 2rem 2rem 10rem;}
 #managerial .sc_cont_area {margin-top: 5rem;}
 
 
 
 /* ma - 수집 관리 */
-.m_ContImgBox figure {position: absolute; border-radius: 20px; box-shadow: 0px 0px 70px rgba(0, 0, 0, 0.1); transition: all 0.4s ease-in-out;}
+.m_ContImgBox figure {position: absolute; border-radius: 20px; box-shadow: 0 0px 70px rgba(0, 0, 0, 0.1); transition: all 0.4s ease-in-out;}
 #ma .m_ContImgBox figure { opacity:unset;}
 #ma .m_ContImgBox .ma_figure01 {width: 69.88%; left:2rem; top:6rem;}
 #ma .m_ContImgBox .ma_figure02 {width: 63.332%; right: -14rem; top: 3rem;}
@@ -546,7 +541,7 @@ p.letters {font-family: Pretendard, sans-serif; font-size: 6rem; font-weight: 70
 	font-size: 4rem;
 	font-weight: 700;
 	line-height: 5.6rem;
-	letter-spacing: 0em;
+	letter-spacing: 0;
 	text-align: center;
 	min-width: 44.5rem;
 	margin: 0 auto;
@@ -564,7 +559,7 @@ p.letters {font-family: Pretendard, sans-serif; font-size: 6rem; font-weight: 70
 		font-size: 3rem;
 		font-weight: 700;
 		line-height: 4.5rem;
-		letter-spacing: 0em;
+		letter-spacing: 0;
 		text-align: center;
 		min-width: unset;
 		width: 54%;
@@ -600,7 +595,7 @@ p.letters {font-family: Pretendard, sans-serif; font-size: 6rem; font-weight: 70
 	#mc .m_ContImgBox {border-bottom:none;}
 	#managerial .sc_cont_area {margin-top: 4rem;}
 	.m_ContBoxCont {flex-direction: column; margin-top:3rem;}
-	.m_ContImgBox {width: 100%; margin-bottom: 0rem; padding-bottom: 54%; max-width: inherit; margin-right:0;}
+	.m_ContImgBox {width: 100%; margin-bottom: 0; padding-bottom: 54%; max-width: inherit; margin-right:0;}
 	#mb .m_ContImgBox {padding-bottom: 54%;}
 	.m_ConttxtBox {width: 100%; margin-top:3rem;}
 	#managerial .s_Title {flex-direction: column; display: flex; justify-content: center; padding-top:5rem;}
@@ -619,7 +614,7 @@ p.letters {font-family: Pretendard, sans-serif; font-size: 6rem; font-weight: 70
 	.mContsTxt {font-size: 1.6rem; line-height: 3.2rem; margin-top:1rem;}
 
 	.m_ConttxtBox ul li .gTxt {line-height:2.5rem; padding-left: 0; margin-top:0;}
-	.m_ConttxtBox ul li .gnum {padding-left: 0; line-height: 2.4rem; padding-left: 0rem;}
+	.m_ConttxtBox ul li .gnum {padding-left: 0; line-height: 2.4rem; padding-left: 0;}
 	.m_ConttxtBox ul li .gnum::before {
 		top: 0;
 		content: '';
@@ -638,7 +633,7 @@ p.letters {font-family: Pretendard, sans-serif; font-size: 6rem; font-weight: 70
 	.ml3 {font-size:3rem; line-height:6.1rem; width: 100%; padding: 4.85rem 4.3rem;}
 	p.letters {font-size: 2.1rem; font-weight: 700; line-height: 3rem; text-align: center;}
 	.center ul li {font-size: 3.4rem; font-weight: 700; line-height: 4.8rem;}
-	#md .mInner {padding-top: 0rem;}
+	#md .mInner {padding-top: 0;}
 }
 
 @media (max-width:767px) {
@@ -651,7 +646,7 @@ p.letters {font-family: Pretendard, sans-serif; font-size: 6rem; font-weight: 70
 	#managerial.titleUp .m_ContBox {padding:2.5rem 2rem;}
 
 	.mContGreen {font-size: 1.5rem; line-height: 1.7rem; margin-bottom: 1rem;}
-	.mContTitle {font-size: 2rem; line-height: 2.6rem; margin-bottom: 0rem;}
+	.mContTitle {font-size: 2rem; line-height: 2.6rem; margin-bottom: 0;}
 	.mContsTxt {font-size: 1.5rem; line-height: 2.2rem;}
 	.m_ConttxtBox {margin-top:2rem;}
 	.m_ConttxtBox ul li .gTxt {font-size: 1.5rem; line-height: 2.3rem;}
@@ -791,7 +786,7 @@ p.letters {font-family: Pretendard, sans-serif; font-size: 6rem; font-weight: 70
 	.managertitle {font-size: 4rem; font-weight: 800; line-height: 5.4rem;}
 	#managerialGreen .colorchange.color-green .mgContGroup {margin-top: 4rem;}
 	.mgContBox {padding: 3rem 0 0 3rem; margin-bottom: 5rem;}
-	.mgContBoxWrap.two .mgContBox:last-child {margin-bottom: 0rem;}
+	.mgContBoxWrap.two .mgContBox:last-child {margin-bottom: 0;}
 	.mgContBox.matg10:last-child {margin-top:0;}
 	.mgContBoxTitle {line-height: 3.3rem; letter-spacing: -0.022em; margin-bottom: 2rem; font-size: 2.5rem;}
 	.mgContBoxtxt {font-size: 1.7rem; line-height: 2.3rem; letter-spacing: -0.022em; padding-bottom: 0; margin-top:1rem;}
@@ -867,7 +862,7 @@ p.letters {font-family: Pretendard, sans-serif; font-size: 6rem; font-weight: 70
 #technical .s_Title p.boldTxt span {font-weight:700;}
 #technical .mContpurple {font-family: Pretendard, sans-serif; font-size: 2rem; font-weight: 700; line-height: 3rem; color:#737AEA; margin-bottom: 2rem;}
 #technical .section {width: 100%; height: auto; margin: 0 0 12rem 0;}
-#technical  .m_ContBox {width: 100%; height: auto; padding: 0rem 2rem 0rem; transform: translateY(10rem); transition:all 0.8s ease-in-out;}
+#technical  .m_ContBox {width: 100%; height: auto; padding: 0 2rem 0; transform: translateY(10rem); transition:all 0.8s ease-in-out;}
 
 #technical.titleUp .s_Title p.boldTxt span {color:#737AEA;}
 #technical.titleUp .s_Title p.boldTxt {font-size: 4rem; line-height: 4.6rem; font-weight: 700; transition: none;}
@@ -910,7 +905,7 @@ p.letters {font-family: Pretendard, sans-serif; font-size: 6rem; font-weight: 70
 	margin-bottom:1rem;
 	line-height: 3.2rem;
 	letter-spacing: -0.022em;
-	padding: 0rem 0 0.6rem 2.6rem;
+	padding: 0 0 0.6rem 2.6rem;
 }
 .t_CBTxt::before {
 	left:0;
@@ -977,7 +972,7 @@ li:last-child .t_CBTxt {padding-bottom:0;}
 #tb .mContTitle	{word-break: keep-all;}
 .m_ContImgBox.cbcw100 {width:100%; max-width:inherit; margin-right:0;}
 
-p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; letter-spacing: 0em; text-align: center;}
+p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; letter-spacing: 0; text-align: center;}
 
 @media (max-width:991px) {
 	#technical {padding-bottom:5.5rem;}
@@ -988,7 +983,7 @@ p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; lette
 	#technical .s_TitleBox {width: 100%;}
 	#technical.titleUp .s_Title p.boldTxt {font-size: 3rem; line-height: 4rem;}
 	#technical .section {width:100%; min-height:auto; margin-bottom:0;}
-	#technical .m_ContBox {padding: 0rem 2rem 6rem;}
+	#technical .m_ContBox {padding: 0 2rem 6rem;}
 	#technical .s_Title .imgBox {padding:0 2rem;}
 	#technical .mContpurple {margin-bottom: 1rem; font-size: 1.5rem; font-weight: 700; line-height: 1.7rem;}
 	#technical .t_CBTxt {font-size:1.8rem; margin-bottom:0;}
@@ -1042,7 +1037,7 @@ p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; lette
 	max-width: 140rem;
 	justify-content: center;
 	padding: 8rem 0;
-	box-shadow: 0px 0px 70px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0px 70px rgba(0, 0, 0, 0.1);
 	border-radius: 20px;
 	position:relative;
 }
@@ -1075,7 +1070,7 @@ p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; lette
 }
 @media (max-width:991px) {
 	.t_ContBoxCont {width: 100%; margin-top:3rem; flex-direction: column;}
-	.t_CB {width: 100%; margin-top: 0rem; margin-bottom: 4rem;}
+	.t_CB {width: 100%; margin-top: 0; margin-bottom: 4rem;}
 	.t_CB:last-child {margin-bottom: 0;}
 	.techContGroup { margin-top:5rem;}
 
@@ -1091,7 +1086,7 @@ p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; lette
 	.techContGroup .techContBox {	padding: 2rem; border-radius: 2rem; margin-bottom: 2rem; width: calc(100% / 3 - 2.66666rem);}
 	.techserTxt {color: #333; font-weight: 700; margin-top: 2rem; font-size: 2.2rem; line-height: 3.6rem; letter-spacing: -0.022em;}
 	#techBlue .managerstitle {font-size: 1.5rem; line-height: 2.2rem; margin-top: 1.6rem;}
-	.techContGroup {padding:4rem 0; box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);}
+	.techContGroup {padding:4rem 0; box-shadow: 0 0px 20px rgba(0, 0, 0, 0.1);}
 	.techContGroup .techContBox.w503 {width: 60.9%; padding: 0; margin: 0;}
 }
 @media (max-width:767px) {
@@ -1166,7 +1161,7 @@ p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; lette
 #funjs #fc .fc_figure01 {left: 50%; transform: translateX(-50%); top: 4rem; width: 66%;}
 #funjs #fc .fc_figure02 {left: 4rem; top: 7rem;}
 #funjs #fc .fc_figure03 {right: 6rem; top: 13.2rem;}
-#funjs #fc figure {box-shadow: 0px 0px 70px rgba(0, 0, 0, 0.1); border-radius:20px;}
+#funjs #fc figure {box-shadow: 0 0px 70px rgba(0, 0, 0, 0.1); border-radius:20px;}
 
 @media (max-width:991px) {
 	#funjs {transition:none;}
@@ -1180,7 +1175,7 @@ p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; lette
 	#funjs.titleUp .s_Title p.boldTxt {font-size: 3rem; line-height: 4rem;}
 	#funjs .s_Title {transition:none!important;}
 	#funjs .s_Title p.boldTxt {font-size: 4rem; line-height: 5rem; transition:none;}
-	#funjs .m_ContBox {padding:0rem 2rem;}
+	#funjs .m_ContBox {padding:0 2rem;}
 	#funjs.showArea-show03 #fc .m_ContBox {padding-bottom:8rem;}
 
 	#funjs .mContpurple {font-size: 1.5rem; line-height: 1.7rem; margin-bottom: 1rem;}
@@ -1228,7 +1223,7 @@ p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; lette
 	padding: 16rem 2rem 16rem;
 }
 .p_comTitle {font-size: 5rem;font-weight: 800; line-height: 6.4rem;}
-.p_comTxt {margin-top:3rem; font-weight: 400; font-size: 2.6rem; line-height: 3.4rem; letter-spacing: 0em;}
+.p_comTxt {margin-top:3rem; font-weight: 400; font-size: 2.6rem; line-height: 3.4rem; letter-spacing: 0;}
 
 .logoGroup {display: flex; flex-wrap: wrap; margin-top: 10rem; justify-content: space-between;}
 .logoBox {height: 0; overflow: hidden; margin-top:2.4rem; border-radius:10px; padding-bottom: 13.143%; width: calc(100%/4 - 1.8rem);}
@@ -1242,7 +1237,7 @@ p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; lette
 	.p_comTxt {font-size:1.5rem; line-height:2.2rem; margin-top: 1.6rem;}
 	.logoGroup {flex-wrap: wrap; margin-top: 5rem; justify-content: space-between;}
 	.logoBox {margin: 0; border-radius: 8px; padding-bottom: 28.7%; margin-bottom: 0.9rem; width: calc(50% - 0.45rem);}
-	.logoBottom {padding-top: 0rem;}
+	.logoBottom {padding-top: 0;}
 	#p_company.p_companyBtom {background:#fff;}
 }
 @media (max-width:767px) {

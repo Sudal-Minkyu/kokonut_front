@@ -12,7 +12,7 @@
 .gtype {
 	font-family: Outfit, sans-serif; font-size: 2.4rem; font-weight: 700; line-height: 2.8rem; text-align: center; color:#00C389;}
 .btype {font-size: 1.8rem; font-weight: 500; line-height: 2.2rem; text-align: center; margin-top:1rem;}
-.pc_price {font-family: Outfit, sans-serif; font-size: 6.2rem; font-weight: 700; line-height: 6.4rem; letter-spacing: 0em; text-align: center; margin:4rem 0 1.4rem;}
+.pc_price {font-family: Outfit, sans-serif; font-size: 6.2rem; font-weight: 700; line-height: 6.4rem; letter-spacing: 0; text-align: center; margin:4rem 0 1.4rem;}
 .pc_pricefree {font-size: 1.8rem; font-weight: 600; line-height: 2.4rem; letter-spacing: -0.02em; text-align: center; padding:1rem 2.4rem; background: #DEF7EB; border-radius: 99px; display: inline-block; color: #00B47E;}
 
 ul.cus_list {margin-top: 3.4rem;}
@@ -44,7 +44,7 @@ ul.cus_list li::before {
 .pricTRight .pc_price span::before {
 	content: '';
 	top: 0;
-	left: 0px;
+	left: 0;
 	width: 26px;
 	height: 64px;
 	position: absolute;

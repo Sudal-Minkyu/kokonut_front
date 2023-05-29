@@ -1,9 +1,9 @@
 /*-----------------------------------------------------------------------------------------
 # 상단 top 헤더 + 좌측 left nav
 -----------------------------------------------------------------------------------------*/
-#serviceHeader{position:fixed;top:0rem;width:100%;left:0rem;z-index:20;}
+#serviceHeader{position:fixed;top:0;width:100%;left:0;z-index:20;}
 .topHeadInner{width:100%;position:relative;height:6.4rem;background-color:#fff; }
-.topHeadInner:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#eee;}
+.topHeadInner:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#eee;}
 
 .menuBtn{position:absolute;left:2.8rem;top:2.3rem;}
 .menuBtn img{height:1.8rem;}
@@ -14,58 +14,58 @@
 .topmyinfoBox {position: absolute;right: 6rem;top: 1.7rem;display: flex;align-items: center;}
 .myinfoBox {margin-right:2.4rem;display: flex;align-items: center;}
 .myinfoIcon {margin-right: 1rem;border-radius: 50%;width: 3rem;height: 3rem;background: #f4f5f7;}
-.myinfoBox span{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;}
+.myinfoBox span{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#888;}
 .myinfoMenu{display:inline-block;position:relative;}
 .notiText{
-    font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;
+    font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#888;
 }
 .notiText:hover{cursor:pointer;}
 
 /* ==== 좌측 nav 영역 ==== */
-.navMenu {position:fixed;left: 0px;top: 0px;height: 100%;width: 30rem;background: #F4F5F7;z-index: 10;padding:6.4rem 0rem 0rem 0rem;}
-.navMenu:after{content:'';position:absolute;right:0rem;top:0rem;width:1px;height:100%;background:#EBEDEF;}
+.navMenu {position:fixed;left: 0;top: 0;height: 100%;width: 30rem;background: #F4F5F7;z-index: 10;padding:6.4rem 0 0rem 0;}
+.navMenu:after{content:'';position:absolute;right:0;top:0;width:1px;height:100%;background:#EBEDEF;}
 .navMenuInner{position:relative;width:100%;height:100%;overflow: auto;}
-.navMenuInner::-webkit-scrollbar {width: 0px; height: 0px; }
+.navMenuInner::-webkit-scrollbar {width: 0; height: 0; }
 .navMenuInner::-webkit-scrollbar-track-piece {background-color: inherit;}
 .navMenuInner::-webkit-scrollbar-thumb {background-color: inherit;}
 
-.navName {width: 100%;position: relative;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color: #888;padding: 2.4rem 3rem 2.4rem 3rem;}
-.navName:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#EBEDEF;}
+.navName {width: 100%;position: relative;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: left;color: #888;padding: 2.4rem 3rem 2.4rem 3rem;}
+.navName:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#EBEDEF;}
 
 .subNav {width: 100%;position: relative;padding: 2.4rem 3rem 2.4rem 3rem;}
-.subNav:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#EBEDEF;}
+.subNav:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#EBEDEF;}
 .subNav ul{width:100%;position:relative;}
 .subNav ul li {width: 100%;position: relative;display: block;margin-bottom: 2rem;}
-.subNav ul li:last-child{margin-bottom:0rem;}
-.subNav ul li.onedepth{display: flex;justify-content: flex-start;align-items: center;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color: #444;margin-bottom: 2.4rem;}
-.subNav ul li.onedepth a{display: flex;justify-content: flex-start;align-items: center;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color: #444;}
+.subNav ul li:last-child{margin-bottom:0;}
+.subNav ul li.onedepth{display: flex;justify-content: flex-start;align-items: center;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: left;color: #444;margin-bottom: 2.4rem;}
+.subNav ul li.onedepth a{display: flex;justify-content: flex-start;align-items: center;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: left;color: #444;}
 .subNav ul li.onedepth img{height:2.4rem;margin-right:1rem;}
-.subNav ul li a{position:relative;display:block;font-size: 1.5rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#444;padding-left:0rem;}
+.subNav ul li a{position:relative;display:block;font-size: 1.5rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#444;padding-left:0;}
 
 .navSet {width: 100%;position: relative;padding: 2.6rem 3rem 2.8rem 3rem;}
-.navSet a{position:relative;display:block;font-size: 1.8rem;font-weight: 600;line-height: 2.16rem;letter-spacing: 0em;text-align: left;color:#444;padding-left:3rem;}
-.navSet a img {position: absolute;left: 0rem;top: 0.1rem;height: 2rem;}
+.navSet a{position:relative;display:block;font-size: 1.8rem;font-weight: 600;line-height: 2.16rem;letter-spacing: 0;text-align: left;color:#444;padding-left:3rem;}
+.navSet a img {position: absolute;left: 0;top: 0.1rem;height: 2rem;}
 /* ==== // 좌측 nav 영역 ==== */
 
 /* ==== 알림 영역 ==== */
 .myinfoMenu:hover .notiBoxInner{display:block;transition:all 0.3s;}
 .myinfoMenu:hover .notiText{color:#222222;}
 
-.notiBoxInner{transition:all 0.3s;display:none;padding-top:1.8rem;top: 0rem;right: -1rem;position: absolute;width: 44rem;z-index: 30;}
-.notiBox {margin-top: 1.6rem;position: relative;width:100%;background: #FFFFFF;border: 1px solid #EBEDEF;box-shadow: 0px 4px 16px rgba(122, 124, 129, 0.18);border-radius: 1.4rem;padding: 2.4rem 2.6rem;}
+.notiBoxInner{transition:all 0.3s;display:none;padding-top:1.8rem;top: 0;right: -1rem;position: absolute;width: 44rem;z-index: 30;}
+.notiBox {margin-top: 1.6rem;position: relative;width:100%;background: #FFFFFF;border: 1px solid #EBEDEF;box-shadow: 0 4px 16px rgba(122, 124, 129, 0.18);border-radius: 1.4rem;padding: 2.4rem 2.6rem;}
 .notiBox ul{width:100%;position:relative;}
-.notiBox ul li{width:100%;position:relative;padding:1.8rem 0rem;text-align:left;display:block;}
-.notiBox ul li:nth-child(1){padding:0rem 0rem 1.8rem 0rem;;}
+.notiBox ul li{width:100%;position:relative;padding:1.8rem 0;text-align:left;display:block;}
+.notiBox ul li:nth-child(1){padding:0 0rem 1.8rem 0;;}
 .notiBox ul li:nth-child(1):before{content:none;}
-.notiBox ul li:last-child{padding-bottom:0rem;}
+.notiBox ul li:last-child{padding-bottom:0;}
 .notiBox ul li:last-child:after{content:none;}
-.notiBox ul li:after{content:'';width:100%;height:1px;background:#eee;position:absolute;left:0rem;bottom:0rem;}
-.notiBox ul li .no_new{display:inline-block;background: #FF6752;border-radius: 0.4rem;padding:0.4rem 0.7rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 800;line-height: 1.4rem;letter-spacing: 0em;text-align: left;color:#fff;margin-bottom:0.6rem;}
-.notiBox ul li dl{display:block;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#444;margin-bottom:0.6rem;}
-.notiBox ul li span{font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0em;text-align: left;color:#aaa;}
+.notiBox ul li:after{content:'';width:100%;height:1px;background:#eee;position:absolute;left:0;bottom:0;}
+.notiBox ul li .no_new{display:inline-block;background: #FF6752;border-radius: 0.4rem;padding:0.4rem 0.7rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 800;line-height: 1.4rem;letter-spacing: 0;text-align: left;color:#fff;margin-bottom:0.6rem;}
+.notiBox ul li dl{display:block;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#444;margin-bottom:0.6rem;}
+.notiBox ul li span{font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0;text-align: left;color:#aaa;}
 
 .notiallBtn{width:100%;position:relative;margin-top:2rem;height: 5rem;background: #F6F6F6;border-radius: 0.4rem;}
-.notiallBtn a {display: flex;position: absolute;left: 0rem;top: 0rem;width: 100%;height: 100%;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #444;align-items: center;justify-content: center;}
+.notiallBtn a {display: flex;position: absolute;left: 0;top: 0;width: 100%;height: 100%;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: center;color: #444;align-items: center;justify-content: center;}
 .notiallBtn:hover{background:#E2E5EA;}
 /* ==== // 알림 영역 ==== */
 
@@ -82,27 +82,27 @@
 # 페이지 상단 검색영역
 -----------------------------------------------------------------------------------------*/
 .pageTitleBtn{width:100%;position:relative;text-align:left;}
-.pageTitleBtn h1{display:inline-block;font-size: 4rem;font-weight: 700;line-height: 5rem;letter-spacing: 0em;text-align: left;color:#222;}
-.pageTitleBtn dl{display:block;margin-top:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#666;}
-.pageTitleBtn a{margin-left: -50px;margin-right: 10px;display:inline-block;font-size: 4rem;font-weight: 700;line-height: 5rem;letter-spacing: 0em;text-align: left;color:#00C389;}
+.pageTitleBtn h1{display:inline-block;font-size: 4rem;font-weight: 700;line-height: 5rem;letter-spacing: 0;text-align: left;color:#222;}
+.pageTitleBtn dl{display:block;margin-top:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: left;color:#666;}
+.pageTitleBtn a{margin-left: -50px;margin-right: 10px;display:inline-block;font-size: 4rem;font-weight: 700;line-height: 5rem;letter-spacing: 0;text-align: left;color:#00C389;}
 .pageTitleBtn a:hover{color:#05de9e;}
 
-.TitleBtn{position:absolute;right:0rem;top:0rem;}
-.TitleBtn button {padding: 1.2rem 3rem 1.2rem 3rem;background: #00C389;border-radius: 1.2rem;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: center;color: #fff;}
+.TitleBtn{position:absolute;right:0;top:0;}
+.TitleBtn button {padding: 1.2rem 3rem 1.2rem 3rem;background: #00C389;border-radius: 1.2rem;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0;text-align: center;color: #fff;}
 .TitleBtn button:hover{background: #00BA83;}
 
 .seaWrap{width:100%;position:relative;}
-.seaWrap .kotopBtn {display: inline-block;position: absolute;right: 0px;top: 0.3rem;}
-.seaWrap .kotopBtn button{padding:1.2rem 1.6rem 1.2rem 1.6rem;background: #E4F8F2;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#00C389;}
+.seaWrap .kotopBtn {display: inline-block;position: absolute;right: 0;top: 0.3rem;}
+.seaWrap .kotopBtn button{padding:1.2rem 1.6rem 1.2rem 1.6rem;background: #E4F8F2;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#00C389;}
 .seaWrap .kotopBtn button:hover{background: #D9F5ED;}
 
 .page_backarrow{display:inline-block;width:2.8rem;height:2.8rem;background-image: url(/assets/images/common/page_backarrow.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 
 /* ==== 검색 input + 버튼 영역 ==== */
 .koinput{display:inline-block;position:relative;}
-.koinput input{position:relative;height:5.4rem;background: #fff;border-radius: 1rem;padding:0rem 1rem 0rem 4.4rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;letter-spacing: 0em;text-align: left;color:#444444;z-index:10;border:1px solid #E2E5EA;}
-.koinput input:focus{padding:0rem 0.9rem 0rem 4.3rem;background:#fff;border:2px solid #00C389;}
-.koinput input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;letter-spacing: 0em;text-align: left;color:#aaa;}
+.koinput input{position:relative;height:5.4rem;background: #fff;border-radius: 1rem;padding:0 1rem 0 4.4rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;letter-spacing: 0;text-align: left;color:#444444;z-index:10;border:1px solid #E2E5EA;}
+.koinput input:focus{padding:0 0.9rem 0 4.3rem;background:#fff;border:2px solid #00C389;}
+.koinput input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;letter-spacing: 0;text-align: left;color:#aaa;}
 .koinput input:-webkit-autofill,
 .koinput input:-webkit-autofill:hover,
 .koinput input:-webkit-autofill:focus,
@@ -113,49 +113,49 @@
 /* ==== // 검색 input + 버튼 영역 ==== */
 
 .seaContentBox{width:100%;position:relative;}
-.seaContentBox:before{content:'';position:absolute;left:0rem;top:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
-.seaContentBox:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.seaContentBox:before{content:'';position:absolute;left:0;top:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.seaContentBox:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 
 .seaContentLine{position:relative;display:flex;}
 .seaCont{display:block;position:relative;padding-left:20rem;}
-.seaCont dl {display: flex;position: absolute;left: 0px;top: 0px;width: 20rem;height: 100%;background: #F4F5F7;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #444;padding-left: 2rem;align-items: center;justify-content: flex-start;}
+.seaCont dl {display: flex;position: absolute;left: 0;top: 0;width: 20rem;height: 100%;background: #F4F5F7;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0;text-align: left;color: #444;padding-left: 2rem;align-items: center;justify-content: flex-start;}
 .scBox{display:block;position:relative;min-height:5.2rem;}
 
 .sctextBox {min-height:5.6rem;padding: 1.4rem 2rem 1.4rem 2rem;display: block;width: 100%;position: relative;}
-.sctextBox span {display: inline-block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #666;}
+.sctextBox span {display: inline-block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: left;color: #666;}
 .sctextBox span.font400{font-weight:400!important}
 /* ==== 조회기간 캘린더 영역 ==== */
 .calenderBox {height: 100%;display: flex;position: relative;padding: 1.5rem 2rem 1.5rem 2rem;align-items: center;}
 .calenderInput{width:100%;position:relative;}
-.calenderInput input {background-image: url(/assets/images/common/callendericon.png);background-size: 2.4rem;background-repeat: no-repeat;background-position: right;cursor:pointer;padding: 0;width: 100%;position: relative;font-family: Pretendard, sans-serif;height: 2.6rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #666;box-sizing: border-box;}
-.calenderInput img {top: 0.1rem;height: 2.4rem;position: absolute;right: 0rem;}
-.callenderBox input:after{content:'';width:2.4rem;height:2.4rem;position:absolute;right:0rem;top:0rem;background-image: url(/assets/images/common/callendericon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
+.calenderInput input {background-image: url(/assets/images/common/callendericon.png);background-size: 2.4rem;background-repeat: no-repeat;background-position: right;cursor:pointer;padding: 0;width: 100%;position: relative;font-family: Pretendard, sans-serif;height: 2.6rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: left;color: #666;box-sizing: border-box;}
+.calenderInput img {top: 0.1rem;height: 2.4rem;position: absolute;right: 0;}
+.callenderBox input:after{content:'';width:2.4rem;height:2.4rem;position:absolute;right:0;top:0;background-image: url(/assets/images/common/callendericon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 
-.daterangepicker .drp-calendar.left .calendar-table {padding-right: 0px!important;}
+.daterangepicker .drp-calendar.left .calendar-table {padding-right: 0!important;}
 .daterangepicker .calendar-table thead tr:nth-child(2) {
     /* border-bottom: 0.6rem solid #fff; */
     /* border-top: 1.2rem solid #fff; */
 }
-.daterangepicker .calendar-table thead tr:nth-child(2) th {font-weight: 500;font-family: Pretendard, sans-serif;padding-top: 0rem;min-width: 3.2rem!important;width: 3.2rem!important;height: 3.2rem!important;line-height: 3.2rem!important;font-size: 1.3rem!important;text-align:center;}
+.daterangepicker .calendar-table thead tr:nth-child(2) th {font-weight: 500;font-family: Pretendard, sans-serif;padding-top: 0;min-width: 3.2rem!important;width: 3.2rem!important;height: 3.2rem!important;line-height: 3.2rem!important;font-size: 1.3rem!important;text-align:center;}
 .daterangepicker .calendar-table tbody tr{
     border-bottom: 0.6rem solid #fff;
 }
 .daterangepicker .prev.available:hover{background:#fff!important;cursor:pointer;}
 .daterangepicker .next.available:hover{background:#fff!important;cursor:pointer;}
 .daterangepicker .next.available{text-align:right;}
-.drp-buttons .cancelBtn{color: #888;background: #EBEDEF;border-radius: 6px;padding: 0.5rem 1.4rem 0.5rem 1.4rem!important;font-family: Pretendard, sans-serif;font-size: 1.4rem!important;font-weight: 500!important;line-height: 2.2rem!important;letter-spacing: 0em;text-align: center;}
+.drp-buttons .cancelBtn{color: #888;background: #EBEDEF;border-radius: 6px;padding: 0.5rem 1.4rem 0.5rem 1.4rem!important;font-family: Pretendard, sans-serif;font-size: 1.4rem!important;font-weight: 500!important;line-height: 2.2rem!important;letter-spacing: 0;text-align: center;}
 .drp-buttons .cancelBtn:hover{background:#E4E7EB;}
-.drp-buttons .applyBtn {color: #fff;background: #00C389;border-radius: 6px;padding: 0.5rem 1.4rem 0.5rem 1.4rem!important;font-family: Pretendard, sans-serif;font-size: 1.4rem!important;font-weight: 500!important;line-height: 2.2rem!important;letter-spacing: 0em;text-align: center;}
+.drp-buttons .applyBtn {color: #fff;background: #00C389;border-radius: 6px;padding: 0.5rem 1.4rem 0.5rem 1.4rem!important;font-family: Pretendard, sans-serif;font-size: 1.4rem!important;font-weight: 500!important;line-height: 2.2rem!important;letter-spacing: 0;text-align: center;}
 .drp-buttons .applyBtn:hover{background:#00BA83;}
 /* ==== // 조회기간 캘린더 영역 ==== */
 
 /* ==== radio 버튼 영역 ==== */
 .seaRadioBox{display:block;position:relative;}
 .seaRadio {padding: 1.5rem 2rem 1.5rem 2rem;display: block;}
-.radioCheck {height: 2.2rem;margin: 0rem 3rem 0.4rem 0rem;display: inline-block;}
-.radioCheck:last-child{margin: 0rem 0rem 0.4rem 0rem;}
+.radioCheck {height: 2.2rem;margin: 0 3rem 0.4rem 0;display: inline-block;}
+.radioCheck:last-child{margin: 0 0rem 0.4rem 0;}
 .radioCheck input{position:absolute;display:none;}
-.radioCheck:last-child{margin-right:0rem;}
+.radioCheck:last-child{margin-right:0;}
 .radioCheck label {font-weight: 500;font-size: 1.8rem;cursor: pointer;position: relative;line-height: 2.8rem;color: #666666;}
 
 .seaRadio .radioCheck input[type=radio].radio+label em {position: relative;top: -0.1rem;display: inline-block;margin-right: 0.8rem;vertical-align: middle;width: 2.2rem;height: 2.2rem;border: 2px solid #E2E5EA;border-radius: 50%;}
@@ -172,7 +172,7 @@
 .kotable{width:100%;position:relative;}
 
 .kt_tableTopBox {display: flex;position: relative;width: 100%;height: 4.4rem;background: #fff;align-items: center;justify-content: space-between;}
-.kt_total{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#444;}
+.kt_total{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#444;}
 .kt_total span{font-weight: 600;}
 .kt_selbox{padding: 1rem 1.4rem;position:relative;}
 .kt_selbox .selectBox .label {font-size: 1.5rem;line-height: 2.4rem;}
@@ -183,30 +183,30 @@
 .kotable table{width:100%;position:relative;}
 .kotable table caption{display:none;}
 .kotable table thead{position:relative;}
-.kotable table thead:before{content:'';position:absolute;left:0rem;top:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
-.kotable table thead:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.kotable table thead:before{content:'';position:absolute;left:0;top:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.kotable table thead:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 .kotable table thead tr{background: #F4F5F7;position:relative;}
-.kotable table thead tr th {vertical-align: middle;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #444;padding: 1.1rem 0.4rem 1.1rem 0.4rem;}
+.kotable table thead tr th {vertical-align: middle;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: center;color: #444;padding: 1.1rem 0.4rem 1.1rem 0.4rem;}
 
 .kotable table tbody tr{position:relative;}
-.kotable table tbody tr:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.kotable table tbody tr:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 .kotable table tbody tr{background: #fff;position:relative;}
 
 .adminManagement table tbody tr td {padding: 0.7rem 0.4rem 0.7rem 0.4rem;}
 .adminActivityManagement table tbody tr td {padding: 1.1rem 0.4rem 1.1rem 0.4rem;}
-.kotable table tbody tr td{vertical-align: middle;position:relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#666;}
+.kotable table tbody tr td{vertical-align: middle;position:relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#666;}
 .kotable table tbody tr td .normal{display: inline-block;width:auto;position: relative;padding-left: 2.6rem;font-size: 1.5rem;line-height: 1.8rem;}
-.kotable table tbody tr td .normal:before {content: '';width: 2rem;height: 2rem;position: absolute;left: 0rem;top: -0.1rem;background: url(/assets/images/common/normal_check.png) no-repeat center/cover;}
+.kotable table tbody tr td .normal:before {content: '';width: 2rem;height: 2rem;position: absolute;left: 0;top: -0.1rem;background: url(/assets/images/common/normal_check.png) no-repeat center/cover;}
 .kotable table tbody tr td .dormancy {display: inline-block;width: auto;position: relative;padding-left: 2.6rem;font-size: 1.5rem;line-height: 1.8rem;}
-.kotable table tbody tr td .dormancy:before {content: '';width: 2rem;height: 2rem;position: absolute;left: 0rem;top: -0.1rem;background: url(/assets/images/common/dormancy.png) no-repeat center/cover;}
+.kotable table tbody tr td .dormancy:before {content: '';width: 2rem;height: 2rem;position: absolute;left: 0;top: -0.1rem;background: url(/assets/images/common/dormancy.png) no-repeat center/cover;}
 .kotable table tbody tr td .secession{display: inline-block;width: auto;position: relative;padding-left: 2.6rem;font-size: 1.5rem;line-height: 1.8rem;}
-.kotable table tbody tr td .secession:before {content: '';width: 2rem;height: 2rem;position: absolute;left: 0rem;top: -0.1rem;background: url(/assets/images/common/secession.png) no-repeat center/cover;}
+.kotable table tbody tr td .secession:before {content: '';width: 2rem;height: 2rem;position: absolute;left: 0;top: -0.1rem;background: url(/assets/images/common/secession.png) no-repeat center/cover;}
 .kotable table tbody tr td .wait{display: inline-block;width: auto;position: relative;padding-left: 2.6rem;font-size: 1.5rem;line-height: 1.8rem;}
-.kotable table tbody tr td .wait:before {content: '';width: 2rem;height: 2rem;position: absolute;left: 0rem;top: -0.1rem;background: url(/assets/images/common/wait.png) no-repeat center/cover;}
+.kotable table tbody tr td .wait:before {content: '';width: 2rem;height: 2rem;position: absolute;left: 0;top: -0.1rem;background: url(/assets/images/common/wait.png) no-repeat center/cover;}
 
-.kotable table tbody tr td button {margin: 0rem 0.1rem 0rem 0.1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color: #666;padding: 0.4rem 1rem 0.4rem 1rem;background: #E9EBED;border-radius: 0.6rem;}
+.kotable table tbody tr td button {margin: 0 0.1rem 0 0.1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: center;color: #666;padding: 0.4rem 1rem 0.4rem 1rem;background: #E9EBED;border-radius: 0.6rem;}
 .kotable table tbody tr td button:hover{background: #E2E5EA;}
-.kotable table tbody tr td .reason {padding: 0rem 1rem 0rem 1rem;text-align: left;display: block;display: -webkit-box;overflow: hidden;white-space: normal;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
+.kotable table tbody tr td .reason {padding: 0 1rem 0 1rem;text-align: left;display: block;display: -webkit-box;overflow: hidden;white-space: normal;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
 /* .kotable table tbody tr td a{text-decoration:underline;} */
 .kotable table tbody tr td dt{display:inline-block;margin:0;padding:0;color:#00C389;}
 .kotable table tbody tr td .mastericon, .crownTable table tbody tr td .mastericon {background-image: url(/assets/images/common/mastericon.png);background-size: 2rem;background-repeat: no-repeat;background-position: center;margin-left: 0.2rem;position: relative;display: inline-block;width: 2rem;height: 2rem;opacity: 1;border-radius: 0.4rem;top: 0.4rem;}
@@ -216,22 +216,22 @@
 .sc_SelBox{position:relative;}
 .selectBox{position: relative;border-radius: 0.4rem;cursor: pointer;display: inline-block;padding: 1.4rem 2rem 1.4rem 2rem;}
 
-.selectBox .label:after{content:'';position:absolute;top: 0.5rem;right:0rem;width:1.8rem;height:1.8rem;background-image: url(/assets/images/common/select-nav-arrow.png);background-size: 1.8rem;background-repeat: no-repeat;background-position: right;}
-.selectBox .label {position: relative;display: flex;align-items: center;width: 100%;height: inherit;border: 0 none;outline: 0 none;padding-left: 0px;background: transparent;cursor: pointer;color:#666;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0px;text-align: left;padding-right:0;}
+.selectBox .label:after{content:'';position:absolute;top: 0.5rem;right:0;width:1.8rem;height:1.8rem;background-image: url(/assets/images/common/select-nav-arrow.png);background-size: 1.8rem;background-repeat: no-repeat;background-position: right;}
+.selectBox .label {position: relative;display: flex;align-items: center;width: 100%;height: inherit;border: 0 none;outline: 0 none;padding-left: 0;background: transparent;cursor: pointer;color:#666;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: left;padding-right:0;}
 
-.selectBox .optionList {position: absolute;top: 5.5rem;right: 0;width: 100%;color: #666;list-style-type: none;padding: 0;overflow: hidden;height: 0;transition: .3s ease-in;background: #FFFFFF;border: 1px solid #EEEEEE;box-shadow: 0px 6px 15px rgba(122, 124, 129, 0.15);border-radius:0.8rem;display:none;}
+.selectBox .optionList {position: absolute;top: 5.5rem;right: 0;width: 100%;color: #666;list-style-type: none;padding: 0;overflow: hidden;height: 0;transition: .3s ease-in;background: #FFFFFF;border: 1px solid #EEEEEE;box-shadow: 0 6px 15px rgba(122, 124, 129, 0.15);border-radius:0.8rem;display:none;}
 .selectBox .optionList::-webkit-scrollbar {width: 6px;}
 .selectBox .optionList::-webkit-scrollbar-track {background: transparent; }
 .selectBox .optionList::-webkit-scrollbar-thumb {background: #F8F8F8; border-radius: 45px;}
 .selectBox .optionList::-webkit-scrollbar-thumb:hover {background: #F8F8F8;}
-.selectBox.active .optionList {display:block;opacity:1;z-index: 20;height:auto;border: 1px solid #EEE;box-shadow: 0px 5px 20px 0px #0000001a;}
-.selectBox .optionItem {position:relative;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;line-height: 2rem;letter-spacing: 0px;text-align: left;color:#666;padding: 1.6rem 2rem 1.6rem 2rem;transition: .1s;}
+.selectBox.active .optionList {display:block;opacity:1;z-index: 20;height:auto;border: 1px solid #EEE;box-shadow: 0 5px 20px 0px #0000001a;}
+.selectBox .optionItem {position:relative;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;line-height: 2rem;letter-spacing: 0;text-align: left;color:#666;padding: 1.6rem 2rem 1.6rem 2rem;transition: .1s;}
 .selectBox .optionItem:hover {background: #F8F8F8;}
 .selectBox .optionItem:last-child {border-bottom: 0 none;}
 
 .master:before {position: absolute;right: 2.8rem;top: 0.4rem;content: '';width: 2rem;height: 2rem;background-image: url(/assets/images/common/mastericon.png);background-size: 2.4rem;background-repeat: no-repeat;background-position: right;border-radius: 0.4rem;}
 .masterSel span {background-image: url(/assets/images/common/mastericon.png);background-size: 2.4rem;background-repeat: no-repeat;background-position: right;margin-left: 0.8rem;position: absolute;display: inline-block;width: 2rem;height: 2rem;opacity: 1;border-radius: 0.4rem;}
-.popmaster:before {position: absolute;left: 8.6rem;top: 0rem;content: '';width: 2rem;height: 2rem;background-image: url(/assets/images/common/mastericon.png);background-size: 2.4rem;background-repeat: no-repeat;background-position: right;border-radius: 0.4rem;}
+.popmaster:before {position: absolute;left: 8.6rem;top: 0;content: '';width: 2rem;height: 2rem;background-image: url(/assets/images/common/mastericon.png);background-size: 2.4rem;background-repeat: no-repeat;background-position: right;border-radius: 0.4rem;}
 .popmasterSel span {background-image: url(/assets/images/common/mastericon.png);background-size: 2.4rem;background-repeat: no-repeat;background-position: right;margin-left: 0.8rem;position: absolute;display: inline-block;width: 2rem;height: 2rem;border-radius: 0.4rem;}
 /* ==== // 커스텀 셀렉트 박스 영역 ==== */
 
@@ -239,33 +239,33 @@
 .sc_multiBox{position:relative;padding:1.8rem 2rem 1.8rem 2rem;}
 
 .fccheckText{display:block;}
-.fccheckText span{cursor:pointer;display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;line-height: 2rem;letter-spacing: 0em;text-align: left;color:#666;padding-right:8rem;position:relative;}
-.fccheckText span:after {content: '';position: absolute;top: 0.1rem;right: 0rem;width: 1.8rem;height: 1.8rem;background-image: url(/assets/images/common/select-nav-arrow.png);background-size: 1.8rem;background-repeat: no-repeat;background-position: right;}
+.fccheckText span{cursor:pointer;display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;line-height: 2rem;letter-spacing: 0;text-align: left;color:#666;padding-right:8rem;position:relative;}
+.fccheckText span:after {content: '';position: absolute;top: 0.1rem;right: 0;width: 1.8rem;height: 1.8rem;background-image: url(/assets/images/common/select-nav-arrow.png);background-size: 1.8rem;background-repeat: no-repeat;background-position: right;}
 
-.floatCheckBox {display:none;width: 72rem;background: #fff;position: absolute;left: 0rem;top: 6rem;border: 1px solid #EEEEEE;filter: drop-shadow(0px 6px 15px rgba(122, 124, 129, 0.15));z-index: 40;border-radius:0.8rem ;}
-.floatCheckList{position:relative;padding:1.8rem 1.8rem 0.7rem 1.8rem;border-radius:0.8rem 0.8rem 0rem 0rem;}
+.floatCheckBox {display:none;width: 72rem;background: #fff;position: absolute;left: 0;top: 6rem;border: 1px solid #EEEEEE;filter: drop-shadow(0px 6px 15px rgba(122, 124, 129, 0.15));z-index: 40;border-radius:0.8rem ;}
+.floatCheckList{position:relative;padding:1.8rem 1.8rem 0.7rem 1.8rem;border-radius:0.8rem 0.8rem 0 0rem;}
 
 .actCheck{display:inline-block;position:relative;}
 .actCheck input{position:absolute;display:none;}
-.actCheck:last-child{margin-right:0rem;}
-.actCheck input[type=checkbox]+label {cursor:pointer;border-radius: 1.7rem;position: relative;display: inline-block;margin-right: 0.6rem;margin-bottom:1.2rem;vertical-align: middle;background: #F4F5F7;border: 1px solid #F4F5F7;padding: 0.3rem 1.3rem 0.3rem 1.3rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color: #666;}
+.actCheck:last-child{margin-right:0;}
+.actCheck input[type=checkbox]+label {cursor:pointer;border-radius: 1.7rem;position: relative;display: inline-block;margin-right: 0.6rem;margin-bottom:1.2rem;vertical-align: middle;background: #F4F5F7;border: 1px solid #F4F5F7;padding: 0.3rem 1.3rem 0.3rem 1.3rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: center;color: #666;}
 .actCheck input[type=checkbox]+label:hover{border: 1px solid #ACE2D2;}
 .actCheck input[type=checkbox]:checked+label {border: 1px solid #00C389;background: #fff;color:#00C389;}
 
-.floatBtnList {position: relative;border-radius: 0rem 0rem 0.8rem 0.8rem;padding: 1.2rem 1.8rem 1.2rem 1.8rem;display: flex;justify-content: flex-end;}
-.activityConfirm{margin-left:1rem;display:inline-block;cursor:pointer;width: 8rem;height: 3.2rem;background: #00C389;border-radius: 0.8rem;color:#fff;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height:3.2rem;letter-spacing: 0em;text-align: center;}
+.floatBtnList {position: relative;border-radius: 0 0rem 0.8rem 0.8rem;padding: 1.2rem 1.8rem 1.2rem 1.8rem;display: flex;justify-content: flex-end;}
+.activityConfirm{margin-left:1rem;display:inline-block;cursor:pointer;width: 8rem;height: 3.2rem;background: #00C389;border-radius: 0.8rem;color:#fff;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height:3.2rem;letter-spacing: 0;text-align: center;}
 .activityConfirm:hover{background: #00BA83;}
-.activityCancel{display:inline-block;cursor:pointer;width:  8rem;height:3.2rem;background: #EBEDEF;border-radius: 0.8rem;color:#888;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height:3.2rem;letter-spacing: 0em;text-align: center;}
+.activityCancel{display:inline-block;cursor:pointer;width:  8rem;height:3.2rem;background: #EBEDEF;border-radius: 0.8rem;color:#888;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height:3.2rem;letter-spacing: 0;text-align: center;}
 .activityCancel:hover{background:#E4E7EB;}
 /* ==== // 커스텀 멀티 체크 박스 영역 ==== */
 
 /* ==== 페이징 영역 ==== */
 .paginationBox{justify-content: center;display:flex;}
 .pagination {display: flex;padding-left: 0;list-style: none;align-items: center;}
-.page-item{margin:0rem 0.2rem 0rem 0.2rem;display:inline-block;cursor: pointer;}
+.page-item{margin:0 0.2rem 0 0.2rem;display:inline-block;cursor: pointer;}
 .page-item.active button{background: #00C389;color:#fff;font-weight:500;}
 .page-item.active button:hover{color:#fff;}
-.page-item button {width: 3.6rem;height: 3.6rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #aaa;border-radius: 0.6rem;padding: 0.6rem 1.095rem 0.6rem 1.095rem;}
+.page-item button {width: 3.6rem;height: 3.6rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: center;color: #aaa;border-radius: 0.6rem;padding: 0.6rem 1.095rem 0.6rem 1.095rem;}
 .page-item button:hover{color:#00C389;}
 .page-pre.disabled{background-image: url(/assets/images/common/page_arrow_prev_disabled.png);}
 .page-pre {width: 3.2rem;background-image: url(/assets/images/common/page_arrow_prev.png);background-size: cover;background-repeat: no-repeat;background-position: center;height: 3.2rem;}
@@ -274,25 +274,25 @@
 /* ==== // 페이징 영역 ==== */
 
 /* ==== 팝업 컨텐츠 영역 ==== */
-.koko_popup {overflow: auto;width: 100%;height: 100%;text-align:center;position: fixed;top: 0px;left: 0px;background: rgba(0,0,0,0.4);z-index: 1000;}
+.koko_popup {overflow: auto;width: 100%;height: 100%;text-align:center;position: fixed;top: 0;left: 0;background: rgba(0,0,0,0.4);z-index: 1000;}
 /* 추가 css */
-.another_koko_popup {overflow: auto;width: 100%;height: 100%;text-align:center;position: fixed;top: 0px;left: 0px;background: rgba(0,0,0,0.4);z-index: 1000;}
+.another_koko_popup {overflow: auto;width: 100%;height: 100%;text-align:center;position: fixed;top: 0;left: 0;background: rgba(0,0,0,0.4);z-index: 1000;}
 /* // 추가 css */
 .koko_popup_inner {display: inline-block;position: relative;padding-bottom: 10rem;}
 .koko_popup_container {height: auto;outline: none;position: relative;box-sizing: border-box;background-color: #fff;padding: 4rem 4rem 4rem 4rem;border-radius: 2.4rem;filter: drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.15));}
 .koko_popup_title{display:block;margin-bottom:4.8rem;}
-.koko_popup_title h3 {font-family: Pretendard, sans-serif;font-size: 3rem;font-weight: 700;line-height: 3.8rem;letter-spacing: 0em;text-align: left;color:#222;}
+.koko_popup_title h3 {font-family: Pretendard, sans-serif;font-size: 3rem;font-weight: 700;line-height: 3.8rem;letter-spacing: 0;text-align: left;color:#222;}
 .koko_popup_title h3 span{color:#00C389;}
 .koko_popup_titleh4{display:block;margin-bottom:3rem;padding-top: 5rem;}
-.koko_popup_titleh4 h4 {font-family: Pretendard, sans-serif;font-size: 2.4rem;font-weight: 600;line-height: 3.4rem;letter-spacing: 0em;text-align: center;color:#222;}
+.koko_popup_titleh4 h4 {font-family: Pretendard, sans-serif;font-size: 2.4rem;font-weight: 600;line-height: 3.4rem;letter-spacing: 0;text-align: center;color:#222;}
 .koko_popup_titleh4 h4 span{color:#00C389;}
-.koko-popup-close{cursor:pointer;border: none;z-index: 1!important;width: 1.6rem;height: 1.6rem;padding-top: 0px;display: inline-block;position: absolute;top: 2rem;right: 2rem;text-align: center;line-height: 100%;background-image: url(/assets/images/common/kokopop_button_close.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;}
+.koko-popup-close{cursor:pointer;border: none;z-index: 1!important;width: 1.6rem;height: 1.6rem;padding-top: 0;display: inline-block;position: absolute;top: 2rem;right: 2rem;text-align: center;line-height: 100%;background-image: url(/assets/images/common/kokopop_button_close.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;}
 
 .kopopinput{display:block;position:relative;}
-.kopopinput label{display:block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#444;margin-bottom:1.2rem;}
-.kopopinput input{position:relative;height:5.2rem;background: #fff;border-radius: 1rem;padding:0rem 2rem 0rem 2rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;letter-spacing: 0em;text-align: left;color:#666;z-index:10;border: 1px solid #E2E5EA;}
-.kopopinput input:focus{border:2px solid #00C389;padding:0rem 1.9rem 0rem 1.9rem;}
-.kopopinput input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;letter-spacing: 0em;text-align: left;color:#bbb;}
+.kopopinput label{display:block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#444;margin-bottom:1.2rem;}
+.kopopinput input{position:relative;height:5.2rem;background: #fff;border-radius: 1rem;padding:0 2rem 0 2rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;letter-spacing: 0;text-align: left;color:#666;z-index:10;border: 1px solid #E2E5EA;}
+.kopopinput input:focus{border:2px solid #00C389;padding:0 1.9rem 0 1.9rem;}
+.kopopinput input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;letter-spacing: 0;text-align: left;color:#bbb;}
 .kopopinput input:-webkit-autofill,
 .kopopinput input:-webkit-autofill:hover,
 .kopopinput input:-webkit-autofill:focus,
@@ -300,45 +300,45 @@
 
 
 .kopop_SelBox{display:block;}
-.kopop_SelBox p{display:block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#444;margin-bottom:1.2rem;}
+.kopop_SelBox p{display:block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#444;margin-bottom:1.2rem;}
 .kopop_SelBox .selectBox {width: 100%;height: 5.2rem;border-radius: 1rem;border: 1px solid #E2E5EA;padding: 1.6rem 2rem 1.6rem 2rem;}
 .kopop_SelBox .selectBox .label{height:2rem;}
 .kopop_SelBox .selectBox .optionList{top: 5.6rem;}
-.kopop_SelBox .selectBox .label:after {top: 0rem;}
+.kopop_SelBox .selectBox .label:after {top: 0;}
 
-.kopopinput textarea{position:relative;height:10.4rem;background: #fff;border-radius: 1rem;padding:1.7rem 2rem 1.7rem 2rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;letter-spacing: 0em;text-align: left;color:#666;z-index:10;border: 1px solid #E2E5EA;resize: none;}
+.kopopinput textarea{position:relative;height:10.4rem;background: #fff;border-radius: 1rem;padding:1.7rem 2rem 1.7rem 2rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;letter-spacing: 0;text-align: left;color:#666;z-index:10;border: 1px solid #E2E5EA;resize: none;}
 .kopopinput textarea:focus{border:1px solid #00C389;}
-.kopopinput textarea::placeholder{font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;letter-spacing: 0em;text-align: left;color:#bbb;}
+.kopopinput textarea::placeholder{font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;letter-spacing: 0;text-align: left;color:#bbb;}
 
-.kopopinput button {position: absolute;right: 0rem;bottom: 0rem;width: 10rem;height: 5.2rem;background: #E4F8F2;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2rem;letter-spacing: 0em;text-align: center;color: #00C389;}
+.kopopinput button {position: absolute;right: 0;bottom: 0;width: 10rem;height: 5.2rem;background: #E4F8F2;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2rem;letter-spacing: 0;text-align: center;color: #00C389;}
 .kopopinput button:hover{background: #D9F5ED;}
 
-.pi_noneicon p{padding-left:0rem!important;}
+.pi_noneicon p{padding-left:0!important;}
 .pi_noneicon p:before{content:none!important}
 .popcaseInfoBox{width:100%;position:relative;padding:2rem 2.4rem 2rem 2.4rem;background: #F4F5F7;border-radius: 1rem;}
-.popcaseInfoBox p{position:relative;padding-left:2rem;display:block;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;margin-bottom:0.8rem;}
-.popcaseInfoBox p:before{content:'';position:absolute;left:0rem;top:0.4rem;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/common/black_infoicon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
-.popcaseInfoBox dl{display:block;margin-top:0.4rem;position:relative;padding-left:1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666;}
+.popcaseInfoBox p{position:relative;padding-left:2rem;display:block;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;margin-bottom:0.8rem;}
+.popcaseInfoBox p:before{content:'';position:absolute;left:0;top:0.4rem;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/common/black_infoicon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
+.popcaseInfoBox dl{display:block;margin-top:0.4rem;position:relative;padding-left:1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#666;}
 .popcaseInfoBox dl span{font-weight:700;}
 .popcaseInfoBox dl dd{display:inline-block;text-decoration:underline;}
-.popcaseInfoBox dl:before{content:'';position:absolute;left:0rem;top:1rem;width:0.2rem;height:0.2rem;background: #666;border-radius:50%;}
+.popcaseInfoBox dl:before{content:'';position:absolute;left:0;top:1rem;width:0.2rem;height:0.2rem;background: #666;border-radius:50%;}
 
 .koko_checkDoubleBox .koko_check:last-child{margin-top:0.4rem;}
 .koko_check {margin-top: 1.6rem;display: flex;position: relative;align-items: center;}
-.koko_check p {font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666;}
+.koko_check p {font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#666;}
 .koko_check p .colgr{color:#00C389;}
 .koko_check p .colred{color:#FF6752;}
-.koko_check b{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 1.4rem;letter-spacing: 0em;text-align: left;color:#9A9A9A;margin-left:0.8rem;text-decoration:underline;}
+.koko_check b{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 1.4rem;letter-spacing: 0;text-align: left;color:#9A9A9A;margin-left:0.8rem;text-decoration:underline;}
 .koko_check input {display: none;}
 .koko_check label{cursor:pointer;position:relative;padding-left:2.4rem;}
-.koko_check input[type=checkbox]+label em {left: 0rem;border-radius: 0.4rem;position: absolute;top: 0.3rem;display: inline-block;margin-right: 0.8rem;vertical-align: middle;width: 1.6rem;height: 1.6rem;border: 2px solid #E2E5EA;}
+.koko_check input[type=checkbox]+label em {left: 0;border-radius: 0.4rem;position: absolute;top: 0.3rem;display: inline-block;margin-right: 0.8rem;vertical-align: middle;width: 1.6rem;height: 1.6rem;border: 2px solid #E2E5EA;}
 .koko_check input[type=checkbox]:checked+label em {border:none;background: url(/assets/images/common/infocheck.png) no-repeat center/cover;}
 
 
 .popRadioType02 {margin-top: 2rem;display: flex;position: relative;align-items: center;}
-.popRadioType02:last-child{margin: 0.6rem 0rem 0rem 0rem;}
+.popRadioType02:last-child{margin: 0.6rem 0 0rem 0;}
 .popRadioType02 input{position:absolute;display:none;}
-.popRadioType02:last-child{margin-right:0rem;}
+.popRadioType02:last-child{margin-right:0;}
 .popRadioType02 label {font-weight: 500;font-size: 1.5rem;cursor: pointer;position: relative;line-height: 2.2rem;color: #666666;}
 .popRadioType02 label .colgr{color:#00C389;}
 .popRadioType02 label .colred{color:#FF6752;}
@@ -352,13 +352,13 @@
 
 
 .kokopopBtnBox {display: flex;margin-top: 5rem;align-items: center;justify-content: center;}
-.koko_cancel{cursor:pointer;width: 9rem;height: 4.8rem;background: #E9EBED;border-radius:0.9rem;margin:0rem 0.4rem 0rem 0.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0em;text-align: center;color:#666;position:relative;}
+.koko_cancel{cursor:pointer;width: 9rem;height: 4.8rem;background: #E9EBED;border-radius:0.9rem;margin:0 0.4rem 0 0.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0;text-align: center;color:#666;position:relative;}
 .koko_cancel:hover{background:#E2E5EA;}
-.koko_reset {padding: 0rem 1.3rem 0rem 1.3rem;cursor: pointer;width: 9rem;height: 4.8rem;background: #E9EBED;border-radius: 0.9rem;margin: 0rem 0.4rem 0rem 0.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0em;text-align: right;color: #666;position: relative;}
+.koko_reset {padding: 0 1.3rem 0 1.3rem;cursor: pointer;width: 9rem;height: 4.8rem;background: #E9EBED;border-radius: 0.9rem;margin: 0 0.4rem 0 0.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0;text-align: right;color: #666;position: relative;}
 .koko_reset:before {content: '';position: absolute;left: 1.3rem;top: 1.5rem;width: 1.6rem;height: 1.6rem;background-image: url(/assets/images/common/resetbtn_icon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 .koko_reset:hover{background:#E2E5EA;}
-.koko_go{display:inline-block;margin:0rem 0.4rem 0rem 0.4rem;width: 9rem;height: 4.8rem;background: #00C389;border-radius:0.9rem;position:relative;}
-.koko_go button{border-radius:0.9rem;position:absolute;top:0rem;left:0rem;width:100%;height:100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0em;text-align: center;color:#fff;}
+.koko_go{display:inline-block;margin:0 0.4rem 0 0.4rem;width: 9rem;height: 4.8rem;background: #00C389;border-radius:0.9rem;position:relative;}
+.koko_go button{border-radius:0.9rem;position:absolute;top:0;left:0;width:100%;height:100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0;text-align: center;color:#fff;}
 .koko_go button:hover{background:#00BA83;}
 /* ==== // 팝업 컨텐츠 영역 ==== */
 
@@ -384,11 +384,11 @@
 .setListWrap ul li {float: left;text-align: center;width: calc(25% - 1.8rem);position: relative;display: inline-block;list-style: none;margin: 0 2.4rem 2.4rem 0px;background-color: #fff;}
 .setListWrap ul li:nth-child(4n){margin: 0 0rem 2.4rem 0px;}
 .setlistBox {display: flex;min-height: 29rem;background: #FFFFFF;position: relative;border: 1px solid #EBEDEF;border-radius: 2rem;padding: 4rem;justify-content: flex-start;align-items: flex-end;transition:all 0.5s;}
-.setlistBox:hover{border: 1px solid #ACE2D2;box-shadow: 0px 4px 10px rgba(0, 162, 114, 0.1);transition:all 0.5s;}
+.setlistBox:hover{border: 1px solid #ACE2D2;box-shadow: 0 4px 10px rgba(0, 162, 114, 0.1);transition:all 0.5s;}
 .setitemBox{display:block;text-align:left;}
 .seticon{display:inline-block;}
 .seticon img{max-width:100%;height:4.8rem;}
-.settitle{margin-top:2.4rem;display:block;font-family: Pretendard, sans-serif;font-size: 2.8rem;font-weight: 600;line-height: 3.8rem;letter-spacing: 0em;text-align: left;color:#444;}
+.settitle{margin-top:2.4rem;display:block;font-family: Pretendard, sans-serif;font-size: 2.8rem;font-weight: 600;line-height: 3.8rem;letter-spacing: 0;text-align: left;color:#444;}
 @media (max-width: 1700px){
     .setlistBox {min-height: 27rem;border-radius: 2rem;padding: 3rem;}
     .settitle {margin-top: 2rem;font-size: 2.4rem;line-height: 3.4rem;}
@@ -401,8 +401,8 @@
 .inq table tbody tr td {padding: 1.1rem 0.4rem 1.1rem 0.4rem;}
 
 /* ==== 문의테이블 작성 글 없음 영역 ==== */
-.none_inq{height:4.6rem;left:0rem;top:0rem;width:100%;}
-.none_inq td {font-weight: 400!important;height: 4.6rem;position: absolute!important;left: 0rem;top: 0rem;width: 100%;color: #BBBBBB!important;}
+.none_inq{height:4.6rem;left:0;top:0;width:100%;}
+.none_inq td {font-weight: 400!important;height: 4.6rem;position: absolute!important;left: 0;top: 0;width: 100%;color: #BBBBBB!important;}
 
 /* ==== // 문의테이블 작성 글 없음 영역 ==== */
 .fileInner .filebox img {cursor: pointer}
@@ -411,39 +411,39 @@
 
 /* ==== input 입력 영역 ==== */
 .sc_inputBox{padding:1.4rem 2rem 1.4rem 2rem;position:relative;width:100%;}
-.sc_inputBox input {width: 100%;position: relative;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #444;padding: 0;}
-.sc_inputBox input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#bbb;}
+.sc_inputBox input {width: 100%;position: relative;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: left;color: #444;padding: 0;}
+.sc_inputBox input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0;text-align: left;color:#bbb;}
 /* ==== // input 입력 영역 ==== */
 
 /* ==== textarea 입력 영역 ==== */
 .sc_textareaBox{padding:1.6rem 2rem 1.6rem 2rem;position:relative;width:100%;}
-.sc_textareaBox textarea {height: 26.7rem;resize: none;width: 100%;position: relative;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #444;padding: 0;border: none;}
-.sc_textareaBox textarea::placeholder{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#bbb;}
+.sc_textareaBox textarea {height: 26.7rem;resize: none;width: 100%;position: relative;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0;text-align: left;color: #444;padding: 0;border: none;}
+.sc_textareaBox textarea::placeholder{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0;text-align: left;color:#bbb;}
 /* ==== // textarea 입력 영역 ==== */
 
 /* ==== 파일 입력 영역 ==== */
 .sc_fileBox{padding:1.4rem 2rem 1.4rem 2rem;position:relative;width:100%;}
 .fileInner{display:flex;}
-.fileInner label {display: inline-block;color: #666;vertical-align: middle;background: #EBEDEF;cursor: pointer;border-radius:0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;height: 3.6rem;padding:0.6rem 1.4rem 0.6rem 1.4rem;position:relative;}
-.fileInner label:after {top: 1rem;width: 11.2rem;position: absolute;left: 8.6rem;content: '*최대 5장 첨부 가능';font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 1.7rem;letter-spacing: 0em;text-align: center;color: #888;}
+.fileInner label {display: inline-block;color: #666;vertical-align: middle;background: #EBEDEF;cursor: pointer;border-radius:0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;height: 3.6rem;padding:0.6rem 1.4rem 0.6rem 1.4rem;position:relative;}
+.fileInner label:after {top: 1rem;width: 11.2rem;position: absolute;left: 8.6rem;content: '*최대 5장 첨부 가능';font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 1.7rem;letter-spacing: 0;text-align: center;color: #888;}
 .fileInner label:hover{background: #E2E5EA;}
 .fileInner input[type="file"] {position: absolute;width: 0;height: 0;padding: 0;overflow: hidden;border: 0;}
 
 .fileInner .file-list {display:inline-block;}
-.fileInner .filebox {margin-bottom: 0.6rem;padding: 0.6rem 3.6rem 0.6rem 1.2rem;vertical-align: middle;color: #00C389;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;background: #E4F8F2;border-radius: 0.8rem;position:relative;margin-right:0.8rem;}
-.fileInner .filebox:last-child{margin-bottom:0rem;}
+.fileInner .filebox {margin-bottom: 0.6rem;padding: 0.6rem 3.6rem 0.6rem 1.2rem;vertical-align: middle;color: #00C389;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;background: #E4F8F2;border-radius: 0.8rem;position:relative;margin-right:0.8rem;}
+.fileInner .filebox:last-child{margin-bottom:0;}
 .fileInner .filebox p {display: inline-block;}
 .fileInner .filebox .delete {right: 1rem;display: inline-block;width: 1.6rem;height: 1.6rem;background-image: url(/assets/images/common/file_close.png);background-size: cover;background-repeat: no-repeat;background-position: center;position: absolute;top: 1rem;cursor: pointer;}
 /* ==== // 파일 입력 영역 ==== */
 
 .bottomBtnBox{display:block;text-align:right;}
-.bottomBtn{display:inline-block;padding:1.2rem 1.6rem 1.2rem 1.6rem;background: #00C389;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#fff;}
+.bottomBtn{display:inline-block;padding:1.2rem 1.6rem 1.2rem 1.6rem;background: #00C389;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#fff;}
 .bottomBtn:hover{background: #00BA83;}
 
 .wr_BtnBox {display: flex;width: 100%;position: relative;justify-content: flex-end;}
-.wr_del{padding: 1.2rem 1.6rem;background: #EBEDEF;border-radius:1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#666;}
+.wr_del{padding: 1.2rem 1.6rem;background: #EBEDEF;border-radius:1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#666;}
 .wr_del:hover{background: #E2E5EA;}
-.wr_revise{margin-left:0.8rem;padding:  1.2rem 1.6rem;background: #00C389;border-radius:1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#fff;}
+.wr_revise{margin-left:0.8rem;padding:  1.2rem 1.6rem;background: #00C389;border-radius:1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#fff;}
 .wr_revise:hover{background: #00BA83;}
 
 
@@ -453,15 +453,15 @@
 /* ==== 전자상거래 적용 대상 팝업 영역 ==== */
 .commerce_pop .koko_popup_inner {top: 8rem;width: 63rem;}
 .popcaseInfoBoxType02 {width: 100%;position: relative;padding: 2rem 2.4rem 2rem 2.4rem;background: #F4F5F7;border-radius: 1rem;}
-.popcaseInfoBoxType02 dl {display: block;position: relative;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color: #666;}
+.popcaseInfoBoxType02 dl {display: block;position: relative;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color: #666;}
 .popcaseInfoBoxType02 dl span{font-weight: 700;}
 /* ==== // 전자상거래 적용 대상 팝업 영역 ==== */
 
 .prDivideBox{display:flex;width:100%;position:relative;}
 .prptitle{width:100%;position:relative;display:block;text-align:left;}
-.prptitle h2{display: flex;font-family: Pretendard, sans-serif;font-size: 2.4rem;font-weight: 600;line-height: 3.4rem;letter-spacing: 0em;text-align: left;color:#222;}
+.prptitle h2{display: flex;font-family: Pretendard, sans-serif;font-size: 2.4rem;font-weight: 600;line-height: 3.4rem;letter-spacing: 0;text-align: left;color:#222;}
 
-.myAddBtn{cursor:pointer;background: #EBEDEF;border-radius: 6px;padding:0.4rem 1rem 0.4rem 1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666666;position:absolute;right:0rem;top:0.2rem;z-index:10;}
+.myAddBtn{cursor:pointer;background: #EBEDEF;border-radius: 6px;padding:0.4rem 1rem 0.4rem 1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#666666;position:absolute;right:0;top:0.2rem;z-index:10;}
 .myAddBtn:hover{background:#E2E5EA;}
 
 .addtabBtn {display: flex;z-index: 10;width: 3.2rem;height: 3.4rem;position: relative;background: #F4F5F7;border-radius: 0.8rem;text-align: center;padding: 1.2rem 1.6rem 1.2rem 1.6rem;align-items: center;justify-content: center;margin-left: 0.8rem;}
@@ -477,7 +477,7 @@
 .prslideTabBox .gallery-thumbs .swiper-slide{width:auto!important;}
 .gallery-thumbs .swiper-slide-thumb-active .sl_tab{color:#222222;background: #fff;border: 1px solid #E4E7EB;border-bottom:none;font-weight:600;}
 
-.addBtn {background-image: url(/assets/images/common/tab_add_button.png);background-size: cover;background-repeat: no-repeat;background-position: center;width:3.2rem;height:3.4rem;z-index:10;border-radius: 0rem;}
+.addBtn {background-image: url(/assets/images/common/tab_add_button.png);background-size: cover;background-repeat: no-repeat;background-position: center;width:3.2rem;height:3.4rem;z-index:10;border-radius: 0;}
 
 .gallery-thumbs .swiper-slide-thumb-active .sl_tab:hover .tab_delteBtn{display:inline-block;}
 .tab_delteBtn {display:none;z-index: 20;width: 1.4rem;height: 1.4rem;position: absolute;right: 0.5rem;top: 0.5rem;background-image: url(/assets/images/common/tab_Button_Edit.png);background-size: 1.4rem;background-repeat: no-repeat;background-position: center;}
@@ -503,25 +503,25 @@
 .cateiBox{position:relative;width:100%;}
 .cateinput {z-index:50;display: block;position: relative;}
 .cateinput:before {content: '';position: absolute;left: 1.6rem;top: 1.7rem;width: 2rem;height: 2rem;background-image: url(/assets/images/common/searchicon.png);background-size: 2rem;background-repeat: no-repeat;background-position: center;z-index: 20;}
-.cateinput input {border-radius: 0.8rem 0.8rem 0rem 0rem;border-top: 1px solid #E2E5EA;border-left: 1px solid #E2E5EA;border-right: 1px solid #E2E5EA;position: relative;height: 5.2rem;background: #fff;padding: 0rem 2rem 0rem 4.6rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;letter-spacing: 0em;text-align: left;color: #666;z-index: 10;}
+.cateinput input {border-radius: 0.8rem 0.8rem 0 0rem;border-top: 1px solid #E2E5EA;border-left: 1px solid #E2E5EA;border-right: 1px solid #E2E5EA;position: relative;height: 5.2rem;background: #fff;padding: 0 2rem 0 4.6rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;letter-spacing: 0;text-align: left;color: #666;z-index: 10;}
 .cateinput input:focus .showcateinBox{display:block;}
 
 .showcateinBox.showon{z-index:40;}
 .showcateinBox.showon .showcateinner{display:block;}
-.showcateinBox{position:absolute;top:0rem;left:0rem;width:100%;background: #FFFFFF;z-index:-1;border: 1px solid #E2E5EA;box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.08);border-radius: 0.8rem;}
-.showcateinner {overflow-y: scroll;max-height: 20rem;display:none;border-top: 1px solid #E2E5EA;margin-top: 5.2rem;width: 100%;position: relative;background: #FFFFFF;border-radius: 0rem 0rem 0.8rem 0.8rem;padding:1.4rem;}
+.showcateinBox{position:absolute;top:0;left:0;width:100%;background: #FFFFFF;z-index:-1;border: 1px solid #E2E5EA;box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);border-radius: 0.8rem;}
+.showcateinner {overflow-y: scroll;max-height: 20rem;display:none;border-top: 1px solid #E2E5EA;margin-top: 5.2rem;width: 100%;position: relative;background: #FFFFFF;border-radius: 0 0rem 0.8rem 0.8rem;padding:1.4rem;}
 .showcateinner::-webkit-scrollbar{width: 4px;height:200px;}
 .showcateinner::-webkit-scrollbar-track{background-color: #fff;border-radius: 2px;}
 .showcateinner::-webkit-scrollbar-thumb{background-color: #D6D8DC;border-radius: 2px;}
 .showcateinner .cateS_check {width: 100%;margin-bottom: 1rem;}
 .showcateinner .cateS_check p{font-weight:400;}
 .showcateinner .cateS_check p span{color:#00C389;font-weight:500;}
-.showcateinner .cateS_check:last-child{margin-bottom: 0rem;}
+.showcateinner .cateS_check:last-child{margin-bottom: 0;}
 
-.cateListBox{z-index:20;width:100%;position:relative;background: #FFFFFF;border: 1px solid #E2E5EA;border-radius: 0px 0px 0.8rem 0.8rem;height:40rem;padding-left:17rem;}
-.cateScrollBox{position:absolute;left:0rem;top:0rem;width:17rem;height:100%;}
-.cateScrollBox:after{content:'';position:absolute;right:0rem;top:0rem;width:1px;height:100%;background:#E2E5EA;z-index:10;}
-.cateScrollInner {position: relative;width: 100%;height: 100%;overflow-y: scroll;padding:0.8rem 0rem 0.8rem 0rem;}
+.cateListBox{z-index:20;width:100%;position:relative;background: #FFFFFF;border: 1px solid #E2E5EA;border-radius: 0 0px 0.8rem 0.8rem;height:40rem;padding-left:17rem;}
+.cateScrollBox{position:absolute;left:0;top:0;width:17rem;height:100%;}
+.cateScrollBox:after{content:'';position:absolute;right:0;top:0;width:1px;height:100%;background:#E2E5EA;z-index:10;}
+.cateScrollInner {position: relative;width: 100%;height: 100%;overflow-y: scroll;padding:0.8rem 0 0.8rem 0;}
 .cateScrollInner::-webkit-scrollbar{width: 4px;height:200px;}
 .cateScrollInner::-webkit-scrollbar-track{background-color: #fff;border-radius: 2px;}
 .cateScrollInner::-webkit-scrollbar-thumb{background-color: #D6D8DC;border-radius: 2px;}
@@ -530,12 +530,12 @@
 .cateS_Items ul{width:100%;position:relative;}
 .on_cateS{background: #E4F8F2!important;font-weight: 600!important;color:#00C389!important;}
 .on_cateS:before {content: '';position: absolute;right: 1.2rem;top: 1.5rem;width: 1.8rem;height: 1.8rem;background-image: url(/assets/images/common/oncate_arrow.png);background-size: 1.8rem;background-repeat: no-repeat;background-position: center;z-index: 20;}
-.cateS_Items ul li{cursor:pointer;width:100%;position:relative;text-align:left;padding:1.2rem 1.6rem 1.2rem 1.2rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;}
+.cateS_Items ul li{cursor:pointer;width:100%;position:relative;text-align:left;padding:1.2rem 1.6rem 1.2rem 1.2rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;}
 .cateS_Items ul li:hover{background: #F4F5F7;}
 
 .cateS_checkWrap{position:relative;width:100%;height:100%;}
-.nonecateS_Box {z-index: 20;position: absolute;left: 0rem;top: 0rem;width: 100%;height: 100%;background: #F4F5F7;border-radius: 0px 0px 0.8rem 0px;display: flex;justify-content: center;align-items: center;}
-.nonecateS_Box p{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#9A9A9A;}
+.nonecateS_Box {z-index: 20;position: absolute;left: 0;top: 0;width: 100%;height: 100%;background: #F4F5F7;border-radius: 0 0px 0.8rem 0px;display: flex;justify-content: center;align-items: center;}
+.nonecateS_Box p{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#9A9A9A;}
 
 .cateS_checkBox{z-index:10;position:relative;width:100%;height:100%;padding:2.4rem 2.4rem 1.2rem 2.4rem;}
 
@@ -543,42 +543,42 @@
 .cateS_check {padding-right:1rem;width: calc(50% - 0px);position: relative;display: flex;align-items: center;margin-bottom: 1.2rem;}
 /* .cateS_check {display: flex;position: relative;} */
 .cateReviseIcon{width:1.8rem;height:1.8rem;display:inline-block;cursor:pointer;margin-left:0.8rem;background: url(/assets/images/common/cateReviseIcon.png) no-repeat center/cover;}
-.cateS_check p {font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;}
+.cateS_check p {font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;}
 .cateS_check input {display: none;}
 .cateS_check label {cursor: pointer;position: relative;padding-left: 2.4rem;}
-.cateS_check input[type=checkbox]+label em {left: 0rem;border-radius: 0.4rem;position: absolute;top: 0.3rem;display: inline-block;margin-right: 0.8rem;vertical-align: middle;width: 1.8rem;height: 1.8rem;}
-.cateS_check input[type=checkbox]+label em:before {border-radius: 0.4rem;position: absolute;left: 0rem;top: 0rem;border: 2px solid #E2E5EA;content: '';width: 1.4rem;height: 1.4rem;}
+.cateS_check input[type=checkbox]+label em {left: 0;border-radius: 0.4rem;position: absolute;top: 0.3rem;display: inline-block;margin-right: 0.8rem;vertical-align: middle;width: 1.8rem;height: 1.8rem;}
+.cateS_check input[type=checkbox]+label em:before {border-radius: 0.4rem;position: absolute;left: 0;top: 0;border: 2px solid #E2E5EA;content: '';width: 1.4rem;height: 1.4rem;}
 .cateS_check input[type=checkbox]:checked+label em {background: url(/assets/images/common/catecheck.png) no-repeat center/cover;}
 .cateS_check input[type=checkbox]:checked+label em:before{border: 2px solid #00C389;}
 .cateS_check input[type=checkbox]+label:hover em:before{border: 2px solid #00C389;}
 
 .sel_cateListBox{padding:2rem;margin-top:1.6rem;width:100%;position:relative;background: #FFFFFF;border: 1px solid #EEEEEE;border-radius: 0.8rem;}
 .sel_cateList{width:100%;position:relative;display:block;text-align:left;}
-.sel_cate{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;position:relative;padding-right:1.8rem;margin:0rem 1rem 1rem 0rem;}
-.sel_cate button{z-index:20;position:absolute;right:0rem;top:0.4rem;width:1.4rem;height:1.4rem;background-image: url(/assets/images/common/selcate_close.png);background-size: 1.4rem;background-repeat: no-repeat;background-position: center;}
+.sel_cate{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;position:relative;padding-right:1.8rem;margin:0 1rem 1rem 0;}
+.sel_cate button{z-index:20;position:absolute;right:0;top:0.4rem;width:1.4rem;height:1.4rem;background-image: url(/assets/images/common/selcate_close.png);background-size: 1.4rem;background-repeat: no-repeat;background-position: center;}
 .sel_cateBtnBox {margin-top:1.4rem;display: flex;align-items: center;justify-content: flex-end;}
 
-.cateResetBtn{position:relative;display:inline-block;padding-left:1.8rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#9A9A9A;}
-.cateResetBtn:before {content: '';position: absolute;left: 0rem;top: 0.4rem;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/common/reset_icon.png);background-size: 1.4rem;background-repeat: no-repeat;background-position: center;z-index: 20;}
-.cateAddBtn{margin-left:1.6rem;background: #00C389;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color:#fff;padding:0.5rem 1.4rem 0.5rem 1.4rem;}
+.cateResetBtn{position:relative;display:inline-block;padding-left:1.8rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#9A9A9A;}
+.cateResetBtn:before {content: '';position: absolute;left: 0;top: 0.4rem;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/common/reset_icon.png);background-size: 1.4rem;background-repeat: no-repeat;background-position: center;z-index: 20;}
+.cateAddBtn{margin-left:1.6rem;background: #00C389;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: center;color:#fff;padding:0.5rem 1.4rem 0.5rem 1.4rem;}
 .cateAddBtn:hover{background: #00BA83}
 
 .cateAddInfoBox{width:100%;margin-top:2.4rem;position:relative;text-align:left;}
 .cateAddInfo:last-child{margin-top:0.8rem;}
-.cateAddInfo{cursor:pointer;position:relative;display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;padding-left:2.4rem;padding-right:2rem;}
-.cateAddInfo:before{content: '';position: absolute;left: 0rem;top: 0.3rem;width: 1.6rem;height: 1.6rem;background-image: url(/assets/images/common/addinfo_icon.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;z-index: 10;}
-.cateAddInfo:after{content: '';position: absolute;right: 0rem;top: 0.3rem;width: 1.6rem;height: 1.6rem;background-image: url(/assets/images/common/addinfo_arrow.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;z-index: 10;}
+.cateAddInfo{cursor:pointer;position:relative;display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#888;padding-left:2.4rem;padding-right:2rem;}
+.cateAddInfo:before{content: '';position: absolute;left: 0;top: 0.3rem;width: 1.6rem;height: 1.6rem;background-image: url(/assets/images/common/addinfo_icon.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;z-index: 10;}
+.cateAddInfo:after{content: '';position: absolute;right: 0;top: 0.3rem;width: 1.6rem;height: 1.6rem;background-image: url(/assets/images/common/addinfo_arrow.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;z-index: 10;}
 
 /* ==== 개인정보 항목 만들기 팝업 영역 ==== */
 .add_tab_pop .koko_popup_inner {top: 8rem;width: 63rem;}
 
 .create_item_pop .koko_popup_inner {top: 8rem;width: 63rem;}
-.popRadio {padding: 1.4rem 0rem 1.4rem 0rem;display: block;text-align:left;}
-.poprCheck {margin: 0rem 4rem 0rem 0rem;display: inline-block;}
-.poprCheck:last-child{margin: 0rem 0rem 0rem 0rem;}
+.popRadio {padding: 1.4rem 0 1.4rem 0;display: block;text-align:left;}
+.poprCheck {margin: 0 4rem 0 0rem;display: inline-block;}
+.poprCheck:last-child{margin: 0 0rem 0 0rem;}
 .poprCheck input{position:absolute;display:none;}
-.poprCheck:last-child{margin-right:0rem;}
-.poprCheck label {font-weight: 500;font-size: 1.6rem;cursor: pointer;position: relative;line-height: 2.4rem;color: #666666;margin-bottom:0rem;}
+.poprCheck:last-child{margin-right:0;}
+.poprCheck label {font-weight: 500;font-size: 1.6rem;cursor: pointer;position: relative;line-height: 2.4rem;color: #666666;margin-bottom:0;}
 .popRadio .poprCheck input[type=radio].radio+label em {position: relative;top: -0.1rem;display: inline-block;margin-right: 0.8rem;vertical-align: middle;width: 2rem;height: 2rem;border: 2px solid #E2E5EA;border-radius: 50%;}
 .popRadio .poprCheck input[type=radio].radio+label em dt {position: absolute;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);width: 1rem;height: 1rem;border-radius: 50%;}
 .popRadio .poprCheck input[type=radio].radio:checked+label em dt {background: #00C389;}
@@ -602,7 +602,7 @@
 .bo_tab {position: relative;padding: 1.2rem 2rem 1.4rem 2rem;background: #fff;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;text-align: center;color: #9A9A9A;cursor: pointer;}
 .on_bo{font-weight: 600!important;color: #222!important;}
 .on_bo:after {background: #222!important;}
-.bo_tab:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:2px;background:#EBEDEF;}
+.bo_tab:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:2px;background:#EBEDEF;}
 
 /*  개인정보 탭삭제 팝업 영역 */
 .del_tab_pop .koko_popup_inner {top: 8rem;width: 63rem;}
@@ -618,26 +618,26 @@
 
 .poptabBox{display:flex;width:100%;}
 .poptab.on_ptab{font-weight: 600;color:#444;border-bottom:2px solid #444;}
-.poptab{padding:1.2rem 0rem 1.4rem 0rem;cursor:pointer;width:100%;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0em;text-align: center;color:#aaa;border-bottom:2px solid #EBEDEF;}
+.poptab{padding:1.2rem 0 1.4rem 0;cursor:pointer;width:100%;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: center;color:#aaa;border-bottom:2px solid #EBEDEF;}
 /* // 개인정보 탭수정 팝업 영역 */
 
 .boaTabBox {padding-top: 2rem;width: 100%;position: relative;}
 .bo_tabContentBox{width:100%;position:relative;overflow:hidden;}
 .prDelBtn{margin-bottom:2rem;display:block;text-align:right;}
-.prDelBtn button{padding:0.4rem 1rem 0.4rem 1rem;background: #EBEDEF;border-radius: 0.6rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color:#666;}
+.prDelBtn button{padding:0.4rem 1rem 0.4rem 1rem;background: #EBEDEF;border-radius: 0.6rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: center;color:#666;}
 .prDelBtn button:hover{background: #E2E5EA;}
 
 .prAddBtnBox{margin-top:4rem;display:block;text-align:right;}
 .prAddBtn{display:inline-block;position:relative;min-width: 13rem;min-height: 5.4rem;}
-.prAddBtn button{z-index:10;padding:1.2rem 3rem 1.2rem 3rem;background: #00C389;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: center;color:#fff;}
+.prAddBtn button{z-index:10;padding:1.2rem 3rem 1.2rem 3rem;background: #00C389;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0;text-align: center;color:#fff;}
 .prAddBtn button:hover{background: #00BA83;}
-.noneAdd{	border-radius: 1rem;z-index:20;position:absolute;left:0rem;top:0rem;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: center;padding:1.2rem 3rem 1.2rem 3rem;background: #EBEDEF!important;color:#bbb!important;}
+.noneAdd{	border-radius: 1rem;z-index:20;position:absolute;left:0;top:0;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0;text-align: center;padding:1.2rem 3rem 1.2rem 3rem;background: #EBEDEF!important;color:#bbb!important;}
 .noneAdd:hover{cursor : no-drop;}
 
 .prbott{margin-top:2rem;display:block;width:100%;position:relative;}
 .prbott ul{display:block;width:100%;position:relative;}
-.prbott ul li:before{content:'';width:2px;height:2px;border-radius:50%;background:#888;position:absolute;left:0rem;top:1rem;}
-.prbott ul li{display:block;width:100%;position:relative;padding-left:0.8rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;}
+.prbott ul li:before{content:'';width:2px;height:2px;border-radius:50%;background:#888;position:absolute;left:0;top:1rem;}
+.prbott ul li{display:block;width:100%;position:relative;padding-left:0.8rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#888;}
 /* ==== // 개인정보항목 컨텐츠 영역 ==== */
 
 /* ==== 개인정보항목 테이블 영역 ==== */
@@ -645,34 +645,34 @@
 .prtable table{width:100%;position:relative;}
 .prtable table caption{display:none;}
 .prtable table thead{position:relative;}
-.prtable table thead:before{content:'';position:absolute;left:0rem;top:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
-.prtable table thead:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.prtable table thead:before{content:'';position:absolute;left:0;top:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.prtable table thead:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 .prtable table thead tr{background: #F4F5F7;position:relative;}
-.prtable table thead tr th {vertical-align: middle;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #444;padding: 1.1rem 0.4rem 1.1rem 0.4rem;}
+.prtable table thead tr th {vertical-align: middle;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: center;color: #444;padding: 1.1rem 0.4rem 1.1rem 0.4rem;}
 
 .prtable table tbody tr{position:relative;}
-.prtable table tbody tr:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.prtable table tbody tr:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 .prtable table tbody tr{background: #fff;position:relative;}
-.prtable table tbody tr td {padding: 0.8rem 1rem 0.8rem 1rem;vertical-align: middle;position: relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #666;}
+.prtable table tbody tr td {padding: 0.8rem 1rem 0.8rem 1rem;vertical-align: middle;position: relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color: #666;}
 
 
 
-.prtable .koko_check {margin: 0rem;display: inline-block;}
-.prtable .koko_check input[type=checkbox]+label em{margin-right:0rem;}
+.prtable .koko_check {margin: 0;display: inline-block;}
+.prtable .koko_check input[type=checkbox]+label em{margin-right:0;}
 .prtable .koko_check label {cursor: pointer;position: relative;padding-left: 1.6rem;}
 
-.prtable table tbody tr td button {margin: 0rem 0.1rem 0rem 0.1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color: #666;padding: 0.4rem 1rem 0.4rem 1rem;background: #E9EBED;border-radius: 0.6rem;}
+.prtable table tbody tr td button {margin: 0 0.1rem 0 0.1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: center;color: #666;padding: 0.4rem 1rem 0.4rem 1rem;background: #E9EBED;border-radius: 0.6rem;}
 .prtable table tbody tr td button:hover{background: #E2E5EA;}
-.prtable table tbody tr td .nonereviseBtn {display:inline-block;margin: 0rem 0.1rem 0rem 0.1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: center;padding: 0.5rem 1rem 0.5rem 1rem;border-radius: 0.6rem;background: #F4F5F7!important;color: #BBBBBB!important;}
+.prtable table tbody tr td .nonereviseBtn {display:inline-block;margin: 0 0.1rem 0 0.1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: center;padding: 0.5rem 1rem 0.5rem 1rem;border-radius: 0.6rem;background: #F4F5F7!important;color: #BBBBBB!important;}
 .prtable table tbody tr td .nonereviseBtn:hover{cursor : no-drop;}
 
 .lockicon {margin-right: 0.4rem;width: 1.8rem;height: 1.8rem;display: inline-block;background: url(/assets/images/common/lock-closed.png) no-repeat center/cover;position: relative;top: 0.4rem;}
-.subElement{position: relative;display: inline-block;margin-left: 0.6rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 500;line-height: 1.4rem;letter-spacing: 0em;text-align: center;border-radius: 1.1rem;padding: 0.4rem 0.8rem 0.4rem 0.8rem;top: -0.1rem;}
+.subElement{position: relative;display: inline-block;margin-left: 0.6rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 500;line-height: 1.4rem;letter-spacing: 0;text-align: center;border-radius: 1.1rem;padding: 0.4rem 0.8rem 0.4rem 0.8rem;top: -0.1rem;}
 .redtext {color: #FF6752;background: #FFF0EE}
 .yeltext{color: #EB920E;background: #FFF4D9;}
 .bluetext{color: #4070E0;background: #EEF4FF;}
 .greentext{color: #00C389;background: #EEF4FF;}
-.noneprtable{width:100%;position:relative;padding:3.4rem 1rem 3.4rem 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#9A9A9A;border-bottom:1px solid #E2E5EA;}
+.noneprtable{width:100%;position:relative;padding:3.4rem 1rem 3.4rem 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#9A9A9A;border-bottom:1px solid #E2E5EA;}
 
 /* ==== 개인정보 선택 항목 삭제 팝업 영역 ==== */
 .delete_pr_pop .koko_popup_inner {top: 8rem;width: 63rem;}
@@ -684,8 +684,8 @@
 /*-----------------------------------------------------------------------------------------
 # 환경설정 > 내 정보 수정
 -----------------------------------------------------------------------------------------*/
-.myInfoBox {height: 5.6rem;padding: 0rem 2rem 0rem 2rem;display: flex;width: 100%;position: relative;align-items: center;justify-content: flex-start;}
-.myInfoBox span{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#666;}
+.myInfoBox {height: 5.6rem;padding: 0 2rem 0 2rem;display: flex;width: 100%;position: relative;align-items: center;justify-content: flex-start;}
+.myInfoBox span{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: left;color:#666;}
 .myInfoBox span dd{display:inline-block;font-weight:600;color:#444!important;}
 .myInfoBox .otptext{color:#00C389;}
 .myInfoBox .dotbox{display:flex;}
@@ -698,9 +698,9 @@
     margin-right:0.4rem;
 }
 .myInfoBox .dotbox dt:last-child{
-    margin-right:0rem;
+    margin-right:0;
 }
-.myinfoChangeBtn{margin-left:1.6rem;background: #EBEDEF;border-radius: 0.8rem;height:3.6rem;padding:0.6rem 1.2rem 0.6rem 1.2rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#666666;}
+.myinfoChangeBtn{margin-left:1.6rem;background: #EBEDEF;border-radius: 0.8rem;height:3.6rem;padding:0.6rem 1.2rem 0.6rem 1.2rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#666666;}
 .myinfoChangeBtn:hover{background: #E2E5EA;}
 
 /* ==== 소속 변경 팝업 영역 ==== */
@@ -724,33 +724,33 @@
 /* ==== otp 재등록 팝업 영역 ==== */
 .otp_pop .koko_popup_inner{top: 8rem;width: 63rem;}
 
-.ks_noneicon dl{padding-left:0rem!important;}
+.ks_noneicon dl{padding-left:0!important;}
 .ks_noneicon dl:before{content:none!important}
-.koSubInfo{width:100%;position:relative;margin:1.6rem 0rem 4rem 0rem;}
-.koSubInfo dl:before {content: '';position: absolute;left: 0rem;top: 0.3rem;width: 1.8rem;height: 1.8rem;background-image: url(/assets/images/common/red_infoicon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
-.koSubInfo dl{padding-left:2.8rem;position:relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666666;}
+.koSubInfo{width:100%;position:relative;margin:1.6rem 0 4rem 0;}
+.koSubInfo dl:before {content: '';position: absolute;left: 0;top: 0.3rem;width: 1.8rem;height: 1.8rem;background-image: url(/assets/images/common/red_infoicon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
+.koSubInfo dl{padding-left:2.8rem;position:relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666666;}
 .koSubInfo dl span{color:#FC5757;}
 
 .otpInfoBox{width:100%;position:relative;padding:2.8rem 2.4rem 2.8rem 2.4rem; background: #F4F5F7;border-radius: 1.2rem;margin-bottom:4rem;}
 .otpInfotext{width:100%;position:relative;padding-left:2.2rem;margin-bottom:3.6rem;}
-.otpInfotext:last-child{margin-bottom:0rem;}
-.otpInfotext d{position:absolute;left:0rem;top:0rem;display:inline-block;font-family: Pretendard, sans-serif;font-size:1.8rem;font-weight: 700;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#00C389;}
-.otpInfotext dl{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#222222;}
+.otpInfotext:last-child{margin-bottom:0;}
+.otpInfotext d{position:absolute;left:0;top:0;display:inline-block;font-family: Pretendard, sans-serif;font-size:1.8rem;font-weight: 700;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#00C389;}
+.otpInfotext dl{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#222222;}
 .otpInfotext dl span{font-weight: 600;color:#00C389;}
 
-.otpqrBox {    padding: 0rem 4rem 0rem 4rem;display: flex;justify-content: space-around;margin-top: 2rem;width: 100%;justify-content: center;}
+.otpqrBox {    padding: 0 4rem 0 4rem;display: flex;justify-content: space-around;margin-top: 2rem;width: 100%;justify-content: center;}
 .otpqrInner{height:100%;display:flex;}
 .otpqrImg{background: #FFFFFF;padding:1rem;border: 2px solid #E2E5EA;border-radius: 1rem;}
 .otpqrImg img{height:12rem;}
 
 .otpqrInfo {text-align: left;display: inline-block;position: relative;}
-.otpqrNum {display: inline-block;position: relative;background: #FFFFFF;padding: 0rem 1.6rem 0rem 1.6rem;border: 2px solid #E2E5EA;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 700;line-height: 3.8rem;letter-spacing: 0em;text-align: left;color: #444444;height: 4rem;}
+.otpqrNum {display: inline-block;position: relative;background: #FFFFFF;padding: 0 1.6rem 0 1.6rem;border: 2px solid #E2E5EA;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 700;line-height: 3.8rem;letter-spacing: 0;text-align: left;color: #444444;height: 4rem;}
 
-.divider_line {margin: 0rem 4rem 0rem 4rem;width: 2px;height: 14.4rem;background-image: url(/assets/images/common/divider_line.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
+.divider_line {margin: 0 4rem 0 4rem;width: 2px;height: 14.4rem;background-image: url(/assets/images/common/divider_line.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 
 .otpqrNumInfo{margin-top:1.2rem;display:block;position:relative;padding-left:2.4rem;}
-.otpqrNumInfo:before {content: '';position: absolute;left: 0rem;top: 0.4rem;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/common/black_infoicon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
-.otpqrNumInfo p{font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666;}
+.otpqrNumInfo:before {content: '';position: absolute;left: 0;top: 0.4rem;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/common/black_infoicon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
+.otpqrNumInfo p{font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#666;}
 
 .otpqrInfoImg{display:block;margin-top:1.6rem;text-align:left;}
 .otpqrInfoImg img{display:block;height:4rem;max-width:100%;}
@@ -766,23 +766,23 @@
 /* padding: 6rem 6rem 16rem 6rem!important; */
 /* } */
 /* } */
-.flex_sel {display: flex;align-items: center;}
-.flex_sel p{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2rem;letter-spacing: 0em;text-align: left;color:#666;}
-.flex_sel dd{font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2rem;letter-spacing: 0em;text-align: left;color:#888;}
+.flex_sel {display: flex;align-items: center;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2rem;letter-spacing: 0;text-align: left;}
+.flex_sel p{color:#666;}
+.flex_sel dd{color:#888;}
 
-.disableBox{position:absolute;left:0rem;top:0rem;width:100%;height:100%;z-index:50;}
+.disableBox{position:absolute;left:0;top:0;width:100%;height:100%;z-index:50;}
 
 .ipContentIner{display:none;position:relative;width:70rem;padding:1.7rem 2rem 4rem 2rem;}
 .ipseaBox{width:100%;position:relative;}
-.ipseaBox .koinput input{height:4.2rem;padding: 0rem 1rem 0rem 4rem;font-size: 1.6rem;}
+.ipseaBox .koinput input{height:4.2rem;padding: 0 1rem 0 4rem;font-size: 1.6rem;}
 .ipseaBox .koinput input::placeholder{font-size: 1.6rem;}
-.ipseaBox .koinput input:focus{border:2px solid #00C389;padding: 0rem 0.9rem 0rem 3.9rem;}
+.ipseaBox .koinput input:focus{border:2px solid #00C389;padding: 0 0.9rem 0 3.9rem;}
 .ipseaBox .koinput button {top: 1rem;width: 2.4rem;height: 2.4rem;}
 .ipseaBox .koinput button img {height: 1.8rem;}
-.floatBtnBox {position: absolute;right: 0rem;top: 0.7rem;display: flex;}
-.floatBtnBox .del {cursor:pointer;background: #EBEDEF;border-radius: 0.6rem;padding: 0.4rem 1rem 0.4rem 1rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color: #666;}
+.floatBtnBox {position: absolute;right: 0;top: 0.7rem;display: flex;}
+.floatBtnBox .del {cursor:pointer;background: #EBEDEF;border-radius: 0.6rem;padding: 0.4rem 1rem 0.4rem 1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: center;color: #666;}
 .floatBtnBox .del:hover{background:#E2E5EA;}
-.floatBtnBox .add{cursor:pointer;margin-left:0.6rem;background: #00C389;border-radius: 0.6rem;padding:0.4rem 1rem 0.4rem 1rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color:#fff;}
+.floatBtnBox .add{cursor:pointer;margin-left:0.6rem;background: #00C389;border-radius: 0.6rem;padding:0.4rem 1rem 0.4rem 1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: center;color:#fff;}
 .floatBtnBox .add:hover{background: #00BA83}
 
 .iptableWrap{max-height: 33.4rem;overflow: auto;}
@@ -793,22 +793,22 @@
 .iptable table caption {display: none;}
 .iptable table thead tr{position: relative;}
 
-.iptable table:before {content: '';position: absolute;left: 0rem;top: 0rem;width: 100%;height: 1px;background: #E2E5EA;z-index: 10;}
-.iptable table thead tr:after {content: '';position: absolute;left: 0rem;bottom: 0rem;width: 100%;height: 1px;background: #E2E5EA;z-index: 10;}
-.iptable table thead tr th{background: #F4F5F7;padding:0.6rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 700;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#666666;}
+.iptable table:before {content: '';position: absolute;left: 0;top: 0;width: 100%;height: 1px;background: #E2E5EA;z-index: 10;}
+.iptable table thead tr:after {content: '';position: absolute;left: 0;bottom: 0;width: 100%;height: 1px;background: #E2E5EA;z-index: 10;}
+.iptable table thead tr th{background: #F4F5F7;padding:0.6rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 700;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#666666;}
 .iptable table thead tr th:nth-child(1) .koko_check input[type=checkbox]+label em{background:#fff;}
 .iptable table thead tr th:nth-child(1) .koko_check input[type=checkbox]:checked+label em {border:none;background: url(/assets/images/common/infocheck.png) no-repeat center/cover;}
 
 .iptable table tbody tr{position:relative;}
-.iptable table tbody tr:after {content: '';position: absolute;left: 0rem;bottom: 0rem;width: 100%;height: 1px;background: #E2E5EA;z-index: 10;}
-.iptable table tbody tr td{padding:0.6rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#666666;}
+.iptable table tbody tr:after {content: '';position: absolute;left: 0;bottom: 0;width: 100%;height: 1px;background: #E2E5EA;z-index: 10;}
+.iptable table tbody tr td{padding:0.6rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#666666;}
 
-.iptable .koko_check{margin:0rem;display: inline-block;}
-.iptable .koko_check input[type=checkbox]+label em{margin:0rem;}
+.iptable .koko_check{margin:0;display: inline-block;}
+.iptable .koko_check input[type=checkbox]+label em{margin:0;}
 
 /* ==== IP 삭제 팝업 영역 ==== */
 .ipdel_pop .koko_popup_inner{top: 8rem;width: 63rem;}
-.ipdel_pop .koSubInfo {text-align: center;width: 100%;position: relative;margin: 2.4rem 0rem 5rem 0rem;}
+.ipdel_pop .koSubInfo {text-align: center;width: 100%;position: relative;margin: 2.4rem 0 5rem 0;}
 .ipdel_pop .koSubInfo dl {display: inline-block;text-align: center;}
 /* ==== // IP 삭제 팝업 영역 ==== */
 
@@ -816,15 +816,15 @@
 .ipadd_pop .koko_popup_inner{top: 8rem;width: 63rem;}
 
 .kopopMuntiinputBox{display:block;position:relative;}
-.kopopMuntiinputBox label{display:block;font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#444;margin-bottom:1.2rem;}
+.kopopMuntiinputBox label{display:block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#444;margin-bottom:1.2rem;}
 .kopopMuntiinputInner{display:flex;}
 .kopopMuntiinput{margin-right:1.9rem;position:relative;}
 .kopopMuntiinput:after {content: '';width: 3px;height: 3px;border-radius: 50%;position: absolute;right: -1.1rem;bottom: 1.6rem;background: #444;}
-.kopopMuntiinput:last-child{margin-right:0rem;}
+.kopopMuntiinput:last-child{margin-right:0;}
 .kopopMuntiinput:last-child:after{content:none;}
-.kopopMuntiinput input{position:relative;height:5.2rem;background: #fff;border-radius: 1rem;padding:0rem 2rem 0rem 2rem;width: 100%;font-family: Pretendard;font-size: 1.7rem;font-weight: 500;letter-spacing: 0em;text-align: center;color:#666;z-index:10;border: 1px solid #E2E5EA;}
-.kopopMuntiinput input:focus{border:2px solid #00C389;padding:0rem 1.9rem 0rem 1.9rem;}
-.kopopMuntiinput input::placeholder{font-family: Pretendard;font-size: 1.7rem;font-weight: 500;letter-spacing: 0em;text-align: left;color:#bbb;}
+.kopopMuntiinput input{position:relative;height:5.2rem;background: #fff;border-radius: 1rem;padding:0 2rem 0 2rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;letter-spacing: 0;text-align: center;color:#666;z-index:10;border: 1px solid #E2E5EA;}
+.kopopMuntiinput input:focus{border:2px solid #00C389;padding:0 1.9rem 0 1.9rem;}
+.kopopMuntiinput input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;letter-spacing: 0;text-align: left;color:#bbb;}
 /* ==== // IP 추가 팝업 영역 ==== */
 
 .set_customBox .seaRadio{padding: 1.4rem 2rem 1.4rem 2rem;}
@@ -840,58 +840,58 @@
 
 .apikeyBox .prtable table tbody tr td{padding: 0.6rem 1rem 0.6rem 1rem;font-weight: 400;}
 
-.apikeyBtn {width: 50rem;display: inline-block;padding: 1.75rem 3rem 1.75rem 3rem;background: #00C389;border-radius: 1rem;font-family: Pretendard;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: center;color: #fff;cursor: pointer;}
+.apikeyBtn {width: 50rem;display: inline-block;padding: 1.75rem 3rem 1.75rem 3rem;background: #00C389;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0;text-align: center;color: #fff;cursor: pointer;}
 .apikeyBtn:hover{background: #00BA83;}
 
 .apicodeContentBox{width:100%;position:relative;}
-.apicodeContentBox button {position: absolute;padding: 1.2rem 1.6rem 1.2rem 1.6rem;background: #00C389;border-radius:1rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #fff;right: 0rem;top: 0rem;}
+.apicodeContentBox button {position: absolute;padding: 1.2rem 1.6rem 1.2rem 1.6rem;background: #00C389;border-radius:1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: center;color: #fff;right: 0;top: 0;}
 .apicodeContentBox button:hover{background: #00BA83;}
 .apicodeContentBox .codeContentBox{width:73rem;}
 
-.codeContentBox{position:relative;background: #FFFFFF;border-radius: 0.8rem;box-shadow: 0px 3px 4px rgba(184, 184, 184, 0.1);}
+.codeContentBox{position:relative;background: #FFFFFF;border-radius: 0.8rem;box-shadow: 0 3px 4px rgba(184, 184, 184, 0.1);}
 .codeContentBox:after {position: absolute;top: 0;left: 0;border-radius: 0.8rem;border: 1px solid rgba(0, 0, 0, 0.06);border-top-color: rgba(0, 0, 0, 0.06);border-top-style: solid;border-top-width: 1px;border-right-color: rgba(0, 0, 0, 0.06);border-right-style: solid;border-right-width: 1px;border-bottom-color: rgba(0, 0, 0, 0.06);border-bottom-style: solid;border-bottom-width: 1px;border-left-color: rgba(0, 0, 0, 0.06);border-left-style: solid;border-left-width: 1px;border-image-source: initial;border-image-slice: initial;border-image-width: initial;border-image-outset: initial;border-image-repeat: initial;width: 100%;height: 100%;box-sizing: border-box;pointer-events: none;content: "";z-index: 60;}
 .codeTitle{border-radius: 0.8rem 0.8rem 0 0;padding:1.4rem 7.6rem 1.4rem 2rem;width:100%;position:relative;background: #F4F5F7;}
-.codeTitle h2{font-family: Pretendard;font-size: 1.8rem;font-weight: 700;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#666;}
+.codeTitle h2{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 700;line-height: 2.8rem;letter-spacing: 0;text-align: left;color:#666;}
 
 .codeIconBox{z-index:20;position:absolute;right:2rem;top:1.8rem;display:flex;}
 .codeIcon_key{cursor:pointer;display:inline-block;width:1.8rem;height:1.8rem;background-image: url(/assets/images/common/eye_off_icon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 .codeIcon_copy{cursor:pointer;margin-left:1rem;display:none;width:1.8rem;height:1.8rem;background: url(/assets/images/common/codeicon.png) no-repeat center/cover;}
 .codeNormalContent{width:100%;position:relative;padding:2rem;}
 .codeNormal{display:block;}
-.pwcode{padding: 0;margin: 0;border: none;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #00C389;width: 100%;}
-.codeNormal textarea {display:none;height: 2.8rem;resize: none;padding: 0;margin: 0;border: none;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color: #00C389;width: 100%;}
+.pwcode{padding: 0;margin: 0;border: none;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: left;color: #00C389;width: 100%;}
+.codeNormal textarea {display:none;height: 2.8rem;resize: none;padding: 0;margin: 0;border: none;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: left;color: #00C389;width: 100%;}
 
 .foldcationBox{width:100%;position:relative;}
 .foldBox{width:100%;position:relative;padding:3.2rem 3.6rem;background: #F4F5F6;border-radius: 1.2rem;}
-/* .foldBox {transition: all 0.3s;width: 100%;height: 33rem;margin-top: 0px;overflow: hidden;position: relative;-webkit-mask-image: linear-gradient(360deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 46.39%);mask-image: linear-gradient(360deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 31.39%);} */
+/* .foldBox {transition: all 0.3s;width: 100%;height: 33rem;margin-top: 0;overflow: hidden;position: relative;-webkit-mask-image: linear-gradient(360deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 46.39%);mask-image: linear-gradient(360deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 31.39%);} */
 /* .guidetablevisible .foldBox{transition: all 0.3s;border-bottom: none;height: auto;-webkit-mask-image: initial;mask-image: initial;} */
-.gu_btnBox {cursor:pointer;display: flex;font-size: 1.8rem;font-weight: 600;letter-spacing: 0em;text-align: center;position: relative;left: 0rem;bottom: 0rem;width: 100%;z-index: 20;height: 5.4rem;background: #F4F5F7;border-radius: 1rem;color: #888;align-items: center;justify-content: center;}
+.gu_btnBox {cursor:pointer;display: flex;font-size: 1.8rem;font-weight: 600;letter-spacing: 0;text-align: center;position: relative;left: 0;bottom: 0;width: 100%;z-index: 20;height: 5.4rem;background: #F4F5F7;border-radius: 1rem;color: #888;align-items: center;justify-content: center;}
 .gu_btnBox:hover{background:#E2E5EA;}
 .guoff_btn img{position:relative;height:1.6rem;margin-left:0.8rem;}
 
 .foldcainner{width:100%;position:relative;margin-bottom:3.2rem;}
-.foldcainner:last-child{margin-bottom:0rem;}
-.foldcainner h2{display:block;font-family: Pretendard;font-size: 1.8rem;font-weight: 700;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#444;margin-bottom:1.2rem;}
-.foldcainner dl{position:relative;padding-left:0.9rem;display:block;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;}
-.foldcainner dl:before {content: '';position: absolute;width: 0.2rem;height: 0.2rem;left: 0px;top: 1.1rem;border-radius: 50%;background: #666;}
-.foldexBox {padding: 0.8rem 0rem 1rem 1.6rem;display: block;}
-.foldex{margin-bottom:0.8rem;display:block;position:relative;padding-left:4.3rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;}
-.foldex:last-child{margin-bottom:0rem;}
-.foldex span {top: 0rem;position: absolute;left: 0rem;width: 3.3rem;height: 2.2rem;background: #EBEDEF;border-radius:0.4rem;font-family: Pretendard;font-size: 1.2rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: center;color: #888;}
+.foldcainner:last-child{margin-bottom:0;}
+.foldcainner h2{display:block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 700;line-height: 2.8rem;letter-spacing: 0;text-align: left;color:#444;margin-bottom:1.2rem;}
+.foldcainner dl{position:relative;padding-left:0.9rem;display:block;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;}
+.foldcainner dl:before {content: '';position: absolute;width: 0.2rem;height: 0.2rem;left: 0;top: 1.1rem;border-radius: 50%;background: #666;}
+.foldexBox {padding: 0.8rem 0 1rem 1.6rem;display: block;}
+.foldex{margin-bottom:0.8rem;display:block;position:relative;padding-left:4.3rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#888;}
+.foldex:last-child{margin-bottom:0;}
+.foldex span {top: 0;position: absolute;left: 0;width: 3.3rem;height: 2.2rem;background: #EBEDEF;border-radius:0.4rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: center;color: #888;}
 
 
 /*-----------------------------------------------------------------------------------------
 # 구독관리
 -----------------------------------------------------------------------------------------*/
-.top_stand01 {display: inline-block;padding: 0.4rem 1.2rem 0.4rem 1.2rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;border-radius: 3.8rem;background: #EEF4FF;color: #4070E0;}
-.top_stand02 {display: inline-block;padding: 0.4rem 1.2rem 0.4rem 1.2rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;border-radius: 3.8rem;background: #FFF4D9;color: #EB920E;}
-.top_stand03 {display: inline-block;padding: 0.4rem 1.2rem 0.4rem 1.2rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;border-radius: 3.8rem;background: #FFEFF2;color: #FD4E6D;}
+.top_stand01 {display: inline-block;padding: 0.4rem 1.2rem 0.4rem 1.2rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: center;border-radius: 3.8rem;background: #EEF4FF;color: #4070E0;}
+.top_stand02 {display: inline-block;padding: 0.4rem 1.2rem 0.4rem 1.2rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: center;border-radius: 3.8rem;background: #FFF4D9;color: #EB920E;}
+.top_stand03 {display: inline-block;padding: 0.4rem 1.2rem 0.4rem 1.2rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: center;border-radius: 3.8rem;background: #FFEFF2;color: #FD4E6D;}
 
 .subscription table tbody tr td {padding: 0.8rem 0.4rem 0.8rem 0.4rem;}
 .subscription .cur_priNum {text-decoration: underline;color: #00C389;cursor: pointer;display: inline-block;}
 .subscription table tbody tr td:nth-child(5) {font-weight:600;color: #444444;}
 
-.stand{display: inline-block;padding:0.4rem 1.2rem 0.4rem 1.2rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: center;border-radius: 1.5rem;}
+.stand{display: inline-block;padding:0.4rem 1.2rem 0.4rem 1.2rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: center;border-radius: 1.5rem;}
 .stand_01{background: #EEF4FF;color:#4070E0;}
 .stand_02{background: #FFF4D9;color:#EB920E;}
 .stand_03{background: #FFEFF2;color:#FD4E6D;}
@@ -901,17 +901,17 @@
 .method_pop .koko_popup_inner {top: 12rem;width: 63rem;}
 
 .kopopMuntiinputType2 {margin-right: 0.8rem;position: relative;}
-.kopopMuntiinputType2:last-child {margin-right: 0rem;}
-.kopopMuntiinputType2 input {position: relative;height: 5.2rem;background: #fff;border-radius: 1rem;padding: 0rem 2rem 0rem 2rem;width: 100%;font-family: Pretendard;font-size: 1.7rem;font-weight: 500;letter-spacing: 0em;text-align: center;color: #666;z-index: 10;border: 1px solid #E2E5EA;}
-.kopopMuntiinputType2 input:focus{border:2px solid #00C389;padding: 0rem 1.9rem 0rem 1.9rem;}
-.kopopMuntiinputType2 input::placeholder{font-family: Pretendard;font-size: 1.7rem;font-weight: 500;letter-spacing: 0em;text-align: center;color:#bbb;}
+.kopopMuntiinputType2:last-child {margin-right: 0;}
+.kopopMuntiinputType2 input {position: relative;height: 5.2rem;background: #fff;border-radius: 1rem;padding: 0 2rem 0 2rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;letter-spacing: 0;text-align: center;color: #666;z-index: 10;border: 1px solid #E2E5EA;}
+.kopopMuntiinputType2 input:focus{border:2px solid #00C389;padding: 0 1.9rem 0 1.9rem;}
+.kopopMuntiinputType2 input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.7rem;font-weight: 500;letter-spacing: 0;text-align: center;color:#bbb;}
 
 .kopopMuntiselectBox{display: block;position: relative;}
-.kopopMuntiselectBox label {display: block;font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color: #444;margin-bottom: 1.2rem;}
+.kopopMuntiselectBox label {display: block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: left;color: #444;margin-bottom: 1.2rem;}
 
 .kopopMuntiselectInner{display:flex;}
 .mu_SelBox {border: 1px solid #E2E5EA;border-radius: 0.8rem;width:100%;position: relative;padding: 1.1rem 2rem 1.1rem 2rem;margin-right: 0.8rem;}
-.mu_SelBox:last-child {margin-right: 0rem;}
+.mu_SelBox:last-child {margin-right: 0;}
 
 .mu_SelBox .selectBox .optionList{top: 4.4rem;}
 .mu_SelBox .selectBox .optionItem {font-size: 1.6rem;line-height: 2rem;padding: 1rem 2rem 1rem 2rem;}
@@ -922,12 +922,12 @@
 .subscribe_pop .seaCont {padding-left: 16rem;}
 .subscribe_pop .seaCont dl {width: 16rem;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;padding-left: 2rem;}
 .subscribe_pop .myInfoBox span {font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;}
-.subscribe_pop .myInfoBox {height: 4.5rem;padding: 0rem 2rem 0rem 2rem;}
+.subscribe_pop .myInfoBox {height: 4.5rem;padding: 0 2rem 0 2rem;}
 .payBtnBox {align-items: center;justify-content: center;margin-top: 4rem;display: flex;}
-.koko_pay {display: inline-block;margin: 0rem 0.4rem 0rem 0.4rem;width: 9rem;height: 4.8rem;background: #EBEDEF;border-radius: 0.9rem;position: relative;}
+.koko_pay {display: inline-block;margin: 0 0.4rem 0 0.4rem;width: 9rem;height: 4.8rem;background: #EBEDEF;border-radius: 0.9rem;position: relative;}
 .koko_pay:hover{background: #00C389;}
 .koko_pay:hover button{color: #fff;}
-.koko_pay button {border-radius: 0.8rem;position: absolute;top: 0rem;left: 0rem;width: 100%;height: 100%;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0em;text-align: center;color: #888;}
+.koko_pay button {border-radius: 0.8rem;position: absolute;top: 0;left: 0;width: 100%;height: 100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0;text-align: center;color: #888;}
 /* ==== // 결제 팝업 영역 ==== */
 
 /* ==== 자동결제 해지 팝업 영역 ==== */
@@ -936,14 +936,14 @@
 .unsubscribe_pop .seaCont {padding-left: 16rem;}
 .unsubscribe_pop .seaCont dl {width: 16rem;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;padding-left: 2rem;}
 .unsubscribe_pop .myInfoBox span {font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;}
-.unsubscribe_pop .myInfoBox {height: 4.5rem;padding: 0rem 2rem 0rem 2rem;}
+.unsubscribe_pop .myInfoBox {height: 4.5rem;padding: 0 2rem 0 2rem;}
 /* ==== // 자동결제 해지 팝업 영역 ==== */
 
 /* ==== 월 평균 개인정보 팝업 영역 ==== */
 .month_current_pop .koko_popup_inner {top: 12rem;width: 63rem;}
 .calframe{width:100%;position:relative;}
 .calframeTop {display: flex;width: 100%;position: relative;height: 4rem;margin-bottom: 1.6rem;text-align: center;justify-content: space-between;align-items: center;}
-.claf_num{display:inline-block;font-family: Pretendard;font-size: 2.4rem;font-weight: 600;line-height: 2.9rem;letter-spacing: 0em;text-align: center;color:#444444;}
+.claf_num{display:inline-block;font-family: Pretendard, sans-serif;font-size: 2.4rem;font-weight: 600;line-height: 2.9rem;letter-spacing: 0;text-align: center;color:#444444;}
 .claf_num span{display:inline-block;}
 .clafprev{width:1.8rem;height:1.8rem;background-image: url(/assets/images/common/clafprev_arrow.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;cursor:pointer;}
 .clafnext{width:1.8rem;height:1.8rem;background-image: url(/assets/images/common/clafnext_arrow.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;cursor:pointer;}
@@ -952,9 +952,9 @@
 .calframe table{width:100%;position:relative;}
 .calframe table caption{display:none;}
 .calframe table thead{margin-bottom:1.6rem;}
-.calframe table thead tr th{font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 1.9rem;letter-spacing: 0em;text-align: center;color:#666;padding:2rem 0rem 2.1rem 0rem;}
-.calframe table tbody tr td {height: 8.8rem;position: relative;padding: 0.8rem 0.9rem 0.8rem 0.9rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 400;line-height: 1.6rem;letter-spacing: 0em;text-align: left;color: #888888;}
-.calframe table tbody tr td span {display: flex;background: #E4F8F2;border-radius: 50%;position: absolute;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);font-family: Pretendard;font-size: 1.5rem;font-weight: 600;line-height: 1.8rem;letter-spacing: 0em;text-align: center;color: #00C389;min-width: 4.6rem;min-height: 4.6rem;align-items: center;justify-content: center;}
+.calframe table thead tr th{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 1.9rem;letter-spacing: 0;text-align: center;color:#666;padding:2rem 0 2.1rem 0;}
+.calframe table tbody tr td {height: 8.8rem;position: relative;padding: 0.8rem 0.9rem 0.8rem 0.9rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 1.6rem;letter-spacing: 0;text-align: left;color: #888888;}
+.calframe table tbody tr td span {display: flex;background: #E4F8F2;border-radius: 50%;position: absolute;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 600;line-height: 1.8rem;letter-spacing: 0;text-align: center;color: #00C389;min-width: 4.6rem;min-height: 4.6rem;align-items: center;justify-content: center;}
 
 /* ==== // 월 평균 개인정보 팝업 영역 ==== */
 
@@ -965,10 +965,10 @@
 .thirdWrap {width: 100%;position: relative;}
 
 .thirdTabBox{display:flex;width:100%;position:relative;}
-.thirdTabBox:before{content:'';width:100%;height:0.2rem;background:#EBEDEF;position:absolute;left:0rem;bottom:0rem;}
+.thirdTabBox:before{content:'';width:100%;height:0.2rem;background:#EBEDEF;position:absolute;left:0;bottom:0;}
 .ontr_tab{font-weight: 700!important;color:#444444!important;}
-.ontr_tab:before{content:'';width:100%;height:0.2rem;background:#444;position:absolute;left:0rem;bottom:0rem;}
-.thirdTab{cursor:pointer;position:relative;font-family: Pretendard;font-size: 2rem;font-weight: 500;line-height: 3rem;letter-spacing: 0em;text-align: left;color:#9A9A9A;padding:1.6rem 2rem 1.8rem 2rem;}
+.ontr_tab:before{content:'';width:100%;height:0.2rem;background:#444;position:absolute;left:0;bottom:0;}
+.thirdTab{cursor:pointer;position:relative;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 500;line-height: 3rem;letter-spacing: 0;text-align: left;color:#9A9A9A;padding:1.6rem 2rem 1.8rem 2rem;}
 
 .thirdItemBox:nth-child(1){display:block;}
 .thirdItemBox {width: 100%;position: relative;display:none;}
@@ -980,23 +980,23 @@
 .thirdItemBox ul li:nth-child(16){margin: 0 0rem 2.4rem 0px;}
 
 .thirdItem{position:relative;width:100%;}
-.thirdItem:before{content:'';width:100%;height:100%;position:absolute;left:0rem;top:0rem;border: 1px solid #EBEDEF;border-radius: 1.2rem;z-index: 5;}
+.thirdItem:before{content:'';width:100%;height:100%;position:absolute;left:0;top:0;border: 1px solid #EBEDEF;border-radius: 1.2rem;z-index: 5;}
 
 .thirdItemIconLine {z-index: 10;width: 100%;position: relative;display: flex;height: 17.9rem;align-items: center;justify-content: center;border-bottom:1px solid #EBEDEF;}
 .thirdItemIcon{display:block;text-align:center;}
 .thirdItemIcon img{height:5.6rem;display:inline-block;max-width:100%;}
-.thirdItemIcon h2{margin:1.2rem 0rem 0.8rem 0rem;display:block;font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0em;text-align: center;color:#444;}
-.thirdItemIcon a{font-family: Pretendard;font-size: 1.3rem;font-weight: 400;line-height: 1.9rem;letter-spacing: 0em;text-align: center;color:#666;}
+.thirdItemIcon h2{margin:1.2rem 0 0.8rem 0;display:block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0;text-align: center;color:#444;}
+.thirdItemIcon a{font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 400;line-height: 1.9rem;letter-spacing: 0;text-align: center;color:#666;}
 .thirdItemIcon a span {position: relative;margin-left: 0.6rem;width: 1.2rem;height: 1.2rem;display: inline-block;background-image: url(/assets/images/common/cil_external-link.png);background-size: 1.2rem;background-repeat: no-repeat;background-position: center;top: 0.15rem;}
 
 .thirdItemBtnLine {display: block;text-align:right;z-index: 10;position: relative;padding: 1.1rem 2rem 1.1rem 2rem;}
-.thirdItemBtnLine button{display:inline-block;cursor:pointer;background: #EBEDEF;border-radius: 0.6rem;padding:0.4rem 1rem 0.4rem 1rem;font-family: Pretendard;font-size: 1.3rem;font-weight: 600;line-height: 2rem;letter-spacing: 0em;text-align: center;color:#666;}
+.thirdItemBtnLine button{display:inline-block;cursor:pointer;background: #EBEDEF;border-radius: 0.6rem;padding:0.4rem 1rem 0.4rem 1rem;font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 600;line-height: 2rem;letter-spacing: 0;text-align: center;color:#666;}
 .thirdItemBtnLine button:hover{background: #E2E5EA;}
 
-.thirdItem_on{position:absolute;left:2rem;top:50%;transform:translateY(-50%);font-family: Pretendard;font-size: 14px;font-weight: 600;line-height: 17px;letter-spacing: 0em;text-align: left;padding-left:1.6rem;color: #00C389;}
-.thirdItem_on:before {border-radius: 50%;content: '';position: absolute;left: 0rem;width: 0.8rem;height: 0.8rem;background: #00C389;top: 0.5rem;}
-.thirdItem_off{position:absolute;left:2rem;top:50%;transform:translateY(-50%);font-family: Pretendard;font-size: 1.4rem;font-weight: 600;line-height: 1.7rem;letter-spacing: 0em;text-align: left;padding-left:1.6rem;color: #BBBBBB;}
-.thirdItem_off:before {border-radius: 50%;content: '';position: absolute;left: 0rem;width: 0.8rem;height: 0.8rem;background: #BBBBBB;top: 0.5rem;}
+.thirdItem_on{position:absolute;left:2rem;top:50%;transform:translateY(-50%);font-family: Pretendard, sans-serif;font-size: 14px;font-weight: 600;line-height: 17px;letter-spacing: 0;text-align: left;padding-left:1.6rem;color: #00C389;}
+.thirdItem_on:before {border-radius: 50%;content: '';position: absolute;left: 0;width: 0.8rem;height: 0.8rem;background: #00C389;top: 0.5rem;}
+.thirdItem_off{position:absolute;left:2rem;top:50%;transform:translateY(-50%);font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 1.7rem;letter-spacing: 0;text-align: left;padding-left:1.6rem;color: #BBBBBB;}
+.thirdItem_off:before {border-radius: 50%;content: '';position: absolute;left: 0;width: 0.8rem;height: 0.8rem;background: #BBBBBB;top: 0.5rem;}
 
 /* ==== 연동 변경 팝업 영역 ==== */
 .change_pop .koko_popup_inner {top: 8rem;width: 63rem;}
@@ -1007,7 +1007,7 @@
 /*-----------------------------------------------------------------------------------------
 # 개인정보 현황 > 개인정보 검색
 -----------------------------------------------------------------------------------------*/
-.pr_seaWrap {display: flex;position: relative;padding: 0.6rem 0rem 0rem 0rem;align-items: center;justify-content: center;}
+.pr_seaWrap {display: flex;position: relative;padding: 0.6rem 0 0rem 0;align-items: center;justify-content: center;}
 .pr_seaIliustBox{display:block;text-align:center;margin-bottom: 2rem;}
 .pr_seaIliustBox img{max-width:100%;height:25.4rem;}
 .pr_seaInner{display:flex;}
@@ -1018,8 +1018,8 @@
 .pr_seaInner .mu_SelBox .selectBox .optionList {left: -2rem;width: 18rem;top: 5.4rem;}
 .pr_seaInner .mu_SelBox .selectBox .optionItem {font-size: 1.8rem;line-height: 2.4rem;padding: 1.3rem 2rem 1.3rem 2rem;}
 
-.pr_seaInner .koinput input {height: 6.4rem;border-radius: 1.2rem;padding: 0rem 1rem 0rem 5.2rem;font-size: 2rem;font-weight: 400;color: #444444;}
-.pr_seaInner .koinput input:focus{padding: 0rem 0.9rem 0rem 5.1rem;}
+.pr_seaInner .koinput input {height: 6.4rem;border-radius: 1.2rem;padding: 0 1rem 0 5.2rem;font-size: 2rem;font-weight: 400;color: #444444;}
+.pr_seaInner .koinput input:focus{padding: 0 0.9rem 0 5.1rem;}
 .pr_seaInner .koinput input::placeholder{font-size: 2rem;font-weight: 400;color:#bbb;}
 .pr_seaInner .koinput button {left: 1.5rem;top: 1.8rem;}
 
@@ -1038,7 +1038,7 @@
 # 개인정보 현황 > 개인정보 검색 검색결과
 -----------------------------------------------------------------------------------------*/
 .seaTitle {width: 100%;position: relative;text-align: left;}
-.seaTitle dl {display: inline-block;font-size: 3rem;font-weight: 600;line-height: 4rem;letter-spacing: 0em;text-align: left;color: #222;}
+.seaTitle dl {display: inline-block;font-size: 3rem;font-weight: 600;line-height: 4rem;letter-spacing: 0;text-align: left;color: #222;}
 .seaTitle dl span{color:#00C389;}
 
 .sea_resultWrap{width:100%;position:relative;}
@@ -1046,7 +1046,7 @@
 .sea_reInner .mu_SelBox {padding: 1.1rem 1.6rem 1.1rem 1.6rem;}
 .sea_reInner .mu_SelBox .selectBox .optionList {width: 13.8rem;top: 4.4rem;left: -1.7rem;}
 .sea_reInner .mu_SelBox .selectBox .optionItem {font-size: 1.7rem;padding: 1.6rem 2rem 1.6rem 2rem;}
-.filtetBtn{position:absolute;right:0rem;top:0rem;padding:1.2rem 1.5rem 1.2rem 4.7rem;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#444;border: 1px solid #E4E7EB;border-radius: 1rem;cursor:pointer;}
+.filtetBtn{position:absolute;right:0;top:0;padding:1.2rem 1.5rem 1.2rem 4.7rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: left;color:#444;border: 1px solid #E4E7EB;border-radius: 1rem;cursor:pointer;}
 .filtetBtn:before {content: '';position: absolute;left: 1.7rem;top: 1.4rem;width: 2.4rem;height: 2.4rem;background-image: url(/assets/images/common/filter_icon.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 
 .search_result table tbody tr td {padding: 1.1rem 0.4rem 1.1rem 0.4rem;}
@@ -1054,13 +1054,13 @@
 .filter_pop .koko_popup_inner {top: 12rem;width: 63rem;}
 
 .filtercontbox {display: block;position: relative;}
-.filtercontbox p {display: block;font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color: #444;margin-bottom: 1.2rem;}
-.filtercontbox .start_end_search_box {display: block;margin-right: 0rem;}
-.filtercontbox .time_input input {text-align: center;background: #F4F5F7;width: 100%;height: 4.4rem;font-size: 1.8rem;font-weight: 500;color: #666;padding: 0px 1.6rem 0px 1.6rem;font-family: Pretendard, sans-serif;border-radius: 1rem;}
+.filtercontbox p {display: block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: left;color: #444;margin-bottom: 1.2rem;}
+.filtercontbox .start_end_search_box {display: block;margin-right: 0;}
+.filtercontbox .time_input input {text-align: center;background: #F4F5F7;width: 100%;height: 4.4rem;font-size: 1.8rem;font-weight: 500;color: #666;padding: 0 1.6rem 0px 1.6rem;font-family: Pretendard, sans-serif;border-radius: 1rem;}
 .filtercontbox .time_input input::placeholder{text-align:center;}
 
-.filtercontbox .seaRadio {text-align: left;padding: 1.6rem 0rem 0rem 0rem;display: block;}
-.filtercontbox .radioCheck {height: 2.6rem;margin: 0rem 2rem 0rem 0rem;}
+.filtercontbox .seaRadio {text-align: left;padding: 1.6rem 0 0rem 0;display: block;}
+.filtercontbox .radioCheck {height: 2.6rem;margin: 0 2rem 0 0rem;}
 .filtercontbox .radioCheck label {font-weight: 400;font-size: 1.6rem;cursor: pointer;position: relative;line-height: 2.6rem;color: #444;}
 
 /*-----------------------------------------------------------------------------------------
@@ -1069,9 +1069,9 @@
 .sea_detail .seaTitle dl{font-size:4rem;line-height:5.2rem;font-weight: 700;}
 
 .seaPrivacyContentBox{position:relative;margin-bottom:5rem;}
-.seaPrivacyContentBox:last-child{margin-bottom:0rem;}
-.seaPrivacyContentBox h2{position:relative;display:block;font-family: Pretendard;font-size: 2rem;font-weight: 700;line-height: 3rem;letter-spacing: 0em;text-align: left;color:#444;margin-bottom:2rem;}
-.seapDownBtn{position: absolute;right: 0px;top: 0px;padding:0.4rem 1rem 0.4rem 2.8rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666;background: #EBEDEF;border-radius: 6px;}
+.seaPrivacyContentBox:last-child{margin-bottom:0;}
+.seaPrivacyContentBox h2{position:relative;display:block;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 700;line-height: 3rem;letter-spacing: 0;text-align: left;color:#444;margin-bottom:2rem;}
+.seapDownBtn{position: absolute;right: 0;top: 0;padding:0.4rem 1rem 0.4rem 2.8rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#666;background: #EBEDEF;border-radius: 6px;}
 .seapDownBtn:before{width:1.6rem;height:1.6rem;content:'';position:absolute;left:1rem;top:0.7rem;background-image: url(/assets/images/common/sea_down_arrow.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 .seapDownBtn:hover{background: #E2E5EA;}
 
@@ -1081,10 +1081,10 @@
 .top_down_arrow {position: relative;margin-right: 0.2rem;height: 2rem;top: -0.1rem;}
 
 .searchList table tbody tr td {padding: 0.9rem 0.4rem 0.9rem 0.4rem;}
-.searchList .tiptool {cursor: pointer;position: relative;display: inline-block;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/common/table_tool_icon.png);background-size: cover;background-repeat: no-repeat;background-position: center;margin-left: 0rem;top: 0.2rem;}
+.searchList .tiptool {cursor: pointer;position: relative;display: inline-block;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/common/table_tool_icon.png);background-size: cover;background-repeat: no-repeat;background-position: center;margin-left: 0;top: 0.2rem;}
 .thtool_01 {left: -9.8rem;width: 20.9rem;bottom: 2.6rem;}
 
-.processing {display: inline-block;padding: 0.3rem 1.2rem 0.3rem 1.2rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: center;border-radius: 1.5rem;}
+.processing {display: inline-block;padding: 0.3rem 1.2rem 0.3rem 1.2rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: center;border-radius: 1.5rem;}
 .processing.produce{background: #EEF4FF;color:#4070E0;}
 .processing.change{background: #FFF4D9;color:#EB920E;}
 .processing.check{background: #E9F9F4;color:#00C389;}
@@ -1095,7 +1095,7 @@
 # 개인정보 제공 > 개인정보 제공 리스트
 -----------------------------------------------------------------------------------------*/
 .privacyList table tbody tr td {padding: 0.9rem 0.4rem 0.9rem 0.4rem;}
-.condition {display: inline-block;padding: 0.3rem 1.2rem 0.3rem 1.2rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: center;border-radius: 1.5rem;}
+.condition {display: inline-block;padding: 0.3rem 1.2rem 0.3rem 1.2rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: center;border-radius: 1.5rem;}
 .condition.waiting {background: #FFF4D9;color: #EB920E;}
 .condition.ing {background: #EEF4FF;color: #4070E0;}
 .condition.complete {background: #F4F5F7;color: #888888;}
@@ -1105,7 +1105,7 @@
 
 .open_downcountPop .koko_popup_inner {top: 12rem;width: 63rem;}
 .prilistpop{width:100%;position:relative;}
-.prilistpop .kt_selbox {padding: 0rem 1.2rem 0rem 1.2rem;}
+.prilistpop .kt_selbox {padding: 0 1.2rem 0 1.2rem;}
 .prilistpop .kt_selbox .selectBox .label {font-size: 1.4rem;line-height: 2.2rem;}
 .prilistpop .kt_selbox .selectBox .label:after {top: 0.3rem;}
 .prilistpop .prtable table thead tr th {font-size: 1.5rem;line-height: 2.4rem;padding: 0.6rem 0.4rem 0.6rem 0.4rem;}
@@ -1113,17 +1113,17 @@
 
 .open_dlinkPop .koko_popup_inner {top: 12rem;width: 63rem;}
 .open_dlinkPop .koko_popup_title {display: block;margin-bottom: 2rem;}
-.pridownBtn{cursor:pointer;position:relative;display:inline-block;padding:0.8rem 1.4rem 0.8rem 3.8rem;background: #00C389;border-radius: 0.8rem;font-family: Pretendard;font-size: 1.5rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#fff;}
+.pridownBtn{cursor:pointer;position:relative;display:inline-block;padding:0.8rem 1.4rem 0.8rem 3.8rem;background: #00C389;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#fff;}
 .pridownBtn:hover{background: #00BA83;}
 .pridownBtn:before{content:'';position:absolute;left:1.4rem;top:1rem;width:2rem;height:2rem;background-image: url(/assets/images/common/pri_down_arrow.png);background-size: 2rem;background-repeat: no-repeat;background-position: center;}
 
 .pritopgr{width:100%;position:relative;background: #F7F8F9;border-radius: 1.2rem;overflow:hidden;}
 .pritopgr ul {text-align: left;width: 100%;display: flex;flex-flow: row wrap;list-style: none;padding: 0;margin: 0;}
 .pritopgr ul li {float: left;text-align: center;width: calc(50% - 0px);position: relative;display: block;list-style: none;text-align:left;margin: 0;height:7.8rem;padding:1.6rem;}
-.porB:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E4E7EB;z-index:10;}
-.porR:before{content:'';position:absolute;right:0rem;top:0rem;width:1px;height:100%;background:#E4E7EB;z-index:10;}
-.pritopgr ul li span{font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666;}
-.pritopgr ul li dl{font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: right;color:#222;}
+.porB:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E4E7EB;z-index:10;}
+.porR:before{content:'';position:absolute;right:0;top:0;width:1px;height:100%;background:#E4E7EB;z-index:10;}
+.pritopgr ul li span{font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#666;}
+.pritopgr ul li dl{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: right;color:#222;}
 
 .pridownPop .koko_popup_inner {top: 12rem;width: 63rem;}
 
@@ -1131,17 +1131,17 @@
 # 개인정보 제공 > 개인정보 제공 step
 -----------------------------------------------------------------------------------------*/
 .stepbodyWrap {width: 100%;position: relative;padding-left: 30rem;height:100vh;z-index: 5;}
-.stepcontentInnerWrap {display: flex;padding: 12.4rem 8rem 0rem 8rem;width: 100%;height: 100%;background-color: #fff;flex-direction: column;justify-content: space-between;}
+.stepcontentInnerWrap {display: flex;padding: 12.4rem 8rem 0 8rem;width: 100%;height: 100%;background-color: #fff;flex-direction: column;justify-content: space-between;}
 .spcontWrap dl {font-size: 1.6rem;line-height: 2.4rem;padding: 2rem 2.4rem 2rem 2.4rem;background: #F7F8F9;border-radius: 1.2rem;}
 
 /* 하단 버튼 number */
-.fixstepInnerWrap{position:fixed;bottom:0rem;width:100%;left:0rem;z-index:100;padding-left: 30rem;}
-.fixstepInnerWrapInner{width:100%;position:relative;padding: 0rem 8rem 0rem 8rem;background:#fff;}
+.fixstepInnerWrap{position:fixed;bottom:0;width:100%;left:0;z-index:100;padding-left: 30rem;}
+.fixstepInnerWrapInner{width:100%;position:relative;padding: 0 8rem 0 8rem;background:#fff;}
 .fixstepInner{width:100%;position:relative;padding-bottom:3.6rem;}
 .bottomProgBox{width:100%;position:relative;}
 .bottomProgLine{width:100%;position:relative;height: 0.5rem;background: #EBEDEF;border-radius: 0.3rem;}
-.Prog_1{position:absolute;left:0rem;top:0rem;height:0.5rem;width:0%;background: #00C389;border-radius: 0.3rem;transition:1s;}
-.Prog_2{position:absolute;left:0rem;top:0rem;height:0.5rem;width:33.3333333333%;background: #00C389;border-radius: 0.3rem;transition:1s;}
+.Prog_1{position:absolute;left:0;top:0;height:0.5rem;width:0%;background: #00C389;border-radius: 0.3rem;transition:1s;}
+.Prog_2{position:absolute;left:0;top:0;height:0.5rem;width:33.3333333333%;background: #00C389;border-radius: 0.3rem;transition:1s;}
 .prog20{transition: 1s;width:20%;}
 .prog40{transition: 1s;width:40%;}
 .prog60{transition: 1s;width:60%;}
@@ -1150,18 +1150,18 @@
 
 .pri_bottomBtnBox {position: relative;display: block;text-align: right;}
 .pris_num{display:inline-block;position: absolute;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);padding:0.2rem 1.8rem 0.2rem 1.8rem;background: #F4F5F7;border-radius: 2rem;}
-.pris_num dl{font-family: Pretendard;font-size: 1.3rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#AAAAAA;}
-.pris_num dl span{font-family: Pretendard;font-size: 1.3rem;font-weight: 700;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#AAAAAA;}
+.pris_num dl{font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#AAAAAA;}
+.pris_num dl span{font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 700;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#AAAAAA;}
 
-.pri_prevBtn {position:absolute;left:0rem;top:0rem;display: inline-block;padding: 1.2rem 3rem 1.2rem 3rem;background: #E4F8F2;border-radius: 1.2rem;font-family: Pretendard;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: center;color: #00C389;}
+.pri_prevBtn {position:absolute;left:0;top:0;display: inline-block;padding: 1.2rem 3rem 1.2rem 3rem;background: #E4F8F2;border-radius: 1.2rem;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0;text-align: center;color: #00C389;}
 .pri_prevBtn:hover{background: #D9F5ED;}
 
-.pri_nextBtn {display: inline-block;padding: 1.2rem 3rem 1.2rem 3rem;background: #00C389;border-radius: 1.2rem;font-family: Pretendard;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: center;color: #fff;}
+.pri_nextBtn {display: inline-block;padding: 1.2rem 3rem 1.2rem 3rem;background: #00C389;border-radius: 1.2rem;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0;text-align: center;color: #fff;}
 .pri_nextBtn:hover{background: #00BA83;}
 /* // 하단 버튼 number */
 @media (max-width: 1700px){
-    .stepcontentInnerWrap {padding: 12.4rem 6rem 0rem 6rem;}
-    .fixstepInnerWrapInner{padding: 0rem 6rem 0rem 6rem;}
+    .stepcontentInnerWrap {padding: 12.4rem 6rem 0 6rem;}
+    .fixstepInnerWrapInner{padding: 0 6rem 0 6rem;}
 }
 
 /* ======== step01 ======== */
@@ -1176,9 +1176,9 @@
 .pri_forntImg img {max-width: 100%;}
 
 .pri_fornt input{position:absolute;display:none;}
-.pri_fornt label {cursor: pointer;padding: 4rem 2rem 4rem 2rem;position: absolute;background: #FFFFFF;border: 1px solid #EBEDEF;border-radius: 2rem;left: 0rem;top: 0rem;width: 100%;    height: 13vw;display: flex;align-items: center;justify-content: center;}
-.pri_fornt .priletext h2{display:block;font-family: Pretendard;font-size: 3rem;font-weight: 700;line-height: 3.8rem;letter-spacing: 0em;text-align: center;color:#222;margin-bottom:1.2rem;}
-.pri_fornt .priletext h3{font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: center;color:#888;}
+.pri_fornt label {cursor: pointer;padding: 4rem 2rem 4rem 2rem;position: absolute;background: #FFFFFF;border: 1px solid #EBEDEF;border-radius: 2rem;left: 0;top: 0;width: 100%;    height: 13vw;display: flex;align-items: center;justify-content: center;}
+.pri_fornt .priletext h2{display:block;font-family: Pretendard, sans-serif;font-size: 3rem;font-weight: 700;line-height: 3.8rem;letter-spacing: 0;text-align: center;color:#222;margin-bottom:1.2rem;}
+.pri_fornt .priletext h3{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: center;color:#888;}
 .pri_fornt input[type=radio].priradio:checked+label{border: 1px solid #00C389;}
 /* ======== // step01 ======== */
 
@@ -1186,13 +1186,13 @@
 /* ======== step02 ======== */
 .pri_componentWrap{width:100%;position:relative;}
 
-.pristep .steplabel {display: block;font-family: Pretendard;padding-left: 2rem;position: relative;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: left;color: #222;margin-bottom: 1rem;}
-.pristep .steplabel:before{content:'';position: absolute;width: 0.4rem;height: 2.2rem;left: 0px;top: 0.4rem;background: #00C389;border-radius: 0.2rem}
-.pristep .steplabel span{font-family: Pretendard;font-size: 2rem;font-weight: 500;line-height: 3rem;letter-spacing: 0em;text-align: left;color:#00C389;margin-left:0.8rem;}
+.pristep .steplabel {display: block;font-family: Pretendard, sans-serif;padding-left: 2rem;position: relative;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0;text-align: left;color: #222;margin-bottom: 1rem;}
+.pristep .steplabel:before{content:'';position: absolute;width: 0.4rem;height: 2.2rem;left: 0;top: 0.4rem;background: #00C389;border-radius: 0.2rem}
+.pristep .steplabel span{font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 500;line-height: 3rem;letter-spacing: 0;text-align: left;color:#00C389;margin-left:0.8rem;}
 
-.step_radioBox {display:flex;padding: 1.4rem 0rem 1.4rem 2rem;}
+.step_radioBox {display:flex;padding: 1.4rem 0 1.4rem 2rem;}
 .step_radio{position:relative;width: 34.4rem;height: 6rem;margin-right:1.2rem;}
-.step_radio label {cursor: pointer;position: absolute;background: #FFFFFF;border: 1px solid #EBEDEF;border-radius: 1rem;left: 0rem;top: 0rem;width: 100%;height: 100%;display: flex;align-items: center;justify-content: center;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 6rem;letter-spacing: 0em;text-align: left;color:#666;}
+.step_radio label {cursor: pointer;position: absolute;background: #FFFFFF;border: 1px solid #EBEDEF;border-radius: 1rem;left: 0;top: 0;width: 100%;height: 100%;display: flex;align-items: center;justify-content: center;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 6rem;letter-spacing: 0;text-align: left;color:#666;}
 .step_radio input[type=radio].stradio:checked+label{border: 1px solid #00C389;color:#00C389;font-weight: 600;}
 
 /* 좌측 테이블 */
@@ -1204,9 +1204,9 @@
 .tea_ListBox:nth-child(2){padding-left:2rem;}
 
 .tea_ListBox .memseaBox .noneMarR .selectBox .optionList {width: 15rem;}
-.tea_ListBox .memseaBox .mu_SelBox:last-child{margin-right:0rem;}
+.tea_ListBox .memseaBox .mu_SelBox:last-child{margin-right:0;}
 .tea_ListBox .kt_tableTopBox {height: 2.2rem;}
-.tea_ListBox .kt_selbox {padding: 0rem 1.2rem 0rem 1.2rem;}
+.tea_ListBox .kt_selbox {padding: 0 1.2rem 0 1.2rem;}
 .tea_ListBox .kt_selbox .selectBox .label {font-size: 1.4rem;line-height: 2.2rem;}
 .tea_ListBox .kt_selbox .selectBox .label:after {top: 0.3rem;}
 
@@ -1214,40 +1214,40 @@
 /* // 좌측 테이블 */
 
 /* 우측 선택 영역 */
-.teaMemselBox{border: 1px solid #EBEDEF;border-radius: 1rem;width:100%;position:relative;padding:1.6rem 0rem 1.6rem 2rem;}
-.tmResetBtn{cursor:pointer;position:relative;display:inline-block;padding-left:2rem;font-family: Pretendard;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0em;text-align: left;color:#AAAAAA;margin-bottom:1rem;}
-.tmResetBtn:before {width: 1.6rem;position: absolute;left: 0rem;top: 0.1rem;content: '';background-image: url(/assets/images/common/tmResetBtn_icon.png);background-size: 1.8rem;background-repeat: no-repeat;background-position: right;height: 1.6rem;}
+.teaMemselBox{border: 1px solid #EBEDEF;border-radius: 1rem;width:100%;position:relative;padding:1.6rem 0 1.6rem 2rem;}
+.tmResetBtn{cursor:pointer;position:relative;display:inline-block;padding-left:2rem;font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0;text-align: left;color:#AAAAAA;margin-bottom:1rem;}
+.tmResetBtn:before {width: 1.6rem;position: absolute;left: 0;top: 0.1rem;content: '';background-image: url(/assets/images/common/tmResetBtn_icon.png);background-size: 1.8rem;background-repeat: no-repeat;background-position: right;height: 1.6rem;}
 .teaMemselBox .memselBox{padding-right: 2.3rem;max-height: 34.6rem;}
 /* // 우측 선택 영역 */
 
-.callender_radio_box {display: flex;width: 100%;position: relative;padding: 1.4rem 0rem 0rem 2rem;align-items: center;}
+.callender_radio_box {display: flex;width: 100%;position: relative;padding: 1.4rem 0 0rem 2rem;align-items: center;}
 .start_end_search_box{display:inline-block;margin-right:2rem;}
 .start_end_search_Inner{display:flex;}
 .time_input {padding-right: 3.2rem;display: inline-block;position: relative;}
-.time_input .ui-datepicker-trigger{position: absolute;right: 0rem;top: 0.9rem;width: 2.4rem;height: 2.4rem;cursor: pointer;}
+.time_input .ui-datepicker-trigger{position: absolute;right: 0;top: 0.9rem;width: 2.4rem;height: 2.4rem;cursor: pointer;}
 .time_input .ui-datepicker-trigger img{height:2.4rem;}
 
-.time_input input {letter-spacing: -0.3px;background: #F4F5F7;width: 13.5rem;height: 4.4rem;font-size: 1.8rem;font-weight: 500;color: #666666;padding: 0px 1.6rem 0px 1.6rem;font-family: Pretendard, sans-serif;border-radius: 1rem;}
-.time_input input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;letter-spacing: 0px;text-align: left;color:#aaa;}
+.time_input input {letter-spacing: -0.3px;background: #F4F5F7;width: 13.5rem;height: 4.4rem;font-size: 1.8rem;font-weight: 500;color: #666666;padding: 0 1.6rem 0px 1.6rem;font-family: Pretendard, sans-serif;border-radius: 1rem;}
+.time_input input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;letter-spacing: 0;text-align: left;color:#aaa;}
 
-.time_text {display: inline-block;margin: 0px 0.8rem 0px 0.8rem;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 4.2rem;letter-spacing: 0em;text-align: center;}
+.time_text {display: inline-block;margin: 0 0.8rem 0px 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 4.2rem;letter-spacing: 0;text-align: center;}
 
-.callender_radio_box .seaRadio {padding: 0.7rem 0rem 0.7rem 1.2rem;display: flex;}
-.callender_radio_box .radioCheck {height: 3rem;margin: 0rem 2.4rem 0rem 0rem;display: inline-block;}
+.callender_radio_box .seaRadio {padding: 0.7rem 0 0.7rem 1.2rem;display: flex;}
+.callender_radio_box .radioCheck {height: 3rem;margin: 0 2.4rem 0 0rem;display: inline-block;}
 
 .calRadio{display:flex;}
 .calRadio .check {position: relative;display: inline-block;margin-right: 0.8rem;}
 .calRadio input{position:absolute;display:none;}
 .calRadio .check{display:inline-block;margin-right:0.8rem;}
-.calRadio .check:last-child{margin-right:0rem;}
-.calRadio .check label {cursor:pointer;padding: 1.05rem 1.6rem 1.05rem 1.6rem;background: #E4F8F2;border-radius: 0.8rem;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: center;color: #00C389;}
+.calRadio .check:last-child{margin-right:0;}
+.calRadio .check label {cursor:pointer;padding: 1.05rem 1.6rem 1.05rem 1.6rem;background: #E4F8F2;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: center;color: #00C389;}
 .calRadio .check input[type=radio].radio:checked+label{text-decoration:underline;box-shadow: 8px 12px 10px rgba(189, 189, 189, 0.1)}
 /* ======== // step02 ======== */
 
 /* 클릭 캘린더 css
 ----------------------------------*/
-.ui-datepicker {width: 25.6rem;padding: 0;display: none;background: #FFFFFF;box-shadow: 0px 4px 20px rgba(122, 124, 129, 0.2);border-radius: 1rem;padding: 1.6rem 1.6rem 2rem 1.6rem;margin-top: 1rem;}
-.ui-datepicker:before{content:'';position:absolute;left:0rem;top:5.6rem;z-index:10;width:100%;height:1px;background:#eee;}
+.ui-datepicker {width: 25.6rem;padding: 0;display: none;background: #FFFFFF;box-shadow: 0 4px 20px rgba(122, 124, 129, 0.2);border-radius: 1rem;padding: 1.6rem 1.6rem 2rem 1.6rem;margin-top: 1rem;}
+.ui-datepicker:before{content:'';position:absolute;left:0;top:5.6rem;z-index:10;width:100%;height:1px;background:#eee;}
 .ui-datepicker .ui-datepicker-header {position: relative;padding: 0 0 1.6rem 0;}
 .ui-datepicker .ui-datepicker-prev,
 .ui-datepicker .ui-datepicker-next {position: absolute;top: 2px;width: 1.8em;height: 1.8em;}
@@ -1260,16 +1260,16 @@
 .ui-datepicker .ui-datepicker-prev span,
 .ui-datepicker .ui-datepicker-next span {display: block;position: absolute;left: 50%;margin-left: -8px;top: 50%;margin-top: -8px;}
 .ui-datepicker .ui-datepicker-title {padding: 0.2rem 0 0.1rem 0;margin: 0 2.3em;text-align: center;}
-.ui-datepicker .ui-datepicker-title select {font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;border: none;margin: 0px 0;position:relative;}
+.ui-datepicker .ui-datepicker-title select {font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;border: none;margin: 0 0;position:relative;}
 .ui-datepicker .ui-datepicker-title select{/* -webkit-appearance: none; *//* -moz-appearance: none; */}
-.ui-datepicker-year:after{position:absolute;right:0rem;top:0rem;width:1.6rem;height:1.6rem;content:'';background-image: url(/assets/images/common/datepicker_sel_arrpw.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
+.ui-datepicker-year:after{position:absolute;right:0;top:0;width:1.6rem;height:1.6rem;content:'';background-image: url(/assets/images/common/datepicker_sel_arrpw.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 
 .ui-datepicker select.ui-datepicker-month {width: 4.2rem;}
 .ui-datepicker select.ui-datepicker-year{width:6.3rem;margin-right:1.8rem;}
-.ui-datepicker table {margin-top: 0.6rem;border-spacing: 0px 0.6rem;box-sizing: border-box;width: 100%;border-collapse: separate;}
-.ui-datepicker th {font-family: Pretendard;font-size: 1.3rem;font-weight: 500;line-height: 1.6rem;letter-spacing: 0em;text-align: center;padding: .8rem 0rem;text-align: center;font-weight: bold;border: 0;color: #666;}
-.ui-datepicker td {width: 3.2rem;border: 0;padding: 0px;height: 3.2rem;justify-content: center;align-items: center;position: relative;}
-.ui-datepicker td span, .ui-datepicker td a {display: flex;border-radius: 50%;position: absolute;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);margin: 0;height: 3.2rem;width: 3.2rem;color: #666;font-family: Pretendard;font-size: 1.3rem;font-weight: 500;line-height: 1.6rem;letter-spacing: 0em;text-align: center;padding: 0;text-align: center;text-decoration: none;background: #fff;align-items: center;justify-content: center;}
+.ui-datepicker table {margin-top: 0.6rem;border-spacing: 0 0.6rem;box-sizing: border-box;width: 100%;border-collapse: separate;}
+.ui-datepicker th {font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.6rem;letter-spacing: 0;text-align: center;padding: .8rem 0;text-align: center;font-weight: bold;border: 0;color: #666;}
+.ui-datepicker td {width: 3.2rem;border: 0;padding: 0;height: 3.2rem;justify-content: center;align-items: center;position: relative;}
+.ui-datepicker td span, .ui-datepicker td a {display: flex;border-radius: 50%;position: absolute;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);margin: 0;height: 3.2rem;width: 3.2rem;color: #666;font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.6rem;letter-spacing: 0;text-align: center;padding: 0;text-align: center;text-decoration: none;background: #fff;align-items: center;justify-content: center;}
 .ui-datepicker td a:hover{background: #00C389;color:#fff;}
 .ui-datepicker-unselectable span{opacity:0.5;}
 .ui-datepicker .ui-datepicker-buttonpane {background-image: none;margin: .7em 0 0 0;padding: 0 .2em;border-left: 0;border-right: 0;border-bottom: 0;}
@@ -1306,8 +1306,8 @@
 
 /* ======== step04 ======== */
 .mspartBox{display:block;text-align:left;margin-bottom:1.2rem;}
-.mspartBox:last-child{margin-bottom:0rem;}
-.mspartBox p{display:block;font-family: Pretendard;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#888;margin-bottom:1rem;}
+.mspartBox:last-child{margin-bottom:0;}
+.mspartBox p{display:block;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#888;margin-bottom:1rem;}
 
 .tea_ListBox .bo_tabContentBox .prtable {max-height: 47.2rem;}
 .tea_ListBox .boaTabBox .prtable table tbody tr td{padding: 1rem 1rem 1.1rem 1rem;font-size: 1.5rem;font-weight: 400;}
@@ -1331,7 +1331,7 @@
 .policyList table tbody tr td {padding: 0.9rem 0.4rem 1rem 0.4rem;}
 .policyList .kt_selbox {padding: 1rem 1.4rem;position: relative;}
 .policyList .kt_tableTopBox {height: 4rem;}
-.policyList .kt_selbox {padding: 0rem 1.2rem 0rem 1.2rem;}
+.policyList .kt_selbox {padding: 0 1.2rem 0 1.2rem;}
 .policyList .kt_selbox .selectBox .label {font-size: 1.5rem;line-height: 2.4rem;}
 .policyList .kt_selbox .selectBox .label:after {top: 0.3rem;}
 
@@ -1342,11 +1342,11 @@
 /*-----------------------------------------------------------------------------------------
 # 개인정보처리방침 관리 >  제작 / 상세
 -----------------------------------------------------------------------------------------*/
-.copyBtnBox {display: flex;position: absolute;right: 0rem;top: 0rem;z-index: 20;}
+.copyBtnBox {display: flex;position: absolute;right: 0;top: 0;z-index: 20;}
 .copyBtn {position:relative;display: flex;background: #E9F9F4;border-radius: 0.8rem;align-items: center;justify-content: center;cursor:pointer;}
 .copyBtn:hover{background: #D9F5ED;}
 .copyBtn:last-child{margin-left:1.6rem;}
-.copyBtn dt{z-index:30;position:relative;padding: 1.2rem 3.4rem 1.2rem 1.6rem;display:inline-block;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#00C389;}
+.copyBtn dt{z-index:30;position:relative;padding: 1.2rem 3.4rem 1.2rem 1.6rem;display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#00C389;}
 .copyBtn .tiptool {z-index:40;right: 1.6rem;cursor: pointer;position: absolute;display: inline-block;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/common/tooltip_greenicon.png);background-size: cover;background-repeat: no-repeat;background-position: center;margin-left: 0.4rem;top: inherit;}
 
 .righttool_type {left: -18.2rem;width: 22.4rem;bottom: 3rem;}
@@ -1354,54 +1354,54 @@
 
 .pri_versionBox{width:100%;position:relative;display:flex;background: #F7F8F9;border-radius: 1.2rem;padding:2.4rem 3.6rem 2.4rem 3.6rem;}
 .priverBox{width:25%;position:relative;}
-.priverBox dl{font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;margin-bottom:0.8rem;}
-.priverBox span {display: flex;height: 3.8rem;font-family: Pretendard;font-size: 1.5rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color: #AAAAAA;align-items: center;}
-.priverBox p{font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0em;text-align: right;display:block;color:#222;}
-.priv_divider {width: 1px;height: 6.2rem;background: #E4E7EB;margin: 0rem 3.6rem 0rem 3.6rem;}
+.priverBox dl{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;margin-bottom:0.8rem;}
+.priverBox span {display: flex;height: 3.8rem;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0;text-align: left;color: #AAAAAA;align-items: center;}
+.priverBox p{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0;text-align: right;display:block;color:#222;}
+.priv_divider {width: 1px;height: 6.2rem;background: #E4E7EB;margin: 0 3.6rem 0 3.6rem;}
 .priverInput{box-sizing: border-box;width:100%;position:relative;padding-left:4.1rem;}
-.priverInput p{position:absolute;left:0rem;top:0.5rem;font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0em;color:#222;}
-.priverInput input{width:100%;height: 3.8rem;border-radius: 1rem;padding: 0rem 1.2rem 0rem 1.2rem;font-size: 1.5rem;font-weight: 400;}
-.priverInput input:focus{border:2px solid #00C389;padding: 0rem 1.1rem 0rem 1.1rem;}
+.priverInput p{position:absolute;left:0;top:0.5rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0;color:#222;}
+.priverInput input{width:100%;height: 3.8rem;border-radius: 1rem;padding: 0 1.2rem 0 1.2rem;font-size: 1.5rem;font-weight: 400;}
+.priverInput input:focus{border:2px solid #00C389;padding: 0 1.1rem 0 1.1rem;}
 .priverInput input::placeholder{font-weight: 400;font-size: 1.5rem;color:#aaa;}
 
 .priverCal{width:100%;}
-.priverCal input{border: 1px solid #E2E5EA;width:100%;height: 3.8rem;border-radius: 1rem;padding: 0rem 1.2rem 0rem 1.2rem;font-size: 1.5rem;font-weight: 400;background:#fff;}
-.priverCal input:focus{border:2px solid #00C389;padding: 0rem 1.1rem 0rem 1.1rem;}
+.priverCal input{border: 1px solid #E2E5EA;width:100%;height: 3.8rem;border-radius: 1rem;padding: 0 1.2rem 0 1.2rem;font-size: 1.5rem;font-weight: 400;background:#fff;}
+.priverCal input:focus{border:2px solid #00C389;padding: 0 1.1rem 0 1.1rem;}
 .priverCal input::placeholder{font-weight: 400;font-size: 1.5rem;color:#aaa;}
 .priverCal .time_input {display: block;}
 .priverCal .time_input:after {top: 0.7rem;}
 
-.priContentBox{width:100%;position:relative;padding:2.4rem 0rem 0rem 0rem;margin-bottom:8rem;border-top:1px solid #666;}
-.priC_title{display: flex;font-family: Pretendard;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: left;color:#444;}
+.priContentBox{width:100%;position:relative;padding:2.4rem 0 0rem 0;margin-bottom:8rem;border-top:1px solid #666;}
+.priC_title{display: flex;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0;text-align: left;color:#444;}
 .priC_title .tiptool{top: 0.6rem;}
 
-.priCIntrotext{font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;	}
-.priCIntrotext .koinput{margin:0rem 0.4rem 0rem 0.4rem;}
-.priCIntrotext input {width: 100%;height: 3.8rem;border-radius: 1rem;padding: 0rem 1.2rem 0rem 1.2rem;font-size: 1.5rem;font-weight: 400;}
-.priCIntrotext input:focus{border:2px solid #00C389;padding: 0rem 1.1rem 0rem 1.1rem;}
+.priCIntrotext{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;	}
+.priCIntrotext .koinput{margin:0 0.4rem 0 0.4rem;}
+.priCIntrotext input {width: 100%;height: 3.8rem;border-radius: 1rem;padding: 0 1.2rem 0 1.2rem;font-size: 1.5rem;font-weight: 400;}
+.priCIntrotext input:focus{border:2px solid #00C389;padding: 0 1.1rem 0 1.1rem;}
 .priCIntrotext input::placeholder{font-weight: 400;font-size: 1.5rem;color:#aaa;}
 
-.priCIntrotext dl{font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;display:block;margin-bottom:0.8rem;}
-.priCIntrotext dl:last-child{margin-bottom:0rem;}
+.priCIntrotext dl{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;display:block;margin-bottom:0.8rem;}
+.priCIntrotext dl:last-child{margin-bottom:0;}
 
 /* -------- 인풋박스 증가 영역  ------- */
 .pr_wrap{position:relative;border-top:1px solid #E2E5EA;}
-.prbox{display:flex;position:relative;padding:1.3rem 0rem 1.3rem 0rem;}
-.prbox:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
-.prti{padding:0rem 1.6rem 0rem 1.6rem; font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;}
-.prst{width: 100%;padding:0rem 1.6rem 0rem 1.6rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;}
-.prbox input{border:1px solid #fff;height:2.4rem;width:100%;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color: #666;}
+.prbox{display:flex;position:relative;padding:1.3rem 0 1.3rem 0;}
+.prbox:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.prti{padding:0 1.6rem 0 1.6rem; font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;}
+.prst{width: 100%;padding:0 1.6rem 0 1.6rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;}
+.prbox input{border:1px solid #fff;height:2.4rem;width:100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color: #666;}
 
 .prboxtext{display:flex;position:relative;border-bottom:1px solid #E2E5EA;}
 
-.prbte1 input{padding:1.3rem 1.6rem 1.3rem 1.6rem;border:1px solid #fff;height:5rem;width:100%;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color: #666;resize: vertical;border-radius: 1rem;overflow: hidden}
-.prbte2 input{padding:1.3rem 1.6rem 1.3rem 1.6rem;border:1px solid #fff;height:5rem;width:100%;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color: #666;resize: vertical;border-radius: 1rem;overflow: hidden}
-.prboxtext input::placeholder{font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#bbb;}
+.prbte1 input{padding:1.3rem 1.6rem 1.3rem 1.6rem;border:1px solid #fff;height:5rem;width:100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color: #666;resize: vertical;border-radius: 1rem;overflow: hidden}
+.prbte2 input{padding:1.3rem 1.6rem 1.3rem 1.6rem;border:1px solid #fff;height:5rem;width:100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color: #666;resize: vertical;border-radius: 1rem;overflow: hidden}
+.prboxtext input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#bbb;}
 .prboxtext input:focus{padding:1.2rem 1.5rem 1.2rem 1.5rem;border:2px solid #00C389;}
 
-.prbte1 textarea{padding:1.3rem 1.6rem 1.3rem 1.6rem;border:1px solid #fff;height:5rem;width:100%;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color: #666;resize: vertical;border-radius: 1rem;overflow: hidden}
-.prbte2 textarea{padding:1.3rem 1.6rem 1.3rem 1.6rem;border:1px solid #fff;height:5rem;width:100%;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color: #666;resize: vertical;border-radius: 1rem;overflow: hidden}
-.prboxtext textarea::placeholder{font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;}
+.prbte1 textarea{padding:1.3rem 1.6rem 1.3rem 1.6rem;border:1px solid #fff;height:5rem;width:100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color: #666;resize: vertical;border-radius: 1rem;overflow: hidden}
+.prbte2 textarea{padding:1.3rem 1.6rem 1.3rem 1.6rem;border:1px solid #fff;height:5rem;width:100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color: #666;resize: vertical;border-radius: 1rem;overflow: hidden}
+.prboxtext textarea::placeholder{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;}
 .prboxtext textarea:focus{padding:1.2rem 1.5rem 1.2rem 1.5rem;border:2px solid #00C389;}
 
 .prcontainer1{position:relative;}
@@ -1415,23 +1415,23 @@
 
 /* -------- div 테이블 증가 영역  ------- */
 .prtextaddbox{width:100%;position:relative;}
-.prtextaddbox dl{display: flex;padding:1.3rem 0rem 1.3rem 0rem;position:relative;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#444;}
-.prtextaddbox dl:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.prtextaddbox dl{display: flex;padding:1.3rem 0 1.3rem 0;position:relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#444;}
+.prtextaddbox dl:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 
 .prtextTableBox{position:relative;border-bottom:1px solid #E2E5EA;display:flex;}
-.prtti{display: flex;position:relative;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;padding:1.3rem 1.6rem 1.3rem 1.6rem;}
-.prtti:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.prtti{display: flex;position:relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;padding:1.3rem 1.6rem 1.3rem 1.6rem;}
+.prtti:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 
 .prtt_area{width:100%;position:relative;}
-.prtt_area textarea{padding:1.3rem 1.6rem 1.3rem 1.6rem;border:1px solid #fff;height:12.2rem;width:100%;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color: #666;resize: vertical;border-radius: 1rem;overflow: hidden}
-.prtt_area textarea::placeholder{font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#bbb;}
+.prtt_area textarea{padding:1.3rem 1.6rem 1.3rem 1.6rem;border:1px solid #fff;height:12.2rem;width:100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color: #666;resize: vertical;border-radius: 1rem;overflow: hidden}
+.prtt_area textarea::placeholder{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#bbb;}
 .prtt_area textarea:focus{padding:1.2rem 1.5rem 1.2rem 1.5rem;border:2px solid #00C389;}
 .reviseBtn textarea{padding:1.3rem 1.6rem 4rem 1.6rem;}
 .reviseBtn textarea:focus{padding:1.2rem 1.5rem 3.9rem 1.5rem;}
 .reviseBtn:after{content:'';display:inline-block;position: absolute;right: 1.6rem;bottom: 1.3rem;width: 2.4rem;height: 2.4rem;background-image: url(/assets/images/common/Button_Edit.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 
-.prtt_area input{padding:1.3rem 1.6rem 1.3rem 1.6rem;border:1px solid #fff;height:5rem;width:100%;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color: #666;resize: vertical;border-radius: 1rem;overflow: hidden}
-.prtt_area input::placeholder{font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#bbb;}
+.prtt_area input{padding:1.3rem 1.6rem 1.3rem 1.6rem;border:1px solid #fff;height:5rem;width:100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color: #666;resize: vertical;border-radius: 1rem;overflow: hidden}
+.prtt_area input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#bbb;}
 .prtt_area input:focus{padding:1.2rem 1.5rem 1.2rem 1.5rem;border:2px solid #00C389;}
 
 .prtextTablethBox {position: relative;display: flex;}
@@ -1447,8 +1447,8 @@
 .colum5{width:20%;}
 /* -------- // div 테이블 증가 영역  ------- */
 
-.prtt_value_area{width:100%;position:relative;padding: 1.3rem 1.6rem 1.3rem 1.6rem;width: 100%;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color: #666;}
-.prdot_text{position:relative;width:100%;padding-left:2.4rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.6rem;letter-spacing: 0em;text-align: left;color:#666;}
+.prtt_value_area{width:100%;position:relative;padding: 1.3rem 1.6rem 1.3rem 1.6rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color: #666;}
+.prdot_text{position:relative;width:100%;padding-left:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#666;}
 .prdot_text:before{content:'';position: absolute;width: 0.3rem;height: 0.3rem;left: 1rem;top: 1.1rem;border-radius:50%;background: #666666;}
 
 /* -------- 개인정보 처리방침 테이블 증가 영역  ------- */
@@ -1456,13 +1456,13 @@
 .prarea_table table {width: 100%;position: relative;}
 .prarea_table table thead {position: relative;}
 .prarea_table table thead tr {background: #fff;position: relative;}
-.prarea_table table thead tr:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
-.prarea_table table thead tr th {vertical-align: middle;font-family: Pretendard;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #666;padding: 1.3rem 1.6rem 1.3rem 1.6rem;}
+.prarea_table table thead tr:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.prarea_table table thead tr th {vertical-align: middle;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: center;color: #666;padding: 1.3rem 1.6rem 1.3rem 1.6rem;}
 .praLeft{text-align:left!important;}
 
 .prarea_table table tbody tr {background: #fff;position: relative;}
-.prarea_table table tbody tr:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
-.prarea_table table tbody tr td {padding: 1.3rem 1.6rem 1.3rem 1.6rem;vertical-align: middle;position: relative;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color: #666;}
+.prarea_table table tbody tr:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.prarea_table table tbody tr td {padding: 1.3rem 1.6rem 1.3rem 1.6rem;vertical-align: middle;position: relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: center;color: #666;}
 
 .prarea{position:relative;}
 .prarea input {display: none;}
@@ -1472,49 +1472,49 @@
 /* -------- // 개인정보 처리방침 테이블 증가 영역  ------- */
 
 .nonebor dl:after{content:none!important;}
-.prnor_text:last-child{margin-bottom:0rem;}
+.prnor_text:last-child{margin-bottom:0;}
 .prnor_text{display:block;position:relative;margin-bottom:1.6rem;}
 .prnor_text p{display:block;position:relative;padding-left:2.4rem;}
-.prnor_text p span{position:absolute;left:0rem;top:0rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0em;text-align: left;color:#444;}
-.prnor_text p{font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0em;text-align: left;color:#444;}
+.prnor_text p span{position:absolute;left:0;top:0;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}
+.prnor_text p{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}
 
-.pttext{display:block;position:relative;padding-left:2.4rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0em;text-align: left;color:#444;}
-.pttext dt{position:absolute;left:0rem;top:0rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0em;text-align: left;color:#444;}
+.pttext{display:block;position:relative;padding-left:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}
+.pttext dt{position:absolute;left:0;top:0;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}
 .pttext .tiptool{margin-left:0.2rem;}
 
-.prnort{display: flex;align-items: center;position:relative;padding-left:2.4rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0em;text-align: left;color:#444;}
+.prnort{display: flex;align-items: center;position:relative;padding-left:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}
 .prnort dt {position: absolute;width: 0.3rem;height: 0.3rem;left: 1rem;top: 50%;border-radius: 50%;background: #666666;transform: translateY(-50%);}
-.prnort .tiptool {margin-left: 0.8rem;top: 0rem;}
+.prnort .tiptool {margin-left: 0.8rem;top: 0;}
 
 .pri8cont .prnor_text{margin-bottom:0.8rem;}
-.pri8cont .prnor_text:last-child{margin-bottom:0rem;}
+.pri8cont .prnor_text:last-child{margin-bottom:0;}
 .prnor_text dd{display:block;position:relative;padding-left:2.4rem;}
 .prnor_text dd span{position: absolute;width: 0.3rem;height: 0.3rem;left: 1rem;top: 1.1rem;border-radius:50%;background: #666666;}
-.prnor_text dd{font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.6rem;letter-spacing: 0em;text-align: left;color:#666;}
+.prnor_text dd{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#666;}
 .pradfont{font-weight: 500!important;color: #444!important;}
 
-.prinortext:last-child{margin-bottom:0rem;}
-.prinortext {margin-bottom:2.4rem;display: flex;font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.6rem;letter-spacing: 0em;text-align: left;color: #666;}
+.prinortext:last-child{margin-bottom:0;}
+.prinortext {margin-bottom:2.4rem;display: flex;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.6rem;letter-spacing: 0;text-align: left;color: #666;}
 
 .dateinput {display: flex;align-items: center;}
 .dateinput .koinput{margin-right: 0.6rem;}
-.dateinput .koinput input {width: 100%;position: relative;height: 3.8rem;background: #fff;border-radius: 1rem;padding: 0rem 0.4rem 0rem 0.4rem;font-family: Pretendard;font-size: 1.5rem;font-weight: 400;letter-spacing: 0em;text-align: center;color: #444444;z-index: 10;border: 1px solid #E2E5EA;}
-.dateinput .koinput input::placeholder{font-family: Pretendard;font-size: 1.5rem;font-weight: 400;letter-spacing: 0em;text-align: center!important;color: #bbb;}
-.dateinput input:focus{border:2px solid #00C389;padding: 0rem 0.3rem 0rem 0.3rem;}
+.dateinput .koinput input {width: 100%;position: relative;height: 3.8rem;background: #fff;border-radius: 1rem;padding: 0 0.4rem 0 0.4rem;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;letter-spacing: 0;text-align: center;color: #444444;z-index: 10;border: 1px solid #E2E5EA;}
+.dateinput .koinput input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;letter-spacing: 0;text-align: center!important;color: #bbb;}
+.dateinput input:focus{border:2px solid #00C389;padding: 0 0.3rem 0 0.3rem;}
 
 .prformBtnBox{display:block;text-align:right;}
-.prformBtnBox button{display:inline-block;padding:1.2rem 3rem 1.2rem 3rem;background: #00C389;border-radius:1.2rem;font-family: Pretendard;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0em;text-align: center;color:#fff;}
+.prformBtnBox button{display:inline-block;padding:1.2rem 3rem 1.2rem 3rem;background: #00C389;border-radius:1.2rem;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0;text-align: center;color:#fff;}
 .prformBtnBox button:hover{background:#00BA83;}
 
 /* 타이틀 체크박스 */
 .title_check {display: flex;align-items: center;margin-left: 10px;top: 2.7rem;}
-.title_check p {font-family: Pretendard;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;}
+.title_check p {font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;}
 .title_check p .colgr{color:#00C389;}
 .title_check p .colred{color:#FF6752;}
-.title_check b{display:inline-block;font-family: Pretendard;font-size: 1.4rem;font-weight: 400;line-height: 1.4rem;letter-spacing: 0em;text-align: left;color:#9A9A9A;margin-left:0.8rem;text-decoration:underline;}
+.title_check b{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 1.4rem;letter-spacing: 0;text-align: left;color:#9A9A9A;margin-left:0.8rem;text-decoration:underline;}
 .title_check input {display: none;}
 .title_check label {cursor: pointer;position: relative;padding-right: 2.8rem;}
-.title_check input[type=checkbox]+label em {right: 0rem;border-radius: 0.5rem;position: absolute;top: 0.2rem;display: inline-block;margin-right: 0rem;vertical-align: middle;width: 2rem;height: 2rem;border: 2px solid #E2E5EA;}
+.title_check input[type=checkbox]+label em {right: 0;border-radius: 0.5rem;position: absolute;top: 0.2rem;display: inline-block;margin-right: 0;vertical-align: middle;width: 2rem;height: 2rem;border: 2px solid #E2E5EA;}
 .title_check input[type=checkbox]:checked+label em {border:none;background: url(/assets/images/common/infocheck.png) no-repeat center/cover;}
 /* // 타이틀 체크박스 */
 
@@ -1523,8 +1523,8 @@
 .layerToolType {display: none;position: absolute;background: rgba(85, 85, 85, 0.9);backdrop-filter: blur(1px);box-shadow: 2px 6px 6px rgba(0, 0, 0, 0.1);border-radius: 0.8rem;z-index: 50;}
 .tipContents{padding: 0.8rem 1.2rem 0.8rem 1.2rem;width:100%;height:100%;position:relative;}
 .tipContents:after {content: '';position: absolute;bottom: -0.8rem;width: 1.2rem;height: 0.85rem;background-image: url(/assets/images/common/toolbox_bottom.png);background-size: cover;background-repeat: no-repeat;background-position: center;left: 50%;transform: translateX(-50%);}
-.tipContents p{    padding: 0;font-family: Pretendard;font-size: 1.3rem;font-weight: 300;line-height: 1.8rem;letter-spacing: 0em;text-align: left;color:#fff;}
-.tipContents .layercloseBtn {position: absolute;right: 0rem;top: 0rem;width: 2.5rem;height: 2.5rem;background-image: url(/assets/images/common/btn_cancel.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
+.tipContents p{    padding: 0;font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 300;line-height: 1.8rem;letter-spacing: 0;text-align: left;color:#fff;}
+.tipContents .layercloseBtn {position: absolute;right: 0;top: 0;width: 2.5rem;height: 2.5rem;background-image: url(/assets/images/common/btn_cancel.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 .pmtool_01 {left: -9.7rem;width: 20.9rem;bottom: 3rem;}
 .pmtool_02 {left: -10.4rem;width: 22.4rem;bottom: 3rem;}
 .pmtool_03 {left: -6.8rem;width: 15.2rem;bottom: 3rem;}
@@ -1538,33 +1538,33 @@
 .semailWrap{width:100%;position:relative;}
 
 .semBtnBox{display:flex;width:100%;position:relative;}
-.semBtn {width: 8.8rem;height: 4.8rem;background: #00C389;border-radius: 1rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: inherit;letter-spacing: 0em;text-align: center;color: #fff;margin-right:1.2rem;}
+.semBtn {width: 8.8rem;height: 4.8rem;background: #00C389;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: inherit;letter-spacing: 0;text-align: center;color: #fff;margin-right:1.2rem;}
 .semBtn:hover{background: #00BA83;}
-.mail_reserveBtn {cursor:pointer;width: 6rem;height: 4.8rem;border-radius: 1rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0em;text-align: center;color: #00C389;}
+.mail_reserveBtn {cursor:pointer;width: 6rem;height: 4.8rem;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0;text-align: center;color: #00C389;}
 
 .cur_reserve {width: 100%;position: relative;display: flex;align-items: center;}
-.cur_reserve p{font-family: Pretendard;font-size: 1.5rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#666;margin-right:0.8rem;}
-.cur_reserve dl{font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#888;margin-right:0.8rem;}
+.cur_reserve p{font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#666;margin-right:0.8rem;}
+.cur_reserve dl{font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#888;margin-right:0.8rem;}
 .reserve_close{cursor:pointer;width:1.4rem;height:1.4rem;position:relative;background-image: url(/assets/images/common/reserve_close.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 
 /* ==== 이메일 발송 컨텐츠 영역 ==== */
-.mail_reserveBox {position: absolute;width: 532px;left: 10rem;top: 6rem;background: #FFFFFF;box-shadow: 0px 4px 16px rgba(122, 124, 129, 0.18);border-radius: 1.2rem;z-index: 20;display:none;}
+.mail_reserveBox {position: absolute;width: 532px;left: 10rem;top: 6rem;background: #FFFFFF;box-shadow: 0 4px 16px rgba(122, 124, 129, 0.18);border-radius: 1.2rem;z-index: 20;display:none;}
 .mrTopBox{width:100%;position:relative;padding:2rem 2.4rem 2rem 2.4rem;}
-.mrTopTitle{display:block;font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#222;}
+.mrTopTitle{display:block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0;text-align: left;color:#222;}
 
 .mrtContent{width:100%;height:4rem;position:relative;padding-left:10rem;}
-.mrtContent dl{position:absolute;left:0rem;top:0.8rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#888888;}
+.mrtContent dl{position:absolute;left:0;top:0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#888888;}
 .mrtBox {display: flex;width: 100%;justify-content: space-between;}
 
-.mrtSelBox {display: flex;padding: 0rem 1.6rem 0rem 1.6rem;height: 4rem;width: 100%;border: 1px solid #EBEDEF;border-radius: 0.8rem;align-items: center;}
+.mrtSelBox {display: flex;padding: 0 1.6rem 0 1.6rem;height: 4rem;width: 100%;border: 1px solid #EBEDEF;border-radius: 0.8rem;align-items: center;}
 .mrtSelBox .selectBox {height: 2.4rem;border-radius: 0.4rem;}
 .mrtSelBox .selectBox .label {color: #444;font-size: 1.6rem;line-height: 2.4rem;}
-.mrtSelBox .selectBox .label:after {content: '';position: absolute;top: 0.2rem;right: 0rem;width: 2rem;height: 2rem;background-image: url(/assets/images/common/mrtselect-nav-arrow.png);background-size: 2rem;background-repeat: no-repeat;background-position: right;}
+.mrtSelBox .selectBox .label:after {content: '';position: absolute;top: 0.2rem;right: 0;width: 2rem;height: 2rem;background-image: url(/assets/images/common/mrtselect-nav-arrow.png);background-size: 2rem;background-repeat: no-repeat;background-position: right;}
 
 .mrtType01 .selectBox .optionList {top: 3.6rem;left: -1.6rem;width: 38.4rem;border-radius: 0.8rem;}
 .mrtType01 .selectBox .optionItem {font-size: 1.5rem;line-height: 1.8rem;color: #666;padding: 1.2rem 1.6rem 1.2rem 1.6rem;}
 
-.mrtType02 .time_input input {background: #F4F5F7;width: 12.3rem;height: 4rem;font-size: 1.6rem;font-weight: 500;color: #444;padding: 0px 1.2rem 0px 1.6rem;font-family: Pretendard, sans-serif;border-radius: 0.8rem;}
+.mrtType02 .time_input input {background: #F4F5F7;width: 12.3rem;height: 4rem;font-size: 1.6rem;font-weight: 500;color: #444;padding: 0 1.2rem 0px 1.6rem;font-family: Pretendard, sans-serif;border-radius: 0.8rem;}
 .mrtType02 .time_input input::placeholder{font-size: 1.6rem;}
 .mrtType02 .mrtSelBox{width:20.5rem;}
 .mrtType02 .selectBox .optionList {top: 3.6rem;left: -1.6rem;width: 20.5rem;border-radius: 0.8rem;}
@@ -1581,44 +1581,44 @@
 
 .semailContentBox{width:100%;position:relative;}
 .semailitemBox {padding-left: 16rem;display: block;position: relative;height: 5.4rem;}
-.semailitemBox dl{position:absolute;left:0rem;top:0rem;line-height:5.4rem;font-family: Pretendard;font-size: 1.8rem;font-weight: 600;line-height: 5.4rem;letter-spacing: 0em;text-align: left;color:#222;}
+.semailitemBox dl{position:absolute;left:0;top:0;line-height:5.4rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 5.4rem;letter-spacing: 0;text-align: left;color:#222;}
 
 /* 이메일 input,select 영역 */
 .se_item.seselCont {display: flex;align-items: center;justify-content: flex-start;}
 .seselCont .selectBox .optionList {top: 4.6rem;}
 .se_item{width:100%;height:100%;position:relative;text-align:left;}
-.se_item input{padding:0rem;width:100%;position:relative;height:100%;font-family: Pretendard;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#444444;border-bottom:1px solid #E2E5EA;}
+.se_item input{padding:0;width:100%;position:relative;height:100%;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: left;color:#444444;border-bottom:1px solid #E2E5EA;}
 .se_item input:focus{border-bottom:2px solid #00C389;}
 .se_item input:-webkit-autofill,
 .se_item input:-webkit-autofill:hover,
 .se_item input:-webkit-autofill:focus,
 .se_item input:-webkit-autofill:active {-webkit-text-fill-color: #444444;-webkit-box-shadow: 0 0 0px 1000px #fff inset;box-shadow: 0 0 0px 1000px #fff inset;transition: background-color 5000s ease-in-out 0s;}
-.se_item input::placeholder{font-family: Pretendard;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0em;text-align: left;color:#bbb;}
+.se_item input::placeholder{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 400;line-height: 2.8rem;letter-spacing: 0;text-align: left;color:#bbb;}
 /* // 이메일 input,select 영역 */
 
 /* 이메일 라디오 버튼 */
-.seradio .popRadio {align-items: center;display: flex;padding: 0.9rem 0rem 0.9rem 0rem;}
-.seradio .popRadio .poprCheck {align-items: center;display:flex;margin: 0rem 3.2rem 0rem 0rem;}
+.seradio .popRadio {align-items: center;display: flex;padding: 0.9rem 0 0.9rem 0;}
+.seradio .popRadio .poprCheck {align-items: center;display:flex;margin: 0 3.2rem 0 0rem;}
 .seradio .poprCheck label {display: flex;font-size: 1.8rem;line-height: 2.8rem;align-items: center;}
 .seradio .poprCheck label span{font-size: 1.6rem;line-height: 2.8rem;color:#00C389;margin-left:0.8rem;}
-.seradio .popRadio .poprCheck input[type=radio].radio+label em {top: 0rem;margin-right: 0.8rem;width: 2.2rem;height: 2.2rem;}
+.seradio .popRadio .poprCheck input[type=radio].radio+label em {top: 0;margin-right: 0.8rem;width: 2.2rem;height: 2.2rem;}
 .seradio .popRadio .poprCheck input[type=radio].radio+label em dt {width: 1.2rem;height: 1.2rem;}
-.seradio .sendMemberBtn{margin-left:0.8rem;width: 8.4rem;height: 3.6rem;background: #EBEDEF;border-radius: 0.8rem;display:inline-block;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 3.6rem;letter-spacing: 0em;text-align: center;color:#666;}
+.seradio .sendMemberBtn{margin-left:0.8rem;width: 8.4rem;height: 3.6rem;background: #EBEDEF;border-radius: 0.8rem;display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 3.6rem;letter-spacing: 0;text-align: center;color:#666;}
 .seradio .sendMemberBtn:hover{background:#E2E5EA;}
 /* // 이메일 라디오 버튼 */
 
 /* 이메일 파일 컨텐츠 */
-.semailitemBox.sefileCont {padding: 0.9rem 0rem 0.9rem 16rem;height: auto;}
-.sefileCont .sc_fileBox {padding: 0rem;position: relative;width: 100%;}
+.semailitemBox.sefileCont {padding: 0.9rem 0 0.9rem 16rem;height: auto;}
+.sefileCont .sc_fileBox {padding: 0;position: relative;width: 100%;}
 .sefileCont .fileInner label:after{content:none;}
 /* 이메일 파일 컨텐츠 */
 
 .writeToolBox{width:100%;position:relative;}
 
 .bottomInfoBox{width:100%;position:relative;padding:2rem 3rem 2rem 2rem;background: #F7F8F9;border-radius: 1.2rem;}
-.bottomInfoBox dl{padding-left:1.3rem;display:block;position:relative;font-family: Pretendard;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#666;margin-bottom:0.2rem;}
-.bottomInfoBox dl:before{position: absolute;content:'';width: 0.3rem;height: 0.3rem;left: 0px;top: 1.1rem;border-radius:50%;background: #666666;}
-.bottomInfoBox dl:last-child{margin-bottom:0rem;}
+.bottomInfoBox dl{padding-left:1.3rem;display:block;position:relative;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;margin-bottom:0.2rem;}
+.bottomInfoBox dl:before{position: absolute;content:'';width: 0.3rem;height: 0.3rem;left: 0;top: 1.1rem;border-radius:50%;background: #666666;}
+.bottomInfoBox dl:last-child{margin-bottom:0;}
 
 /* 이메일 회원선택 팝업 */
 .email_member_pop{background:rgba(255,255,255,0)!important;}
@@ -1628,20 +1628,20 @@
 .memselBox::-webkit-scrollbar{width: 0.5rem;}
 .memselBox::-webkit-scrollbar-track{background-color: #fff;border-radius: 0.3rem;}
 .memselBox::-webkit-scrollbar-thumb{background-color: #D3D6DA;border-radius: 0.3rem;}
-.memName{border: 0.1rem solid #F4F5F7;position:relative;display:inline-block;background: #F4F5F7;border-radius: 20px;padding:0.3rem 2.9rem 0.3rem 1.1rem;font-family: Pretendard;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#666;margin:0rem 0.5rem 0.8rem 0rem;}
+.memName{border: 0.1rem solid #F4F5F7;position:relative;display:inline-block;background: #F4F5F7;border-radius: 20px;padding:0.3rem 2.9rem 0.3rem 1.1rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#666;margin:0 0.5rem 0.8rem 0;}
 .memName:hover{border: 1px solid #ACE2D2;}
 .memName .memdel {cursor: pointer;z-index: 20;position: absolute;right: 1.1rem;top: 0.7rem;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/common/selcate_close.png);background-size: 1.4rem;background-repeat: no-repeat;background-position: center;}
 
 .memseaBox {position:relative;display: flex;justify-content: flex-end;}
-.memseaBox .koinput input {height: 4rem;border-radius: 0.8rem;padding: 0rem 1rem 0rem 4rem;font-size: 1.5rem;font-weight: 500;}
-.memseaBox .koinput {position: absolute;left: 0rem;top:0rem;}
-.memseaBox .koinput input:focus{padding: 0rem 0.9rem 0rem 3.9rem;}
+.memseaBox .koinput input {height: 4rem;border-radius: 0.8rem;padding: 0 1rem 0 4rem;font-size: 1.5rem;font-weight: 500;}
+.memseaBox .koinput {position: absolute;left: 0;top:0;}
+.memseaBox .koinput input:focus{padding: 0 0.9rem 0 3.9rem;}
 .memseaBox .koinput input::placeholder{font-size: 1.5rem;font-weight: 400;color:#aaa;}
 .memseaBox .koinput button {left: 1.4rem;top: 1.1rem;width: 1.8rem;height: 1.8rem;}
 .memseaBox .koinput button img {height: 1.8rem;}
 
 .memseaBox .mu_SelBox {border-radius: 0.8rem;padding: 0.7rem 1.6rem 0.7rem 1.6rem;margin-right: 0.8rem;}
-.memseaBox .mu_SelBox:last-child{margin-right:0rem;}
+.memseaBox .mu_SelBox:last-child{margin-right:0;}
 .memseaBox .selectBox .label {color: #666;font-size: 1.5rem;font-weight: 500;line-height: 2.4rem;}
 .memseaBox .selectBox .label:after {top: 0.4rem;width: 1.6rem;height: 1.6rem;background-size: 1.6rem;}
 .memseaBox .mu_SelBox .selectBox .optionList {width: 13rem;top: 3.4rem;left: -1.7rem;}
@@ -1655,7 +1655,7 @@
 .emailtableWrap .kt_total span {font-weight: 700;}
 
 .emailtableWrap .kt_selbox .selectBox .label {font-size: 1.4rem;line-height: 2.2rem;}
-.emailtableWrap .kt_selbox {padding: 0rem 1.2rem 0rem 1.2rem;}
+.emailtableWrap .kt_selbox {padding: 0 1.2rem 0 1.2rem;}
 .emailtableWrap .kt_selbox .selectBox .label:after {top: 0.3rem;}
 .emailtableWrap .kt_selbox .selectBox .optionList {top: 3rem;width: 10.8rem;left: -1rem;}
 .emailtableWrap .kt_selbox .selectBox .optionItem {font-size: 1.4rem;line-height: 2.2rem;padding: 1rem 1.2rem 1rem 1.2rem;}
@@ -1684,10 +1684,10 @@
 .mailcomplate{display:inline-block;text-align:center;}
 .mailcomplateicon{border-radius: 50%;width:8rem;height:8rem;display:inline-block;background: #E4F8F2;}
 .mailcomplateicon img{width:100%;}
-.mailcomplate h2{margin:2rem 0rem 3.6rem 0rem;display:block;font-family: Pretendard;font-size: 2.4rem;font-weight: 600;line-height: 3.6rem;letter-spacing: 0em;text-align: center;color:#444;}
+.mailcomplate h2{margin:2rem 0 3.6rem 0;display:block;font-family: Pretendard, sans-serif;font-size: 2.4rem;font-weight: 600;line-height: 3.6rem;letter-spacing: 0;text-align: center;color:#444;}
 .mailcomplateBtnBox {display: flex;align-items: center;justify-content: center;}
-.mailcBtn{margin:0rem 0.4rem 0rem 0.4rem;width: 8rem;height: 3.6rem;background: #EBEDEF;border-radius:0.8rem;position:relative;}
-.mailcBtn a{position:absolute;left:0rem;top:0rem;width:100%;height:100%;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 3.6rem;letter-spacing: 0em;text-align: center;}
+.mailcBtn{margin:0 0.4rem 0 0.4rem;width: 8rem;height: 3.6rem;background: #EBEDEF;border-radius:0.8rem;position:relative;}
+.mailcBtn a{position:absolute;left:0;top:0;width:100%;height:100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 3.6rem;letter-spacing: 0;text-align: center;}
 .wriBtn{background: #EBEDEF;}
 .listBtn{background: #00C389;}
 .wriBtn a{color:#666666;}
@@ -1700,23 +1700,23 @@
 # 미니팝업 css
 -----------------------------------------------------------------------------------------*/
 .dp_b {display: block !important;}
-.dim {overflow: auto;width: 100%;height: 100%;display: none;text-align: center;position: fixed;top: 0px;left: 0px;background: rgba(0,0,0,0.4);z-index: 1000;}
+.dim {overflow: auto;width: 100%;height: 100%;display: none;text-align: center;position: fixed;top: 0;left: 0;background: rgba(0,0,0,0.4);z-index: 1000;}
 .layerPopType{display:none;position:fixed;left:50%;transform:translateX(-50%);top:10rem;z-index:1200;width: 39.2rem;padding:4.4rem 3.6rem 3.2rem 3.6rem;background: #FFFFFF;border-radius: 2rem;}
 .popHeader{display:block;text-align:center;}
 .popHeader img{height:4rem;display:inline-block;}
-.popHeader h4{margin-top:2rem;display:block;font-family: Pretendard;font-size: 2.4rem;font-weight: 700;line-height: 3.4rem;letter-spacing: 0em;text-align: center;color:#444;margin-bottom:1.2rem;}
+.popHeader h4{margin-top:2rem;display:block;font-family: Pretendard, sans-serif;font-size: 2.4rem;font-weight: 700;line-height: 3.4rem;letter-spacing: 0;text-align: center;color:#444;margin-bottom:1.2rem;}
 .popContents {text-align: center;display: block;}
-.popContents p{display:block;font-family: Pretendard;font-size:1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#9A9A9A;}
+.popContents p{display:block;font-family: Pretendard, sans-serif;font-size:1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#9A9A9A;}
 
 .popcBtnBox {display: flex;margin-top: 3.6rem;align-items: center;justify-content: center;}
 
-.popcBtnBox .popCheck{margin:0rem 0.4rem 0rem 0.4rem;display:inline-block;width: 9rem;height: 4.4rem;background: #EBEDEF;border-radius: 0.8rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#888;}
+.popcBtnBox .popCheck{margin:0 0.4rem 0 0.4rem;display:inline-block;width: 9rem;height: 4.4rem;background: #EBEDEF;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#888;}
 .popcBtnBox .popCheck:hover{background: #00C389;color: #fff;}
 
-.popcBtnBox .popStart{margin:0rem 0.4rem 0rem 0.4rem;display:inline-block;width: 9rem;height: 4.4rem;background: #EBEDEF;border-radius: 0.8rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#888;}
+.popcBtnBox .popStart{margin:0 0.4rem 0 0.4rem;display:inline-block;width: 9rem;height: 4.4rem;background: #EBEDEF;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#888;}
 .popcBtnBox .popStart:hover{background: #dddedf;}
 
-.popcBtnBox .popCancel{margin:0rem 0.4rem 0rem 0.4rem;display:inline-block;width: 9rem;height: 4.4rem;background: #00C389;border-radius: 0.8rem;font-family: Pretendard;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: center;color:#fff;}
+.popcBtnBox .popCancel{margin:0 0.4rem 0 0.4rem;display:inline-block;width: 9rem;height: 4.4rem;background: #00C389;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#fff;}
 .popcBtnBox .popCancel:hover{background: #00BA83;}
 
 /*-----------------------------------------------------------------------------------------
@@ -1729,10 +1729,10 @@
 .erroe404_illustration img{max-width:100%;height:48.6rem;}
 .erroe404tbox{display:block;text-align:center;}
 .erroe404tbox dl{display:block;text-align:center;margin-bottom:3.6rem;}
-.erroe404tbox dl p{display:block;text-align:center;font-family: Pretendard;font-size:5.6rem;font-weight: 700;line-height: 6.7rem;letter-spacing: 0em;color:#444;margin-bottom:2rem;}
-.erroe404tbox dl span{display:block;font-family: Pretendard;font-size: 2.1rem;font-weight: 500;line-height: 3rem;letter-spacing: 0em;text-align: center;color:#666;}
+.erroe404tbox dl p{display:block;text-align:center;font-family: Pretendard, sans-serif;font-size:5.6rem;font-weight: 700;line-height: 6.7rem;letter-spacing: 0;color:#444;margin-bottom:2rem;}
+.erroe404tbox dl span{display:block;font-family: Pretendard, sans-serif;font-size: 2.1rem;font-weight: 500;line-height: 3rem;letter-spacing: 0;text-align: center;color:#666;}
 .erroe404btn{display:inline-block;width: 15.2rem;height: 5.4rem;background: #00C389;border-radius:1.2rem;position:relative;}
-.erroe404btn a{position:absolute;left:0rem;top:0rem;width:100%;height:100%;font-family: Pretendard;font-size: 2rem;font-weight: 600;line-height: 5.4rem;letter-spacing: 0em;text-align: center;color:#fff;}
+.erroe404btn a{position:absolute;left:0;top:0;width:100%;height:100%;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 5.4rem;letter-spacing: 0;text-align: center;color:#fff;}
 .erroe404btn:hover{background:#00BA83;}
 
 @media (max-width: 1600px) {
