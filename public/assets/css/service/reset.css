@@ -10,7 +10,7 @@ html {
 	max-width: 2700px;
 	margin: 0 auto;
 	font-size: 62.5%;
-	font-family: 'Pretendard';
+	font-family: Pretendard, sans-serif;
 	position: relative;
 	padding: 0;
 	border: 0;
