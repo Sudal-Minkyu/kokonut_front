@@ -7,65 +7,65 @@
 .maincontent{width:100%;position:relative;}
 
 .pageH1_type01{display:block;margin-bottom:4rem;}
-.pageH1_type01 h1 {display: block;font-size: 4.2rem;font-weight: 500;line-height: 5.041rem;letter-spacing: 0em;text-align: left;color: #1F1F1F;}
+.pageH1_type01 h1 {display: block;font-size: 4.2rem;font-weight: 500;line-height: 5.041rem;letter-spacing: 0;text-align: left;color: #1F1F1F;}
 .pageH1_type01 h1 span{font-weight: 700;}
 
 /* ============ 상단 현황 바 ============ */
-.currentWrap{width: 100%;padding:1.6rem 2.6rem 1rem 15.4rem;position:relative;background: #FFFFFF;border: 1px solid #EBEDEF;box-shadow: 0px 3px 5px rgba(179, 179, 179, 0.15);border-radius: 1.4rem;overflow:hidden;margin-bottom:2.8rem;}
+.currentWrap{width: 100%;padding:1.6rem 2.6rem 1rem 15.4rem;position:relative;background: #FFFFFF;border: 1px solid #EBEDEF;box-shadow: 0 3px 5px rgba(179, 179, 179, 0.15);border-radius: 1.4rem;overflow:hidden;margin-bottom:2.8rem;}
 
 .curTitmeInfoBox {position: absolute;left: 2.7rem;top: 1.7rem;display: inline-block;}
-.curTitmeInfoBox span{font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0em;text-align: right;color:#aaa;}
-.curTitmeInfoBox dl{font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: right;color:#666;}
+.curTitmeInfoBox span{font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0;text-align: right;color:#aaa;}
+.curTitmeInfoBox dl{font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: right;color:#666;}
 
 .currentSlideBox{height:5rem;width:100%;overflow:hidden;}
 .currentSlideBox .swiper {width: 100%;height: 100%;}
 
 .currentSlideBox .swiper-slide {background: #fff;display: flex;justify-content: flex-start;align-items: center;}
-.cursItem{font-family: Pretendard, sans-serif;font-size: 20px;font-weight: 500;line-height: 30px;letter-spacing: 0em;text-align: left;color:#222;}
+.cursItem{font-family: Pretendard, sans-serif;font-size: 20px;font-weight: 500;line-height: 30px;letter-spacing: 0;text-align: left;color:#222;}
 .curCou{font-weight:700;color:#00C389;}
 .cursItem dt{display:inline-block;font-weight:400;}
 
-.curs_btnBox{z-index:20;position:absolute;right:0rem;top:0.1rem;height:4rem;width:1.6rem;}
+.curs_btnBox{z-index:20;position:absolute;right:0;top:0.1rem;height:4rem;width:1.6rem;}
 .curs_btnInner{position:relative;width:100%;height:100%;}
 .swiper-button-next:after, .swiper-button-prev:after{content:none!important;}
-.curs_btnInner .swiper-button-prev{position: absolute;left:0rem;top: 0rem;width: 1.6rem;height: 1.6rem;margin-top: 0;z-index: 10;cursor: pointer;display: flex;align-items: center;justify-content: center;background-image: url(/assets/images/main/swiper_prev.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;}
-.curs_btnInner .swiper-button-next{position: absolute;bottom:0rem;left:0rem;top: inherit;width: 1.6rem;height: 1.6rem;margin-top: 0;z-index: 10;cursor: pointer;display: flex;align-items: center;justify-content: center;background-image: url(/assets/images/main/swiper_next.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;}
+.curs_btnInner .swiper-button-prev{position: absolute;left:0;top: 0;width: 1.6rem;height: 1.6rem;margin-top: 0;z-index: 10;cursor: pointer;display: flex;align-items: center;justify-content: center;background-image: url(/assets/images/main/swiper_prev.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;}
+.curs_btnInner .swiper-button-next{position: absolute;bottom:0;left:0;top: inherit;width: 1.6rem;height: 1.6rem;margin-top: 0;z-index: 10;cursor: pointer;display: flex;align-items: center;justify-content: center;background-image: url(/assets/images/main/swiper_next.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;}
 
 .curUpdateBox {text-align: right;position: absolute;right: 6.6rem;top: 1.9rem;display: inline-block;z-index: 50;}
-.curUpdateBox button{padding-left:2rem;display:inline-block;position:relative;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0em;text-align: right;color:#666;}
-.curUpdateBox button:before{content:'';width:1.6rem;height:1.6rem;position:absolute;left:0rem;top:0.3rem;background-image: url(/assets/images/main/updateicon.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;}
-.curUpdateBox dl{display:block;margin-top:0.2rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 400;line-height: 1.8rem;letter-spacing: 0em;text-align: right;color:#aaa;}
+.curUpdateBox button{padding-left:2rem;display:inline-block;position:relative;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: right;color:#666;}
+.curUpdateBox button:before{content:'';width:1.6rem;height:1.6rem;position:absolute;left:0;top:0.3rem;background-image: url(/assets/images/main/updateicon.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;}
+.curUpdateBox dl{display:block;margin-top:0.2rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 400;line-height: 1.8rem;letter-spacing: 0;text-align: right;color:#aaa;}
 /* ============ // 상단 현황 바 ============ */
 
 /* ============ 오늘의 서비스 현황 ============ */
-.main_status_board{width:100%;min-height:20rem;position:relative;padding:2.4rem 2.6rem;background: #FFFFFF;border: 1px solid #EBEDEF;box-shadow: 0px 3px 5px rgba(179, 179, 179, 0.15);border-radius: 1.4rem;}
+.main_status_board{width:100%;min-height:20rem;position:relative;padding:2.4rem 2.6rem;background: #FFFFFF;border: 1px solid #EBEDEF;box-shadow: 0 3px 5px rgba(179, 179, 179, 0.15);border-radius: 1.4rem;}
 
 .today_gr_Inner{width:100%;position:relative;}
-.today_gr_Inner .board_title{display:block;font-size: 2rem;font-weight: 700;line-height: 3rem;letter-spacing: 0em;text-align: left;color:#444444;}
+.today_gr_Inner .board_title{display:block;font-size: 2rem;font-weight: 700;line-height: 3rem;letter-spacing: 0;text-align: left;color:#444444;}
 
-.tg_categoryBox{height:1.8rem;position:absolute;display:flex;right:0rem;top:0.6rem;}
-.tg_category:nth-child(1){margin-left:0rem;}
-.tg_category{padding-left:2.4rem;margin-left:2rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0em;text-align: left;color:#666666;position:relative;}
-.tg_category span {position: absolute;left: 0rem;top: 50%;width: 16px;height: 2px;background: #00C389;border-radius: 2px;transform: translateY(-50%);}
+.tg_categoryBox{height:1.8rem;position:absolute;display:flex;right:0;top:0.6rem;}
+.tg_category:nth-child(1){margin-left:0;}
+.tg_category{padding-left:2.4rem;margin-left:2rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0;text-align: left;color:#666666;position:relative;}
+.tg_category span {position: absolute;left: 0;top: 50%;width: 16px;height: 2px;background: #00C389;border-radius: 2px;transform: translateY(-50%);}
 
 .today_gr_box{margin-top:2rem;width:100%;position:relative;overflow:hidden;}
 /* ============ 오늘의 서비스 현황 ============ */
 
 /* ============ 위젯 편집 팝업 ============ */
 .wiLineBox{display:block;text-align:center;margin-top:4rem;}
-.wibtn{cursor:pointer;display:inline-block;position:relative;width: 12rem;height: 4.8rem;background: #F4F5F7;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0em;text-align: center;color:#666666;}
+.wibtn{cursor:pointer;display:inline-block;position:relative;width: 12rem;height: 4.8rem;background: #F4F5F7;border-radius: 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0;text-align: center;color:#666666;}
 .wibtn:hover{background: #E2E5EA;}
 .wibtn img {position: relative;height: 2rem;margin-right: 0.8rem;top: -0.1rem;}
 
 .wiset_pop .koko_popup_inner {overflow:hidden;top: 12rem;width: 63rem;}
-.wiset_pop .koSubInfo {margin: 1rem 0rem 0rem 0rem;}
+.wiset_pop .koSubInfo {margin: 1rem 0 0rem 0;}
 
-.wiCheckBox {background:#fff;padding: 1.2rem 1.4rem 1.2rem 1.4rem;display: block;position:relative;box-shadow: 0px 3px 5px rgba(179, 179, 179, 0.15);border-radius:1rem;}
+.wiCheckBox {background:#fff;padding: 1.2rem 1.4rem 1.2rem 1.4rem;display: block;position:relative;box-shadow: 0 3px 5px rgba(179, 179, 179, 0.15);border-radius:1rem;}
 .wiCheckBox:after {content: '';position: absolute;top: 50%;right: 1.4rem;width: 1.6rem;height: 1.6rem;background-image: url(/assets/images/main/dragable_icon.png);background-size: 1.1rem;background-repeat: no-repeat;background-position: center;transform: translateY(-50%);}
 .wiCheck {text-align: left;display: block;}
-.radioCheck:last-child{margin: 0rem 0rem 0.4rem 0rem;}
+.radioCheck:last-child{margin: 0 0rem 0.4rem 0;}
 .wiCheck input{position:absolute;display:none;}
-.radioCheck:last-child{margin-right:0rem;}
+.radioCheck:last-child{margin-right:0;}
 .wiCheck label {font-weight: 600;font-size: 1.6rem;cursor: pointer;position: relative;line-height: 2.8rem;color: #444;}
 
 .wiCheckBox .wiCheck input[type=checkbox].wch+label em {position: relative;top: -0.1rem;display: inline-block;margin-right: 1.8rem;vertical-align: middle;width: 2.2rem;height: 2.2rem;border: 2px solid #E2E5EA;border-radius: 50%;}
@@ -77,78 +77,78 @@
 .ui-state-default{border:1px solid #fff;}
 .ui-state-default:hover {cursor: pointer;}
 
-.itemBoxHighlight {border: 1px dashed #00C389!important;border-radius:1rem;box-shadow: 0px 3px 5px rgba(179, 179, 179, 0.15);width:100%;height:5.2rem;}
+.itemBoxHighlight {border: 1px dashed #00C389!important;border-radius:1rem;box-shadow: 0 3px 5px rgba(179, 179, 179, 0.15);width:100%;height:5.2rem;}
 /* ============ // 위젯 편집 팝업 ============ */
 
 /* ============ 위젯 레이아웃 ============ */
 .wjListBox{display:flex;margin-top:2.8rem;}
-.wjList:nth-child(1){margin:0rem 1.4rem 0rem 0rem;}
-.wjList:nth-child(3){margin:0rem 0rem 0rem 1.4rem;}
-.wjList{width:33.333333333333%;display:block;margin:0rem 1.4rem 0rem 1.4rem;}
+.wjList:nth-child(1){margin:0 1.4rem 0 0rem;}
+.wjList:nth-child(3){margin:0 0rem 0 1.4rem;}
+.wjList{width:33.333333333333%;display:block;margin:0 1.4rem 0 1.4rem;}
 .wjItem{margin-bottom:2.8rem;position:relative;}
-.wjItem:last-child{margin-bottom:0rem;}
+.wjItem:last-child{margin-bottom:0;}
 .wjItem img{max-width:100%;position:relative;}
 @media (max-width: 1600px) {
-    .wjList:nth-child(1) {margin: 0rem 1rem 0rem 0rem;}
-    .wjList {margin: 0rem 1rem 0rem 1rem;}
-    .wjList:nth-child(3) {margin: 0rem 0rem 0rem 1rem;}
+    .wjList:nth-child(1) {margin: 0 1rem 0 0rem;}
+    .wjList {margin: 0 1rem 0 1rem;}
+    .wjList:nth-child(3) {margin: 0 0rem 0 1rem;}
     .wjItem {margin-bottom: 2rem;}
 }
 /* ============ // 위젯 레이아웃 ============ */
 
 /* ============ 위젯 캘린더 ============ */
-.wjcalBox{width:100%;position:relative;background: #FFFFFF;border: 1px solid #EBEDEF;box-shadow: 0px 3px 5px rgba(179, 179, 179, 0.15);border-radius: 1.4rem;}
-.wjcMonth{position:relative;padding:1rem 0rem 1rem 0rem;display:block;font-family: Pretendard, sans-serif;font-size: 3rem;font-weight: 600;line-height: 4.2rem;letter-spacing: 0em;text-align: center;color:#444;}
-.wjcMonth:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#eee;z-index:10;}
+.wjcalBox{width:100%;position:relative;background: #FFFFFF;border: 1px solid #EBEDEF;box-shadow: 0 3px 5px rgba(179, 179, 179, 0.15);border-radius: 1.4rem;}
+.wjcMonth{position:relative;padding:1rem 0 1rem 0;display:block;font-family: Pretendard, sans-serif;font-size: 3rem;font-weight: 600;line-height: 4.2rem;letter-spacing: 0;text-align: center;color:#444;}
+.wjcMonth:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#eee;z-index:10;}
 
-.wjcal {width: 100%;position: relative;padding: 0rem 1.6rem 0.8rem 1.6rem;}
+.wjcal {width: 100%;position: relative;padding: 0 1.6rem 0.8rem 1.6rem;}
 .wjcal table{width:100%;position:relative;}
 .wjcal table caption{display:none;}
-.wjcal table {box-sizing: border-box;width: 100%;border-collapse: separate;border-spacing: 0px 0.8rem;}
-.wjcal table thead tr th{font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0em;text-align: center;color:#666;padding:0.5rem 0rem;}
+.wjcal table {box-sizing: border-box;width: 100%;border-collapse: separate;border-spacing: 0 0.8rem;}
+.wjcal table thead tr th{font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0;text-align: center;color:#666;padding:0.5rem 0;}
 .wjcal table tbody tr td{position:relative;height:3.3rem;text-align:center;padding-top:0.15rem;}
 .wjcal table tbody tr td.point{cursor: pointer;}
 .wjcal table tbody tr td.point:before{content:'';position: absolute;width: 0.5rem;height: 0.5rem;left: 50%;transform:translateX(-50%);bottom: 0;border-radius:50%;background: #00C389;}
-.wjcal table tbody tr td span {display: inline-block;width: 2.5rem;height: 2.5rem;border-radius: 50%;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.5rem;letter-spacing: 0em;text-align: center;color: #444;background: #fff;}
+.wjcal table tbody tr td span {display: inline-block;width: 2.5rem;height: 2.5rem;border-radius: 50%;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.5rem;letter-spacing: 0;text-align: center;color: #444;background: #fff;}
 .wjcal table tbody tr td span:hover{color: #00C389;font-weight: 700;}
 .wjcal table tbody tr td span.onSuc{background: #00C389;font-weight: 600;color:#fff;}
 
 .wjcTextBox{position:relative;padding:1.4rem 2.4rem 1.6rem 2.4rem;}
-.wjcTextBox:after{content:'';position:absolute;left:0rem;top:0rem;width:100%;height:1px;background:#eee;z-index:10;}
-.wjcText{padding-left:1rem;position:relative;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0em;text-align: left;color:#444;margin-bottom:0.6rem;}
-.wjcText:last-child{margin-bottom:0rem;}
-.wjcText:before{content:'';width: 0.4rem;height: 1.4rem;background: #00C389;border-radius: 2px;position:absolute;left:0rem;top:0.4rem;}
+.wjcTextBox:after{content:'';position:absolute;left:0;top:0;width:100%;height:1px;background:#eee;z-index:10;}
+.wjcText{padding-left:1rem;position:relative;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#444;margin-bottom:0.6rem;}
+.wjcText:last-child{margin-bottom:0;}
+.wjcText:before{content:'';width: 0.4rem;height: 1.4rem;background: #00C389;border-radius: 2px;position:absolute;left:0;top:0.4rem;}
 /* ============ // 위젯 캘린더 ============ */
 
 /* ============ 위젯 개인정보 제공 건 ============ */
-.wj_contentBox{padding:2.4rem 2.6rem;width:100%;position:relative;background: #FFFFFF;border: 1px solid #EBEDEF;box-shadow: 0px 3px 5px rgba(179, 179, 179, 0.15);border-radius: 1.4rem;}
+.wj_contentBox{padding:2.4rem 2.6rem;width:100%;position:relative;background: #FFFFFF;border: 1px solid #EBEDEF;box-shadow: 0 3px 5px rgba(179, 179, 179, 0.15);border-radius: 1.4rem;}
 .wjpcount .wjtitle a span{left: 15rem;position: absolute;}
 
 .wjtool_01 {left: -6.7rem;width: 14.7rem;bottom: 2.6rem;}
 .wjtitle .tiptool {cursor: pointer;position: relative;display: inline-block;width: 1.4rem;height: 1.4rem;background-image: url(/assets/images/main/wjtooltip_icon.png);background-size: cover;background-repeat: no-repeat;background-position: center;margin-left: 0.4rem;top: 0;}
 .wjtitle {position:relative;display: flex;align-items: center;justify-content: flex-start;}
-.wjtitle dt {display: flex;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 700;line-height: 3rem;letter-spacing: 0em;text-align: left;color: #444;align-items: center;justify-content: flex-start;}
-.wjtitle a {display: flex;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 700;line-height: 3rem;letter-spacing: 0em;text-align: left;color: #444;align-items: center;justify-content: flex-start;}
+.wjtitle dt {display: flex;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 700;line-height: 3rem;letter-spacing: 0;text-align: left;color: #444;align-items: center;justify-content: flex-start;}
+.wjtitle a {display: flex;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 700;line-height: 3rem;letter-spacing: 0;text-align: left;color: #444;align-items: center;justify-content: flex-start;}
 .wjtitle a span {margin-left: 0.4rem;width: 2rem;height: 2rem;background-image: url(/assets/images/main/wj_arrow.png);background-size: 2rem;background-repeat: no-repeat;background-position: center;display: inline-block;}
 
 .wjcountBox{width:100%;display:flex;}
-.wjcount{padding:0.4rem 0rem;width:100%;height:7.2rem;position:relative;margin-right:3.3rem;}
-.wjcount:last-child{margin: 0rem 0rem 0rem 0rem;}
+.wjcount{padding:0.4rem 0;width:100%;height:7.2rem;position:relative;margin-right:3.3rem;}
+.wjcount:last-child{margin: 0 0rem 0 0rem;}
 .wjcount:last-child:after{content:none;}
-.wjcount:after{content:'';width:1px;height:100%;background: #EBEDEF;position:absolute;right: -1.6rem;top:0rem;}
-.wjcount span{display:block;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#444;}
-.wjcount dl{margin-top:0.4rem;display:block;font-family: Pretendard, sans-serif;font-size: 2.4rem;font-weight: 700;line-height: 3.6rem;letter-spacing: 0em;text-align: right;color:#444;}
+.wjcount:after{content:'';width:1px;height:100%;background: #EBEDEF;position:absolute;right: -1.6rem;top:0;}
+.wjcount span{display:block;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#444;}
+.wjcount dl{margin-top:0.4rem;display:block;font-family: Pretendard, sans-serif;font-size: 2.4rem;font-weight: 700;line-height: 3.6rem;letter-spacing: 0;text-align: right;color:#444;}
 /* ============ // 위젯 개인정보 제공 건 ============ */
 
 /* ============ 위젯 나의 접속 현황 ============ */
 .wjcurrentBox{width:100%;position:relative;height:19.2rem;overflow:hidden;}
-.wjcurrentBox:before{content:'';position: absolute;width: 0.2rem;height: 100%;left: 7.2rem;top: 0px;background: #EEEEEE;border-radius: 0.5rem;}
+.wjcurrentBox:before{content:'';position: absolute;width: 0.2rem;height: 100%;left: 7.2rem;top: 0;background: #EEEEEE;border-radius: 0.5rem;}
 
-.wjcurBox:nth-child(1){margin-top:0rem;}
+.wjcurBox:nth-child(1){margin-top:0;}
 .wjcurBox{width:100%;position:relative;height:3.2rem;padding-left:9.3rem;margin-top:0.8rem;}
-.wjcurTime{position:absolute;left:0rem;top:50%;transform:translateY(-50%);display:inline-block;width:5.3rem;}
+.wjcurTime{position:absolute;left:0;top:50%;transform:translateY(-50%);display:inline-block;width:5.3rem;}
 .wjcurTime p {letter-spacing: -0.02rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 600;line-height: 1.4rem;text-align: right;color: #666;}
-.wjcurTime dl {display: flex;margin-top: 0.2rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 600;line-height: 1.4rem;letter-spacing: 0em;text-align: right;color: #bbb;justify-content: flex-end;}
+.wjcurTime dl {display: flex;margin-top: 0.2rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 600;line-height: 1.4rem;letter-spacing: 0;text-align: right;color: #bbb;justify-content: flex-end;}
 .wjcur_loBox {position: relative;width: 100%;border-radius: 0.8rem;height: 100%;padding: 0.7rem 1.3rem;display: flex;justify-content: space-between;align-items: center;}
 
 .wjcur_loBox.login:before {transform: translateY(-50%);border-radius: 50%;position: absolute;width: 0.8rem;height: 0.8rem;left: -2.4rem;top: 50%;background: #00C389;content: '';}
@@ -161,8 +161,8 @@
 .wjcur_loBox.loginFail span{color:#FF6752;}
 .wjcur_loBox.loginFail dl{color:#F8BAB3;}
 
-.wjcur_loBox span{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 1.8rem;letter-spacing: 0em;text-align: left;}
-.wjcur_loBox dl{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0em;text-align: right;}
+.wjcur_loBox span{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 1.8rem;letter-spacing: 0;text-align: left;}
+.wjcur_loBox dl{display:inline-block;font-family: Pretendard, sans-serif;font-size: 1rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0;text-align: right;}
 /* ============ // 위젯 나의 접속 현황 ============ */
 
 /* ============ 위젯 개인정보 현황 ============ */
@@ -171,18 +171,18 @@
 
 .wjgr_tabe {position:relative;}
 
-.grtabe{font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;position:relative;display:block;margin-bottom:1rem;padding-left:1.8rem;}
-.grtabe:last-child{margin-bottom:0rem;}
-.grtabe:before{width: 1rem;height: 1rem;background: #666666;border-radius: 0.8rem;content:'';position:absolute;left:0rem;top:0.7rem;}
+.grtabe{font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;position:relative;display:block;margin-bottom:1rem;padding-left:1.8rem;}
+.grtabe:last-child{margin-bottom:0;}
+.grtabe:before{width: 1rem;height: 1rem;background: #666666;border-radius: 0.8rem;content:'';position:absolute;left:0;top:0.7rem;}
 
 .grt_01:before{background: #666666;}
 .grt_02:before{background: #00C389;}
 .grt_03:before{background: #D3D6DA;}
 .grt_04:before{background: #FF6752;}
 
-.grtabe span{font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#aaa;margin-left:0.2rem;}
+.grtabe span{font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#aaa;margin-left:0.2rem;}
 @media (max-width: 1800px) {
-    .wjgrBox {height: 18.6rem;padding: 0.8rem 0rem 0.8rem 0rem;}
+    .wjgrBox {height: 18.6rem;padding: 0.8rem 0 0.8rem 0;}
     .wjgr {width: 16rem;height: 16rem;}
 }
 @media (max-width: 1600px){
@@ -194,31 +194,31 @@
 /* ============ 위젯 구독관리 ============ */
 .wjtitle.wjsel {align-items: center;justify-content: space-between;}
 
-.wjsel .selectBox {margin-right: -1rem;width: 8rem;padding: 0rem 1rem 0rem 1rem;}
+.wjsel .selectBox {margin-right: -1rem;width: 8rem;padding: 0 1rem 0 1rem;}
 .wjsel .selectBox .label {color: #888;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;}
-.wjsel .selectBox .label:after {content: '';position: absolute;top: 0.3rem;right: 0rem;width: 1.6rem;height: 1.6rem;background-image: url(/assets/images/main/wjsel_arrow.png);background-size: 1.8rem;background-repeat: no-repeat;background-position: right;}
+.wjsel .selectBox .label:after {content: '';position: absolute;top: 0.3rem;right: 0;width: 1.6rem;height: 1.6rem;background-image: url(/assets/images/main/wjsel_arrow.png);background-size: 1.8rem;background-repeat: no-repeat;background-position: right;}
 
 .wjsel .selectBox .optionList {top: 2.8rem;}
 .wjsel .selectBox .optionItem {font-size: 1.4rem;font-weight: 500;line-height: 2rem;padding: 1rem 1rem 1rem 1rem;}
 
 .wjsubcTitle {width: 100%;position: relative;height: 2.2rem;display: flex;justify-content: space-between;align-items: center;}
-.wjsubcTitle span{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0px;text-align: left;color:#444;}
-.wjsubcTitle dl{font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0em;text-align: left;color:#aaa;}
+.wjsubcTitle span{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#444;}
+.wjsubcTitle dl{font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0;text-align: left;color:#aaa;}
 
 .wjsubcBox{width:100%;position:relative;}
-.wjsubc{margin-top:0.8rem;width:100%;position:relative;padding:0rem 9rem 0rem 9rem;}
-.wjsubc p {left: 0rem;position: absolute;font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 2.2rem;letter-spacing: -0.4px;text-align: left;color: #666;top: 50%;transform: translateY(-50%);}
+.wjsubc{margin-top:0.8rem;width:100%;position:relative;padding:0 9rem 0 9rem;}
+.wjsubc p {left: 0;position: absolute;font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 2.2rem;letter-spacing: -0.4px;text-align: left;color: #666;top: 50%;transform: translateY(-50%);}
 .wjsubcLine{height: 2.4rem;border-radius: 4px;}
 .subc_01{background: #00C389;}
 .subc_02{background: #95E0CA;}
 .subc_03{background: #E4E7EB;}
 
-.wjsubc dl{position:absolute;right:0rem;top: 50%;transform: translateY(-50%);font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 1.9rem;letter-spacing: 0em;text-align: right;color:#444;}
-.wjsubc dl span{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 700;line-height: 1.9rem;letter-spacing: 0em;text-align: right;color:#444;margin-right:0.2rem;}
+.wjsubc dl{position:absolute;right:0;top: 50%;transform: translateY(-50%);font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 1.9rem;letter-spacing: 0;text-align: right;color:#444;}
+.wjsubc dl span{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 700;line-height: 1.9rem;letter-spacing: 0;text-align: right;color:#444;margin-right:0.2rem;}
 /* ============ // 위젯 구독관리 ============ */
 
 /* ============ 위젯 관리자 접속 현황 ============ */
-.wj_adminCurBox {display: flex;position: absolute;right: 0rem;top: 0rem;padding: 0.6rem 1.4rem;background: #F4F5F7;border-radius: 1.4rem;align-items: center;justify-content: center;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0em;text-align: center;color:#888;}
+.wj_adminCurBox {display: flex;position: absolute;right: 0;top: 0;padding: 0.6rem 1.4rem;background: #F4F5F7;border-radius: 1.4rem;align-items: center;justify-content: center;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0;text-align: center;color:#888;}
 .wj_adminCurBox img{height:1.6rem;margin-left:0.4rem;}
 
 .wj_adminContentBox{width:100%;position:relative;max-height:22.4rem;padding-right: 1.4rem;overflow: auto;}
@@ -226,42 +226,42 @@
 .wj_adminContentBox::-webkit-scrollbar-track{background-color: #fff;border-radius: 0.3rem;}
 .wj_adminContentBox::-webkit-scrollbar-thumb{background-color: #D3D6DA;border-radius: 0.3rem;}
 
-.wj_admin:nth-child(1){margin-top:0rem;}
+.wj_admin:nth-child(1){margin-top:0;}
 .wj_admin{height:4.4rem;overflow:hidden;width:100%;position:relative;margin-top:1.6rem;padding-left:6rem;}
 
-.wjCircleBox{position:absolute;left:0rem;top:50%;transform: translateY(-50%);width:3.6rem;height:3.6rem;}
+.wjCircleBox{position:absolute;left:0;top:50%;transform: translateY(-50%);width:3.6rem;height:3.6rem;}
 
 .wjCircle.toppest_admin{background: #FFECEA;color:#FF6752;}
 .wjCircle.top_admin{background: #FFF4D9;color:#EB920E}
 .wjCircle.guest{background: #EEF4FF;color:#4070E0}
 .wjCircle.admin{background: #E9F9F4;color:#00C389}
-.wjCircle {display: flex;width: 3.6rem;height: 3.6rem;border-radius: 50%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0px;text-align: left;align-items: center;justify-content: center;}
+.wjCircle {display: flex;width: 3.6rem;height: 3.6rem;border-radius: 50%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: left;align-items: center;justify-content: center;}
 
-.wjdot_on {bottom: 0rem;position: absolute;right: 0rem;height: 0rem;width: 0.8rem;height: 0.8rem;background: #00C389;border: 2px solid #FFFFFF;border-radius: 50%;}
-.wjdot_off {bottom: 0rem;position: absolute;right: 0rem;height: 0rem;width: 0.8rem;height: 0.8rem;background: #D3D6DA;border: 2px solid #FFFFFF;border-radius: 50%;}
+.wjdot_on {bottom: 0;position: absolute;right: 0;height: 0;width: 0.8rem;height: 0.8rem;background: #00C389;border: 2px solid #FFFFFF;border-radius: 50%;}
+.wjdot_off {bottom: 0;position: absolute;right: 0;height: 0;width: 0.8rem;height: 0.8rem;background: #D3D6DA;border: 2px solid #FFFFFF;border-radius: 50%;}
 
 .wjaText{display:block;text-align:left;}
-.wjaText span{display:block;text-align:left;font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0em;color:#aaa;margin-bottom:0.2rem;}
-.wjaText dl{display:block;text-align:left;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;color:#444;}
+.wjaText span{display:block;text-align:left;font-family: Pretendard, sans-serif;font-size: 1.3rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0;color:#aaa;margin-bottom:0.2rem;}
+.wjaText dl{display:block;text-align:left;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;color:#444;}
 
-.wjaTime {top: 50%;position: absolute;right: 0rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0em;text-align: right;color: #666;transform: translateY(-50%);}
+.wjaTime {top: 50%;position: absolute;right: 0;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: right;color: #666;transform: translateY(-50%);}
 /* ============ // 위젯 관리자 접속 현황 ============ */
 
 /* ============ 위젯 개인정보 항목 ============ */
-.wj_total{display:flex;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#444;}
-.wj_total span{margin-left:0.8rem;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0em;text-align: left;color:#00C389;}
+.wj_total{display:flex;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#444;}
+.wj_total span{margin-left:0.8rem;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#00C389;}
 /* ============ // 위젯 개인정보 항목 ============ */
 
 /* ============ 위젯 서드파티 연동 ============ */
 .wjthirdBox{width:100%;position:relative;}
-.wjthird {position: relative;border-bottom: 1px solid #EBEDEF;padding: 1.2rem 0rem;display: flex;justify-content: space-between;align-items: center;}
-.wjthird:nth-child(1){padding:0rem 0rem 1.2rem 0rem;}
-.wjthird:last-child{border-bottom:none;padding:1.2rem 0rem 0rem 0rem;}
+.wjthird {position: relative;border-bottom: 1px solid #EBEDEF;padding: 1.2rem 0;display: flex;justify-content: space-between;align-items: center;}
+.wjthird:nth-child(1){padding:0 0rem 1.2rem 0;}
+.wjthird:last-child{border-bottom:none;padding:1.2rem 0 0rem 0;}
 
-.wjthirdIcon {display: flex;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 1.9rem;letter-spacing: 0em;text-align: center;color: #444;align-items: center;justify-content: flex-start;}
+.wjthirdIcon {display: flex;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 1.9rem;letter-spacing: 0;text-align: center;color: #444;align-items: center;justify-content: flex-start;}
 .wjthirdIcon img{height:4rem;margin-right:1rem;}
-.on_third{padding:0.5rem 1rem;background: #E4F8F2;border-radius: 1.4rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 1.7rem;letter-spacing: 0em;text-align: center;color:#00C389;}
-.off_third{padding:0.5rem 1rem;background: #F4F5F7;border-radius: 1.4rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 1.7rem;letter-spacing: 0em;text-align: center;color:#888;}
+.on_third{padding:0.5rem 1rem;background: #E4F8F2;border-radius: 1.4rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 600;line-height: 1.7rem;letter-spacing: 0;text-align: center;color:#00C389;}
+.off_third{padding:0.5rem 1rem;background: #F4F5F7;border-radius: 1.4rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 1.7rem;letter-spacing: 0;text-align: center;color:#888;}
 /* ============ // 위젯 서드파티 연동 ============ */
 @media (max-width: 1700px){
     .contentInnerWrap {padding: 6rem 6rem 10rem 6rem;}

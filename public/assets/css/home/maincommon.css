@@ -90,7 +90,7 @@ header.up_header {top: 0%;}
 	transition: all 0.3s;
 }
 .side_menu_Btn span.black {background:#222;}
-.side_menu_Btn span:nth-child(1) {top:0rem; width:100%;}
+.side_menu_Btn span:nth-child(1) {top:0; width:100%;}
 .side_menu_Btn span:nth-child(2) {top: 50%; width: 64%; left: 0;}
 .side_menu_Btn span:nth-child(3) {bottom:0%; width:100%;}
 
@@ -143,7 +143,7 @@ li.menu01:last-child {border-bottom:none;}
 	.side_menu_Btn {
 		display: block;
 		height: 1.6rem;
-		right: 0rem;
+		right: 0;
 		width: 2rem;
 		position: relative;
 		top: 0;
@@ -196,7 +196,7 @@ footer {background: #F6F6F6;}
 	font-size: 1.7rem;
 	font-weight: 400;
 	line-height: 2.6rem;
-	margin:0rem 2rem;
+	margin:0 2rem;
 }
 .pp_ul li:hover {font-weight: 700; text-decoration:underline;}
 .pp_ul a:first-child li {margin-left:0;}
@@ -239,12 +239,12 @@ footer {background: #F6F6F6;}
 		display: inline-flex;
 	}
 	.footerBox .notice_ul li.width100 {width:100%;}
-	.footerBox .notice_ul li p {font-size: 1.3rem; line-height: 1.6rem; padding-left: 0rem; padding-bottom:0.6rem;}
+	.footerBox .notice_ul li p {font-size: 1.3rem; line-height: 1.6rem; padding-left: 0; padding-bottom:0.6rem;}
 	.footerBox .notice_ul li p:last-child {padding-bottom:0;}
 	.footerBox .notice_ul li p::before {display:none;}
 	.f_logo {width: 15rem; height: auto; margin-top: 2rem; max-width:9.6rem; margin-bottom:1rem;}
 
-	.pp_ul li {font-size: 1.5rem; line-height: 2.6rem; margin: 0rem 1.5rem;}
+	.pp_ul li {font-size: 1.5rem; line-height: 2.6rem; margin: 0 1.5rem;}
 }
 
 @media (max-width:767px) {

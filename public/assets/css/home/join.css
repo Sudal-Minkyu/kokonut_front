@@ -32,7 +32,7 @@
 	font-weight: 400;
 	font-size: 2.2rem;
 	line-height: 2.6rem;
-	letter-spacing: 0em;
+	letter-spacing: 0;
 	text-align:center;
 	margin-top:2.4rem;
 }
@@ -51,7 +51,7 @@
 	font-size: 2rem;
 	font-weight: 400;
 	line-height: 2.7rem;
-	letter-spacing: 0em;
+	letter-spacing: 0;
 	text-align: left;
 }
 
@@ -62,7 +62,7 @@
 	font-size: 2rem;
 	font-weight: 400;
 	line-height: 2.4rem;
-	letter-spacing: 0em;
+	letter-spacing: 0;
 	text-align: left;
 	color: #BBBBBB;
 }
@@ -143,7 +143,7 @@
 	font-size: 1.5rem;
 	font-weight: 400;
 	line-height: 1.8rem;
-	letter-spacing: 0em;
+	letter-spacing: 0;
 	text-align: left;
 	color:#666;
 	cursor:pointer;
@@ -165,7 +165,7 @@
 	font-size: 2rem;
 	font-weight: 600;
 	line-height: 2.4rem;
-	letter-spacing: 0em;
+	letter-spacing: 0;
 	text-align: center;
 	color:#fff;
 	border-radius: 10px;
@@ -206,7 +206,7 @@
 	font-size: 2.6rem;
 	font-weight: 400;
 	line-height: 3.2rem;
-	letter-spacing: 0em;
+	letter-spacing: 0;
 	text-align: center;
 	color:#9A9A9A;
 	padding:2.4rem 3.9rem 2.7rem 3.9rem;
@@ -227,7 +227,7 @@
 	font-size: 2rem;
 	font-weight: 600;
 	line-height: 2.4rem;
-	letter-spacing: 0em;
+	letter-spacing: 0;
 	text-align: center;
 	color:#fff;
 	border-radius: 10px;
@@ -320,7 +320,7 @@ a.go_fpassword {
 ul.pswdEx {display: flex;}
 ul.pswdEx li {margin-right:1.2rem;}
 ul.pswdEx li:last-child {margin-right:0;}
-ul.pswdEx .notxt {padding-top:0rem; margin-top:1rem;}
+ul.pswdEx .notxt {padding-top:0; margin-top:1rem;}
 
 .notxt.pass {color:#00C389!important;}
 .notxt.pass::before {background: url(/assets/images/join/pass_check.png) no-repeat center / cover!important;}
@@ -408,7 +408,7 @@ p.joinmTitle {
 	font-size: 1.6rem;
 	font-weight: 600;
 	line-height: 1.9rem;
-	letter-spacing: 0em;
+	letter-spacing: 0;
 	text-align: left;
 	padding: 1rem 1.2rem;
 	background: #00C389;
