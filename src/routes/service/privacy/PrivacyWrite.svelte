@@ -33,36 +33,23 @@
     let priavacyStage = 0;
 
     const getUserTableList = () => {
-        ajaxGet('/v2/api/Company/userTableList', false,
-            (json_success) => {
-                console.log('테이블리스트', json_success);
-                providePrivacyWriteData.update(obj => {
-                    obj.step4.tableList = json_success.data.sendData.companyTableList;
-                    return obj;
-                });
-                getTableColumnList();
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("회사의 테이블리스트 호출 실패");
-            }
-        );
+        ajaxGet('/v2/api/Company/userTableList', false, (json_success) => {
+            providePrivacyWriteData.update(obj => {
+                obj.step4.tableList = json_success.data.sendData.companyTableList;
+                return obj;
+            });
+            getTableColumnList();
+        });
     };
 
     const getTableColumnList = () => {
         for (const [i, {ctName}] of $providePrivacyWriteData.step4.tableList.entries()) {
-            ajaxGet('/v2/api/DynamicUser/tableColumnCall', {tableName: ctName},
-                (json_success) => {
-                    providePrivacyWriteData.update(obj => {
-                        obj.step4.columnList[i] = json_success.data.sendData.fieldList.filter(item => item.fieldName !== 'PASSWORD');
-                        return obj;
-                    });
-                },
-                (json_error) => {
-                    console.log(json_error);
-                    console.log("테이블컬럼 리스트 호출 실패");
-                }
-            );
+            ajaxGet('/v2/api/DynamicUser/tableColumnCall', {tableName: ctName}, (json_success) => {
+                providePrivacyWriteData.update(obj => {
+                    obj.step4.columnList[i] = json_success.data.sendData.fieldList.filter(item => item.fieldName !== 'PASSWORD');
+                    return obj;
+                });
+            });
         }
     }
 

@@ -66,16 +66,13 @@
 
     const getAllCustomerList = () => {
         ajaxGet('/v2/api/DynamicUser/tableBasicList', false, (json_success) => {
-            console.log(json_success);
             providePrivacyWriteData.update(obj => {
                 obj.step5.memberList = json_success.data.sendData.basicTableList || [];
                 pickColumnAndDetermineWidth();
                 return obj;
             });
             filterMemberList();
-        }, (json_error) => {
-
-        })
+        });
     };
 
     /**
