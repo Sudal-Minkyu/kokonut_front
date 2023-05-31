@@ -227,6 +227,7 @@ export const initialPrivacySearch = JSON.stringify({
         searchCode: '',
         currentColumnName: '',
         searchText: '',
+        key: Date.now().toString(),
     }],
 });
 

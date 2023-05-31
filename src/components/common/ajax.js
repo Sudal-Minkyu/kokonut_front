@@ -96,13 +96,21 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         }
     }).catch(errorRes => {
         console.log('ErrorResponse', errorRes);
-        const status = errorRes.response.status;
-        const handleFailResult = handleFail(status);
-        const actionString = handleFailResult?.action || '';
-        const actionSymbol = errorActionTypes[actionString.toUpperCase()];
-        const action = actionSymbol ? actionSymbol : errorActionDictionary[status] || errorActionTypes.ERROR;
-        const message = handleFailResult?.message || createMsgByErrorStatus(status) || '';
-        makeUIResponse(action, message, status, handleSuccess);
+        try {
+            if (errorRes.response) {
+                const status = errorRes.response.status;
+                const handleFailResult = handleFail(status);
+                const actionString = handleFailResult?.action || '';
+                const actionSymbol = errorActionTypes[actionString.toUpperCase()];
+                const action = actionSymbol ? actionSymbol : errorActionDictionary[status] || errorActionTypes.ERROR;
+                const message = handleFailResult?.message || createMsgByErrorStatus(status) || '';
+                makeUIResponse(action, message, status, handleSuccess);
+            } else {
+                handleFail({}); // 분석하여 조치 필요
+            }
+        } catch (e) {
+            console.log('에러 발생', e);
+        }
     });
 };
 
