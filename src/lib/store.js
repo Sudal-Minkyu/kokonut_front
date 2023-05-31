@@ -218,10 +218,15 @@ export const customConfirmData = writable({
 export const bannerMessage = writable('');
 
 export const initialPrivacySearch = JSON.stringify({
+    tableList: [],
     searchConditionList: [{
-        searchColumn: '1_ID',
-        searchValue: '',
-        currentLabel: '',
+        searchTable: '',
+        currentTableName: '',
+        currentTableIndex: 0,
+        currentTableColumnList: [],
+        searchCode: '',
+        currentColumnName: '',
+        searchText: '',
     }],
 });
 
