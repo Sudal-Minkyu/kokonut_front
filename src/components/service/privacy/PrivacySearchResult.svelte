@@ -1,6 +1,35 @@
+<script>
+    import {privacySearchData} from "../../../lib/store.js";
+    import {onMount} from "svelte";
+    import {ajaxGet} from "../../common/ajax.js";
+    let columnList = [];
+    let valuesList = [];
+
+    onMount(async => {
+        refineColumnAndValuesList();
+    });
+
+    const refineColumnAndValuesList = () => {
+        columnList = [];
+        valuesList = [];
+        const rawList = $privacySearchData.searchResultList || [];
+
+        if(rawList.length) {
+            columnList = Object.keys(rawList[0]);
+            valuesList = rawList.map(rawObj => columnList.map(key => rawObj[key]));
+        }
+    }
+
+    const handleOpenDetail = (idx) => {
+        console.log('상세보기클릭', idx);
+        ajaxGet('/v2/api/DynamicUser/privacyUserOpen', {idx}, (res) => {
+            console.log('상세보기결과', res);
+        });
+    }
+</script>
 <div class="contentInnerWrap">
     <div class="seaTitle marB50">
-        <dl><span>코코</span>에 대한 검색 결과</dl>
+        <dl><span></span>에 대한 검색 결과</dl>
     </div>
 
     <div class="sea_resultWrap">
@@ -43,7 +72,7 @@
 
         <div class="kotable search_result marT50">
             <div class="kt_tableTopBox marB24">
-                <div class="kt_total">총 <span>910</span>건</div>
+                <div class="kt_total">총 <span>{valuesList.length}</span>건</div>
                 <div class="kt_selbox wid120">
     <!--                <div class="selectBox wid100per nonePad">-->
     <!--                    <div class="label" id="">최근 등록순</div>-->
@@ -58,105 +87,23 @@
             </div>
             <table>
                 <caption>개인정보 검색결과 테이블</caption>
-                <colgroup>
-                    <col style="width:6.85%;">
-                    <col style="width:28.77%;">
-                    <col style="width:12.33%;">
-                    <col style="width:19.18%;">
-                    <col style="width:19.18%;">
-                    <col style="width:13.70%;">
-                </colgroup>
                 <thead>
                 <tr>
-                    <th>No</th>
-                    <th>이메일</th>
-                    <th>이름</th>
-                    <th>생년월일</th>
-                    <th>휴대전화 번호</th>
+                    {#each columnList as columnName}
+                        <th>{columnName}</th>
+                    {/each}
                     <th>상세보기</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>910</td>
-                    <td>te***12@ko******.me</td>
-                    <td>김<dt>코코</dt></td>
-                    <td>1996. 11. 01</td>
-                    <td>010-****-1155</td>
-                    <td><a href="./search-detail.html" class="dlink">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>910</td>
-                    <td>te***12@ko******.me</td>
-                    <td>김<dt>코코</dt></td>
-                    <td>1996. 11. 01</td>
-                    <td>010-****-1155</td>
-                    <td><a href="./search-detail.html" class="dlink">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>910</td>
-                    <td>te***12@ko******.me</td>
-                    <td>김<dt>코코</dt></td>
-                    <td>1996. 11. 01</td>
-                    <td>010-****-1155</td>
-                    <td><a href="./search-detail.html" class="dlink">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>910</td>
-                    <td>te***12@ko******.me</td>
-                    <td>김<dt>코코</dt></td>
-                    <td>1996. 11. 01</td>
-                    <td>010-****-1155</td>
-                    <td><a href="./search-detail.html" class="dlink">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>910</td>
-                    <td>te***12@ko******.me</td>
-                    <td>김<dt>코코</dt></td>
-                    <td>1996. 11. 01</td>
-                    <td>010-****-1155</td>
-                    <td><a href="./search-detail.html" class="dlink">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>910</td>
-                    <td>te***12@ko******.me</td>
-                    <td>김<dt>코코</dt></td>
-                    <td>1996. 11. 01</td>
-                    <td>010-****-1155</td>
-                    <td><a href="./search-detail.html" class="dlink">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>910</td>
-                    <td>te***12@ko******.me</td>
-                    <td>김<dt>코코</dt></td>
-                    <td>1996. 11. 01</td>
-                    <td>010-****-1155</td>
-                    <td><a href="./search-detail.html" class="dlink">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>910</td>
-                    <td>te***12@ko******.me</td>
-                    <td>김<dt>코코</dt></td>
-                    <td>1996. 11. 01</td>
-                    <td>010-****-1155</td>
-                    <td><a href="./search-detail.html" class="dlink">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>910</td>
-                    <td>te***12@ko******.me</td>
-                    <td>김<dt>코코</dt></td>
-                    <td>1996. 11. 01</td>
-                    <td>010-****-1155</td>
-                    <td><a href="./search-detail.html" class="dlink">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>910</td>
-                    <td>te***12@ko******.me</td>
-                    <td>김<dt>코코</dt></td>
-                    <td>1996. 11. 01</td>
-                    <td>010-****-1155</td>
-                    <td><a href="./search-detail.html" class="dlink">상세보기</a></td>
-                </tr>
+                {#each valuesList as values}
+                    <tr>
+                        {#each values as value}
+                            <td>{value}</td>
+                        {/each}
+                        <td><a class="dlink" on:click={() => {handleOpenDetail(values[0])}}>상세보기</a></td>
+                    </tr>
+                {/each}
                 </tbody>
             </table>
         </div>

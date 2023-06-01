@@ -1,3 +1,11 @@
+<script>
+    import {privacySearchData} from "../../../lib/store.js";
+    import {onMount} from "svelte";
+
+    onMount(async => {
+
+    });
+</script>
 <div class="contentInnerWrap sea_detail">
     <div class="page_backLine marB40">
         <a href="./search-result.html"><div class="page_backarrow"></div></a>

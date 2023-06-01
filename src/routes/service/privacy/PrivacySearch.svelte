@@ -31,6 +31,7 @@
                         if (!i) {
                             obj.searchConditionList[0].searchCode = obj.tableList[0].columnList[0].fieldCode;
                             obj.searchConditionList[0].currentColumnName = obj.tableList[0].columnList[0].fieldComment;
+                            obj.searchConditionList[0].currentTableColumnList = obj.tableList[0].columnList;
                         }
                         return obj;
                     });
@@ -38,21 +39,17 @@
             }
         });
     }
-
-    window.getget = () => {
-        console.log('getget', $privacySearchData.tableList);
-    }
 </script>식
 
 <Header />
 <section class="bodyWrap">
-    {#if true}
+    {#if $privacySearchData.currentPage === 'initial'}
         <PrivacySearchInitial />
     {/if}
-    {#if true}
+    {#if $privacySearchData.currentPage === 'result'}
         <PrivacySearchResult />
     {/if}
-    {#if false}
+    {#if $privacySearchData.currentPage === 'detail'}
         <PrivacySearchDetail />
     {/if}
 </section>

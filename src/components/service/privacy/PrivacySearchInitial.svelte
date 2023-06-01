@@ -1,7 +1,7 @@
 <script>
     import {privacySearchData} from "../../../lib/store.js";
-    import {SelectBoxManager} from "../../../components/common/action/SelectBoxManager.js";
-    import {ajaxParam} from "../../../components/common/ajax.js";
+    import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    import {ajaxBody} from "../../common/ajax.js";
 
     // 컬럼의 Alias 로 이름을 찾아 currentColumnName에 할당한다.
     // 현재는 label 표현에 문제가 있는 상태
@@ -13,10 +13,12 @@
     const addSearchCondition = () => {
         privacySearchData.update(obj => {
             obj.searchConditionList.push({
-                searchCode: '',
+                searchTable: obj.tableList[0].ctName,
+                currentTableName: obj.tableList[0].ctDesignation,
+                searchCode: obj.tableList[0].columnList[0].fieldCode,
+                currentColumnName: obj.tableList[0].columnList[0].fieldComment,
                 searchText: '',
-                currentTableColumnList: [],
-                currentColumnName: searchLabelByColumnAlias(''),
+                currentTableColumnList: obj.tableList[0].columnList,
                 key: Date.now().toString(),
             });
             return obj;
@@ -38,7 +40,15 @@
             obj.searchConditionList[i].currentTableName = el.innerHTML;
             obj.searchConditionList[i].currentTableIndex = el.dataset.tid;
             obj.searchConditionList[i].currentTableColumnList = obj.tableList[el.dataset.tid].columnList;
-            console.log(obj);
+
+            if (obj.tableList[el.dataset.tid].columnList.length) {
+                obj.searchConditionList[i].searchCode = obj.tableList[el.dataset.tid].columnList[0].fieldCode;
+                obj.searchConditionList[i].currentColumnName = obj.tableList[el.dataset.tid].columnList[0].fieldComment;
+            } else {
+                obj.searchConditionList[i].searchCode = '';
+                obj.searchConditionList[i].currentColumnName = '';
+            }
+            obj.searchConditionList[i].key = Date.now().toString();
             return obj;
         });
     }
@@ -52,17 +62,21 @@
     }
 
     const getUserListByCondition = () => {
-
         const searchCondition = {
             searchTables: $privacySearchData.searchConditionList.map(obj => obj.searchTable),
             searchCodes: $privacySearchData.searchConditionList.map(obj => obj.searchCode),
             searchTexts: $privacySearchData.searchConditionList.map(obj => obj.searchText),
             pageNum: '1',
-            limitNum: '10'
+            limitNum: '10',
         };
         console.log('검색조건', searchCondition);
-        ajaxParam('/v2/api/DynamicUser/privacyUserSearch', searchCondition, (res) => {
+        ajaxBody('/v2/api/DynamicUser/privacyUserSearch', searchCondition, (res) => {
             console.log('검색결과', res);
+            privacySearchData.update(obj => {
+                obj.searchResultList = res.data.sendData.privacyList;
+                obj.currentPage = 'result';
+                return obj;
+            });
         });
     }
 

@@ -218,6 +218,7 @@ export const customConfirmData = writable({
 export const bannerMessage = writable('');
 
 export const initialPrivacySearch = JSON.stringify({
+    currentPage: 'initial',
     tableList: [],
     searchConditionList: [{
         searchTable: '',
@@ -229,6 +230,8 @@ export const initialPrivacySearch = JSON.stringify({
         searchText: '',
         key: Date.now().toString(),
     }],
+    searchResultList: [],
+    selectedDetailIdx: '', // 상세보기에 쓰일 idx, api에 따라 명칭 수정예정
 });
 
 export const privacySearchData = writable(JSON.parse(initialPrivacySearch));

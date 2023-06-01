@@ -48,6 +48,31 @@ export const ajaxMultipart = (url, sendData = {}, handleSuccess = () => {}, hand
     });
 };
 
+export const ajaxParamArray = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
+    let params = new URLSearchParams();
+
+    for (let key in sendData) {
+        if (Array.isArray(sendData[key])) {
+            sendData[key].forEach(value => {
+                params.append(`${key}`, value);
+            });
+        } else {
+            params.append(key, sendData[key]);
+        }
+    }
+    console.log(params.toString());
+
+    restapi({
+        url,
+        handleSuccess,
+        handleFail,
+        method: 'post',
+        data: params,
+        contentType: 'application/x-www-form-urlencoded',
+    });
+
+};
+
 // RestAPI 호출 함수 from. Woody, mod. Joffrey
 // 호출 주소 앞단은 크게 v0, v1, v2 세 종류로 나뉘며 v0은 인증없이 접근할 수 있다.
 // url -> 호출할 api 주소

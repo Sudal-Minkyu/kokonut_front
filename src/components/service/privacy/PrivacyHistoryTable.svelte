@@ -1,10 +1,50 @@
 
 <script>
     import { page } from "../../../lib/store"
+    import {onDestroy, onMount} from "svelte";
 
     export let size;
     export let total;
     export let privacy_history_list;
+
+
+    $: privacy_history_list.map(obj => {
+        obj.isOffDutyAction = determineOffDuty(obj.insert_date);
+    });
+
+    // 지정 시간 외에 일어난 작업에 대해서 검사하여 여부 반환
+    const determineOffDuty = (time) => {
+        const hour = Number(time.substring(11, 13));
+        return hour < 8 || hour > 20;
+    }
+
+    const tooltipEvent = (e) => {
+        console.log('act');
+        if (e.target.classList.contains('tiptool')) {
+            var children = e.target.children;
+
+            for (var i = 0; i < children.length; i++) {
+                var child = children[i];
+                if (child.classList.contains('layerToolType')) {
+                    child.style.display = 'block';
+                    break;
+                }
+            }
+        } else {
+            const toolTipElements = document.getElementsByClassName('layerToolType');
+            for (const el of toolTipElements) {
+                el.style.display = 'none';
+            }
+        }
+    }
+
+    onMount(async => {
+        document.addEventListener('click', tooltipEvent);
+    });
+
+    onDestroy(async () => {
+        document.removeEventListener('click', tooltipEvent);
+    });
 
 </script>
 
@@ -29,17 +69,17 @@
             <th>관리자 등급</th>
             <th>해당 회원 ID</th>
             <th>활동 일시
-<!--            <span class="tiptool" id="tool_btn01">-->
-<!--                &lt;!&ndash; [D] tooltip : 처리목적 &ndash;&gt;-->
-<!--                <div class="layerToolType thtool_01" id="tool_box01">-->
-<!--                    <div class="tipContents">-->
-<!--                        <p>-->
-<!--                            오전 8시 ~ 오후 8시 이외의 시간의 내역은 빨간색으로 표시됩니다.-->
-<!--                        </p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; // [D] 처리목적 &ndash;&gt;-->
-<!--            </span>-->
+            <span class="tiptool" id="tool_btn01">
+                <!-- [D] tooltip : 처리목적 -->
+                <div class="layerToolType thtool_01" id="tool_box01">
+                    <div class="tipContents">
+                        <p>
+                            오전 8시 ~ 오후 8시 이외의 시간의 내역은 빨간색으로 표시됩니다.
+                        </p>
+                    </div>
+                </div>
+                <!-- // [D] 처리목적 -->
+            </span>
             </th>
             <th>활동 IP</th>
         </tr>
@@ -69,7 +109,7 @@
                         <td>{privacyHistory.knRoleDesc}</td>
                     {/if}
                     <td>{privacyHistory.knEmail}</td>
-                    <td>{privacyHistory.insert_date} 빨강색</td>
+                    <td style="{privacyHistory.isOffDutyAction ? 'color:#FC5757' : ''}">{privacyHistory.insert_date}</td>
                     <td>{privacyHistory.kphIpAddr}</td>
                 </tr>
             {/each}
