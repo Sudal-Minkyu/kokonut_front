@@ -1,14 +1,9 @@
 <script>
     import {privacySearchData} from "../../../lib/store.js";
-    import {onMount} from "svelte";
-
-    onMount(async => {
-
-    });
 
     const handleToPreviousPage = () => {
         privacySearchData.update(obj => {
-            obj.currentPage = 'result';
+            obj.currentState = 'search';
             return obj;
         });
     }

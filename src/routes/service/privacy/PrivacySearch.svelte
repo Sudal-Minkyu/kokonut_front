@@ -43,17 +43,19 @@
     window.kk = () => {
         console.log($privacySearchData);
     }
-</script>식
+</script>
 
 <Header />
 <section class="bodyWrap">
-    {#if $privacySearchData.currentPage === 'initial'}
-        <PrivacySearchInitial />
+    {#if $privacySearchData.currentState === 'search'}
+        <div class="contentInnerWrap">
+            <PrivacySearchInitial />
+            {#if $privacySearchData.rawResultList.length}
+                <PrivacySearchResult {getTableAndColumnList} />
+            {/if}
+        </div>
     {/if}
-    {#if $privacySearchData.currentPage === 'result'}
-        <PrivacySearchResult {getTableAndColumnList} />
-    {/if}
-    {#if $privacySearchData.currentPage === 'detail'}
+    {#if $privacySearchData.currentState === 'detail'}
         <PrivacySearchDetail />
     {/if}
 </section>
