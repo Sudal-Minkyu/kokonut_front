@@ -1,6 +1,11 @@
 <script>
     import { link } from 'svelte-spa-router'
     import { is_login, page, cpNameSider } from "../../../lib/store.js"
+
+    const test = () => {
+        console.log("ㅇㅇㅇ")
+        location.href = '/#/service/privacy/PrivacySearch';
+    }
 </script>
 
 {#if $is_login}

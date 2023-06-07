@@ -230,8 +230,16 @@ export const initialPrivacySearch = JSON.stringify({
         searchText: '',
         key: Date.now().toString(),
     }],
+    additionalSearchConditionOnResult: {
+        searchTable: '',
+        currentTableIndex: 0,
+        currentTableColumnList: [],
+        searchCode: '',
+        currentColumnName: '',
+        searchText: '',
+        currentDetail: [],
+    },
     searchResultList: [],
-    selectedDetailIdx: '', // 상세보기에 쓰일 idx, api에 따라 명칭 수정예정
 });
 
 export const privacySearchData = writable(JSON.parse(initialPrivacySearch));

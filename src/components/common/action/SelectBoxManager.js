@@ -32,6 +32,13 @@ export const SelectBoxManager = (targetEl, onSelect = () => {}) => {
         }
     });
 
+    const handleBackgroundClick = (event) => {
+        if (!label.contains(event.target) && !optionList.contains(event.target)) {
+            label.parentNode.classList.remove('active');
+        }
+    }
+    document.addEventListener('click', handleBackgroundClick);
+
     const clickLabel = () => {
         if(label.parentNode.classList.contains('active')) {
             label.parentNode.classList.remove('active');
@@ -54,6 +61,7 @@ export const SelectBoxManager = (targetEl, onSelect = () => {}) => {
                     handleSelect(event.target);
                 }
             });
+            document.removeEventListener('click', handleBackgroundClick);
         }
     };
 };

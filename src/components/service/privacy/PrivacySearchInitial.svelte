@@ -2,6 +2,7 @@
     import {privacySearchData} from "../../../lib/store.js";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
     import {ajaxBody} from "../../common/ajax.js";
+    import {openConfirm} from "../../common/ui/DialogManager.js";
 
     // 컬럼의 Alias 로 이름을 찾아 currentColumnName에 할당한다.
     // 현재는 label 표현에 문제가 있는 상태
@@ -72,9 +73,20 @@
         console.log('검색조건', searchCondition);
         ajaxBody('/v2/api/DynamicUser/privacyUserSearch', searchCondition, (res) => {
             console.log('검색결과', res);
+            const searchResultList = res.data.sendData.privacyList;
             privacySearchData.update(obj => {
-                obj.searchResultList = res.data.sendData.privacyList;
-                obj.currentPage = 'result';
+                obj.searchResultList = searchResultList;
+                if (searchResultList.length) {
+                    obj.currentPage = 'result';
+                } else {
+                    openConfirm({
+                        icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: '검색결과없음', // 제목
+                        contents1: '찾으시는 개인정보 검색 결과가 없습니다.', // 내용
+                        contents2: '',
+                        btnCheck: '확인', // 확인 버튼의 텍스트
+                    });
+                }
                 return obj;
             });
         });
@@ -126,7 +138,7 @@
                         <input type="text" class="wid480" placeholder="검색어를 입력해 주세요."
                                bind:value={$privacySearchData.searchConditionList[i].searchText}
                                on:keypress={handleEnterSearchText} />
-                        <button><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
+                        <button tabindex="-1"><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
                     </div>
                 </div>
             </div>

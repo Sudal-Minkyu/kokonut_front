@@ -171,7 +171,7 @@ const makeUIResponse = (action, message, errorCode, handleSuccess) => {
             break;
         case errorActionTypes.MAIN:
             openError(message, errorCode, () => {
-                location.href = location.origin + '/home#/service';
+                location.href = location.origin + '/#/service';
             });
             break;
         case errorActionTypes.LOGIN:

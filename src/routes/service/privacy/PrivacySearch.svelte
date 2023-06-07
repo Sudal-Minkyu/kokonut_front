@@ -39,6 +39,10 @@
             }
         });
     }
+
+    window.kk = () => {
+        console.log($privacySearchData);
+    }
 </script>식
 
 <Header />
@@ -47,7 +51,7 @@
         <PrivacySearchInitial />
     {/if}
     {#if $privacySearchData.currentPage === 'result'}
-        <PrivacySearchResult />
+        <PrivacySearchResult {getTableAndColumnList} />
     {/if}
     {#if $privacySearchData.currentPage === 'detail'}
         <PrivacySearchDetail />

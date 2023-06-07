@@ -5,10 +5,17 @@
     onMount(async => {
 
     });
+
+    const handleToPreviousPage = () => {
+        privacySearchData.update(obj => {
+            obj.currentPage = 'result';
+            return obj;
+        });
+    }
 </script>
 <div class="contentInnerWrap sea_detail">
     <div class="page_backLine marB40">
-        <a href="./search-result.html"><div class="page_backarrow"></div></a>
+        <a on:click={handleToPreviousPage}><div class="page_backarrow"></div></a>
     </div>
     <div class="seaTitle seaWrap marB50">
         <dl>김코코</dl>
