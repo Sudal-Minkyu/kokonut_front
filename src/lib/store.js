@@ -218,11 +218,23 @@ export const customConfirmData = writable({
 export const bannerMessage = writable('');
 
 export const initialPrivacySearch = JSON.stringify({
+    currentState: 'search',
+    tableList: [],
     searchConditionList: [{
-        searchColumn: '1_ID',
-        searchValue: '',
-        currentLabel: '',
+        searchTable: '',
+        currentTableName: '',
+        currentTableIndex: 0,
+        currentTableColumnList: [],
+        searchCode: '',
+        currentColumnName: '',
+        searchText: '',
+        key: Date.now().toString(),
     }],
+    rawResultList: [],
+    resultColumnList: [],
+    resultValueList: [],
+    currentPage: 1,
+    totalPosts: 0,
 });
 
 export const privacySearchData = writable(JSON.parse(initialPrivacySearch));

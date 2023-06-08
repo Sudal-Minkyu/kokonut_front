@@ -112,7 +112,8 @@
 
                     // alert("로그인 완료");
                     push("/service");
-                } else if (json_success.data.err_code === "KO012" || json_success.data.err_code === "KO011" || json_success.data.err_code === "KO010") {
+                } else if (json_success.data.err_code === "KO012" || json_success.data.err_code === "KO011" || json_success.data.err_code === "KO010"
+                    || json_success.data.err_code === "KO094") {
                     // console.log("로그인실패");
                     otpError = true;
                     otp_err_msg = json_success.data.err_msg;
@@ -145,34 +146,13 @@
     }
 
     const ajaxTest = () => {
-
-        ajaxGet('/v1/api/Auth/checkKnEmail', {knEmail: 'joffrey@kokonut.me'}, (success) => {
+        ajaxGet('/v1/api/Auth/checkKnEmail', {knEmail: 'joffrey@kokonut.me'}, (res) => {
             alert('API 호출 성공입니다.');
-            console.log('성공콘솔', success);
-        }, (fail) => {
+            console.log('성공콘솔', res);
+        }, (errorCode) => {
             alert('API 호출 실패입니다. 콘솔참조');
-            console.log('실패콘솔', fail);
+            console.log('실패콘솔', errorCode);
         });
-        //
-        // const xhr = new XMLHttpRequest();
-        // const url = '/v1/api/Auth/checkKnEmail';
-        // const params = 'knEmail=' + encodeURIComponent('joffrey@kokonut.me');
-        //
-        // xhr.onreadystatechange = function () {
-        //     if (xhr.readyState === 4) {
-        //         if (xhr.status === 200) {
-        //             alert('API 호출 성공입니다.');
-        //             console.log('성공콘솔', xhr);
-        //         } else {
-        //             alert('API 호출 실패입니다. 콘솔참조');
-        //             console.log('실패콘솔', xhr);
-        //         }
-        //     }
-        // };
-        //
-        // xhr.open('GET', url + '?' + params, true);
-        // xhr.send();
-
     }
 
 </script>
@@ -206,7 +186,6 @@
     </div>
     <div class="join_bottom login">
         <button type="button" on:click={loginBtn}><p>로그인</p></button>
-        <button type="button" on:click={ajaxTest}><p>통신테스트</p></button>
     </div>
 {:else}
     <LoginOTP {stageChange} {notJoinUser} {initiateGoogleOtpLogin} {knEmail} {otpError} {otp_err_msg} />

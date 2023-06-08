@@ -18,7 +18,6 @@
 
                 restapi('v2', 'get', url, "", {}, 'application/json',
                     (json_success) => {
-                        console.log(json_success);
                         is_login.set(true);
                         knNameHeader.set(json_success.data.sendData.knName);
                         knEmailHeader.set(json_success.data.sendData.knEmail);

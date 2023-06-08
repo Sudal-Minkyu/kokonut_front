@@ -26,12 +26,18 @@ export const SelectBoxManager = (targetEl, onSelect = () => {}) => {
     }
 
     label.addEventListener('click', handleSelectBoxClick);
-    optionItems.forEach((opt) => {
-        opt.addEventListener('click', () => {
-            handleSelect(opt);
-        });
+    optionList.addEventListener('click', (event) => {
+        if (event.target.classList.contains('optionItem')) {
+            handleSelect(event.target);
+        }
     });
 
+    const handleBackgroundClick = (event) => {
+        if (!label.contains(event.target) && !optionList.contains(event.target)) {
+            label.parentNode.classList.remove('active');
+        }
+    }
+    document.addEventListener('click', handleBackgroundClick);
 
     const clickLabel = () => {
         if(label.parentNode.classList.contains('active')) {
@@ -50,11 +56,12 @@ export const SelectBoxManager = (targetEl, onSelect = () => {}) => {
     return {
         destroy() {
             label.removeEventListener('click', handleSelectBoxClick);
-            optionItems.forEach((opt) => {
-                opt.removeEventListener('click', () => {
-                    handleSelect(opt);
-                });
+            optionList.removeEventListener('click', (event) => {
+                if (event.target.classList.contains('optionItem')) {
+                    handleSelect(event.target);
+                }
             });
+            document.removeEventListener('click', handleBackgroundClick);
         }
     };
 };

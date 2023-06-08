@@ -35,29 +35,15 @@
             let sendData = {
                 tableName
             }
-            ajaxGet('/v2/api/DynamicUser/tableColumnCall', sendData,
-                (json_success) => {
-                    if(json_success.data.status === 200) {
-                        personalInfoItemProp.setCurrentSelectedTab(tableName);
-                        personalInfoTableData.update(obj => {
-                            obj.columnList = json_success.data.sendData.fieldList;
-                            return obj;
-                        });
-                        console.log('탭정보', $personalInfoTableData.columnList);
-                        personalInfoItemProp.isLoadingScreenOn = false;
-                    } else {
-                        // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                        alert(json_success.data.err_msg);
-                        is_login.set(false);
-                        accessToken.set("");
-                        push('/login');
-                    }
-                },
-                (json_error) => {
-                    console.log(json_error);
-                    console.log("테이블컬럼 리스트 호출 실패");
-                }
-            );
+            ajaxGet('/v2/api/DynamicUser/tableColumnCall', sendData, (json_success) => {
+                personalInfoItemProp.setCurrentSelectedTab(tableName);
+                personalInfoTableData.update(obj => {
+                    obj.columnList = json_success.data.sendData.fieldList;
+                    return obj;
+                });
+                console.log('탭정보', $personalInfoTableData.columnList);
+                personalInfoItemProp.isLoadingScreenOn = false;
+            });
         },
     }
 
@@ -227,25 +213,11 @@
                 let sendData = {
                     ciId: $personalInfoCategoryData.editItemPop.inputData.ciId,
                 }
-                ajaxParam('/v2/api/Company/deleteItem', sendData,
-                    (json_success) => {
-                        if (json_success.data.status === 200) {
-                            personalInfoCategoryService.getAdditionalItemList();
-                            personalInfoCategoryService.editItemPop.hide();
-                            openBanner("선택한 항목을 삭제하였습니다.");
-                        } else {
-                            // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                            // alert(json_success.data.err_msg);
-                            // is_login.set(false);
-                            // accessToken.set("");
-                            // push('/login');
-                        }
-                    },
-                    (json_error) => {
-                        console.log(json_error);
-                        console.log("카테고리(컬럼) 추가 호출 실패");
-                    }
-                );
+                ajaxParam('/v2/api/Company/deleteItem', sendData, (json_success) => {
+                    personalInfoCategoryService.getAdditionalItemList();
+                    personalInfoCategoryService.editItemPop.hide();
+                    openBanner("선택한 항목을 삭제하였습니다.");
+                });
             }
         },
         insertItemPop: {
@@ -282,26 +254,12 @@
                     kokonutAddColumnListDtos: $personalInfoCategoryData.checkedItemObjList
                 }
 
-                ajaxBody('/v2/api/DynamicUser/tableColumnAdd', sendData,
-                    (json_success) => {
-                        if (json_success.data.status === 200) {
-                            openBanner("선택한 항목을 추가하였습니다.");
+                ajaxBody('/v2/api/DynamicUser/tableColumnAdd', sendData, (json_success) => {
+                    openBanner("선택한 항목을 추가하였습니다.");
 
-                            personalInfoItemProp.getTableColumnList(personalInfoItemProp.currentSelectedTab)
-                            personalInfoCategoryService.resetCheckedItemState();
-                        } else {
-                            // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                            // alert(json_success.data.err_msg);
-                            // is_login.set(false);
-                            // accessToken.set("");
-                            // push('/login');
-                        }
-                    },
-                    (json_error) => {
-                        console.log(json_error);
-                        console.log("카테고리(컬럼) 추가 호출 실패");
-                    }
-                );
+                    personalInfoItemProp.getTableColumnList(personalInfoItemProp.currentSelectedTab);
+                    personalInfoCategoryService.resetCheckedItemState();
+                });
             },
         },
         autoCompleteBox: {
@@ -387,64 +345,36 @@
             });
         },
         getAdditionalItemList() {
-            ajaxGet('/v2/api/Company/addItemList', false,
-                (json_success) => {
-                    if(json_success.data.status === 200) {
-                        personalInfoCategoryData.update(obj => {
-                            obj.addItemList = json_success.data.sendData.itemList.map((innerObj) => {
-                                return {...innerObj, categoryName: '추가항목', textColor: 'greentext'};
-                            });
-                            return obj;
-                        });
-                        console.log('추가 카테고리 리스트', $personalInfoCategoryData.addItemList);
+            ajaxGet('/v2/api/Company/addItemList', false, (json_success) => {
+                personalInfoCategoryData.update(obj => {
+                    obj.addItemList = json_success.data.sendData.itemList.map((innerObj) => {
+                        return {...innerObj, categoryName: '추가항목', textColor: 'greentext'};
+                    });
+                    return obj;
+                });
+                console.log('추가 카테고리 리스트', $personalInfoCategoryData.addItemList);
 
-                        if($personalInfoCategoryData.addItemList.length === 0) {
-                            jQuery("#defaultField").css("display","block");
-                        }
-                    } else {
-                        // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                        alert(json_success.data.err_msg);
-                        is_login.set(false);
-                        accessToken.set("");
-                        push('/login');
-                    }
-                },
-                (json_error) => {
-                    console.log(json_error);
-                    console.log("추가 카테고리항목 호출 실패");
+                if($personalInfoCategoryData.addItemList.length === 0) {
+                    jQuery("#defaultField").css("display", "block");
                 }
-            );
+            });
         },
         getBasicCategoryList() {
-            restapi('v2', 'get', '/v2/api/Company/categoryList', '', {}, 'application/json',
-                (json_success) => {
-                    if(json_success.data.status === 200) {
-                        personalInfoCategoryData.update(obj => {
-                            obj.basicCategoryList = json_success.data.sendData.defaultCategoryList;
-                            for (const itemCategory of obj.basicCategoryList) {
-                                itemCategory.categoryItemListDtoList = itemCategory.categoryItemListDtoList.map((itemObj) => {
-                                    return {...itemObj, ciName: itemObj.cddName, ciSecurity: itemObj.cddSecurity,
-                                        categoryName: itemObj.cddSubName, textColor: itemObj.cddClassName,
-                                        combinedValue: `${itemObj.cddName}_${itemObj.cddSecurity}_${itemObj.cddSubName}_${itemObj.cddClassName}`,
-                                    };
-                                });
-                            }
-                            return obj;
+            ajaxGet('/v2/api/Company/categoryList', false, (res) => {
+                personalInfoCategoryData.update(obj => {
+                    obj.basicCategoryList = res.data.sendData.defaultCategoryList;
+                    for (const itemCategory of obj.basicCategoryList) {
+                        itemCategory.categoryItemListDtoList = itemCategory.categoryItemListDtoList.map((itemObj) => {
+                            return {...itemObj, ciName: itemObj.cddName, ciSecurity: itemObj.cddSecurity,
+                                categoryName: itemObj.cddSubName, textColor: itemObj.cddClassName,
+                                combinedValue: `${itemObj.cddName}_${itemObj.cddSecurity}_${itemObj.cddSubName}_${itemObj.cddClassName}`,
+                            };
                         });
-                        console.log('기본 카테고리 리스트', $personalInfoCategoryData.basicCategoryList);
-                    } else {
-                        // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                        alert(json_success.data.err_msg);
-                        is_login.set(false);
-                        accessToken.set("");
-                        push('/login');
                     }
-                },
-                (json_error) => {
-                    console.log(json_error);
-                    console.log("추가 카테고리항목 호출 실패");
-                }
-            )
+                    return obj;
+                });
+                console.log('기본 카테고리 리스트', $personalInfoCategoryData.basicCategoryList);
+            });
         },
     };
 
@@ -586,31 +516,16 @@
             });
         },
         getUserTableList() {
-            ajaxGet('/v2/api/Company/userTableList', false,
-                (json_success) => {
-                console.log('테이블리스트', json_success)
-                    if(json_success.data.status === 200) {
-                        personalInfoTableData.update(obj => {
-                            obj.userTableData = json_success.data.sendData.companyTableList;
-                            return obj;
-                        });
-                        if($personalInfoTableData.userTableData.length !== 0) {
-                            personalInfoItemProp.setCurrentSelectedTab($personalInfoTableData.userTableData[0].ctName);
-                            personalInfoItemProp.getTableColumnList(personalInfoItemProp.currentSelectedTab);
-                        }
-                    } else {
-                        // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                        alert(json_success.data.err_msg);
-                        is_login.set(false);
-                        accessToken.set("");
-                        push('/login');
-                    }
-                },
-                (json_error) => {
-                    console.log(json_error);
-                    console.log("회사의 테이블리스트 호출 실패");
+            ajaxGet('/v2/api/Company/userTableList', false, (json_success) => {
+                personalInfoTableData.update(obj => {
+                    obj.userTableData = json_success.data.sendData.companyTableList;
+                    return obj;
+                });
+                if($personalInfoTableData.userTableData.length !== 0) {
+                    personalInfoItemProp.setCurrentSelectedTab($personalInfoTableData.userTableData[0].ctName);
+                    personalInfoItemProp.getTableColumnList(personalInfoItemProp.currentSelectedTab);
                 }
-            );
+            });
         },
     };
 
