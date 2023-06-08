@@ -112,7 +112,8 @@
 
                     // alert("로그인 완료");
                     push("/service");
-                } else if (json_success.data.err_code === "KO012" || json_success.data.err_code === "KO011" || json_success.data.err_code === "KO010") {
+                } else if (json_success.data.err_code === "KO012" || json_success.data.err_code === "KO011" || json_success.data.err_code === "KO010"
+                    || json_success.data.err_code === "KO094") {
                     // console.log("로그인실패");
                     otpError = true;
                     otp_err_msg = json_success.data.err_msg;

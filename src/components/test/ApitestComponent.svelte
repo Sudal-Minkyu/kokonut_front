@@ -404,8 +404,8 @@
             application_id: '6369c021cf9f6d001b23e2ef',
             pg: '나이스페이',
             price: 1000,
-            tax_free: 0,
-            order_name: '정기결제 테스트 입니다',
+            // tax_free: 0,
+            order_name: '코코넛 정기결제 등록',
             subscription_id: (new Date()).getTime(),
             user: {
                 username: '홍길동',
