@@ -5,7 +5,6 @@
     import {onMount} from "svelte";
     import {ajaxGet} from "../../../components/common/ajax.js";
     import PrivacySearchInitial from "../../../components/service/privacy/PrivacySearchInitial.svelte";
-    import PrivacySearchResult from "../../../components/service/privacy/PrivacySearchResult.svelte";
     import PrivacySearchDetail from "../../../components/service/privacy/PrivacySearchDetail.svelte";
 
     onMount(async => {
@@ -50,9 +49,6 @@
     {#if $privacySearchData.currentState === 'search'}
         <div class="contentInnerWrap">
             <PrivacySearchInitial />
-            {#if $privacySearchData.rawResultList.length}
-                <PrivacySearchResult {getTableAndColumnList} />
-            {/if}
         </div>
     {/if}
     {#if $privacySearchData.currentState === 'detail'}

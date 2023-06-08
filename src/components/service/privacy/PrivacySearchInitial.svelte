@@ -1,8 +1,9 @@
 <script>
     import {privacySearchData} from "../../../lib/store.js";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
-    import {ajaxBody} from "../../common/ajax.js";
+    import {ajaxBody, ajaxGet} from "../../common/ajax.js";
     import {openConfirm} from "../../common/ui/DialogManager.js";
+    import Pagination from "../../common/ui/Pagination.svelte";
 
     const addSearchCondition = () => {
         privacySearchData.update(obj => {
@@ -55,12 +56,12 @@
         });
     }
 
-    const getUserListByCondition = () => {
+    const getUserListByCondition = (page = 1) => {
         const searchCondition = {
             searchTables: $privacySearchData.searchConditionList.map(obj => obj.searchTable),
             searchCodes: $privacySearchData.searchConditionList.map(obj => obj.searchCode),
             searchTexts: $privacySearchData.searchConditionList.map(obj => obj.searchText),
-            pageNum: '1',
+            pageNum: page,
             limitNum: '10',
         };
         console.log('검색조건', searchCondition);
@@ -79,6 +80,9 @@
             console.log('검색결과', res);
             const searchResultList = res.data.sendData.privacyList;
             privacySearchData.update(obj => {
+                obj.currentPage = page;
+                obj.totalPosts = res.data.sendData.totalCount;
+                console.log(obj.currentPage);
                 obj.rawResultList = searchResultList || [];
                 if (searchResultList.length) {
                     // 결과 페이지의 행에 사용될 값과 값으로 사용될 값을 정제
@@ -130,6 +134,21 @@
             getUserListByCondition();
         }
     }
+
+    const handleOpenDetail = (idx) => {
+        ajaxGet('/v2/api/DynamicUser/privacyUserOpen', {idx}, (res) => { // 향후 kokonut_IDX로 수정필
+            console.log('상세보기결과', res);
+            privacySearchData.update(obj => {
+                obj.currentDetail = res.data.sendData.privacyInfo;
+                return obj;
+            });
+        });
+    }
+
+    const handleChangePage = ({page}) => {
+        getUserListByCondition(page);
+    }
+
 </script>
 
 <div class="pageTitleBtn marB50">
@@ -186,3 +205,54 @@
 <div class="pr_fieldBtnInner">
     <button type="button" class="add_pr_field5 pr_fieldBtn" on:click={addSearchCondition}></button>
 </div>
+
+
+
+{#if $privacySearchData.rawResultList.length}
+    <div class="sea_resultWrap">
+        <div class="kotable search_result marT50">
+            <div class="kt_tableTopBox marB24">
+                <div class="kt_total">총 <span>{$privacySearchData.resultValueList.length}</span>건</div>
+                <div class="kt_selbox wid120">
+                    <!--                <div class="selectBox wid100per nonePad">-->
+                    <!--                    <div class="label" id="">최근 등록순</div>-->
+                    <!--                    <ul class="optionList">-->
+                    <!--                        <li class="optionItem curv">최근 등록순</li>-->
+                    <!--                        <li class="optionItem curv">정확도순</li>-->
+                    <!--                        <li class="optionItem curv">오름차순</li>-->
+                    <!--                        <li class="optionItem curv">내림차순</li>-->
+                    <!--                    </ul>-->
+                    <!--                </div>-->
+                </div>
+            </div>
+            <table>
+                <caption>개인정보 검색결과 테이블</caption>
+                <thead>
+                <tr>
+                    {#each $privacySearchData.resultColumnList as columnName, i}
+                        {#if i}
+                            <th>{columnName}</th>
+                        {/if}
+                    {/each}
+                    <th>상세보기</th>
+                </tr>
+                </thead>
+                <tbody>
+                {#each $privacySearchData.resultValueList as values}
+                    <tr>
+                        {#each values as value, i}
+                            {#if i}
+                                <td>{value}</td>
+                            {/if}
+                        {/each}
+                        <td><a class="dlink" on:click={() => {handleOpenDetail(values[0])}}>상세보기</a></td>
+                    </tr>
+                {/each}
+                </tbody>
+            </table>
+        </div>
+        <Pagination bind:current={$privacySearchData.currentPage}
+                    bind:totalPosts={$privacySearchData.totalPosts}
+                    on:change={handleChangePage} />
+    </div>
+{/if}

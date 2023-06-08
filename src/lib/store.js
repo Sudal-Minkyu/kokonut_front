@@ -233,6 +233,8 @@ export const initialPrivacySearch = JSON.stringify({
     rawResultList: [],
     resultColumnList: [],
     resultValueList: [],
+    currentPage: 1,
+    totalPosts: 0,
 });
 
 export const privacySearchData = writable(JSON.parse(initialPrivacySearch));
