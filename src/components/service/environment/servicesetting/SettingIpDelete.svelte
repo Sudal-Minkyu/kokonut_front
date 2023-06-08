@@ -14,9 +14,10 @@
                     <label>OTP</label>
                     <input type="text" name="" id="" class="" placeholder="OTP를 적어주세요." />
                 </div>
-                <div class="popcaseInfoBox">
+                <div class="popcaseInfoBox pi_noneicon">
                     <p>주의사항</p>
                     <dl>해당 IP로 접속 중인 관리자가 강제 로그아웃 될 수 있습니다.</dl>
+                    <dl>개인정보 데이터가 많을 경우 최대 3일까지 소요될 수 있습니다.</dl>
                 </div>
                 <div class="koko_check">
                     <input type="checkbox" value="1" name="checkcation" id="checkcation">

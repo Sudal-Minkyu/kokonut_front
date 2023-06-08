@@ -238,3 +238,18 @@ export const initialPrivacySearch = JSON.stringify({
 });
 
 export const privacySearchData = writable(JSON.parse(initialPrivacySearch));
+
+export const initialServiceSetting = JSON.stringify({
+    accessIpList: [],
+    settingInfo: {
+        csId: 0,
+        csOverseasBlockSetting: "0",
+        csAccessSetting: "0",
+        csPasswordChangeSetting: "12",
+        csPasswordErrorCountSetting: "5",
+        csAutoLogoutSetting: "30",
+        csLongDisconnectionSetting: "0"
+    }
+});
+
+export const serviceSettingData = writable(JSON.parse(initialServiceSetting));
