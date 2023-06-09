@@ -158,6 +158,19 @@
         getUserListByCondition(page);
     }
 
+    const distinguishSearchTextPlaceholder = (targetSearchCondition) => {
+        console.log('검색조건', targetSearchCondition); // 여러번 반복되는 문제의 제거를 위해 초기 로딩의 스토어 업데이트를 최소화할 것
+        let resultText = '';
+        if (targetSearchCondition.currentColumnName === '휴대전화번호') {
+            resultText = '휴대전화번호 뒷자리 4자리를 입력해 주세요.';
+        } else if (targetSearchCondition.currentColumnSecrity === 1) {
+            resultText = '완전히 일치하는 검색어를 입력해 주세요.';
+        } else {
+            resultText = '검색어를 입력해 주세요.';
+        }
+        return resultText;
+    }
+
 </script>
 
 <div class="pageTitleBtn marB50">
@@ -196,8 +209,7 @@
             <div class="koinputshowhideBox">
                 <div class="koinput">
                     <input type="text" class="wid480"
-                           placeholder={$privacySearchData.searchConditionList[i].currentColumnSecrity
-                           === 1 ? '완전 일치하는 검색어를 입력해 주세요.' : '검색어를 입력해 주세요.'}
+                           placeholder={distinguishSearchTextPlaceholder($privacySearchData.searchConditionList[i])}
                            bind:value={$privacySearchData.searchConditionList[i].searchText}
                            on:keypress={handleEnterSearchText} />
                     <button tabindex="-1" on:click={getUserListByCondition}>

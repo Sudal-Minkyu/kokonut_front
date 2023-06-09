@@ -22,14 +22,28 @@
 
     const getServiceSettingData = () => {
         ajaxGet('/v2/api/Company/settingInfo', false, (res) => {
-            console.log('설정값', res.data.sendData);
-            if (res.data.sendData) {
-                serviceSettingData.set(res.data.sendData);
-            } else {
-                // 경고메시지 후 메인으로 돌려보내기
-            }
+            const settingData = res.data.sendData;
+            console.log('초기 데이터', settingData);
+            serviceSettingData.set(settingData);
+            setUnbindableInitialData(settingData);
         });
     }
+
+    const setUnbindableInitialData = (settingData) => {
+        // 장기 미접속 접근제한 체크박스의 기본체크 상태 및 셀렉트박스의 문구설정
+        let accessSettings = document.getElementsByName('accessSetting');
+        let targetValue = settingData.settingInfo.csLongDisconnectionSetting !== '0' ? '1' : '0';
+        for (let radio of accessSettings) {
+            radio.checked = (radio.value === targetValue);
+        }
+        if (settingData.settingInfo.csLongDisconnectionSetting !== '0') {
+            document.getElementById('csLongDisconnectionSetting').innerHTML = settingData.settingInfo.csLongDisconnectionSetting + '개월';
+        }
+        document.getElementById('csPasswordChangeSetting').innerHTML = settingData.settingInfo.csPasswordChangeSetting + '개월';
+        document.getElementById('csPasswordErrorCountSetting').innerHTML = settingData.settingInfo.csPasswordErrorCountSetting + '번';
+        document.getElementById('csAutoLogoutSetting').innerHTML = settingData.settingInfo.csAutoLogoutSetting + '분';
+    }
+
 
     // ip 접속허용 설정 상자 on off
     function toggleIpContentDisplay(displayValue) {
@@ -107,12 +121,13 @@
     }
 
     const ajaxWhenEveryChange = (url, sendObj) => {
+        console.log('act', sendObj);
         ajaxParam(url, sendObj, (res) => {
             console.log(res);
         }, (errCode) => {
             return {
                 action: 'REFRESH',
-                message: '',
+                message: '설정 변경 도중 문제가 발생하였습니다. 페이지를 새로고침합니다.',
             }
         });
     }
@@ -144,6 +159,13 @@
                 } else {
                     document.getElementById("csLongDisconnectionSetting").textContent = value + "개월";
                 }
+
+                let accessSettings = document.getElementsByName('accessSetting');
+                let targetValue = value !== '0' ? '1' : '0';
+                for (let radio of accessSettings) {
+                    radio.checked = (radio.value === targetValue);
+                }
+
                 ajaxWhenEveryChange('/v2/api/Company/longDisconnectionSetting', {csLongDisconnectionSetting: value});
                 break;
         }
@@ -191,13 +213,13 @@
                             <div class="check radioCheck">
                                 <input type="radio" class="radio non_activate" name="ipsetting" id="비활성화" value="0"
                                        bind:group={$serviceSettingData.settingInfo.csAccessSetting}
-                                       on:change={()=>{}}>
+                                       on:change={(e)=>{handleChangeRadioBtn('csAccessSetting', e.target.value)}}>
                                 <label for="비활성화"><em><dt></dt></em>비활성화</label>
                             </div>
                             <div class="check radioCheck">
                                 <input type="radio" class="radio activate" name="ipsetting" id="활성화" value="1"
                                        bind:group={$serviceSettingData.settingInfo.csAccessSetting}
-                                       on:change={()=>{}}>
+                                       on:change={(e)=>{handleChangeRadioBtn('csAccessSetting', e.target.value)}}>
                                 <label for="활성화"><em><dt></dt></em>활성화</label>
                             </div>
                         </div>
@@ -286,7 +308,7 @@
                 <div class="seaCont wid100per">
                     <dl>비밀번호 변경주기</dl>
                     <div class="sc_SelBox">
-                        <div class="selectBox wid164" use:SelectBoxManager={()=>{}}>
+                        <div class="selectBox wid164" use:SelectBoxManager={(el) => {handleChangeRadioBtn('csPasswordChangeSetting', el.value)}}>
                             <div class="label" id="csPasswordChangeSetting">선택</div>
                             <ul class="optionList">
                                 <li class="optionItem" value="3">3개월</li>
@@ -302,7 +324,7 @@
                 <div class="seaCont wid100per">
                     <dl>비밀번호 오류 접속제한</dl>
                     <div class="sc_SelBox">
-                        <div class="selectBox wid164" use:SelectBoxManager={()=>{}}>
+                        <div class="selectBox wid164" use:SelectBoxManager={(el) => {handleChangeRadioBtn('csPasswordErrorCountSetting', el.value)}}>
                             <div class="label" id="csPasswordErrorCountSetting">선택</div>
                             <ul class="optionList">
                                 <li class="optionItem" value="5">5번</li>
@@ -319,7 +341,7 @@
                     <div class="seaRadio">
                         <div class="flex_sel">
                             <p class="marR30">로그인 후</p>
-                            <div class="selectBox wid124 nonePad" use:SelectBoxManager={()=>{}}>
+                            <div class="selectBox wid124 nonePad" use:SelectBoxManager={(el) => {handleChangeRadioBtn('csAutoLogoutSetting', el.value)}}>
                                 <div class="label" id="csAutoLogoutSetting">선택</div>
                                 <ul class="optionList">
                                     <li class="optionItem" value="30">30분</li>
@@ -339,17 +361,16 @@
                     <div class="seaRadio">
                         <div class="flex_sel">
                             <div class="check radioCheck">
-                                <input type="radio" class="radio nolimit" name="acesssetting" id="제한 없음" value="0"
+                                <input type="radio" class="radio nolimit" name="accessSetting" id="제한 없음" value="0"
                                        on:change={(e) => {handleChangeRadioBtn('csLongDisconnectionSetting', e.target.value)}}>
                                 <label for="제한 없음"><em><dt></dt></em>제한 없음</label>
                             </div>
                             <div class="check radioCheck noneMarR">
-                                <input type="radio" class="radio period" name="acesssetting" id="기간선택" value="1"
+                                <input type="radio" class="radio period" name="accessSetting" id="기간선택" value="1"
                                        on:change={(e) => {handleChangeRadioBtn('csLongDisconnectionSetting', e.target.value)}}>
                                 <label for="기간선택"><em><dt></dt></em></label>
                             </div>
-                            <div class="selectBox wid124 nonePad" use:SelectBoxManager={()=>{}}>
-                                <div class="disableBox" onclick="alert('기간선택 옆의 체크박스를 체크해주세요.');return false;"></div>
+                            <div class="selectBox wid124 nonePad" use:SelectBoxManager={(el) => {handleChangeRadioBtn('csLongDisconnectionSetting', el.value)}}>
                                 <div class="label" id="csLongDisconnectionSetting">기간선택</div>
                                 <ul class="optionList">
                                     <li class="optionItem" value="1">1개월</li>
