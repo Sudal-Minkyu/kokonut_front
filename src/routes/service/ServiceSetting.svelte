@@ -6,7 +6,7 @@
     import SettingIpDelete from '../../components/service/environment/servicesetting/SettingIpDelete.svelte'
     import SettingIpAdd from '../../components/service/environment/servicesetting/SettingIpAdd.svelte'
     import {SelectBoxManager} from "../../components/common/action/SelectBoxManager.js";
-    import {ajaxGet} from "../../components/common/ajax.js";
+    import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
     import {serviceSettingData} from "../../lib/store.js";
 
     // 서비스설정 가져오기
@@ -54,11 +54,6 @@
             toggleIpContentDisplay('block');
         });
 
-        document.querySelector(".nolimit").addEventListener("click", function () {
-            toggleDisableBox(true);
-            document.getElementById("period").textContent = "기간선택";
-        });
-
         document.querySelector(".period").addEventListener("click", function () {
             toggleDisableBox(false);
         });
@@ -84,11 +79,6 @@
             toggleIpContentDisplay('block');
         });
 
-        document.querySelector(".nolimit").removeEventListener("click", function () {
-            toggleDisableBox(true);
-            document.getElementById("period").textContent = "기간선택";
-        });
-
         document.querySelector(".period").removeEventListener("click", function () {
             toggleDisableBox(false);
         });
@@ -111,6 +101,53 @@
     function changeStatePop(val) {
         serviceIpState = val;
     }
+
+    window.kk = () => {
+        console.log($serviceSettingData);
+    }
+
+    const ajaxWhenEveryChange = (url, sendObj) => {
+        ajaxParam(url, sendObj, (res) => {
+            console.log(res);
+        }, (errCode) => {
+            return {
+                action: 'REFRESH',
+                message: '',
+            }
+        });
+    }
+
+    const handleChangeRadioBtn = (target, value) => {
+        switch (target) {
+            case 'csOverseasBlockSetting':
+                ajaxWhenEveryChange('/v2/api/Company/overseasBlockSetting', {});
+                break;
+            case 'csAccessSetting':
+                ajaxWhenEveryChange('/v2/api/Company/accessSetting', {});
+                break;
+            case 'csPasswordChangeSetting':
+                ajaxWhenEveryChange('/v2/api/Company/passwordChangeSetting', {csPasswordChangeSetting: value});
+                break;
+            case 'csPasswordErrorCountSetting':
+                ajaxWhenEveryChange('/v2/api/Company/passwordErrorCountSetting', {csPasswordErrorCountSetting: value});
+                break;
+            case 'csAutoLogoutSetting':
+                ajaxWhenEveryChange('/v2/api/Company/autoLogoutSetting', {csAutoLogoutSetting: value});
+                break;
+            case 'csLongDisconnectionSetting':
+                serviceSettingData.update(obj => {
+                    obj.settingInfo.csLongDisconnectionSetting = value;
+                    return obj;
+                });
+                if (value === "0") {
+                    document.getElementById("csLongDisconnectionSetting").textContent = "기간선택";
+                } else {
+                    document.getElementById("csLongDisconnectionSetting").textContent = value + "개월";
+                }
+                ajaxWhenEveryChange('/v2/api/Company/longDisconnectionSetting', {csLongDisconnectionSetting: value});
+                break;
+        }
+    }
 </script>
 
 <Header />
@@ -130,11 +167,15 @@
                     <div class="seaRadio">
                         <div class="flex_sel">
                             <div class="check radioCheck">
-                                <input type="radio" class="radio" name="loginsetting" id="로그인 허용" value="로그인 허용" checked>
+                                <input type="radio" class="radio" id="로그인 허용" value="0"
+                                       bind:group={$serviceSettingData.settingInfo.csOverseasBlockSetting}
+                                       on:change={(e)=>{handleChangeRadioBtn('csOverseasBlockSetting', e.target.value)}}>
                                 <label for="로그인 허용"><em><dt></dt></em>로그인 허용</label>
                             </div>
                             <div class="check radioCheck noneMarR">
-                                <input type="radio" class="radio" name="loginsetting" id="로그인 차단" value="로그인 차단">
+                                <input type="radio" class="radio" id="로그인 차단" value="1"
+                                       bind:group={$serviceSettingData.settingInfo.csOverseasBlockSetting}
+                                       on:change={(e)=>{handleChangeRadioBtn('csOverseasBlockSetting', e.target.value)}}>
                                 <label for="로그인 차단"><em><dt></dt></em>로그인 차단</label>
                             </div>
                             <dd class="marL16">*해외에서 로그인을 시도하는 경우 본인확인 후 로그인이 가능합니다.</dd>
@@ -148,11 +189,15 @@
                     <div class="ipContentBox">
                         <div class="seaRadio">
                             <div class="check radioCheck">
-                                <input type="radio" class="radio non_activate" name="ipsetting" id="비활성화" value="비활성화" checked>
+                                <input type="radio" class="radio non_activate" name="ipsetting" id="비활성화" value="0"
+                                       bind:group={$serviceSettingData.settingInfo.csAccessSetting}
+                                       on:change={()=>{}}>
                                 <label for="비활성화"><em><dt></dt></em>비활성화</label>
                             </div>
                             <div class="check radioCheck">
-                                <input type="radio" class="radio activate" name="ipsetting" id="활성화" value="활성화">
+                                <input type="radio" class="radio activate" name="ipsetting" id="활성화" value="1"
+                                       bind:group={$serviceSettingData.settingInfo.csAccessSetting}
+                                       on:change={()=>{}}>
                                 <label for="활성화"><em><dt></dt></em>활성화</label>
                             </div>
                         </div>
@@ -242,12 +287,12 @@
                     <dl>비밀번호 변경주기</dl>
                     <div class="sc_SelBox">
                         <div class="selectBox wid164" use:SelectBoxManager={()=>{}}>
-                            <div class="label" id="">선택</div>
+                            <div class="label" id="csPasswordChangeSetting">선택</div>
                             <ul class="optionList">
-                                <li class="optionItem">3개월</li>
-                                <li class="optionItem">6개월</li>
-                                <li class="optionItem">9개월</li>
-                                <li class="optionItem">12개월</li>
+                                <li class="optionItem" value="3">3개월</li>
+                                <li class="optionItem" value="6">6개월</li>
+                                <li class="optionItem" value="9">9개월</li>
+                                <li class="optionItem" value="12">12개월</li>
                             </ul>
                         </div>
                     </div>
@@ -258,11 +303,11 @@
                     <dl>비밀번호 오류 접속제한</dl>
                     <div class="sc_SelBox">
                         <div class="selectBox wid164" use:SelectBoxManager={()=>{}}>
-                            <div class="label" id="">선택</div>
+                            <div class="label" id="csPasswordErrorCountSetting">선택</div>
                             <ul class="optionList">
-                                <li class="optionItem">5번</li>
-                                <li class="optionItem">10번</li>
-                                <li class="optionItem">15번</li>
+                                <li class="optionItem" value="5">5번</li>
+                                <li class="optionItem" value="10">10번</li>
+                                <li class="optionItem" value="15">15번</li>
                             </ul>
                         </div>
                     </div>
@@ -275,12 +320,12 @@
                         <div class="flex_sel">
                             <p class="marR30">로그인 후</p>
                             <div class="selectBox wid124 nonePad" use:SelectBoxManager={()=>{}}>
-                                <div class="label" id="">선택</div>
+                                <div class="label" id="csAutoLogoutSetting">선택</div>
                                 <ul class="optionList">
-                                    <li class="optionItem">30분</li>
-                                    <li class="optionItem">60분</li>
-                                    <li class="optionItem">90분</li>
-                                    <li class="optionItem">120분</li>
+                                    <li class="optionItem" value="30">30분</li>
+                                    <li class="optionItem" value="60">60분</li>
+                                    <li class="optionItem" value="90">90분</li>
+                                    <li class="optionItem" value="120">120분</li>
                                 </ul>
                             </div>
                             <p class="marL30">동안 페이지 전환이 없으면 자동 로그아웃</p>
@@ -294,20 +339,22 @@
                     <div class="seaRadio">
                         <div class="flex_sel">
                             <div class="check radioCheck">
-                                <input type="radio" class="radio nolimit" name="acesssetting" id="제한 없음" value="제한 없음" checked>
+                                <input type="radio" class="radio nolimit" name="acesssetting" id="제한 없음" value="0"
+                                       on:change={(e) => {handleChangeRadioBtn('csLongDisconnectionSetting', e.target.value)}}>
                                 <label for="제한 없음"><em><dt></dt></em>제한 없음</label>
                             </div>
                             <div class="check radioCheck noneMarR">
-                                <input type="radio" class="radio period" name="acesssetting" id="기간선택" value="기간선택">
+                                <input type="radio" class="radio period" name="acesssetting" id="기간선택" value="1"
+                                       on:change={(e) => {handleChangeRadioBtn('csLongDisconnectionSetting', e.target.value)}}>
                                 <label for="기간선택"><em><dt></dt></em></label>
                             </div>
                             <div class="selectBox wid124 nonePad" use:SelectBoxManager={()=>{}}>
                                 <div class="disableBox" onclick="alert('기간선택 옆의 체크박스를 체크해주세요.');return false;"></div>
-                                <div class="label" id="period">기간선택</div>
+                                <div class="label" id="csLongDisconnectionSetting">기간선택</div>
                                 <ul class="optionList">
-                                    <li class="optionItem">1개월</li>
-                                    <li class="optionItem">3개월</li>
-                                    <li class="optionItem">6개월</li>
+                                    <li class="optionItem" value="1">1개월</li>
+                                    <li class="optionItem" value="3">3개월</li>
+                                    <li class="optionItem" value="6">6개월</li>
                                 </ul>
                             </div>
                             <p class="marL30">동안 시스템에 접속하지 않은 경우, 로그인 제한</p>

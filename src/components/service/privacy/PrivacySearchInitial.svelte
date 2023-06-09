@@ -5,19 +5,23 @@
     import {openConfirm} from "../../common/ui/DialogManager.js";
     import Pagination from "../../common/ui/Pagination.svelte";
 
+    const SEARCH_CONDITION_LIMIT = 5;
     const addSearchCondition = () => {
-        privacySearchData.update(obj => {
-            obj.searchConditionList.push({
-                searchTable: obj.tableList[0].ctName,
-                currentTableName: obj.tableList[0].ctDesignation,
-                searchCode: obj.tableList[0].columnList[0].fieldCode,
-                currentColumnName: obj.tableList[0].columnList[0].fieldComment,
-                searchText: '',
-                currentTableColumnList: obj.tableList[0].columnList,
-                key: Date.now().toString(),
+        if ($privacySearchData.searchConditionList.length < SEARCH_CONDITION_LIMIT) {
+            privacySearchData.update(obj => {
+                obj.searchConditionList.push({
+                    searchTable: obj.tableList[0].ctName,
+                    currentTableName: obj.tableList[0].ctDesignation,
+                    searchCode: obj.tableList[0].columnList[0].fieldCode,
+                    currentColumnName: obj.tableList[0].columnList[0].fieldComment,
+                    currentColumnSecrity: obj.tableList[0].columnList[0].fieldComment,
+                    searchText: '',
+                    currentTableColumnList: obj.tableList[0].columnList,
+                    key: Date.now().toString(),
+                });
+                return obj;
             });
-            return obj;
-        });
+        }
     };
 
     const removeSearchCondition = (i) => {
@@ -35,13 +39,16 @@
             obj.searchConditionList[i].currentTableName = el.innerHTML;
             obj.searchConditionList[i].currentTableIndex = el.dataset.tid;
             obj.searchConditionList[i].currentTableColumnList = obj.tableList[el.dataset.tid].columnList;
+            obj.searchConditionList[i].searchText = '';
 
             if (obj.tableList[el.dataset.tid].columnList.length) {
                 obj.searchConditionList[i].searchCode = obj.tableList[el.dataset.tid].columnList[0].fieldCode;
                 obj.searchConditionList[i].currentColumnName = obj.tableList[el.dataset.tid].columnList[0].fieldComment;
+                obj.searchConditionList[i].currentColumnSecrity = obj.tableList[el.dataset.tid].columnList[0].fieldSecrity;
             } else {
                 obj.searchConditionList[i].searchCode = '';
                 obj.searchConditionList[i].currentColumnName = '';
+                obj.searchConditionList[i].searchText = '';
             }
             obj.searchConditionList[i].key = Date.now().toString();
             return obj;
@@ -52,6 +59,8 @@
         privacySearchData.update(obj => {
             obj.searchConditionList[i].searchCode = el.dataset.value;
             obj.searchConditionList[i].currentColumnName = el.innerHTML;
+            obj.searchConditionList[i].currentColumnSecrity = Number(el.dataset.secrity);
+            obj.searchConditionList[i].searchText = '';
             return obj;
         });
     }
@@ -136,7 +145,7 @@
     }
 
     const handleOpenDetail = (idx) => {
-        ajaxGet('/v2/api/DynamicUser/privacyUserOpen', {idx}, (res) => { // 향후 kokonut_IDX로 수정필
+        ajaxGet('/v2/api/DynamicUser/privacyUserOpen', {kokonut_IDX: idx}, (res) => { // 향후 kokonut_IDX로 수정필
             console.log('상세보기결과', res);
             privacySearchData.update(obj => {
                 obj.currentDetail = res.data.sendData.privacyInfo;
@@ -177,8 +186,8 @@
                     <div class="label">{currentColumnName}</div>
                     <ul class="optionList">
                         {#if $privacySearchData.tableList.length}
-                            {#each currentTableColumnList as {fieldCode, fieldComment, fieldSecurity}, j (fieldCode)}
-                                <li class="optionItem curv" data-value="{fieldCode}">{fieldComment}</li>
+                            {#each currentTableColumnList as {fieldCode, fieldComment, fieldSecrity}, j (fieldCode)}
+                                <li class="optionItem curv" data-value={fieldCode} data-secrity={fieldSecrity}>{fieldComment}</li>
                             {/each}
                         {/if}
                     </ul>
@@ -186,7 +195,9 @@
             </div>
             <div class="koinputshowhideBox">
                 <div class="koinput">
-                    <input type="text" class="wid480" placeholder="검색어를 입력해 주세요."
+                    <input type="text" class="wid480"
+                           placeholder={$privacySearchData.searchConditionList[i].currentColumnSecrity
+                           === 1 ? '완전 일치하는 검색어를 입력해 주세요.' : '검색어를 입력해 주세요.'}
                            bind:value={$privacySearchData.searchConditionList[i].searchText}
                            on:keypress={handleEnterSearchText} />
                     <button tabindex="-1" on:click={getUserListByCondition}>
@@ -202,9 +213,11 @@
     </div>
 {/each}
 
-<div class="pr_fieldBtnInner">
-    <button type="button" class="add_pr_field5 pr_fieldBtn" on:click={addSearchCondition}></button>
-</div>
+{#if $privacySearchData.searchConditionList.length < SEARCH_CONDITION_LIMIT}
+    <div class="pr_fieldBtnInner">
+        <button type="button" class="add_pr_field5 pr_fieldBtn" on:click={addSearchCondition}></button>
+    </div>
+{/if}
 
 
 
