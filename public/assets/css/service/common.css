@@ -772,7 +772,7 @@
 
 .disableBox{position:absolute;left:0;top:0;width:100%;height:100%;z-index:50;}
 
-.ipContentIner{display:none;position:relative;width:70rem;padding:1.7rem 2rem 4rem 2rem;}
+.ipContentIner{position:relative;width:70rem;padding:1.7rem 2rem 4rem 2rem;}
 .ipseaBox{width:100%;position:relative;}
 .ipseaBox .koinput input{height:4.2rem;padding: 0 1rem 0 4rem;font-size: 1.6rem;}
 .ipseaBox .koinput input::placeholder{font-size: 1.6rem;}
