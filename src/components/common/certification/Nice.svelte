@@ -33,7 +33,7 @@
                 (json_success) => {
                     if(json_success.data.status === 200) {
                         alert("인증이 완료되었습니다.");
-                        if(stateVal === "1" || stateVal === "5") {
+                        if(stateVal === "1" || stateVal === "5" || stateVal === "6") {
                             opener.phoneCertCheck(stateVal, json_success.data.sendData.joinName, json_success.data.sendData.joinPhone);
                         } else {
                             opener.phoneCertCheck(stateVal, json_success.data.sendData.keyEmail, json_success.data.sendData.authOtpKey);
