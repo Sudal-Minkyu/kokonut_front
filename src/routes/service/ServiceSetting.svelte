@@ -8,6 +8,7 @@
     import {SelectBoxManager} from "../../components/common/action/SelectBoxManager.js";
     import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
     import {serviceSettingData} from "../../lib/store.js";
+    import {openConfirm} from "../../components/common/ui/DialogManager.js";
 
     // 서비스설정 가져오기
     onMount(() => {
@@ -24,8 +25,13 @@
         ajaxGet('/v2/api/Company/settingInfo', false, (res) => {
             const settingData = res.data.sendData;
             console.log('초기 데이터', settingData);
-            serviceSettingData.set(settingData);
+            serviceSettingData.update(obj => {
+                obj.accessIpList = settingData.accessIpList;
+                obj.settingInfo = settingData.settingInfo;
+                return obj;
+            });
             setUnbindableInitialData(settingData);
+            filterAccessIpList();
         });
     }
 
@@ -44,14 +50,6 @@
         document.getElementById('csAutoLogoutSetting').innerHTML = settingData.settingInfo.csAutoLogoutSetting + '분';
     }
 
-
-    // ip 접속허용 설정 상자 on off
-    function toggleIpContentDisplay(displayValue) {
-        document.querySelectorAll('.ipContentIner').forEach(function(element) {
-            element.style.display = displayValue;
-        });
-    }
-
     function toggleDisableBox(isVisible) {
         const displayValue = isVisible ? "block" : "none";
         document.querySelectorAll(".disableBox").forEach(function (element) {
@@ -60,14 +58,6 @@
     }
 
     const setBasicEvents = () => {
-        document.querySelector(".non_activate").addEventListener('click', function() {
-            toggleIpContentDisplay('none');
-        });
-
-        document.querySelector(".activate").addEventListener('click', function() {
-            toggleIpContentDisplay('block');
-        });
-
         document.querySelector(".period").addEventListener("click", function () {
             toggleDisableBox(false);
         });
@@ -75,23 +65,9 @@
         document.addEventListener("DOMContentLoaded", function () {
             toggleDisableBox(!document.querySelector(".period").checked);
         });
-
-        document.querySelector("#allcheck").addEventListener("click", function () {
-            const isChecked = document.querySelector("#allcheck").checked;
-            document.querySelectorAll(".partcheck").forEach(function (checkbox) {
-                checkbox.checked = isChecked;
-            });
-        });
     }
 
     const removeBasicEvents = () => {
-        document.querySelector(".non_activate").removeEventListener('click', function() {
-            toggleIpContentDisplay('none');
-        });
-
-        document.querySelector(".activate").removeEventListener('click', function() {
-            toggleIpContentDisplay('block');
-        });
 
         document.querySelector(".period").removeEventListener("click", function () {
             toggleDisableBox(false);
@@ -99,13 +75,6 @@
 
         document.removeEventListener("DOMContentLoaded", function () {
             toggleDisableBox(!document.querySelector(".period").checked);
-        });
-
-        document.querySelector("#allcheck").removeEventListener("click", function () {
-            const isChecked = document.querySelector("#allcheck").checked;
-            document.querySelectorAll(".partcheck").forEach(function (checkbox) {
-                checkbox.checked = isChecked;
-            });
         });
     }
 
@@ -170,6 +139,62 @@
                 break;
         }
     }
+
+    const openAddAccessIpPop = () => {
+        serviceSettingData.update(obj => {
+            obj.addAccessIpPop.visibility = true;
+            return obj;
+        });
+    };
+
+    const openRemoveAccessIpPop = () => {
+        if ($serviceSettingData.removeAccessIpPop.deleteIpList.length) {
+            serviceSettingData.update(obj => {
+                obj.removeAccessIpPop.visibility = true;
+                return obj;
+            });
+        } else {
+            openConfirm({
+                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: '삭제 IP 선택 필요', // 제목
+                contents1: '삭제하실 IP를 선택해 주세요.', // 내용 - 백엔드의 에러 desc
+                contents2: '',
+                btnCheck: '확인', // 확인 버튼의 텍스트
+            });
+        }
+    };
+
+    const handleCheckAccessIp = () => {
+        if ($serviceSettingData.accessIpSearchResultList.length && $serviceSettingData.accessIpSearchResultList.every(ip => $serviceSettingData.removeAccessIpPop.deleteIpList.includes(ip))) {
+            document.getElementById('allcheck').checked = true;
+        } else {
+            document.getElementById('allcheck').checked = false;
+        }
+    };
+
+    const filterAccessIpList = () => {
+        serviceSettingData.update(obj => {
+            obj.accessIpSearchResultList = obj.accessIpList.filter(ipObj => ipObj.csipIp
+                .includes(obj.accessIpSearchText)).map(ipObj => ipObj.csipIp);
+            return obj;
+        });
+        handleCheckAccessIp();
+    }
+
+    const handleAllCheck = (e) => {
+        serviceSettingData.update(obj => {
+                for (const ip of obj.accessIpSearchResultList) {
+                    if (e.target.checked) {
+                        if (!obj.removeAccessIpPop.deleteIpList.includes(ip)) {
+                            obj.removeAccessIpPop.deleteIpList.push(ip);
+                        }
+                    } else {
+                        obj.removeAccessIpPop.deleteIpList = obj.removeAccessIpPop.deleteIpList.filter(ip => !obj.accessIpSearchResultList.includes(ip));
+                    }
+                }
+            return obj;
+        });
+    }
 </script>
 
 <Header />
@@ -185,7 +210,7 @@
         <div class="seaContentBox">
             <div class="seaContentLine borB">
                 <div class="seaCont wid100per">
-                    <dl>해당 로그인 설정</dl>
+                    <dl>해외 로그인 설정</dl>
                     <div class="seaRadio">
                         <div class="flex_sel">
                             <div class="check radioCheck">
@@ -223,15 +248,17 @@
                                 <label for="활성화"><em><dt></dt></em>활성화</label>
                             </div>
                         </div>
-                        <div class="ipContentIner">
+                        <div class="ipContentIner" style={$serviceSettingData.settingInfo.csAccessSetting === '1' ? 'display: block' : 'display: none'}>
                             <div class="ipseaBox marB20">
                                 <div class="koinput">
-                                    <input type="text" name="" id="" class="wid236" placeholder="IP 검색">
+                                    <input type="text" class="wid236" placeholder="IP 검색"
+                                           bind:value={$serviceSettingData.accessIpSearchText}
+                                           on:input={filterAccessIpList}>
                                     <button><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
                                 </div>
                                 <div class="floatBtnBox">
-                                    <button class="del" id="ipdel_pop">삭제</button>
-                                    <button class="add" id="ipadd_pop">추가</button>
+                                    <button class="del" id="ipdel_pop" on:click={openRemoveAccessIpPop}>삭제</button>
+                                    <button class="add" id="ipadd_pop" on:click={openAddAccessIpPop}>추가</button>
                                 </div>
                             </div>
                             <div class="iptableWrap">
@@ -247,7 +274,7 @@
                                         <tr>
                                             <th>
                                                 <div class="koko_check">
-                                                    <input type="checkbox" name="allcheck" id="allcheck">
+                                                    <input type="checkbox" name="allcheck" id="allcheck" on:change={handleAllCheck}>
                                                     <label for="allcheck"><em></em></label>
                                                 </div>
                                             </th>
@@ -256,46 +283,19 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip07" id="ip07" class="partcheck">
-                                                    <label for="ip07"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>121.134.227.161</td>
-                                            <td>2월대개봉_오피스IP</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip08" id="ip08" class="partcheck">
-                                                    <label for="ip08"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>121.134.227.161</td>
-                                            <td>2월대개봉_오피스IP</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip09" id="ip09" class="partcheck">
-                                                    <label for="ip09"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>121.134.227.161</td>
-                                            <td>2월대개봉_오피스IP</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" value="" name="ip10" id="ip10" class="partcheck">
-                                                    <label for="ip10"><em></em></label>
-                                                </div>
-                                            </td>
-                                            <td>121.134.227.161</td>
-                                            <td>2월대개봉_오피스IP</td>
-                                        </tr>
+                                        {#each $serviceSettingData.accessIpList as {csipIp, csipRemarks}, i (csipIp)}
+                                            <tr style="display: {$serviceSettingData.accessIpSearchResultList.includes(csipIp) ? 'table-row' : 'none'}">
+                                                <td>
+                                                    <div class="koko_check">
+                                                        <input type="checkbox" value={csipIp} id="ip{i}" class="partcheck"
+                                                            bind:group={$serviceSettingData.removeAccessIpPop.deleteIpList} on:change={handleCheckAccessIp}>
+                                                        <label for="ip{i}"><em></em></label>
+                                                    </div>
+                                                </td>
+                                                <td>{csipIp}</td>
+                                                <td>{csipRemarks}</td>
+                                            </tr>
+                                        {/each}
                                         </tbody>
                                     </table>
                                 </div>
@@ -387,8 +387,9 @@
     </div>
 </section>
 
-{#if serviceIpState === 1}
-<SettingIpAdd />
-{:else if serviceIpState === 2}
-<SettingIpDelete />
+{#if $serviceSettingData.addAccessIpPop.visibility}
+    <SettingIpAdd />
+{/if}
+{#if $serviceSettingData.removeAccessIpPop.visibility}
+    <SettingIpDelete />
 {/if}

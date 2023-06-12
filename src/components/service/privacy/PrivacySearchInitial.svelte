@@ -144,11 +144,34 @@
         }
     }
 
-    const handleOpenDetail = (idx) => {
-        ajaxGet('/v2/api/DynamicUser/privacyUserOpen', {kokonut_IDX: idx}, (res) => { // 향후 kokonut_IDX로 수정필
-            console.log('상세보기결과', res);
+    const handleOpenDetail = (kokonut_IDX) => {
+        ajaxGet('/v2/api/DynamicUser/privacyUserOpen', {kokonut_IDX}, (res) => {
+            const rawDetail = res.data.sendData.privacyInfo;
+            console.log('상세보기결과', rawDetail);
+
+            const refinedDetail = [];
+            const detailKeyList = Object.keys(rawDetail).sort();
+            for (const [i, tableKey] of detailKeyList.entries()) {
+                const columnKeyList = rawDetail[tableKey].length ? Object.keys(rawDetail[tableKey][0]).sort() : [];
+                refinedDetail[i] = {
+                    tableName: tableKey,
+                    columnDataset: [],
+                };
+                for (const [j, rowOfTable] of rawDetail[tableKey].entries()) {
+                    refinedDetail[i].columnDataset[j] = [];
+                    for (const columnKey of columnKeyList) {
+                        refinedDetail[i].columnDataset[j].push({
+                            columnName: columnKey,
+                            columnValue: rowOfTable[columnKey],
+                        });
+                    }
+                }
+            }
+
             privacySearchData.update(obj => {
-                obj.currentDetail = res.data.sendData.privacyInfo;
+                obj.currentDetail = refinedDetail;
+                obj.currentState = 'detail';
+                console.log('정제된상세보기', refinedDetail);
                 return obj;
             });
         });
