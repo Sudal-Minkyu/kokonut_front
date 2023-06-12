@@ -5,19 +5,23 @@
     import {openConfirm} from "../../common/ui/DialogManager.js";
     import Pagination from "../../common/ui/Pagination.svelte";
 
+    const SEARCH_CONDITION_LIMIT = 5;
     const addSearchCondition = () => {
-        privacySearchData.update(obj => {
-            obj.searchConditionList.push({
-                searchTable: obj.tableList[0].ctName,
-                currentTableName: obj.tableList[0].ctDesignation,
-                searchCode: obj.tableList[0].columnList[0].fieldCode,
-                currentColumnName: obj.tableList[0].columnList[0].fieldComment,
-                searchText: '',
-                currentTableColumnList: obj.tableList[0].columnList,
-                key: Date.now().toString(),
+        if ($privacySearchData.searchConditionList.length < SEARCH_CONDITION_LIMIT) {
+            privacySearchData.update(obj => {
+                obj.searchConditionList.push({
+                    searchTable: obj.tableList[0].ctName,
+                    currentTableName: obj.tableList[0].ctDesignation,
+                    searchCode: obj.tableList[0].columnList[0].fieldCode,
+                    currentColumnName: obj.tableList[0].columnList[0].fieldComment,
+                    currentColumnSecrity: obj.tableList[0].columnList[0].fieldComment,
+                    searchText: '',
+                    currentTableColumnList: obj.tableList[0].columnList,
+                    key: Date.now().toString(),
+                });
+                return obj;
             });
-            return obj;
-        });
+        }
     };
 
     const removeSearchCondition = (i) => {
@@ -35,13 +39,16 @@
             obj.searchConditionList[i].currentTableName = el.innerHTML;
             obj.searchConditionList[i].currentTableIndex = el.dataset.tid;
             obj.searchConditionList[i].currentTableColumnList = obj.tableList[el.dataset.tid].columnList;
+            obj.searchConditionList[i].searchText = '';
 
             if (obj.tableList[el.dataset.tid].columnList.length) {
                 obj.searchConditionList[i].searchCode = obj.tableList[el.dataset.tid].columnList[0].fieldCode;
                 obj.searchConditionList[i].currentColumnName = obj.tableList[el.dataset.tid].columnList[0].fieldComment;
+                obj.searchConditionList[i].currentColumnSecrity = obj.tableList[el.dataset.tid].columnList[0].fieldSecrity;
             } else {
                 obj.searchConditionList[i].searchCode = '';
                 obj.searchConditionList[i].currentColumnName = '';
+                obj.searchConditionList[i].searchText = '';
             }
             obj.searchConditionList[i].key = Date.now().toString();
             return obj;
@@ -52,6 +59,8 @@
         privacySearchData.update(obj => {
             obj.searchConditionList[i].searchCode = el.dataset.value;
             obj.searchConditionList[i].currentColumnName = el.innerHTML;
+            obj.searchConditionList[i].currentColumnSecrity = Number(el.dataset.secrity);
+            obj.searchConditionList[i].searchText = '';
             return obj;
         });
     }
@@ -135,11 +144,34 @@
         }
     }
 
-    const handleOpenDetail = (idx) => {
-        ajaxGet('/v2/api/DynamicUser/privacyUserOpen', {idx}, (res) => { // 향후 kokonut_IDX로 수정필
-            console.log('상세보기결과', res);
+    const handleOpenDetail = (kokonut_IDX) => {
+        ajaxGet('/v2/api/DynamicUser/privacyUserOpen', {kokonut_IDX}, (res) => {
+            const rawDetail = res.data.sendData.privacyInfo;
+            console.log('상세보기결과', rawDetail);
+
+            const refinedDetail = [];
+            const detailKeyList = Object.keys(rawDetail).sort();
+            for (const [i, tableKey] of detailKeyList.entries()) {
+                const columnKeyList = rawDetail[tableKey].length ? Object.keys(rawDetail[tableKey][0]).sort() : [];
+                refinedDetail[i] = {
+                    tableName: tableKey,
+                    columnDataset: [],
+                };
+                for (const [j, rowOfTable] of rawDetail[tableKey].entries()) {
+                    refinedDetail[i].columnDataset[j] = [];
+                    for (const columnKey of columnKeyList) {
+                        refinedDetail[i].columnDataset[j].push({
+                            columnName: columnKey,
+                            columnValue: rowOfTable[columnKey],
+                        });
+                    }
+                }
+            }
+
             privacySearchData.update(obj => {
-                obj.currentDetail = res.data.sendData.privacyInfo;
+                obj.currentDetail = refinedDetail;
+                obj.currentState = 'detail';
+                console.log('정제된상세보기', refinedDetail);
                 return obj;
             });
         });
@@ -147,6 +179,19 @@
 
     const handleChangePage = ({page}) => {
         getUserListByCondition(page);
+    }
+
+    const distinguishSearchTextPlaceholder = (targetSearchCondition) => {
+        console.log('검색조건', targetSearchCondition); // 여러번 반복되는 문제의 제거를 위해 초기 로딩의 스토어 업데이트를 최소화할 것
+        let resultText = '';
+        if (targetSearchCondition.currentColumnName === '휴대전화번호') {
+            resultText = '휴대전화번호 뒷자리 4자리를 입력해 주세요.';
+        } else if (targetSearchCondition.currentColumnSecrity === 1) {
+            resultText = '완전히 일치하는 검색어를 입력해 주세요.';
+        } else {
+            resultText = '검색어를 입력해 주세요.';
+        }
+        return resultText;
     }
 
 </script>
@@ -177,8 +222,8 @@
                     <div class="label">{currentColumnName}</div>
                     <ul class="optionList">
                         {#if $privacySearchData.tableList.length}
-                            {#each currentTableColumnList as {fieldCode, fieldComment, fieldSecurity}, j (fieldCode)}
-                                <li class="optionItem curv" data-value="{fieldCode}">{fieldComment}</li>
+                            {#each currentTableColumnList as {fieldCode, fieldComment, fieldSecrity}, j (fieldCode)}
+                                <li class="optionItem curv" data-value={fieldCode} data-secrity={fieldSecrity}>{fieldComment}</li>
                             {/each}
                         {/if}
                     </ul>
@@ -186,7 +231,8 @@
             </div>
             <div class="koinputshowhideBox">
                 <div class="koinput">
-                    <input type="text" class="wid480" placeholder="검색어를 입력해 주세요."
+                    <input type="text" class="wid480"
+                           placeholder={distinguishSearchTextPlaceholder($privacySearchData.searchConditionList[i])}
                            bind:value={$privacySearchData.searchConditionList[i].searchText}
                            on:keypress={handleEnterSearchText} />
                     <button tabindex="-1" on:click={getUserListByCondition}>
@@ -202,9 +248,11 @@
     </div>
 {/each}
 
-<div class="pr_fieldBtnInner">
-    <button type="button" class="add_pr_field5 pr_fieldBtn" on:click={addSearchCondition}></button>
-</div>
+{#if $privacySearchData.searchConditionList.length < SEARCH_CONDITION_LIMIT}
+    <div class="pr_fieldBtnInner">
+        <button type="button" class="add_pr_field5 pr_fieldBtn" on:click={addSearchCondition}></button>
+    </div>
+{/if}
 
 
 

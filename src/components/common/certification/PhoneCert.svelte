@@ -24,7 +24,7 @@
         let url = "/v1/api/NiceId/open"
 
         let sendData = {
-            state : state // 잘못된 요청 -> "0", 회원가입 -> "1", 이메일찾기 -> "2", 비밀번호찾기 -> "3", OTP변경 -> "4"
+            state : state // 잘못된 요청 -> "0", 회원가입 -> "1", 이메일찾기 -> "2", 비밀번호찾기 -> "3", OTP변경 -> "4", 핸드폰번호변경 -> "5"
         }
 
         restapi('v1', 'get', url, "param", sendData, 'application/json',
@@ -53,8 +53,8 @@
         console.log("휴대폰 본인인증 완료!");
 
         console.log("state : "+state);
-        // console.log("keyEmail : "+keyEmail);
-        // console.log("otpKey : "+otpKey);
+        console.log("keyEmail : "+keyEmail);
+        console.log("otpKey : "+otpKey);
 
         if(state === "1") {
             console.log("회원가입 창으로");
@@ -316,7 +316,7 @@
     </div>
 {/if}
 <form style="height: 0;" name="niceForm" id="niceForm" action="https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb">
-    <input type="hidden"  id="m" name="m" value="service" /> <br/>
+    <input type="hidden" id="m" name="m" value="service" /> <br/>
     <input type="hidden" id="token_version_id" name="token_version_id" /> <br/>
     <input type="hidden" id="enc_data" name="enc_data" /> <br/>
     <input type="hidden" id="integrity_value" name="integrity_value" /> <br/>

@@ -227,6 +227,7 @@ export const initialPrivacySearch = JSON.stringify({
         currentTableColumnList: [],
         searchCode: '',
         currentColumnName: '',
+        currentColumnSecrity: '0',
         searchText: '',
         key: Date.now().toString(),
     }],
@@ -238,3 +239,35 @@ export const initialPrivacySearch = JSON.stringify({
 });
 
 export const privacySearchData = writable(JSON.parse(initialPrivacySearch));
+
+export const initialServiceSetting = JSON.stringify({
+    accessIpList: [],  // 접속 허용 IP
+    accessIpSearchResultList: [],
+    accessIpSearchText: '',
+    settingInfo: {
+        csId: 0,
+        csOverseasBlockSetting: "0", // 해외 로그인 설정  "0" 로그인 허용, "1" 로그인 차단
+        csAccessSetting: "0", // 접속허용 IP 설정  "0" 비활성화, "1" 활성화
+        csPasswordChangeSetting: "12", // 비밀번호 변경주기
+        csPasswordErrorCountSetting: "5", // 비밀번호 오류 접속제한
+        csAutoLogoutSetting: "30", // 자동 로그아웃 시간
+        csLongDisconnectionSetting: "0" // 장기 미접속 접근제한  "0" 제한없음
+    },
+    addAccessIpPop: {
+        ip1: '',
+        ip2: '',
+        ip3: '',
+        ip4: '',
+        isIpInputReadonly: false,
+        ipInputErrorMsg: '',
+        csipRemarks: '',
+        visibility: false,
+    },
+    removeAccessIpPop: {
+        visibility: false,
+        otpValue: '',
+        deleteIpList: [],
+    },
+});
+
+export const serviceSettingData = writable(JSON.parse(initialServiceSetting));

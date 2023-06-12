@@ -199,8 +199,8 @@
                     </div>
                     <div class="m_ContBoxCont four wow m_ConttxtBoxUp">
                         <div class="m_ContImgBox cbcw100 wow FadeInUp">
-                            <img src="/assets/images/main/calamity.jpg" class="pc_only">
-                            <img src="/assets/images/main/calamity_mo.png" class="mo_only">
+                            <img src="/assets/images/main/calamity.jpg" class="pc_only" alt="">
+                            <img src="/assets/images/main/calamity_mo.png" class="mo_only" alt="">
                         </div>
                     </div>
                 </div>

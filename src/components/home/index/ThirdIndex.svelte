@@ -146,13 +146,13 @@
                         <div class="m_ContBoxCont">
                             <div class="m_ContImgBox wow m_ConttxtBoxUp">
                                 <figure class="mc_figure01">
-                                    <img src="/assets/images/main/Managerial_3-1.png">
+                                    <img src="/assets/images/main/Managerial_3-1.png" alt="">
                                 </figure>
                                 <figure class="mc_figure02">
-                                    <img src="/assets/images/main/Managerial_3-2.png">
+                                    <img src="/assets/images/main/Managerial_3-2.png" alt="">
                                 </figure>
                                 <figure class="mc_figure03">
-                                    <img src="/assets/images/main/Managerial_3-3.png">
+                                    <img src="/assets/images/main/Managerial_3-3.png" alt="">
                                 </figure>
                             </div>
                             <div class="m_ConttxtBox wow m_ConttxtBoxUp" style="visibility: visible;">
@@ -191,10 +191,10 @@
                     <div class="m_ContBoxCont wow m_ConttxtBoxUp">
                         <div class="m_ContImgBox">
                             <figure class="md_figure01" style="visibility: visible;">
-                                <img src="/assets/images/main/Managerial_4-1.png">
+                                <img src="/assets/images/main/Managerial_4-1.png" alt="">
                             </figure>
                             <figure class="md_figure02 wow pop" style="visibility: visible;">
-                                <img src="/assets/images/main/Managerial_4-2.png">
+                                <img src="/assets/images/main/Managerial_4-2.png" alt="">
                             </figure>
                         </div>
                         <div class="m_ConttxtBox wow m_ConttxtBoxUp">
@@ -238,15 +238,15 @@
                                     <p class="mgContBoxtxt">개인정보보호법에 맞춘 샘플링 제공을 통해 손쉽게 작성이 가능</p>
                                     <div class="mgContImgBox">
                                         <div class="Imglong wow ImgScrollUp02">
-                                            <img src="/assets/images/main/Managerial_5-1.png" class="ph_none">
-                                            <img src="/assets/images/main/Managerial_5-1_mo.png" class="ph_only">
+                                            <img src="/assets/images/main/Managerial_5-1.png" class="ph_none" alt="">
+                                            <img src="/assets/images/main/Managerial_5-1_mo.png" class="ph_only" alt="">
                                         </div>
                                         <div class="alretGroup">
-                                            <div class="alret alret01 wow Apop"><img src="/assets/images/main/Managerial_5-1-1.png"></div>
-                                            <div class="alret alret02 wow Apop"><img src="/assets/images/main/Tooltip2.png"></div>
-                                            <div class="alret alret03 wow Apop"><img src="/assets/images/main/Tooltip3.png"></div>
-                                            <div class="alret alret04 wow Apop"><img src="/assets/images/main/Tooltip4.png"></div>
-                                            <div class="alret alret05 wow Apop"><img src="/assets/images/main/Tooltip5.png"></div>
+                                            <div class="alret alret01 wow Apop"><img alt="" src="/assets/images/main/Managerial_5-1-1.png"></div>
+                                            <div class="alret alret02 wow Apop"><img alt="" src="/assets/images/main/Tooltip2.png"></div>
+                                            <div class="alret alret03 wow Apop"><img alt="" src="/assets/images/main/Tooltip3.png"></div>
+                                            <div class="alret alret04 wow Apop"><img alt="" src="/assets/images/main/Tooltip4.png"></div>
+                                            <div class="alret alret05 wow Apop"><img alt="" src="/assets/images/main/Tooltip5.png"></div>
                                         </div>
                                     </div>
                                 </div>

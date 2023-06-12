@@ -41,8 +41,8 @@
                         <p class="mContTitle wow TitleUp">코코넛의 다양한 기능의 API 제공으로 쉬운 커스터마이징</p>
                     </div>
                     <div class="f_ContBoxCont wow m_ConttxtBoxUp">
-                        <figure class="fa_figure01"><img src="/assets/images/main/Power_1-1.png"></figure>
-                        <figure class="fa_figure02"><img src="/assets/images/main/Power_1-2.png"></figure>
+                        <figure class="fa_figure01"><img alt="" src="/assets/images/main/Power_1-1.png"></figure>
+                        <figure class="fa_figure02"><img alt="" src="/assets/images/main/Power_1-2.png"></figure>
                     </div>
                 </div>
             </div>
@@ -57,8 +57,8 @@
                         <p class="mContsTxt wow TitleUp">BI 툴, 알림톡, CRM 툴 등 기존에 활용하던 툴들은 자연스럽게 연동하세요.</p>
                     </div>
                     <div class="f_ContBoxCont wow m_ConttxtBoxUp">
-                        <figure class="fb_figure01 wow siteImgUp"><img src="/assets/images/main/Power_2-1.png"></figure>
-                        <figure class="fb_figure02 wow siteImgUpCenter"><img src="/assets/images/main/Power_2-2.png"></figure>
+                        <figure class="fb_figure01 wow siteImgUp"><img alt="" src="/assets/images/main/Power_2-1.png"></figure>
+                        <figure class="fb_figure02 wow siteImgUpCenter"><img alt="" src="/assets/images/main/Power_2-2.png"></figure>
                     </div>
                 </div>
             </div>
@@ -73,9 +73,9 @@
                         <p class="mContsTxt wow TitleUp">외부 제공 시 제공받는 담당자를 코코넛으로 초대해서 정보를 안전하게 전달합니다.</p>
                     </div>
                     <div class="f_ContBoxCont wow m_ConttxtBoxUp">
-                        <figure class="fc_figure01"><img src="/assets/images/main/Power_3-1.png"></figure>
-                        <figure class="fc_figure02 wow siteImgUpCenter"><img src="/assets/images/main/Power_3-2.png"></figure>
-                        <figure class="fc_figure03 wow siteImgUp"><img src="/assets/images/main/Power_3-3.png"></figure>
+                        <figure class="fc_figure01"><img alt="" src="/assets/images/main/Power_3-1.png"></figure>
+                        <figure class="fc_figure02 wow siteImgUpCenter"><img alt="" src="/assets/images/main/Power_3-2.png"></figure>
+                        <figure class="fc_figure03 wow siteImgUp"><img alt="" src="/assets/images/main/Power_3-3.png"></figure>
                     </div>
                 </div>
             </div>

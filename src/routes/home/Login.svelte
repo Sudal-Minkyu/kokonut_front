@@ -1,12 +1,8 @@
 <script>
 
     import Login from '../../components/home/login/LoginMain.svelte'
-
-
+    import CustomConfirm from "../../components/common/ui/CustomConfirm.svelte";
     import { link } from 'svelte-spa-router'
-    import { onMount } from 'svelte';
-
-
 
 </script>
 
@@ -27,3 +23,4 @@
         </div>
     </div>
 </div>
+<CustomConfirm />

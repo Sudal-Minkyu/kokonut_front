@@ -401,25 +401,27 @@
     // 부트페이 정기결제 카드등록
     function bootpayBilling() {
         Bootpay.requestSubscription({
-            application_id: '6369c021cf9f6d001b23e2ef',
+            application_id: import.meta.env.VITE_BOOT_PAY_SECRET,
             pg: '나이스페이',
-            price: 1000,
+            // price: 1000,
             // tax_free: 0,
             order_name: '코코넛 정기결제 등록',
             subscription_id: (new Date()).getTime(),
             user: {
                 username: '홍길동',
-                phone: '01000000000'
+                phone: '01000000000',
+                email: 'email@gmail.com'
             },
             extra: {
-                subscription_comment: '매월 1,000원이 결제됩니다',
+                subscription_comment: '매월 사용료에 따라 결제됩니다.\n 사용료는 환경설정 - 구독관리 페이지를 통해 확인할 수 있습니다.',
                 subscribe_test_payment: true
             }
         }).then(
             function (response) {
                 console.log(response)
                 if (response.event === 'done') {
-                    alert('빌링키 발급이 완료되었습니다.')
+                    console.log("빌링키 : "+response.data.receipt_id);
+                    alert('빌링키 발급이 완료되었습니다.');
                 }
             },
             function (error) {
