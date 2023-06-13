@@ -70,7 +70,7 @@
                     </a>
                 </li>
                 <li>
-                    <a use:link href="/service/environment">
+                    <a use:link href="/service/environment/subscription">
                         <div class="setlistBox">
                             <div class="setitemBox">
                                 <div class="seticon"><img src="/assets/images/common/setlist_icon_06.png" alt=""></div>

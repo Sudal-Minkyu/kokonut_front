@@ -3,6 +3,9 @@
 import {serviceSettingData} from "../../../../lib/store.js";
 import {ajaxBody} from "../../../common/ajax.js";
 import {openBanner, openConfirm} from "../../../common/ui/DialogManager.js";
+import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
+
+export let getServiceSettingDataAndInitializing;
 
 const closeRemoveAccessIpPop = () => {
     serviceSettingData.update(obj => {
@@ -28,9 +31,17 @@ const commitRemoveAccessIp = () => {
         return;
     }
 
+    if (!removeTargetInfo.otpValue) {
+
+    }
+
+    if (!$serviceSettingData.removeAccessIpPop.cautionChecked) {
+
+    }
+
     ajaxBody('/v2/api/Company/accessIpDelete', removeTargetInfo, (res) => {
         openBanner('선택하신 IP를 삭제하였습니다.');
-        // 삭제된 IP 화면에 반영
+        getServiceSettingDataAndInitializing();
     });
 }
 </script>
@@ -46,17 +57,19 @@ const commitRemoveAccessIp = () => {
                     <label>OTP</label>
                     <input type="text" placeholder="OTP를 적어주세요." bind:value={$serviceSettingData.removeAccessIpPop.otpValue} />
                 </div>
+                <ErrorHighlight />
                 <div class="popcaseInfoBox pi_noneicon">
                     <p>주의사항</p>
                     <dl>해당 IP 에서는 더 이상 로그인 하실 수 없습니다.</dl>
                 </div>
                 <div class="koko_check">
-                    <input type="checkbox" value="1" name="checkcation" id="checkcation">
+                    <input type="checkbox" value="1" name="checkcation" id="checkcation" bind:checked={$serviceSettingData.removeAccessIpPop.cautionChecked}>
                     <label for="checkcation">
                         <em></em>
                         <p class="check">주의사항에 대해 확인했습니다.</p>
                     </label>
                 </div>
+                <ErrorHighlight />
                 <div class="kokopopBtnBox">
                     <div class="koko_cancel ipdel_pop_close" on:click={closeRemoveAccessIpPop}>취소</div>
                     <div class="koko_go"><button type="button" on:click={commitRemoveAccessIp}>확인</button></div>

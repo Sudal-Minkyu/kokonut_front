@@ -267,6 +267,7 @@ export const initialServiceSetting = JSON.stringify({
         visibility: false,
         otpValue: '',
         deleteIpList: [],
+        cautionChecked: false,
     },
 });
 

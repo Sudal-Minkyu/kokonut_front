@@ -5,8 +5,7 @@
 
     // 배너가 구현되고 나서 2초 후에 배너를 사라지게 한다.
     // 동시에 여러개의 배너가 뜰 경우 마지막 배너를 기준으로 2초 뒤 사라진다.
-    afterUpdate(async => {
-        console.log($bannerMessage)
+    afterUpdate(() => {
         const msgWhenStart = $bannerMessage;
         setTimeout(() => {
             if (msgWhenStart === $bannerMessage) {

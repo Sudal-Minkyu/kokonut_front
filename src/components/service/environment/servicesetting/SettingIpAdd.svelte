@@ -5,6 +5,8 @@
     import {ajaxParam} from "../../../common/ajax.js";
     import {openBanner} from "../../../common/ui/DialogManager.js";
 
+    export let getServiceSettingDataAndInitializing;
+
     const closeAddAccessIpPop = () => {
         serviceSettingData.update(obj => {
             obj.addAccessIpPop.visibility = false;
@@ -72,6 +74,7 @@
         }
         ajaxParam('/v2/api/Company/accessIpSave', addData, (res) => {
             openBanner('접속 허용 IP를 추가하였습니다.');
+            getServiceSettingDataAndInitializing();
         });
     }
 </script>

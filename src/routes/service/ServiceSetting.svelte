@@ -7,13 +7,13 @@
     import SettingIpAdd from '../../components/service/environment/servicesetting/SettingIpAdd.svelte'
     import {SelectBoxManager} from "../../components/common/action/SelectBoxManager.js";
     import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
-    import {serviceSettingData} from "../../lib/store.js";
+    import {initialServiceSetting, serviceSettingData} from "../../lib/store.js";
     import {openConfirm} from "../../components/common/ui/DialogManager.js";
 
     // 서비스설정 가져오기
     onMount(() => {
         setTimeout(() => serviceSettingLayout = 1, 500);
-        getServiceSettingData();
+        getServiceSettingDataAndInitializing();
         setBasicEvents();
     });
 
@@ -21,11 +21,12 @@
         removeBasicEvents();
     });
 
-    const getServiceSettingData = () => {
+    const getServiceSettingDataAndInitializing = () => {
         ajaxGet('/v2/api/Company/settingInfo', false, (res) => {
             const settingData = res.data.sendData;
             console.log('초기 데이터', settingData);
             serviceSettingData.update(obj => {
+                obj = JSON.parse(initialServiceSetting);
                 obj.accessIpList = settingData.accessIpList;
                 obj.settingInfo = settingData.settingInfo;
                 return obj;
@@ -388,8 +389,8 @@
 </section>
 
 {#if $serviceSettingData.addAccessIpPop.visibility}
-    <SettingIpAdd />
+    <SettingIpAdd {getServiceSettingDataAndInitializing} />
 {/if}
 {#if $serviceSettingData.removeAccessIpPop.visibility}
-    <SettingIpDelete />
+    <SettingIpDelete {getServiceSettingDataAndInitializing} />
 {/if}
