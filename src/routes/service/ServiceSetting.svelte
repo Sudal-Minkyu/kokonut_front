@@ -22,7 +22,7 @@
     });
 
     const getServiceSettingDataAndInitializing = () => {
-        ajaxGet('/v2/api/Company/settingInfo', false, (res) => {
+        ajaxGet('/v2/api/CompanySetting/settingInfo', false, (res) => {
             const settingData = res.data.sendData;
             console.log('초기 데이터', settingData);
             serviceSettingData.update(obj => {
@@ -105,19 +105,19 @@
     const handleChangeRadioBtn = (target, value) => {
         switch (target) {
             case 'csOverseasBlockSetting':
-                ajaxWhenEveryChange('/v2/api/Company/overseasBlockSetting', {});
+                ajaxWhenEveryChange('/v2/api/CompanySetting/overseasBlockSetting', {});
                 break;
             case 'csAccessSetting':
-                ajaxWhenEveryChange('/v2/api/Company/accessSetting', {});
+                ajaxWhenEveryChange('/v2/api/CompanySetting/accessSetting', {});
                 break;
             case 'csPasswordChangeSetting':
-                ajaxWhenEveryChange('/v2/api/Company/passwordChangeSetting', {csPasswordChangeSetting: value});
+                ajaxWhenEveryChange('/v2/api/CompanySetting/passwordChangeSetting', {csPasswordChangeSetting: value});
                 break;
             case 'csPasswordErrorCountSetting':
-                ajaxWhenEveryChange('/v2/api/Company/passwordErrorCountSetting', {csPasswordErrorCountSetting: value});
+                ajaxWhenEveryChange('/v2/api/CompanySetting/passwordErrorCountSetting', {csPasswordErrorCountSetting: value});
                 break;
             case 'csAutoLogoutSetting':
-                ajaxWhenEveryChange('/v2/api/Company/autoLogoutSetting', {csAutoLogoutSetting: value});
+                ajaxWhenEveryChange('/v2/api/CompanySetting/autoLogoutSetting', {csAutoLogoutSetting: value});
                 break;
             case 'csLongDisconnectionSetting':
                 serviceSettingData.update(obj => {
@@ -136,7 +136,7 @@
                     radio.checked = (radio.value === targetValue);
                 }
 
-                ajaxWhenEveryChange('/v2/api/Company/longDisconnectionSetting', {csLongDisconnectionSetting: value});
+                ajaxWhenEveryChange('/v2/api/CompanySetting/longDisconnectionSetting', {csLongDisconnectionSetting: value});
                 break;
         }
     }
