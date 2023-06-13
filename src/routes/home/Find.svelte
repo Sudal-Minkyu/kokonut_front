@@ -1,4 +1,5 @@
 <script>
+
     import FindEmail from '../../components/home/find/FindEmail.svelte'
     import FindPassword from '../../components/home/find/FindPassword.svelte'
     import PhoneCert from '../../components/common/certification/PhoneCert.svelte'
@@ -9,20 +10,15 @@
     import { link } from 'svelte-spa-router'
     import { openDiv, stateVal } from '../../lib/store.js'
     import { onMount, onDestroy } from 'svelte';
+    import CustomConfirm from "../../components/common/ui/CustomConfirm.svelte";
 
-    let emailBlank = true; // 이메일 공백
-    let emailNotForm = true; // 이메일 형식
-    let emailNotJoin = true; // 이메일 가입여부
+    let emailErrorState = true; // 이메일 공백, 이메일 형식, 이메일 가입여부 등 체크
+    let emailErrorState_Msg = ""; // 에러메세지
 
     // 비밀번호찾기의 입력값 조건셋팅 함수
-    function conditionFun(num, param) {
-        if(num === 1) {
-            emailNotForm = param;
-        } else if(num === 2) {
-            emailNotJoin = param;
-        } else {
-            emailBlank = param;
-        }
+    function conditionFun(param, msg) {
+        emailErrorState = param;
+        emailErrorState_Msg = msg
     }
 
     onMount(async ()=>{
@@ -59,9 +55,9 @@
                     {#if $stateVal === 2}
                         <FindEmail />
                     {:else}
-                        <FindPassword {emailNotForm} {emailNotJoin} {emailBlank} {conditionFun} />
+                        <FindPassword {emailErrorState} {emailErrorState_Msg} {conditionFun} />
                     {/if}
-                    <PhoneCert state="{$stateVal}" {conditionFun} {emailNotForm} />
+                    <PhoneCert state="{$stateVal}" {conditionFun} />
                     <div class="checkArea" style="display: block; text-align:center">
                         <a use:link href="/login"><p class="go_find">뒤로가기</p></a>
                     </div>
@@ -74,3 +70,4 @@
         </div>
     </div>
 </div>
+<CustomConfirm />

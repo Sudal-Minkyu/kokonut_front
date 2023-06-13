@@ -3,6 +3,7 @@
     import jQuery from "jquery";
 
     import { openDiv, findEmail, findPwd, tempPwd, knNameHeader } from '../../../lib/store'
+    import {openConfirm} from "../ui/DialogManager.js";
 
     jQuery(function() {
         // 나이스 폼열기
@@ -83,20 +84,13 @@
     export let state = 0;
     export let conditionFun = undefined; // 공통 상태변경 함수
 
-    // export let joinName = undefined;
-    // export let joinPhone = undefined;
-
-    export let emailNotForm = undefined; // 이메일 형식에 맞지않음
-    // 이메일 존재여부 API 호출
+    // 이메일 존재여부 API 호출 (비밀번호찾기시)
     function emailCheck(email) {
         if($findPwd === "") {
-            conditionFun(3, false);
+            conditionFun(false, "이메일을 입력해주세요.");
             return false;
         } else {
-            conditionFun(3, true);
-        }
-    
-        if(emailNotForm) {
+            conditionFun(true, "");
             console.log("이메일 존재여부 체크");
 
             let url = "/v1/api/Auth/checkKnEmail"
@@ -107,10 +101,19 @@
             restapi('v1', 'get', url, "param", sendData, 'application/json',
                 (json_success) => {
                     if(json_success.data.status === 200) {
-                        conditionFun(2, json_success.data.sendData.result);
+                        console.log("결과 : "+json_success.data.sendData.result);
+                        conditionFun(json_success.data.sendData.result, "가입되지 않은 이메일입니다.");
                         if(json_success.data.sendData.result) {
                             phoneCheckOpen(state);
                         }
+                    } else if (json_success.data.err_code === "KO096" || json_success.data.err_code === "KO095") {
+                        openConfirm({
+                            icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                            title: "비밀번호 오류횟수 초과", // 제목
+                            contents1: json_success.data.err_msg,
+                            btnCheck: '확인', // 확인 버튼의 텍스트
+                        })
+                        conditionFun(false, json_success.data.err_msg);
                     }
                 },
                 (json_error) => {
@@ -119,6 +122,11 @@
                 }
             )
         }
+
+        // console.log("emailErrorState : "+emailErrorState);
+        // if(emailErrorState) {
+        //
+        // }
     }
 
     // 이메일 찾기
