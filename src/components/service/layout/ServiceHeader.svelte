@@ -1,6 +1,14 @@
 <script>
     import { link } from 'svelte-spa-router'
-    import { is_login, accessToken, page, knNameHeader, knEmailHeader, cpNameSider } from "../../../lib/store.js"
+    import {
+        is_login,
+        accessToken,
+        page,
+        knNameHeader,
+        knEmailHeader,
+        cpNameSider,
+        knPhoneNumber
+    } from "../../../lib/store.js"
     import { ajaxParam } from "../../common/ajax.js";
 
     function logout() {
@@ -12,6 +20,7 @@
             // 기본값 초기화처리
             knNameHeader.set('');
             knEmailHeader.set('');
+            knPhoneNumber.set('');
             cpNameSider.set('');
             is_login.set(false);
             accessToken.set('');

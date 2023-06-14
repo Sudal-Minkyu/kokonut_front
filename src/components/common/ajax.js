@@ -1,4 +1,4 @@
-import {is_login, accessToken, knNameHeader, knEmailHeader, cpNameSider, page} from "../../lib/store.js";
+import {is_login, accessToken, knNameHeader, knEmailHeader, cpNameSider, page, knPhoneNumber} from "../../lib/store.js";
 import { get } from 'svelte/store';
 import axios from 'axios';
 import {openConfirm} from "./ui/DialogManager.js";
@@ -178,6 +178,7 @@ const makeUIResponse = (action, message, errorCode, handleSuccess) => {
             openError(message, errorCode, () => {
                 knNameHeader.set('');
                 knEmailHeader.set('');
+                knPhoneNumber.set('');
                 cpNameSider.set('');
                 is_login.set(false);
                 accessToken.set('');

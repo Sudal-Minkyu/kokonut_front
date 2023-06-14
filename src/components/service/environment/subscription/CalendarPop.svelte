@@ -52,7 +52,6 @@
     $: isEnableIncrementMonthBtn = checkFutureMonth(year, month);
 
     function handleIncrementMonth() {
-        console.log('is?', isEnableIncrementMonthBtn);
         if (isEnableIncrementMonthBtn) {
             month++;
             if (month === 13) {

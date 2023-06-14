@@ -2,148 +2,23 @@
     import Header from "../../components/service/layout/Header.svelte";
     import {onMount} from "svelte";
     import {Bootpay} from "@bootpay/client-js";
-    import {knEmailHeader, knNameHeader, privacySearchData} from "../../lib/store.js";
+    import {knEmailHeader, knNameHeader, knPhoneNumber} from "../../lib/store.js";
     import CalendarPop from "../../components/service/environment/subscription/CalendarPop.svelte";
     import PaymentPop from "../../components/service/environment/subscription/PaymentPop.svelte";
     import UnsubscribePop from "../../components/service/environment/subscription/UnsubscribePop.svelte";
     import Pagination from "../../components/common/ui/Pagination.svelte";
+    import {openAsk, openBanner} from "../../components/common/ui/DialogManager.js";
+    import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
 
     onMount(() => {
-        // applyBasicEvents();
+        console.log('pn', $knPhoneNumber);
+        getInitialData();
     });
 
-    const applyBasicEvents = () => {
-        // 미니 팝업 스크립트
-        document.querySelectorAll(".tippop").forEach(function(el, i) {
-            const thisId = el.getAttribute("id");
-            const idNum = thisId.slice(-2);
-
-            document.querySelector('#tip_btn' + idNum).addEventListener('click', function() {
-                const display = window.getComputedStyle(document.querySelector('#tip_box' + idNum)).display;
-                if (display === 'none') {
-                    document.querySelector('#tip_box' + idNum).classList.add('dp_b');
-                }
-                document.querySelector('.dim').style.display = 'block';
-                document.querySelector('.koko_popup').style.display = 'none';
-            });
-
-            document.querySelector('#tip_close' + idNum).addEventListener('click', function() {
-                document.querySelector('#tip_box' + idNum).classList.remove('dp_b');
-                document.querySelector('.dim').style.display = 'none';
-                document.body.style.overflow = 'unset';
-            });
+    const getInitialData = () => {
+        ajaxGet('/v2/api/Company/companyPaymentInfo', false, (res) => {
+            console.log('기초데이터', res);
         });
-
-
-        //----- 결제수단 변경 OPEN / CLOSE
-        document.querySelector('#method_pop').addEventListener('click', function() {
-            document.querySelector('[data-popup="method_pop"]').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        });
-        document.querySelector('.method_pop_close').addEventListener('click', function() {
-            document.querySelector('[data-popup="method_pop"]').style.display = 'none';
-            document.body.style.overflow = 'unset';
-        });
-
-
-        //----- 결제 OPEN / CLOSE
-        document.querySelector('#subscribe_pop').addEventListener('click', function() {
-            document.querySelector('[data-popup="subscribe_pop"]').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        });
-        document.querySelector('.subscribe_pop_close').addEventListener('click', function() {
-            document.querySelector('[data-popup="subscribe_pop"]').style.display = 'none';
-            document.body.style.overflow = 'unset';
-        });
-
-
-        //----- 구독 해지 OPEN / CLOSE
-        document.querySelector('#unsubscribe_pop').addEventListener('click', function() {
-            document.querySelector('[data-popup="unsubscribe_pop"]').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        });
-        document.querySelector('.unsubscribe_pop_close').addEventListener('click', function() {
-            document.querySelector('[data-popup="unsubscribe_pop"]').style.display = 'none';
-            document.body.style.overflow = 'unset';
-        });
-
-
-        //----- 월 평균 개인정보 OPEN / CLOSE
-        document.querySelector('.open_current_pop').addEventListener('click', function() {
-            document.querySelector('.month_current_pop').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        });
-        document.querySelector('.current_pop_close').addEventListener('click', function() {
-            document.querySelector('.month_current_pop').style.display = 'none';
-            document.body.style.overflow = 'unset';
-        });
-
-
-        /* 커스텀 select 박스 스크립트 */
-        document.querySelectorAll('.label').forEach(function(label) {
-            label.addEventListener('click', function() {
-                const optionList = label.nextElementSibling;
-                const optionItems = optionList.querySelectorAll('.optionItem');
-                const isActive = label.parentNode.classList.contains('active');
-
-                label.parentNode.classList.toggle('active', !isActive);
-
-                optionItems.forEach((optionItem) => {
-                    optionItem[isActive ? 'removeEventListener' : 'addEventListener']('click', () => {
-                        label.innerHTML = optionItem.textContent;
-                        label.parentNode.classList.remove('active');
-                    });
-                });
-            });
-        });
-
-
-        /* 커스텀 select 박스 외부 영역 클릭 시 사라지는 스크립트 */
-        document.addEventListener('click', function(event) {
-            const container = document.querySelector(".selectBox");
-            if (container && !container.contains(event.target)) {
-                container.classList.remove('active');
-            }
-        });
-
-        /* 팝업 검은색 배경 영역 클릭 시 사라지는 스크립트 */
-        document.addEventListener('mouseup', function(event) {
-            const LayerPopup = document.querySelector(".koko_popup");
-            if (LayerPopup && !LayerPopup.contains(event.target)) {
-                LayerPopup.style.display = 'none';
-                document.body.style.overflow = 'unset';
-            }
-        });
-    }
-
-    // 부트페이 정기결제 카드등록
-    window.bootpayBilling = () => {
-        Bootpay.requestSubscription({
-            application_id: import.meta.env.VITE_BOOT_PAY_SECRET,
-            pg: '나이스페이',
-            order_name: '코코넛 이용을 위한 카드 등록',
-            subscription_id: (new Date()).getTime(),
-            user: {
-                username: $knNameHeader,
-                phone: '01000000000',
-                email: $knEmailHeader
-            },
-            extra: {
-                subscription_comment: '매월 사용료에 따라 결제됩니다. 사용료는 환경설정 - 구독관리 페이지를 통해 확인할 수 있습니다.',
-                subscribe_test_payment: true
-            }
-        }).then(
-            function (response) {
-                console.log(response)
-                if (response.event === 'done') {
-                    console.log("빌링키 : "+response.data.receipt_id);
-                    alert('빌링키 발급이 완료되었습니다.');
-                }
-            },
-            function (error) {
-                console.log(error.message)
-            }
-        )
     }
 
     const calendarService = {
@@ -175,6 +50,60 @@
             unsubscribeService.visibility = false;
         }
     }
+
+    const bootpayChangePaymentMethod = () => {
+        Bootpay.requestSubscription({
+            application_id: import.meta.env.VITE_BOOT_PAY_SECRET,
+            pg: '나이스페이',
+            order_name: '코코넛 이용을 위한 카드 등록',
+            subscription_id: (new Date()).getTime(),
+            user: {
+                username: $knNameHeader,
+                phone: $knPhoneNumber,
+                email: $knEmailHeader
+            },
+            extra: {
+                subscription_comment: '매월 사용료에 따라 결제됩니다. 사용료는 환경설정 - 구독관리 페이지를 통해 확인할 수 있습니다.',
+                subscribe_test_payment: true
+            }
+        }).then(handleChangePaymentMethodSuccess, handleChangePaymentMethodFail);
+    }
+
+    const handleChangePaymentMethodSuccess = (res) => {
+        console.log(res)
+        if (res.event === 'done') {
+            const receiptIdInfo = {
+                payReceiptId: res.data?.receipt_id,
+            }
+            if (!receiptIdInfo.payReceiptId) {
+                // 문제 알리기
+                return;
+            }
+            ajaxParam('/v2/api/Payment/billingSave', receiptIdInfo, (res) => {
+                openBanner('결제 수단 변경을 완료했습니다.');
+            });
+        } else {
+            // 문제 일어날 가능성 살펴 추가
+        }
+    }
+
+    const handleChangePaymentMethodFail = (err) => {
+        console.log(err);
+        // 각종 에러 가능성 살펴 등록, 필요할 경우 공용코드로
+    }
+
+    const handleChangePayMethod = () => {
+        openAsk({
+            icon: 'question', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+            title: '결제 수단 변경', // 제목
+            contents1: '결제 수단을 변경 하시겠습니까?', // 내용
+            contents2: '',
+            btnCheck: '', // 확인 버튼의 텍스트
+            btnStart: '변경하기', // 실행 버튼의 텍스트
+            btnCancel: '취소', // 취소 버튼의 텍스트
+            callback: bootpayChangePaymentMethod, // 확인버튼시 동작
+        });
+    };
 </script>
 
 <Header />
@@ -207,7 +136,7 @@
                     <dl>결제수단</dl>
                     <div class="myInfoBox">
                         <span>BC카드</span>
-                        <button class="myinfoChangeBtn" id="method_pop">변경</button>
+                        <button class="myinfoChangeBtn" id="method_pop" on:click={handleChangePayMethod}>변경</button>
                     </div>
                 </div>
                 <div class="seaCont wid50per">

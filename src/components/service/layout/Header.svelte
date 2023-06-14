@@ -1,7 +1,15 @@
 <script>
 	import ServiceHeader from "./ServiceHeader.svelte"
 	import Sider from "./Sider.svelte"
-    import {is_login, knNameHeader, knEmailHeader, cpNameSider, role, electronic} from "../../../lib/store.js"
+    import {
+        is_login,
+        knNameHeader,
+        knEmailHeader,
+        cpNameSider,
+        role,
+        electronic,
+        knPhoneNumber
+    } from "../../../lib/store.js"
     import restapi from "../../../lib/api.js";
     import {beforeUpdate} from "svelte";
     import CustomConfirm from "../../common/ui/CustomConfirm.svelte";
@@ -21,6 +29,7 @@
                         is_login.set(true);
                         knNameHeader.set(json_success.data.sendData.knName);
                         knEmailHeader.set(json_success.data.sendData.knEmail);
+                        knPhoneNumber.set(json_success.data.sendData.knPhoneNumber);
                         cpNameSider.set(json_success.data.sendData.cpName);
                         role.set(json_success.data.sendData.role);
                         electronic.set(json_success.data.sendData.electronic)
