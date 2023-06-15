@@ -72,7 +72,7 @@
                 + '.' + $serviceSettingData.addAccessIpPop.ip3 + '.' + $serviceSettingData.addAccessIpPop.ip4,
             csipRemarks: $serviceSettingData.addAccessIpPop.csipRemarks,
         }
-        ajaxParam('/v2/api/Company/accessIpSave', addData, (res) => {
+        ajaxParam('/v2/api/CompanySetting/accessIpSave', addData, (res) => {
             openBanner('접속 허용 IP를 추가하였습니다.');
             getServiceSettingDataAndInitializing();
         });

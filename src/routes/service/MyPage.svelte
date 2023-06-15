@@ -26,7 +26,6 @@
 
     // 나의정보 가져오기
     onMount(async () => {
-
         await myInfo();
     })
 
@@ -36,6 +35,7 @@
     let knPhoneNumber = "";// 휴대전화
     let cpName = "";// 소속
     let knDepartment = "";// 부서
+    let isMyPagePwdVisible = false; // 비밀번호창 보임 여부
 
     let knDepartmentState = ""; // 부서 등록/변경
     // 내정보 가져오기
@@ -196,7 +196,7 @@
                     <div class="seaCont wid100per">
                         <dl>비밀번호</dl>
                         <div class="myInfoBox">
-                            <button style="margin-left: 0" class="myinfoChangeBtn" on:click|preventDefault={() => changeStatePop(1)}>변경하기</button>
+                            <button style="margin-left: 0" class="myinfoChangeBtn" on:click|preventDefault={()=>{isMyPagePwdVisible = true;}}>변경하기</button>
                         </div>
                     </div>
                 </div>
@@ -214,9 +214,9 @@
     </div>
 </section>
 
-{#if changeState === 1}
-<MyPagePwd {changeStatePop} />
-{:else if changeState === 2}
+<MyPagePwd bind:visible={isMyPagePwdVisible} />
+
+{#if changeState === 2}
 <MyPageCp {changeStatePop} {contentsChange} />
 {:else if changeState === 3}
 <MyPageTeam {changeStatePop} {contentsChange} {knDepartmentState} />

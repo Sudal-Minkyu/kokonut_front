@@ -35,13 +35,17 @@
             {/if}
             <h4 class="popTit">{$customConfirmData.title}</h4>
         </header>
-        <section class="popContents">
-            <p>
-                {$customConfirmData.contents1}
-                <br>
-                {$customConfirmData.contents2}
-            </p>
-        </section>
+        {#if $customConfirmData.contents1 || $customConfirmData.contents2}
+            <section class="popContents">
+                <p>
+                    {$customConfirmData.contents1}
+                    {#if $customConfirmData.contents2}
+                        <br>
+                        {$customConfirmData.contents2}
+                    {/if}
+                </p>
+            </section>
+        {/if}
         <div class="popcBtnBox">
             {#if $customConfirmData.type === 'confirm'}
                 <button on:click={btnCheck} type="button" class="popCheck">{$customConfirmData.btnCheck}</button>

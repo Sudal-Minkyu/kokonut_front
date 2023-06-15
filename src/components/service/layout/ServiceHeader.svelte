@@ -7,9 +7,10 @@
         knNameHeader,
         knEmailHeader,
         cpNameSider,
-        knPhoneNumber
+        knPhoneNumber, csAutoLogoutSetting
     } from "../../../lib/store.js"
     import { ajaxParam } from "../../common/ajax.js";
+    import {openConfirm} from "../../common/ui/DialogManager.js";
 
     function logout() {
         let sendData = {
@@ -34,6 +35,52 @@
         });
     }
 
+    $: timeLeft = 60 * Number($csAutoLogoutSetting.minute); // 60초 * 로그아웃만료설정
+
+    // 초 단위를 문자형 시간으로 변환
+    function formatTime(seconds) {
+        if (typeof seconds !== 'number' || seconds <= 0) {
+            return '00:00';
+        }
+
+        const hrs = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+
+        let result = '';
+
+        if (hrs > 0) {
+            result += hrs + ':';
+        }
+
+        if (mins < 10 && hrs > 0) {
+            result += '0';
+        }
+        result += mins + ':';
+
+        if (secs < 10) {
+            result += '0';
+        }
+        result += secs;
+
+        return result;
+    }
+
+    const autoLogoutInterval = setInterval(() => {
+        timeLeft--;
+        if (timeLeft < 1) {
+            openConfirm({
+                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: '자동 로그아웃 됨', // 제목
+                contents1: formatTime(60 * Number($csAutoLogoutSetting)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
+                contents2: '자동 로그아웃 됩니다.',
+                btnCheck: '확인', // 확인 버튼의 텍스트
+                callback: logout,
+            });
+            clearInterval(autoLogoutInterval);
+        }
+    }, 1000);
+
 </script>
 
 <header id="serviceHeader">
@@ -45,6 +92,9 @@
                 </a>
             </div>
             <div class="topmyinfoBox">
+                <div class="myinfoBox">
+                    <span style="font-size: 1.7rem; font-weight: normal">자동 로그아웃 까지 남은시간 : {formatTime(timeLeft)}</span>
+                </div>
                 <div class="myinfoBox">
                     <div class="myinfoIcon"></div>
                     <span>{$knNameHeader}</span>

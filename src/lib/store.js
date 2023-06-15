@@ -22,7 +22,11 @@ export const is_login = persist_storage("is_login",false);
 export const page = persist_storage("page", 0);
 export const knNameHeader = writable(""); // 헤더바에 나올 사용자명
 export const knEmailHeader = writable(""); // 기본적으로 가져오는 나의 이메일스토어값
-export const knPhoneNumber = writable("");
+export const knPhoneNumber = writable(""); // 사용자 전화번호
+export const csAutoLogoutSetting = writable({minute: "60"}); // 자동로그아웃까지 걸리는 분 (새로고침 위해 객체형태 사용)
+export const csPasswordChangeState = writable("");
+export const doChangePwdLater = writable(true); // 로그인시 false -> 암호 변경 나중에 하기 -> true
+
 export const cpNameSider = writable(""); // 사이드바에 나올 소속명
 export const backBtn = writable("<-"); // 뒤로가기버튼 텍스트
 export const popupPage = writable(0); // 팝업용 페이지번호

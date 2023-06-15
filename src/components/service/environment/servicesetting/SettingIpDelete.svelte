@@ -39,7 +39,7 @@ const commitRemoveAccessIp = () => {
 
     }
 
-    ajaxBody('/v2/api/Company/accessIpDelete', removeTargetInfo, (res) => {
+    ajaxBody('/v2/api/CompanySetting/accessIpDelete', removeTargetInfo, (res) => {
         openBanner('선택하신 IP를 삭제하였습니다.');
         getServiceSettingDataAndInitializing();
     });

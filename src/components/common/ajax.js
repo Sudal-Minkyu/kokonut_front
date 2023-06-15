@@ -1,4 +1,13 @@
-import {is_login, accessToken, knNameHeader, knEmailHeader, cpNameSider, page, knPhoneNumber} from "../../lib/store.js";
+import {
+    is_login,
+    accessToken,
+    knNameHeader,
+    knEmailHeader,
+    cpNameSider,
+    page,
+    knPhoneNumber,
+    csAutoLogoutSetting,
+} from "../../lib/store.js";
 import { get } from 'svelte/store';
 import axios from 'axios';
 import {openConfirm} from "./ui/DialogManager.js";
@@ -107,6 +116,10 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         if (newJwtAccessToken !== null && newJwtAccessToken !== undefined) {
             accessToken.set(newJwtAccessToken);
         }
+
+        // ajax 호출 성공시 자동 로그아웃 시간 초기화
+        // 같은 객체를 다시 할당하는 이유는, 자동 로그아웃이 해당 변수의 변경을 감지하여 작동하도록 하였기 때문
+        csAutoLogoutSetting.set(JSON.parse(JSON.stringify(get(csAutoLogoutSetting))));
 
         if (okRes.data.status === 200) {
             handleSuccess(okRes);

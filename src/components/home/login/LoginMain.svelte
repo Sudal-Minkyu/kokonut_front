@@ -7,7 +7,7 @@
         accessToken,
         emailSave,
         keyBufferSto,
-        ivSto,
+        ivSto, doChangePwdLater,
     } from '../../../lib/store'
     import { callCapsLock, encryptData } from '../../../lib/common'
     import {openAsk, openConfirm} from "../../common/ui/DialogManager.js";
@@ -150,9 +150,10 @@
                             btnCancel: '취소', // 취소 버튼의 텍스트
                         })
                     } else {
-                        $is_login = true;
-                        $keyBufferSto = "";
-                        $ivSto = "";
+                        is_login.set(true);
+                        keyBufferSto.set('');
+                        ivSto.set('');
+                        doChangePwdLater.set(false);
                         knPassword= "";
                         push("/service");
                     }
