@@ -6,6 +6,7 @@
 
     export let apiKeyInfo;
     export let ipChange;
+    export let accessIpList;
 
     let myIpCheck = false;
     let ipChecked = false;
@@ -28,6 +29,13 @@
         }
 
         let accessIp = ip1+"."+ip2+"."+ip3+"."+ip4
+
+        if (accessIpList.map(obj => obj.accessIp).includes(accessIp)) {
+            ipChecked = true;
+            ipCheckedMsg = "이미 등록된 IP 입니다.";
+            return false;
+        }
+
         let ipCheckResult = ipCheck(accessIp);
 
         if(!ipCheckResult) {

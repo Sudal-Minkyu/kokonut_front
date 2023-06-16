@@ -7,6 +7,11 @@
  * @constructor
  */
 export const SelectBoxManager = (targetEl, onSelect = () => {}) => {
+    // onSelect 라는 이름으로 전달받은 인자가 함수가 아니면 동작 안하도록. 우선은 특정 조건일 때 SelectBox가 동작되지 않도록 할 때 사용
+    if (typeof onSelect !== 'function') {
+        return;
+    }
+
     let label;
     for (const el of targetEl.childNodes) {
         if (el.nodeType === 1 && el.classList.contains('label')) {
