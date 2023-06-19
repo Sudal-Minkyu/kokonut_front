@@ -277,3 +277,17 @@ export const initialServiceSetting = JSON.stringify({
 });
 
 export const serviceSettingData = writable(JSON.parse(initialServiceSetting));
+
+export const initialSubscriptionManagement = JSON.stringify({
+    companyPaymentInfo: {
+        cpiInfoCardName: '',
+        cpiPayType: '',
+    },
+    paymentList: {
+        current: 1,
+        total_rows: 0,
+        dataList: [],
+    },
+});
+
+export const subscriptionManagementData = writable(JSON.parse(initialSubscriptionManagement));

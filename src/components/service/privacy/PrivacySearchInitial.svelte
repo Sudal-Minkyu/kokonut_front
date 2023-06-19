@@ -299,7 +299,7 @@
                 </tbody>
             </table>
         </div>
-        <Pagination bind:current={$privacySearchData.currentPage}
+        <Pagination bind:currentPage={$privacySearchData.currentPage}
                     bind:totalPosts={$privacySearchData.totalPosts}
                     on:change={handleChangePage} />
     </div>

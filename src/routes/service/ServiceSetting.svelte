@@ -86,10 +86,6 @@
         serviceIpState = val;
     }
 
-    window.kk = () => {
-        console.log($serviceSettingData);
-    }
-
     const ajaxWhenEveryChange = (url, sendObj) => {
         console.log('act', sendObj);
         ajaxParam(url, sendObj, (res) => {

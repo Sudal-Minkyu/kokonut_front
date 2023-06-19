@@ -2,7 +2,7 @@
     import Header from "../../components/service/layout/Header.svelte";
     import {onMount} from "svelte";
     import {Bootpay} from "@bootpay/client-js";
-    import {knEmailHeader, knNameHeader, knPhoneNumber} from "../../lib/store.js";
+    import {knEmailHeader, knNameHeader, knPhoneNumber, subscriptionManagementData,} from "../../lib/store.js";
     import CalendarPop from "../../components/service/environment/subscription/CalendarPop.svelte";
     import PaymentPop from "../../components/service/environment/subscription/PaymentPop.svelte";
     import UnsubscribePop from "../../components/service/environment/subscription/UnsubscribePop.svelte";
@@ -12,12 +12,28 @@
 
     onMount(() => {
         console.log('pn', $knPhoneNumber);
-        getInitialData();
+        getCompanyPaymentInfo();
+        getPaymentList();
     });
 
-    const getInitialData = () => {
+    const getCompanyPaymentInfo = () => {
         ajaxGet('/v2/api/Company/companyPaymentInfo', false, (res) => {
             console.log('기초데이터', res);
+            subscriptionManagementData.update(obj => {
+                obj.companyPaymentInfo = res.data.sendData.paymentInfo;
+                return obj;
+            });
+        });
+    }
+    
+    const getPaymentList = () => {
+        ajaxGet('/v2/api/Company/paymentList', false, (res) => {
+            console.log('기초데이터2', res);
+            subscriptionManagementData.update(obj => {
+                obj.paymentList.dataList = res.data.datalist;
+                obj.paymentList.total_rows = res.data.total_rows;
+                return obj;
+            });
         });
     }
 
@@ -104,6 +120,23 @@
             callback: bootpayChangePaymentMethod, // 확인버튼시 동작
         });
     };
+
+    const payStateName = {
+        '0': '결제오류',
+        '1': '결제완료',
+        '2': '결제예약중',
+    };
+
+    const payMethodName = {
+        '0': '자동결제',
+        '1': '요금정산',
+        '2': '결제실패',
+    }
+
+    const cpiPayTypeName = {
+        '0': '월 정기 구독',
+        '1': '연 정기 구독',
+    };
 </script>
 
 <Header />
@@ -117,7 +150,7 @@
                 <div class="seaCont wid50per">
                     <dl>이용중인 상품</dl>
                     <div class="myInfoBox">
-                        <div class="top_stand01">Standard1</div>
+                        <div class="top_stand0{($subscriptionManagementData.companyPaymentInfo.cpiPayType + 1) * 2 - 1}">{cpiPayTypeName[$subscriptionManagementData.companyPaymentInfo.cpiPayType]}</div>
                         <!--
                         <div class="top_stand02">Standard2</div>
                         <div class="top_stand03">Standard3</div>
@@ -135,7 +168,7 @@
                 <div class="seaCont wid50per">
                     <dl>결제수단</dl>
                     <div class="myInfoBox">
-                        <span>BC카드</span>
+                        <span>{$subscriptionManagementData.companyPaymentInfo.cpiInfoCardName}</span>
                         <button class="myinfoChangeBtn" id="method_pop" on:click={handleChangePayMethod}>변경</button>
                     </div>
                 </div>
@@ -156,7 +189,7 @@
                 <caption>1:1문의 리스트</caption>
                 <colgroup>
                     <col style="width:16.44%;">
-                    <col style="width:24.66%;">
+<!--                    <col style="width:24.66%;">-->
                     <col style="width:13.70%;">
                     <col style="width:13.70%;">
                     <col style="width:12.33%;">
@@ -166,7 +199,7 @@
                 <thead>
                 <tr>
                     <th>요금부과 기간</th>
-                    <th>이용상품</th>
+<!--                    <th>이용상품</th>-->
                     <th>등록된 개인정보 평균</th>
                     <th>결제 일시</th>
                     <th>결제 금액</th>
@@ -175,30 +208,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>2022.02.01 - 02.28</td>
-                    <td><div class="stand stand_03">Standard3</div></td>
-                    <td><div class="cur_priNum open_current_pop" on:click={() => {calendarService.open('요금부가시작기간')}}>9,111</div></td>
-                    <td>2022-11-23 09:49</td>
-                    <td>13,000원</td>
-                    <td>결제완료</td>
-                    <td>자동결제</td>
-                </tr>
-                <tr>
-                    <td>2022.02.01 - 02.28</td>
-                    <td><div class="stand stand_02">Standard2</div></td>
-                    <td><div class="cur_priNum open_current_pop" on:click={() => {calendarService.open('요금부가시작기간')}}>9,111</div></td>
-                    <td>2022-11-23 09:49</td>
-                    <td>13,000원</td>
-                    <td class="failtext">결제실패</td>
-                    <td>자동결제</td>
-                </tr>
+                {#each $subscriptionManagementData.paymentList.dataList as {payBillingStartDate, payBillingEndDate, payPrivacyCount, insert_date, payAmount, payState, payMethod}}
+                    <tr>
+                        <td>{payBillingStartDate} - {payBillingEndDate.substring(5, 10)}</td>
+                        <td><div class="cur_priNum open_current_pop" on:click={() => {calendarService.open(payBillingEndDate)}}>{payPrivacyCount}</div></td>
+                        <td>{insert_date}</td>
+                        <td>{payAmount.toLocaleString()}원</td>
+                        <td class={payState === '0' ? 'failtext' : ''}>{payStateName[payState]}</td>
+                        <td>{payMethodName[payMethod]}</td>
+                    </tr>
+                {/each}
                 </tbody>
             </table>
         </div>
 
-        <Pagination current={1}
-                    totalPosts={150}
+        <Pagination bind:currentPage={$subscriptionManagementData.paymentList.current}
+                    bind:totalPosts={$subscriptionManagementData.paymentList.total_rows}
                     on:change={()=>{}} />
     </div>
 </section>

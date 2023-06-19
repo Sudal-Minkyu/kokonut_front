@@ -38,10 +38,6 @@
             }
         });
     }
-
-    window.kk = () => {
-        console.log($privacySearchData);
-    }
 </script>
 
 <Header />

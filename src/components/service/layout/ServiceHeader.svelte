@@ -34,10 +34,11 @@
         }, 1000); // 1000ms 동안 추가 이벤트가 없을 때 처리
     }
 
-    function logout(isAutoLogout = false) {
+    function logout() {
         let sendData = {
             accessToken : $accessToken,
         }
+        console.log('로그아웃정보', sendData);
 
         ajaxParam('/v1/api/Auth/logout', sendData, (json_success) => {
             // 기본값 초기화처리
@@ -48,9 +49,6 @@
             is_login.set(false);
             accessToken.set('');
             page.set(0);
-            if (!isAutoLogout) {
-                location.href = '/login';
-            }
         }, (errorCode) => {
             return {
                 action: 'ERRORDO',
@@ -135,9 +133,8 @@
                 contents1: formatTime(60 * Number($csAutoLogoutSetting.minute)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
                 contents2: '자동 로그아웃 됩니다.',
                 btnCheck: '확인', // 확인 버튼의 텍스트
-                callback: () => {location.href = '/login';},
             });
-            logout(true);
+            logout();
             clearInterval(autoLogoutInterval);
         }
     }, 1000);

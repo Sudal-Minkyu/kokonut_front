@@ -4,19 +4,12 @@
     export let postsPerPage = 10; // 한 페이지에 보여줄 게시물의 수
     export let buttonsToShow = 10; // 보여줄 버튼의 수
 
-    const totalPageCount = Math.ceil(totalPosts / postsPerPage);
-
-    function updatePageRange() {
-        const group = Math.ceil(currentPage / buttonsToShow);
-        startPage = (group - 1) * buttonsToShow + 1;
-        endPage = Math.min(group * buttonsToShow, totalPageCount);
-    }
-
-    let startPage, endPage;
-    updatePageRange();
+    $: totalPageCount = Math.ceil(totalPosts / postsPerPage);
+    $: group = Math.ceil(currentPage / buttonsToShow);
+    $: startPage = (group - 1) * buttonsToShow + 1;
+    $: endPage = Math.min(group * buttonsToShow, totalPageCount);
 
     function goToPage(page) {
-        updatePageRange();
         dispatch("change", {page});
     }
 
