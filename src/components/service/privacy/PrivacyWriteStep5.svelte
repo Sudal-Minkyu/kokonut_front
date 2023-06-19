@@ -212,7 +212,7 @@
                                     <div class="kt_total">총 <span>{$providePrivacyWriteData.step5.filteredMemberList.length}</span>건</div>
                                     {#if false}
                                         <div class="kt_selbox wid108">
-                                            <div class="selectBox wid100per nonePad" use:SelectBoxManager={()=>{}}>
+                                            <div class="selectBox wid100per nonePad" use:SelectBoxManager={{}}>
                                                 <div class="label">최근 등록순</div>
                                                 <ul class="optionList">
                                                     <li class="optionItem">최근 등록순</li>

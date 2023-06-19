@@ -315,9 +315,10 @@
                 <div class="seaCont wid100per">
                     <dl>비밀번호 변경주기</dl>
                     <div class="sc_SelBox">
-                        <div class="selectBox wid164" use:SelectBoxManager={
-                            $role !== 'ROLE_MASTER' ? (el) => {handleChangeRadioBtn('csPasswordChangeSetting', el.value)} : '리드온리'
-                        }>
+                        <div class="selectBox wid164" use:SelectBoxManager={{
+                            callback: (el) => {handleChangeRadioBtn('csPasswordChangeSetting', el.value)},
+                            readOnly: $role !== 'ROLE_MASTER',
+                        }}>
                             <div class="label" id="csPasswordChangeSetting">선택</div>
                             <ul class="optionList">
                                 <li class="optionItem" value="3">3개월</li>
@@ -333,9 +334,10 @@
                 <div class="seaCont wid100per">
                     <dl>비밀번호 오류 접속제한</dl>
                     <div class="sc_SelBox">
-                        <div class="selectBox wid164" use:SelectBoxManager={
-                            $role !== 'ROLE_MASTER' ? (el) => {handleChangeRadioBtn('csPasswordErrorCountSetting', el.value)} : '리드온리'
-                        }>
+                        <div class="selectBox wid164" use:SelectBoxManager={{
+                            callback: (el) => {handleChangeRadioBtn('csPasswordErrorCountSetting', el.value)},
+                            readOnly: $role !== 'ROLE_MASTER',
+                        }}>
                             <div class="label" id="csPasswordErrorCountSetting">선택</div>
                             <ul class="optionList">
                                 <li class="optionItem" value="5">5번</li>
@@ -352,9 +354,10 @@
                     <div class="seaRadio">
                         <div class="flex_sel">
                             <p class="marR30">로그인 후</p>
-                            <div class="selectBox wid124 nonePad" use:SelectBoxManager={
-                                $role !== 'ROLE_MASTER' ? (el) => {handleChangeRadioBtn('csAutoLogoutSetting', el.value)} : '리드온리'
-                            }>
+                            <div class="selectBox wid124 nonePad" use:SelectBoxManager={{
+                                callback: (el) => {handleChangeRadioBtn('csAutoLogoutSetting', el.value)},
+                                readOnly: $role !== 'ROLE_MASTER',
+                            }}>
                                 <div class="label" id="csAutoLogoutSetting">선택</div>
                                 <ul class="optionList">
                                     <li class="optionItem" value="30">30분</li>
@@ -385,9 +388,10 @@
                                        disabled={$role !== 'ROLE_MASTER'}>
                                 <label for="기간선택"><em><dt></dt></em></label>
                             </div>
-                            <div class="selectBox wid124 nonePad" use:SelectBoxManager={
-                                $role !== 'ROLE_MASTER' ? (el) => {handleChangeRadioBtn('csLongDisconnectionSetting', el.value)} : '리드온리'
-                            }>
+                            <div class="selectBox wid124 nonePad" use:SelectBoxManager={{
+                                callback: (el) => {handleChangeRadioBtn('csLongDisconnectionSetting', el.value)},
+                                readOnly: $role !== 'ROLE_MASTER',
+                            }}>
                                 <div class="label" id="csLongDisconnectionSetting">기간선택</div>
                                 <ul class="optionList">
                                     <li class="optionItem" value="1">1개월</li>
