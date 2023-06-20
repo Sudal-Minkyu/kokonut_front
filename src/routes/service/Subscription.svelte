@@ -10,6 +10,9 @@
     import {openAsk, openBanner} from "../../components/common/ui/DialogManager.js";
     import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
 
+    let payBeforeUnsubscribeConfirmVisibility = false;
+    let unsubscribeDoneConfirmVisibility = false;
+
     onMount(() => {
         console.log('pn', $knPhoneNumber);
         getCompanyPaymentInfo();
@@ -39,7 +42,7 @@
 
     const calendarService = {
         visibility: false,
-        open: (useDate) =>{
+        open: (useDate) => {
             calendarService.visibility = true;
         },
         close: () => {
@@ -49,7 +52,7 @@
 
     const paymentService = {
         visibility: false,
-        open: () =>{
+        open: () => {
             paymentService.visibility = true;
         },
         close: () => {
@@ -59,7 +62,7 @@
 
     const unsubscribeService = {
         visibility: false,
-        open: () =>{
+        open: () => {
             unsubscribeService.visibility = true;
         },
         close: () => {
@@ -121,6 +124,19 @@
         });
     };
 
+    const handlePayment = () => {
+        payBeforeUnsubscribeConfirmVisibility = false;
+        paymentService.open();
+    }
+
+    const handleUnsubscribeBtn = () => {
+        if (false) { // 잔금이 없을 경우
+            unsubscribeService.open();
+        } else { // 잔금이 존재할 경우
+            payBeforeUnsubscribeConfirmVisibility = true;
+        }
+    }
+
     const payStateName = {
         '0': '결제오류',
         '1': '결제완료',
@@ -131,7 +147,7 @@
         '0': '자동결제',
         '1': '요금정산',
         '2': '결제실패',
-    }
+    };
 
     const cpiPayTypeName = {
         '0': '월 정기 구독',
@@ -151,16 +167,11 @@
                     <dl>이용중인 상품</dl>
                     <div class="myInfoBox">
                         <div class="top_stand0{($subscriptionManagementData.companyPaymentInfo.cpiPayType + 1) * 2 - 1}">{cpiPayTypeName[$subscriptionManagementData.companyPaymentInfo.cpiPayType]}</div>
+                        &nbsp;&nbsp;<button class="myinfoChangeBtn marL8impor" id="unsubscribe_pop" on:click={handleUnsubscribeBtn}>구독해지</button>
                         <!--
                         <div class="top_stand02">Standard2</div>
                         <div class="top_stand03">Standard3</div>
                         -->
-                    </div>
-                </div>
-                <div class="seaCont wid50per">
-                    <dl>결제일</dl>
-                    <div class="myInfoBox">
-                        <span>1일~말일 요금, 익월 5일 결제</span>
                     </div>
                 </div>
             </div>
@@ -172,14 +183,12 @@
                         <button class="myinfoChangeBtn" id="method_pop" on:click={handleChangePayMethod}>변경</button>
                     </div>
                 </div>
-                <div class="seaCont wid50per">
-                    <dl>결제 하실 이용요금</dl>
-                    <div class="myInfoBox">
-                        <span><dd>4,656원</dd></span>
-                        <button class="myinfoChangeBtn" id="subscribe_pop" on:click={paymentService.open}>결제</button>
-                        <button class="myinfoChangeBtn marL8impor" id="unsubscribe_pop" on:click={unsubscribeService.open}>구독해지</button>
+                    <div class="seaCont wid50per">
+                        <dl>결제일</dl>
+                        <div class="myInfoBox">
+                            <span>1일~말일 요금, 익월 5일 결제</span>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
 
@@ -188,18 +197,16 @@
             <table>
                 <caption>1:1문의 리스트</caption>
                 <colgroup>
-                    <col style="width:16.44%;">
-<!--                    <col style="width:24.66%;">-->
-                    <col style="width:13.70%;">
-                    <col style="width:13.70%;">
-                    <col style="width:12.33%;">
-                    <col style="width:9.59%;">
-                    <col style="width:9.59%;">
+                    <col style="width:21.82%;">
+                    <col style="width:18.16%;">
+                    <col style="width:18.16%;">
+                    <col style="width:16.35%;">
+                    <col style="width:12.71%;">
+                    <col style="width:12.71%;">
                 </colgroup>
                 <thead>
                 <tr>
                     <th>요금부과 기간</th>
-<!--                    <th>이용상품</th>-->
                     <th>등록된 개인정보 평균</th>
                     <th>결제 일시</th>
                     <th>결제 금액</th>
@@ -235,9 +242,48 @@
 {/if}
 
 {#if paymentService.visibility}
-    <PaymentPop {paymentService} />
+    <PaymentPop {paymentService} bind:unsubscribeDoneConfirmVisibility />
 {/if}
 
 {#if unsubscribeService.visibility}
     <UnsubscribePop {unsubscribeService} />
+{/if}
+
+{#if unsubscribeDoneConfirmVisibility}
+    <div class="koko_popup">
+        <div class="layerPopType" id="tip_box03" style="display: block">
+            <header class="popHeader">
+                <img src="/assets/images/common/minipop_pass.png" alt="">
+                <h4 class="popTit">해지가 완료되었습니다.</h4>
+            </header>
+            <section class="popContents">
+                <p>
+                    그 동안 서비스를 이용해 주셔서 감사합니다.<br>
+                    해지 취소를 원하신다면 고객센터로 연락주세요.
+                </p>
+            </section>
+            <div class="popcBtnBox">
+                <button type="button" id="tip_close03" class="layerBtn">확인</button>
+            </div>
+        </div>
+    </div>
+{/if}
+
+{#if payBeforeUnsubscribeConfirmVisibility}
+    <div class="koko_popup">
+        <div class="layerPopType" id="tip_box04" style="display: block">
+            <header class="popHeader">
+                <img src="/assets/images/common/minipop_stop.png" alt="">
+                <h4 class="popTit">남은개 요금을 결제해 주세요</h4>
+            </header>
+            <section class="popContents">
+                <p>
+                    결제 후에 구독해지를 진행할 수 있습니다.
+                </p>
+            </section>
+            <div class="popcBtnBox">
+                <button type="button" id="tip_close04" class="layerBtn" on:click={handlePayment}>확인</button>
+            </div>
+        </div>
+    </div>
 {/if}

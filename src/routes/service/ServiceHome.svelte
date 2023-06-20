@@ -1,68 +1,16 @@
 <script>
     // 레이아웃
     import Header from "../../components/service/layout/Header.svelte"
-    import {knNameHeader} from "../../lib/store.js"
-    import {Swiper} from "swiper/bundle";
-    import 'swiper/css/bundle';
-    import {onMount} from "svelte";
+    import WidgetCalendar from "../../components/service/home/WidgetCalendar.svelte";
+    import WidgetSwiperNews from "../../components/service/home/WidgetSwiperNews.svelte";
 
-    onMount(async => {
-        const swiper = new Swiper(".mySwiper", {
-            direction: "vertical",
-            loop: true,
-            autoplay: {
-                delay: 2500,
-                disableOnInteraction: false,
-            },
-            navigation: {   // 버튼
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            simulateTouch: false,
-            speed: 800,
-            effect: "slide",
-        });
-    });
+
 </script>
 <Header />
 <section class="bodyWrap">
     <div class="contentInnerWrap">
         <div class="maincontent">
-            <div class="pageH1_type01">
-                <h1><span>{$knNameHeader}</span>님, 안녕하세요!</h1>
-            </div>
-            <div class="currentWrap">
-                <div class="curTitmeInfoBox">
-                    <span>23. 03. 31</span>
-                    <dl>오후 5시 30분</dl>
-                </div>
-                <div class="currentSlideBox">
-                    <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="cursItem">금일 파기된(될) 개인정보 <span class="curCou">32</span><dt>건</dt></div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="cursItem">오늘의 개인정보 다운로드 <span class="curCou">32</span><dt>건</dt>, <span class="curCou">50</span><dt>회</dt>, <span class="curCou">김코코</span></div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="cursItem">개인정보 제공건수 : 외부 <span class="curCou">32</span><dt>건</dt>, 내부 <span class="curCou">50</span><dt>건</dt></div>
-                            </div>
-                        </div>
-                        <div class="curs_btnBox">
-                            <div class="curs_btnInner">
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="curUpdateBox">
-                    <button>새로고침</button>
-                    <dl>30분 간격 자동 업데이트</dl>
-                </div>
-            </div>
-
+            <WidgetSwiperNews />
             <div class="main_status_board">
                 <div class="today_gr_Inner">
                     <h2 class="board_title">오늘의 서비스 현황</h2>
@@ -80,88 +28,10 @@
 
             <div class="wjListBox">
                 <div class="wjList">
+
+
                     <!-- [D] 위젯 캘린더 -->
-                    <div class="wjItem">
-                        <div class="wjcalBox">
-                            <div class="wjcMonth">03</div>
-                            <div class="wjcal">
-                                <table>
-                                    <caption>위젯 캘린더</caption>
-                                    <colgroup>
-                                        <col style="width:14.285%;">
-                                        <col style="width:14.285%;">
-                                        <col style="width:14.285%;">
-                                        <col style="width:14.285%;">
-                                        <col style="width:14.285%;">
-                                        <col style="width:14.285%;">
-                                        <col style="width:14.285%;">
-                                    </colgroup>
-                                    <thead>
-                                    <tr>
-                                        <th>일</th>
-                                        <th>월</th>
-                                        <th>화</th>
-                                        <th>수</th>
-                                        <th>목</th>
-                                        <th>금</th>
-                                        <th>토</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="point"><span>1</span></td>
-                                        <td class="point"><span>2</span></td>
-                                        <td class="point"><span>3</span></td>
-                                        <td><span>4</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>5</span></td>
-                                        <td><span>6</span></td>
-                                        <td class="point"><span>7</span></td>
-                                        <td><span>8</span></td>
-                                        <td><span>9</span></td>
-                                        <td class="point"><span>10</span></td>
-                                        <td><span>11</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>12</span></td>
-                                        <td><span>13</span></td>
-                                        <td><span>14</span></td>
-                                        <td class="point"><span class="onSuc">15</span></td>
-                                        <td><span>16</span></td>
-                                        <td><span>17</span></td>
-                                        <td><span>18</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="point"><span>19</span></td>
-                                        <td><span>20</span></td>
-                                        <td><span>21</span></td>
-                                        <td><span>22</span></td>
-                                        <td><span>23</span></td>
-                                        <td><span>24</span></td>
-                                        <td><span>25</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>26</span></td>
-                                        <td><span>27</span></td>
-                                        <td><span>28</span></td>
-                                        <td><span>29</span></td>
-                                        <td><span>30</span></td>
-                                        <td><span>31</span></td>
-                                        <td></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="wjcTextBox">
-                                <div class="wjcText">접속 기록 점검일</div>
-                                <div class="wjcText">이용내역 통지메일 발송일</div>
-                            </div>
-                        </div>
-                    </div>
+                    <WidgetCalendar year={2023} month={6} />
                     <!-- // [D] 위젯 캘린더 -->
 
                     <!-- [D] 위젯 개인정보 제공 건 -->

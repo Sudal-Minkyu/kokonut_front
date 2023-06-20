@@ -3,6 +3,7 @@
     import {knEmailHeader, knNameHeader} from "../../../../lib/store.js";
 
     export let paymentService;
+    export let unsubscribeDoneConfirmVisibility;
 
     // 부트페이 결제 준비
     window.bootpayBilling2 = () => {
@@ -36,7 +37,7 @@
     <div class="koko_popup_inner">
         <div class="koko_popup_container">
             <div class="koko_popup_title marB40">
-                <h3 class="">이용요금 결제</h3>
+                <h3 class="">남은 이용요금 결제</h3>
             </div>
             <div class="seaContentBox marB24">
                 <div class="seaContentLine borB">
@@ -102,37 +103,46 @@
 
 
 <!-- [D] 미니 팝업 : 결제 성공 팝업 -->
-<div class="layerPopType" id="tip_box01">
-    <header class="popHeader">
-        <img src="/assets/images/common/minipop_pass.png" alt="">
-        <h4 class="popTit">결제가 완료되었습니다.</h4>
-    </header>
-    <section class="popContents">
-        <p>
-            이후 추가 결제 유도하는 안내 멘트가<br>
-            들어가면 좋겠습니다.
-        </p>
-    </section>
-    <div class="popcBtnBox">
-        <button type="button" id="tip_close01" class="layerBtn">확인</button>
+{#if false}
+<div class="koko_popup">
+    <div class="layerPopType" id="tip_box01">
+        <header class="popHeader">
+            <img src="/assets/images/common/minipop_pass.png" alt="">
+            <h4 class="popTit">결제가 완료되었습니다.</h4>
+        </header>
+        <section class="popContents">
+            <p>
+                이후 추가 결제 유도하는 안내 멘트가<br>
+                들어가면 좋겠습니다.
+            </p>
+        </section>
+        <div class="popcBtnBox">
+            <button type="button" id="tip_close01" class="layerBtn">확인</button>
+        </div>
     </div>
 </div>
+{/if}
 <!-- // [D] 미니 팝업 : 결제 성공 팝업 -->
 
 <!-- [D] 미니 팝업 : 결제 실패 팝업 -->
-<div class="layerPopType" id="tip_box02">
-    <header class="popHeader">
-        <img src="/assets/images/common/minipop_warring.png" alt="">
-        <h4 class="popTit">결제 실패 안내</h4>
-    </header>
-    <section class="popContents">
-        <p>
-            카드 정보 인증에 실패했습니다.<br>
-            잠시 후 다시 시도해 주세요.
-        </p>
-    </section>
-    <div class="popcBtnBox">
-        <button type="button" id="tip_close02" class="layerBtn">확인</button>
+{#if false}
+<div class="koko_popup">
+    <div class="layerPopType" id="tip_box02">
+        <header class="popHeader">
+            <img src="/assets/images/common/minipop_warring.png" alt="">
+            <h4 class="popTit">결제 실패 안내</h4>
+        </header>
+        <section class="popContents">
+            <p>
+                카드 정보 인증에 실패했습니다.<br>
+                잠시 후 다시 시도해 주세요.
+            </p>
+        </section>
+        <div class="popcBtnBox">
+            <button type="button" id="tip_close02" class="layerBtn">확인</button>
+        </div>
     </div>
 </div>
+{/if}
+
 <!-- // [D] 미니 팝업 : 결제 실패 팝업 -->

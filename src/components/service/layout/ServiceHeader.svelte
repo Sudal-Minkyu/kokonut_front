@@ -14,16 +14,32 @@
     import {openConfirm} from "../../common/ui/DialogManager.js";
     import {onDestroy, onMount} from "svelte";
 
+    let autoLogoutInterval;
     onMount(() => {
         document.addEventListener('click', handleTimeoutReset);
         document.addEventListener('mousemove', handleTimeoutReset);
         document.addEventListener('keydown', handleTimeoutReset);
+        autoLogoutInterval = setInterval(() => {
+            timeLeftClock = getRemainingTime();
+            if (expireDate < new Date()) {
+                openConfirm({
+                    icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: '자동 로그아웃 됨', // 제목
+                    contents1: formatTime(60 * Number($csAutoLogoutSetting.minute)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
+                    contents2: '자동 로그아웃 됩니다.',
+                    btnCheck: '확인', // 확인 버튼의 텍스트
+                });
+                logout();
+                clearInterval(autoLogoutInterval);
+            }
+        }, 1000);
     });
 
     onDestroy(() => {
         document.removeEventListener('click', handleTimeoutReset);
         document.removeEventListener('mousemove', handleTimeoutReset);
         document.removeEventListener('keydown', handleTimeoutReset);
+        clearInterval(autoLogoutInterval);
     });
 
     let debouncingTime;
@@ -123,21 +139,6 @@
             return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
     }
-
-    const autoLogoutInterval = setInterval(() => {
-        timeLeftClock = getRemainingTime();
-        if (expireDate < new Date()) {
-            openConfirm({
-                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                title: '자동 로그아웃 됨', // 제목
-                contents1: formatTime(60 * Number($csAutoLogoutSetting.minute)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
-                contents2: '자동 로그아웃 됩니다.',
-                btnCheck: '확인', // 확인 버튼의 텍스트
-            });
-            logout();
-            clearInterval(autoLogoutInterval);
-        }
-    }, 1000);
 
 </script>
 

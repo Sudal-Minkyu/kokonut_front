@@ -38,39 +38,3 @@
     </div>
 </div>
 <!-- // [D] 구독 해지 팝업 -->
-
-
-<!-- [D] 미니 팝업 : 해지 완료 팝업 -->
-<div class="layerPopType" id="tip_box03">
-    <header class="popHeader">
-        <img src="/assets/images/common/minipop_pass.png" alt="">
-        <h4 class="popTit">해지가 완료되었습니다.</h4>
-    </header>
-    <section class="popContents">
-        <p>
-            이후 추가 결제 유도하는 안내 멘트가<br>
-            들어가면 좋겠습니다.
-        </p>
-    </section>
-    <div class="popcBtnBox">
-        <button type="button" id="tip_close03" class="layerBtn">확인</button>
-    </div>
-</div>
-<!-- // [D] 미니 팝업 : 해지 완료 팝업 -->
-
-<!-- [D] 미니 팝업 : 해지 실패 팝업 -->
-<div class="layerPopType" id="tip_box04">
-    <header class="popHeader">
-        <img src="/assets/images/common/minipop_stop.png" alt="">
-        <h4 class="popTit">이번 달 요금을 결제해 주세요</h4>
-    </header>
-    <section class="popContents">
-        <p>
-            결제 후에 구독해지를 진행할 수 있습니다.
-        </p>
-    </section>
-    <div class="popcBtnBox">
-        <button type="button" id="tip_close04" class="layerBtn">확인</button>
-    </div>
-</div>
-<!-- // [D] 미니 팝업 : 해지 실패 팝업 -->
