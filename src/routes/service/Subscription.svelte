@@ -215,11 +215,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                {#each $subscriptionManagementData.paymentList.dataList as {payBillingStartDate, payBillingEndDate, payPrivacyCount, insert_date, payAmount, payState, payMethod}}
+                {#each $subscriptionManagementData.paymentList.dataList as {payBillingStartDate, payBillingEndDate, payPrivacyCount, payReserveExecuteDate, payAmount, payState, payMethod}}
                     <tr>
                         <td>{payBillingStartDate} - {payBillingEndDate.substring(5, 10)}</td>
                         <td><div class="cur_priNum open_current_pop" on:click={() => {calendarService.open(payBillingEndDate)}}>{payPrivacyCount}</div></td>
-                        <td>{insert_date}</td>
+                        <td>{payReserveExecuteDate}</td>
                         <td>{payAmount.toLocaleString()}원</td>
                         <td class={payState === '0' ? 'failtext' : ''}>{payStateName[payState]}</td>
                         <td>{payMethodName[payMethod]}</td>
