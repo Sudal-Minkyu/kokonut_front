@@ -5,6 +5,8 @@
     import {ajaxParam} from "../../../common/ajax.js";
     import {openBanner} from "../../../common/ui/DialogManager.js";
 
+    export let getServiceSettingDataAndInitializing;
+
     const closeAddAccessIpPop = () => {
         serviceSettingData.update(obj => {
             obj.addAccessIpPop.visibility = false;
@@ -59,7 +61,7 @@
 
         if (isEmptyExist || isOutOfBound) {
             serviceSettingData.update(obj => {
-                obj.addAccessIpPop.ipInputErrorMsg = '올바른 ip를 입력해 주세요.';
+                obj.addAccessIpPop.ipInputErrorMsg = '올바른 IP를 입력해 주세요.';
                 return obj;
             });
             return;
@@ -70,8 +72,18 @@
                 + '.' + $serviceSettingData.addAccessIpPop.ip3 + '.' + $serviceSettingData.addAccessIpPop.ip4,
             csipRemarks: $serviceSettingData.addAccessIpPop.csipRemarks,
         }
-        ajaxParam('/v2/api/Company/accessIpSave', addData, (res) => {
+
+        if ($serviceSettingData.accessIpList.map(obj => obj.csipIp).includes(addData.csipIp)) {
+            serviceSettingData.update(obj => {
+                obj.addAccessIpPop.ipInputErrorMsg = '이미 등록된 IP 입니다.';
+                return obj;
+            });
+            return;
+        }
+
+        ajaxParam('/v2/api/CompanySetting/accessIpSave', addData, (res) => {
             openBanner('접속 허용 IP를 추가하였습니다.');
+            getServiceSettingDataAndInitializing();
         });
     }
 </script>

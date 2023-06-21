@@ -35,6 +35,7 @@ import PrivacyList from "./routes/service/privacy/PrivacyList.svelte"
 import PrivacyWrite from "./routes/service/privacy/PrivacyWrite.svelte"
 import PrivacyHistory from "./routes/service/privacy/PrivacyHistory.svelte"
 import PrivacySearch from "./routes/service/privacy/PrivacySearch.svelte"
+import Subscription from "./routes/service/Subscription.svelte";
 
 export default {
     // API 테스트하는 화면
@@ -86,6 +87,9 @@ export default {
 
     // 환경설정 페이지
     "/service/environment": Environment,
+
+    // 구독관리 페이지
+    "/service/environment/subscription": Subscription,
 
     // API Key 관리 페이지
     "/service/environment/apikey": ApiKey,

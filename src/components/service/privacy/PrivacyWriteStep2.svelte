@@ -195,7 +195,7 @@
                                             <button><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
                                         </div>
                                         <div class="mu_SelBox wid150 noneMarR" style="visibility: {$providePrivacyWriteData.step1.proProvide === 0 ? 'visible' : 'hidden'}">
-                                            <div class="selectBox wid100per nonePad" use:SelectBoxManager={handleOnSelectBox}>
+                                            <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: handleOnSelectBox}}>
                                                 <div class="label">관리자 등급</div>
                                                 <ul class="optionList">
                                                     <li class="optionItem popanoGrade" data-rating="">전체</li>

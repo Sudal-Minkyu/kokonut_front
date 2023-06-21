@@ -57,7 +57,7 @@
             <div class="seaCont wid33per">
                 <dl>다운로드 유무</dl>
                 <div class="sc_SelBox" >
-                    <div class="selectBox wid164" use:SelectBoxManager={handleFilterDownload}>
+                    <div class="selectBox wid164" use:SelectBoxManager={{callback: handleFilterDownload}}>
                         <div class="label" data-rating="">전체</div>
                         <ul class="optionList">
                             <li class="optionItem curv" data-rating="2">전체</li>
@@ -70,7 +70,7 @@
             <div class="seaCont wid33per">
                 <dl>상태</dl>
                 <div class="sc_SelBox" >
-                    <div class="selectBox wid164" use:SelectBoxManager={handleFilterState}>
+                    <div class="selectBox wid164" use:SelectBoxManager={{callback: handleFilterState}}>
                         <div class="label" data-value="">전체</div>
                         <ul class="optionList">
                             <li class="optionItem curv" data-rating="">전체</li>

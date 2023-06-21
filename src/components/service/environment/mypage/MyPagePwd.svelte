@@ -1,11 +1,32 @@
 
 <script>
-    import { fade } from 'svelte/transition'
+    import { fade } from 'svelte/transition';
     import restapi from "../../../../lib/api.js";
-    import { callCapsLock, popOpenBtn } from '../../../../lib/common'
-    import CustumAlert from '../../../../components/common/CustumAlert.svelte'
-    import {accessToken, is_login} from "../../../../lib/store.js";
+    import { callCapsLock, popOpenBtn } from '../../../../lib/common';
+    import {accessToken, doChangePwdLater, is_login} from "../../../../lib/store.js";
     import {push} from "svelte-spa-router";
+    import {openAsk, openConfirm} from "../../../common/ui/DialogManager.js";
+
+    export let visible = false; // 현재 페이지의 팝업 보임 여부
+    export let regularChangeRoutine = false; // 비밀번호 변경 주기 도래에 따른 변경창일 경우
+
+    // visible 값이 true로 될 때 마다 아래의 값을 초기화
+    $: if (visible) {
+        oldknPassword = '';
+        newknPassword = '';
+        newknPasswordCheck = '';
+
+        pwdBlank = false;
+        pwdNot = false;
+        capsLockCheck = false;
+        passwordBlank = true;
+        passwordCheckNum = true;
+        passwordCheckEng = true;
+        passwordCheckSpe = true;
+        passwordCheckLen = true;
+        passwordConfirmCheck = false;
+        passwordCheck = false;
+    }
 
     let pwdBlank = false;
     let pwdNot = false;
@@ -39,8 +60,6 @@
             return false;
         }
 
-        console.log("비밀번호 변경 시작!");
-
         if(pwdBlank) {
             pwdBlank = false;
         }
@@ -59,7 +78,13 @@
         restapi('v2', 'post', url, "param", sendData, 'application/json',
             (json_success) => {
                 if(json_success.data.status === 200) {
-                    popOpenBtn();
+                    visible = false;
+                    doChangePwdLater.set(true);
+                    openConfirm({
+                        icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: '비밀번호가 변경되었습니다.', // 제목 - 백엔드의 에러 code
+                        btnCheck: '확인',
+                    });
                 } else if (json_success.data.err_code === "KO013") {
                     oldknPassword = "";
                     pwdNot = true;
@@ -138,9 +163,7 @@
             } else {
                 passwordCheck = true;
             }
-
         } else {
-
             // 비밀번호확인 입력
             if (newknPassword !== "") {
                 if (newknPassword !== newknPasswordCheck) {
@@ -152,25 +175,43 @@
         }
     }
 
-    // 팝업 확인클릭 후 호출할 함수
-    function startFun() {
-        changeStatePop(0)
+    const closePop = () => {
+        if (regularChangeRoutine) {
+            openAsk({
+                callback: () => {visible = false; doChangePwdLater.set(true);}, // 확인버튼시 동작
+                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: '비밀번호 다음에 변경', // 제목
+                contents1: '보안을 위해 변경을 권장드립니다.',
+                contents2: '다음 로그인을 할 때 까지 창을 띄우지 않습니다.',
+                btnStart: '다음에 변경', // 실행 버튼의 텍스트
+                btnCancel: '취소', // 취소 버튼의 텍스트
+            });
+        } else {
+            visible = false;
+        }
     }
 
-    export let changeStatePop;
-
-    let popType = 1;
-    let imgState = 1;
-    let popTitle = "비밀번호가 변경되었습니다.";
-    let popCheck = "확인";
+    const handleKeypressOnPwdCheck = (e) => {
+        if (e.key === 'Enter') {
+            pwdChageBefore();
+        }
+    }
 
 </script>
 
+{#if visible}
 <div class="koko_popup password_pop" data-popup="password_pop" in:fade out:fade>
     <div class="koko_popup_inner">
         <div class="koko_popup_container">
             <div class="koko_popup_title">
                 <h3 class="">비밀번호 변경</h3>
+                {#if regularChangeRoutine}
+                    <div class="kopopinput marB24" style="text-align: left; padding-top: 1rem;">
+                        <span style="font-size: 2rem;">
+                            관리자 설정에 따른 비밀번호 변경 주기가 되었습니다.
+                        </span>
+                    </div>
+                {/if}
             </div>
             <form>
                 <div class="kopopinput marB24">
@@ -193,7 +234,8 @@
                 </div>
                 <div class="kopopinput">
                     <label>새로운 비밀번호 확인</label>
-                    <input type="password" autocomplete="off" bind:value={newknPasswordCheck} on:keyup={() => passwordConfirm(2)} required />
+                    <input type="password" autocomplete="off" bind:value={newknPasswordCheck} on:keyup={() => passwordConfirm(2)}
+                           on:keypress={handleKeypressOnPwdCheck} required />
                     <div class="ps_confirm">
                         <p class="{passwordConfirmCheck === false ? 'notxt' : 'notxt pass'}">비밀번호 일치</p>
                     </div>
@@ -203,11 +245,10 @@
                 <div class="koko_go">
                     <button type="button" on:click={pwdChageBefore}>변경</button>
                 </div>
-                <div class="koko_cancel" on:click={() => changeStatePop(0)}>취소</div>
+                <div class="koko_cancel" on:click={closePop}>{regularChangeRoutine ? '다음에 변경' : '취소'}</div>
             </div>
         </div>
-        <div class="koko-popup-close password_pop_close" data-popup-close="password_pop_close" on:click={() => changeStatePop(0)}></div>
+        <div class="koko-popup-close password_pop_close" data-popup-close="password_pop_close" on:click={closePop}></div>
     </div>
 </div>
-
-<CustumAlert popType = {popType} imgState = {imgState} startFun = {startFun} {popTitle} {popCheck} />
+{/if}

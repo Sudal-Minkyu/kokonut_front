@@ -353,7 +353,7 @@
 {#if ipPopState === 1}
     <ApiKeyIpDelete {apiKeyInfo} {ipChange} {deleteIpListInit} {deleteIpList} />
 {:else if ipPopState === 2}
-    <ApiKeyIpAdd {apiKeyInfo} {ipChange} {getMyIp} />
+    <ApiKeyIpAdd {apiKeyInfo} {ipChange} {getMyIp} {accessIpList} />
 {/if}
 
 <CustumAlert popType = {popType} imgState = {imgState} startFun = {startFun} {popTitle} {popContents1} {popContents2} {popStart} {popCancel} {popCheck} />

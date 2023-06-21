@@ -208,7 +208,7 @@
     <div class="pr_seaWrap" style="margin-top: 5px">
         <div class="pr_seaInner">
             <div class="mu_SelBox wid180">
-                <div class="selectBox wid100per nonePad" use:SelectBoxManager={(e) => {handleChangeTableBox(e, i)}}>
+                <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: (e) => {handleChangeTableBox(e, i)}}}>
                     <div class="label">{currentTableName}</div>
                     <ul class="optionList">
                         {#each $privacySearchData.tableList as {ctDesignation, ctName}, j (ctName)}
@@ -218,7 +218,7 @@
                 </div>
             </div>
             <div class="mu_SelBox wid180">
-                <div class="selectBox wid100per nonePad" use:SelectBoxManager={(e) => {handleChangeColumnBox(e, i)}}>
+                <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: (e) => {handleChangeColumnBox(e, i)}}}>
                     <div class="label">{currentColumnName}</div>
                     <ul class="optionList">
                         {#if $privacySearchData.tableList.length}
@@ -299,7 +299,7 @@
                 </tbody>
             </table>
         </div>
-        <Pagination bind:current={$privacySearchData.currentPage}
+        <Pagination bind:currentPage={$privacySearchData.currentPage}
                     bind:totalPosts={$privacySearchData.totalPosts}
                     on:change={handleChangePage} />
     </div>

@@ -57,7 +57,7 @@
             <div class="seaCont wid50per">
                 <dl>관리자등급</dl>
                 <div class="sc_SelBox">
-                    <div class="selectBox wid164" use:SelectBoxManager={handleFilterRole}>
+                    <div class="selectBox wid164" use:SelectBoxManager={{callback: handleFilterRole}}>
                         <div class="label grade" data-rating="">전체</div>
                         <ul class="optionList">
                             <li class="optionItem anoGrade" data-rating="">전체</li>
@@ -72,7 +72,7 @@
             <div class="seaCont wid33per">
                 <dl>처리내역</dl>
                 <div class="sc_SelBox" >
-                    <div class="selectBox wid164" use:SelectBoxManager={handleFilterState}>
+                    <div class="selectBox wid164" use:SelectBoxManager={{callback: handleFilterState}}>
                         <div class="label">전체</div>
                         <ul class="optionList">
                             <li class="optionItem curv" data-rating="">전체</li>

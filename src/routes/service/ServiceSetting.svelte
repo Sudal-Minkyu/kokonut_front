@@ -7,13 +7,13 @@
     import SettingIpAdd from '../../components/service/environment/servicesetting/SettingIpAdd.svelte'
     import {SelectBoxManager} from "../../components/common/action/SelectBoxManager.js";
     import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
-    import {serviceSettingData} from "../../lib/store.js";
+    import {initialServiceSetting, role, serviceSettingData} from "../../lib/store.js";
     import {openConfirm} from "../../components/common/ui/DialogManager.js";
 
     // 서비스설정 가져오기
     onMount(() => {
         setTimeout(() => serviceSettingLayout = 1, 500);
-        getServiceSettingData();
+        getServiceSettingDataAndInitializing();
         setBasicEvents();
     });
 
@@ -21,11 +21,12 @@
         removeBasicEvents();
     });
 
-    const getServiceSettingData = () => {
-        ajaxGet('/v2/api/Company/settingInfo', false, (res) => {
+    const getServiceSettingDataAndInitializing = () => {
+        ajaxGet('/v2/api/CompanySetting/settingInfo', false, (res) => {
             const settingData = res.data.sendData;
             console.log('초기 데이터', settingData);
             serviceSettingData.update(obj => {
+                obj = JSON.parse(initialServiceSetting);
                 obj.accessIpList = settingData.accessIpList;
                 obj.settingInfo = settingData.settingInfo;
                 return obj;
@@ -85,10 +86,6 @@
         serviceIpState = val;
     }
 
-    window.kk = () => {
-        console.log($serviceSettingData);
-    }
-
     const ajaxWhenEveryChange = (url, sendObj) => {
         console.log('act', sendObj);
         ajaxParam(url, sendObj, (res) => {
@@ -104,19 +101,19 @@
     const handleChangeRadioBtn = (target, value) => {
         switch (target) {
             case 'csOverseasBlockSetting':
-                ajaxWhenEveryChange('/v2/api/Company/overseasBlockSetting', {});
+                ajaxWhenEveryChange('/v2/api/CompanySetting/overseasBlockSetting', {});
                 break;
             case 'csAccessSetting':
-                ajaxWhenEveryChange('/v2/api/Company/accessSetting', {});
+                ajaxWhenEveryChange('/v2/api/CompanySetting/accessSetting', {});
                 break;
             case 'csPasswordChangeSetting':
-                ajaxWhenEveryChange('/v2/api/Company/passwordChangeSetting', {csPasswordChangeSetting: value});
+                ajaxWhenEveryChange('/v2/api/CompanySetting/passwordChangeSetting', {csPasswordChangeSetting: value});
                 break;
             case 'csPasswordErrorCountSetting':
-                ajaxWhenEveryChange('/v2/api/Company/passwordErrorCountSetting', {csPasswordErrorCountSetting: value});
+                ajaxWhenEveryChange('/v2/api/CompanySetting/passwordErrorCountSetting', {csPasswordErrorCountSetting: value});
                 break;
             case 'csAutoLogoutSetting':
-                ajaxWhenEveryChange('/v2/api/Company/autoLogoutSetting', {csAutoLogoutSetting: value});
+                ajaxWhenEveryChange('/v2/api/CompanySetting/autoLogoutSetting', {csAutoLogoutSetting: value});
                 break;
             case 'csLongDisconnectionSetting':
                 serviceSettingData.update(obj => {
@@ -135,7 +132,7 @@
                     radio.checked = (radio.value === targetValue);
                 }
 
-                ajaxWhenEveryChange('/v2/api/Company/longDisconnectionSetting', {csLongDisconnectionSetting: value});
+                ajaxWhenEveryChange('/v2/api/CompanySetting/longDisconnectionSetting', {csLongDisconnectionSetting: value});
                 break;
         }
     }
@@ -159,7 +156,7 @@
                 title: '삭제 IP 선택 필요', // 제목
                 contents1: '삭제하실 IP를 선택해 주세요.', // 내용 - 백엔드의 에러 desc
                 contents2: '',
-                btnCheck: '확인', // 확인 버튼의 텍스트
+                btnCheck: '확인', // 확인 버튼의 텍스트정
             });
         }
     };
@@ -216,13 +213,15 @@
                             <div class="check radioCheck">
                                 <input type="radio" class="radio" id="로그인 허용" value="0"
                                        bind:group={$serviceSettingData.settingInfo.csOverseasBlockSetting}
-                                       on:change={(e)=>{handleChangeRadioBtn('csOverseasBlockSetting', e.target.value)}}>
+                                       on:change={(e)=>{handleChangeRadioBtn('csOverseasBlockSetting', e.target.value)}}
+                                       disabled={$role !== 'ROLE_MASTER'}>
                                 <label for="로그인 허용"><em><dt></dt></em>로그인 허용</label>
                             </div>
                             <div class="check radioCheck noneMarR">
                                 <input type="radio" class="radio" id="로그인 차단" value="1"
                                        bind:group={$serviceSettingData.settingInfo.csOverseasBlockSetting}
-                                       on:change={(e)=>{handleChangeRadioBtn('csOverseasBlockSetting', e.target.value)}}>
+                                       on:change={(e)=>{handleChangeRadioBtn('csOverseasBlockSetting', e.target.value)}}
+                                       disabled={$role !== 'ROLE_MASTER'}>
                                 <label for="로그인 차단"><em><dt></dt></em>로그인 차단</label>
                             </div>
                             <dd class="marL16">*해외에서 로그인을 시도하는 경우 본인확인 후 로그인이 가능합니다.</dd>
@@ -238,13 +237,15 @@
                             <div class="check radioCheck">
                                 <input type="radio" class="radio non_activate" name="ipsetting" id="비활성화" value="0"
                                        bind:group={$serviceSettingData.settingInfo.csAccessSetting}
-                                       on:change={(e)=>{handleChangeRadioBtn('csAccessSetting', e.target.value)}}>
+                                       on:change={(e)=>{handleChangeRadioBtn('csAccessSetting', e.target.value)}}
+                                       disabled={$role !== 'ROLE_MASTER'}>
                                 <label for="비활성화"><em><dt></dt></em>비활성화</label>
                             </div>
                             <div class="check radioCheck">
                                 <input type="radio" class="radio activate" name="ipsetting" id="활성화" value="1"
                                        bind:group={$serviceSettingData.settingInfo.csAccessSetting}
-                                       on:change={(e)=>{handleChangeRadioBtn('csAccessSetting', e.target.value)}}>
+                                       on:change={(e)=>{handleChangeRadioBtn('csAccessSetting', e.target.value)}}
+                                       disabled={$role !== 'ROLE_MASTER'}>
                                 <label for="활성화"><em><dt></dt></em>활성화</label>
                             </div>
                         </div>
@@ -256,28 +257,28 @@
                                            on:input={filterAccessIpList}>
                                     <button><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
                                 </div>
-                                <div class="floatBtnBox">
-                                    <button class="del" id="ipdel_pop" on:click={openRemoveAccessIpPop}>삭제</button>
-                                    <button class="add" id="ipadd_pop" on:click={openAddAccessIpPop}>추가</button>
-                                </div>
+                                {#if $role === 'ROLE_MASTER'}
+                                    <div class="floatBtnBox">
+                                        <button class="del" id="ipdel_pop" on:click={openRemoveAccessIpPop}>삭제</button>
+                                        <button class="add" id="ipadd_pop" on:click={openAddAccessIpPop}>추가</button>
+                                    </div>
+                                {/if}
+
                             </div>
                             <div class="iptableWrap">
                                 <div class="iptable">
                                     <table>
                                         <caption>공인 ip 리스트</caption>
-                                        <colgroup>
-                                            <col style="width:8%;">
-                                            <col style="width:46%;">
-                                            <col style="width:46%;">
-                                        </colgroup>
                                         <thead>
                                         <tr>
-                                            <th>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" name="allcheck" id="allcheck" on:change={handleAllCheck}>
-                                                    <label for="allcheck"><em></em></label>
-                                                </div>
-                                            </th>
+                                            {#if $role === 'ROLE_MASTER'}
+                                                <th>
+                                                    <div class="koko_check">
+                                                        <input type="checkbox" name="allcheck" id="allcheck" on:change={handleAllCheck}>
+                                                        <label for="allcheck"><em></em></label>
+                                                    </div>
+                                                </th>
+                                            {/if}
                                             <th>공인 IP</th>
                                             <th>메모</th>
                                         </tr>
@@ -285,13 +286,15 @@
                                         <tbody>
                                         {#each $serviceSettingData.accessIpList as {csipIp, csipRemarks}, i (csipIp)}
                                             <tr style="display: {$serviceSettingData.accessIpSearchResultList.includes(csipIp) ? 'table-row' : 'none'}">
-                                                <td>
-                                                    <div class="koko_check">
-                                                        <input type="checkbox" value={csipIp} id="ip{i}" class="partcheck"
-                                                            bind:group={$serviceSettingData.removeAccessIpPop.deleteIpList} on:change={handleCheckAccessIp}>
-                                                        <label for="ip{i}"><em></em></label>
-                                                    </div>
-                                                </td>
+                                                {#if $role === 'ROLE_MASTER'}
+                                                    <td>
+                                                        <div class="koko_check">
+                                                            <input type="checkbox" value={csipIp} id="ip{i}" class="partcheck"
+                                                                bind:group={$serviceSettingData.removeAccessIpPop.deleteIpList} on:change={handleCheckAccessIp}>
+                                                            <label for="ip{i}"><em></em></label>
+                                                        </div>
+                                                    </td>
+                                                {/if}
                                                 <td>{csipIp}</td>
                                                 <td>{csipRemarks}</td>
                                             </tr>
@@ -308,7 +311,10 @@
                 <div class="seaCont wid100per">
                     <dl>비밀번호 변경주기</dl>
                     <div class="sc_SelBox">
-                        <div class="selectBox wid164" use:SelectBoxManager={(el) => {handleChangeRadioBtn('csPasswordChangeSetting', el.value)}}>
+                        <div class="selectBox wid164" use:SelectBoxManager={{
+                            callback: (el) => {handleChangeRadioBtn('csPasswordChangeSetting', el.value)},
+                            readOnly: $role !== 'ROLE_MASTER',
+                        }}>
                             <div class="label" id="csPasswordChangeSetting">선택</div>
                             <ul class="optionList">
                                 <li class="optionItem" value="3">3개월</li>
@@ -324,7 +330,10 @@
                 <div class="seaCont wid100per">
                     <dl>비밀번호 오류 접속제한</dl>
                     <div class="sc_SelBox">
-                        <div class="selectBox wid164" use:SelectBoxManager={(el) => {handleChangeRadioBtn('csPasswordErrorCountSetting', el.value)}}>
+                        <div class="selectBox wid164" use:SelectBoxManager={{
+                            callback: (el) => {handleChangeRadioBtn('csPasswordErrorCountSetting', el.value)},
+                            readOnly: $role !== 'ROLE_MASTER',
+                        }}>
                             <div class="label" id="csPasswordErrorCountSetting">선택</div>
                             <ul class="optionList">
                                 <li class="optionItem" value="5">5번</li>
@@ -341,7 +350,10 @@
                     <div class="seaRadio">
                         <div class="flex_sel">
                             <p class="marR30">로그인 후</p>
-                            <div class="selectBox wid124 nonePad" use:SelectBoxManager={(el) => {handleChangeRadioBtn('csAutoLogoutSetting', el.value)}}>
+                            <div class="selectBox wid124 nonePad" use:SelectBoxManager={{
+                                callback: (el) => {handleChangeRadioBtn('csAutoLogoutSetting', el.value)},
+                                readOnly: $role !== 'ROLE_MASTER',
+                            }}>
                                 <div class="label" id="csAutoLogoutSetting">선택</div>
                                 <ul class="optionList">
                                     <li class="optionItem" value="30">30분</li>
@@ -362,15 +374,20 @@
                         <div class="flex_sel">
                             <div class="check radioCheck">
                                 <input type="radio" class="radio nolimit" name="accessSetting" id="제한 없음" value="0"
-                                       on:change={(e) => {handleChangeRadioBtn('csLongDisconnectionSetting', e.target.value)}}>
+                                       on:change={(e) => {handleChangeRadioBtn('csLongDisconnectionSetting', e.target.value)}}
+                                       disabled={$role !== 'ROLE_MASTER'}>
                                 <label for="제한 없음"><em><dt></dt></em>제한 없음</label>
                             </div>
                             <div class="check radioCheck noneMarR">
                                 <input type="radio" class="radio period" name="accessSetting" id="기간선택" value="1"
-                                       on:change={(e) => {handleChangeRadioBtn('csLongDisconnectionSetting', e.target.value)}}>
+                                       on:change={(e) => {handleChangeRadioBtn('csLongDisconnectionSetting', e.target.value)}}
+                                       disabled={$role !== 'ROLE_MASTER'}>
                                 <label for="기간선택"><em><dt></dt></em></label>
                             </div>
-                            <div class="selectBox wid124 nonePad" use:SelectBoxManager={(el) => {handleChangeRadioBtn('csLongDisconnectionSetting', el.value)}}>
+                            <div class="selectBox wid124 nonePad" use:SelectBoxManager={{
+                                callback: (el) => {handleChangeRadioBtn('csLongDisconnectionSetting', el.value)},
+                                readOnly: $role !== 'ROLE_MASTER',
+                            }}>
                                 <div class="label" id="csLongDisconnectionSetting">기간선택</div>
                                 <ul class="optionList">
                                     <li class="optionItem" value="1">1개월</li>
@@ -388,8 +405,8 @@
 </section>
 
 {#if $serviceSettingData.addAccessIpPop.visibility}
-    <SettingIpAdd />
+    <SettingIpAdd {getServiceSettingDataAndInitializing} />
 {/if}
 {#if $serviceSettingData.removeAccessIpPop.visibility}
-    <SettingIpDelete />
+    <SettingIpDelete {getServiceSettingDataAndInitializing} />
 {/if}
