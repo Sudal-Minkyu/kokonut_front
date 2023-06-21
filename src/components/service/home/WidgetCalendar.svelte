@@ -1,6 +1,6 @@
 <script>
-    export let year = 2023;
-    export let month = 6;
+    export let year = new Date().getFullYear();
+    export let month = new Date().getMonth() + 1;
 
     $: calendarData = generateCalendarData(year, month);
 

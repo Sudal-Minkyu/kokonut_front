@@ -10,7 +10,9 @@
         electronic,
         knPhoneNumber,
         csPasswordChangeState,
-        csAutoLogoutSetting, doChangePwdLater,
+        csAutoLogoutSetting,
+        doChangePwdLater,
+        paymentBillingCheck
     } from "../../../lib/store.js"
     import restapi from "../../../lib/api.js";
     import {beforeUpdate} from "svelte";
@@ -42,6 +44,7 @@
                         electronic.set(userInfo.electronic);
                         csPasswordChangeState.set(userInfo.csPasswordChangeState);
                         csAutoLogoutSetting.set({minute: userInfo.csAutoLogoutSetting});
+                        paymentBillingCheck.set(userInfo.paymentBillingCheck);
 
                         if (!$doChangePwdLater && userInfo.csPasswordChangeState === '2') {
                             isMyPagePwdVisible = true;

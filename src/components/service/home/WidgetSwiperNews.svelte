@@ -22,9 +22,6 @@ onMount(() => {
     });
 });
 </script>
-<div class="pageH1_type01">
-    <h1><span>{$knNameHeader}</span>님, 안녕하세요!</h1>
-</div>
 <div class="currentWrap">
     <div class="curTitmeInfoBox">
         <span>23. 03. 31</span>
