@@ -40,7 +40,7 @@
                 <ErrorHighlight message={checkMessage}/>
             </div>
             <div class="payBtnBox">
-                <div class="koko_cancel unsubscribe_pop_close" on:click={askSubscribeService.handleCancel}>취소</div>
+                <div class="koko_cancel unsubscribe_pop_close" on:click={askSubscribeService.handleCancel}>로그아웃</div>
                 <div class="koko_go"><button class="tippop" id="tip_btn03" on:click={handleAddCard}>카드등록</button></div>
             </div>
         </div>

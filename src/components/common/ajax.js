@@ -184,7 +184,7 @@ const makeUIResponse = (action, message, errorCode, handleSuccess) => {
             break;
         case errorActionTypes.MAIN:
             openError(message, errorCode, () => {
-                location.href = location.origin + '/#/service';
+                location.href = '/#/service';
             });
             break;
         case errorActionTypes.LOGIN:
@@ -196,7 +196,7 @@ const makeUIResponse = (action, message, errorCode, handleSuccess) => {
                 is_login.set(false);
                 accessToken.set('');
                 page.set(0);
-                location.href = location.origin + '/login';
+                location.href = '/#/login';
             });
             break;
         case errorActionTypes.UP:

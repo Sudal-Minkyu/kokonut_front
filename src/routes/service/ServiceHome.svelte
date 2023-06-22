@@ -6,6 +6,8 @@
     import DynamicComponentPlacer from "../../components/service/home/DynamicComponentPlacer.svelte";
     import {knNameHeader, paymentBillingCheck} from "../../lib/store.js";
     import PopInformAskSubscribe from "../../components/service/home/PopInformAskSubscribe.svelte";
+    import {bootpayContinueSubscription, bootpayStartSubscription} from "../../components/common/bootpayment.js";
+    import {openAsk, openBanner, openConfirm} from "../../components/common/ui/DialogManager.js";
 
     let isBillingCheckTriggerNotActivatedYet = true;
 
@@ -27,10 +29,32 @@
                 agreement: '안내사항을 확인하였으며, 구독을 시작하는 것에 대해 동의합니다.',
             };
             askSubscribeService.handleNext = () => {
+                bootpayStartSubscription((res) => {
+
+                }, (err) => {
+                    openConfirm({
+                        icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: "결제수단 등록 실패", // 제목
+                        contents1: err.message,
+                        contents2: '필요시, 관리자에게 해당 사실을 문의해 주세요.',
+                        btnCheck: '확인', // 확인 버튼의 텍스트
+                        callback: () => {
+                            askSubscribeService.askStartSubscribe();
+                        }
+                    });
+                });
                 askSubscribeService.visibility = false;
             };
             askSubscribeService.handleCancel = () => {
-                askSubscribeService.visibility = false;
+                openAsk({
+                    callback: () => {
+                        askSubscribeService.visibility = false; // 로그아웃 구현 후 삭제
+                    }, // 로그아웃 공용화하여 추가
+                    icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: '로그아웃 하시겠습니까?', // 제목
+                    btnStart: '로그아웃', // 실행 버튼의 텍스트
+                    btnCancel: '취소', // 취소 버튼의 텍스트
+                });
             };
             askSubscribeService.visibility = true;
         },
@@ -42,11 +66,32 @@
                 agreement: '안내사항을 확인하였으며, 구독을 재개하는 것에 대해 동의합니다.',
             };
             askSubscribeService.handleNext = () => {
+                bootpayContinueSubscription((res) => {
 
+                }, (err) => {
+                    openConfirm({
+                        icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: "결제수단 등록 실패", // 제목
+                        contents1: err.message,
+                        contents2: '필요시, 관리자에게 해당 사실을 문의해 주세요.',
+                        btnCheck: '확인', // 확인 버튼의 텍스트
+                        callback: () => {
+                            askSubscribeService.askContinueSubscribe();
+                        }
+                    });
+                });
                 askSubscribeService.visibility = false;
             };
             askSubscribeService.handleCancel = () => {
-                askSubscribeService.visibility = false;
+                openAsk({
+                    callback: () => {
+                        askSubscribeService.visibility = false; // 로그아웃 구현 후 삭제
+                    }, // 로그아웃 공용화하여 추가
+                    icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: '로그아웃 하시겠습니까?', // 제목
+                    btnStart: '로그아웃', // 실행 버튼의 텍스트
+                    btnCancel: '취소', // 취소 버튼의 텍스트
+                });
             };
             askSubscribeService.visibility = true;
         },

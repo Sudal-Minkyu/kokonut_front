@@ -1,8 +1,8 @@
 <script>
     import Header from "../../components/service/layout/Header.svelte";
     import {onMount} from "svelte";
-    import {Bootpay} from "@bootpay/client-js";
-    import {knEmailHeader, knNameHeader, knPhoneNumber, subscriptionManagementData,} from "../../lib/store.js";
+    import {bootpayChangeToAnotherMethod} from "../../components/common/bootpayment.js";
+    import {subscriptionManagementData,} from "../../lib/store.js";
     import CalendarPop from "../../components/service/environment/subscription/CalendarPop.svelte";
     import PaymentPop from "../../components/service/environment/subscription/PaymentPop.svelte";
     import UnsubscribePop from "../../components/service/environment/subscription/UnsubscribePop.svelte";
@@ -14,7 +14,6 @@
     let unsubscribeDoneConfirmVisibility = false;
 
     onMount(() => {
-        console.log('pn', $knPhoneNumber);
         getCompanyPaymentInfo();
         getPaymentList();
     });
@@ -70,47 +69,6 @@
         }
     }
 
-    const bootpayChangePaymentMethod = () => {
-        Bootpay.requestSubscription({
-            application_id: import.meta.env.VITE_BOOT_PAY_SECRET,
-            pg: '나이스페이',
-            order_name: '코코넛 이용을 위한 카드 등록',
-            subscription_id: (new Date()).getTime(),
-            user: {
-                username: $knNameHeader,
-                phone: $knPhoneNumber,
-                email: $knEmailHeader
-            },
-            extra: {
-                subscription_comment: '매월 사용료에 따라 결제됩니다. 사용료는 환경설정 - 구독관리 페이지를 통해 확인할 수 있습니다.',
-                subscribe_test_payment: true
-            }
-        }).then(handleChangePaymentMethodSuccess, handleChangePaymentMethodFail);
-    }
-
-    const handleChangePaymentMethodSuccess = (res) => {
-        console.log(res)
-        if (res.event === 'done') {
-            const receiptIdInfo = {
-                payReceiptId: res.data?.receipt_id,
-            }
-            if (!receiptIdInfo.payReceiptId) {
-                // 문제 알리기
-                return;
-            }
-            ajaxParam('/v2/api/Payment/billingSave', receiptIdInfo, (res) => {
-                openBanner('결제 수단 변경을 완료했습니다.');
-            });
-        } else {
-            // 문제 일어날 가능성 살펴 추가
-        }
-    }
-
-    const handleChangePaymentMethodFail = (err) => {
-        console.log(err);
-        // 각종 에러 가능성 살펴 등록, 필요할 경우 공용코드로
-    }
-
     const handleChangePayMethod = () => {
         openAsk({
             icon: 'question', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
@@ -120,7 +78,11 @@
             btnCheck: '', // 확인 버튼의 텍스트
             btnStart: '변경하기', // 실행 버튼의 텍스트
             btnCancel: '취소', // 취소 버튼의 텍스트
-            callback: bootpayChangePaymentMethod, // 확인버튼시 동작
+            callback: (res) => {
+                bootpayChangeToAnotherMethod((successRes)=>{
+                    getCompanyPaymentInfo();
+                });
+            }, // 확인버튼시 동작
         });
     };
 
@@ -138,7 +100,7 @@
     }
 
     const payStateName = {
-        '0': '결제오류',
+        '0': '결제실패',
         '1': '결제완료',
         '2': '결제예약중',
     };
@@ -146,7 +108,6 @@
     const payMethodName = {
         '0': '자동결제',
         '1': '요금정산',
-        '2': '결제실패',
     };
 
     const cpiPayTypeName = {
@@ -274,7 +235,7 @@
         <div class="layerPopType" id="tip_box04" style="display: block">
             <header class="popHeader">
                 <img src="/assets/images/common/minipop_stop.png" alt="">
-                <h4 class="popTit">남은개 요금을 결제해 주세요</h4>
+                <h4 class="popTit">남은 요금을 결제해 주세요</h4>
             </header>
             <section class="popContents">
                 <p>

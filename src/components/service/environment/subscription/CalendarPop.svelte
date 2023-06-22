@@ -1,5 +1,6 @@
 <script>
     import {onMount} from "svelte";
+    import {ajaxGet} from "../../../common/ajax.js";
 
     export let year = 2023;
     export let month = 6;
@@ -25,21 +26,26 @@
             calendarArray.push({ day: '' });
         }
 
+        getCalendarPersonalInfoCount(year, month);
+
         return calendarArray;
     }
 
-    // 월이 바뀔 때 마다 데이터 호출에 대한 동작이 추가되어야 할 것
-    function handleDecrementMonth() {
-        month--;
-        if (month === 0) {
-            year--;
-            month = 12;
-        }
+    const getCalendarPersonalInfoCount = (targetYear, targetMonth) => {
+        ajaxGet('/v2/api/Company/paymentPrivacyCount',
+            {choseDate: targetYear + '.' + targetMonth.toString().padStart(2, '0')}, (res) => {
+            const personalInfoCountList = {};
+            res.data.sendData.dayList.map(obj => {
+                personalInfoCountList[obj.ppcDate] = obj.ppcCount;
+            });
+            if (year === targetYear && month === targetMonth) {
+                calendarData = calendarData.map(obj => {
+                    obj.count = personalInfoCountList[obj.day] ? personalInfoCountList[obj.day] : '';
+                    return obj;
+                });
+            }
+        });
     }
-
-
-
-
     function checkFutureMonth(checkYear, checkMonth) {
         const currentDate = new Date();
         const currentYear = currentDate.getFullYear();
@@ -60,6 +66,15 @@
             }
         }
     }
+    // 월이 바뀔 때 마다 데이터 호출에 대한 동작이 추가되어야 할 것
+    function handleDecrementMonth() {
+        month--;
+        if (month === 0) {
+            year--;
+            month = 12;
+        }
+    }
+
 </script>
 
 <!-- [D] 월 평균 개인정보 팝업 -->
@@ -104,6 +119,9 @@
                                     <td>
                                         {#if calendarData[rowIndex * 7 + colIndex]}
                                             {calendarData[rowIndex * 7 + colIndex].day}
+                                        {/if}
+                                        {#if calendarData[rowIndex * 7 + colIndex].count}
+                                            <span>{calendarData[rowIndex * 7 + colIndex].count}</span>
                                         {/if}
                                     </td>
                                 {/each}
