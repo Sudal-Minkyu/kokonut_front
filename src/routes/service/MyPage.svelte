@@ -6,8 +6,6 @@
     import { backBtn } from '../../lib/store'
     import { onMount } from 'svelte';
     import restapi from "../../lib/api"
-    import { is_login, cpNameSider} from "../../lib/store.js"
-    import { push } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
     import CustumAlert from "../../components/common/CustumAlert.svelte"
     import { popOpenBtn, }from '../../lib/common'
@@ -18,6 +16,7 @@
 
     import PhoneCert from '../../components/common/certification/PhoneCert.svelte'
     import GoogleOTP from "../../components/common/certification/GoogleOTP.svelte";
+    import {logout} from "../../components/common/authActions.js";
 
     let changeState = 0;
     function changeStatePop(val) {
@@ -59,8 +58,7 @@
                 } else {
                     // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                     alert(json_success.data.err_msg);
-                    is_login.set(false);
-                    push('/login');
+                    logout();
                 }
             },
             (json_error) => {

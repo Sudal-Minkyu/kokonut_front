@@ -6,7 +6,6 @@ export const logout = () => {
     let sendData = {
         accessToken : get(accessToken),
     }
-    console.log('로그아웃정보', sendData);
 
     ajaxParam('/v1/api/Auth/logout', sendData, (json_success) => {
         // 기본값 초기화처리
@@ -17,6 +16,7 @@ export const logout = () => {
         is_login.set(false);
         accessToken.set('');
         page.set(0);
+        location.href = location.origin + '/#/login';
     }, (errorCode) => {
         return {
             action: 'ERRORDO',

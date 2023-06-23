@@ -19,6 +19,7 @@
     import CustomConfirm from "../../common/ui/CustomConfirm.svelte";
     import Banner from "../../common/ui/Banner.svelte";
     import MyPagePwd from "../environment/mypage/MyPagePwd.svelte";
+    import {logout} from "../../common/authActions.js";
 
     let isMyPagePwdVisible = false;
 
@@ -52,14 +53,13 @@
                     },
                     (json_error) => {
                         console.log(json_error);
-                        is_login.set(false);
+                        logout();
                     }
                 )
             } else {
                 // alert("세션이 종료되어 로그아웃됩니다.");
                 console.log("로그아웃 하였습니다.");
-                is_login.set(false);
-                location.href = '/#/login';
+                logout();
             }
         });
     })

@@ -2,9 +2,9 @@
 <script>
     import { fade } from 'svelte/transition'
     import { callCapsLock } from '../../../../lib/common'
-    import {cpNameSider, is_login, accessToken} from "../../../../lib/store.js"
+    import {cpNameSider} from "../../../../lib/store.js"
     import restapi from "../../../../lib/api.js";
-    import {push} from "svelte-spa-router";
+    import {logout} from "../../../common/authActions.js";
 
     let cpName = "";
     let knPassword = "";
@@ -51,9 +51,7 @@
                 } else {
                     // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
                     alert(json_success.data.err_msg);
-                    is_login.set(false);
-                    accessToken.set("");
-                    push('/login');
+                    logout();
                 }
             },
             (json_error) => {

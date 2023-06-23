@@ -2,7 +2,7 @@
     import Header from "../../components/service/layout/Header.svelte";
     import {onMount} from "svelte";
     import {bootpayChangeToAnotherMethod} from "../../components/common/bootpayment.js";
-    import {subscriptionManagementData,} from "../../lib/store.js";
+    import {role, subscriptionManagementData,} from "../../lib/store.js";
     import CalendarPop from "../../components/service/environment/subscription/CalendarPop.svelte";
     import PaymentPop from "../../components/service/environment/subscription/PaymentPop.svelte";
     import UnsubscribePop from "../../components/service/environment/subscription/UnsubscribePop.svelte";
@@ -12,6 +12,8 @@
 
     let payBeforeUnsubscribeConfirmVisibility = false;
     let unsubscribeDoneConfirmVisibility = false;
+
+    const moderRole = ['ROLE_MASTER', 'ROLE_ADMIN'];
 
     onMount(() => {
         getCompanyPaymentInfo();
@@ -128,7 +130,9 @@
                     <dl>이용중인 상품</dl>
                     <div class="myInfoBox">
                         <div class="top_stand0{($subscriptionManagementData.companyPaymentInfo.cpiPayType + 1) * 2 - 1}">{cpiPayTypeName[$subscriptionManagementData.companyPaymentInfo.cpiPayType]}</div>
-                        &nbsp;&nbsp;<button class="myinfoChangeBtn marL8impor" id="unsubscribe_pop" on:click={handleUnsubscribeBtn}>구독해지</button>
+                        {#if moderRole.includes($role) }
+                            &nbsp;&nbsp;<button class="myinfoChangeBtn marL8impor" id="unsubscribe_pop" on:click={handleUnsubscribeBtn}>구독해지</button>
+                        {/if}
                         <!--
                         <div class="top_stand02">Standard2</div>
                         <div class="top_stand03">Standard3</div>
@@ -141,7 +145,9 @@
                     <dl>결제수단</dl>
                     <div class="myInfoBox">
                         <span>{$subscriptionManagementData.companyPaymentInfo.cpiInfoCardName}</span>
-                        <button class="myinfoChangeBtn" id="method_pop" on:click={handleChangePayMethod}>변경</button>
+                        {#if moderRole.includes($role) }
+                            <button class="myinfoChangeBtn" id="method_pop" on:click={handleChangePayMethod}>변경</button>
+                        {/if}
                     </div>
                 </div>
                     <div class="seaCont wid50per">

@@ -3,8 +3,7 @@
     import { fade } from 'svelte/transition'
     import { callCapsLock } from '../../../../lib/common'
     import restapi from "../../../../lib/api.js";
-    import {accessToken, is_login} from "../../../../lib/store.js";
-    import {push} from "svelte-spa-router";
+    import {logout} from "../../../common/authActions.js";
 
     let knDepartment = "";
     let knPassword = "";
@@ -49,9 +48,7 @@
                 } else {
                     // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
                     alert(json_success.data.err_msg);
-                    is_login.set(false);
-                    accessToken.set("");
-                    push('/login');
+                    logout();
                 }
             },
             (json_error) => {

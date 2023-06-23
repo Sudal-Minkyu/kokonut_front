@@ -6,11 +6,11 @@ import {
     cpNameSider,
     page,
     knPhoneNumber,
-    csAutoLogoutSetting,
 } from "../../lib/store.js";
 import { get } from 'svelte/store';
 import axios from 'axios';
 import {openConfirm} from "./ui/DialogManager.js";
+import {logout} from "./authActions.js";
 
 export const ajaxGet = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
     restapi({
@@ -189,14 +189,7 @@ const makeUIResponse = (action, message, errorCode, handleSuccess) => {
             break;
         case errorActionTypes.LOGIN:
             openError(message, errorCode, () => {
-                knNameHeader.set('');
-                knEmailHeader.set('');
-                knPhoneNumber.set('');
-                cpNameSider.set('');
-                is_login.set(false);
-                accessToken.set('');
-                page.set(0);
-                location.href = '/#/login';
+                logout();
             });
             break;
         case errorActionTypes.UP:

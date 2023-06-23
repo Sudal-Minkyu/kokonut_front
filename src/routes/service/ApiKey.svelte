@@ -22,6 +22,7 @@
     import ApiKeyIpDelete from '../../components/service/environment/apikey/ApiKeyIpDelete.svelte'
     import ApiKeyIpAdd from '../../components/service/environment/apikey/ApiKeyIpAdd.svelte'
     import ApiKeyExplan from '../../components/service/environment/apikey/ApiKeyExplan.svelte'
+    import {logout} from "../../components/common/authActions.js";
 
     let allChecked = false;
     let deleteIpList = [];
@@ -166,9 +167,7 @@
                 } else {
                     // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                     alert(json_success.data.err_msg);
-                    is_login.set(false);
-                    accessToken.set("");
-                    push('/login');
+                    logout();
                 }
             },
             (json_error) => {

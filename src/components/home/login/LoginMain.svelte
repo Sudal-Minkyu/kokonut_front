@@ -7,7 +7,7 @@
         accessToken,
         emailSave,
         keyBufferSto,
-        ivSto, doChangePwdLater,
+        ivSto, doChangePwdLater, serviceSettingData,
     } from '../../../lib/store'
     import { callCapsLock, encryptData } from '../../../lib/common'
     import {openAsk, openConfirm} from "../../common/ui/DialogManager.js";
@@ -271,6 +271,9 @@
         }
     }
 
+    window.kk = () => {
+        console.log($serviceSettingData);
+    }
 </script>
 
 {#if stage === 0}

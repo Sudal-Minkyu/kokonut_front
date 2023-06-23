@@ -14,7 +14,7 @@
 
     import jQuery from "jquery";
     import restapi from "../../../lib/api.js";
-    import {accessToken, backBtn, is_login, personalInfoCategoryData, personalInfoTableData} from '../../../lib/store.js'
+    import {backBtn, personalInfoCategoryData, personalInfoTableData} from '../../../lib/store.js'
     import PersonalInfoRemoveColumnPop
         from "../../../components/service/environment/personalInfo/PersonalInfoRemoveColumnPop.svelte";
     import PersonalInfoInsertItemPop
@@ -22,8 +22,8 @@
     import PersonalInfoEditItemPop
         from "../../../components/service/environment/personalInfo/PersonalInfoEditItemPop.svelte";
     import {openAsk, openBanner} from "../../../components/common/ui/DialogManager.js";
-    import Banner from "../../../components/common/ui/Banner.svelte";
     import {ajaxBody, ajaxGet, ajaxParam} from "../../../components/common/ajax.js";
+    import {logout} from "../../../components/common/authActions.js";
 
     const personalInfoItemProp = {
         isLoadingScreenOn: true,
@@ -198,9 +198,7 @@
                         } else {
                             // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                             // alert(json_success.data.err_msg);
-                            // is_login.set(false);
-                            // accessToken.set("");
-                            // push('/login');
+                            // logout();
                         }
                     },
                     (json_error) => {
@@ -490,9 +488,7 @@
                         } else {
                             // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                             alert(json_success.data.err_msg);
-                            is_login.set(false);
-                            accessToken.set('');
-                            push('/login');
+                            logout();
                         }
                     },
                     (json_error) => {

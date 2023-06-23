@@ -6,6 +6,7 @@
     import {accessToken, doChangePwdLater, is_login} from "../../../../lib/store.js";
     import {push} from "svelte-spa-router";
     import {openAsk, openConfirm} from "../../../common/ui/DialogManager.js";
+    import {logout} from "../../../common/authActions.js";
 
     export let visible = false; // 현재 페이지의 팝업 보임 여부
     export let regularChangeRoutine = false; // 비밀번호 변경 주기 도래에 따른 변경창일 경우
@@ -93,9 +94,7 @@
                 } else {
                     // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
                     alert(json_success.data.err_msg);
-                    is_login.set(false);
-                    accessToken.set("");
-                    push('/login');
+                    logout();
                 }
             },
             (json_error) => {
