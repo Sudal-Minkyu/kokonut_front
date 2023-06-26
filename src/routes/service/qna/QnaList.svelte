@@ -11,6 +11,7 @@
 
     import QnaTable from "../../../components/service/environment/qna/QnaTable.svelte"
     import Paging from "../../../components/common/Paging.svelte"
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     // 나의정보 가져오기
     onMount(async () => {
@@ -71,12 +72,7 @@
                 궁금한 내용을 남겨주시면 최대한 빠르게 답변을 드리도록 하겠습니다.
             </dl>
         </div>
-
-        {#if qnaLayout === 0}
-            <div class="loaderParent">
-                <div class="loader"></div>
-            </div>
-        {:else}
+        <LoadingOverlay bind:loadState={qnaLayout} >
             <div in:fade>
                 <!-- 각 컴포넌트 넣기 -->
                 <div class="bottomBtnBox marB24">
@@ -89,8 +85,7 @@
                 <!-- 페이징 영역 -->
                 <Paging total_page="{total_page}" data_list="{qna_list}" dataFunction="{qnaList}" />
             </div>
-        {/if}
-
+        </LoadingOverlay>
     </div>
 </section>
 

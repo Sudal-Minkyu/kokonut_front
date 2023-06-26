@@ -19,6 +19,7 @@
     import PrivacyWriteStep5 from "../../../components/service/privacy/PrivacyWriteStep5.svelte";
     import {onMount} from "svelte";
     import {ajaxGet} from "../../../components/common/ajax.js";
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     onMount(async () => {
         setTimeout(() => priavacyStage = 1, 500);
@@ -66,22 +67,19 @@
                 </dl>
             </div>
 
-            {#if priavacyStage === 0}
-                <div class="loaderParent" style="top: 40%;left: 55%">
-                    <div class="loader"></div>
-                </div>
-            {:else if priavacyStage === 1}
+            <LoadingOverlay bind:loadState={priavacyStage} top={40} left={55} >
+                {#if priavacyStage === 1}
                 <PrivacyWriteStep1 {stateChange} />
-            {:else if priavacyStage === 2}
+                {:else if priavacyStage === 2}
                 <PrivacyWriteStep2 {stateChange} />
-            {:else if priavacyStage === 3}
+                {:else if priavacyStage === 3}
                 <PrivacyWriteStep3 {stateChange} />
-            {:else if priavacyStage === 4}
+                {:else if priavacyStage === 4}
                 <PrivacyWriteStep4 {stateChange} />
-            {:else if priavacyStage === 5}
+                {:else if priavacyStage === 5}
                 <PrivacyWriteStep5 {stateChange} />
-            {/if}
-
+                {/if}
+            </LoadingOverlay>
         </div>
 
 

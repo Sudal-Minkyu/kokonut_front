@@ -23,6 +23,7 @@
     import ApiKeyIpAdd from '../../components/service/environment/apikey/ApiKeyIpAdd.svelte'
     import ApiKeyExplan from '../../components/service/environment/apikey/ApiKeyExplan.svelte'
     import {logout} from "../../components/common/authActions.js";
+    import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
 
     let allChecked = false;
     let deleteIpList = [];
@@ -251,13 +252,10 @@
         <TitleAlarm {titleMessage} {titleClick} />
 
         <div class="apikeyBox">
-            {#if apikeyTrueFalse === 0}
-                <div class="loaderParent">
-                    <div class="loader"></div>
-                </div>
-            {:else if apikeyTrueFalse === 1}
+            <LoadingOverlay bind:loadState={apikeyTrueFalse} >
+                {#if apikeyTrueFalse === 1}
                 <div class="apikeyBtn" on:click={popOpenBtn} in:fade>API Key 발급</div>
-            {:else}
+                {:else}
                 <div class="apiwrap" in:fade>
                     <div class="apicodeContentBox marB60">
                         <div class="codeContentBox">
@@ -340,7 +338,8 @@
                         </div>
                     </div>
                 </div>
-            {/if}
+                {/if}
+            </LoadingOverlay>
 
             {#if apikeyTrueFalse !== 0}
                 <ApiKeyExplan {explanState} />

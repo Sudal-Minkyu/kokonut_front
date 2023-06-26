@@ -4,7 +4,7 @@
     import WidgetSwiperNews from "../../components/service/home/WidgetSwiperNews.svelte";
     import WidgetTodayStatus from "../../components/service/home/WidgetTodayStatus.svelte";
     import DynamicComponentPlacer from "../../components/service/home/DynamicComponentPlacer.svelte";
-    import {knNameHeader, paymentBillingCheck, role} from "../../lib/store.js";
+    import {userInfoData} from "../../lib/store.js";
     import PopInformAskSubscribe from "../../components/service/home/PopInformAskSubscribe.svelte";
     import {bootpayContinueSubscription, bootpayStartSubscription} from "../../components/common/bootpayment.js";
     import {openAsk, openConfirm} from "../../components/common/ui/DialogManager.js";
@@ -100,8 +100,8 @@
 
     const subscribableRoleList = ['ROLE_MASTER', 'ROLE_ADMIN']
 
-    $: if(isBillingCheckTriggerNotActivatedYet && $paymentBillingCheck === '0') { // 0은 새로 가입된 사람임을 의미
-        if (subscribableRoleList.includes($role)) {
+    $: if(isBillingCheckTriggerNotActivatedYet && $userInfoData.paymentBillingCheck === '0') { // 0은 새로 가입된 사람임을 의미
+        if (subscribableRoleList.includes($userInfoData.role)) {
             isBillingCheckTriggerNotActivatedYet = false;
             askSubscribeService.askStartSubscribe();
         } else {
@@ -116,8 +116,8 @@
                 }
             });
         }
-    } else if ($paymentBillingCheck === '2') { // 2는 구독을 해지한 사람임을 의미
-        if (subscribableRoleList.includes($role)) {
+    } else if ($userInfoData.paymentBillingCheck === '2') { // 2는 구독을 해지한 사람임을 의미
+        if (subscribableRoleList.includes($userInfoData.role)) {
             isBillingCheckTriggerNotActivatedYet = false;
             askSubscribeService.askContinueSubscribe();
         } else {
@@ -139,7 +139,7 @@
     <div class="contentInnerWrap">
         <div class="maincontent">
             <div class="pageH1_type01">
-                <h1><span>{$knNameHeader}</span>님, 안녕하세요!</h1>
+                <h1><span>{$userInfoData.knName}</span>님, 안녕하세요!</h1>
             </div>
             <WidgetSwiperNews />
             <WidgetTodayStatus />

@@ -20,6 +20,7 @@
 
     import {openAsk} from "../../../components/common/ui/DialogManager.js";
     import {logout} from "../../../components/common/authActions.js";
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     const tooltipEvent = (e) => {
         console.log('act');
@@ -195,32 +196,28 @@
 <Header />
 <section class="bodyWrap">
     <div class="contentInnerWrap">
-
         <div class="pageTitleBtn marB50">
             <a style="cursor: pointer" on:click={stopWrite}>{$backBtn}</a><h1>개인정보처리방침 제작</h1>
             <dl>해당 페이지는 최고관리자만 이용할 수 있습니다.</dl>
         </div>
 
-        {#if stage === 0}
-            <div class="loaderParent">
-                <div class="loader"></div>
-            </div>
-        {:else if stage === 1}
+        <LoadingOverlay bind:loadState={stage} >
+            {#if stage === 1}
             <PolicyWriteStep1 {stateChange} {policyWriting} />
-        {:else if stage === 2}
+            {:else if stage === 2}
             <PolicyWriteStep2 {stateChange} {policyWriting} />
-        {:else if stage === 3}
+            {:else if stage === 3}
             <PolicyWriteStep3 {stateChange} {policyWriting} />
-        {:else if stage === 4}
+            {:else if stage === 4}
             <PolicyWriteStep4 {stateChange} {policyWriting} />
-        {:else if stage === 5}
+            {:else if stage === 5}
             <PolicyWriteStep5 {stateChange} {policyWriting} />
-        {:else if stage === 6}
+            {:else if stage === 6}
             <PolicyWriteStep6 {stateChange} {policyWriting} />
-        {:else if stage === 7}
+            {:else if stage === 7}
             <PolicyWriteStep7 {stateChange} />
-        {/if}
-
+            {/if}
+        </LoadingOverlay>
     </div>
 </section>
 

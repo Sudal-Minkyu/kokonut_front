@@ -182,7 +182,6 @@
     }
 
     const distinguishSearchTextPlaceholder = (targetSearchCondition) => {
-        console.log('검색조건', targetSearchCondition); // 여러번 반복되는 문제의 제거를 위해 초기 로딩의 스토어 업데이트를 최소화할 것
         let resultText = '';
         if (targetSearchCondition.currentColumnName === '휴대전화번호') {
             resultText = '휴대전화번호 뒷자리 4자리를 입력해 주세요.';

@@ -18,6 +18,7 @@
     import {fade} from "svelte/transition"
 
     import {stimeVal, setDateRangePicker} from "../../../lib/libSearch.js";
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -171,20 +172,14 @@
 
         <ActivitySearch {choseMax} {choseMaxText} {activityCancel} {activityConfirm} />
 
-        {#if adminActivityLayout === 0}
-            <div class="loaderParent" style="left: 55%">
-                <div class="loader"></div>
-            </div>
-        {:else}
+        <LoadingOverlay bind:loadState={adminActivityLayout} >
             <div in:fade>
-
                 <!-- 테이블 영역 -->
                 <ActivityTable {activityList} {activity_list} {total} {size} {total_page} />
-
                 <!-- 페이징 영역 -->
                 <Paging total_page="{total_page}" data_list="{activity_list}" dataFunction="{activityList}" />
             </div>
-        {/if}
+        </LoadingOverlay>
     </div>
 </section>
 

@@ -1,5 +1,4 @@
 <script>
-import {knNameHeader} from "../../../lib/store.js";
 import {onMount} from "svelte";
 import {Swiper} from "swiper/bundle";
 import 'swiper/css/bundle';

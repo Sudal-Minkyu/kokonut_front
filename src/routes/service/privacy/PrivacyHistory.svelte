@@ -12,6 +12,7 @@
     import PrivacyHistoryTable from "../../../components/service/privacy/PrivacyHistoryTable.svelte";
     import PrivacyHistorySearch from "../../../components/service/privacy/PrivacyHistorySearch.svelte";
     import Paging from "../../../components/common/Paging.svelte";
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -102,19 +103,13 @@
         <!-- 상단 검색 영역 -->
         <PrivacyHistorySearch {searchCondition}/>
 
-        {#if privacyHistoryLayout === 0}
-            <div class="loaderParent" style="left: 55%">
-                <div class="loader"></div>
-            </div>
-        {:else}
+        <LoadingOverlay bind:loadState={privacyHistoryLayout} left={55} >
             <div in:fade>
                 <!-- 테이블 영역 -->
                 <PrivacyHistoryTable {privacy_history_list} {size} {total} />
-
                 <!-- 페이징 영역 -->
                 <Paging total_page="{total_page}" data_list="{privacy_history_list}" dataFunction="{privacyHistoryList}" />
             </div>
-        {/if}
-
+        </LoadingOverlay>
     </div>
 </section>

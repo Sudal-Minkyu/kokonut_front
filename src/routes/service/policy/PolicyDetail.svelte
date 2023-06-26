@@ -1,20 +1,14 @@
 
 <script>
-
     // 레이아웃
     import Header from "../../../components/service/layout/Header.svelte"
     import Error from "../../../components/common/error/Error.svelte";
-
-    // 컴포넌트
-    import TitleAlarm from "../../../components/common/TitleAlarm.svelte";
-
     import { link } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
     import {onMount} from "svelte";
-
-    import {backBtn, role} from '../../../lib/store.js'
+    import {backBtn} from '../../../lib/store.js'
     import restapi from "../../../lib/api.js";
-    import {writable} from "svelte/store";
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     let piId;
 
@@ -129,13 +123,13 @@
 
 <Header />
 
-{#if state === 0}
+{#if state === 0}제
 <section class="bodyWrap">
     <div class="contentInnerWrap">
         <div class="pageTitleBtn marB50">
             <a use:link href="/service/policyList">{$backBtn}</a><h1>개인정보처리방침 상세보기</h1>
 
-            {#if policyDetailLayout === 1}}
+            {#if policyDetailLayout === 1}
                 <div class="copyBtnBox" in:fade>
                     <div class="copyBtn">
                         <dt id="urlcopy">URL 복사</dt>
@@ -164,12 +158,7 @@
                 </div>
             {/if}
         </div>
-
-        {#if policyDetailLayout === 0}
-            <div class="loaderParent">
-                <div class="loader"></div>
-            </div>
-        {:else if policyDetailLayout === 1}
+        <LoadingOverlay bind:loadState={policyDetailLayout} >
             <div in:fade>
 
                 <div class="pri_versionBox marB50">
@@ -415,112 +404,112 @@
 
                 <!------------ No.5-1 ------------>
                 {#if policyInfoData.policyData.piOutChose}
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{step}-1. 개인정보 처리 업무의 위탁에 관한 사항</div>
-                    <div class="prtextTablethBox colum7Line borT">
-                        <div class="prtti">수탁 업체</div>
-                        <div class="prtti">수탁업체의 위치(국가, 도시 등 구체적 주소 작성)</div>
-                        <div class="prtti">위탁 일시 및 방법</div>
-                        <div class="prtti">정보관리책임자의 연락처</div>
-                        <div class="prtti">위탁하는 개인정보 항목</div>
-                        <div class="prtti">위탁 업무 내용</div>
-                        <div class="prtti">위탁 업무 내용개인정보의 보유 및 이용기간</div>
-                    </div>
-                    {#each policyInfoData.outDetailDataList as
-                        {piodCompany, piodLocation, piodMethod, piodContact, piodInfo, piodDetail, piodPeriod}, i}
-                        <div class="prtextTableBox">
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodCompany}</div>
-                            </div>
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodLocation}</div>
-                            </div>
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodMethod}</div>
-                            </div>
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodContact}</div>
-                            </div>
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodInfo}</div>
-                            </div>
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodDetail}</div>
-                            </div>
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodPeriod}</div>
-                            </div>
+                    <div class="priContentBox">
+                        <div class="priC_title marB24">{step}-1. 개인정보 처리 업무의 위탁에 관한 사항</div>
+                        <div class="prtextTablethBox colum7Line borT">
+                            <div class="prtti">수탁 업체</div>
+                            <div class="prtti">수탁업체의 위치(국가, 도시 등 구체적 주소 작성)</div>
+                            <div class="prtti">위탁 일시 및 방법</div>
+                            <div class="prtti">정보관리책임자의 연락처</div>
+                            <div class="prtti">위탁하는 개인정보 항목</div>
+                            <div class="prtti">위탁 업무 내용</div>
+                            <div class="prtti">위탁 업무 내용개인정보의 보유 및 이용기간</div>
                         </div>
-                    {/each}
-                </div>
+                        {#each policyInfoData.outDetailDataList as
+                            {piodCompany, piodLocation, piodMethod, piodContact, piodInfo, piodDetail, piodPeriod}, i}
+                            <div class="prtextTableBox">
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodCompany}</div>
+                                </div>
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodLocation}</div>
+                                </div>
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodMethod}</div>
+                                </div>
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodContact}</div>
+                                </div>
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodInfo}</div>
+                                </div>
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodDetail}</div>
+                                </div>
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodPeriod}</div>
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
                 {/if}
 
                 <!------------ No.6 ------------>
                 {#if policyInfoData.policyData.piThirdChose}
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{++step}. 개인정보 제3자 제공에 관한 사항</div>
-                    <div class="prinortext">
-                        회사는 원칙적으로 개인정보를 외부에 제공하지 않습니다. 단, 개인정보보호법에 근거해 정보주체의 별도 동의나 관련 법령에 의해 개인정보 제출의 의무가 있는 경우, 또는 정보주체의 생명이나 안전에 급박한 위험이 확인되어 이를 해소하기 위한 경우에 한하여 개인정보를 제공합니다.
-                    </div>
-                    <div class="prtextTablethBox colum4Line borT">
-                        <div class="prtti">제공받는 자</div>
-                        <div class="prtti">제공받는 자의 이용 목적</div>
-                        <div class="prtti">제공하는 개인정보 항목</div>
-                        <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
-                    </div>
-
-                    {#each policyInfoData.thirdDataList as {pitRecipient, pitPurpose, pitInfo, pitPeriod}, i}
-                        <div class="prtextTableBox">
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pitRecipient}</div>
-                            </div>
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pitPurpose}</div>
-                            </div>
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pitInfo}</div>
-                            </div>
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pitPeriod}</div>
-                            </div>
+                    <div class="priContentBox">
+                        <div class="priC_title marB24">{++step}. 개인정보 제3자 제공에 관한 사항</div>
+                        <div class="prinortext">
+                            회사는 원칙적으로 개인정보를 외부에 제공하지 않습니다. 단, 개인정보보호법에 근거해 정보주체의 별도 동의나 관련 법령에 의해 개인정보 제출의 의무가 있는 경우, 또는 정보주체의 생명이나 안전에 급박한 위험이 확인되어 이를 해소하기 위한 경우에 한하여 개인정보를 제공합니다.
                         </div>
-                    {/each}
-                </div>
+                        <div class="prtextTablethBox colum4Line borT">
+                            <div class="prtti">제공받는 자</div>
+                            <div class="prtti">제공받는 자의 이용 목적</div>
+                            <div class="prtti">제공하는 개인정보 항목</div>
+                            <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
+                        </div>
+
+                        {#each policyInfoData.thirdDataList as {pitRecipient, pitPurpose, pitInfo, pitPeriod}, i}
+                            <div class="prtextTableBox">
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pitRecipient}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pitPurpose}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pitInfo}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pitPeriod}</div>
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
                 {/if}
 
                 <!------------ No.6-1 ------------>
                 {#if policyInfoData.policyData.piThirdOverseasChose}
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{step}-1. 개인정보의 국외 제3자 제공에 관한 사항</div>
-                    <div class="prtextTablethBox colum5Line borT">
-                        <div class="prtti">제공받는 자</div>
-                        <div class="prtti">제공받는 자의 이용 목적</div>
-                        <div class="prtti">제공하는 개인정보 항목</div>
-                        <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
-                        <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
-                    </div>
-
-                    {#each policyInfoData.thirdOverseasDataList as
-                        {pitoRecipient, pitoLocation, pitoPurpose, pitoPurpose, pitoPeriod}, i}
-                        <div class="prtextTableBox">
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pitoRecipient}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pitoLocation}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pitoPurpose}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pitoPurpose}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pitoPeriod}</div>
-                            </div>
+                    <div class="priContentBox">
+                        <div class="priC_title marB24">{step}-1. 개인정보의 국외 제3자 제공에 관한 사항</div>
+                        <div class="prtextTablethBox colum5Line borT">
+                            <div class="prtti">제공받는 자</div>
+                            <div class="prtti">제공받는 자의 이용 목적</div>
+                            <div class="prtti">제공하는 개인정보 항목</div>
+                            <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
+                            <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
                         </div>
-                    {/each}
-                </div>
+
+                        {#each policyInfoData.thirdOverseasDataList as
+                            {pitoRecipient, pitoLocation, pitoPurpose, pitoPurpose, pitoPeriod}, i}
+                            <div class="prtextTableBox">
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pitoRecipient}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pitoLocation}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pitoPurpose}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pitoPurpose}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pitoPeriod}</div>
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
                 {/if}
 
                 <!------------ No.9 ------------>
@@ -659,7 +648,7 @@
                 </div>
 
             </div>
-        {/if}
+        </LoadingOverlay>
 
     </div>
 </section>

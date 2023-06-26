@@ -2,7 +2,7 @@
     import Header from "../../components/service/layout/Header.svelte";
     import {onMount} from "svelte";
     import {bootpayChangeToAnotherMethod} from "../../components/common/bootpayment.js";
-    import {backBtn, role, subscriptionManagementData,} from "../../lib/store.js";
+    import {backBtn, subscriptionManagementData, userInfoData,} from "../../lib/store.js";
     import CalendarPop from "../../components/service/environment/subscription/CalendarPop.svelte";
     import PaymentPop from "../../components/service/environment/subscription/PaymentPop.svelte";
     import UnsubscribePop from "../../components/service/environment/subscription/UnsubscribePop.svelte";
@@ -14,7 +14,7 @@
     let payBeforeUnsubscribeConfirmVisibility = false;
     let unsubscribeDoneConfirmVisibility = false;
 
-    const moderRole = ['ROLE_MASTER', 'ROLE_ADMIN'];
+    const moddableRole = ['ROLE_MASTER', 'ROLE_ADMIN'];
 
     onMount(() => {
         getCompanyPaymentInfo();
@@ -132,7 +132,7 @@
                     <dl>이용중인 상품</dl>
                     <div class="myInfoBox">
                         <div class="top_stand0{($subscriptionManagementData.companyPaymentInfo.cpiPayType + 1) * 2 - 1}">{cpiPayTypeName[$subscriptionManagementData.companyPaymentInfo.cpiPayType]}</div>
-                        {#if moderRole.includes($role) }
+                        {#if moddableRole.includes($userInfoData.role) }
                             &nbsp;&nbsp;<button class="myinfoChangeBtn marL8impor" id="unsubscribe_pop" on:click={handleUnsubscribeBtn}>구독해지</button>
                         {/if}
                         <!--
@@ -147,7 +147,7 @@
                     <dl>결제수단</dl>
                     <div class="myInfoBox">
                         <span>{$subscriptionManagementData.companyPaymentInfo.cpiInfoCardName}</span>
-                        {#if moderRole.includes($role) }
+                        {#if moddableRole.includes($userInfoData.role) }
                             <button class="myinfoChangeBtn" id="method_pop" on:click={handleChangePayMethod}>변경</button>
                         {/if}
                     </div>

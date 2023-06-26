@@ -19,7 +19,6 @@
                 obj.searchConditionList[0].searchTable = obj.tableList[0].ctName;
                 obj.searchConditionList[0].currentTableName = obj.tableList[0].ctDesignation;
                 obj.searchConditionList[0].currentTableIndex = 0;
-                console.log('tableList', obj);
                 return obj;
             });
 
@@ -27,7 +26,7 @@
                 ajaxGet('/v2/api/DynamicUser/searchColumnCall', {tableName: ctName}, (res2) => {
                     privacySearchData.update(obj => {
                         obj.tableList[i].columnList = res2.data.sendData.fieldList;
-                        if (!i) {
+                        if (i === 0) { // 첫번째 테이블에 할당된 컬럼을 기준으로, 처음 화면이 뜰 때의 셀렉트 박스 선택 상태를 정하기 위함
                             obj.searchConditionList[0].searchCode = obj.tableList[0].columnList[0].fieldCode;
                             obj.searchConditionList[0].currentColumnName = obj.tableList[0].columnList[0].fieldComment;
                             obj.searchConditionList[0].currentTableColumnList = obj.tableList[0].columnList;

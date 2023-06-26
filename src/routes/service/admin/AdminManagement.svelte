@@ -16,6 +16,7 @@
 
     import {setCustomSelectBox, setOptionItem} from "../../../lib/libSearch.js";
     import {commonCode} from "../../../lib/commonCode.js";
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -143,21 +144,14 @@
         <!-- 상단 검색 영역 -->
         <AdminSearch />
 
-        {#if adminManagementLayout === 0}
-            <div class="loaderParent" style="left: 55%">
-                <div class="loader"></div>
-            </div>
-        {:else}
+        <LoadingOverlay bind:loadState={adminManagementLayout} left={55} >
             <div in:fade>
-
                 <!-- 테이블 영역 -->
                 <AdminTable {admin_list} {size} {total} />
-
                 <!-- 페이징 영역 -->
                 <Paging total_page="{total_page}" data_list="{admin_list}" dataFunction="{adminList}" />
             </div>
-        {/if}
-
+        </LoadingOverlay>
     </div>
 </section>
 

@@ -2,8 +2,7 @@
     import { link } from 'svelte-spa-router'
     import {
         page,
-        knNameHeader,
-        csAutoLogoutSetting
+        userInfoData,
     } from "../../../lib/store.js"
     import {openConfirm} from "../../common/ui/DialogManager.js";
     import {onDestroy, onMount} from "svelte";
@@ -20,7 +19,7 @@
                 openConfirm({
                     icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                     title: '자동 로그아웃 됨', // 제목
-                    contents1: formatTime(60 * Number($csAutoLogoutSetting.minute)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
+                    contents1: formatTime(60 * Number($userInfoData.csAutoLogoutSetting.minute)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
                     contents2: '자동 로그아웃 됩니다.',
                     btnCheck: '확인', // 확인 버튼의 텍스트
                 });
@@ -41,7 +40,10 @@
     const handleTimeoutReset = () => {
         clearTimeout(debouncingTime);
         debouncingTime = setTimeout(() => {
-            csAutoLogoutSetting.set(JSON.parse(JSON.stringify($csAutoLogoutSetting)));
+            userInfoData.update(obj => {
+                obj.csAutoLogoutSetting = JSON.parse(JSON.stringify(obj.csAutoLogoutSetting));
+                return obj;
+            });
         }, 1000); // 1000ms 동안 추가 이벤트가 없을 때 처리
     }
 
@@ -52,7 +54,7 @@
         return futureDate;
     }
 
-    $: expireDate = getFutureDate(Number($csAutoLogoutSetting.minute)); // 여기의 시각을 기준으로 남은 시간의 표현과 처리
+    $: expireDate = getFutureDate(Number($userInfoData.csAutoLogoutSetting.minute)); // 여기의 시각을 기준으로 남은 시간의 표현과 처리
     let timeLeftClock = '00:00';
     // 초 단위를 문자형 시간으로 변환
     function formatTime(seconds) {
@@ -128,7 +130,7 @@
                 </div>
                 <div class="myinfoBox">
                     <div class="myinfoIcon"></div>
-                    <span>{$knNameHeader}</span>
+                    <span>{$userInfoData.knName}</span>
                 </div>
                 <div class="myinfoBox">
                     <span style="cursor: pointer;" on:click|once={logout}>로그아웃</span>

@@ -24,9 +24,10 @@
     import {openAsk, openBanner} from "../../../components/common/ui/DialogManager.js";
     import {ajaxBody, ajaxGet, ajaxParam} from "../../../components/common/ajax.js";
     import {logout} from "../../../components/common/authActions.js";
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     const personalInfoItemProp = {
-        isLoadingScreenOn: true,
+        loadState: 0,
         currentSelectedTab: '',
         setCurrentSelectedTab(tabName) {
             personalInfoItemProp.currentSelectedTab = tabName;
@@ -42,7 +43,7 @@
                     return obj;
                 });
                 console.log('탭정보', $personalInfoTableData.columnList);
-                personalInfoItemProp.isLoadingScreenOn = false;
+                personalInfoItemProp.loadState = 1;
             });
         },
     }
@@ -562,17 +563,12 @@
             <h1>개인정보 항목 관리</h1>
         </div>
 
-        {#if personalInfoItemProp.isLoadingScreenOn}
-            <div class="loaderParent">
-                <div class="loader"></div>
-            </div>
-        {:else}
+        <LoadingOverlay bind:loadState={personalInfoItemProp.loadState} >
             <div class="prDivideBox" in:fade>
                 <PersonalInfoCategory {personalInfoCategoryService} />
                 <PersonalInfoTable {personalInfoItemProp} {personalInfoTableService} />
             </div>
-        {/if}
-
+        </LoadingOverlay>
     </div>
 </section>
 

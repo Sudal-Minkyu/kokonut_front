@@ -1,4 +1,4 @@
-import {accessToken, cpNameSider, is_login, knEmailHeader, knNameHeader, knPhoneNumber, page} from "../../lib/store.js";
+import {accessToken, is_login, page, userInfoData, initialUserInfo} from "../../lib/store.js";
 import {ajaxParam} from "./ajax.js";
 import {get} from "svelte/store";
 
@@ -9,10 +9,7 @@ export const logout = () => {
 
     ajaxParam('/v1/api/Auth/logout', sendData, (json_success) => {
         // 기본값 초기화처리
-        knNameHeader.set('');
-        knEmailHeader.set('');
-        knPhoneNumber.set('');
-        cpNameSider.set('');
+        userInfoData.set(JSON.parse(initialUserInfo));
         is_login.set(false);
         accessToken.set('');
         page.set(0);

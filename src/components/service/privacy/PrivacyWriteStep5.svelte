@@ -1,7 +1,7 @@
 
 <script>
     import { fade } from 'svelte/transition'
-    import {initialProvidePrivacyWrite, knEmailHeader, providePrivacyWriteData} from "../../../lib/store.js";
+    import {initialProvidePrivacyWrite, userInfoData, providePrivacyWriteData} from "../../../lib/store.js";
     import {onMount} from "svelte";
     import {ajaxBody, ajaxGet} from "../../common/ajax.js";
     import PrivacyWriteStep5FilterPop from "./PrivacyWriteStep5FilterPop.svelte";
@@ -46,7 +46,7 @@
             piplTargetIdxs: ppd.step5.piplTargetIdxs,
         };
         if (ppd.step2.provideTargetType === 'self') {
-            sendData.adminEmailList = [$knEmailHeader];
+            sendData.adminEmailList = [$userInfoData.knEmail];
         } else if (ppd.step2.provideTargetType === 'teammate') {
             sendData.adminEmailList = ppd.step2.selectedAdminObjList.map(item => item.knEmail);
         }

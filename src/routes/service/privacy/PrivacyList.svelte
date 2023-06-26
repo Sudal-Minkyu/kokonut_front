@@ -14,6 +14,7 @@
 
     import { page, popupPage } from "../../../lib/store.js";
     import restapi from "../../../lib/api.js";
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -167,11 +168,7 @@
         <!-- 상단 검색 영역 -->
         <PrivacyListSearch {searchCondition}/>
 
-        {#if provisionLayout === 0}
-            <div class="loaderParent" style="left: 55%">
-                <div class="loader"></div>
-            </div>
-        {:else}
+        <LoadingOverlay bind:loadState={provisionLayout} left={55} >
             <div in:fade>
                 <!-- 테이블 영역 -->
                 <PrivacyListTable {downloadHistoryClick} {provision_list} {size} {total} />
@@ -179,7 +176,7 @@
                 <!-- 페이징 영역 -->
                 <Paging total_page="{total_page}" data_list="{provision_list}" dataFunction="{provisionList}" />
             </div>
-        {/if}
+        </LoadingOverlay>
     </div>
 </section>
 

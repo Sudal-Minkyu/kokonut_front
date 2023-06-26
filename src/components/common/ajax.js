@@ -1,13 +1,5 @@
-import {
-    is_login,
-    accessToken,
-    knNameHeader,
-    knEmailHeader,
-    cpNameSider,
-    page,
-    knPhoneNumber,
-} from "../../lib/store.js";
-import { get } from 'svelte/store';
+import {accessToken} from "../../lib/store.js";
+import {get} from 'svelte/store';
 import axios from 'axios';
 import {openConfirm} from "./ui/DialogManager.js";
 import {logout} from "./authActions.js";

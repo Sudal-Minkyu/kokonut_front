@@ -12,7 +12,6 @@ export const SelectBoxManager = (targetEl, props) => {
         readOnly: false, // true 일 경우 박스는 동작하지 않는다.
     }
     const {callback, readOnly} = {...defaultProps, ...props};
-    console.log(readOnly);
 
     if (readOnly) {
         return;

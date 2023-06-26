@@ -4,7 +4,7 @@
     import Header from "../../../components/service/layout/Header.svelte"
     import { link, push } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
-    import { backBtn, role } from '../../../lib/store.js'
+    import { backBtn, userInfoData } from '../../../lib/store.js'
 
     import { onMount } from 'svelte';
     import { popOpenBtn } from "../../../lib/common.js";
@@ -15,6 +15,7 @@
 
     import {imgView} from "../../../lib/common.js";
     import jQuery from "jquery";
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     let qnaId;
 
@@ -49,13 +50,8 @@
                 if(json_success.data.status === 200) {
                     console.log("조회된 데이터가 있습니다.");
 
-                    // role.set(json_success.data.sendData.role);
                     qnaDetailData = json_success.data.sendData.qnaDetail;
                     qnaDetailFileData = json_success.data.sendData.qnaDetailFile;
-
-                    // console.log(qnaDetailData);
-                    // console.log(qnaDetailFileData);
-
                     qnaLayout = 1;
                 } else if (json_success.data.err_code === "KO053" || json_success.data.err_code === "KO054") {
                     popTitle = "존재하지 않은 문의글"
@@ -102,7 +98,6 @@
             (json_success) => {
                 console.log(json_success);
                 if(json_success.data.status === 200) {
-                    $role = "";
                     popTitle = "답변을 완료했습니다."
                     imgState = 1;
                     popOpenBtn();
@@ -140,11 +135,7 @@
             </dl>
         </div>
 
-        {#if qnaLayout === 0}
-            <div class="loaderParent">
-                <div class="loader"></div>
-            </div>
-        {:else if qnaLayout === 1}
+        <LoadingOverlay bind:loadState={qnaLayout} >
             <div class="seaWrap marT24" in:fade>
                 <div class="seaContentBox">
                     <div class="seaContentLine borB">
@@ -207,10 +198,10 @@
                         </div>
                     </div>
                 </div>
-<!--            <div class="wr_BtnBox marT24">-->
-<!--                <button class="wr_del">삭제하기</button>-->
-<!--                <button class="wr_revise">수정하기</button>-->
-<!--            </div>-->
+                <!--            <div class="wr_BtnBox marT24">-->
+                <!--                <button class="wr_del">삭제하기</button>-->
+                <!--                <button class="wr_revise">수정하기</button>-->
+                <!--            </div>-->
                 <div class="seaWrap marT60">
                     <div class="seaContentBox">
                         <div class="seaContentLine borB">
@@ -248,7 +239,7 @@
                             </div>
                         {/if}
 
-                        {#if qnaDetailData.qnaState === 0 && $role === "ROLE_SYSTEM"}
+                        {#if qnaDetailData.qnaState === 0 && $userInfoData.role === "ROLE_SYSTEM"}
                             <div class="seaContentLine borB">
                                 <div class="seaCont wid100per">
                                     <dl>답변내용</dl>
@@ -260,15 +251,15 @@
                             </div>
                         {/if}
                     </div>
-                    {#if qnaDetailData.qnaState === 0 && $role === "ROLE_SYSTEM"}
+                    {#if qnaDetailData.qnaState === 0 && $userInfoData.role === "ROLE_SYSTEM"}
                         <div class="wr_BtnBox marT24">
-<!--                        <button class="wr_del">삭제하기</button>-->
+                            <!--                        <button class="wr_del">삭제하기</button>-->
                             <button class="wr_revise" on:click={qnaAnswer}>답변하기</button>
                         </div>
                     {/if}
                 </div>
             </div>
-        {/if}
+        </LoadingOverlay>
     </div>
 </section>
 

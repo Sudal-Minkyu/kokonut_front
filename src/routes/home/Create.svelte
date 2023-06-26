@@ -8,6 +8,7 @@
 
     import Error from '../../components/common/error/Error.svelte'
     import CreateMain from '../../components/home/create/CreateMain.svelte'
+    import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
 
     onMount(async () => {
         // 관리자등록 검증
@@ -79,24 +80,18 @@
     let pageErrUrl = "";
 </script>
 
-{#if createLayout === 0 }
-    <section class="bodyWrap">
-        <div class="contentInnerWrap">
-            <div class="loaderParent" style="left: 45%;top: 150%;">
-                <div class="loader"></div>
-                <p>로딩중...</p>
+
+<LoadingOverlay left={45} top={30}>
+    {#if createLayout === 1}
+        <div class="join_membership" id="joinWrap">
+            <div class="joinCont">
+                <div class="joinBg"></div>
+                <div class="joinContArea">
+                    <CreateMain {userEmail} />
+                </div>
             </div>
         </div>
-    </section>
-{:else if createLayout === 1}
-    <div class="join_membership" id="joinWrap">
-        <div class="joinCont">
-            <div class="joinBg"></div>
-            <div class="joinContArea">
-                <CreateMain {userEmail} />
-            </div>
-        </div>
-    </div>
-{:else}
-    <Error {pageErrMsg1} {pageErrMsg2} {pageErrUrl} />
-{/if}
+    {:else}
+        <Error {pageErrMsg1} {pageErrMsg2} {pageErrUrl} />
+    {/if}
+</LoadingOverlay>

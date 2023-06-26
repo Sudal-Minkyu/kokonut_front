@@ -14,29 +14,34 @@ const persist_storage = (key, initValue) => {
 
 // 리플레쉬 토큰 유효기간 : 7일, 엑세스토큰 유효기간 : 30분
 export const accessToken = persist_storage("accessToken","");
-
 // 로그인 여부
 export const is_login = persist_storage("is_login",false);
-
 // 페이징 번호
 export const page = persist_storage("page", 0);
-export const knNameHeader = writable(""); // 헤더바에 나올 사용자명
-export const knEmailHeader = writable(""); // 기본적으로 가져오는 나의 이메일스토어값
-export const knPhoneNumber = writable(""); // 사용자 전화번호
-export const csAutoLogoutSetting = writable({minute: "60"}); // 자동로그아웃까지 걸리는 분 (새로고침 위해 객체형태 사용)
-export const csPasswordChangeState = writable("");
-export const doChangePwdLater = writable(true); // 로그인시 false -> 암호 변경 나중에 하기 -> true
-export const paymentBillingCheck = writable('');
 
-export const cpNameSider = writable(""); // 사이드바에 나올 소속명
+// 사용자 로그인 정보 초기화값 /v2/api/Admin/authorityCheck 를 통해 헤더가 호출될 때 갱신된다.
+export const initialUserInfo = JSON.stringify({
+    cpName: '', // 사이드바에 나올 소속명
+    csAutoLogoutSetting: {minute: '60'}, // 자동로그아웃까지 걸리는 분 (새로고침 위해 객체형태 사용)
+    csPasswordChangeState: '', // 비밀번호 변경 기간 도래 여부
+    electronic: '', // 전자상거래법 대상 여부 : 0 -> 전자상거래법여부를 모르거나 최초일경우, 1->전자상거래법대상 일경우, 2->전자상거래법대상이 아닐경우
+    knEmail: '', // 기본적으로 가져오는 나의 이메일스토어값
+    knName: '', // 헤더바에 나올 사용자명
+    knPhoneNumber: '', // 사용자 전화번호
+    paymentBillingCheck: '', // 0 -> 새로가입했지만 아직 구독하지 않은 고객사, 1 -> 구독중인 고객사, 2 -> 구독해지한 고객사
+    role: '', // 로그인한 사용자 권한
+});
+
+// 사용자 로그인 정보
+export const userInfoData = writable(JSON.parse(initialUserInfo));
+
+export const doChangePwdLater = writable(true); // 로그인시 false -> 암호 변경 나중에 하기 -> true
+
 export const backBtn = writable("<-"); // 뒤로가기버튼 텍스트
 export const popupPage = writable(0); // 팝업용 페이지번호
 
 export const keyBufferSto = writable(""); // 테스트 key
 export const ivSto = writable(""); // 테스트 iv
-
-export const role = writable(""); // 현재 권한
-export const electronic = writable(""); // 전자상거래법 대상 여부 : 0 -> 전자상거래법여부를 모르거나 최초일경우, 1->전자상거래법대상 일경우, 2->전자상거래법대상이 아닐경우
 
 // 컴포넌트용 지속성스토어
 export const emailSave = persist_storage("emailSave",""); // 이메일기억하기 체크시 저장

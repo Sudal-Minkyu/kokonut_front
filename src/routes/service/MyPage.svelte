@@ -17,6 +17,7 @@
     import PhoneCert from '../../components/common/certification/PhoneCert.svelte'
     import GoogleOTP from "../../components/common/certification/GoogleOTP.svelte";
     import {logout} from "../../components/common/authActions.js";
+    import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
 
     let changeState = 0;
     function changeStatePop(val) {
@@ -137,11 +138,7 @@
             <a use:link href="/service/environment">{$backBtn}</a>
             <h1>내 정보</h1>
         </div>
-        {#if myInfoLayout === 0}
-            <div class="loaderParent">
-                <div class="loader"></div>
-            </div>
-        {:else}
+        <LoadingOverlay bind:loadState={myInfoLayout} >
             <div class="seaContentBox" in:fade>
                 <div class="seaContentLine borB">
                     <div class="seaCont wid100per">
@@ -208,7 +205,7 @@
                     </div>
                 </div>
             </div>
-        {/if}
+        </LoadingOverlay>
     </div>
 </section>
 

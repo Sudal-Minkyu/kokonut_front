@@ -1,6 +1,6 @@
 import {Bootpay} from "@bootpay/client-js";
 import {get} from 'svelte/store';
-import {knEmailHeader, knNameHeader, knPhoneNumber} from "../../lib/store.js";
+import {userInfoData} from "../../lib/store.js";
 import {ajaxParam} from "./ajax.js";
 import {openBanner, openConfirm} from "./ui/DialogManager.js";
 
@@ -90,15 +90,16 @@ export const bootpayRemainingUsageFee = () => {
 }
 
 const addOrChangeCard = ({order_name, subscription_comment, success_msg, handleSuccess, handleFail}) => {
+    const currentUserInfo = get(userInfoData);
     Bootpay.requestSubscription({
         application_id: import.meta.env.VITE_BOOT_PAY_SECRET,
         pg: '나이스페이',
         order_name: order_name,
         subscription_id: (new Date()).getTime(),
         user: {
-            username: get(knNameHeader),
-            phone: get(knPhoneNumber),
-            email: get(knEmailHeader)
+            username: currentUserInfo.knName,
+            phone: currentUserInfo.knPhoneNumber,
+            email: currentUserInfo.knEmail
         },
         extra: {
             subscription_comment: subscription_comment,
