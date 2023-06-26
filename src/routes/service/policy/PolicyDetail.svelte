@@ -123,7 +123,7 @@
 
 <Header />
 
-{#if state === 0}제
+{#if state === 0}
 <section class="bodyWrap">
     <div class="contentInnerWrap">
         <div class="pageTitleBtn marB50">

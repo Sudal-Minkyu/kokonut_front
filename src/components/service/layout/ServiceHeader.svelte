@@ -49,6 +49,7 @@
 
     // 현재 시각의 분에 인자로 받은 분을 더해 새로운 분으로 설정한 객체 반환
     function getFutureDate(minutesFromNow) {
+        console.log($userInfoData);
         let futureDate = new Date();
         futureDate.setMinutes(futureDate.getMinutes() + minutesFromNow);
         return futureDate;
