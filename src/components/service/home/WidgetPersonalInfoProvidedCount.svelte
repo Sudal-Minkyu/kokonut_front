@@ -1,3 +1,18 @@
+<script>
+    import {ajaxGet} from "../../common/ajax.js";
+    import {onMount} from "svelte";
+
+    onMount(() => {
+        // getProvidedOfferCount();
+    });
+
+    const getProvidedOfferCount = () => {
+        ajaxGet('/v2/api/Index/privacyOfferCount,', false, (res) => {
+            console.log('개인정보 제공 건수', res);
+        });
+    };
+</script>
+
 <div class="wjItem">
     <div class="wj_contentBox wjpcount">
         <div class="wjtitle">

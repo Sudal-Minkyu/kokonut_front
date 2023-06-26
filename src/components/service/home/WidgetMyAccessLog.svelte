@@ -1,3 +1,18 @@
+<script>
+    import {ajaxGet} from "../../common/ajax.js";
+    import {onMount} from "svelte";
+
+    onMount(() => {
+        // getMyAccessLogInfo();
+    });
+
+    const getMyAccessLogInfo = () => {
+        ajaxGet('/v2/api/Index/myLoginInfo', false, (res) => {
+            console.log('나의 접속 현황 정보 받아오기', res);
+        });
+    };
+</script>
+
 <div class="wjItem">
     <div class="wj_contentBox">
         <div class="wjtitle">

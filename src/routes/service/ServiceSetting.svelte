@@ -7,8 +7,9 @@
     import SettingIpAdd from '../../components/service/environment/servicesetting/SettingIpAdd.svelte'
     import {SelectBoxManager} from "../../components/common/action/SelectBoxManager.js";
     import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
-    import {initialServiceSetting, role, serviceSettingData} from "../../lib/store.js";
+    import {backBtn, initialServiceSetting, role, serviceSettingData} from "../../lib/store.js";
     import {openConfirm} from "../../components/common/ui/DialogManager.js";
+    import {link} from "svelte-spa-router";
 
     // 서비스설정 가져오기
     onMount(() => {
@@ -198,6 +199,7 @@
 <section class="bodyWrap">
     <div class="contentInnerWrap serviceSetWrap">
         <div class="pageTitleBtn marB50">
+            <a use:link href="/service/environment">{$backBtn}</a>
             <h1>서비스 설정</h1>
             <dl>
                 해당 페이지는 최고관리자만 수정할 수 있습니다.

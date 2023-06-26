@@ -4,10 +4,11 @@
     import WidgetSwiperNews from "../../components/service/home/WidgetSwiperNews.svelte";
     import WidgetTodayStatus from "../../components/service/home/WidgetTodayStatus.svelte";
     import DynamicComponentPlacer from "../../components/service/home/DynamicComponentPlacer.svelte";
-    import {knNameHeader, paymentBillingCheck} from "../../lib/store.js";
+    import {knNameHeader, paymentBillingCheck, role} from "../../lib/store.js";
     import PopInformAskSubscribe from "../../components/service/home/PopInformAskSubscribe.svelte";
     import {bootpayContinueSubscription, bootpayStartSubscription} from "../../components/common/bootpayment.js";
-    import {openAsk, openBanner, openConfirm} from "../../components/common/ui/DialogManager.js";
+    import {openAsk, openConfirm} from "../../components/common/ui/DialogManager.js";
+    import {logout} from "../../components/common/authActions.js";
 
     let isBillingCheckTriggerNotActivatedYet = true;
 
@@ -97,13 +98,40 @@
         },
     }
 
+    const subscribableRoleList = ['ROLE_MASTER', 'ROLE_ADMIN']
+
     $: if(isBillingCheckTriggerNotActivatedYet && $paymentBillingCheck === '0') { // 0은 새로 가입된 사람임을 의미
-        isBillingCheckTriggerNotActivatedYet = false;
-        askSubscribeService.askStartSubscribe();
+        if (subscribableRoleList.includes($role)) {
+            isBillingCheckTriggerNotActivatedYet = false;
+            askSubscribeService.askStartSubscribe();
+        } else {
+            openConfirm({
+                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: "구독이 필요합니다.", // 제목
+                contents1: '서비스 사용을 위해서 구독이 필요합니다.',
+                contents2: '관리자에게 해당 사실을 문의해 주세요.',
+                btnCheck: '확인', // 확인 버튼의 텍스트
+                callback: () => {
+                    logout();
+                }
+            });
+        }
     } else if ($paymentBillingCheck === '2') { // 2는 구독을 해지한 사람임을 의미
-        isBillingCheckTriggerNotActivatedYet = false;
-        console.log($paymentBillingCheck)
-        askSubscribeService.askContinueSubscribe();
+        if (subscribableRoleList.includes($role)) {
+            isBillingCheckTriggerNotActivatedYet = false;
+            askSubscribeService.askContinueSubscribe();
+        } else {
+            openConfirm({
+                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: "구독 다시하기가 필요합니다.", // 제목
+                contents1: '구독이 해지되어 서비스를 사용할 수 없습니다.',
+                contents2: '관리자에게 해당 사실을 문의해 주세요.',
+                btnCheck: '확인', // 확인 버튼의 텍스트
+                callback: () => {
+                    logout();
+                }
+            });
+        }
     }
 </script>
 <Header />
