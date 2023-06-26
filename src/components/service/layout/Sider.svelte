@@ -1,6 +1,6 @@
 <script>
     import { link } from 'svelte-spa-router'
-    import { is_login, page, cpNameSider } from "../../../lib/store.js"
+    import {is_login, page, userInfoData} from "../../../lib/store.js"
 
     const test = () => {
         console.log("ㅇㅇㅇ")
@@ -11,7 +11,7 @@
 {#if $is_login}
     <div class="navMenu">
         <div class="navMenuInner">
-            <div class="navName">{$cpNameSider}</div>
+            <div class="navName">{$userInfoData.cpName}</div>
             <div class="subNav">
                 <ul>
                     <li class="onedepth"><img src="/assets/images/common/menu_icon_privacy.png" alt="">개인정보 현황</li>
@@ -64,7 +64,7 @@
 <!--    -->
 <!--<div class="navMenu">-->
 <!--    <div class="navMenuInner">-->
-<!--        <div class="navName">{$cpNameSider}</div>-->
+<!--        <div class="navName">{$userInfoData.cpName}</div>-->
 <!--        <div class="subNav">-->
 <!--            <ul>-->
 <!--                <li>개인정보현항</li>-->

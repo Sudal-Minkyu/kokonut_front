@@ -3,16 +3,8 @@
 	import Sider from "./Sider.svelte"
     import {
         is_login,
-        knNameHeader,
-        knEmailHeader,
-        cpNameSider,
-        role,
-        electronic,
-        knPhoneNumber,
-        csPasswordChangeState,
-        csAutoLogoutSetting,
         doChangePwdLater,
-        paymentBillingCheck
+        userInfoData,
     } from "../../../lib/store.js"
     import restapi from "../../../lib/api.js";
     import {beforeUpdate} from "svelte";
@@ -37,15 +29,8 @@
                         const userInfo = json_success.data.sendData;
                         console.log('사용자 정보', userInfo);
                         is_login.set(true);
-                        knNameHeader.set(userInfo.knName);
-                        knEmailHeader.set(userInfo.knEmail);
-                        knPhoneNumber.set(userInfo.knPhoneNumber);
-                        cpNameSider.set(userInfo.cpName);
-                        role.set(userInfo.role);
-                        electronic.set(userInfo.electronic);
-                        csPasswordChangeState.set(userInfo.csPasswordChangeState);
-                        csAutoLogoutSetting.set({minute: userInfo.csAutoLogoutSetting});
-                        paymentBillingCheck.set(userInfo.paymentBillingCheck);
+                        userInfo.csAutoLogoutSetting = {minute: userInfo.csAutoLogoutSetting}; // 객체형태로 변환해 변화를 감지하기 위함
+                        userInfoData.set(userInfo);
 
                         if (!$doChangePwdLater && userInfo.csPasswordChangeState === '2') {
                             isMyPagePwdVisible = true;

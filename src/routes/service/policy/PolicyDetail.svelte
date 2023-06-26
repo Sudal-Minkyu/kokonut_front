@@ -12,9 +12,8 @@
     import { fade } from 'svelte/transition'
     import {onMount} from "svelte";
 
-    import {backBtn, role} from '../../../lib/store.js'
+    import {backBtn} from '../../../lib/store.js'
     import restapi from "../../../lib/api.js";
-    import {writable} from "svelte/store";
 
     let piId;
 

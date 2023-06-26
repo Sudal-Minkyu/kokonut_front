@@ -7,7 +7,7 @@
     import PolicyElectronic from "../../../components/service/policy/PolicyElectronic.svelte";
 
     import { link } from 'svelte-spa-router'
-    import {page, electronic} from '../../../lib/store.js'
+    import {page, userInfoData} from '../../../lib/store.js'
     import { fade } from 'svelte/transition'
 
     import {setCustomSelectBox, setDateRangePicker, setOptionItem, stimeVal} from "../../../lib/libSearch.js";
@@ -42,7 +42,7 @@
     }
     // 전자상거래법 적용대상 체크
     function companyElectronicCheck() {
-        if($electronic === "0") {
+        if($userInfoData.electronic === "0") {
             electronicCheck = true;
         }
     }

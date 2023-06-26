@@ -2,7 +2,7 @@
 <script>
     import { fade } from 'svelte/transition'
     import { callCapsLock } from '../../../../lib/common'
-    import {cpNameSider} from "../../../../lib/store.js"
+    import {userInfoData} from "../../../../lib/store.js"
     import restapi from "../../../../lib/api.js";
     import {logout} from "../../../common/authActions.js";
 
@@ -43,7 +43,10 @@
             (json_success) => {
                 if(json_success.data.status === 200) {
                     contentsChange(1, cpName);
-                    cpNameSider.set(cpName);
+                    userInfoData.update(obj => {
+                        obj.cpName = cpName;
+                        return obj;
+                    });
                     changeStatePop(0);
                 } else if (json_success.data.err_code === "KO013") {
                     pwdNot = true;

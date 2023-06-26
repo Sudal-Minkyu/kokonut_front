@@ -2,7 +2,7 @@
     import restapi from "../../../lib/api.js";
     import jQuery from "jquery";
 
-    import { openDiv, findEmail, findPwd, tempPwd, knNameHeader } from '../../../lib/store'
+    import {openDiv, findEmail, findPwd, tempPwd, userInfoData} from '../../../lib/store'
     import {openConfirm} from "../ui/DialogManager.js";
 
     jQuery(function() {
@@ -82,7 +82,7 @@
     };
 
     export let state = 0;
-    export let conditionFun = undefined; // 공통 상태변경 함수
+    export let conditionFun = () => {}; // 공통 상태변경 함수
 
     // 이메일 존재여부 API 호출 (비밀번호찾기시)
     function emailCheck(email) {
@@ -289,7 +289,10 @@
                 if(json_success.data.status === 200) {
                     let filterPhone = phone.substring(0,3) + "-****-" + phone.substring(7,11);
                     initValue(name, filterPhone);
-                    knNameHeader.set(name);
+                    userInfoData.update(obj => {
+                        obj.knName = name;
+                        return obj;
+                    });
                     conditionFun();
                 }
             },
