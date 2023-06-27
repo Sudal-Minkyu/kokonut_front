@@ -6,21 +6,17 @@
     import { backBtn, page } from '../../../lib/store.js'
 
     import { onMount } from 'svelte';
-    import restapi from "../../../lib/api.js";
     import { fade } from 'svelte/transition'
 
     import QnaTable from "../../../components/service/environment/qna/QnaTable.svelte"
     import Paging from "../../../components/common/Paging.svelte"
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet} from "../../../components/common/ajax.js";
 
     // 나의정보 가져오기
-    onMount(async () => {
-
-        // 페이지번호 초기화
+    onMount(() => {
         page.set(0);
         qnaList($page);
-
-        // setTimeout(() => qnaLayout = 1, 500);
     })
 
     let qnaLayout = 0;
@@ -33,31 +29,19 @@
 
     function qnaList(pageNum) {
         console.log("1:1 문의하기 리스트 호출 클릭!");
-
+        qnaLayout = 0;
         page.set(pageNum);
 
         let url = "/v2/api/Qna/qnaList?page=" + pageNum+"&size="+size;
-
-        restapi('v2', 'get', url, "", {}, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-                    console.log("조회된 데이터가 있습니다.");
-                    qna_list = json_success.data.datalist
-                    total = json_success.data.total_rows
-                } else {
-                    qna_list = [];
-                    total = 0;
-                    console.log("조회된 데이터가 없습니다.");
-                }
-                qnaLayout = 1;
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("1:1 문의하기 리스트 호출 실패");
-            }
-        )
-
+        ajaxGet(url, false, (res) => {
+            qna_list = res.data.datalist
+            total = res.data.total_rows
+            qnaLayout = 1;
+        }, (errCode) => {
+            qna_list = [];
+            total = 0;
+            qnaLayout = 1;
+        });
     }
 
 </script>

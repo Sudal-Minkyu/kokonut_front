@@ -1,5 +1,5 @@
 <script>
-    export let loadState = 0; // false 계통의 값일 경우 로딩스크린이 보이고, 아닐 경우 본 내용이 슬롯에 보이도록
+    export let loadState = 1; // false 계통의 값일 경우 로딩스크린이 보이고, 아닐 경우 본 내용이 슬롯에 보이도록
     export let left = 0;
     export let top = 0;
 

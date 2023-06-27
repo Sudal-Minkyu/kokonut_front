@@ -1,10 +1,9 @@
-
 <script>
     import Header from "../../../components/service/layout/Header.svelte"
     import { link } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
 
-    import { setDateRangePicker, setOptionItem, stimeVal } from "../../../lib/libSearch.js";
+    import { setDateRangePicker, stimeVal } from "../../../lib/libSearch.js";
     import { onMount } from "svelte";
 
     import PrivacyListTable from "../../../components/service/privacy/PrivacyListTable.svelte";
@@ -13,8 +12,8 @@
     import Paging from "../../../components/common/Paging.svelte";
 
     import { page, popupPage } from "../../../lib/store.js";
-    import restapi from "../../../lib/api.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet} from "../../../components/common/ajax.js";
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -52,31 +51,20 @@
         if(provisionLayout === 1) {
             provisionLayout = 0;
         }
-
         page.set(pageNum);
 
         let url = "/v2/api/Provision/provisionList?page=" + pageNum+"&size="+size;
-
-        restapi('v2', 'get', url, "param", searchCondition, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-                    console.log("조회된 데이터가 있습니다.");
-                    provision_list = json_success.data.datalist
-                    total = json_success.data.total_rows
-                } else {
-                    provision_list = [];
-                    total = 0;
-                    console.log("조회된 데이터가 없습니다.");
-                }
-                provisionLayout = 1;
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("개인정보제공 리스트 호출 실패");
-            }
-        )
-
+        ajaxGet(url, searchCondition, (res) => {
+            console.log("조회된 데이터가 있습니다.");
+            provision_list = res.data.datalist;
+            total = res.data.total_rows;
+            provisionLayout = 1;
+        }, (errCode) => {
+            provision_list = [];
+            total = 0;
+            console.log("조회된 데이터가 없습니다.");
+            provisionLayout = 1;
+        });
     }
 
     // 엔터키 클릭
@@ -118,25 +106,16 @@
             proCode : setProCode
         };
 
-        restapi('v2', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    console.log("조회된 데이터가 있습니다.");
-                    provisionDownloadHistory_list = json_success.data.datalist
-                    provisionDownload_total = json_success.data.total_rows
-                } else {
-                    provisionDownloadHistory_list = [];
-                    provisionDownload_total = 0;
-                    console.log("조회된 데이터가 없습니다.");
-                }
-                provisionLayout = 1;
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("개인정보제공 다운로드 리스트 호출 실패");
-            }
-        )
-
+        ajaxGet(url, sendData, (res) => {
+            console.log("조회된 데이터가 있습니다.");
+            provisionDownloadHistory_list = res.data.datalist
+            provisionDownload_total = res.data.total_rows
+        }, (errCode) => {
+            provisionDownloadHistory_list = [];
+            provisionDownload_total = 0;
+            console.log("조회된 데이터가 없습니다.");
+            provisionLayout = 1;
+        });
     }
 
     function downloadPopClose() {

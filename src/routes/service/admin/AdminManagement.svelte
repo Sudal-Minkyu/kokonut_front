@@ -17,6 +17,7 @@
     import {setCustomSelectBox, setOptionItem} from "../../../lib/libSearch.js";
     import {commonCode} from "../../../lib/commonCode.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet} from "../../../components/common/ajax.js";
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -76,8 +77,6 @@
     // 관리자 목록 호출 함수
     function adminList(pageNum) {
         console.log("관리자 목록호출 클릭!");
-
-
         page.set(pageNum);
 
         console.log(jQuery("#roleSelect"));
@@ -88,25 +87,17 @@
             filterState : jQuery("#stateSelect").text(),
         };
 
-        restapi('v2', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-                    console.log("조회된 데이터가 있습니다.");
-                    admin_list = json_success.data.sendData.datalist
-                    total = json_success.data.sendData.total_rows
-                } else {
-                    admin_list = [];
-                    total = 0;
-                    console.log("조회된 데이터가 없습니다.");
-                }
-                adminManagementLayout = 1;
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("관리자 리스트 호출 실패");
-            }
-        )
+        ajaxGet(url, sendData, (res) => {
+            console.log("조회된 데이터가 있습니다.");
+            admin_list = res.data.sendData.datalist
+            total = res.data.sendData.total_rows
+
+        }, (errCode) => {
+            admin_list = [];
+            total = 0;
+            console.log("조회된 데이터가 없습니다.");
+            adminManagementLayout = 1;
+        });
     }
 
     // 검색 변수

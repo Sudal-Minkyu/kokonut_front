@@ -10,11 +10,13 @@
     import {openAsk} from "../../components/common/ui/DialogManager.js";
     import {ajaxGet} from "../../components/common/ajax.js";
     import {link} from "svelte-spa-router";
+    import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
 
     let payBeforeUnsubscribeConfirmVisibility = false;
     let unsubscribeDoneConfirmVisibility = false;
 
     const moddableRole = ['ROLE_MASTER', 'ROLE_ADMIN'];
+    let gotPaymentState = 0;
 
     onMount(() => {
         getCompanyPaymentInfo();
@@ -32,7 +34,9 @@
     }
     
     const getPaymentList = () => {
+        gotPaymentState = 0;
         ajaxGet('/v2/api/Company/paymentList', false, (res) => {
+            gotPaymentState = 1;
             console.log('기초데이터2', res);
             subscriptionManagementData.update(obj => {
                 obj.paymentList.dataList = res.data.datalist;
@@ -152,12 +156,12 @@
                         {/if}
                     </div>
                 </div>
-                    <div class="seaCont wid50per">
-                        <dl>결제일</dl>
-                        <div class="myInfoBox">
-                            <span>1일~말일 요금, 익월 5일 결제</span>
-                        </div>
+                <div class="seaCont wid50per">
+                    <dl>결제일</dl>
+                    <div class="myInfoBox">
+                        <span>1일~말일 요금, 익월 5일 결제</span>
                     </div>
+                </div>
             </div>
         </div>
 
@@ -183,18 +187,20 @@
                     <th>결제방법</th>
                 </tr>
                 </thead>
-                <tbody>
-                {#each $subscriptionManagementData.paymentList.dataList as {payBillingStartDate, payBillingEndDate, payPrivacyCount, payReserveExecuteDate, payAmount, payState, payMethod}}
-                    <tr>
-                        <td>{payBillingStartDate} - {payBillingEndDate.substring(5, 10)}</td>
-                        <td><div class="cur_priNum open_current_pop" on:click={() => {calendarService.open(payBillingEndDate)}}>{payPrivacyCount}</div></td>
-                        <td>{payReserveExecuteDate}</td>
-                        <td>{payAmount.toLocaleString()}원</td>
-                        <td class={payState === '0' ? 'failtext' : ''}>{payStateName[payState]}</td>
-                        <td>{payMethodName[payMethod]}</td>
-                    </tr>
-                {/each}
-                </tbody>
+                <LoadingOverlay bind:loadState={gotPaymentState} >
+                    <tbody>
+                    {#each $subscriptionManagementData.paymentList.dataList as {payBillingStartDate, payBillingEndDate, payPrivacyCount, payReserveExecuteDate, payAmount, payState, payMethod}}
+                        <tr>
+                            <td>{payBillingStartDate} - {payBillingEndDate.substring(5, 10)}</td>
+                            <td><div class="cur_priNum open_current_pop" on:click={() => {calendarService.open(payBillingEndDate)}}>{payPrivacyCount}</div></td>
+                            <td>{payReserveExecuteDate}</td>
+                            <td>{payAmount.toLocaleString()}원</td>
+                            <td class={payState === '0' ? 'failtext' : ''}>{payStateName[payState]}</td>
+                            <td>{payMethodName[payMethod]}</td>
+                        </tr>
+                    {/each}
+                    </tbody>
+                </LoadingOverlay>
             </table>
         </div>
 

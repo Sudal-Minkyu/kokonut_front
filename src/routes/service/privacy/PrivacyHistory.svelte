@@ -13,6 +13,7 @@
     import PrivacyHistorySearch from "../../../components/service/privacy/PrivacyHistorySearch.svelte";
     import Paging from "../../../components/common/Paging.svelte";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet} from "../../../components/common/ajax.js";
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -55,26 +56,17 @@
 
         let url = "/v2/api/PrivacyHistory/privacyHistoryList?page=" + pageNum+"&size="+size;
 
-        restapi('v2', 'get', url, "param", searchCondition, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-                    console.log("조회된 데이터가 있습니다.");
-                    privacy_history_list = json_success.data.datalist
-                    total = json_success.data.total_rows
-                } else {
-                    privacy_history_list = [];
-                    total = 0;
-                    console.log("조회된 데이터가 없습니다.");
-                }
-                privacyHistoryLayout = 1;
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("개인정보처리이력 리스트 호출 실패");
-            }
-        )
-
+        ajaxGet(url, searchCondition, (res) => {
+            console.log("조회된 데이터가 있습니다.");
+            privacy_history_list = res.data.datalist;
+            total = res.data.total_rows;
+            privacyHistoryLayout = 1;
+        }, (errCode) => {
+            privacy_history_list = [];
+            total = 0;
+            console.log("조회된 데이터가 없습니다.");
+            privacyHistoryLayout = 1;
+        });
     }
 
     // 엔터키 클릭

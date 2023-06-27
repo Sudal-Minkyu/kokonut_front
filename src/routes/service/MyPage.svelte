@@ -18,6 +18,7 @@
     import GoogleOTP from "../../components/common/certification/GoogleOTP.svelte";
     import {logout} from "../../components/common/authActions.js";
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet} from "../../components/common/ajax.js";
 
     let changeState = 0;
     function changeStatePop(val) {
@@ -42,30 +43,21 @@
     function myInfo() {
         let url = "/v2/api/Admin/myInfo"
 
-        restapi('v2', 'get', url, "", {}, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    knEmail = json_success.data.sendData.knEmail;
-                    knName = json_success.data.sendData.knName;
-                    knPhoneNumber = json_success.data.sendData.knPhoneNumber;
-                    cpName = json_success.data.sendData.cpName;
-                    knDepartment = json_success.data.sendData.knDepartment;
-                    if(knDepartment === "") {
-                        knDepartmentState = "등록";
-                    } else {
-                        knDepartmentState = "변경";
-                    }
-                    myInfoLayout = 1;
-                } else {
-                    // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                    alert(json_success.data.err_msg);
-                    logout();
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
+        ajaxGet(url, false, (res) => {
+            knEmail = res.data.sendData.knEmail;
+            knName = res.data.sendData.knName;
+            knPhoneNumber = res.data.sendData.knPhoneNumber;
+            cpName = res.data.sendData.cpName;
+            knDepartment = res.data.sendData.knDepartment;
+            if(knDepartment === "") {
+                knDepartmentState = "등록";
+            } else {
+                knDepartmentState = "변경";
             }
-        )
+            myInfoLayout = 1;
+        }, (errCode) => {
+            logout();
+        });
     }
 
     let src;
@@ -81,20 +73,12 @@
             knEmail : knEmail,
         }
 
-        restapi('v1', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    src = json_success.data.sendData.url;
-                    knOtpKey = json_success.data.sendData.otpKey;
-                } else {
-                    googleOtpPop = !googleOtpPop;
-                }
-            },
-            (json_error) => {
-                console.log("구글 OTP 등록 및 재등록 실패");
-                alert(json_error.data.err_msg);
-            }
-        )
+        ajaxGet(url, sendData, (res) => {
+            src = res.data.sendData.url;
+            knOtpKey = res.data.sendData.otpKey;
+        }, (err) => {
+            googleOtpPop = !googleOtpPop;
+        })
     }
 
     // 휴대전화번호 변경시 호출되는 함수

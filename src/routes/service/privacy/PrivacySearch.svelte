@@ -7,7 +7,7 @@
     import PrivacySearchInitial from "../../../components/service/privacy/PrivacySearchInitial.svelte";
     import PrivacySearchDetail from "../../../components/service/privacy/PrivacySearchDetail.svelte";
 
-    onMount(async => {
+    onMount(() => {
         privacySearchData.set(JSON.parse(initialPrivacySearch));
         getTableAndColumnList();
     });

@@ -165,9 +165,9 @@
     };
 
     const handleCheckAccessIp = () => {
-        if ($serviceSettingData.accessIpSearchResultList.length && $serviceSettingData.accessIpSearchResultList.every(ip => $serviceSettingData.removeAccessIpPop.deleteIpList.includes(ip))) {
+        if (moddableRole.includes($userInfoData.role) && $serviceSettingData.accessIpSearchResultList.length && $serviceSettingData.accessIpSearchResultList.every(ip => $serviceSettingData.removeAccessIpPop.deleteIpList.includes(ip))) {
             document.getElementById('allcheck').checked = true;
-        } else {
+        } else if (moddableRole.includes($userInfoData.role)){
             document.getElementById('allcheck').checked = false;
         }
     };
@@ -218,14 +218,14 @@
                                 <input type="radio" class="radio" id="로그인 허용" value="0"
                                        bind:group={$serviceSettingData.settingInfo.csOverseasBlockSetting}
                                        on:change={(e)=>{handleChangeRadioBtn('csOverseasBlockSetting', e.target.value)}}
-                                       disabled={!moddableRole.includes[$userInfoData.role]}>
+                                       disabled={!moddableRole.includes($userInfoData.role)}>
                                 <label for="로그인 허용"><em><dt></dt></em>로그인 허용</label>
                             </div>
                             <div class="check radioCheck noneMarR">
                                 <input type="radio" class="radio" id="로그인 차단" value="1"
                                        bind:group={$serviceSettingData.settingInfo.csOverseasBlockSetting}
                                        on:change={(e)=>{handleChangeRadioBtn('csOverseasBlockSetting', e.target.value)}}
-                                       disabled={!moddableRole.includes[$userInfoData.role]}>
+                                       disabled={!moddableRole.includes($userInfoData.role)}>
                                 <label for="로그인 차단"><em><dt></dt></em>로그인 차단</label>
                             </div>
                             <dd class="marL16">*해외에서 로그인을 시도하는 경우 본인확인 후 로그인이 가능합니다.</dd>
@@ -242,14 +242,14 @@
                                 <input type="radio" class="radio non_activate" name="ipsetting" id="비활성화" value="0"
                                        bind:group={$serviceSettingData.settingInfo.csAccessSetting}
                                        on:change={(e)=>{handleChangeRadioBtn('csAccessSetting', e.target.value)}}
-                                       disabled={!moddableRole.includes[$userInfoData.role]}>
+                                       disabled={!moddableRole.includes($userInfoData.role)}>
                                 <label for="비활성화"><em><dt></dt></em>비활성화</label>
                             </div>
                             <div class="check radioCheck">
                                 <input type="radio" class="radio activate" name="ipsetting" id="활성화" value="1"
                                        bind:group={$serviceSettingData.settingInfo.csAccessSetting}
                                        on:change={(e)=>{handleChangeRadioBtn('csAccessSetting', e.target.value)}}
-                                       disabled={!moddableRole.includes[$userInfoData.role]}>
+                                       disabled={!moddableRole.includes($userInfoData.role)}>
                                 <label for="활성화"><em><dt></dt></em>활성화</label>
                             </div>
                         </div>
@@ -261,7 +261,7 @@
                                            on:input={filterAccessIpList}>
                                     <button><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
                                 </div>
-                                {#if moddableRole.includes[$userInfoData.role]}
+                                {#if moddableRole.includes($userInfoData.role)}
                                     <div class="floatBtnBox">
                                         <button class="del" id="ipdel_pop" on:click={openRemoveAccessIpPop}>삭제</button>
                                         <button class="add" id="ipadd_pop" on:click={openAddAccessIpPop}>추가</button>
@@ -275,7 +275,7 @@
                                         <caption>공인 ip 리스트</caption>
                                         <thead>
                                         <tr>
-                                            {#if moddableRole.includes[$userInfoData.role]}
+                                            {#if moddableRole.includes($userInfoData.role)}
                                                 <th>
                                                     <div class="koko_check">
                                                         <input type="checkbox" name="allcheck" id="allcheck" on:change={handleAllCheck}>
@@ -290,7 +290,7 @@
                                         <tbody>
                                         {#each $serviceSettingData.accessIpList as {csipIp, csipRemarks}, i (csipIp)}
                                             <tr style="display: {$serviceSettingData.accessIpSearchResultList.includes(csipIp) ? 'table-row' : 'none'}">
-                                                {#if moddableRole.includes[$userInfoData.role]}
+                                                {#if moddableRole.includes($userInfoData.role)}
                                                     <td>
                                                         <div class="koko_check">
                                                             <input type="checkbox" value={csipIp} id="ip{i}" class="partcheck"
@@ -317,7 +317,7 @@
                     <div class="sc_SelBox">
                         <div class="selectBox wid164" use:SelectBoxManager={{
                             callback: (el) => {handleChangeRadioBtn('csPasswordChangeSetting', el.value)},
-                            readOnly: !moddableRole.includes[$userInfoData.role],
+                            readOnly: !moddableRole.includes($userInfoData.role),
                         }}>
                             <div class="label" id="csPasswordChangeSetting">선택</div>
                             <ul class="optionList">
@@ -336,7 +336,7 @@
                     <div class="sc_SelBox">
                         <div class="selectBox wid164" use:SelectBoxManager={{
                             callback: (el) => {handleChangeRadioBtn('csPasswordErrorCountSetting', el.value)},
-                            readOnly: !moddableRole.includes[$userInfoData.role],
+                            readOnly: !moddableRole.includes($userInfoData.role),
                         }}>
                             <div class="label" id="csPasswordErrorCountSetting">선택</div>
                             <ul class="optionList">
@@ -356,7 +356,7 @@
                             <p class="marR30">로그인 후</p>
                             <div class="selectBox wid124 nonePad" use:SelectBoxManager={{
                                 callback: (el) => {handleChangeRadioBtn('csAutoLogoutSetting', el.value)},
-                                readOnly: !moddableRole.includes[$userInfoData.role],
+                                readOnly: !moddableRole.includes($userInfoData.role),
                             }}>
                                 <div class="label" id="csAutoLogoutSetting">선택</div>
                                 <ul class="optionList">
@@ -379,18 +379,18 @@
                             <div class="check radioCheck">
                                 <input type="radio" class="radio nolimit" name="accessSetting" id="제한 없음" value="0"
                                        on:change={(e) => {handleChangeRadioBtn('csLongDisconnectionSetting', e.target.value)}}
-                                       disabled={!moddableRole.includes[$userInfoData.role]}>
+                                       disabled={!moddableRole.includes($userInfoData.role)}>
                                 <label for="제한 없음"><em><dt></dt></em>제한 없음</label>
                             </div>
                             <div class="check radioCheck noneMarR">
                                 <input type="radio" class="radio period" name="accessSetting" id="기간선택" value="1"
                                        on:change={(e) => {handleChangeRadioBtn('csLongDisconnectionSetting', e.target.value)}}
-                                       disabled={!moddableRole.includes[$userInfoData.role]}>
+                                       disabled={!moddableRole.includes($userInfoData.role)}>
                                 <label for="기간선택"><em><dt></dt></em></label>
                             </div>
                             <div class="selectBox wid124 nonePad" use:SelectBoxManager={{
                                 callback: (el) => {handleChangeRadioBtn('csLongDisconnectionSetting', el.value)},
-                                readOnly: !moddableRole.includes[$userInfoData.role],
+                                readOnly: !moddableRole.includes($userInfoData.role),
                             }}>
                                 <div class="label" id="csLongDisconnectionSetting">기간선택</div>
                                 <ul class="optionList">

@@ -4,6 +4,7 @@
 
     import {openDiv, findEmail, findPwd, tempPwd, userInfoData} from '../../../lib/store'
     import {openConfirm} from "../ui/DialogManager.js";
+    import {ajaxGet, ajaxParam} from "../ajax.js";
 
     jQuery(function() {
         // 나이스 폼열기
@@ -28,25 +29,17 @@
             state : state // 잘못된 요청 -> "0", 회원가입 -> "1", 이메일찾기 -> "2", 비밀번호찾기 -> "3", OTP변경 -> "4", 핸드폰번호변경 -> "5"
         }
 
-        restapi('v1', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-                // console.log(json_success);
+        ajaxGet(url, sendData, (res) => {
+            token_version_id = res.data.sendData.token_version_id;
+            integrity_value = res.data.sendData.integrity_value;
+            enc_data= res.data.sendData.enc_data;
 
-                token_version_id = json_success.data.sendData.token_version_id;
-                integrity_value = json_success.data.sendData.integrity_value;
-                enc_data= json_success.data.sendData.enc_data;
+            document.getElementById('token_version_id').value = token_version_id;
+            document.getElementById('integrity_value').value = integrity_value;
+            document.getElementById('enc_data').value = enc_data;
 
-                document.getElementById('token_version_id').value = token_version_id;
-                document.getElementById('integrity_value').value = integrity_value;
-                document.getElementById('enc_data').value = enc_data;
-
-                jQuery("#niceForm").submit();
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("휴대폰인증창열기 실패");
-            }
-        )
+            jQuery("#niceForm").submit();
+        });
     }
 
     // 휴대폰 인증완료후 처리함수
@@ -131,7 +124,6 @@
 
     // 이메일 찾기
     function emailFind(keyEmail) {
-        // console.log("keyEmail : "+keyEmail);
         if(keyEmail !== null) {
             let url = "/v1/api/Auth/findKnEmail"
 
@@ -139,15 +131,10 @@
                 keyEmail : keyEmail
             }
 
-            restapi('v1', 'get', url, "param", sendData, 'application/json',
-                (json_success) => {
-                    $openDiv = 1;
-                    $findEmail = json_success.data.sendData.knEmail
-                },
-                (json_error) => {
-                    console.log(json_error);
-                }
-            )
+            ajaxGet(url, sendData, (res) => {
+                $openDiv = 1;
+                $findEmail = res.data.sendData.knEmail
+            });
         }
     }
 
@@ -164,16 +151,11 @@
             knEmail : $findPwd
         }
 
-        restapi('v1', 'post', url, "param", sendData, 'application/json',
-            (json_success) => {
-                $openDiv = 2;
-                console.log(json_success);
-                $tempPwd = json_success.data.sendData.tempPassword;
-            },
-            (json_error) => {
-                console.log(json_error);
-            }
-        )
+        ajaxParam(url, sendData, (res) => {
+            $openDiv = 2;
+            console.log(res);
+            $tempPwd = res.data.sendData.tempPassword;
+        });
     }
 
     let authOtpKey; // 등록/재등로 할 OTP 인증키
@@ -256,16 +238,9 @@
 		}
         // console.log(sendData);
 
-		restapi('v1', 'post', url, "param", sendData, 'application/json',
-			(json_success) => {
-                if(json_success.data.status === 200) {
-                    initValue();
-                }
-			},
-            (json_error) => {
-                console.log(json_error);
-            }
-		)
+        ajaxParam(url, sendData, (res) => {
+            initValue();
+        });
 	}
 
     export let googleOtpPopBtn = undefined;
@@ -284,22 +259,15 @@
             knPhoneNumber : phone,
         }
 
-        restapi('v2', 'post', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    let filterPhone = phone.substring(0,3) + "-****-" + phone.substring(7,11);
-                    initValue(name, filterPhone);
-                    userInfoData.update(obj => {
-                        obj.knName = name;
-                        return obj;
-                    });
-                    conditionFun();
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
-            }
-        )
+        ajaxParam(url, sendData, (res) => {
+            let filterPhone = phone.substring(0,3) + "-****-" + phone.substring(7,11);
+            initValue(name, filterPhone);
+            userInfoData.update(obj => {
+                obj.knName = name;
+                return obj;
+            });
+            conditionFun();
+        });
     }
 
 </script>

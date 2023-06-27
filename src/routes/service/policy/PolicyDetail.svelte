@@ -7,8 +7,8 @@
     import { fade } from 'svelte/transition'
     import {onMount} from "svelte";
     import {backBtn} from '../../../lib/store.js'
-    import restapi from "../../../lib/api.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet} from "../../../components/common/ajax.js";
 
     let piId;
 
@@ -61,56 +61,41 @@
 
         let url = "/v2/api/Policy/policyDetail/"+piId;
 
-        restapi('v2', 'get', url, "", {}, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-                    console.log("조회된 데이터가 있습니다.");
+        ajaxGet(url, false, (res) => {
+            console.log("조회된 데이터가 있습니다.");
 
-                    console.log(json_success)
-                    policyInfoData.policyData = json_success.data.sendData.policyData;
+            console.log(res)
+            policyInfoData.policyData = res.data.sendData.policyData;
 
-                    policyInfoData.purposeDataList = json_success.data.sendData.purposeDataList;
+            policyInfoData.purposeDataList = res.data.sendData.purposeDataList;
 
-                    policyInfoData.beforeDataList = json_success.data.sendData.beforeDataList;
-                    policyInfoData.afterDataList = json_success.data.sendData.afterDataList;
-                    policyInfoData.serviceAutoDataList = json_success.data.sendData.serviceAutoDataList;
+            policyInfoData.beforeDataList = res.data.sendData.beforeDataList;
+            policyInfoData.afterDataList = res.data.sendData.afterDataList;
+            policyInfoData.serviceAutoDataList = res.data.sendData.serviceAutoDataList;
 
-                    policyInfoData.outDataList = json_success.data.sendData.outDataList;
-                    if(policyInfoData.policyData.piOutChose) {
-                        policyInfoData.outDetailDataList = json_success.data.sendData.outDetailDataList;
-                    }
-
-                    if(policyInfoData.policyData.piThirdChose) {
-                        policyInfoData.thirdDataList = json_success.data.sendData.thirdDataList;
-                    }
-
-                    if(policyInfoData.policyData.piThirdOverseasChose) {
-                        policyInfoData.thirdOverseasDataList = json_success.data.sendData.thirdOverseasDataList;
-                    }
-
-                    policyInfoData.reponsibleDataList = json_success.data.sendData.reponsibleDataList;
-
-                    console.log(policyInfoData)
-
-                    policyDetailLayout = 1;
-                }
-                else {
-                    state = 1;
-                    pageErrMsg1 = "선택하신 페이지가 존재하지 않습니다."
-                    pageErrMsg2 = "다시 시도해주사길 바랍니다."
-                    pageErrUrl = "/service/policyList"
-
-                    console.log("조회된 데이터가 없습니다.");
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("개인정보처리방침 상세 호출 실패");
+            policyInfoData.outDataList = res.data.sendData.outDataList;
+            if(policyInfoData.policyData.piOutChose) {
+                policyInfoData.outDetailDataList = res.data.sendData.outDetailDataList;
             }
-        )
 
+            if(policyInfoData.policyData.piThirdChose) {
+                policyInfoData.thirdDataList = res.data.sendData.thirdDataList;
+            }
 
+            if(policyInfoData.policyData.piThirdOverseasChose) {
+                policyInfoData.thirdOverseasDataList = res.data.sendData.thirdOverseasDataList;
+            }
+            policyInfoData.reponsibleDataList = res.data.sendData.reponsibleDataList;
+            console.log(policyInfoData)
+
+            policyDetailLayout = 1;
+        }, (errCode) => {
+            state = 1;
+            pageErrMsg1 = "선택하신 페이지가 존재하지 않습니다."
+            pageErrMsg2 = "다시 시도해주사길 바랍니다."
+            pageErrUrl = "/service/policyList"
+            console.log("조회된 데이터가 없습니다.");
+        });
     }
 
     let state = 0;

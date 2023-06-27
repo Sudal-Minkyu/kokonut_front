@@ -1,5 +1,6 @@
 <script>
-    import {privacySearchData} from "../../../lib/store.js";
+    import {backBtn, privacySearchData} from "../../../lib/store.js";
+    import {fade} from "svelte/transition";
 
     const handleToPreviousPage = () => {
         privacySearchData.update(obj => {
@@ -9,15 +10,13 @@
     }
 </script>
 <div class="contentInnerWrap sea_detail">
-    <div class="page_backLine marB40">
-        <a on:click={handleToPreviousPage}><div class="page_backarrow"></div></a>
-    </div>
-    <div class="seaTitle seaWrap marB50">
+    <div class="pageTitleBtn seaTitle seaWrap marB50">
+        <a on:click={handleToPreviousPage}>{$backBtn}</a>
         <dl>개인정보 열람</dl>
         <div class="kotopBtn"><button>전체 엑셀 다운로드</button></div>
     </div>
 
-    <div>
+    <div in:fade>
         {#each $privacySearchData.currentDetail as {tableName, columnDataset}}
             {#if columnDataset.length}
                 <div class="seaPrivacyContentBox">
