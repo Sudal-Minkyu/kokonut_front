@@ -1,3 +1,17 @@
+<script>
+    import {onMount} from "svelte";
+    import {ajaxGet} from "../../common/ajax.js";
+
+    onMount(() => {
+        // getManagerAccessLog();
+    });
+
+    const getManagerAccessLog = () => {
+        ajaxGet('/v2/api/Index/adminConnectInfo,', false, (res) => {
+            console.log('관리자 접속 현황', res);
+        });
+    };
+</script>
 <div class="wjItem">
     <div class="wj_contentBox">
         <div class="wjtitle">

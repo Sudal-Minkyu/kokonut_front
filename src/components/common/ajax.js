@@ -117,7 +117,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
             handleSuccess(okRes);
         } else {
             const code = okRes.data.err_code;
-            const handleFailResult = handleFail(code);
+            const handleFailResult = handleFail(code, okRes.data.err_msg);
             const actionString = handleFailResult?.action || okRes.data.err_action || '';
             const actionSymbol = errorActionTypes[actionString.toUpperCase()];
             const action = actionSymbol ? actionSymbol : errorActionDictionary[code] || errorActionTypes.ERROR;
@@ -129,7 +129,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         try {
             if (errorRes.response) {
                 const status = errorRes.response.status;
-                const handleFailResult = handleFail(status);
+                const handleFailResult = handleFail(status, createMsgByErrorStatus(status));
                 const actionString = handleFailResult?.action || '';
                 const actionSymbol = errorActionTypes[actionString.toUpperCase()];
                 const action = actionSymbol ? actionSymbol : errorActionDictionary[status] || errorActionTypes.ERROR;

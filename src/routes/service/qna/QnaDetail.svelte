@@ -8,14 +8,11 @@
 
     import { onMount } from 'svelte';
     import { popOpenBtn } from "../../../lib/common.js";
-
     import CustumAlert from '../../../components/common/CustumAlert.svelte';
-
-    import restapi from "../../../lib/api.js";
-
     import {imgView} from "../../../lib/common.js";
     import jQuery from "jquery";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxBody, ajaxGet} from "../../../components/common/ajax.js";
 
     let qnaId;
 
@@ -44,37 +41,29 @@
 
         let url = "/v2/api/Qna/qnaDetail/"+qnaId;
 
-        restapi('v2', 'get', url, "", {}, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-                    console.log("조회된 데이터가 있습니다.");
-
-                    qnaDetailData = json_success.data.sendData.qnaDetail;
-                    qnaDetailFileData = json_success.data.sendData.qnaDetailFile;
-                    qnaLayout = 1;
-                } else if (json_success.data.err_code === "KO053" || json_success.data.err_code === "KO054") {
-                    popTitle = "존재하지 않은 문의글"
-                    popContents1 = json_success.data.err_msg;
-                    imgState = 3;
-                    popOpenBtn();
-                } else if (json_success.data.err_code === "KO055") {
-                    popTitle = "권한없음"
-                    popContents1 = "본인이 작성한 문의만 확인 가능합니다.";
-                    imgState = 2;
-                    popOpenBtn();
-                } else {
-                    console.log("조회된 데이터가 없습니다.");
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("1:1 문의하기 리스트 호출 실패");
+        ajaxGet(url, false, (res) => {
+            console.log("조회된 데이터가 있습니다.");
+            qnaDetailData = res.data.sendData.qnaDetail;
+            qnaDetailFileData = res.data.sendData.qnaDetailFile;
+            qnaLayout = 1;
+        }, (errCode, errMsg) => {
+            if (errCode === "KO053" || errCode === "KO054") {
+                popTitle = "존재하지 않은 문의글"
+                popContents1 = errMsg;
+                imgState = 3;
+                popOpenBtn();
+            } else if (errCode === "KO055") {
+                popTitle = "권한없음"
+                popContents1 = "본인이 작성한 문의만 확인 가능합니다.";
+                imgState = 2;
+                popOpenBtn();
+            } else {
+                console.log("조회된 데이터가 없습니다.");
+                console.log("혹은 1:1 문의하기 리스트 호출 실패");
             }
-        )
-
+            return {action: 'NONE'};
+        });
     }
-
     let qnaLayout = 0;
 
     let qnaAnswerContents = ""; // 답변내용
@@ -94,32 +83,27 @@
             qnaAnswer : qnaAnswerContents
         }
 
-        restapi('v2', 'post', url, "body", sendData, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-                    popTitle = "답변을 완료했습니다."
-                    imgState = 1;
-                    popOpenBtn();
-                } else if (json_success.data.err_code === "KO053" || json_success.data.err_code === "KO054") {
-                    popTitle = "존재하지 않은 문의글"
-                    popContents1 = json_success.data.err_msg;
-                    imgState = 3;
-                    popOpenBtn();
-                } else if (json_success.data.err_code === "KO001") {
-                    popTitle = "권한없음"
-                    popContents1 = "답변할 권한이 없습니다.";
-                    imgState = 2;
-                    popOpenBtn();
-                } else {
-                    console.log("조회된 데이터가 없습니다.");
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("1:1 답변하기 호출 실패");
+        ajaxBody(url, sendData, (res) => {
+            popTitle = "답변을 완료했습니다."
+            imgState = 1;
+            popOpenBtn();
+        }, (errCode, errMsg) => {
+            if (errCode === "KO053" || errCode === "KO054") {
+                popTitle = "존재하지 않은 문의글"
+                popContents1 = errMsg;
+                imgState = 3;
+                popOpenBtn();
+            } else if (errCode === "KO001") {
+                popTitle = "권한없음"
+                popContents1 = "답변할 권한이 없습니다.";
+                imgState = 2;
+                popOpenBtn();
+            } else {
+                console.log("조회된 데이터가 없습니다.");
+                console.log("혹은 1:1 답변하기 호출 실패");
             }
-        )
+            return {action: 'NONE'};
+        });
     }
 
 </script>

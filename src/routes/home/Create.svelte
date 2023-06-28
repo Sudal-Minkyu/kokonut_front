@@ -1,14 +1,12 @@
 
 <script>
-
-    import restapi from "../../lib/api.js";
-
-    import { onMount, setContext } from 'svelte';
+    import { onMount } from 'svelte';
     import {querystring} from 'svelte-spa-router'
 
     import Error from '../../components/common/error/Error.svelte'
     import CreateMain from '../../components/home/create/CreateMain.svelte'
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxBody} from "../../components/common/ajax.js";
 
     onMount(async () => {
         // 관리자등록 검증
@@ -26,7 +24,6 @@
         // console.log("kvKoData : "+searchParams.get("kvKo"));
 
         if(searchParams.has("evKo") && searchParams.has("kvKo") && searchParams.has("ivKo")) {
-
             let url = "/v1/api/Auth/createCheck"
 
             let sendData = {
@@ -35,40 +32,36 @@
                 ivKoData : decodeURIComponent(searchParams.get("ivKo")).replaceAll(" ","+")
             }
 
-            restapi('v1', 'post', url, "body", sendData, 'application/json',
-                (json_success) => {
-                    if(json_success.data.status === 200) {
-                        // console.log(json_success);
-                        userEmail = json_success.data.sendData.userEmail
-                        createLayout = 1;
-                    } else if(json_success.data.err_code === "KO084") {
-                        pageErrMsg1 = "인증키가 일치하지 않습니다."
-                        pageErrMsg2 = "메일을 다시 확인해주시고 제공해드린 링크로 다시 진행해주세요."
-                        pageErrUrl = "/"
-                        createLayout = 2;
-                    } else if(json_success.data.err_code === "KO085") {
-                        pageErrMsg1 = "해당페이지가 만료되었습니다."
-                        pageErrMsg2 = "관리자에게 이메일 재인증요청을 해주시길 바랍니다."
-                        pageErrUrl = "/"
-                        createLayout = 2;
-                    } else if(json_success.data.err_code === "KO086") {
-                        pageErrMsg1 = json_success.data.err_msg
-                        pageErrMsg2 = "로그인창으로 돌아가 로그인해보시길 바랍니다."
-                        pageErrUrl = "/login"
-                        createLayout = 2;
-                    } else if(json_success.data.err_code === "KO004") {
-                        pageErrMsg1 = json_success.data.err_msg
-                        pageErrMsg2 = "등록해주신 관리자에게 문의해주시길 바랍니다."
-                        pageErrUrl = "/"
-                        createLayout = 2;
-                    }
-                },
-                (json_error) => {
+            ajaxBody(url, sendData, (res) => {
+                userEmail = res.data.sendData.userEmail
+                createLayout = 1;
+            }, (errCode, errMsg) => {
+                if(errCode === "KO084") {
+                    pageErrMsg1 = "인증키가 일치하지 않습니다."
+                    pageErrMsg2 = "메일을 다시 확인해주시고 제공해드린 링크로 다시 진행해주세요."
+                    pageErrUrl = "/"
+                    createLayout = 2;
+                } else if(errCode === "KO085") {
+                    pageErrMsg1 = "해당페이지가 만료되었습니다."
+                    pageErrMsg2 = "관리자에게 이메일 재인증요청을 해주시길 바랍니다."
+                    pageErrUrl = "/"
+                    createLayout = 2;
+                } else if(errCode === "KO086") {
+                    pageErrMsg1 = errMsg;
+                    pageErrMsg2 = "로그인창으로 돌아가 로그인해보시길 바랍니다."
+                    pageErrUrl = "/login"
+                    createLayout = 2;
+                } else if(errCode === "KO004") {
+                    pageErrMsg1 = errMsg;
+                    pageErrMsg2 = "등록해주신 관리자에게 문의해주시길 바랍니다."
+                    pageErrUrl = "/"
+                    createLayout = 2;
+                } else {
                     createLayout = 2;
                     console.error("관리자 등록 키 검증 실패");
-                    console.error(json_error);
+                    console.error(errMsg);
                 }
-            )
+            })
         }
     }
 
