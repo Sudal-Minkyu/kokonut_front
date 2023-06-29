@@ -24,6 +24,7 @@
     import ApiKeyExplan from '../../components/service/environment/apikey/ApiKeyExplan.svelte'
     import {logout} from "../../components/common/authActions.js";
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
 
     let allChecked = false;
     let deleteIpList = [];
@@ -130,51 +131,42 @@
     function apiKeyInfo() {
         let url = "/v2/api/ApiKey/apiKeyCheck"
 
-        restapi('v2', 'get', url, "", {}, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    // console.log(json_success);
+        ajaxGet(url, false, (res) => {
+            apikeyTrueFalse = res.data.sendData.result;
+            // apikeyTrueFalse = 0;
+            // console.log("apikeyTrueFalse : "+apikeyTrueFalse);
 
-                    apikeyTrueFalse = json_success.data.sendData.result;
-                    // apikeyTrueFalse = 0;
-                    // console.log("apikeyTrueFalse : "+apikeyTrueFalse);
-
-                    popType = 2;
-                    if(apikeyTrueFalse === 2) {
-                        apiKey = json_success.data.sendData.apiKey;
-                        filterApiKey = json_success.data.sendData.filterApiKey;
-                        accessIpList = json_success.data.sendData.accessIpList;
-                        ipSize = accessIpList.length;
-                        if(ipSize === 5) {
-                            addBtn = false;
-                        }
-                        // console.log(accessIpList);
-                        // console.log(apiKey);
-                        // console.log(ipSize);
-
-                        explanState = false;
-                        popTitle = "Key를 재발급받으시겠습니까?";
-                        popContents1 = "재발급 받으실 경우 이전에 받으신";
-                        popContents2 = "API Key의 사용은 불가합니다.";
-                        imgState = 2;
-
-                    } else {
-                        explanState = true;
-                        popTitle = "Key를 발급받으시겠습니까?";
-                        popContents1 = "";
-                        popContents2 = "";
-                        imgState = 4;
-                    }
-                } else {
-                    // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                    alert(json_success.data.err_msg);
-                    logout();
+            popType = 2;
+            if(apikeyTrueFalse === 2) {
+                apiKey = res.data.sendData.apiKey;
+                filterApiKey = res.data.sendData.filterApiKey;
+                accessIpList = res.data.sendData.accessIpList;
+                ipSize = accessIpList.length;
+                if(ipSize === 5) {
+                    addBtn = false;
                 }
-            },
-            (json_error) => {
-                console.log(json_error);
+                // console.log(accessIpList);
+                // console.log(apiKey);
+                // console.log(ipSize);
+
+                explanState = false;
+                popTitle = "Key를 재발급받으시겠습니까?";
+                popContents1 = "재발급 받으실 경우 이전에 받으신";
+                popContents2 = "API Key의 사용은 불가합니다.";
+                imgState = 2;
+            } else {
+                explanState = true;
+                popTitle = "Key를 발급받으시겠습니까?";
+                popContents1 = "";
+                popContents2 = "";
+                imgState = 4;
             }
-        )
+        }, (errCode, errMsg) => {
+            // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+            alert(errMsg);
+            logout();
+            return {action: 'NONE'};
+        });
     }
 
     // API Key 발급 및 재발급
@@ -182,16 +174,9 @@
         console.log("API Key 발급 및 재발급");
         let url = "/v2/api/ApiKey/apiKeyIssue"
 
-        restapi('v2', 'post', url, "", {}, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    apiKeyInfo();
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
-            }
-        )
+        ajaxParam(url, {}, (res) => {
+            apiKeyInfo();
+        });
     }
 
     // API ket 복사

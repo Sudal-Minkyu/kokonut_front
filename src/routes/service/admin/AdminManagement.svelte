@@ -97,6 +97,7 @@
             total = 0;
             console.log("조회된 데이터가 없습니다.");
             adminManagementLayout = 1;
+            return {action: 'NONE'};
         });
     }
 

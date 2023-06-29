@@ -6,12 +6,12 @@
         doChangePwdLater,
         userInfoData,
     } from "../../../lib/store.js"
-    import restapi from "../../../lib/api.js";
     import {beforeUpdate} from "svelte";
     import CustomConfirm from "../../common/ui/CustomConfirm.svelte";
     import Banner from "../../common/ui/Banner.svelte";
     import MyPagePwd from "../environment/mypage/MyPagePwd.svelte";
     import {logout} from "../../common/authActions.js";
+    import {ajaxGet} from "../../common/ajax.js";
 
     let isMyPagePwdVisible = false;
 
@@ -24,22 +24,18 @@
             if (value === true) {
                 let url = "/v2/api/Admin/authorityCheck"
 
-                restapi('v2', 'get', url, "", {}, 'application/json',
-                    (json_success) => {
-                        const userInfo = json_success.data.sendData;
-                        is_login.set(true);
-                        userInfo.csAutoLogoutSetting = {minute: userInfo.csAutoLogoutSetting}; // 객체형태로 변환해 변화를 감지하기 위함
-                        userInfoData.set(userInfo);
+                ajaxGet(url, false, (res) => {
+                    const userInfo = res.data.sendData;
+                    is_login.set(true);
+                    userInfo.csAutoLogoutSetting = {minute: userInfo.csAutoLogoutSetting}; // 객체형태로 변환해 변화를 감지하기 위함
+                    userInfoData.set(userInfo);
 
-                        if (!$doChangePwdLater && userInfo.csPasswordChangeState === '2') {
-                            isMyPagePwdVisible = true;
-                        }
-                    },
-                    (json_error) => {
-                        console.log(json_error);
-                        logout();
+                    if (!$doChangePwdLater && userInfo.csPasswordChangeState === '2') {
+                        isMyPagePwdVisible = true;
                     }
-                )
+                }, (errCode, errMsg) => {
+                    logout();
+                });
             } else {
                 // alert("세션이 종료되어 로그아웃됩니다.");
                 console.log("로그아웃 하였습니다.");

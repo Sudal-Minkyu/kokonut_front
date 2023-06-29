@@ -1,22 +1,19 @@
 
 <script>
     import Header from "../../../components/service/layout/Header.svelte"
-    import { push, link } from 'svelte-spa-router'
-    import {backBtn, page} from '../../../lib/store'
-
+    import {push} from 'svelte-spa-router'
+    import {page} from '../../../lib/store'
     import EmailSearch from '../../../components/service/email/EmailSearch.svelte'
     import EmailTable from '../../../components/service/email/EmailTable.svelte'
     import Paging from '../../../components/common/Paging.svelte'
     import {onMount} from "svelte";
-
     import {stimeVal, setDateRangePicker, setCustomSelectBox, setOptionItem} from "../../../lib/libSearch.js";
-    import restapi from "../../../lib/api.js";
     import jQuery from "jquery";
+    import {ajaxGet} from "../../../components/common/ajax.js";
 
-    onMount(async ()=>{
+    onMount(async () => {
         await fatchSearchModule();
-
-    })
+    });
 
     async function fatchSearchModule(){
         setDateRangePicker('stime', true, 'period');
@@ -44,9 +41,6 @@
 
         page.set(pageNum);
 
-        // console.log("searchText : "+searchText);
-        // console.log("stimeVal : "+stimeVal);
-
         let url = "/v2/api/Email/emailList?page=" + pageNum+"&size="+size;
 
         let sendData = {
@@ -55,28 +49,14 @@
             emailType : jQuery("#emailTypeSelect").text(),
         };
 
-        restapi('v2', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    console.log("조회된 데이터가 있습니다.");
-                    // console.log(json_success);
-                    email_list = json_success.data.datalist
-                    total = json_success.data.total_rows
-                    // console.log(activity_list);
-                    // console.log(total);
-                } else {
-                    // alert(json_success.data.err_msg);
-                    email_list = [];
-                    total = 0;
-                    console.log("조회된 데이터가 없습니다.");
-                }
-                // console.log("관리자활동이력 리스트 호출 성공");
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("이메일발송 리스트 호출 실패");
-            }
-        )
+        ajaxGet(url, sendData, (res) => {
+            email_list = res.data.datalist;
+            total = res.data.total_rows;
+        }, (errCode, errMsg) => {
+            email_list = [];
+            total = 0;
+            return {action: 'NONE'};
+        });
     }
 
     function enterPress(event) {

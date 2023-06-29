@@ -129,68 +129,55 @@
 			knPassword : encryptedPassword
 		}
 
-        restapi('login', 'post', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    // console.log("로그인성공");
-                    // console.log("json_success : "+json_success);
-                    // console.log("blockAbroad : "+json_success.data.sendData.blockAbroad);
-                    $accessToken = json_success.data.sendData.jwtToken;
-                    if(json_success.data.sendData.blockAbroad !== undefined) {
-                        // console.log("해외로그인차단 : "+json_success.data.sendData.blockAbroadMsg);
-                        ahId = json_success.data.sendData.blockAbroad;
-                        knPhoneNumber = json_success.data.sendData.knPhoneNumber;
-                        knName = json_success.data.sendData.knName;
-                        openAsk({
-                            callback: () => {phoneCheckOpenLogin(6)},
-                            icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                            title: json_success.data.sendData.blockAbroadMsg, // 제목
-                            contents1: "",
-                            btnStart: '본인인증', // 실행 버튼의 텍스트
-                            btnCancel: '취소', // 취소 버튼의 텍스트
-                        })
-                    } else {
-                        is_login.set(true);
-                        keyBufferSto.set('');
-                        ivSto.set('');
-                        doChangePwdLater.set(false);
-                        knPassword= "";
-                        push("/service");
-                    }
-
-                    // alert("로그인 완료");
-                } else if (json_success.data.err_code === "KO012" || json_success.data.err_code === "KO011" || json_success.data.err_code === "KO010"
-                    || json_success.data.err_code === "KO094") {
-                    // console.log("로그인실패");
-                    otpError = true;
-                    otp_err_msg = json_success.data.err_msg;
-                } else if (json_success.data.err_code === "KO096" || json_success.data.err_code === "KO095") {
-                    openConfirm({
-                        icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                        title: "비밀번호 오류횟수 초과", // 제목
-                        contents1: json_success.data.err_msg,
-                        btnCheck: '확인', // 확인 버튼의 텍스트
-                    })
-                    notErrPwd_msg = json_success.data.err_msg;
-                    notErrPwdFun();
-                    knPassword= "";
-                } else if (json_success.data.err_code === "KO016") {
-                    // console.log("가입된회원이 아님 or 아이디/비밀번호가 일치하지 않음");
-                    knPassword= "";
-                    notJoinUser();
-                }
-                else {
-                    console.log("로그인 에러");
-                    knPassword= "";
-                    console.log(json_success);
-                }
-            },
-            (json_error) => {
-                console.log("에러");
+        ajaxParam(url, sendData, (res) => {
+            $accessToken = res.data.sendData.jwtToken;
+            if(res.data.sendData.blockAbroad !== undefined) {
+                // console.log("해외로그인차단 : "+json_success.data.sendData.blockAbroadMsg);
+                ahId = res.data.sendData.blockAbroad;
+                knPhoneNumber = res.data.sendData.knPhoneNumber;
+                knName = res.data.sendData.knName;
+                openAsk({
+                    callback: () => {phoneCheckOpenLogin(6)},
+                    icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: res.data.sendData.blockAbroadMsg, // 제목
+                    contents1: "",
+                    btnStart: '본인인증', // 실행 버튼의 텍스트
+                    btnCancel: '취소', // 취소 버튼의 텍스트
+                })
+            } else {
+                is_login.set(true);
+                keyBufferSto.set('');
+                ivSto.set('');
+                doChangePwdLater.set(false);
                 knPassword= "";
-                console.log(json_error);
+                push("/service");
             }
-        )
+        }, (errCode, errMsg) => {
+            if (errCode === "KO012" || errCode === "KO011" || errCode === "KO010"
+                || errCode === "KO094") {
+                // console.log("로그인실패");
+                otpError = true;
+                otp_err_msg = errMsg;
+            } else if (errCode === "KO096" || errCode === "KO095") {
+                openConfirm({
+                    icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: "비밀번호 오류횟수 초과", // 제목
+                    contents1: errMsg,
+                    btnCheck: '확인', // 확인 버튼의 텍스트
+                })
+                notErrPwd_msg = errMsg;
+                notErrPwdFun();
+                knPassword= "";
+            } else if (errCode === "KO016") {
+                // console.log("가입된회원이 아님 or 아이디/비밀번호가 일치하지 않음");
+                knPassword= "";
+                notJoinUser();
+            } else {
+                console.log("로그인 에러");
+                knPassword= "";
+            }
+            return {action: 'NONE'};
+        });
     }
 
     let token_version_id = "";
@@ -198,34 +185,23 @@
     let enc_data = "";
     // 휴대폰인증창 열기 api 호출
     function phoneCheckOpenLogin(state) {
-        // console.log("휴대폰인증창 클릭!");
-        // console.log("state : "+state);
-
         let url = "/v1/api/NiceId/open"
 
         let sendData = {
             state : state // 해외로그인본인인증 -> "6"
         }
 
-        restapi('v1', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-                console.log(json_success);
+        ajaxParam(url, sendData, (res) => {
+            token_version_id = res.data.sendData.token_version_id;
+            integrity_value = res.data.sendData.integrity_value;
+            enc_data= res.data.sendData.enc_data;
 
-                token_version_id = json_success.data.sendData.token_version_id;
-                integrity_value = json_success.data.sendData.integrity_value;
-                enc_data= json_success.data.sendData.enc_data;
+            document.getElementById('token_version_id').value = token_version_id;
+            document.getElementById('integrity_value').value = integrity_value;
+            document.getElementById('enc_data').value = enc_data;
 
-                document.getElementById('token_version_id').value = token_version_id;
-                document.getElementById('integrity_value').value = integrity_value;
-                document.getElementById('enc_data').value = enc_data;
-
-                jQuery("#niceForm").submit();
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("휴대폰인증창열기 실패");
-            }
-        )
+            jQuery("#niceForm").submit();
+        });
     }
 
     // 휴대폰 인증완료후 처리함수
@@ -259,7 +235,6 @@
             $keyBufferSto = "";
             $ivSto = "";
             knPassword= "";
-
             // push("/service");
         });
     }

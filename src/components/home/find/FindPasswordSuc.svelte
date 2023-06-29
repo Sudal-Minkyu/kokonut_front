@@ -4,7 +4,7 @@
     import { popOpenBtn } from "../../../lib/common.js"
 
     import { push } from 'svelte-spa-router'
-    import restapi from "../../../lib/api.js";
+    import {ajaxBody} from "../../common/ajax.js";
 
     let tempPassword = ""
     let knPassword = "";
@@ -41,22 +41,17 @@
                 knPasswordConfirm : knPasswordConfirm,
             }
 
-            restapi('v1', 'post', url, "body", sendData, 'application/json',
-                (json_success) => {
-                    popOpenBtn();
-                    if(json_success.data.status === 200) {
-                        imgState = 1;
-                        popTitle = "비밀번호가 변경되었습니다.";
-                        popContents1 = "변경된 정보로 로그인해주시길 바랍니다."
-                    } else {
-                        imgState = 3;
-                        popTitle = json_success.data.err_msg;
-                    }
-                },
-                (json_error) => {
-                    console.log(json_error);
-                }
-            )
+            ajaxBody(url, sendData, (res) => {
+                popOpenBtn();
+                imgState = 1;
+                popTitle = "비밀번호가 변경되었습니다.";
+                popContents1 = "변경된 정보로 로그인해주시길 바랍니다."
+            }, (errCode, errMsg) => {
+                popOpenBtn();
+                imgState = 3;
+                popTitle = errMsg;
+                return {action: 'NONE'};
+            });
         }
     }
 

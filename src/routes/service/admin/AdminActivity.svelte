@@ -63,6 +63,7 @@
             activity_list = [];
             total = 0;
             adminActivityLayout = 1;
+            return {action: 'NONE'};
         });
     }
 

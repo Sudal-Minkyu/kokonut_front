@@ -61,7 +61,8 @@
                     console.error("관리자 등록 키 검증 실패");
                     console.error(errMsg);
                 }
-            })
+                return {action: 'NONE'};
+            });
         }
     }
 

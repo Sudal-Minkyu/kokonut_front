@@ -7,6 +7,7 @@
     import { emailCheck, popOpenBtn} from "../../../../lib/common.js";
     import jQuery from "jquery";
     import CustumAlert from '../../../../components/common/CustumAlert.svelte';
+    import {ajaxGet, ajaxParam} from "../../../common/ajax.js";
 
     export let adminSavePopChange;
     export let adminList;
@@ -51,23 +52,16 @@
                 knEmail : knEmail
             }
 
-            restapi('v1', 'get', url, "param", sendData, 'application/json',
-                (json_success) => {
-                    if(json_success.data.status === 200) {
-                        const inputElement = document.getElementById("knEmail");
-                        inputElement.readOnly = true;
-                        inputElement.style.backgroundColor = "#E9EBED";
-                        emailPass = true;
-                    } else {
-                        emailConfirm = true;
-                        error_msg = json_success.data.err_msg;
-                    }
-                },
-                (json_error) => {
-                    console.error(json_error);
-                    console.error("이메일 중복체크 실패");
-                }
-            )
+            ajaxGet(url, sendData, (res) => {
+                const inputElement = document.getElementById("knEmail");
+                inputElement.readOnly = true;
+                inputElement.style.backgroundColor = "#E9EBED";
+                emailPass = true;
+            }, (errCode, errMsg) => {
+                emailConfirm = true;
+                error_msg = errMsg;
+                return {action: 'NONE'};
+            });
         }
     }
 
@@ -91,42 +85,37 @@
             choseRole : jQuery("#createAdminRoleSelect").text(),
         }
 
-        restapi('v2', 'post', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    console.log("200 : "+json_success)
-                    popType = 1;
-                    imgState = 1;
-                    popTitle = "관리자 등록완료";
-                    popContents1 = "안내에 따라 이어서 가입을 해주세요."
-                    popContents2 = "이메일인증후 등록은 24시간동안만 유효합니다."
-                    popCheck = "확인";
-                    startFun = adminSavePopChange;
-                    adminList(0);
-                } else if(json_success.data.err_code === "KO041") {
-                    popType = 1;
-                    imgState = 2;
-                    popTitle = "메일 전송실패";
-                    popContents1 = "메일 전송에 실패했습니다."
-                    popContents2 = "관리자에게 1:1 문의하세요."
-                    popCheck = "확인";
-                    startFun = undefined
-                } else {
-                    popType = 1;
-                    imgState = 2;
-                    popTitle = "접근권한 없음";
-                    popContents1 = json_success.data.err_msg
-                    popContents2 = ""
-                    popCheck = "확인";
-                    startFun = undefined
-                }
-                popOpenBtn();
-            },
-            (json_error) => {
-                console.error(json_error);
-                console.error("관리자 등록 실패");
+        ajaxParam(url, sendData, (res) => {
+            popType = 1;
+            imgState = 1;
+            popTitle = "관리자 등록완료";
+            popContents1 = "안내에 따라 이어서 가입을 해주세요."
+            popContents2 = "이메일인증후 등록은 24시간동안만 유효합니다."
+            popCheck = "확인";
+            startFun = adminSavePopChange;
+            adminList(0);
+            popOpenBtn();
+        }, (errCode, errMsg) => {
+            if(errCode === "KO041") {
+                popType = 1;
+                imgState = 2;
+                popTitle = "메일 전송실패";
+                popContents1 = "메일 전송에 실패했습니다."
+                popContents2 = "관리자에게 1:1 문의하세요."
+                popCheck = "확인";
+                startFun = undefined
+            } else {
+                popType = 1;
+                imgState = 2;
+                popTitle = "접근권한 없음";
+                popContents1 = errMsg;
+                popContents2 = ""
+                popCheck = "확인";
+                startFun = undefined
             }
-        )
+            popOpenBtn();
+            return {action: 'NONE'};
+        });
     }
 
     let popType; // 1: 버튼하나, 2: 여부를 묻는 버튼 두개
