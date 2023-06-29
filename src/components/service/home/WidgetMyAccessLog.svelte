@@ -19,7 +19,7 @@
                 }
                 return obj;
             });
-            console.log('나의 접속 현황 정보 받아오기', myConnectList);
+            console.log('나의 접속 현황', myConnectList);
         });
     };
 </script>

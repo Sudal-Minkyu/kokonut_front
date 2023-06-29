@@ -1,46 +1,71 @@
 <script>
     import {ajaxGet} from "../../common/ajax.js";
     import {onMount} from "svelte";
+    import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+
+    let provisionIndexDto = {
+        offerInsideCount: '',
+        offerOutsideCount: '',
+    };
 
     onMount(() => {
-        // getProvidedOfferCount();
+        getProvidedOfferCount('1');
     });
 
-    const getProvidedOfferCount = () => {
-        ajaxGet('/v2/api/Index/privacyOfferCount,', false, (res) => {
-            console.log('개인정보 제공 건수', res);
+    const getProvidedOfferCount = (dateType) => {
+        provisionIndexDto = {
+            offerInsideCount:'',
+            offerOutsideCount: '',
+        };
+        const filterCondition = {
+            dateType,
+        };
+
+        ajaxGet('/v2/api/Index/provisionIndexCount', filterCondition, (res) => {
+            provisionIndexDto = res.data.sendData.provisionIndexDto;
+            console.log('개인정보 제공 건', provisionIndexDto);
         });
     };
+
+    const handleSelectPeriod = (el) => {
+        getProvidedOfferCount(el.dataset.value);
+    }
 </script>
 
 <div class="wjItem">
-    <div class="wj_contentBox wjpcount">
-        <div class="wjtitle">
+    <div class="wj_contentBox">
+        <div class="wjtitle wjsel">
             <a href="/kokonut/member/privacy/privacy-list.html">개인정보 제공 건<span></span></a>
-            <span class="tiptool" id="tool_btn01">
-										<!-- [D] tooltip : 개인정보 제공 건 -->
-										<div class="layerToolType wjtool_01" id="tool_box01">
-											<div class="tipContents">
-												<p>
-													제공기간 내에 있는 건수
-												</p>
-											</div>
-										</div>
-                <!-- // [D] 개인정보 제공 건 -->
-									</span>
+<!--            <span class="tiptool" id="tool_btn01">-->
+<!--                <div class="layerToolType wjtool_01" id="tool_box01">-->
+<!--                    <div class="tipContents">-->
+<!--                        <p>-->
+<!--                            제공기간 내에 있는 건수-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </span>-->
+            <div class="">
+                <div class="sc_SelBox">
+                    <div class="selectBox" use:SelectBoxManager={{callback: handleSelectPeriod}}>
+                        <div class="label">오늘</div>
+                        <ul class="optionList">
+                            <li class="optionItem" data-dateType="1">오늘</li>
+                            <li class="optionItem" data-dateType="2">이번주</li>
+                            <li class="optionItem" data-dateType="3">이번달</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="wjcountBox marT20">
             <div class="wjcount">
-                <span>받은 건수</span>
-                <dl>91</dl>
-            </div>
-            <div class="wjcount">
                 <span>내부 제공</span>
-                <dl>10</dl>
+                <dl>{provisionIndexDto.offerInsideCount}</dl>
             </div>
             <div class="wjcount">
                 <span>외부 제공</span>
-                <dl>34</dl>
+                <dl>{provisionIndexDto.offerOutsideCount}</dl>
             </div>
         </div>
     </div>
