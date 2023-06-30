@@ -3,6 +3,7 @@
     import { fade } from 'svelte/transition'
 
     import { ipCheck, onlyNumber} from '../../../../lib/common'
+    import {ajaxParam} from "../../../common/ajax.js";
 
     export let apiKeyInfo;
     export let ipChange;
@@ -48,18 +49,17 @@
                 ipMemo : ipMemo,
             }
 
-            restapi('v2', 'post', url, "param", sendData, 'application/json',
-                (json_success) => {
-                    if(json_success.data.status === 500) {
-                        alert(json_success.data.err_msg);
-                    }
+            ajaxParam(url, sendData, (res) => {
+                apiKeyInfo();
+                ipChange(0);
+            }, (errCode, errMsg) => {
+                if(errCode === 500) {
+                    alert(errMsg);
                     apiKeyInfo();
                     ipChange(0);
-                },
-                (json_error) => {
-                    console.log(json_error);
                 }
-            )
+                return {action: 'NONE'};
+            });
         } else {
             // IP 형식에 맞지않음
             ipChecked = true;

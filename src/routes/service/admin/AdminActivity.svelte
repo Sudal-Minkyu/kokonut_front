@@ -39,6 +39,7 @@
 
     let adminActivityLayout = 0;
     function activityList(pageNum) {
+        adminActivityLayout = 0;
         console.log("관리자 활동이력 리스트 데이터 호출");
 
         // $: $page, activityList(page); 대체함

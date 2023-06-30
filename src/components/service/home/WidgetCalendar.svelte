@@ -66,8 +66,10 @@
                     <tr>
                         {#each Array(7).fill(0) as __, colIndex}
                             <td class={calendarData[rowIndex * 7 + colIndex].day ? 'point' : ''}>
-                                {#if calendarData[rowIndex * 7 + colIndex]}
-                                    {calendarData[rowIndex * 7 + colIndex].day}
+                                {#if calendarData[rowIndex * 7 + colIndex].day}
+                                    <span>
+                                        {calendarData[rowIndex * 7 + colIndex].day}
+                                    </span>
                                 {/if}
                             </td>
                         {/each}

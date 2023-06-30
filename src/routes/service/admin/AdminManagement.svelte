@@ -91,7 +91,7 @@
             console.log("조회된 데이터가 있습니다.");
             admin_list = res.data.sendData.datalist
             total = res.data.sendData.total_rows
-
+            adminManagementLayout = 1;
         }, (errCode) => {
             admin_list = [];
             total = 0;

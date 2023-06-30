@@ -141,7 +141,7 @@
             <div class="pageH1_type01">
                 <h1><span>{$userInfoData.knName}</span>님, 안녕하세요!</h1>
             </div>
-            <WidgetSwiperNews />
+<!--            <WidgetSwiperNews />-->
             <WidgetTodayStatus />
             <DynamicComponentPlacer />
         </div>

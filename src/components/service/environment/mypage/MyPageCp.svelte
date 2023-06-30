@@ -3,8 +3,8 @@
     import { fade } from 'svelte/transition'
     import { callCapsLock } from '../../../../lib/common'
     import {userInfoData} from "../../../../lib/store.js"
-    import restapi from "../../../../lib/api.js";
     import {logout} from "../../../common/authActions.js";
+    import {ajaxParam} from "../../../common/ajax.js";
 
     let cpName = "";
     let knPassword = "";
@@ -39,28 +39,24 @@
             state : 1
         }
 
-        restapi('v2', 'post', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    contentsChange(1, cpName);
-                    userInfoData.update(obj => {
-                        obj.cpName = cpName;
-                        return obj;
-                    });
-                    changeStatePop(0);
-                } else if (json_success.data.err_code === "KO013") {
-                    pwdNot = true;
-                    knPassword = "";
-                } else {
-                    // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
-                    alert(json_success.data.err_msg);
-                    logout();
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
+        ajaxParam(url, sendData, (res) => {
+            contentsChange(1, cpName);
+            userInfoData.update(obj => {
+                obj.cpName = cpName;
+                return obj;
+            });
+            changeStatePop(0);
+        }, (errCode, errMsg) => {
+            if (errCode === "KO013") {
+                pwdNot = true;
+                knPassword = "";
+            } else {
+                // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
+                alert(errMsg);
+                logout();
             }
-        )
+            return {action: 'NONE'};
+        });
     }
 
     let cpNameBlank = false;

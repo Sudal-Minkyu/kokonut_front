@@ -1,9 +1,8 @@
 <script>
-    import jQuery from 'jquery';
     import { onlyNumber } from '../../../lib/common'
 	import { onMount } from 'svelte'
     import GoogleOTP from '../../common/certification/GoogleOTP.svelte'
-    import restapi from "../../../lib/api"
+    import {ajaxGet} from "../../common/ajax.js";
 
 	let otpInput;
     
@@ -41,25 +40,14 @@
 			knEmail : knEmail,
 		}
 
-		restapi('v1', 'get', url, "param", sendData, 'application/json',
-			(json_success) => {
-				if(json_success.data.status === 200) {
-                    src = json_success.data.sendData.url;
-                    knOtpKey = json_success.data.sendData.otpKey;
-                    // console.log("CSRF_TOKEN : "+json_success.data.sendData.CSRF_TOKEN);
-                    // console.log("otpKey : "+json_success.data.sendData.otpKey);
-                    // console.log("QRcode url : "+json_success.data.sendData.url);
-                    // jQuery('[data-popup="otp_pop"]').fadeIn(0);
-                    // jQuery('body').css('overflow','hidden');
-                } else {
-                    notJoinUser();
-                }
-			},
-			(json_error) => {
-				console.log("구글 OTP 등록 및 재등록 실패");
-				alert(json_error.data.err_msg);
-			}
-		)
+        ajaxGet(url, sendData, (res) => {
+            src = res.data.sendData.url;
+            knOtpKey = res.data.sendData.otpKey;
+        }, (errCode, errMsg) => {
+            notJoinUser();
+            alert(errMsg);
+            return {action: 'NONE'};
+        });
     }
 
     // 구글 OTP 팝업

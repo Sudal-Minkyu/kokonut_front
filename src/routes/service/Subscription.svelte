@@ -199,6 +199,11 @@
                             <td>{payMethodName[payMethod]}</td>
                         </tr>
                     {/each}
+                    {#if $subscriptionManagementData.paymentList.dataList.length === 0}
+                        <tr>
+                            <td colspan="99">요금부과 내역이 없습니다.</td>
+                        </tr>
+                    {/if}
                     </tbody>
                 </LoadingOverlay>
             </table>

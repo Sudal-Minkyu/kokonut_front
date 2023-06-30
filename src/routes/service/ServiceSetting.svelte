@@ -303,6 +303,13 @@
                                                 <td>{csipRemarks}</td>
                                             </tr>
                                         {/each}
+                                        {#if $serviceSettingData.accessIpList.length === 0}
+                                            <tr style="display: table-row">
+                                                <td colspan="99">
+                                                    접속 허용 설정된 IP가 없습니다.
+                                                </td>
+                                            </tr>
+                                        {/if}
                                         </tbody>
                                     </table>
                                 </div>

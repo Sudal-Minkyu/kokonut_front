@@ -41,6 +41,7 @@
             qna_list = [];
             total = 0;
             qnaLayout = 1;
+            return {action: 'NONE'};
         });
     }
 
