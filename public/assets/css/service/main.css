@@ -219,7 +219,7 @@
 
 /* ============ 위젯 관리자 접속 현황 ============ */
 .wj_adminCurBox {display: flex;position: absolute;right: 0;top: 0;padding: 0.6rem 1.4rem;background: #F4F5F7;border-radius: 1.4rem;align-items: center;justify-content: center;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 500;line-height: 1.8rem;letter-spacing: 0;text-align: center;color:#888;}
-.wj_adminCurBox img{height:1.6rem;margin-left:0.4rem;}
+.wj_adminCurBox img{height:1.6rem;}
 
 .wj_adminContentBox{width:100%;position:relative;max-height:22.4rem;padding-right: 1.4rem;overflow: auto;}
 .wj_adminContentBox::-webkit-scrollbar{width: 0.5rem;}
