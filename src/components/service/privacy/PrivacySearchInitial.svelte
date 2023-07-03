@@ -4,8 +4,11 @@
     import {ajaxBody, ajaxGet} from "../../common/ajax.js";
     import {openConfirm} from "../../common/ui/DialogManager.js";
     import Pagination from "../../common/ui/Pagination.svelte";
+    import {fade} from "svelte/transition";
+    import LoadingOverlay from "../../common/ui/LoadingOverlay.svelte";
 
     const SEARCH_CONDITION_LIMIT = 5;
+    let searchResultState = $privacySearchData.rawResultList.length ? 1 : -1; // -1 -> 검색안한 상태 혹은 검색결과 없음, 0 검색중, 1 검색완료
     const addSearchCondition = () => {
         if ($privacySearchData.searchConditionList.length < SEARCH_CONDITION_LIMIT) {
             privacySearchData.update(obj => {
@@ -66,6 +69,7 @@
     }
 
     const getUserListByCondition = (page = 1) => {
+        searchResultState = 0;
         const searchCondition = {
             searchTables: $privacySearchData.searchConditionList.map(obj => obj.searchTable),
             searchCodes: $privacySearchData.searchConditionList.map(obj => obj.searchCode),
@@ -116,6 +120,7 @@
                             rawObj['마지막로그인일시'],
                         ];
                     });
+                    searchResultState = 1;
                 } else {
                     openConfirm({
                         icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
@@ -124,6 +129,7 @@
                         contents2: '',
                         btnCheck: '확인', // 확인 버튼의 텍스트
                     });
+                    searchResultState = -1;
                 }
                 return obj;
             });
@@ -182,7 +188,6 @@
     }
 
     const distinguishSearchTextPlaceholder = (targetSearchCondition) => {
-        console.log('검색조건', targetSearchCondition); // 여러번 반복되는 문제의 제거를 위해 초기 로딩의 스토어 업데이트를 최소화할 것
         let resultText = '';
         if (targetSearchCondition.currentColumnName === '휴대전화번호') {
             resultText = '휴대전화번호 뒷자리 4자리를 입력해 주세요.';
@@ -254,53 +259,53 @@
     </div>
 {/if}
 
-
-
-{#if $privacySearchData.rawResultList.length}
-    <div class="sea_resultWrap">
-        <div class="kotable search_result marT50">
-            <div class="kt_tableTopBox marB24">
-                <div class="kt_total">총 <span>{$privacySearchData.resultValueList.length}</span>건</div>
-                <div class="kt_selbox wid120">
-                    <!--                <div class="selectBox wid100per nonePad">-->
-                    <!--                    <div class="label" id="">최근 등록순</div>-->
-                    <!--                    <ul class="optionList">-->
-                    <!--                        <li class="optionItem curv">최근 등록순</li>-->
-                    <!--                        <li class="optionItem curv">정확도순</li>-->
-                    <!--                        <li class="optionItem curv">오름차순</li>-->
-                    <!--                        <li class="optionItem curv">내림차순</li>-->
-                    <!--                    </ul>-->
-                    <!--                </div>-->
+{#if searchResultState !== -1}
+    <LoadingOverlay bind:loadState={searchResultState} >
+        <div class="sea_resultWrap" in:fade>
+            <div class="kotable search_result marT50">
+                <div class="kt_tableTopBox marB24">
+                    <div class="kt_total">총 <span>{$privacySearchData.resultValueList.length}</span>건</div>
+                    <div class="kt_selbox wid120">
+                        <!--                <div class="selectBox wid100per nonePad">-->
+                        <!--                    <div class="label" id="">최근 등록순</div>-->
+                        <!--                    <ul class="optionList">-->
+                        <!--                        <li class="optionItem curv">최근 등록순</li>-->
+                        <!--                        <li class="optionItem curv">정확도순</li>-->
+                        <!--                        <li class="optionItem curv">오름차순</li>-->
+                        <!--                        <li class="optionItem curv">내림차순</li>-->
+                        <!--                    </ul>-->
+                        <!--                </div>-->
+                    </div>
                 </div>
-            </div>
-            <table>
-                <caption>개인정보 검색결과 테이블</caption>
-                <thead>
-                <tr>
-                    {#each $privacySearchData.resultColumnList as columnName, i}
-                        {#if i}
-                            <th>{columnName}</th>
-                        {/if}
-                    {/each}
-                    <th>상세보기</th>
-                </tr>
-                </thead>
-                <tbody>
-                {#each $privacySearchData.resultValueList as values}
+                <table>
+                    <caption>개인정보 검색결과 테이블</caption>
+                    <thead>
                     <tr>
-                        {#each values as value, i}
+                        {#each $privacySearchData.resultColumnList as columnName, i}
                             {#if i}
-                                <td>{value}</td>
+                                <th>{columnName}</th>
                             {/if}
                         {/each}
-                        <td><a class="dlink" on:click={() => {handleOpenDetail(values[0])}}>상세보기</a></td>
+                        <th>상세보기</th>
                     </tr>
-                {/each}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {#each $privacySearchData.resultValueList as values}
+                        <tr>
+                            {#each values as value, i}
+                                {#if i}
+                                    <td>{value}</td>
+                                {/if}
+                            {/each}
+                            <td><a class="dlink" on:click={() => {handleOpenDetail(values[0])}}>상세보기</a></td>
+                        </tr>
+                    {/each}
+                    </tbody>
+                </table>
+            </div>
+            <Pagination bind:currentPage={$privacySearchData.currentPage}
+                        bind:totalPosts={$privacySearchData.totalPosts}
+                        on:change={handleChangePage} />
         </div>
-        <Pagination bind:currentPage={$privacySearchData.currentPage}
-                    bind:totalPosts={$privacySearchData.totalPosts}
-                    on:change={handleChangePage} />
-    </div>
+    </LoadingOverlay>
 {/if}

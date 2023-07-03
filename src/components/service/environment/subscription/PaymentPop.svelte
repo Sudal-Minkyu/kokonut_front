@@ -1,35 +1,8 @@
 <script>
-    import {Bootpay} from "@bootpay/client-js";
-    import {knEmailHeader, knNameHeader} from "../../../../lib/store.js";
-
+    import {bootpayRemainingUsageFee} from "../../../common/bootpayment.js";
     export let paymentService;
-    export let unsubscribeDoneConfirmVisibility;
 
-    // 부트페이 결제 준비
-    window.bootpayBilling2 = () => {
-        Bootpay.requestSubscription({
-            application_id: import.meta.env.VITE_BOOT_PAY_SECRET,
-            pg: '나이스페이',
-            order_name: '이용요금의 결제',
-            subscription_id: (new Date()).getTime(),
-            user: {
-                username: $knNameHeader,
-                phone: '01000000000',
-                email: $knEmailHeader
-            },
-            extra: {
-                subscription_comment: '아직 결제되지 않은 이용요금을 결제합니다.',
-                subscribe_test_payment: true
-            }
-        }).then(
-            function (response) {
-                console.log(response)
-            },
-            function (error) {
-                console.log(error)
-            }
-        )
-    }
+
 </script>
 
 <!-- [D] 결제 팝업 -->

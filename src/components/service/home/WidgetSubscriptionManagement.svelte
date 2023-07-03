@@ -1,15 +1,24 @@
+<script>
+    import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    import {link} from "svelte-spa-router";
+
+    const handleSelectPeriod = (el) => {
+        console.log('구독관리 개월선택', el)
+    }
+</script>
+
 <div class="wjItem">
     <div class="wjItem">
         <div class="wj_contentBox">
             <div class="wjtitle wjsel">
-                <a href="/kokonut/member/setting/management.html">구독관리<span></span></a>
+                <a use:link href="/#/service/environment/subscription">구독관리<span></span></a>
                 <div class="">
                     <div class="sc_SelBox">
-                        <div class="selectBox">
-                            <div class="label" id="">이번달</div>
+                        <div class="selectBox" use:SelectBoxManager={{callback: handleSelectPeriod}}>
+                            <div class="label">이번달</div>
                             <ul class="optionList">
-                                <li class="optionItem">이번달</li>
-                                <li class="optionItem">지난달</li>
+                                <li class="optionItem" data-value="">이번달</li>
+                                <li class="optionItem" data-value="">지난달</li>
                             </ul>
                         </div>
                     </div>
@@ -22,18 +31,18 @@
             <div class="wjsubcBox">
                 <div class="wjsubc">
                     <p>평균 개인정보 수</p>
-                    <div class="wjsubcLine subc_01" style="width:60%"></div>
-                    <dl><span>23,982</span>명</dl>
+                    <div class="wjsubcLine subc_01" style="width:0%"></div>
+                    <dl><span>390,000</span>원</dl>
                 </div>
                 <div class="wjsubc">
                     <p>사용 데이터</p>
-                    <div class="wjsubcLine subc_02" style="width:80%"></div>
-                    <dl><span>11.43</span>GB</dl>
+                    <div class="wjsubcLine subc_02" style="width:0%"></div>
+                    <dl><span>123,456</span>원</dl>
                 </div>
                 <div class="wjsubc">
-                    <p>이메일 발송량</p>
-                    <div class="wjsubcLine subc_03" style="width:40%"></div>
-                    <dl><span>22</span>건</dl>
+                    <p>이메일 이용요금</p>
+                    <div class="wjsubcLine subc_03" style="width:0%"></div>
+                    <dl><span>5,000</span>원</dl>
                 </div>
             </div>
         </div>

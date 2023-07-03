@@ -3,7 +3,7 @@
     import jQuery from "jquery";
     import { push } from 'svelte-spa-router'
     import { emailCheck } from "../../../lib/common.js" // 공통함수
-    import restapi from "../../../lib/api.js";
+    import {ajaxBody, ajaxGet} from "../../common/ajax.js";
 
     let cpNameBlank = true;
 
@@ -71,26 +71,19 @@
                 knEmail : knEmail
             }
 
-            restapi('v1', 'get', url, "param", sendData, 'application/json',
-                (json_success) => {
-                    if(json_success.data.status === 200) {
-                        seconds = 180;
-                        timer = "";
-                        clearInterval(interval);
-                        conditionFun(2, true);
-                        emailStep = 1;
-                        existsEmailCheck = true;
-                        numberSendEmail();
-                    } else {
-                        error_msg = json_success.data.err_msg;
-                        conditionFun(2, false);
-                    }
-                },
-                (json_error) => {
-                    console.error(json_error);
-                    console.error("이메일 중복체크 실패");
-                }
-            )
+            ajaxGet(url, sendData, (res) => {
+                seconds = 180;
+                timer = "";
+                clearInterval(interval);
+                conditionFun(2, true);
+                emailStep = 1;
+                existsEmailCheck = true;
+                numberSendEmail();
+            }, (errCode, errMsg) => {
+                error_msg = errMsg;
+                conditionFun(2, false);
+                return {action: 'NONE'};
+            });
         }
     }
 
@@ -105,18 +98,10 @@
 				knEmail : knEmail
 			}
 
-			restapi('v1', 'get', url, "param", sendData, 'application/json',
-				(json_success) => {
-					if(json_success.data.status === 200) {
-						interval = setInterval(count_down_timer, 1000); // 해당 함수 1초마다 실행
-					}
-				},
-				(json_error) => {
-					console.error("인증번호 받기 실패");
-				}
-			)
-		} 
-        else {
+            ajaxGet(url, sendData, (res) => {
+                interval = setInterval(count_down_timer, 1000); // 해당 함수 1초마다 실행
+            });
+		} else {
             error_msg = '이메일 중복체크 먼저 해주세요.';
             conditionFun(2, false);
 		}
@@ -155,25 +140,18 @@
             knEmail : knEmail
         }
 
-        restapi('v1', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    if(knEmailNotCheck) {
-                        knEmailNotCheck = false;
-                    }
-
-                    knEmailCheck = true;
-                    emailStep = 2;
-                    emailCode = "";
-                } else {
-                    numberCheck = true;
-                    email_error_msg = json_success.data.err_msg;
-                }
-            },
-            (json_error) => {
-                console.error("무슨 에러인지 확인해보세요.3");
+        ajaxGet(url, sendData, (res) => {
+            if(knEmailNotCheck) {
+                knEmailNotCheck = false;
             }
-        )
+            knEmailCheck = true;
+            emailStep = 2;
+            emailCode = "";
+        }, (errCode, errMsg) => {
+            numberCheck = true;
+            email_error_msg = errMsg;
+            return {action: 'NONE'};
+        });
     }
 
     // 비밀번호 검증함수
@@ -287,21 +265,13 @@
                 knEmailCheck : knEmailCheck,
 			}
 
-			restapi('v1', 'post', url, "body", sendData, 'application/json',
-				(json_success) => {
-					if(json_success.data.status === 200) {
-                        push('/joinsu');
-					} else {
-                        alert(json_success.data.err_msg);
-                        push('/join');
-                    }
-				},
-				(json_error) => {
-					console.error("회원가입 실패");
-                    console.error(json_error);
-				}
-			)
-            
+            ajaxBody(url, sendData, (res) => {
+                push('/joinsu');
+            }, (errCode, errMsg) => {
+                alert(errMsg);
+                push('/join');
+                return {action: 'NONE'};
+            });
         }
     }
 

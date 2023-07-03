@@ -6,6 +6,8 @@
     import {accessToken, doChangePwdLater, is_login} from "../../../../lib/store.js";
     import {push} from "svelte-spa-router";
     import {openAsk, openConfirm} from "../../../common/ui/DialogManager.js";
+    import {logout} from "../../../common/authActions.js";
+    import {ajaxParam} from "../../../common/ajax.js";
 
     export let visible = false; // 현재 페이지의 팝업 보임 여부
     export let regularChangeRoutine = false; // 비밀번호 변경 주기 도래에 따른 변경창일 경우
@@ -75,33 +77,27 @@
             newknPasswordCheck : newknPasswordCheck
         }
 
-        restapi('v2', 'post', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    visible = false;
-                    doChangePwdLater.set(true);
-                    openConfirm({
-                        icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                        title: '비밀번호가 변경되었습니다.', // 제목 - 백엔드의 에러 code
-                        btnCheck: '확인',
-                    });
-                } else if (json_success.data.err_code === "KO013") {
-                    oldknPassword = "";
-                    pwdNot = true;
-                } else if (json_success.data.err_code === "KO083") {
-                    alert(json_success.data.err_msg);
-                } else {
-                    // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
-                    alert(json_success.data.err_msg);
-                    is_login.set(false);
-                    accessToken.set("");
-                    push('/login');
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
+        ajaxParam(url, sendData, (res) => {
+            visible = false;
+            doChangePwdLater.set(true);
+            openConfirm({
+                icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: '비밀번호가 변경되었습니다.', // 제목 - 백엔드의 에러 code
+                btnCheck: '확인',
+            });
+        }, (errCode, errMsg) => {
+            if (errCode === "KO013") {
+                oldknPassword = "";
+                pwdNot = true;
+            } else if (errCode === "KO083") {
+                alert(errMsg);
+            } else {
+                // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
+                alert(errMsg);
+                logout();
             }
-        )
+            return {action: 'NONE'};
+        });
     }
 
     // 비밀번호 검증함수

@@ -5,7 +5,7 @@
     import { link } from 'svelte-spa-router'
     import { onMount } from "svelte";
 
-    onMount(async () => {
+    onMount(() => {
 
     })
 </script>

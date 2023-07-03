@@ -1,11 +1,19 @@
 <script>
-import {knNameHeader} from "../../../lib/store.js";
 import {onMount} from "svelte";
 import {Swiper} from "swiper/bundle";
 import 'swiper/css/bundle';
+import {ajaxGet} from "../../common/ajax.js";
 
+let provisionIndexDto = {};
+
+let swiperObj;
 onMount(() => {
-    const swiper = new Swiper(".mySwiper", {
+    getProvidedOfferCount();
+    applySwiper();
+});
+
+const applySwiper = () => {
+    swiperObj = new Swiper(".mySwiper", {
         direction: "vertical",
         loop: true,
         autoplay: {
@@ -20,11 +28,20 @@ onMount(() => {
         speed: 800,
         effect: "slide",
     });
-});
+}
+
+// 개인정보 제공건수 내외부
+const getProvidedOfferCount = () => {
+    const filterCondition = {
+        dateType: '1',
+    };
+
+    ajaxGet('/v2/api/Index/provisionIndexCount', filterCondition, (res) => {
+        provisionIndexDto = res.data.sendData.provisionIndexDto;
+    });
+};
+
 </script>
-<div class="pageH1_type01">
-    <h1><span>{$knNameHeader}</span>님, 안녕하세요!</h1>
-</div>
 <div class="currentWrap">
     <div class="curTitmeInfoBox">
         <span>23. 03. 31</span>
@@ -40,7 +57,18 @@ onMount(() => {
                     <div class="cursItem">오늘의 개인정보 다운로드 <span class="curCou">32</span><dt>건</dt>, <span class="curCou">50</span><dt>회</dt>, <span class="curCou">김코코</span></div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="cursItem">개인정보 제공건수 : 외부 <span class="curCou">32</span><dt>건</dt>, 내부 <span class="curCou">50</span><dt>건</dt></div>
+                    <div class="cursItem">
+                        개인정보 제공건수 : 외부
+                        <span class="curCou">
+                            {provisionIndexDto.todayOutsideCount !== undefined ? provisionIndexDto.todayOutsideCount : ''}
+                        </span>
+                        <dt>건</dt>
+                        , 내부
+                        <span class="curCou">
+                            {provisionIndexDto.todayInsideCount !== undefined ? provisionIndexDto.todayInsideCount : ''}
+                        </span>
+                        <dt>건</dt>
+                    </div>
                 </div>
             </div>
             <div class="curs_btnBox">

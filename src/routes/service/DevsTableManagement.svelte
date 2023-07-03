@@ -8,7 +8,7 @@
     import {onMount} from "svelte";
     import {ajaxMultipart} from "../../components/common/ajax.js";
 
-    onMount(async => {
+    onMount(() => {
         const galleryThumbs = new Swiper('.gallery-thumbs', {
             spaceBetween: 0,
             slidesPerView: 'auto',

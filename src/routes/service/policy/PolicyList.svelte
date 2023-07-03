@@ -7,7 +7,7 @@
     import PolicyElectronic from "../../../components/service/policy/PolicyElectronic.svelte";
 
     import { link } from 'svelte-spa-router'
-    import {page, electronic} from '../../../lib/store.js'
+    import {page, userInfoData} from '../../../lib/store.js'
     import { fade } from 'svelte/transition'
 
     import {setCustomSelectBox, setDateRangePicker, setOptionItem, stimeVal} from "../../../lib/libSearch.js";
@@ -15,6 +15,7 @@
     import Paging from "../../../components/common/Paging.svelte";
     import restapi from "../../../lib/api.js";
     import jQuery from "jquery";
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -42,7 +43,7 @@
     }
     // 전자상거래법 적용대상 체크
     function companyElectronicCheck() {
-        if($electronic === "0") {
+        if($userInfoData.electronic === "0") {
             electronicCheck = true;
         }
     }
@@ -143,21 +144,14 @@
         <!-- 상단 검색 영역 -->
         <PolicySearch />
 
-        {#if policyLayout === 0}
-            <div class="loaderParent" style="left: 55%">
-                <div class="loader"></div>
-            </div>
-        {:else}
+        <LoadingOverlay bind:loadState={policyLayout} left={55}>
             <div in:fade>
-
                 <!-- 테이블 영역 -->
                 <PolicyTable {policy_list} {size} {total} />
-
                 <!-- 페이징 영역 -->
                 <Paging total_page="{total_page}" data_list="{policy_list}" dataFunction="{policyList}" />
-
             </div>
-        {/if}
+        </LoadingOverlay>
 
     </div>
 </section>

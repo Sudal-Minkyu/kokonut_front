@@ -1,8 +1,12 @@
+<script>
+    import {link} from "svelte-spa-router";
+</script>
+
 <div class="wjItem">
     <div class="wjItem">
         <div class="wj_contentBox">
             <div class="wjtitle wjsel">
-                <a href="/kokonut/member/email/history.html">이메일 발송<span></span></a>
+                <a use:link href="/#/service/emailList">이메일 발송<span></span></a>
                 <div class="">
                     <div class="sc_SelBox">
                         <div class="selectBox">

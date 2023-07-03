@@ -427,7 +427,7 @@
             function (error) {
                 console.log(error.message)
             }
-        )
+        );
     }
 
     // 사용 예시

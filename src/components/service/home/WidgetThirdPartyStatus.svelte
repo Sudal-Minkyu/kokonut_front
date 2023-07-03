@@ -1,7 +1,11 @@
+<script>
+    import {link} from "svelte-spa-router";
+</script>
+
 <div class="wjItem">
     <div class="wj_contentBox">
         <div class="wjtitle">
-            <a href="/kokonut/member/setting/third-party.html">서드파티 연동<span></span></a>
+            <a use:link href="/#/service">서드파티 연동<span></span></a>
         </div>
         <div class="wjthirdBox marT24">
             <div class="wjthird">

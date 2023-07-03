@@ -6,20 +6,17 @@
     import { backBtn, page } from '../../../lib/store.js'
 
     import { onMount } from 'svelte';
-    import restapi from "../../../lib/api.js";
     import { fade } from 'svelte/transition'
 
     import QnaTable from "../../../components/service/environment/qna/QnaTable.svelte"
     import Paging from "../../../components/common/Paging.svelte"
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet} from "../../../components/common/ajax.js";
 
     // 나의정보 가져오기
-    onMount(async () => {
-
-        // 페이지번호 초기화
+    onMount(() => {
         page.set(0);
         qnaList($page);
-
-        // setTimeout(() => qnaLayout = 1, 500);
     })
 
     let qnaLayout = 0;
@@ -32,31 +29,20 @@
 
     function qnaList(pageNum) {
         console.log("1:1 문의하기 리스트 호출 클릭!");
-
+        qnaLayout = 0;
         page.set(pageNum);
 
         let url = "/v2/api/Qna/qnaList?page=" + pageNum+"&size="+size;
-
-        restapi('v2', 'get', url, "", {}, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-                    console.log("조회된 데이터가 있습니다.");
-                    qna_list = json_success.data.datalist
-                    total = json_success.data.total_rows
-                } else {
-                    qna_list = [];
-                    total = 0;
-                    console.log("조회된 데이터가 없습니다.");
-                }
-                qnaLayout = 1;
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("1:1 문의하기 리스트 호출 실패");
-            }
-        )
-
+        ajaxGet(url, false, (res) => {
+            qna_list = res.data.datalist
+            total = res.data.total_rows
+            qnaLayout = 1;
+        }, (errCode) => {
+            qna_list = [];
+            total = 0;
+            qnaLayout = 1;
+            return {action: 'NONE'};
+        });
     }
 
 </script>
@@ -71,12 +57,7 @@
                 궁금한 내용을 남겨주시면 최대한 빠르게 답변을 드리도록 하겠습니다.
             </dl>
         </div>
-
-        {#if qnaLayout === 0}
-            <div class="loaderParent">
-                <div class="loader"></div>
-            </div>
-        {:else}
+        <LoadingOverlay bind:loadState={qnaLayout} >
             <div in:fade>
                 <!-- 각 컴포넌트 넣기 -->
                 <div class="bottomBtnBox marB24">
@@ -89,8 +70,7 @@
                 <!-- 페이징 영역 -->
                 <Paging total_page="{total_page}" data_list="{qna_list}" dataFunction="{qnaList}" />
             </div>
-        {/if}
-
+        </LoadingOverlay>
     </div>
 </section>
 

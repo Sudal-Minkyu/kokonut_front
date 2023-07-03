@@ -1,16 +1,8 @@
-import {
-    is_login,
-    accessToken,
-    knNameHeader,
-    knEmailHeader,
-    cpNameSider,
-    page,
-    knPhoneNumber,
-    csAutoLogoutSetting,
-} from "../../lib/store.js";
-import { get } from 'svelte/store';
+import {accessToken, ivSto, keyBufferSto} from "../../lib/store.js";
+import {get} from 'svelte/store';
 import axios from 'axios';
 import {openConfirm} from "./ui/DialogManager.js";
+import {logout} from "./authActions.js";
 
 export const ajaxGet = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
     restapi({
@@ -101,6 +93,9 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         headers["Authorization"] = get(accessToken);
     } else if(url.slice(0, 5).includes('v3/')) {
         headers["ApiKey"] = "ff5873bbf9faa2218b369a577ea9e452";
+    } else if(url === '/v1/api/Auth/authToken') {
+        headers["keyBufferSto"] = get(keyBufferSto);
+        headers["ivSto"] = get(ivSto);
     }
 
     axios({
@@ -125,7 +120,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
             handleSuccess(okRes);
         } else {
             const code = okRes.data.err_code;
-            const handleFailResult = handleFail(code);
+            const handleFailResult = handleFail(code, okRes.data.err_msg);
             const actionString = handleFailResult?.action || okRes.data.err_action || '';
             const actionSymbol = errorActionTypes[actionString.toUpperCase()];
             const action = actionSymbol ? actionSymbol : errorActionDictionary[code] || errorActionTypes.ERROR;
@@ -137,7 +132,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         try {
             if (errorRes.response) {
                 const status = errorRes.response.status;
-                const handleFailResult = handleFail(status);
+                const handleFailResult = handleFail(status, createMsgByErrorStatus(status));
                 const actionString = handleFailResult?.action || '';
                 const actionSymbol = errorActionTypes[actionString.toUpperCase()];
                 const action = actionSymbol ? actionSymbol : errorActionDictionary[status] || errorActionTypes.ERROR;
@@ -184,19 +179,12 @@ const makeUIResponse = (action, message, errorCode, handleSuccess) => {
             break;
         case errorActionTypes.MAIN:
             openError(message, errorCode, () => {
-                location.href = location.origin + '/#/service';
+                location.href = '/#/service';
             });
             break;
         case errorActionTypes.LOGIN:
             openError(message, errorCode, () => {
-                knNameHeader.set('');
-                knEmailHeader.set('');
-                knPhoneNumber.set('');
-                cpNameSider.set('');
-                is_login.set(false);
-                accessToken.set('');
-                page.set(0);
-                location.href = location.origin + '/login';
+                logout();
             });
             break;
         case errorActionTypes.UP:

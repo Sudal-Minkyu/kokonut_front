@@ -61,7 +61,7 @@
             {/each}
         {:else}
             <tr class="none_inq">
-                <td>제젝하신 개인정보처리방침이 없습니다.</td>
+                <td>제작하신 개인정보처리방침이 없습니다.</td>
             </tr>
         {/if}
         </tbody>
