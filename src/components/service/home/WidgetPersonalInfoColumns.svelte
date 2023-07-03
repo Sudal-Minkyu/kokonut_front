@@ -1,7 +1,24 @@
+<script>
+    import {ajaxGet} from "../../common/ajax.js";
+    import {onMount} from "svelte";
+    import {link} from "svelte-spa-router";
+
+    onMount(() => {
+        // getPrivacyItemCount();
+    });
+
+    const getPrivacyItemCount = () => {
+        ajaxGet('/v2/api/Index/privacyItemCount', false, (res) => {
+            console.log('개인정보 항목', res);
+        });
+    }
+
+</script>
+
 <div class="wjItem">
     <div class="wj_contentBox">
         <div class="wjtitle">
-            <a href="/kokonut/member/setting/personal-information-management.html">개인정보 항목<span></span></a>
+            <a use:link href="/#/service/environment/personalInfoItem">개인정보 항목<span></span></a>
         </div>
         <div class="wj_total marT20">총 개인정보 항목<span>10</span></div>
         <div class="wjcountBox marT12">

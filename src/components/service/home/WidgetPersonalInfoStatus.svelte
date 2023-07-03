@@ -2,12 +2,13 @@
     import {chart} from 'svelte-apexcharts';
     import {ajaxGet} from "../../common/ajax.js";
     import {onMount} from "svelte";
-    import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    import {setDateRangePicker} from "../../../lib/libSearch.js";
 
     let privacyIndexDto = {};
 
     onMount(() => {
-        getPrivacyIndexCount('1');
+        setDateRangePicker('stime', true, 'period', handleSelectPeriod);
+        getPrivacyIndexCount('1'); // api 기간용으로 전환시 반영
     });
 
     let options = {
@@ -50,29 +51,29 @@
         ajaxGet('/v2/api/Index/privacyIndexCount', filterCondition, (res)=> {
             privacyIndexDto = res.data.sendData.privacyIndexDto;
             options.series = [privacyIndexDto.nowUserCount, privacyIndexDto.newUserCount, privacyIndexDto.leaveUserCount];
-            console.log('개인정보 현황 차트 데이터', privacyIndexDto);
+            console.log('개인정보 현황', privacyIndexDto);
         });
     };
 
-    const handleSelectPeriod = (el) => {
-        getPrivacyIndexCount(el.dataset.value);
+    const handleSelectPeriod = (periodObj) => {
+        console.log(periodObj); // api 기간용으로 전환시 반영
     }
 </script>
 <div class="wjItem">
     <div class="wj_contentBox">
         <div class="wjtitle wjsel">
-            <a href="/kokonut/member/privacy/search-list.html">개인정보 현황<span></span></a><div class="">
-            <div class="sc_SelBox">
-                <div class="selectBox" use:SelectBoxManager={{callback:handleSelectPeriod}}>
-                    <div class="label">오늘</div>
-                    <ul class="optionList">
-                        <li class="optionItem" data-dateType="1">오늘</li>
-                        <li class="optionItem" data-dateType="2">이번주</li>
-                        <li class="optionItem" data-dateType="3">이번달</li>
-                    </ul>
+            <div class="wjtitle">
+                <dt>개인정보 현황</dt>
+            </div>
+            <div class="">
+                <div class="calenderBox" style="padding: 0;">
+                    <div style="width: 100%; position: relative;">
+                        <input id="stime" type="text" class="form-control" placeholer="날짜선택"
+                               aria-describedby="stime_addon" style="width: 170px; font-size: 1.5rem; font-family: Pretendard,sans-serif;" readonly />
+                        <input type="radio" class="radio" name="period" id="radioToday" value="7" style="display: none" checked />
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
         <div class="wjgrBox marT24">
             <div use:chart={options}></div>

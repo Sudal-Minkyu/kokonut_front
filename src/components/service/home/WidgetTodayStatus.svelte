@@ -1,16 +1,22 @@
 <script>
     import {chart} from 'svelte-apexcharts';
+    import {ajaxGet} from "../../common/ajax.js";
+    import {onMount} from "svelte";
+
+    onMount(() => {
+        getTodayChartData();
+    });
 
     const options = {
         series: [{
             name: 'API 호출',
-            data: [31, 40, 28, 51, 42, 109, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         }, {
             name: '암호화',
-            data: [11, 32, 45, 32, 34, 52, 41, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         }, {
             name: '복호화',
-            data: [20, 52, 33, 10, 15, 26, 70, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         }],
         chart: {
             height: 220,
@@ -40,6 +46,16 @@
             position: 'top',
             horizontalAlign: 'right',
         },
+    };
+
+    const getTodayChartData = () => {
+        ajaxGet('/v2/api/Index/todayIndexGraph', false, (res) => {
+            const chartData = res.data.sendData;
+            console.log('오늘의 서비스 현황', chartData);
+            options.series[0].data = chartData.apiCallIndexList;
+            options.series[1].data = chartData.encryptionIndexList;
+            options.series[2].data = chartData.decryptionIndexList;
+        });
     };
 </script>
 

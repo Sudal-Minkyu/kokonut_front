@@ -1,6 +1,7 @@
 <script>
     import {onMount} from "svelte";
     import {ajaxGet} from "../../common/ajax.js";
+    import {link} from "svelte-spa-router";
 
     onMount(() => {
         // getManagerAccessLog();
@@ -8,23 +9,21 @@
 
     const getManagerAccessLog = () => {
         ajaxGet('/v2/api/Index/adminConnectInfo,', false, (res) => {
-            console.log('관리자 접속 현황', res);
+            console.log('관리자 활동 이력', res);
         });
     };
 </script>
 <div class="wjItem">
     <div class="wj_contentBox">
         <div class="wjtitle">
-            <a href="">관리자 접속 현황<span></span></a>
-            <div class="wj_adminCurBox">
-                오늘<img src="/assets/images/main/wj_admin_icon.png" alt=""><span>14</span>
-            </div>
+            <a use:link href="/#/service/adminActivity">관리자 활동 이력<span></span></a>
+            <div class="wj_adminCurBox"><img src="/assets/images/main/wj_admin_icon.png" alt=""><span>4/12</span></div>
         </div>
         <div class="wj_adminContentBox marT24">
             <div class="wj_admin">
                 <div class="wjCircleBox">
                     <div class="wjCircle toppest_admin">김</div>
-                    <div class="wjdot_on"></div>
+                    <div class="wjdot_on"></div>여
                 </div>
                 <div class="wjaText">
                     <span>최고관리자</span>

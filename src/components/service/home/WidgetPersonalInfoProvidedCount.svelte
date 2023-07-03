@@ -28,14 +28,14 @@
     };
 
     const handleSelectPeriod = (el) => {
-        getProvidedOfferCount(el.dataset.value);
+        getProvidedOfferCount(el.dataset.datetype);
     }
 </script>
 
 <div class="wjItem">
     <div class="wj_contentBox">
         <div class="wjtitle wjsel">
-            <a href="/kokonut/member/privacy/privacy-list.html">개인정보 제공 건<span></span></a>
+            <a href="/#/service/privacy/privacyList">개인정보 제공 건<span></span></a>
 <!--            <span class="tiptool" id="tool_btn01">-->
 <!--                <div class="layerToolType wjtool_01" id="tool_box01">-->
 <!--                    <div class="tipContents">-->
@@ -50,9 +50,9 @@
                     <div class="selectBox" use:SelectBoxManager={{callback: handleSelectPeriod}}>
                         <div class="label">오늘</div>
                         <ul class="optionList">
-                            <li class="optionItem" data-dateType="1">오늘</li>
-                            <li class="optionItem" data-dateType="2">이번주</li>
-                            <li class="optionItem" data-dateType="3">이번달</li>
+                            <li class="optionItem" data-datetype="1">오늘</li>
+                            <li class="optionItem" data-datetype="2">이번주</li>
+                            <li class="optionItem" data-datetype="3">이번달</li>
                         </ul>
                     </div>
                 </div>

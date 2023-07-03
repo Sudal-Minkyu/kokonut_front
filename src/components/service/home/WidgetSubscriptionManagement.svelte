@@ -1,5 +1,6 @@
 <script>
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    import {link} from "svelte-spa-router";
 
     const handleSelectPeriod = (el) => {
         console.log('구독관리 개월선택', el)
@@ -10,7 +11,7 @@
     <div class="wjItem">
         <div class="wj_contentBox">
             <div class="wjtitle wjsel">
-                <a href="/kokonut/member/setting/management.html">구독관리<span></span></a>
+                <a use:link href="/#/service/environment/subscription">구독관리<span></span></a>
                 <div class="">
                     <div class="sc_SelBox">
                         <div class="selectBox" use:SelectBoxManager={{callback: handleSelectPeriod}}>

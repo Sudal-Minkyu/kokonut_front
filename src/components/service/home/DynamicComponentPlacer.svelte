@@ -17,7 +17,7 @@ onMount(() => {
 const totalComponentList = [
     {
         component: WidgetCalendar,
-        height: 336,
+        height: 303,
     },
     {
         component: WidgetPersonalInfoProvidedCount,
