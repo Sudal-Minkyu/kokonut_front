@@ -2,12 +2,11 @@
     import {chart} from 'svelte-apexcharts';
     import {ajaxGet} from "../../common/ajax.js";
     import {onMount} from "svelte";
-    import {setDateRangePicker} from "../../../lib/libSearch.js";
+    import {DateRangePicker} from "../../common/action/DatePicker.js";
 
     let privacyIndexDto = {};
 
     onMount(() => {
-        setDateRangePicker('stime', true, 'period', handleSelectPeriod);
         getPrivacyIndexCount('1'); // api 기간용으로 전환시 반영
     });
 
@@ -56,8 +55,20 @@
     };
 
     const handleSelectPeriod = (periodObj) => {
-        console.log(periodObj); // api 기간용으로 전환시 반영
-    }
+        console.log('선택됨', periodObj); // api 기간용으로 전환시 반영
+    };
+
+    const handleDatepickerRendered = (periodObj) => {
+        console.log('랜더됨', periodObj); // api 기간용으로 전환시 반영
+    };
+
+    const dateRangePickerProps = {
+        callback: handleSelectPeriod,
+        handleRendered: handleDatepickerRendered,
+        eraseOnCancel: false,
+        periodDays: '0',
+    };
+
 </script>
 <div class="wjItem">
     <div class="wj_contentBox">
@@ -69,7 +80,7 @@
                 <div class="calenderBox" style="padding: 0;">
                     <div style="width: 100%; position: relative;">
                         <input id="stime" type="text" class="form-control" placeholer="날짜선택"
-                               aria-describedby="stime_addon" style="width: 170px; font-size: 1.5rem; font-family: Pretendard,sans-serif;" readonly />
+                               aria-describedby="stime_addon" style="width: 170px; font-size: 1.5rem; font-family: Pretendard,sans-serif;" use:DateRangePicker={dateRangePickerProps} readonly />
                         <input type="radio" class="radio" name="period" id="radioToday" value="7" style="display: none" checked />
                     </div>
                 </div>

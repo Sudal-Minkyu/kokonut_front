@@ -4,12 +4,20 @@
     import {link} from "svelte-spa-router";
 
     onMount(() => {
-        // getPrivacyItemCount();
+        getPrivacyItemCount();
     });
+
+    let privacyItemCount = {
+        totalAddCount: '',
+        securityCount: '',
+        sensitiveCount: '',
+        uniqueCount: '',
+    }
 
     const getPrivacyItemCount = () => {
         ajaxGet('/v2/api/Index/privacyItemCount', false, (res) => {
-            console.log('개인정보 항목', res);
+            privacyItemCount = res.data.sendData.privacyItemCount;
+            console.log('개인정보 항목', privacyItemCount);
         });
     }
 
@@ -20,19 +28,19 @@
         <div class="wjtitle">
             <a use:link href="/#/service/environment/personalInfoItem">개인정보 항목<span></span></a>
         </div>
-        <div class="wj_total marT20">총 개인정보 항목<span>10</span></div>
+        <div class="wj_total marT20">총 개인정보 항목<span>{privacyItemCount.totalAddCount}</span></div>
         <div class="wjcountBox marT12">
             <div class="wjcount">
                 <span>암호화 된 항목</span>
-                <dl>7</dl>
+                <dl>{privacyItemCount.securityCount}</dl>
             </div>
             <div class="wjcount">
                 <span>민감정보 항목</span>
-                <dl>3</dl>
+                <dl>{privacyItemCount.sensitiveCount}</dl>
             </div>
             <div class="wjcount">
                 <span>고유식별 정보</span>
-                <dl>1</dl>
+                <dl>{privacyItemCount.uniqueCount}</dl>
             </div>
         </div>
     </div>

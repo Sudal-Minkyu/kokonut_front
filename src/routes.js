@@ -36,6 +36,7 @@ import PrivacyWrite from "./routes/service/privacy/PrivacyWrite.svelte"
 import PrivacyHistory from "./routes/service/privacy/PrivacyHistory.svelte"
 import PrivacySearch from "./routes/service/privacy/PrivacySearch.svelte"
 import Subscription from "./routes/service/Subscription.svelte";
+import ThirdPartyConnection from "./routes/service/ThirdPartyConnection.svelte";
 
 export default {
     // API 테스트하는 화면
@@ -90,6 +91,9 @@ export default {
 
     // 구독관리 페이지
     "/service/environment/subscription": Subscription,
+
+    // 서드파티 연동 페이지
+    "/service/environment/thirdpartyconnection": ThirdPartyConnection,
 
     // API Key 관리 페이지
     "/service/environment/apikey": ApiKey,

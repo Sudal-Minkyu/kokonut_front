@@ -23,7 +23,7 @@
             <div class="wj_admin">
                 <div class="wjCircleBox">
                     <div class="wjCircle toppest_admin">김</div>
-                    <div class="wjdot_on"></div>여
+                    <div class="wjdot_on"></div>
                 </div>
                 <div class="wjaText">
                     <span>최고관리자</span>
