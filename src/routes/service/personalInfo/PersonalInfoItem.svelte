@@ -9,7 +9,7 @@
         from "../../../components/service/environment/personalInfo/PersonalInfoAddTabPop.svelte";
 
     import { onMount } from 'svelte'
-    import {link, push} from 'svelte-spa-router'
+    import {link} from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
 
     import jQuery from "jquery";

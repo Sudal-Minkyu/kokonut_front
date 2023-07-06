@@ -3,37 +3,46 @@
     import {ajaxGet} from "../../common/ajax.js";
     import {link} from "svelte-spa-router";
 
+    let adminConnectInfo = {
+        adminConnectList: [],
+        todayConnectCount: '',
+    };
+
     onMount(() => {
-        // getManagerAccessLog();
+        getManagerAccessLog();
     });
 
     const getManagerAccessLog = () => {
-        ajaxGet('/v2/api/Index/adminConnectInfo,', false, (res) => {
-            console.log('관리자 활동 이력', res);
+        ajaxGet('/v2/api/Index/adminConnectInfo', false, (res) => {
+            adminConnectInfo = res.data.sendData;
+            console.log('관리자 활동 이력', adminConnectInfo);
         });
     };
 </script>
 <div class="wjItem">
     <div class="wj_contentBox">
         <div class="wjtitle">
-            <a use:link href="/#/service/adminActivity">관리자 활동 이력<span></span></a>
-            <div class="wj_adminCurBox"><img src="/assets/images/main/wj_admin_icon.png" alt=""><span>4/12</span></div>
+            <a use:link href="/service/adminActivity">관리자 활동 이력<span></span></a>
+            <div class="wj_adminCurBox"><img src="/assets/images/main/wj_admin_icon.png" alt=""><span>{adminConnectInfo.todayConnectCount}</span></div>
         </div>
         <div class="wj_adminContentBox marT24">
+            {#each adminConnectInfo.adminConnectList as {connectState, connectTime, knName, roleName}}
+                <div class="wj_admin">
+                    <div class="wjCircleBox">
+                        <div class="wjCircle ROLE_MASTER">{knName.substring(0,1)}</div>
+                        <div class="{connectState === '1' ? 'wjdot_on' : 'wjdot_off'}"></div>
+                    </div>
+                    <div class="wjaText">
+                        <span>{roleName}</span>
+                        <dl>{knName}</dl>
+                    </div>
+                    <div class="wjaTime">{connectTime}</div>
+                </div>
+            {/each}
+
             <div class="wj_admin">
                 <div class="wjCircleBox">
-                    <div class="wjCircle toppest_admin">김</div>
-                    <div class="wjdot_on"></div>여
-                </div>
-                <div class="wjaText">
-                    <span>최고관리자</span>
-                    <dl>김코코</dl>
-                </div>
-                <div class="wjaTime">46분</div>
-            </div>
-            <div class="wj_admin">
-                <div class="wjCircleBox">
-                    <div class="wjCircle top_admin">최</div>
+                    <div class="wjCircle ROLE_ADMIN">최</div>
                     <div class="wjdot_on"></div>
                 </div>
                 <div class="wjaText">
@@ -44,7 +53,7 @@
             </div>
             <div class="wj_admin">
                 <div class="wjCircleBox">
-                    <div class="wjCircle guest">박</div>
+                    <div class="wjCircle ROLE_GUEST">박</div>
                     <div class="wjdot_off"></div>
                 </div>
                 <div class="wjaText">
@@ -55,7 +64,7 @@
             </div>
             <div class="wj_admin">
                 <div class="wjCircleBox">
-                    <div class="wjCircle admin">이</div>
+                    <div class="wjCircle ROLE_USER">이</div>
                     <div class="wjdot_off"></div>
                 </div>
                 <div class="wjaText">
@@ -66,7 +75,7 @@
             </div>
             <div class="wj_admin">
                 <div class="wjCircleBox">
-                    <div class="wjCircle top_admin">최</div>
+                    <div class="wjCircle ROLE_ADMIN">최</div>
                     <div class="wjdot_on"></div>
                 </div>
                 <div class="wjaText">
@@ -77,7 +86,7 @@
             </div>
             <div class="wj_admin">
                 <div class="wjCircleBox">
-                    <div class="wjCircle guest">박</div>
+                    <div class="wjCircle ROLE_GUEST">박</div>
                     <div class="wjdot_off"></div>
                 </div>
                 <div class="wjaText">
@@ -88,7 +97,7 @@
             </div>
             <div class="wj_admin">
                 <div class="wjCircleBox">
-                    <div class="wjCircle admin">이</div>
+                    <div class="wjCircle ROLE_USER">이</div>
                     <div class="wjdot_off"></div>
                 </div>
                 <div class="wjaText">

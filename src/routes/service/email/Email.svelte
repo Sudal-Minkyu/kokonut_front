@@ -10,8 +10,11 @@
     import {stimeVal, setDateRangePicker, setCustomSelectBox, setOptionItem} from "../../../lib/libSearch.js";
     import jQuery from "jquery";
     import {ajaxGet} from "../../../components/common/ajax.js";
+    import {userInfoData} from "../../../lib/store.js";
+    import {openConfirm} from "../../../components/common/ui/DialogManager.js";
 
     onMount(async () => {
+        checkEmailColumnAvailable();
         await fatchSearchModule();
     });
 
@@ -23,6 +26,28 @@
         // 페이지번호 초기화
         page.set(0);
         emailSendList($page);
+    }
+
+    const checkEmailColumnAvailable = () => {
+        if ($userInfoData.emailSendSettingState === '0') {
+            const openConfirmProps = {
+                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: "이메일 항목 지정 필요", // 제목
+                contents1: '이메일 주소가 담겨있는 항목의 지정이 필요합니다.',
+                contents2: '최고관리자에게 해당 사실을 문의해 주세요.',
+                btnCheck: '확인', // 확인 버튼의 텍스트
+                callback: () => {
+                    push('/service');
+                },
+            };
+            if (['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role)) {
+                openConfirmProps.contents2 = '서비스 설정 페이지로 이동합니다.';
+                openConfirmProps.callback = () => {
+                    push('/service/environment/setting');
+                };
+            }
+            openConfirm(openConfirmProps);
+        }
     }
 
     let customSelectBoxOpt = [

@@ -1,4 +1,4 @@
-
+록
 <script>
     // 레이아웃
     import Header from "../../../components/service/layout/Header.svelte"
@@ -117,18 +117,18 @@
 
             {#if policyDetailLayout === 1}
                 <div class="copyBtnBox" in:fade>
-                    <div class="copyBtn">
-                        <dt id="urlcopy">URL 복사</dt>
-                        <span class="tiptool" id="tool_btn01">
-                            <div class="layerToolType pmtool_02" id="tool_box01">
-                                <div class="tipContents">
-                                    <p>
-                                        개인정보처리방침을 위한 별도 페이지를 만들지 않고, 개인정보처리방침 버튼에 링크로 연결해서 사용 가능합니다.
-                                    </p>
-                                </div>
-                            </div>
-                        </span>
-                    </div>
+<!--                    <div class="copyBtn">-->
+<!--                        <dt id="urlcopy">URL 복사</dt>-->
+<!--                        <span class="tiptool" id="tool_btn01">-->
+<!--                            <div class="layerToolType pmtool_02" id="tool_box01">-->
+<!--                                <div class="tipContents">-->
+<!--                                    <p>-->
+<!--                                        개인정보처리방침을 위한 별도 페이지를 만들지 않고, 개인정보처리방침 버튼에 링크로 연결해서 사용 가능합니다.-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </span>-->
+<!--                    </div>-->
                     <div class="copyBtn">
                         <dt id="htmlcopy">HTML 복사</dt>
                         <span class="tiptool" id="tool_btn02">
@@ -231,7 +231,6 @@
 
                     <div class="prtextaddbox marB40">
                         <dl>(2) 서비스 가입 후 수집하는 개인정보</dl>
-
                         <div class="prtextTablethBox colum4Line borT">
                             <div class="prtti">처리목적</div>
                             <div class="prtti">수집 항목</div>
