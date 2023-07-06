@@ -16,11 +16,10 @@
 
     import {backBtn, policyInfoData, piId, piStage, initialPolicyInfo} from '../../../lib/store.js'
 
-    import restapi from "../../../lib/api.js";
-
     import {openAsk} from "../../../components/common/ui/DialogManager.js";
     import {logout} from "../../../components/common/authActions.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet, ajaxParam} from "../../../components/common/ajax.js";
 
     const tooltipEvent = (e) => {
         console.log('act');
@@ -65,28 +64,20 @@
 
         let url = "/v2/api/Policy/policyCheck"
 
-        restapi('v2', 'get', url, "", {}, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-                    let result = json_success.data.sendData.result;
-                    if(result) {
-                        writingCheck = true;
-                        piId.set(json_success.data.sendData.piId)
-                        piStage.set(json_success.data.sendData.piStage);
-                    } else {
-                        setTimeout(() => stage = 1, 500);
-                    }
-                } else {
-                    // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                    alert(json_success.data.err_msg);
-                    logout();
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
+        ajaxGet(url, false, (res) => {
+            let result = res.data.sendData.result;
+            if(result) {
+                writingCheck = true;
+                piId.set(res.data.sendData.piId)
+                piStage.set(res.data.sendData.piStage);
+            } else {
+                setTimeout(() => stage = 1, 500);
             }
-        )
+        }, (errCode, errMsg) => {
+            // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+            alert(errMsg);
+            logout();
+        });
     }
 
     function stateChange(val) {
@@ -130,24 +121,17 @@
         let sendData = {
             piId : $piId
         }
-        restapi('v2', 'post', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    piId.set(0);
-                    piStage.set(0);
-                    policyInfoData.set(JSON.parse(initialPolicyInfo));
-                    push("/service/policyList");
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
-            }
-        )
+
+        ajaxParam(url, sendData, (res) => {
+            piId.set(0);
+            piStage.set(0);
+            policyInfoData.set(JSON.parse(initialPolicyInfo));
+            push("/service/policyList");
+        });
     }
 
     // 개인정보처리방침 작성중인 글 조회
     function policyWriting() {
-
         console.log("작성중인 글 조회 실행!");
         console.log("piId : "+$piId);
         console.log("piStage : "+$piStage);
@@ -156,40 +140,30 @@
         let sendData = {
             piId : $piId,
         }
-
-        restapi('v2', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-            console.log('저장된 데이터', json_success);
-                if(json_success.data.status === 200) {
-                    stage = $piStage;
-                    console.log("현재까지 작성된 데이터 가져오기");
-                    console.log(json_success)
-                    policyInfoData.update(obj => {
-                        obj.policyData1 = json_success.data.sendData.policyInfo1;
-                        obj.purposeDataList = json_success.data.sendData.purposeInfo;
-                        obj.beforeDataList = json_success.data.sendData.beforeDataList;
-                        obj.afterDataList = json_success.data.sendData.afterDataList;
-                        obj.serviceAutoDataList = json_success.data.sendData.serviceAutoDataList;
-                        obj.policyData2 = json_success.data.sendData.policyInfo2;
-                        obj.outDataList = json_success.data.sendData.outDataList;
-                        obj.outDetailDataList = json_success.data.sendData.outDetailDataList;
-                        obj.thirdDataList = json_success.data.sendData.thirdDataList;
-                        obj.thirdOverseasDataList = json_success.data.sendData.thirdOverseasDataList;
-                        obj.reponsibleDataList = json_success.data.sendData.reponsibleDataList;
-                        obj.policyData3 = json_success.data.sendData.policyInfo3;
-                        return obj;
-                    });
-
-                }else {
-                    // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                    alert(json_success.data.err_msg);
-                    logout();
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
-            }
-        )
+        ajaxParam(url, sendData, (res) => {
+            stage = $piStage;
+            console.log("현재까지 작성된 데이터 가져오기");
+            console.log(res)
+            policyInfoData.update(obj => {
+                obj.policyData1 = res.data.sendData.policyInfo1;
+                obj.purposeDataList = res.data.sendData.purposeInfo;
+                obj.beforeDataList = res.data.sendData.beforeDataList;
+                obj.afterDataList = res.data.sendData.afterDataList;
+                obj.serviceAutoDataList = res.data.sendData.serviceAutoDataList;
+                obj.policyData2 = res.data.sendData.policyInfo2;
+                obj.outDataList = res.data.sendData.outDataList;
+                obj.outDetailDataList = res.data.sendData.outDetailDataList;
+                obj.thirdDataList = res.data.sendData.thirdDataList;
+                obj.thirdOverseasDataList = res.data.sendData.thirdOverseasDataList;
+                obj.reponsibleDataList = res.data.sendData.reponsibleDataList;
+                obj.policyData3 = res.data.sendData.policyInfo3;
+                return obj;
+            });
+        }, (errCode, errMsg) => {
+            // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+            alert(errMsg);
+            logout();
+        });
     }
 </script>
 

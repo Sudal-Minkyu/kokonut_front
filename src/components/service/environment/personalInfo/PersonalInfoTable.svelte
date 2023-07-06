@@ -15,6 +15,21 @@
         </h2>
     </div>
 
+    <div class="prslideTabBox">
+        <div class="swiper-container gallery-thumbs" scrollbar-hide="true">
+            <div class="swiper-wrapper disflextop">
+                {#each $personalInfoTableData.userTableData as table, i}
+                    <div class="bo_tab {!i ? 'on_bo' : ''}" on:click={() => personalInfoItemProp.getTableColumnList(table.ctName)}>
+
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="sl_tab">{table.ctDesignation}<div class="tab_delteBtn open_revise_tab_pop"></div></div>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    </div>
+
     <div class="bo_tabBox" style="overflow: scroll">
         <div class="tabWrap">
             {#each $personalInfoTableData.userTableData as table, i}

@@ -3,6 +3,7 @@
     import {backBtn,policyInfoData,piId} from "../../../lib/store.js";
     import {onMount} from "svelte";
     import restapi from "../../../lib/api.js";
+    import ErrorHighlight from "../../common/ui/ErrorHighlight.svelte";
 
     export let policyWriting;
     export let stateChange;
@@ -87,7 +88,13 @@
 
     });
 
+    let beforeDataListErrorMsg = '';
     const thirdDepthSave = (goToState) => {
+        if (!$policyInfoData.beforeDataList.length) {
+            beforeDataListErrorMsg = '서비스 가입 시 수집하는 개인정보는 최소 1개 이상 작성하여 주세요.';
+            return;
+        }
+
         console.log('저장전데이터', $policyInfoData);
         let url = "/v2/api/Policy/privacyPolicyThirdSave";
 
@@ -192,6 +199,7 @@
             <div class="pr_fieldBtnInner">
                 <button on:click={createBeforeItem} class="add_pr_field3 pr_fieldBtn"></button>
             </div>
+            <ErrorHighlight message={beforeDataListErrorMsg} />
             <div class="prdot_text marT16">기기 정보를 수집하는 경우에는 일방향 암호화(Hash)를 통해 기기를 식별할 수 없는 방법으로 변환하여 보관합니다.</div>
         </div>
         <div class="prtextaddbox marB40">

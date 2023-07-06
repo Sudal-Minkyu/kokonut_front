@@ -29,6 +29,7 @@ export const initialUserInfo = JSON.stringify({
     knName: '', // 헤더바에 나올 사용자명
     knPhoneNumber: '', // 사용자 전화번호
     paymentBillingCheck: '', // 0 -> 새로가입했지만 아직 구독하지 않은 고객사, 1 -> 구독중인 고객사, 2 -> 구독해지한 고객사
+    emailSendSettingState: '0', // 0 -> 이메일 발송 세팅하지 않음, 1 -> 이메일 발송 세팅함
     role: '', // 로그인한 사용자 권한
 });
 
@@ -280,6 +281,7 @@ export const initialServiceSetting = JSON.stringify({
         deleteIpList: [],
         cautionChecked: false,
     },
+    tableList: [],
 });
 
 export const serviceSettingData = writable(JSON.parse(initialServiceSetting));

@@ -231,10 +231,10 @@
 
 .wjCircleBox{position:absolute;left:0;top:50%;transform: translateY(-50%);width:3.6rem;height:3.6rem;}
 
-.wjCircle.toppest_admin{background: #FFECEA;color:#FF6752;}
-.wjCircle.top_admin{background: #FFF4D9;color:#EB920E}
-.wjCircle.guest{background: #EEF4FF;color:#4070E0}
-.wjCircle.admin{background: #E9F9F4;color:#00C389}
+.wjCircle.ROLE_MASTER{background: #FFECEA;color:#FF6752;}
+.wjCircle.ROLE_ADMIN{background: #FFF4D9;color:#EB920E}
+.wjCircle.ROLE_USER{background: #EEF4FF;color:#4070E0}
+.wjCircle.ROLE_GUEST{background: #E9F9F4;color:#00C389}
 .wjCircle {display: flex;width: 3.6rem;height: 3.6rem;border-radius: 50%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: left;align-items: center;justify-content: center;}
 
 .wjdot_on {bottom: 0;position: absolute;right: 0;height: 0;width: 0.8rem;height: 0.8rem;background: #00C389;border: 2px solid #FFFFFF;border-radius: 50%;}

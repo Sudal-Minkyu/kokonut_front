@@ -13,9 +13,9 @@
     import {setCustomSelectBox, setDateRangePicker, setOptionItem, stimeVal} from "../../../lib/libSearch.js";
     import {onMount} from "svelte";
     import Paging from "../../../components/common/Paging.svelte";
-    import restapi from "../../../lib/api.js";
     import jQuery from "jquery";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet, ajaxParam} from "../../../components/common/ajax.js";
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -53,16 +53,9 @@
 
         let url = "/v2/api/Company/companyElectronicUpdate"
 
-        restapi('v2', 'post', url, "", {}, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    console.log("전자상거랩 업데이트완료");
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
-            }
-        )
+        ajaxParam(url, {}, (res) => {
+            console.log("전자상거랩 업데이트완료");
+        });
     }
 
     let policyLayout = 0;
@@ -91,26 +84,17 @@
             filterDate : jQuery("#policySelect").text()
         };
 
-        restapi('v2', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-                    console.log("조회된 데이터가 있습니다.");
-                    policy_list = json_success.data.datalist
-                    total = json_success.data.total_rows
-                } else {
-                    policy_list = [];
-                    total = 0;
-                    console.log("조회된 데이터가 없습니다.");
-                }
-                policyLayout = 1;
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("개인정보처리방침 리스트 호출 실패");
-            }
-        )
-
+        ajaxGet(url, sendData, (res) => {
+            console.log("조회된 데이터가 있습니다.");
+            policy_list = res.data.datalist
+            total = res.data.total_rows
+            policyLayout = 1;
+        }, (errCode, errMsg) => {
+            policy_list = [];
+            total = 0;
+            console.log("조회된 데이터가 없습니다.");
+            policyLayout = 1;
+        });
     }
 
     // 엔터키 클릭

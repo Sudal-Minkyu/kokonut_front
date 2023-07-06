@@ -7,7 +7,12 @@
     import SettingIpAdd from '../../components/service/environment/servicesetting/SettingIpAdd.svelte'
     import {SelectBoxManager} from "../../components/common/action/SelectBoxManager.js";
     import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
-    import {backBtn, initialServiceSetting, serviceSettingData, userInfoData} from "../../lib/store.js";
+    import {
+        backBtn,
+        initialServiceSetting, privacySearchData,
+        serviceSettingData,
+        userInfoData
+    } from "../../lib/store.js";
     import {openConfirm} from "../../components/common/ui/DialogManager.js";
     import {link} from "svelte-spa-router";
 
@@ -36,6 +41,7 @@
             });
             setUnbindableInitialData(settingData);
             filterAccessIpList();
+            getTableAndColumnList();
         });
     }
 
@@ -193,6 +199,25 @@
                     }
                 }
             return obj;
+        });
+    }
+
+
+    const getTableAndColumnList = () => {
+        ajaxGet('/v2/api/Company/privacyTableList', false, (res) => {
+            serviceSettingData.update(obj => {
+                obj.tableList = res.data.sendData.companyTableList;
+                return obj;
+            });
+
+            for (const [i, {ctName}] of $serviceSettingData.tableList.entries()) {
+                ajaxGet('/v2/api/DynamicUser/searchColumnCall', {tableName: ctName}, (res2) => {
+                    serviceSettingData.update(obj => {
+                        obj.tableList[i].columnList = res2.data.sendData.fieldList;
+                        return obj;
+                    });
+                });
+            }
         });
     }
 </script>
@@ -407,6 +432,34 @@
                                 </ul>
                             </div>
                             <p class="marL30">동안 시스템에 접속하지 않은 경우, 로그인 제한</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="seaContentLine borB">
+                <div class="seaCont wid100per">
+                    <dl>이메일 발송 항목 지정</dl>
+                    <div class="sc_SelBox">
+                        <div class="selectBox wid164" use:SelectBoxManager={()=>{}}>
+                            <div class="label">미지정</div>
+                            <ul class="optionList">
+                                <li class="optionItem" value="">미지정</li>
+                                {#each $serviceSettingData.tableList as {ctDesignation, ctName}, j (ctName)}
+                                    <li class="optionItem curv" data-value="{ctName}" data-tid="{j}">{ctDesignation}</li>
+                                {/each}
+                            </ul>
+
+                        </div>
+                        <div class="selectBox wid164">
+                            <div class="label">선택</div>
+                            <ul class="optionList">
+                                <li class="optionItem" value="">선택</li>
+                                {#if $serviceSettingData.tableList.length}
+                                    <!--{#each currentTableColumnList as {fieldCode, fieldComment, fieldSecrity}, j (fieldCode)}-->
+                                    <!--    <li class="optionItem curv" data-value={fieldCode} data-secrity={fieldSecrity}>{fieldComment}</li>-->
+                                    <!--{/each}-->
+                                {/if}
+                            </ul>
                         </div>
                     </div>
                 </div>
