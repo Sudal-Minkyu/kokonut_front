@@ -3,6 +3,7 @@
     import {
         page,
         userInfoData,
+        expireDate,
     } from "../../../lib/store.js"
     import {openConfirm} from "../../common/ui/DialogManager.js";
     import {onDestroy, onMount} from "svelte";
@@ -15,11 +16,11 @@
         document.addEventListener('keydown', handleTimeoutReset);
         autoLogoutInterval = setInterval(() => {
             timeLeftClock = getRemainingTime();
-            if (expireDate < new Date()) {
+            if (new Date(localStorage.getItem('expireDate').replaceAll('"', '')) < new Date()) {
                 openConfirm({
                     icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                     title: '자동 로그아웃 됨', // 제목
-                    contents1: formatTime(60 * Number($userInfoData.csAutoLogoutSetting.minute)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
+                    contents1: formatTime(60 * Number($userInfoData.csAutoLogoutSetting)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
                     contents2: '자동 로그아웃 됩니다.',
                     btnCheck: '확인', // 확인 버튼의 텍스트
                 });
@@ -40,10 +41,7 @@
     const handleTimeoutReset = () => {
         clearTimeout(debouncingTime);
         debouncingTime = setTimeout(() => {
-            userInfoData.update(obj => {
-                obj.csAutoLogoutSetting = JSON.parse(JSON.stringify(obj.csAutoLogoutSetting));
-                return obj;
-            });
+            expireDate.set(getFutureDate(Number($userInfoData.csAutoLogoutSetting)).toISOString());
         }, 1000); // 1000ms 동안 추가 이벤트가 없을 때 처리
     }
 
@@ -54,7 +52,6 @@
         return futureDate;
     }
 
-    $: expireDate = getFutureDate(Number($userInfoData.csAutoLogoutSetting.minute)); // 여기의 시각을 기준으로 남은 시간의 표현과 처리
     let timeLeftClock = '00:00';
     // 초 단위를 문자형 시간으로 변환
     function formatTime(seconds) {
@@ -89,7 +86,7 @@
         const now = new Date();
 
         // 만료 시각과 현재 시각의 차이를 밀리초로 계산
-        let remainingTimeInMilliseconds = expireDate - now;
+        let remainingTimeInMilliseconds = new Date(localStorage.getItem('expireDate').replaceAll('"', '')) - now;
 
         // 시각이 0 이하이면 "00:00" 반환
         if (remainingTimeInMilliseconds <= 0) {
