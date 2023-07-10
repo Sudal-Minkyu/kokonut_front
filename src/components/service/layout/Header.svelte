@@ -4,7 +4,7 @@
     import {
         is_login,
         doChangePwdLater,
-        userInfoData, expireDate,
+        userInfoData, expireDate, mainScreenBlockerVisibility,
     } from "../../../lib/store.js"
     import {beforeUpdate} from "svelte";
     import CustomConfirm from "../../common/ui/CustomConfirm.svelte";
@@ -12,6 +12,7 @@
     import MyPagePwd from "../environment/mypage/MyPagePwd.svelte";
     import {logout} from "../../common/authActions.js";
     import {ajaxGet} from "../../common/ajax.js";
+    import MainScreenBlocker from "../../common/ui/MainScreenBlocker.svelte";
 
     let isMyPagePwdVisible = false;
 
@@ -59,6 +60,7 @@
 
 <CustomConfirm />
 <Banner />
+<MainScreenBlocker  visibility={$mainScreenBlockerVisibility}/>
 
 <!-- 비밀번호 변경 기간 도래에 따른 팝업 -->
 <MyPagePwd bind:visible={isMyPagePwdVisible} regularChangeRoutine={true} />

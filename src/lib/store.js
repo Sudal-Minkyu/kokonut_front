@@ -57,6 +57,8 @@ export const openDiv = writable(0); // 이메일/비번찾기 페이지용 open 
 export const piId = writable(0); // 개인정보처리방침 saveId
 export const piStage = writable(0); // 개인정보처리방침 작성중인 글이 존재할 경우 보내는 단계
 
+export const mainScreenBlockerVisibility = writable(false); // 메인 스크린
+
 
 export const initialPolicyInfo = JSON.stringify({
     policyData1: {
