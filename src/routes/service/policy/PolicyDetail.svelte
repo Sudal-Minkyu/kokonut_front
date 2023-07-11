@@ -3,12 +3,13 @@
     // 레이아웃
     import Header from "../../../components/service/layout/Header.svelte"
     import Error from "../../../components/common/error/Error.svelte";
-    import { link } from 'svelte-spa-router'
-    import { fade } from 'svelte/transition'
+    import {link} from 'svelte-spa-router'
+    import {fade} from 'svelte/transition'
     import {onMount} from "svelte";
-    import {backBtn} from '../../../lib/store.js'
+    import {backBtn, userInfoData} from '../../../lib/store.js'
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet} from "../../../components/common/ajax.js";
+    import {openBanner, openConfirm} from "../../../components/common/ui/DialogManager.js";
 
     let piId;
 
@@ -99,6 +100,148 @@
         });
     }
 
+    const processPrivacyPolicy = (method) => {
+        const stylesString = '\n' +
+            '<style>\n' +
+            '* {box-sizing: border-box;outline: 0;}\n' +
+            'html {width: 100%;height: 100%;scroll-behavior: smooth;min-width: 1400px;max-width: 2700px;margin: 0 auto;font-size: 62.5%;font-family: Pretendard, sans-serif;position: relative;padding: 0;border: 0;}\n' +
+            '@media (max-width:1600px) {html {font-size: 56.5%;}}\n' +
+            '@media (max-width:1450px) {html {font-size: 52.5%;}}\n' +
+            'body{width:100%;position:relative;min-height: 100vh;}\n' +
+            'body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {margin: 0;padding: 0;border: 0;vertical-align: baseline;}\n' +
+            'article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block;}\n' +
+            'body {line-height: 1;}\n' +
+            'ol, ul {list-style: none;}\n' +
+            'blockquote, q {quotes: none;}\n' +
+            'blockquote:before, blockquote:after,\n' +
+            'q:before, q:after {content: \'\';content: none;}\n' +
+            'p {margin: 0;/* word-break: keep-all; */}\n' +
+            'a {color: inherit;text-decoration: none;-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none;}\n' +
+            'ul {padding-left: 0;margin: 0;list-style-type: none;}\n' +
+            'button {margin: 0;padding: 0;cursor: pointer;border: none;background-color: inherit;-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none;font-family: inherit;color: inherit;}\n' +
+            'button:focus {outline: 0;}\n' +
+            'input {border: none;}\n' +
+            'iframe {border-width: 0;border-style: none;border-color: transparent;border-image: none;}\n' +
+            'table {border-color: transparent;border-collapse: collapse;border-spacing: 0;word-break: break-all;}\n' +
+            'img {vertical-align: middle;}\n' +
+            '#privacyPolicy {padding: 10rem 8rem 10rem 8rem;width: 100%;height: 100%;background-color: #fff;font-family: Pretendard, sans-serif;position:relative;z-index:5;}\n' +
+            '.pageTitleBtn{width:100%;position:relative;text-align:left;}\n' +
+            '.pageTitleBtn h1{display:inline-block;font-size: 4rem;font-weight: 700;line-height: 5rem;letter-spacing: 0;text-align: left;color:#222;}\n' +
+            '.pageTitleBtn dl{display:block;margin-top:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: left;color:#666;}\n' +
+            '.pageTitleBtn a{margin-left: -50px;margin-right: 10px;display:inline-block;font-size: 4rem;font-weight: 700;line-height: 5rem;letter-spacing: 0;text-align: left;color:#00C389;}\n' +
+            '.pageTitleBtn a:hover{color:#05de9e;}\n' +
+            '@media (max-width: 1700px) {#privacyPolicy {padding: 10rem 6rem 10rem 6rem;}}\n' +
+            '.pri_versionBox{width:100%;position:relative;display:flex;background: #F7F8F9;border-radius: 1.2rem;padding:2.4rem 3.6rem 2.4rem 3.6rem;}\n' +
+            '.marB50{margin-bottom:5rem;}\n' +
+            '.priverBox{width:25%;position:relative;}\n' +
+            '.priverBox dl{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;margin-bottom:0.8rem;}\n' +
+            '.priverBox span {display: flex;height: 3.8rem;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0;text-align: left;color: #AAAAAA;align-items: center;}\n' +
+            '.priverBox p{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0;text-align: right;display:block;color:#222;}\n' +
+            '.hei60{height:6rem;}\n' +
+            '.priv_divider {width: 1px;height: 6.2rem;background: #E4E7EB;margin: 0 3.6rem 0 3.6rem;}\n' +
+            '.priContentBox{width:100%;position:relative;padding:2.4rem 0 0rem 0;margin-bottom:8rem;border-top:1px solid #666;}\n' +
+            '.priC_title{display: flex;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.priC_title .tiptool{top: 0.6rem;}\n' +
+            '.marB24{margin-bottom:2.4rem;}\n' +
+            '.priCIntrotext{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;\t}\n' +
+            '.priCIntrotext .koinput{margin:0 0.4rem 0 0.4rem;}\n' +
+            '.priCIntrotext input {width: 100%;height: 3.8rem;border-radius: 1rem;padding: 0 1.2rem 0 1.2rem;font-size: 1.5rem;font-weight: 400;}\n' +
+            '.priCIntrotext input:focus{border:2px solid #00C389;padding: 0 1.1rem 0 1.1rem;}\n' +
+            '.priCIntrotext input::placeholder{font-weight: 400;font-size: 1.5rem;color:#aaa;}\n' +
+            '.priCIntrotext dl{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;display:block;margin-bottom:0.8rem;}\n' +
+            '.priCIntrotext dl:last-child{margin-bottom:0;}\n' +
+            '.pr_wrap{position:relative;border-top:1px solid #E2E5EA;}\n' +
+            '.prbox{display:flex;position:relative;padding:1.3rem 0 1.3rem 0;}\n' +
+            '.prbox:after{content:\'\';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}\n' +
+            '.prbox input{border:1px solid #fff;height:2.4rem;width:100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color: #666;}\n' +
+            '.prti{padding:0 1.6rem 0 1.6rem; font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;}\n' +
+            '.w1528per{width:15.28%;}\n' +
+            '.prst{width: 100%;padding:0 1.6rem 0 1.6rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;}\n' +
+            '.w8472per{width:84.72%;}\n' +
+            '.prtextaddbox{width:100%;position:relative;}\n' +
+            '.prtextaddbox dl{display: flex;padding:1.3rem 0 1.3rem 0;position:relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.prtextaddbox dl:after{content:\'\';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}\n' +
+            '.prtextTablethBox {position: relative;display: flex;}\n' +
+            '.prtextTablethBox.colum7Line .prtti{width:14.285%;}\n' +
+            '.prtextTablethBox.colum4Line .prtti{width:25%;}\n' +
+            '.prtextTablethBox.colum5Line .prtti{width:20%;}\n' +
+            '.prtti{display: flex;position:relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;padding:1.3rem 1.6rem 1.3rem 1.6rem;}\n' +
+            '.prtti:after{content:\'\';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}\n' +
+            '.colum7 .prtti{min-height:7.4rem;}\n' +
+            '.prtextTableBox{position:relative;border-bottom:1px solid #E2E5EA;display:flex;}\n' +
+            '.colum4{width:25%;}\n' +
+            '.prtt_value_area{width:100%;position:relative;padding: 1.3rem 1.6rem 1.3rem 1.6rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color: #666;}\n' +
+            '.prdot_text{position:relative;width:100%;padding-left:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#666;}\n' +
+            '.prdot_text:before{content:\'\';position: absolute;width: 0.3rem;height: 0.3rem;left: 1rem;top: 1.1rem;border-radius:50%;background: #666666;}\n' +
+            '.marT16{margin-top:1.6rem;}\n' +
+            '.borT:after{content:\'\';position:absolute;left:0;top:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}\n' +
+            '.prarea_table {width: 100%;position: relative;}\n' +
+            '.prarea_table table {width: 100%;position: relative;}\n' +
+            '.prarea_table table thead {position: relative;}\n' +
+            '.prarea_table table thead tr {background: #fff;position: relative;}\n' +
+            '.prarea_table table thead tr:after{content:\'\';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}\n' +
+            '.prarea_table table thead tr th {vertical-align: middle;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: center;color: #666;padding: 1.3rem 1.6rem 1.3rem 1.6rem;}\n' +
+            '.prarea_table table tbody tr {background: #fff;position: relative;}\n' +
+            '.prarea_table table tbody tr:after{content:\'\';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}\n' +
+            '.prarea_table table tbody tr td {padding: 1.3rem 1.6rem 1.3rem 1.6rem;vertical-align: middle;position: relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: center;color: #666;}\n' +
+            '.praLeft{text-align:left!important;}\n' +
+            '.nonebor dl:after{content:none!important;}\n' +
+            '.prnor_text:last-child{margin-bottom:0;}\n' +
+            '.prnor_text{display:block;position:relative;margin-bottom:1.6rem;}\n' +
+            '.prnor_text p{display:block;position:relative;padding-left:2.4rem;}\n' +
+            '.prnor_text p span{position:absolute;left:0;top:0;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.prnor_text p{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.pri8cont .prnor_text{margin-bottom:0.8rem;}\n' +
+            '.pri8cont .prnor_text:last-child{margin-bottom:0;}\n' +
+            '.prnor_text dd{display:block;position:relative;padding-left:2.4rem;}\n' +
+            '.prnor_text dd span{position: absolute;width: 0.3rem;height: 0.3rem;left: 1rem;top: 1.1rem;border-radius:50%;background: #666666;}\n' +
+            '.prnor_text dd{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#666;}\n' +
+            '.pttext{display:block;position:relative;padding-left:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.pttext dt{position:absolute;left:0;top:0;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.pttext .tiptool{margin-left:0.2rem;}\n' +
+            '.marB4{margin-bottom:0.4rem;}\n' +
+            '.prinortext:last-child{margin-bottom:0;}\n' +
+            '.prinortext {margin-bottom:2.4rem;display: flex;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.6rem;letter-spacing: 0;text-align: left;color: #666;}\n' +
+            '.colum5{width:20%;}\n' +
+            '.marB16{margin-bottom:1.6rem;}\n' +
+            '.prnort{display: flex;align-items: center;position:relative;padding-left:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.prnort dt {position: absolute;width: 0.3rem;height: 0.3rem;left: 1rem;top: 50%;border-radius: 50%;background: #666666;transform: translateY(-50%);}\n' +
+            '.prnort .tiptool {margin-left: 0.8rem;top: 0;}\n' +
+            '.pradfont{font-weight: 500!important;color: #444!important;}\n' +
+            '#bottomPad{padding-bottom: 10rem;}\n' +
+            '</style>\n';
+        const titleHTML = '<div class="pageTitleBtn marB50"><h1>개인정보처리방침</h1></div>';
+        const element = document.getElementById('privacyPolicy');
+        const outerHTML = element.outerHTML;
+        const titleStartIndex = outerHTML.indexOf('<div id="privacyPolicy" style="">') + '<div id="privacyPolicy" style="">'.length;
+        const elementHTML = stylesString + outerHTML.slice(0, titleStartIndex) + titleHTML + outerHTML.slice(titleStartIndex);
+
+        switch (method) {
+            case 'COPY':
+                navigator.clipboard.writeText(elementHTML).then(function() {
+                    openBanner('HTML 코드가 클립보드로 복사되었습니다.');
+                }, function(err) {
+                    console.error('클릭보드복사오류: ', err);
+                    openConfirm({
+                        icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: 'HTML 복사 오류', // 제목
+                        contents1: '오류가 발생하여 클립보드로 복사할 수 없습니다.', // 내용
+                        contents2: 'HTML 다운로드 기능을 사용해 주세요.',
+                        btnCheck: '확인', // 확인 버튼의 텍스트
+                    });
+                });
+                break;
+            case 'DOWNLOAD':
+                var blob = new Blob([elementHTML], { type: 'text/html;charset=utf-8' });
+                var virtualALink = document.createElement('a');
+                var url = URL.createObjectURL(blob);
+                virtualALink.href = url;
+                virtualALink.download = '개인정보처리방침';
+                virtualALink.click();
+                break;
+        }
+    }
+
     let state = 0;
     let pageErrMsg1;
     let pageErrMsg2;
@@ -113,7 +256,7 @@
 <section class="bodyWrap">
     <div class="contentInnerWrap">
         <div class="pageTitleBtn marB50">
-            <a use:link href="/service/policyList">{$backBtn}</a><h1>개인정보처리방침 상세보기</h1>
+            <a use:link href="/service/policyList">{$backBtn}</a><h1>개인정보처리방침</h1>
 
             {#if policyDetailLayout === 1}
                 <div class="copyBtnBox" in:fade>
@@ -129,24 +272,26 @@
 <!--                            </div>-->
 <!--                        </span>-->
 <!--                    </div>-->
-                    <div class="copyBtn">
-                        <dt id="htmlcopy">HTML 복사</dt>
-                        <span class="tiptool" id="tool_btn02">
-                            <div class="layerToolType righttool_type" id="tool_box02">
-                                <div class="tipContents">
-                                    <p>
-                                        개인정보처리방침을 위한 별도 페이지가 존재하는 경우, HTML 복사를 이용해 작성하신 개인정보처리방침의 레이아웃까지 빠르게 복사가 가능합니다.
-                                    </p>
-                                </div>
-                            </div>
-                        </span>
+                    <div class="copyBtn" on:click={() => {processPrivacyPolicy('COPY')}}>
+                        <dt style="padding-right: 1.6rem">HTML 코드복사</dt>
+                    </div>
+                    <div class="copyBtn" on:click={() => {processPrivacyPolicy('DOWNLOAD')}}>
+                        <dt style="padding-right: 1.6rem">HTML 내려받기</dt>
+<!--                        <span class="tiptool" id="tool_btn02">-->
+<!--                            <div class="layerToolType righttool_type" id="tool_box02">-->
+<!--                                <div class="tipContents">-->
+<!--                                    <p>-->
+<!--                                        개인정보처리방침을 위한 별도 페이지가 존재하는 경우, HTML 복사를 이용해 작성하신 개인정보처리방침의 레이아웃까지 빠르게 복사가 가능합니다.-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </span>-->
                     </div>
                 </div>
             {/if}
         </div>
         <LoadingOverlay bind:loadState={policyDetailLayout} >
-            <div in:fade>
-
+            <div id="privacyPolicy" in:fade>
                 <div class="pri_versionBox marB50">
                     <div class="priverBox hei60">
                         <dl>개정본 버전</dl>
@@ -630,6 +775,7 @@
                     <div class="prnor_text">
                         <dd class="pradfont"><span></span>경찰청 : (국번없이) 182 (ecrm.cyber.go.kr)</dd>
                     </div>
+                    <div id="bottomPad"></div>
                 </div>
 
             </div>
