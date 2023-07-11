@@ -4,7 +4,7 @@
     import {
         is_login,
         doChangePwdLater,
-        userInfoData,
+        userInfoData, expireDate, mainScreenBlockerVisibility,
     } from "../../../lib/store.js"
     import {beforeUpdate} from "svelte";
     import CustomConfirm from "../../common/ui/CustomConfirm.svelte";
@@ -12,6 +12,7 @@
     import MyPagePwd from "../environment/mypage/MyPagePwd.svelte";
     import {logout} from "../../common/authActions.js";
     import {ajaxGet} from "../../common/ajax.js";
+    import MainScreenBlocker from "../../common/ui/MainScreenBlocker.svelte";
 
     let isMyPagePwdVisible = false;
 
@@ -27,8 +28,8 @@
                 ajaxGet(url, false, (res) => {
                     const userInfo = res.data.sendData;
                     is_login.set(true);
-                    userInfo.csAutoLogoutSetting = {minute: userInfo.csAutoLogoutSetting}; // 객체형태로 변환해 변화를 감지하기 위함
                     userInfoData.set(userInfo);
+                    expireDate.set(getFutureDate(Number(userInfo.csAutoLogoutSetting)).toISOString());
 
                     if (!$doChangePwdLater && userInfo.csPasswordChangeState === '2') {
                         isMyPagePwdVisible = true;
@@ -42,7 +43,13 @@
                 logout();
             }
         });
-    })
+    });
+
+    function getFutureDate(minutesFromNow) {
+        let futureDate = new Date();
+        futureDate.setMinutes(futureDate.getMinutes() + minutesFromNow);
+        return futureDate;
+    }
 
 </script>
 
@@ -53,6 +60,7 @@
 
 <CustomConfirm />
 <Banner />
+<MainScreenBlocker  visibility={$mainScreenBlockerVisibility}/>
 
 <!-- 비밀번호 변경 기간 도래에 따른 팝업 -->
 <MyPagePwd bind:visible={isMyPagePwdVisible} regularChangeRoutine={true} />

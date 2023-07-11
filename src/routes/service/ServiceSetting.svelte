@@ -7,12 +7,7 @@
     import SettingIpAdd from '../../components/service/environment/servicesetting/SettingIpAdd.svelte'
     import {SelectBoxManager} from "../../components/common/action/SelectBoxManager.js";
     import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
-    import {
-        backBtn,
-        initialServiceSetting, privacySearchData,
-        serviceSettingData,
-        userInfoData
-    } from "../../lib/store.js";
+    import {backBtn, initialServiceSetting, serviceSettingData, userInfoData} from "../../lib/store.js";
     import {openConfirm} from "../../components/common/ui/DialogManager.js";
     import {link} from "svelte-spa-router";
 
@@ -29,6 +24,12 @@
 
     const moddableRole = ['ROLE_MASTER', 'ROLE_ADMIN'];
 
+    const currentEmailSetting = {
+        csEmailTableSetting: '',
+        csEmailCodeSetting: ''
+    };
+    let currentEmailSettingColumnList = [];
+
     const getServiceSettingDataAndInitializing = () => {
         ajaxGet('/v2/api/CompanySetting/settingInfo', false, (res) => {
             const settingData = res.data.sendData;
@@ -39,6 +40,8 @@
                 obj.settingInfo = settingData.settingInfo;
                 return obj;
             });
+            currentEmailSetting.csEmailTableSetting = settingData.settingInfo.csEmailTableSetting;
+            currentEmailSetting.csEmailCodeSetting = settingData.settingInfo.csEmailCodeSetting;
             setUnbindableInitialData(settingData);
             filterAccessIpList();
             getTableAndColumnList();
@@ -95,7 +98,7 @@
         serviceIpState = val;
     }
 
-    const ajaxWhenEveryChange = (url, sendObj) => {
+    const ajaxAgainstEveryChanges = (url, sendObj) => {
         console.log('act', sendObj);
         ajaxParam(url, sendObj, (res) => {
             console.log(res);
@@ -110,19 +113,19 @@
     const handleChangeRadioBtn = (target, value) => {
         switch (target) {
             case 'csOverseasBlockSetting':
-                ajaxWhenEveryChange('/v2/api/CompanySetting/overseasBlockSetting', {});
+                ajaxAgainstEveryChanges('/v2/api/CompanySetting/overseasBlockSetting', {});
                 break;
             case 'csAccessSetting':
-                ajaxWhenEveryChange('/v2/api/CompanySetting/accessSetting', {});
+                ajaxAgainstEveryChanges('/v2/api/CompanySetting/accessSetting', {});
                 break;
             case 'csPasswordChangeSetting':
-                ajaxWhenEveryChange('/v2/api/CompanySetting/passwordChangeSetting', {csPasswordChangeSetting: value});
+                ajaxAgainstEveryChanges('/v2/api/CompanySetting/passwordChangeSetting', {csPasswordChangeSetting: value});
                 break;
             case 'csPasswordErrorCountSetting':
-                ajaxWhenEveryChange('/v2/api/CompanySetting/passwordErrorCountSetting', {csPasswordErrorCountSetting: value});
+                ajaxAgainstEveryChanges('/v2/api/CompanySetting/passwordErrorCountSetting', {csPasswordErrorCountSetting: value});
                 break;
             case 'csAutoLogoutSetting':
-                ajaxWhenEveryChange('/v2/api/CompanySetting/autoLogoutSetting', {csAutoLogoutSetting: value});
+                ajaxAgainstEveryChanges('/v2/api/CompanySetting/autoLogoutSetting', {csAutoLogoutSetting: value});
                 break;
             case 'csLongDisconnectionSetting':
                 serviceSettingData.update(obj => {
@@ -141,7 +144,10 @@
                     radio.checked = (radio.value === targetValue);
                 }
 
-                ajaxWhenEveryChange('/v2/api/CompanySetting/longDisconnectionSetting', {csLongDisconnectionSetting: value});
+                ajaxAgainstEveryChanges('/v2/api/CompanySetting/longDisconnectionSetting', {csLongDisconnectionSetting: value});
+                break;
+            case 'emailSendItemSetting':
+                ajaxAgainstEveryChanges('/v2/api/CompanySetting/emailSendItemSetting', currentEmailSetting);
                 break;
         }
     }
@@ -207,18 +213,51 @@
         ajaxGet('/v2/api/Company/privacyTableList', false, (res) => {
             serviceSettingData.update(obj => {
                 obj.tableList = res.data.sendData.companyTableList;
+                console.log('테이블,컬럼인포', obj.tableList);
                 return obj;
             });
+            let columnListReceiveCount = 0;
 
             for (const [i, {ctName}] of $serviceSettingData.tableList.entries()) {
                 ajaxGet('/v2/api/DynamicUser/searchColumnCall', {tableName: ctName}, (res2) => {
+                    columnListReceiveCount++;
                     serviceSettingData.update(obj => {
                         obj.tableList[i].columnList = res2.data.sendData.fieldList;
                         return obj;
                     });
+                    if (columnListReceiveCount === res.data.sendData.companyTableList.length) {
+                        updateEmailSelectBoxString(currentEmailSetting);
+                    }
                 });
             }
         });
+    }
+
+    const handleEmailTableSelect = (el) => {
+        currentEmailSetting.csEmailTableSetting = el.dataset.value;
+        currentEmailSetting.csEmailCodeSetting = '';
+        currentEmailSettingColumnList = currentEmailSetting.csEmailTableSetting ? $serviceSettingData.tableList[el.dataset.tid].columnList : [];
+        document.getElementById('emailColumnLabel').innerHTML = '항목선택';
+        console.log(currentEmailSetting.csEmailTableSetting);
+        document.getElementById('emailColumnLabel').parentElement.style.display = currentEmailSetting.csEmailTableSetting ? 'inline-block' : 'none';
+
+        handleChangeRadioBtn('emailSendItemSetting', false);
+        console.log(currentEmailSetting);
+    }
+
+    const handleEmailColumnSelect = (el) => {
+        currentEmailSetting.csEmailCodeSetting = el.dataset.value;
+        handleChangeRadioBtn('emailSendItemSetting', false);
+        console.log(currentEmailSetting);
+    }
+
+    const updateEmailSelectBoxString = (currentEmailSetting = currentEmailSetting) => {
+        const selectedTableArray = $serviceSettingData.tableList.filter(obj => obj.ctName === currentEmailSetting.csEmailTableSetting);
+        currentEmailSettingColumnList = selectedTableArray.length ? selectedTableArray[0].columnList : [];
+        document.getElementById('emailColumnLabel').parentElement.style.display = currentEmailSetting.csEmailTableSetting ? 'inline-block' : 'none';
+        const selectedColumnArray = currentEmailSettingColumnList.filter(obj => obj.fieldCode === currentEmailSetting.csEmailCodeSetting);
+        document.getElementById('emailTableLabel').innerHTML = selectedTableArray.length ? selectedTableArray[0].ctDesignation : '탭선택';
+        document.getElementById('emailColumnLabel').innerHTML = selectedColumnArray.length ? selectedColumnArray[0].fieldComment : '항목선택';
     }
 </script>
 
@@ -440,8 +479,8 @@
                 <div class="seaCont wid100per">
                     <dl>이메일 발송 항목 지정</dl>
                     <div class="sc_SelBox">
-                        <div class="selectBox wid164" use:SelectBoxManager={()=>{}}>
-                            <div class="label">미지정</div>
+                        <div class="selectBox wid164" use:SelectBoxManager={{callback: handleEmailTableSelect}}>
+                            <div class="label" id="emailTableLabel"></div>
                             <ul class="optionList">
                                 <li class="optionItem" value="">미지정</li>
                                 {#each $serviceSettingData.tableList as {ctDesignation, ctName}, j (ctName)}
@@ -450,15 +489,13 @@
                             </ul>
 
                         </div>
-                        <div class="selectBox wid164">
-                            <div class="label">선택</div>
+                        <div class="selectBox wid164" use:SelectBoxManager={{callback: handleEmailColumnSelect}} style="display: none">
+                            <div class="label" id="emailColumnLabel"></div>
                             <ul class="optionList">
-                                <li class="optionItem" value="">선택</li>
-                                {#if $serviceSettingData.tableList.length}
-                                    <!--{#each currentTableColumnList as {fieldCode, fieldComment, fieldSecrity}, j (fieldCode)}-->
-                                    <!--    <li class="optionItem curv" data-value={fieldCode} data-secrity={fieldSecrity}>{fieldComment}</li>-->
-                                    <!--{/each}-->
-                                {/if}
+                                <li class="optionItem" value="">미지정</li>
+                                {#each currentEmailSettingColumnList as {fieldCode, fieldComment}, j (fieldCode)}
+                                    <li class="optionItem curv" data-value={fieldCode} >{fieldComment}</li>
+                                {/each}
                             </ul>
                         </div>
                     </div>

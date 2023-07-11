@@ -10,14 +10,15 @@ const persist_storage = (key, initValue) => {
 }
 
 // UI 적인 변수만 설정할 것
-// export const 변수명 = persist_storage("변수명","값");
+// export const 변수명 = persist_storage('변수명','값');
 
 // 리플레쉬 토큰 유효기간 : 7일, 엑세스토큰 유효기간 : 30분
-export const accessToken = persist_storage("accessToken","");
+export const accessToken = persist_storage('accessToken','');
 // 로그인 여부
-export const is_login = persist_storage("is_login",false);
+export const is_login = persist_storage('is_login',false);
 // 페이징 번호
-export const page = persist_storage("page", 0);
+export const page = persist_storage('page', 0);
+export const expireDate = persist_storage('expireDate', new Date(new Date().setMinutes(new Date().getMinutes() + 60)).toISOString());
 
 // 사용자 로그인 정보 초기화값 /v2/api/Admin/authorityCheck 를 통해 헤더가 호출될 때 갱신된다.
 export const initialUserInfo = JSON.stringify({
@@ -38,23 +39,25 @@ export const userInfoData = writable(JSON.parse(initialUserInfo));
 
 export const doChangePwdLater = writable(true); // 로그인시 false -> 암호 변경 나중에 하기 -> true
 
-export const backBtn = writable("<-"); // 뒤로가기버튼 텍스트
+export const backBtn = writable('<-'); // 뒤로가기버튼 텍스트
 export const popupPage = writable(0); // 팝업용 페이지번호
 
-export const keyBufferSto = writable(""); // 테스트 key
-export const ivSto = writable(""); // 테스트 iv
+export const keyBufferSto = writable(''); // 테스트 key
+export const ivSto = writable(''); // 테스트 iv
 
 // 컴포넌트용 지속성스토어
-export const emailSave = persist_storage("emailSave",""); // 이메일기억하기 체크시 저장
+export const emailSave = persist_storage('emailSave',''); // 이메일기억하기 체크시 저장
 
 export const stateVal = writable(0); // 상태값 컴포넌트 번호
-export const findEmail = writable("이메일 찾는중..."); // 이메일 찾기의 이메일변수
-export const findPwd = writable(""); // 비밀번호 찾기의 이메일변수
-export const tempPwd = writable(""); // 임시비밀번호 변수
+export const findEmail = writable('이메일 찾는중...'); // 이메일 찾기의 이메일변수
+export const findPwd = writable(''); // 비밀번호 찾기의 이메일변수
+export const tempPwd = writable(''); // 임시비밀번호 변수
 export const openDiv = writable(0); // 이메일/비번찾기 페이지용 open 컴포넌트 번호
 
 export const piId = writable(0); // 개인정보처리방침 saveId
 export const piStage = writable(0); // 개인정보처리방침 작성중인 글이 존재할 경우 보내는 단계
+
+export const mainScreenBlockerVisibility = writable(false); // 메인 스크린
 
 
 export const initialPolicyInfo = JSON.stringify({
@@ -258,12 +261,12 @@ export const initialServiceSetting = JSON.stringify({
     accessIpSearchText: '',
     settingInfo: {
         csId: 0,
-        csOverseasBlockSetting: "0", // 해외 로그인 설정  "0" 로그인 허용, "1" 로그인 차단
-        csAccessSetting: "0", // 접속허용 IP 설정  "0" 비활성화, "1" 활성화
-        csPasswordChangeSetting: "12", // 비밀번호 변경주기
-        csPasswordErrorCountSetting: "5", // 비밀번호 오류 접속제한
-        csAutoLogoutSetting: "30", // 자동 로그아웃 시간
-        csLongDisconnectionSetting: "0" // 장기 미접속 접근제한  "0" 제한없음
+        csOverseasBlockSetting: '0', // 해외 로그인 설정  '0' 로그인 허용, '1' 로그인 차단
+        csAccessSetting: '0', // 접속허용 IP 설정  '0' 비활성화, '1' 활성화
+        csPasswordChangeSetting: '12', // 비밀번호 변경주기
+        csPasswordErrorCountSetting: '5', // 비밀번호 오류 접속제한
+        csAutoLogoutSetting: '30', // 자동 로그아웃 시간
+        csLongDisconnectionSetting: '0' // 장기 미접속 접근제한  '0' 제한없음
     },
     addAccessIpPop: {
         ip1: '',

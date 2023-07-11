@@ -7,14 +7,13 @@
         accessToken,
         emailSave,
         keyBufferSto,
-        ivSto, doChangePwdLater, serviceSettingData,
+        ivSto, doChangePwdLater, serviceSettingData, mainScreenBlockerVisibility,
     } from '../../../lib/store'
     import { callCapsLock, encryptData } from '../../../lib/common'
     import {openAsk, openConfirm} from "../../common/ui/DialogManager.js";
-
-    import restapi from "../../../lib/api.js";
     import { ajaxParam } from "../../common/ajax.js";
     import jQuery from "jquery";
+    import MainScreenBlocker from "../../common/ui/MainScreenBlocker.svelte";
 
     jQuery(function() {
         // 나이스 폼열기
@@ -120,6 +119,8 @@
     let otp_err_msg = "";
     // 로그인시작
 	function googleOtpLogin(otpValue, knEmail, encryptedPassword) {
+        mainScreenBlockerVisibility.set(true);
+        document.activeElement.blur();
 
         let url = "/v1/api/Auth/authToken"
 
@@ -130,6 +131,7 @@
 		}
 
         ajaxParam(url, sendData, (res) => {
+            mainScreenBlockerVisibility.set(false);
             $accessToken = res.data.sendData.jwtToken;
             if(res.data.sendData.blockAbroad !== undefined) {
                 // console.log("해외로그인차단 : "+json_success.data.sendData.blockAbroadMsg);
@@ -153,6 +155,7 @@
                 push("/service");
             }
         }, (errCode, errMsg) => {
+            mainScreenBlockerVisibility.set(false);
             if (errCode === "KO012" || errCode === "KO011" || errCode === "KO010"
                 || errCode === "KO094") {
                 // console.log("로그인실패");
@@ -290,3 +293,7 @@
     <input type="hidden" id="enc_data" name="enc_data" /> <br/>
     <input type="hidden" id="integrity_value" name="integrity_value" /> <br/>
 </form>
+
+
+<!-- 스크린 블로커 -->
+<MainScreenBlocker visibility={$mainScreenBlockerVisibility} />

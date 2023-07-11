@@ -516,6 +516,7 @@
             ajaxGet('/v2/api/Company/userTableList', false, (json_success) => {
                 personalInfoTableData.update(obj => {
                     obj.userTableData = json_success.data.sendData.companyTableList;
+                    console.log('테이블리스트', obj.userTableData);
                     return obj;
                 });
                 if($personalInfoTableData.userTableData.length !== 0) {
