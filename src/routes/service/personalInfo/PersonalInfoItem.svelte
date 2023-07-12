@@ -28,16 +28,8 @@
 
     const personalInfoItemProp = {
         loadState: 0,
-        currentSelectedTab: '',
-        setCurrentSelectedTab(tabName) {
-            personalInfoItemProp.currentSelectedTab = tabName;
-        },
-        getTableColumnList(tableName) {
-            let sendData = {
-                tableName
-            }
-            ajaxGet('/v2/api/DynamicUser/tableColumnCall', sendData, (json_success) => {
-                personalInfoItemProp.setCurrentSelectedTab(tableName);
+        getTableColumnList() {
+            ajaxGet('/v2/api/DynamicUser/tableColumnCall', false, (json_success) => {
                 personalInfoTableData.update(obj => {
                     obj.columnList = json_success.data.sendData.fieldList;
                     return obj;
@@ -213,6 +205,10 @@
                     ciId: $personalInfoCategoryData.editItemPop.inputData.ciId,
                 }
                 ajaxParam('/v2/api/Company/deleteItem', sendData, (json_success) => {
+                    personalInfoCategoryData.update(obj => {
+                        obj.checkedItemObjList = obj.checkedItemObjList.filter(obj => obj.ciId !== sendData.ciId);
+                        return obj;
+                    });
                     personalInfoCategoryService.getAdditionalItemList();
                     personalInfoCategoryService.editItemPop.hide();
                     openBanner("선택한 항목을 삭제하였습니다.");
@@ -249,14 +245,13 @@
             },
             addItemListToTable() {
                 let sendData = {
-                    tableName: personalInfoItemProp.currentSelectedTab,
                     kokonutAddColumnListDtos: $personalInfoCategoryData.checkedItemObjList
                 }
 
                 ajaxBody('/v2/api/DynamicUser/tableColumnAdd', sendData, (json_success) => {
                     openBanner("선택한 항목을 추가하였습니다.");
 
-                    personalInfoItemProp.getTableColumnList(personalInfoItemProp.currentSelectedTab);
+                    personalInfoItemProp.getTableColumnList();
                     personalInfoCategoryService.resetCheckedItemState();
                 });
             },
@@ -476,16 +471,14 @@
 
                 const targetData = {
                     otpValue: $personalInfoTableData.removeColumnPop.otpValue,
-                    tableName: personalInfoItemProp.currentSelectedTab,
                     fieldNames: $personalInfoTableData.checkedColumnNameList
                 };
-                console.log(targetData);
                 restapi('v2', 'post', '/v2/api/DynamicUser/tableColumnDelete', 'body', targetData, 'application/json',
                     (json_success) => {
                         if(json_success.data.status === 200) {
                             personalInfoTableService.removeColumnPop.hide();
                             openBanner('선택하신 개인정보 항목을 삭제하였습니다.');
-                            personalInfoItemProp.getTableColumnList(targetData.tableName);
+                            personalInfoItemProp.getTableColumnList();
                         } else {
                             // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
                             alert(json_success.data.err_msg);
@@ -512,26 +505,13 @@
                 return obj;
             });
         },
-        getUserTableList() {
-            ajaxGet('/v2/api/Company/userTableList', false, (json_success) => {
-                personalInfoTableData.update(obj => {
-                    obj.userTableData = json_success.data.sendData.companyTableList;
-                    console.log('테이블리스트', obj.userTableData);
-                    return obj;
-                });
-                if($personalInfoTableData.userTableData.length !== 0) {
-                    personalInfoItemProp.setCurrentSelectedTab($personalInfoTableData.userTableData[0].ctName);
-                    personalInfoItemProp.getTableColumnList(personalInfoItemProp.currentSelectedTab);
-                }
-            });
-        },
     };
 
     // 사용자 추가카테고리 확인
     onMount(async ()=>{
         await personalInfoCategoryService.getAdditionalItemList();
-        await personalInfoCategoryService.getBasicCategoryList()
-        await personalInfoTableService.getUserTableList();
+        await personalInfoCategoryService.getBasicCategoryList();
+        await personalInfoItemProp.getTableColumnList();
     });
 
     jQuery(function(){
@@ -544,16 +524,11 @@
             jQuery(this).parent().parent().parent().parent().parent().find('.cateS_checkBox > div').hide();
             jQuery(this).parent().parent().parent().parent().parent().find('.cateS_checkBox > div:nth-child('+ (inx+1) +')').show();
         });
-        // 개인정보항목 탭메뉴 스크립트
-        jQuery(document.body).on('click','.bo_tab', function() {
-            // const inx = jQuery(this).parent().parent().find('.bo_tab').index(this);
-            const arr_firstrows = jQuery(this).parent().parent().find('.bo_tab');
-            arr_firstrows.removeClass('on_bo');
-            jQuery(this).addClass('on_bo');
-            // jQuery(this).parent().parent().parent().parent().parent().find('.bo_tabContentBox > div').hide();
-            // jQuery(this).parent().parent().parent().parent().parent().find('.bo_tabContentBox > div:nth-child('+ (inx+1) +')').show();
-        });
     });
+
+    window.kk = () => {
+        console.log($personalInfoCategoryData.checkedItemObjList);
+    }
 </script>
 
 <Header />

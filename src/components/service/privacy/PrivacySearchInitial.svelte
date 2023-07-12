@@ -13,13 +13,10 @@
         if ($privacySearchData.searchConditionList.length < SEARCH_CONDITION_LIMIT) {
             privacySearchData.update(obj => {
                 obj.searchConditionList.push({
-                    searchTable: obj.tableList[0].ctName,
-                    currentTableName: obj.tableList[0].ctDesignation,
-                    searchCode: obj.tableList[0].columnList[0].fieldCode,
-                    currentColumnName: obj.tableList[0].columnList[0].fieldComment,
-                    currentColumnSecrity: obj.tableList[0].columnList[0].fieldComment,
+                    searchCode: obj.columnList[0].fieldCode,
+                    currentColumnName: obj.columnList[0].fieldComment,
+                    currentColumnSecrity: obj.columnList[0].fieldComment,
                     searchText: '',
-                    currentTableColumnList: obj.tableList[0].columnList,
                     key: Date.now().toString(),
                 });
                 return obj;
@@ -38,16 +35,12 @@
 
     const handleChangeTableBox = (el, i) => {
         privacySearchData.update(obj => {
-            obj.searchConditionList[i].searchTable = el.dataset.value;
-            obj.searchConditionList[i].currentTableName = el.innerHTML;
-            obj.searchConditionList[i].currentTableIndex = el.dataset.tid;
-            obj.searchConditionList[i].currentTableColumnList = obj.tableList[el.dataset.tid].columnList;
             obj.searchConditionList[i].searchText = '';
 
-            if (obj.tableList[el.dataset.tid].columnList.length) {
-                obj.searchConditionList[i].searchCode = obj.tableList[el.dataset.tid].columnList[0].fieldCode;
-                obj.searchConditionList[i].currentColumnName = obj.tableList[el.dataset.tid].columnList[0].fieldComment;
-                obj.searchConditionList[i].currentColumnSecrity = obj.tableList[el.dataset.tid].columnList[0].fieldSecrity;
+            if (obj.columnList.length) {
+                obj.searchConditionList[i].searchCode = obj.columnList[0].fieldCode;
+                obj.searchConditionList[i].currentColumnName = obj.columnList[0].fieldComment;
+                obj.searchConditionList[i].currentColumnSecrity = obj.columnList[0].fieldSecrity;
             } else {
                 obj.searchConditionList[i].searchCode = '';
                 obj.searchConditionList[i].currentColumnName = '';
@@ -71,7 +64,6 @@
     const getUserListByCondition = (page = 1) => {
         searchResultState = 0;
         const searchCondition = {
-            searchTables: $privacySearchData.searchConditionList.map(obj => obj.searchTable),
             searchCodes: $privacySearchData.searchConditionList.map(obj => obj.searchCode),
             searchTexts: $privacySearchData.searchConditionList.map(obj => obj.searchText),
             pageNum: page,
@@ -100,13 +92,10 @@
                 if (searchResultList.length) {
                     // 결과 페이지의 행에 사용될 값과 값으로 사용될 값을 정제
                     const keyList = Object.keys(obj.rawResultList[0]);
-                    const dynamicColumnKeyList = keyList.filter(key => key.includes('%%__%%'));
+                    const dynamicColumnKeyList = keyList.filter(key => !['kokonut_IDX', 'NO', '회원가입일시', '마지막로그인일시'].includes(key));
                     obj.resultColumnList = [ 'kokonut_IDX',
                         'NO',
-                        ...dynamicColumnKeyList.map(key => {
-                            const keyParts = key.split('%%__%%');
-                            return keyParts[1] + `(${keyParts[2]})`;
-                        }),
+                        ...dynamicColumnKeyList,
                         '회원가입일시',
                         '마지막로그인일시',
                     ];
@@ -151,35 +140,36 @@
     }
 
     const handleOpenDetail = (kokonut_IDX) => {
+        console.log({kokonut_IDX});
         ajaxGet('/v2/api/DynamicUser/privacyUserOpen', {kokonut_IDX}, (res) => {
             const rawDetail = res.data.sendData.privacyInfo;
             console.log('상세보기결과', rawDetail);
 
-            const refinedDetail = [];
-            const detailKeyList = Object.keys(rawDetail).sort();
-            for (const [i, tableKey] of detailKeyList.entries()) {
-                const columnKeyList = rawDetail[tableKey].length ? Object.keys(rawDetail[tableKey][0]).sort() : [];
-                refinedDetail[i] = {
-                    tableName: tableKey,
-                    columnDataset: [],
-                };
-                for (const [j, rowOfTable] of rawDetail[tableKey].entries()) {
-                    refinedDetail[i].columnDataset[j] = [];
-                    for (const columnKey of columnKeyList) {
-                        refinedDetail[i].columnDataset[j].push({
-                            columnName: columnKey,
-                            columnValue: rowOfTable[columnKey],
-                        });
-                    }
-                }
-            }
-
-            privacySearchData.update(obj => {
-                obj.currentDetail = refinedDetail;
-                obj.currentState = 'detail';
-                console.log('정제된상세보기', refinedDetail);
-                return obj;
-            });
+            // const refinedDetail = [];
+            // const detailKeyList = Object.keys(rawDetail).sort();
+            // for (const [i, tableKey] of detailKeyList.entries()) {
+            //     const columnKeyList = rawDetail[tableKey].length ? Object.keys(rawDetail[tableKey][0]).sort() : [];
+            //     refinedDetail[i] = {
+            //         tableName: tableKey,
+            //         columnDataset: [],
+            //     };
+            //     for (const [j, rowOfTable] of rawDetail[tableKey].entries()) {
+            //         refinedDetail[i].columnDataset[j] = [];
+            //         for (const columnKey of columnKeyList) {
+            //             refinedDetail[i].columnDataset[j].push({
+            //                 columnName: columnKey,
+            //                 columnValue: rowOfTable[columnKey],
+            //             });
+            //         }
+            //     }
+            // }
+            //
+            // privacySearchData.update(obj => {
+            //     obj.currentDetail = refinedDetail;
+            //     obj.currentState = 'detail';
+            //     console.log('정제된상세보기', refinedDetail);
+            //     return obj;
+            // });
         });
     }
 
@@ -208,29 +198,16 @@
     </dl>
 </div>
 
-{#each $privacySearchData.searchConditionList as {searchTable, currentTableName, currentTableIndex,
-    currentTableColumnList, searchCode, currentColumnName, searchText, key}, i (key)}
+{#each $privacySearchData.searchConditionList as {searchCode, currentColumnName, key}, i (key)}
     <div class="pr_seaWrap" style="margin-top: 5px">
         <div class="pr_seaInner">
-            <div class="mu_SelBox wid180">
-                <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: (e) => {handleChangeTableBox(e, i)}}}>
-                    <div class="label">{currentTableName}</div>
-                    <ul class="optionList">
-                        {#each $privacySearchData.tableList as {ctDesignation, ctName}, j (ctName)}
-                            <li class="optionItem curv" data-value="{ctName}" data-tid="{j}">{ctDesignation}</li>
-                        {/each}
-                    </ul>
-                </div>
-            </div>
             <div class="mu_SelBox wid180">
                 <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: (e) => {handleChangeColumnBox(e, i)}}}>
                     <div class="label">{currentColumnName}</div>
                     <ul class="optionList">
-                        {#if $privacySearchData.tableList.length}
-                            {#each currentTableColumnList as {fieldCode, fieldComment, fieldSecrity}, j (fieldCode)}
-                                <li class="optionItem curv" data-value={fieldCode} data-secrity={fieldSecrity}>{fieldComment}</li>
-                            {/each}
-                        {/if}
+                        {#each $privacySearchData.columnList as {fieldCode, fieldComment, fieldSecrity}, j (fieldCode)}
+                            <li class="optionItem curv" data-value={fieldCode} data-secrity={fieldSecrity}>{fieldComment}</li>
+                        {/each}
                     </ul>
                 </div>
             </div>

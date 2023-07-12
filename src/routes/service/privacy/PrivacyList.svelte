@@ -2,15 +2,12 @@
     import Header from "../../../components/service/layout/Header.svelte"
     import { link } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
-
     import { setDateRangePicker, stimeVal } from "../../../lib/libSearch.js";
     import { onMount } from "svelte";
-
     import PrivacyListTable from "../../../components/service/privacy/PrivacyListTable.svelte";
     import PrivacyListSearch from "../../../components/service/privacy/PrivacyListSearch.svelte";
     import PrivacyDownloadHistory from "../../../components/service/privacy/PrivacyDownloadHistory.svelte";
     import Paging from "../../../components/common/Paging.svelte";
-
     import { page, popupPage } from "../../../lib/store.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet} from "../../../components/common/ajax.js";
