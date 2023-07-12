@@ -67,7 +67,6 @@ export const initialPolicyInfo = JSON.stringify({
         piHeader : '',
     },
     purposeDataList: [],
-
     beforeDataList: [],
     afterDataList: [],
     serviceAutoDataList: [],
@@ -135,7 +134,6 @@ export const personalInfoCategoryData = writable({
 
 // 개인정보 항목관리의 탭과 탭에 속한 항목
 export const personalInfoTableData = writable({
-    userTableData: [],
     columnList: [],
     checkedColumnNameList: [],
     checkedColumnCodeList: [],
@@ -183,7 +181,6 @@ export const initialProvidePrivacyWrite = JSON.stringify({
     },
     step4: {
         proTargetType: '', // 제공 개인정보 여부 - 0: 전체 개인정보, 1: 일부 개인정보
-        tableList: [],
         columnList: [],
         targetColumnList: [],
         sendDataList: [],
@@ -234,12 +231,8 @@ export const bannerMessage = writable('');
 
 export const initialPrivacySearch = JSON.stringify({
     currentState: 'search',
-    tableList: [],
+    columnList: [],
     searchConditionList: [{
-        searchTable: '',
-        currentTableName: '',
-        currentTableIndex: 0,
-        currentTableColumnList: [],
         searchCode: '',
         currentColumnName: '',
         currentColumnSecrity: '0',

@@ -23,8 +23,8 @@
 
     onMount(async () => {
         setTimeout(() => priavacyStage = 1, 500);
-        getUserTableList();
         providePrivacyWriteData.set(JSON.parse(initialProvidePrivacyWrite));
+        getColumnList();
     });
 
     function stateChange(val) {
@@ -33,25 +33,14 @@
 
     let priavacyStage = 0;
 
-    const getUserTableList = () => {
-        ajaxGet('/v2/api/Company/userTableList', false, (json_success) => {
+
+    const getColumnList = () => {
+        ajaxGet('/v2/api/DynamicUser/tableColumnCall', false, (json_success) => {
             providePrivacyWriteData.update(obj => {
-                obj.step4.tableList = json_success.data.sendData.companyTableList;
+                obj.step4.columnList = json_success.data.sendData.fieldList.filter(item => item.fieldName !== 'PASSWORD');
                 return obj;
             });
-            getTableColumnList();
         });
-    };
-
-    const getTableColumnList = () => {
-        for (const [i, {ctName}] of $providePrivacyWriteData.step4.tableList.entries()) {
-            ajaxGet('/v2/api/DynamicUser/tableColumnCall', {tableName: ctName}, (json_success) => {
-                providePrivacyWriteData.update(obj => {
-                    obj.step4.columnList[i] = json_success.data.sendData.fieldList.filter(item => item.fieldName !== 'PASSWORD');
-                    return obj;
-                });
-            });
-        }
     }
 
 </script>

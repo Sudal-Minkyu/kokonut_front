@@ -1,140 +1,81 @@
 <script>
     import {personalInfoTableData} from "../../../../lib/store.js";
-    import {Swiper} from "swiper/bundle";
     import 'swiper/css/bundle';
-    import {onMount} from "svelte";
     export let personalInfoTableService;
-    export let personalInfoItemProp;
-
-    let galleryThumbs;
-    let galleryTop;
-
-    onMount(() => {
-        applySwiper();
-    });
-
-    const applySwiper = () => {
-        galleryThumbs = new Swiper('.gallery-thumbs', {
-            spaceBetween: 0,
-            slidesPerView: 'auto',
-            loop: false,
-            freeMode: true,
-            watchSlidesVisibility: true,
-            watchSlidesProgress: true,
-        });
-
-        galleryTop = new Swiper('.gallery-top', {
-            effect : 'fade',
-            fadeEffect: {
-                crossFade: true
-            },
-            spaceBetween: 0,
-            slidesPerView: 1,
-            loop:false,
-            touchRatio: 0,
-            thumbs: {
-                swiper: galleryThumbs,
-            },
-        });
-    }
 </script>
 
 <div class="prPart2_box" >
 
 
     <div class="prptitle marB24">
-        <h2>개인정보 항목
-            <button class="addtabBtn" id="add_tab_pop"  on:click={personalInfoTableService.addTabPop.show}>
-                <img src="/assets/images/common/tab_add_button_ver2.png" alt="탭추가">
-            </button>
-        </h2>
+        <h2>개인정보 항목</h2>
     </div>
 
-    <div class="prslideTabBox">
-        <div class="swiper-container gallery-thumbs" scrollbar-hide="true">
-            <div class="swiper-wrapper disflextop">
-                {#each $personalInfoTableData.userTableData as table, i}
-                    <div class="swiper-slide">
-                        <div class="sl_tab" on:click={() => personalInfoItemProp.getTableColumnList(table.ctName)}>{table.ctDesignation}<!--<div class="tab_delteBtn open_revise_tab_pop">삭제버튼</div>--></div>
-                    </div>
-                {/each}
-            </div>
-        </div>
-    </div>
-
-    <div class="boaTabBox">
+    <div class="boaTabBox" style="padding-top: 0.2rem;">
         <div class="bo_tabContentBox">
-            <div class="swiper-container gallery-top">
-                <div class="swiper-wrapper">
-                    {#each $personalInfoTableData.userTableData as table, i}
-                    <div class="swiper-slide"><!-- 탭컨텐츠 영역 -->
-                        <div class="prtable">
-                            <table>
-                                <colgroup>
-                                    <col style="width:8.21%;">
-                                    <col style="width:11.00%;">
-                                    <col style="width:20.66%;">
-                                    <col style="width:60.14%;">
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>선택</th>
-                                    <th>고유번호</th>
-                                    <th>항목</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {#each $personalInfoTableData.columnList as column, i}
-                                    <tr>
-                                        <td>{i+1}</td>
-                                        {#if column.fieldCode === "default" }
-                                            <td></td>
-                                        {:else}
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" bind:group={$personalInfoTableData.checkedColumnNameList} on:change={personalInfoTableService.handleColumnChecked} value="{column.fieldName}" id="ip{i}" class="partcheck">
-                                                    <label for="ip{i}"><em></em></label>
-                                                </div>
-                                            </td>
-                                        {/if}
-                                        <td>
-                                            {column.fieldCode !== 'default' ? column.fieldCode : ''}
-                                        </td>
-                                        {#if column.fieldSecrity === 1}
-                                            <td>
-                                                <div class="lockicon"></div>
-                                                {column.fieldComment}
-                                                <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
-                                            </td>
-                                        {:else}
-                                            <td>
-                                                {column.fieldComment}
-                                                <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
-                                            </td>
-                                        {/if}
-                                        <!--{#if column.fieldName === "ID" || column.fieldName === "PASSWORD" }-->
-                                        <!--    <td>-->
-                                        <!--        <div class="nonereviseBtn">수정불가</div>-->
-                                        <!--    </td>-->
-                                        <!--{:else}-->
-                                        <!--    <td>-->
-                                        <!--        <button>수정하기</button>-->
-                                        <!--    </td>-->
-                                        <!--{/if}-->
-                                    </tr>
-                                {/each}
-                                {#if !$personalInfoTableData.columnList.length}
-                                    <tr class="none_inq">
-                                        <td>추가된 항목이 없습니다.</td>
-                                    </tr>
-                                {/if}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            <div class="prtable" style="max-height: 41.5rem">
+                <table>
+                    <colgroup>
+                        <col style="width:8.21%;">
+                        <col style="width:11.00%;">
+                        <col style="width:20.66%;">
+                        <col style="width:60.14%;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>선택</th>
+                        <th>고유번호</th>
+                        <th>항목</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {#each $personalInfoTableData.columnList as column, i}
+                        <tr>
+                            <td>{i+1}</td>
+                            {#if ['1_id', '1_pw'].includes(column.fieldCode) }
+                                <td></td>
+                            {:else}
+                                <td>
+                                    <div class="koko_check">
+                                        <input type="checkbox" bind:group={$personalInfoTableData.checkedColumnNameList} on:change={personalInfoTableService.handleColumnChecked} value="{column.fieldName}" id="ip{i}" class="partcheck">
+                                        <label for="ip{i}"><em></em></label>
+                                    </div>
+                                </td>
+                            {/if}
+                            <td>
+                                {column.fieldCode}
+                            </td>
+                            {#if column.fieldSecrity === 1}
+                                <td>
+                                    <div class="lockicon"></div>
+                                    {column.fieldComment}
+                                    <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
+                                </td>
+                            {:else}
+                                <td>
+                                    {column.fieldComment}
+                                    <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
+                                </td>
+                            {/if}
+                            <!--{#if column.fieldName === "ID" || column.fieldName === "PASSWORD" }-->
+                            <!--    <td>-->
+                            <!--        <div class="nonereviseBtn">수정불가</div>-->
+                            <!--    </td>-->
+                            <!--{:else}-->
+                            <!--    <td>-->
+                            <!--        <button>수정하기</button>-->
+                            <!--    </td>-->
+                            <!--{/if}-->
+                        </tr>
                     {/each}
-                </div>
+                    {#if !$personalInfoTableData.columnList.length}
+                        <tr class="none_inq">
+                            <td>추가된 항목이 없습니다.</td>
+                        </tr>
+                    {/if}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

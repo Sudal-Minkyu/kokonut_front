@@ -6,37 +6,39 @@
     import {ajaxGet} from "../../../components/common/ajax.js";
     import PrivacySearchInitial from "../../../components/service/privacy/PrivacySearchInitial.svelte";
     import PrivacySearchDetail from "../../../components/service/privacy/PrivacySearchDetail.svelte";
+    import {openConfirm} from "../../../components/common/ui/DialogManager.js";
+    import {push} from "svelte-spa-router";
 
     onMount(() => {
         privacySearchData.set(JSON.parse(initialPrivacySearch));
-        getTableAndColumnList();
+        getColumnList();
     });
 
-    const getTableAndColumnList = () => {
-        ajaxGet('/v2/api/Company/privacyTableList', false, (res) => {
-            privacySearchData.update(obj => {
-                obj.tableList = res.data.sendData.companyTableList;
-                obj.searchConditionList[0].searchTable = obj.tableList[0].ctName;
-                obj.searchConditionList[0].currentTableName = obj.tableList[0].ctDesignation;
-                obj.searchConditionList[0].currentTableIndex = 0;
-                return obj;
-            });
-
-            for (const [i, {ctName}] of $privacySearchData.tableList.entries()) {
-                ajaxGet('/v2/api/DynamicUser/searchColumnCall', {tableName: ctName}, (res2) => {
-                    privacySearchData.update(obj => {
-                        obj.tableList[i].columnList = res2.data.sendData.fieldList;
-                        if (i === 0) { // 첫번째 테이블에 할당된 컬럼을 기준으로, 처음 화면이 뜰 때의 셀렉트 박스 선택 상태를 정하기 위함
-                            obj.searchConditionList[0].searchCode = obj.tableList[0].columnList[0].fieldCode;
-                            obj.searchConditionList[0].currentColumnName = obj.tableList[0].columnList[0].fieldComment;
-                            obj.searchConditionList[0].currentTableColumnList = obj.tableList[0].columnList;
-                        }
-                        return obj;
-                    });
+    const getColumnList = () => {
+        ajaxGet('/v2/api/DynamicUser/searchColumnCall', false, (res2) => {
+            if (res2.data.sendData.fieldList.length) {
+                privacySearchData.update(obj => {
+                    obj.columnList = res2.data.sendData.fieldList;
+                    console.log('컬럼리스트', obj.columnList);
+                    obj.searchConditionList[0].searchCode = obj.columnList[0].fieldCode;
+                    obj.searchConditionList[0].currentColumnName = obj.columnList[0].fieldComment;
+                    obj.searchConditionList[0].currentTableColumnList = obj.columnList;
+                    return obj;
+                });
+            } else {
+                openConfirm({
+                    icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: "항목이 존재하지 않음", // 제목
+                    contents1: '항목이 존재하지 않아 사용할 수 없습니다.',
+                    contents2: '관리자에게 해당 사실을 문의해 주세요.',
+                    btnCheck: '확인', // 확인 버튼의 텍스트
+                    callback: () => {
+                        push('/service');
+                    },
                 });
             }
         });
-    }
+    };
 </script>
 
 <Header />

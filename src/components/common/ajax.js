@@ -93,7 +93,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         headers["Authorization"] = get(accessToken);
     } else if(url.slice(0, 5).includes('v3/')) {
         headers["ApiKey"] = "ff5873bbf9faa2218b369a577ea9e452";
-    } else if(url === '/v1/api/Auth/authToken') {
+    } else if(url.slice(0, 5).includes('v1/')) {
         headers["keyBufferSto"] = get(keyBufferSto);
         headers["ivSto"] = get(ivSto);
     }
