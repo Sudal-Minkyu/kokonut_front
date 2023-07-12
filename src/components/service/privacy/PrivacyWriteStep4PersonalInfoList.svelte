@@ -62,7 +62,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    {col.fieldCode !== 'default' ? col.fieldCode : ''}
+                                    {col.fieldCode}
                                 </td>
                                 <td>
                                     <div class="{col.fieldSecrity ? 'lockicon' : ''}"></div>

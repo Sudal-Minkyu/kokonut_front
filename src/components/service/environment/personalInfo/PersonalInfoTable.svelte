@@ -33,7 +33,7 @@
                     {#each $personalInfoTableData.columnList as column, i}
                         <tr>
                             <td>{i+1}</td>
-                            {#if column.fieldCode === "default" }
+                            {#if ['1_id', '1_pw'].includes(column.fieldCode) }
                                 <td></td>
                             {:else}
                                 <td>
@@ -44,7 +44,7 @@
                                 </td>
                             {/if}
                             <td>
-                                {column.fieldCode !== 'default' ? column.fieldCode : ''}
+                                {column.fieldCode}
                             </td>
                             {#if column.fieldSecrity === 1}
                                 <td>

@@ -249,7 +249,8 @@
             // conditionFun(2, false);
             knEmailNotCheck = true;
         }
-        
+
+        console.log(cpNameBlank + "_" + passwordCheck + "_" + passwordConfirmCheck + "_" + emailStep + "_" + knEmailCheck);
         if(cpNameBlank &&passwordCheck && passwordConfirmCheck && emailStep ===2 && knEmailCheck) {
             console.log("회원가입 조건 충족 완료 -> 시작!");
 
@@ -264,6 +265,7 @@
                 knPasswordConfirm : knPasswordConfirm,
                 knEmailCheck : knEmailCheck,
 			}
+            console.log('회원가입보내는정보', sendData);
 
             ajaxBody(url, sendData, (res) => {
                 push('/joinsu');

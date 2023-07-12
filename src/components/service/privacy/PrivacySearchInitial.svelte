@@ -119,6 +119,7 @@
                         btnCheck: '확인', // 확인 버튼의 텍스트
                     });
                     searchResultState = -1;
+                    document.activeElement.blur();
                 }
                 return obj;
             });
@@ -217,7 +218,7 @@
                            placeholder={distinguishSearchTextPlaceholder($privacySearchData.searchConditionList[i])}
                            bind:value={$privacySearchData.searchConditionList[i].searchText}
                            on:keypress={handleEnterSearchText} />
-                    <button tabindex="-1" on:click={getUserListByCondition}>
+                    <button tabindex="-1" on:click={() => {getUserListByCondition()}}>
                         <img src="/assets/images/common/icon_search_ver2.png" alt="">
                     </button>
                 </div>
