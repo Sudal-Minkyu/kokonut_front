@@ -14,6 +14,7 @@
     import { ajaxParam } from "../../common/ajax.js";
     import jQuery from "jquery";
     import MainScreenBlocker from "../../common/ui/MainScreenBlocker.svelte";
+    import axios from "axios";
 
     jQuery(function() {
         // 나이스 폼열기
@@ -110,6 +111,31 @@
         } catch (error) {
             console.error("Error during encryption: ", error);
         }
+    }
+
+    const kk = () => {
+        axios.post(import.meta.env.VITE_SERVER_URL + '/v1/api/Auth/kokonutSignUp', {
+            cpName: '우디베타',
+            knName: '김민규',
+            knPhoneNumber: '01020450716',
+            knEmail: 'woody@kokonut.me',
+            knPassword: '!Kokonut123456',
+            knPasswordConfirm: '!Kokonut123456',
+            knEmailCheck: true
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'keyBufferSto': '',
+                'ivSto': ''
+            },
+            withCredentials: true
+        })
+            .then(response => {
+                console.log('res', response);
+            })
+            .catch(error => {
+                console.log('err', error);
+            });
     }
 
     let ahId;
@@ -248,10 +274,6 @@
             loginBtn();
         }
     }
-
-    window.kk = () => {
-        console.log($serviceSettingData);
-    }
 </script>
 
 {#if stage === 0}
@@ -282,6 +304,9 @@
     </div>
     <div class="join_bottom login">
         <button type="button" on:click={loginBtn}><p>로그인</p></button>
+    </div>
+    <div class="join_bottom login">
+        <button type="button" on:click={kk}><p>테스트</p></button>
     </div>
 {:else}
     <LoginOTP {stageChange} {notJoinUser} {initiateGoogleOtpLogin} {knEmail} {otpError} {otp_err_msg} />
