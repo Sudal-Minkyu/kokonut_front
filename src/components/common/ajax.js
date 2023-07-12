@@ -97,6 +97,14 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         headers["keyBufferSto"] = get(keyBufferSto);
         headers["ivSto"] = get(ivSto);
     }
+    console.log('ajax상세데이터', {
+        url: import.meta.env.VITE_SERVER_URL + url,
+        method,
+        params,
+        data,
+        headers,
+        withCredentials: true,
+    });
 
     axios({
         url: import.meta.env.VITE_SERVER_URL + url,
