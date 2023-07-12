@@ -119,8 +119,8 @@
             knName: '김민규',
             knPhoneNumber: '01020450716',
             knEmail: 'woody@kokonut.me',
-            knPassword: '!Kokonut123456',
-            knPasswordConfirm: '!Kokonut123456',
+            knPassword: 'Kokonut123456',
+            knPasswordConfirm: 'Kokonut123456',
             knEmailCheck: true
         }, {
             headers: {
