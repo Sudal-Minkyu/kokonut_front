@@ -231,6 +231,7 @@ export const bannerMessage = writable('');
 
 export const initialPrivacySearch = JSON.stringify({
     currentState: 'search',
+    searchResultState: -1, // -1 -> 검색안한 상태 혹은 검색결과 없음, 0 검색중, 1 검색완료
     columnList: [],
     searchConditionList: [{
         searchCode: '',
@@ -277,7 +278,7 @@ export const initialServiceSetting = JSON.stringify({
         deleteIpList: [],
         cautionChecked: false,
     },
-    tableList: [],
+    columnList: [],
 });
 
 export const serviceSettingData = writable(JSON.parse(initialServiceSetting));

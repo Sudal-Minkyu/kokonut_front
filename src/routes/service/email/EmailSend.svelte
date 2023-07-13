@@ -1,9 +1,12 @@
 
 <script>
     import Header from "../../../components/service/layout/Header.svelte"
-    import { push, link } from 'svelte-spa-router'
-    import {backBtn, page} from '../../../lib/store'
+    import { link } from 'svelte-spa-router'
+    import {backBtn} from '../../../lib/store'
     import jQuery from 'jquery';
+    import 'summernote/dist/summernote-lite.js';
+    import {onMount} from "svelte";
+    import 'summernote/dist/summernote-lite.css';
 
     // 이메일 예약 팝업 버튼 스크립트
     jQuery(".mail_reserveBtn").click(function(){
@@ -18,13 +21,26 @@
     jQuery(".mailreserve_confirm").click(function(){
         jQuery('.mail_reserveBox').hide();
     });
-    
+    onMount(() => {
+        jQuery("#summernote").summernote({
+            placeholder: 'Hello stand alone ui',
+            tabsize: 2,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    })
 </script>
 
 <Header />
 <section class="bodyWrap">
     <div class="contentInnerWrap">
-
         <div class="pageTitleBtn marB50">
             <a use:link href="/service/emailList">{$backBtn}</a>
             <h1>이메일 발송</h1>
@@ -174,9 +190,8 @@
                     </div>
 
                     <div class="writeToolBox marT40">
-                        <img src="/kokonut/member/public/img/common/writetool_testimg.png" alt="" style="max-width:100%;">
+                        <div id="summernote">내용을 입력하쇼</div>
                     </div>
-
                 </div>
             </form>
             <div class="bottomInfoBox marT24">
@@ -184,8 +199,5 @@
                 <dl>회원정보 DB항목 중 광고/홍보 수신설정 항목이 없는 경우 광고/홍보를 선택할 수 없으며, 임의로 광고/홍보 메시지 발송 시 모든 책임은 관리담당자에게 있습니다.</dl>
             </div>
         </div>
-
-
-
     </div>
 </section>
