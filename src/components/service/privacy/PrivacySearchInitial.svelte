@@ -8,7 +8,6 @@
     import LoadingOverlay from "../../common/ui/LoadingOverlay.svelte";
 
     const SEARCH_CONDITION_LIMIT = 5;
-    let searchResultState = $privacySearchData.rawResultList.length ? 1 : -1; // -1 -> 검색안한 상태 혹은 검색결과 없음, 0 검색중, 1 검색완료
     const addSearchCondition = () => {
         if ($privacySearchData.searchConditionList.length < SEARCH_CONDITION_LIMIT) {
             privacySearchData.update(obj => {
@@ -62,7 +61,10 @@
     }
 
     const getUserListByCondition = (page = 1) => {
-        searchResultState = 0;
+        privacySearchData.update(obj => {
+            obj.searchResultState = 0;
+            return obj;
+        });
         const searchCondition = {
             searchCodes: $privacySearchData.searchConditionList.map(obj => obj.searchCode),
             searchTexts: $privacySearchData.searchConditionList.map(obj => obj.searchText),
@@ -109,7 +111,10 @@
                             rawObj['마지막로그인일시'],
                         ];
                     });
-                    searchResultState = 1;
+                    privacySearchData.update(obj => {
+                        obj.searchResultState = 1;
+                        return obj;
+                    });
                 } else {
                     openConfirm({
                         icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
@@ -118,7 +123,10 @@
                         contents2: '',
                         btnCheck: '확인', // 확인 버튼의 텍스트
                     });
-                    searchResultState = -1;
+                    privacySearchData.update(obj => {
+                        obj.searchResultState = -1;
+                        return obj;
+                    });
                     document.activeElement.blur();
                 }
                 return obj;
@@ -146,31 +154,23 @@
             const rawDetail = res.data.sendData.privacyInfo;
             console.log('상세보기결과', rawDetail);
 
-            // const refinedDetail = [];
-            // const detailKeyList = Object.keys(rawDetail).sort();
-            // for (const [i, tableKey] of detailKeyList.entries()) {
-            //     const columnKeyList = rawDetail[tableKey].length ? Object.keys(rawDetail[tableKey][0]).sort() : [];
-            //     refinedDetail[i] = {
-            //         tableName: tableKey,
-            //         columnDataset: [],
-            //     };
-            //     for (const [j, rowOfTable] of rawDetail[tableKey].entries()) {
-            //         refinedDetail[i].columnDataset[j] = [];
-            //         for (const columnKey of columnKeyList) {
-            //             refinedDetail[i].columnDataset[j].push({
-            //                 columnName: columnKey,
-            //                 columnValue: rowOfTable[columnKey],
-            //             });
-            //         }
-            //     }
-            // }
-            //
-            // privacySearchData.update(obj => {
-            //     obj.currentDetail = refinedDetail;
-            //     obj.currentState = 'detail';
-            //     console.log('정제된상세보기', refinedDetail);
-            //     return obj;
-            // });
+            const refinedDetail = [];
+            if (rawDetail.length) {
+                const detailKeyList = Object.keys(rawDetail[0]).sort();
+                for (const columnKey of detailKeyList) {
+                    refinedDetail.push({
+                        columnName: columnKey,
+                        columnValue: rawDetail[0][columnKey],
+                    });
+                }
+            }
+
+            privacySearchData.update(obj => {
+                obj.currentDetail = refinedDetail;
+                obj.currentState = 'detail';
+                console.log('정제된상세보기', refinedDetail);
+                return obj;
+            });
         });
     }
 
@@ -237,8 +237,8 @@
     </div>
 {/if}
 
-{#if searchResultState !== -1}
-    <LoadingOverlay bind:loadState={searchResultState} >
+{#if $privacySearchData.searchResultState !== -1}
+    <LoadingOverlay bind:loadState={$privacySearchData.searchResultState} >
         <div class="sea_resultWrap" in:fade>
             <div class="kotable search_result marT50">
                 <div class="kt_tableTopBox marB24">

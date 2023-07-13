@@ -4,7 +4,7 @@
     export let personalInfoTableService;
 </script>
 
-<div class="prPart2_box" >
+<div class="prPart2_box" style="width: 41%;">
 
 
     <div class="prptitle marB24">
@@ -50,12 +50,16 @@
                                 <td>
                                     <div class="lockicon"></div>
                                     {column.fieldComment}
-                                    <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
+                                    {#if column.fieldCategory}
+                                        <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
+                                    {/if}
                                 </td>
                             {:else}
                                 <td>
                                     {column.fieldComment}
-                                    <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
+                                    {#if column.fieldCategory}
+                                        <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
+                                    {/if}
                                 </td>
                             {/if}
                             <!--{#if column.fieldName === "ID" || column.fieldName === "PASSWORD" }-->

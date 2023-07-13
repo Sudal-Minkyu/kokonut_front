@@ -50,24 +50,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {#each $providePrivacyWriteData.step4.columnList as col, i}
+                        {#each $providePrivacyWriteData.step4.columnList as column, i}
                             <tr>
                                 <td>
                                     <div class="koko_check">
                                         <input type="checkbox" id="ip{i}" class="partcheck"
-                                               value={col.fieldCode}
+                                               value={column.fieldCode}
                                                bind:group={$providePrivacyWriteData.step4.targetColumnList}
                                                on:change={handleTargetColumnCheckChange} />
                                         <label for="ip{i}"><em></em></label>
                                     </div>
                                 </td>
                                 <td>
-                                    {col.fieldCode}
+                                    {column.fieldCode}
                                 </td>
                                 <td>
-                                    <div class="{col.fieldSecrity ? 'lockicon' : ''}"></div>
-                                    {col.fieldComment}
-                                    <span class="subElement {col.fieldColor}">{col.fieldCategory}</span>
+                                    <div class="{column.fieldSecrity ? 'lockicon' : ''}"></div>
+                                    {column.fieldComment}
+                                    {#if column.fieldCategory}
+                                    <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
+                                    {/if}
                                 </td>
                             </tr>
                         {/each}
