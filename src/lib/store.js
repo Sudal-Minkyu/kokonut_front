@@ -296,3 +296,18 @@ export const initialSubscriptionManagement = JSON.stringify({
 });
 
 export const subscriptionManagementData = writable(JSON.parse(initialSubscriptionManagement));
+
+export const initialEmailSend = JSON.stringify({
+    emType: '1', // 발송타입(1 : 일반발송, 2 : 예약발송)
+    emReservationDate: 0, // 예약발송일 경우 발송시간
+    emPurpose: '1', // 발송목적(1:주요공지, 2:광고/홍보, 3:기타)
+    emEtc: '', // 기타일 경우 해당 내용
+    emReceiverType: '0', // 발송대상(1 : 전체회원, 2 : 선택회원)
+    emailSendChoseList: [], // 선택회원 리스트
+    emEmailSend: '', // 발신자 이메일
+    emTitle: '', // 제목
+    emContents: '', // 내용
+    multipartFiles: 0, // 첨부파일 목록 -> 20MB미만일 경우만
+});
+
+export const emailSendData = writable(JSON.parse(initialEmailSend));

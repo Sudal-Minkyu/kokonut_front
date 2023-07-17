@@ -1,41 +1,51 @@
 
 <script>
     import Header from "../../../components/service/layout/Header.svelte"
-    import { link } from 'svelte-spa-router'
+    import {link} from 'svelte-spa-router'
     import {backBtn} from '../../../lib/store'
     import jQuery from 'jquery';
-    import 'summernote/dist/summernote-lite.js';
+    import TextEditor from "../../../components/common/TextEditor.svelte";
+    import EmailPersonSelectPop from "../../../components/service/email/EmailPersonSelectPop.svelte";
+    import EmailBookPop from "../../../components/service/email/EmailBookPop.svelte";
+    import {SelectBoxManager} from "../../../components/common/action/SelectBoxManager.js";
+    import {emailSendData, initialEmailSend} from "../../../lib/store";
     import {onMount} from "svelte";
-    import 'summernote/dist/summernote-lite.css';
+    import {getColumnList} from "../../../components/common/privacySearch/privacySearch.js";
 
     // 이메일 예약 팝업 버튼 스크립트
     jQuery(".mail_reserveBtn").click(function(){
         jQuery('.mail_reserveBox').show();
     });
+
     jQuery(".mailreserve_cancal").click(function(){
         document.getElementById('standardTime').innerText = '전체';
         jQuery('#datepicker').val('');
         document.getElementById('timeSelection').innerText = '시간선택';
         jQuery('.mail_reserveBox').hide();
     });
+
     jQuery(".mailreserve_confirm").click(function(){
         jQuery('.mail_reserveBox').hide();
     });
+
     onMount(() => {
-        jQuery("#summernote").summernote({
-            placeholder: 'Hello stand alone ui',
-            tabsize: 2,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
-    })
+        emailSendData.set(JSON.parse(initialEmailSend));
+        getColumnList();
+    });
+
+    const handleEmPurposeSelect = (el) => {
+        console.log(el.dataset.value);
+    }
+
+    let isEmailPersonSelectPop = false;
+    const handleEmReceiverTypeSelect = (e) => {
+        console.log(e.target.value);
+        if (e.target.value === '1') {
+            isEmailPersonSelectPop = false;
+        } else if (e.target.value === '2') {
+            isEmailPersonSelectPop = true;
+        }
+    }
 </script>
 
 <Header />
@@ -55,87 +65,29 @@
                         <div class="mail_reserveBtn">예약</div>
                     </div>
                     <!-- 이메일 예약 팝업 영역 -->
-                    <div class="mail_reserveBox">
-                        <div class="mrTopBox">
-                            <div class="mrTopTitle marB12">발송 예약</div>
-                            <div class="mrtContent marB12 mrtType01">
-                                <dl>기준시간</dl>
-                                <div class="mrtBox">
-                                    <div class="mrtSelBox">
-                                        <div class="selectBox wid100per nonePad">
-                                            <div class="label" id="standardTime">전체</div>
-                                            <ul class="optionList">
-                                                <li class="optionItem curv">항목1</li>
-                                                <li class="optionItem curv">항목2</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mrtContent mrtType02">
-                                <dl>예약시간</dl>
-                                <div class="mrtBox">
-                                    <div class="time_input">
-                                        <input type="text" name="startdate" id="datepicker" class="" placeholder="시작일" autocomplete="off" maxlength="10" value="">
-                                    </div>
-                                    <div class="mrtSelBox">
-                                        <div class="selectBox wid100per nonePad">
-                                            <div class="label" id="timeSelection">시간선택</div>
-                                            <ul class="optionList">
-                                                <li class="optionItem curv">1시</li>
-                                                <li class="optionItem curv">2시</li>
-                                                <li class="optionItem curv">3시</li>
-                                                <li class="optionItem curv">4시</li>
-                                                <li class="optionItem curv">5시</li>
-                                                <li class="optionItem curv">6시</li>
-                                                <li class="optionItem curv">7시</li>
-                                                <li class="optionItem curv">8시</li>
-                                                <li class="optionItem curv">9시</li>
-                                                <li class="optionItem curv">10시</li>
-                                                <li class="optionItem curv">11시</li>
-                                                <li class="optionItem curv">12시</li>
-                                                <li class="optionItem curv">13시</li>
-                                                <li class="optionItem curv">14시</li>
-                                                <li class="optionItem curv">15시</li>
-                                                <li class="optionItem curv">16시</li>
-                                                <li class="optionItem curv">17시</li>
-                                                <li class="optionItem curv">18시</li>
-                                                <li class="optionItem curv">19시</li>
-                                                <li class="optionItem curv">20시</li>
-                                                <li class="optionItem curv">21시</li>
-                                                <li class="optionItem curv">22시</li>
-                                                <li class="optionItem curv">23시</li>
-                                                <li class="optionItem curv">24시</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    {#if false}
+                        <EmailBookPop />
+                    {/if}
+                    {#if false}
+                        <!-- 이메일 예약 선택된 정보 영역 -->
+                        <div class="cur_reserve marT16">
+                            <p>예약</p>
+                            <dl><span>2023. 03. 20</span> <span>(월)</span> <span>14:00</span></dl>
+                            <div class="reserve_close"></div>
                         </div>
-                        <div class="mrBottomBox">
-                            <div class="floatBtnBox">
-                                <div class="del mailreserve_cancal" id="">취소</div>
-                                <div class="add mailreserve_confirm" id="">확인</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 이메일 예약 선택된 정보 영역 -->
-                    <div class="cur_reserve marT16">
-                        <p>예약</p>
-                        <dl><span>2023. 03. 20</span> <span>(월)</span> <span>14:00</span></dl>
-                        <div class="reserve_close" id=""></div>
-                    </div>
+                    {/if}
                 </div>
-                
+
                 <div class="semailContentBox marT24">
                     <div class="semailitemBox marB20">
                         <dl>발송목적</dl>
                         <div class="se_item seselCont">
-                            <div class="selectBox wid122 nonePad">
-                                <div class="label" id="">선택</div>
+                            <div class="selectBox wid122 nonePad" use:SelectBoxManager={{callback: handleEmPurposeSelect}}>
+                                <div class="label">주요공지</div>
                                 <ul class="optionList">
-                                    <li class="optionItem curv">주요공지</li>
-                                    <li class="optionItem curv">광고/홍보</li>
+                                    <li class="optionItem curv" data-value="1">주요공지</li>
+                                    <li class="optionItem curv" data-value="2">광고/홍보</li>
+                                    <li class="optionItem curv" data-value="3">기타</li>
                                 </ul>
                             </div>
                         </div>
@@ -145,7 +97,8 @@
                         <div class="se_item seradio">
                             <div class="popRadio">
                                 <div class="check poprCheck">
-                                    <input type="radio" class="radio" name="use_noneuse" id="전체 회원" value="전체 회원" checked="">
+                                    <input type="radio" class="radio" name="use_noneuse" id="전체 회원" value="1"
+                                           bind:group={$emailSendData.emReceiverType} on:click={handleEmReceiverTypeSelect} >
                                     <label for="전체 회원">
                                         <em><dt></dt></em>
                                         전체 회원
@@ -153,7 +106,8 @@
                                     </label>
                                 </div>
                                 <div class="check poprCheck">
-                                    <input type="radio" class="radio" name="use_noneuse" id="선택 회원" value="선택 회원">
+                                    <input type="radio" class="radio" name="use_noneuse" id="선택 회원" value="2"
+                                           bind:group={$emailSendData.emReceiverType} on:click={handleEmReceiverTypeSelect} >
                                     <label for="선택 회원">
                                         <em><dt></dt></em>
                                         선택 회원
@@ -167,13 +121,13 @@
                     <div class="semailitemBox marB20">
                         <dl>발신자 설정</dl>
                         <div class="se_item ">
-                            <input type="text" name="" id="" placeholder="발신자의 이메일을 적어주세요."/>
+                            <input type="text" placeholder="발신자의 이메일을 적어주세요."/>
                         </div>
                     </div>
                     <div class="semailitemBox marB20">
                         <dl>제목</dl>
                         <div class="se_item ">
-                            <input type="text" name="" id="" placeholder="제목을 적어주세요."/>
+                            <input type="text" placeholder="제목을 적어주세요."/>
                         </div>
                     </div>
                     <div class="semailitemBox sefileCont">
@@ -190,7 +144,7 @@
                     </div>
 
                     <div class="writeToolBox marT40">
-                        <div id="summernote">내용을 입력하쇼</div>
+                        <TextEditor />
                     </div>
                 </div>
             </form>
@@ -200,4 +154,9 @@
             </div>
         </div>
     </div>
+
+    {#if isEmailPersonSelectPop}
+        <EmailPersonSelectPop bind:isEmailPersonSelectPop={isEmailPersonSelectPop}/>
+    {/if}
 </section>
+
