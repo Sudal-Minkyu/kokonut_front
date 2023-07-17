@@ -77,6 +77,40 @@
         });
     }
 
+    function emailSendTest() {
+        console.log("이메일발송 테스트 클릭!");
+
+        console.log(filesArr);
+        console.log(filesArr.length);
+
+        let url =  '/v2/api/Email/sendEmail';
+
+        const now = new Date();
+        now.setMinutes(now.getMinutes() + 10);
+
+        let formData = new FormData();
+        formData.append("emType","1");
+        formData.append("emReservationDate","");
+        formData.append("emReservationDate",now.getTime());
+        formData.append("emPurpose","3");
+        formData.append("emEtc","기타내용입니다.");
+        formData.append("emReceiverType","2");
+        formData.append("emailSendChoseList","");
+        formData.append("emEmailSend","woody@kokonut.me");
+        formData.append("emTitle","파일테스트");
+        formData.append("emContents","파일을 보낸다..@_@");
+        if(filesArr.length !== 0) {
+            for(let i=0; i<filesArr.length; i++){
+                formData.append('multipartFiles', new Blob([filesArr[i]], {type: filesArr[i].type}), filesArr[i].name);
+            }
+        }
+
+        ajaxMultipart(url, formData, (res) => {
+            console.log(res);
+        });
+
+    }
+
     let filesArr = [];
     let files;
     $: if (files) {
@@ -230,6 +264,7 @@
             <div class="bottomBtnBox marT24">
                 <a type="submit" class="myinfoChangeBtn" style="padding: 14px;margin-right: 10px;" use:link href="/service/environment/qnaList">목록가기</a>
                 <button type="submit" class="bottomBtn" on:click={qnaStart}>문의하기</button>
+                <button type="submit" class="bottomBtn" on:click={emailSendTest}>이메일발송테스트</button>
             </div>
         </div>
 
