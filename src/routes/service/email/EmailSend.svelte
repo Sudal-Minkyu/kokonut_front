@@ -38,13 +38,23 @@
     }
 
     let isEmailPersonSelectPop = false;
-    const handleEmReceiverTypeSelect = (e) => {
-        console.log(e.target.value);
-        if (e.target.value === '1') {
-            isEmailPersonSelectPop = false;
-        } else if (e.target.value === '2') {
-            isEmailPersonSelectPop = true;
-        }
+
+    const openEmailPersonSelectPop = () => {
+        isEmailPersonSelectPop = true;
+    }
+
+    const closeEmailPersonSelectPop = () => {
+        isEmailPersonSelectPop = false;
+    }
+
+    let isEmailBookPop = false;
+
+    const openEmailBookPop = () => {
+        isEmailBookPop = true;
+    }
+
+    const closeEmailBookPop = () => {
+        isEmailBookPop = false;
     }
 </script>
 
@@ -62,11 +72,11 @@
                 <div>
                     <div class="semBtnBox">
                         <div><button type="submit" class="semBtn">발송하기</button></div>
-                        <div class="mail_reserveBtn">예약</div>
+                        <div class="mail_reserveBtn" on:click={openEmailBookPop}>예약</div>
                     </div>
                     <!-- 이메일 예약 팝업 영역 -->
-                    {#if false}
-                        <EmailBookPop />
+                    {#if isEmailBookPop}
+                        <EmailBookPop {closeEmailBookPop}/>
                     {/if}
                     {#if false}
                         <!-- 이메일 예약 선택된 정보 영역 -->
@@ -97,8 +107,7 @@
                         <div class="se_item seradio">
                             <div class="popRadio">
                                 <div class="check poprCheck">
-                                    <input type="radio" class="radio" name="use_noneuse" id="전체 회원" value="1"
-                                           bind:group={$emailSendData.emReceiverType} on:click={handleEmReceiverTypeSelect} >
+                                    <input type="radio" class="radio" name="use_noneuse" id="전체 회원" value="1" >
                                     <label for="전체 회원">
                                         <em><dt></dt></em>
                                         전체 회원
@@ -106,13 +115,12 @@
                                     </label>
                                 </div>
                                 <div class="check poprCheck">
-                                    <input type="radio" class="radio" name="use_noneuse" id="선택 회원" value="2"
-                                           bind:group={$emailSendData.emReceiverType} on:click={handleEmReceiverTypeSelect} >
+                                    <input type="radio" class="radio" name="use_noneuse" id="선택 회원" value="2" >
                                     <label for="선택 회원">
                                         <em><dt></dt></em>
                                         선택 회원
                                         <span>20명</span>
-                                        <div class="sendMemberBtn" id="email_member_pop">회원선택</div>
+                                        <div class="sendMemberBtn" id="email_member_pop" on:click={openEmailPersonSelectPop}>회원선택</div>
                                     </label>
                                 </div>
                             </div>
@@ -156,7 +164,7 @@
     </div>
 
     {#if isEmailPersonSelectPop}
-        <EmailPersonSelectPop bind:isEmailPersonSelectPop={isEmailPersonSelectPop}/>
+        <EmailPersonSelectPop {closeEmailPersonSelectPop}/>
     {/if}
 </section>
 

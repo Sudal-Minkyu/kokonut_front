@@ -5,8 +5,6 @@
 </script>
 
 <div class="prPart2_box" style="width: 41%;">
-
-
     <div class="prptitle marB24">
         <h2>개인정보 항목</h2>
     </div>
@@ -16,10 +14,10 @@
             <div class="prtable" style="max-height: 41.5rem">
                 <table>
                     <colgroup>
-                        <col style="width:8.21%;">
-                        <col style="width:11.00%;">
-                        <col style="width:20.66%;">
-                        <col style="width:60.14%;">
+                        <col style="width:10.00%;">
+                        <col style="width:10.00%;">
+                        <col style="width:18.00%;">
+                        <col style="width:62.01%;">
                     </colgroup>
                     <thead>
                     <tr>

@@ -1,5 +1,13 @@
 <script>
+    export let closeEmailBookPop;
 
+    const handleCancel = () => {
+        closeEmailBookPop();
+    }
+
+    const handleConfirm = () => {
+        closeEmailBookPop();
+    }
 </script>
 
 <!-- 이메일 예약 팝업 영역 -->
@@ -62,8 +70,8 @@
     </div>
     <div class="mrBottomBox">
         <div class="floatBtnBox">
-            <div class="del mailreserve_cancal">취소</div>
-            <div class="add mailreserve_confirm">확인</div>
+            <div class="del mailreserve_cancal" on:click={handleCancel}>취소</div>
+            <div class="add mailreserve_confirm" on:click={handleConfirm}>확인</div>
         </div>
     </div>
 </div>

@@ -8,21 +8,21 @@
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxBody} from "../../components/common/ajax.js";
 
+    let userEmail = "";
+    let createLayout = 0;
+    let pageErrMsg1 = "";
+    let pageErrMsg2 = "";
+    let pageErrUrl = "/";
+
     onMount(async () => {
         // 관리자등록 검증
         await createCheck();
-    })
-
+    });
 
     let searchParams = new URLSearchParams($querystring);
 
     function createCheck() {
         console.log("관리자 등록 키 검증");
-
-        // console.log("searchParams : "+searchParams);
-        // console.log("evKoData : "+searchParams.get("evKo"));
-        // console.log("kvKoData : "+searchParams.get("kvKo"));
-
         if(searchParams.has("evKo") && searchParams.has("kvKo") && searchParams.has("ivKo")) {
             let url = "/v1/api/Auth/createCheck"
 
@@ -57,25 +57,19 @@
                     pageErrUrl = "/"
                     createLayout = 2;
                 } else {
+                    pageErrMsg1 = "관리자 등록 키 검증 실패";
+                    pageErrMsg2 = errMsg;
+                    pageErrUrl = "/login"
                     createLayout = 2;
-                    console.error("관리자 등록 키 검증 실패");
-                    console.error(errMsg);
                 }
                 return {action: 'NONE'};
             });
         }
     }
-
-    let userEmail = "";
-
-    let createLayout = 0;
-    let pageErrMsg1 = "";
-    let pageErrMsg2 = "";
-    let pageErrUrl = "";
 </script>
 
 
-<LoadingOverlay left={45} top={30}>
+<LoadingOverlay bind:loadState={createLayout} left={45} top={30}>
     {#if createLayout === 1}
         <div class="join_membership" id="joinWrap">
             <div class="joinCont">
@@ -85,7 +79,7 @@
                 </div>
             </div>
         </div>
-    {:else}
+    {:else if createLayout === 2}
         <Error {pageErrMsg1} {pageErrMsg2} {pageErrUrl} />
     {/if}
-</LoadingOverlay>
+</LoadingOverlay>a

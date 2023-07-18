@@ -5,11 +5,7 @@
     import {privacySearchData} from "../../../lib/store.js";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
 
-    export let isEmailPersonSelectPop;
-
-    const closePop = () => {
-        isEmailPersonSelectPop = false;
-    }
+    export let closeEmailPersonSelectPop;
 </script>
 
 <!-- [D] 회원선택 팝업 -->
@@ -239,11 +235,11 @@
             </div>
 
             <div class="kokopopBtnBox">
-                <div class="koko_cancel email_member_pop_close" on:click={closePop}>취소</div>
+                <div class="koko_cancel email_member_pop_close" on:click={closeEmailPersonSelectPop}>취소</div>
                 <div class="koko_go"><button type="submit">선택</button></div>
             </div>
         </div>
-        <div class="koko-popup-close email_member_pop_close" data-popup-close="email_member_pop_close" on:click={closePop}></div>
+        <div class="koko-popup-close email_member_pop_close" data-popup-close="email_member_pop_close" on:click={closeEmailPersonSelectPop}></div>
     </div>
 </div>
 <!-- // [D] 회원선택 팝업 -->
