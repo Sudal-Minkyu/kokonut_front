@@ -1,4 +1,34 @@
 <script>
+    import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    import {singleDatePicker} from "../../common/action/DatePicker.js";
+    import {onMount} from "svelte";
+    import ErrorHighlight from "../../common/ui/ErrorHighlight.svelte";
+    import {emailSendData} from "../../../lib/store.js";
+
+    let selectedDate;
+    let selectedHour;
+    let highlightMsg;
+
+    onMount(() => {
+        const baseDate = $emailSendData.emReservationDate ? new Date($emailSendData.emReservationDate) : new Date();
+        // 미리 선택한 시간이 있으면 인풋에 반영할 것
+        selectedHour = $emailSendData.emReservationDate? baseDate.getHours() : null;
+        highlightMsg = '';
+
+        singleDatePicker('datepicker', (result) => {
+            selectedDate = result.toDate();
+        }, {
+            startDate: baseDate,
+            minDate: new Date(),
+        });
+
+        selectedDate = new Date(document.getElementById('datepicker').value);
+
+        if (selectedHour) {
+            document.getElementById('timeSelection').innerHTML = selectedHour + ' 시';
+        }
+    });
+
     export let closeEmailBookPop;
 
     const handleCancel = () => {
@@ -6,7 +36,26 @@
     }
 
     const handleConfirm = () => {
+        if (!selectedHour) {
+            highlightMsg = '발송시간을 선택해 주세요';
+            return;
+        }
+
+        emailSendData.update(obj => {
+            obj.emReservationDate = selectedDate.setHours(selectedHour);
+            return obj;
+        });
+
         closeEmailBookPop();
+    }
+
+
+    const handleSelectHour = (el) => {
+        selectedHour = Number(el.dataset.value);
+    }
+
+    const handleClickCalendarBtn = () => {
+        document.getElementById('datepicker').click();
     }
 </script>
 
@@ -14,59 +63,47 @@
 <div class="mail_reserveBox" style="display: block">
     <div class="mrTopBox">
         <div class="mrTopTitle marB12">발송 예약</div>
-        <div class="mrtContent marB12 mrtType01">
-            <dl>기준시간</dl>
-            <div class="mrtBox">
-                <div class="mrtSelBox">
-                    <div class="selectBox wid100per nonePad">
-                        <div class="label" id="standardTime">전체</div>
-                        <ul class="optionList">
-                            <li class="optionItem curv">항목1</li>
-                            <li class="optionItem curv">항목2</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="mrtContent mrtType02">
             <dl>예약시간</dl>
             <div class="mrtBox">
                 <div class="time_input">
-                    <input type="text" name="startdate" id="datepicker" placeholder="시작일" autocomplete="off" maxlength="10" value="">
+                    <input type="text" name="startdate" id="datepicker" placeholder="발송시작일" autocomplete="off" maxlength="10" value="">
+                    <img class="ui-datepicker-trigger" src="/assets/images/common/callendericon.png" alt="선택" title="선택" on:click={handleClickCalendarBtn}>
                 </div>
                 <div class="mrtSelBox">
-                    <div class="selectBox wid100per nonePad">
+                    <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: handleSelectHour}}>
                         <div class="label" id="timeSelection">시간선택</div>
                         <ul class="optionList">
-                            <li class="optionItem curv">1시</li>
-                            <li class="optionItem curv">2시</li>
-                            <li class="optionItem curv">3시</li>
-                            <li class="optionItem curv">4시</li>
-                            <li class="optionItem curv">5시</li>
-                            <li class="optionItem curv">6시</li>
-                            <li class="optionItem curv">7시</li>
-                            <li class="optionItem curv">8시</li>
-                            <li class="optionItem curv">9시</li>
-                            <li class="optionItem curv">10시</li>
-                            <li class="optionItem curv">11시</li>
-                            <li class="optionItem curv">12시</li>
-                            <li class="optionItem curv">13시</li>
-                            <li class="optionItem curv">14시</li>
-                            <li class="optionItem curv">15시</li>
-                            <li class="optionItem curv">16시</li>
-                            <li class="optionItem curv">17시</li>
-                            <li class="optionItem curv">18시</li>
-                            <li class="optionItem curv">19시</li>
-                            <li class="optionItem curv">20시</li>
-                            <li class="optionItem curv">21시</li>
-                            <li class="optionItem curv">22시</li>
-                            <li class="optionItem curv">23시</li>
-                            <li class="optionItem curv">24시</li>
+                            <li class="optionItem curv" data-value="1">1 시</li>
+                            <li class="optionItem curv" data-value="2">2 시</li>
+                            <li class="optionItem curv" data-value="3">3 시</li>
+                            <li class="optionItem curv" data-value="4">4 시</li>
+                            <li class="optionItem curv" data-value="5">5 시</li>
+                            <li class="optionItem curv" data-value="6">6 시</li>
+                            <li class="optionItem curv" data-value="7">7 시</li>
+                            <li class="optionItem curv" data-value="8">8 시</li>
+                            <li class="optionItem curv" data-value="9">9 시</li>
+                            <li class="optionItem curv" data-value="10">10 시</li>
+                            <li class="optionItem curv" data-value="11">11 시</li>
+                            <li class="optionItem curv" data-value="12">12 시</li>
+                            <li class="optionItem curv" data-value="13">13 시</li>
+                            <li class="optionItem curv" data-value="14">14 시</li>
+                            <li class="optionItem curv" data-value="15">15 시</li>
+                            <li class="optionItem curv" data-value="16">16 시</li>
+                            <li class="optionItem curv" data-value="17">17 시</li>
+                            <li class="optionItem curv" data-value="18">18 시</li>
+                            <li class="optionItem curv" data-value="19">19 시</li>
+                            <li class="optionItem curv" data-value="20">20 시</li>
+                            <li class="optionItem curv" data-value="21">21 시</li>
+                            <li class="optionItem curv" data-value="22">22 시</li>
+                            <li class="optionItem curv" data-value="23">23 시</li>
+                            <li class="optionItem curv" data-value="24">24 시</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+        <ErrorHighlight message={highlightMsg} />
     </div>
     <div class="mrBottomBox">
         <div class="floatBtnBox">

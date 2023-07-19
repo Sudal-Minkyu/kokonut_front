@@ -4,6 +4,9 @@
         distinguishSearchTextPlaceholder} from "../../common/privacySearch/privacySearch.js";
     import {privacySearchData} from "../../../lib/store.js";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    import Pagination from "../../common/ui/Pagination.svelte";
+    import LoadingOverlay from "../../common/ui/LoadingOverlay.svelte";
+    import {fade} from "svelte/transition";
 
     export let closeEmailPersonSelectPop;
 </script>
@@ -16,7 +19,7 @@
                 <h3 class="">회원선택 <span>11</span></h3>
             </div>
             {#each $privacySearchData.searchConditionList as {searchCode, currentColumnName, key}, i (key)}
-                <div class="memseaBox marB24" style="justify-content: center">
+                <div class="memseaBox marB8" style="justify-content: center;">
                     <div class="mu_SelBox wid130">
                         <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: (e) => {handleChangeColumnBox(e, i)}}}>
                             <div class="label">{currentColumnName}</div>
@@ -36,11 +39,18 @@
                             <button on:click={() => {getUserListByCondition()}}><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
                         </div>
                     </div>
+                    <div style="position: relative; width: 13px; visibility: {$privacySearchData.searchConditionList.length > 1 ? 'visible' : 'hidden'}"
+                         on:click={() => {removeSearchCondition(i)}}>
+                        <a class="pr_delete"></a>
+                    </div>
                 </div>
             {/each}
+            {#if $privacySearchData.searchConditionList.length < SEARCH_CONDITION_LIMIT}
+                <button type="button" class="pr_fieldBtn" on:click={addSearchCondition}></button>
+            {/if}
 
 
-            <div class="memselBox marB36">
+            <div class="memselBox marT20 marB36">
                 <div class="memName">김코코(인사팀)<button class="memdel"></button></div>
                 <div class="memName">정코코(인사팀)<button class="memdel"></button></div>
                 <div class="memName">최코코(인사팀)<button class="memdel"></button></div>
@@ -54,185 +64,232 @@
                 <div class="memName">주코코(인사팀)<button class="memdel"></button></div>
             </div>
 
-
-
-            <div class="emailtableWrap">
-                <div class="kt_tableTopBox marB16">
-                    <div class="kt_total">총 <span>11</span>건</div>
-                    <div class="kt_selbox wid108">
-                        <div class="selectBox wid100per nonePad">
-                            <div class="label">최근 등록순</div>
-                            <ul class="optionList">
-                                <li class="optionItem">최근 등록순</li>
-                                <li class="optionItem">정확도순</li>
-                                <li class="optionItem">오름차순</li>
-                                <li class="optionItem">내림차순</li>
-                            </ul>
+            {#if $privacySearchData.searchResultState !== -1}
+                <LoadingOverlay bind:loadState={$privacySearchData.searchResultState} >
+                    <div class="sea_resultWrap" in:fade>
+                        <div class="kotable search_result marT50">
+                            <div class="kt_tableTopBox marB24">
+                                <div class="kt_total">총 <span>{$privacySearchData.resultValueList.length}</span>건</div>
+                                <div class="kt_selbox wid120">
+                                    <!--                <div class="selectBox wid100per nonePad">-->
+                                    <!--                    <div class="label" id="">최근 등록순</div>-->
+                                    <!--                    <ul class="optionList">-->
+                                    <!--                        <li class="optionItem curv">최근 등록순</li>-->
+                                    <!--                        <li class="optionItem curv">정확도순</li>-->
+                                    <!--                        <li class="optionItem curv">오름차순</li>-->
+                                    <!--                        <li class="optionItem curv">내림차순</li>-->
+                                    <!--                    </ul>-->
+                                    <!--                </div>-->
+                                </div>
+                            </div>
+                            <table>
+                                <caption>개인정보 검색결과 테이블</caption>
+                                <thead>
+                                <tr>
+                                    {#each $privacySearchData.resultColumnList as columnName, i}
+                                        {#if i}
+                                            <th>{columnName}</th>
+                                        {/if}
+                                    {/each}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {#each $privacySearchData.resultValueList as values}
+                                    <tr>
+                                        {#each values as value, i}
+                                            {#if i}
+                                                <td>{value}</td>
+                                            {/if}
+                                        {/each}
+                                    </tr>
+                                {/each}
+                                </tbody>
+                            </table>
                         </div>
+                        <Pagination bind:currentPage={$privacySearchData.currentPage}
+                                    bind:totalPosts={$privacySearchData.totalPosts}
+                                    on:change={handleChangePage} />
                     </div>
-                </div>
-                <div class="emailtableBox">
-                    <div class="prtable">
-                        <table>
-                            <colgroup>
-                                <col style="width:7.27%;">
-                                <col style="width:41.82%;">
-                                <col style="width:14.55%;">
-                                <col style="width:14.55%;">
-                                <col style="width:21.82%;">
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>
-                                    <div class="koko_check">
-                                        <input type="checkbox" name="allcheck" id="allcheck">
-                                        <label for="allcheck"><em></em></label>
-                                    </div>
-                                </th>
-                                <th>아이디</th>
-                                <th>이름</th>
-                                <th>부서</th>
-                                <th>관리자 등급</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <div class="koko_check">
-                                        <input type="checkbox" value="" name="mem01" id="mem01" class="partcheck">
-                                        <label for="mem01"><em></em></label>
-                                    </div>
-                                </td>
-                                <td>koko1@kokonut.me</td>
-                                <td>김코코</td>
-                                <td>인사팀</td>
-                                <td>최고관리자</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="koko_check">
-                                        <input type="checkbox" value="" name="mem02" id="mem02" class="partcheck">
-                                        <label for="mem02"><em></em></label>
-                                    </div>
-                                </td>
-                                <td>koko1@kokonut.me</td>
-                                <td>김코코</td>
-                                <td>인사팀</td>
-                                <td>최고관리자</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="koko_check">
-                                        <input type="checkbox" value="" name="mem03" id="mem03" class="partcheck">
-                                        <label for="mem03"><em></em></label>
-                                    </div>
-                                </td>
-                                <td>koko1@kokonut.me</td>
-                                <td>김코코</td>
-                                <td>인사팀</td>
-                                <td>최고관리자</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="koko_check">
-                                        <input type="checkbox" value="" name="mem04" id="mem04" class="partcheck">
-                                        <label for="mem04"><em></em></label>
-                                    </div>
-                                </td>
-                                <td>koko1@kokonut.me</td>
-                                <td>김코코</td>
-                                <td>인사팀</td>
-                                <td>최고관리자</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="koko_check">
-                                        <input type="checkbox" value="" name="mem05" id="mem05" class="partcheck">
-                                        <label for="mem05"><em></em></label>
-                                    </div>
-                                </td>
-                                <td>koko1@kokonut.me</td>
-                                <td>김코코</td>
-                                <td>인사팀</td>
-                                <td>최고관리자</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="koko_check">
-                                        <input type="checkbox" value="" name="mem06" id="mem06" class="partcheck">
-                                        <label for="mem06"><em></em></label>
-                                    </div>
-                                </td>
-                                <td>koko1@kokonut.me</td>
-                                <td>김코코</td>
-                                <td>인사팀</td>
-                                <td>최고관리자</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="koko_check">
-                                        <input type="checkbox" value="" name="mem07" id="mem07" class="partcheck">
-                                        <label for="mem07"><em></em></label>
-                                    </div>
-                                </td>
-                                <td>koko1@kokonut.me</td>
-                                <td>김코코</td>
-                                <td>인사팀</td>
-                                <td>최고관리자</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="koko_check">
-                                        <input type="checkbox" value="" name="mem08" id="mem08" class="partcheck">
-                                        <label for="mem08"><em></em></label>
-                                    </div>
-                                </td>
-                                <td>koko1@kokonut.me</td>
-                                <td>김코코</td>
-                                <td>인사팀</td>
-                                <td>최고관리자</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="koko_check">
-                                        <input type="checkbox" value="" name="mem09" id="mem09" class="partcheck">
-                                        <label for="mem09"><em></em></label>
-                                    </div>
-                                </td>
-                                <td>koko1@kokonut.me</td>
-                                <td>김코코</td>
-                                <td>인사팀</td>
-                                <td>최고관리자</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="koko_check">
-                                        <input type="checkbox" value="" name="mem10" id="mem10" class="partcheck">
-                                        <label for="mem10"><em></em></label>
-                                    </div>
-                                </td>
-                                <td>koko1@kokonut.me</td>
-                                <td>김코코</td>
-                                <td>인사팀</td>
-                                <td>최고관리자</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="koko_check">
-                                        <input type="checkbox" value="" name="mem11" id="mem11" class="partcheck">
-                                        <label for="mem11"><em></em></label>
-                                    </div>
-                                </td>
-                                <td>koko1@kokonut.me</td>
-                                <td>김코코</td>
-                                <td>인사팀</td>
-                                <td>최고관리자</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                </LoadingOverlay>
+            {/if}
+
+<!--            <div class="emailtableWrap">-->
+<!--                <div class="kt_tableTopBox marB16">-->
+<!--                    <div class="kt_total">총 <span>11</span>건</div>-->
+<!--                    <div class="kt_selbox wid108">-->
+<!--                        <div class="selectBox wid100per nonePad">-->
+<!--                            <div class="label">최근 등록순</div>-->
+<!--                            <ul class="optionList">-->
+<!--                                <li class="optionItem">최근 등록순</li>-->
+<!--                                <li class="optionItem">정확도순</li>-->
+<!--                                <li class="optionItem">오름차순</li>-->
+<!--                                <li class="optionItem">내림차순</li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="emailtableBox">-->
+<!--                    <div class="prtable">-->
+<!--                        <table>-->
+<!--                            <colgroup>-->
+<!--                                <col style="width:7.27%;">-->
+<!--                                <col style="width:41.82%;">-->
+<!--                                <col style="width:14.55%;">-->
+<!--                                <col style="width:14.55%;">-->
+<!--                                <col style="width:21.82%;">-->
+<!--                            </colgroup>-->
+<!--                            <thead>-->
+<!--                            <tr>-->
+<!--                                <th>-->
+<!--                                    <div class="koko_check">-->
+<!--                                        <input type="checkbox" name="allcheck" id="allcheck">-->
+<!--                                        <label for="allcheck"><em></em></label>-->
+<!--                                    </div>-->
+<!--                                </th>-->
+<!--                                <th>아이디</th>-->
+<!--                                <th>이름</th>-->
+<!--                                <th>부서</th>-->
+<!--                                <th>관리자 등급</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <div class="koko_check">-->
+<!--                                        <input type="checkbox" value="" name="mem01" id="mem01" class="partcheck">-->
+<!--                                        <label for="mem01"><em></em></label>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>koko1@kokonut.me</td>-->
+<!--                                <td>김코코</td>-->
+<!--                                <td>인사팀</td>-->
+<!--                                <td>최고관리자</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <div class="koko_check">-->
+<!--                                        <input type="checkbox" value="" name="mem02" id="mem02" class="partcheck">-->
+<!--                                        <label for="mem02"><em></em></label>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>koko1@kokonut.me</td>-->
+<!--                                <td>김코코</td>-->
+<!--                                <td>인사팀</td>-->
+<!--                                <td>최고관리자</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <div class="koko_check">-->
+<!--                                        <input type="checkbox" value="" name="mem03" id="mem03" class="partcheck">-->
+<!--                                        <label for="mem03"><em></em></label>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>koko1@kokonut.me</td>-->
+<!--                                <td>김코코</td>-->
+<!--                                <td>인사팀</td>-->
+<!--                                <td>최고관리자</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <div class="koko_check">-->
+<!--                                        <input type="checkbox" value="" name="mem04" id="mem04" class="partcheck">-->
+<!--                                        <label for="mem04"><em></em></label>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>koko1@kokonut.me</td>-->
+<!--                                <td>김코코</td>-->
+<!--                                <td>인사팀</td>-->
+<!--                                <td>최고관리자</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <div class="koko_check">-->
+<!--                                        <input type="checkbox" value="" name="mem05" id="mem05" class="partcheck">-->
+<!--                                        <label for="mem05"><em></em></label>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>koko1@kokonut.me</td>-->
+<!--                                <td>김코코</td>-->
+<!--                                <td>인사팀</td>-->
+<!--                                <td>최고관리자</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <div class="koko_check">-->
+<!--                                        <input type="checkbox" value="" name="mem06" id="mem06" class="partcheck">-->
+<!--                                        <label for="mem06"><em></em></label>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>koko1@kokonut.me</td>-->
+<!--                                <td>김코코</td>-->
+<!--                                <td>인사팀</td>-->
+<!--                                <td>최고관리자</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <div class="koko_check">-->
+<!--                                        <input type="checkbox" value="" name="mem07" id="mem07" class="partcheck">-->
+<!--                                        <label for="mem07"><em></em></label>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>koko1@kokonut.me</td>-->
+<!--                                <td>김코코</td>-->
+<!--                                <td>인사팀</td>-->
+<!--                                <td>최고관리자</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <div class="koko_check">-->
+<!--                                        <input type="checkbox" value="" name="mem08" id="mem08" class="partcheck">-->
+<!--                                        <label for="mem08"><em></em></label>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>koko1@kokonut.me</td>-->
+<!--                                <td>김코코</td>-->
+<!--                                <td>인사팀</td>-->
+<!--                                <td>최고관리자</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <div class="koko_check">-->
+<!--                                        <input type="checkbox" value="" name="mem09" id="mem09" class="partcheck">-->
+<!--                                        <label for="mem09"><em></em></label>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>koko1@kokonut.me</td>-->
+<!--                                <td>김코코</td>-->
+<!--                                <td>인사팀</td>-->
+<!--                                <td>최고관리자</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <div class="koko_check">-->
+<!--                                        <input type="checkbox" value="" name="mem10" id="mem10" class="partcheck">-->
+<!--                                        <label for="mem10"><em></em></label>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>koko1@kokonut.me</td>-->
+<!--                                <td>김코코</td>-->
+<!--                                <td>인사팀</td>-->
+<!--                                <td>최고관리자</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <div class="koko_check">-->
+<!--                                        <input type="checkbox" value="" name="mem11" id="mem11" class="partcheck">-->
+<!--                                        <label for="mem11"><em></em></label>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>koko1@kokonut.me</td>-->
+<!--                                <td>김코코</td>-->
+<!--                                <td>인사팀</td>-->
+<!--                                <td>최고관리자</td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 
             <div class="kokopopBtnBox">
                 <div class="koko_cancel email_member_pop_close" on:click={closeEmailPersonSelectPop}>취소</div>

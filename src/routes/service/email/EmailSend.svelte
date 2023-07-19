@@ -2,39 +2,25 @@
 <script>
     import Header from "../../../components/service/layout/Header.svelte"
     import {link} from 'svelte-spa-router'
-    import {backBtn} from '../../../lib/store'
-    import jQuery from 'jquery';
+    import {backBtn, privacySearchData, emailSendData, initialEmailSend, initialPrivacySearch} from '../../../lib/store'
     import TextEditor from "../../../components/common/TextEditor.svelte";
     import EmailPersonSelectPop from "../../../components/service/email/EmailPersonSelectPop.svelte";
     import EmailBookPop from "../../../components/service/email/EmailBookPop.svelte";
     import {SelectBoxManager} from "../../../components/common/action/SelectBoxManager.js";
-    import {emailSendData, initialEmailSend} from "../../../lib/store";
     import {onMount} from "svelte";
     import {getColumnList} from "../../../components/common/privacySearch/privacySearch.js";
 
-    // 이메일 예약 팝업 버튼 스크립트
-    jQuery(".mail_reserveBtn").click(function(){
-        jQuery('.mail_reserveBox').show();
-    });
-
-    jQuery(".mailreserve_cancal").click(function(){
-        document.getElementById('standardTime').innerText = '전체';
-        jQuery('#datepicker').val('');
-        document.getElementById('timeSelection').innerText = '시간선택';
-        jQuery('.mail_reserveBox').hide();
-    });
-
-    jQuery(".mailreserve_confirm").click(function(){
-        jQuery('.mail_reserveBox').hide();
-    });
-
     onMount(() => {
         emailSendData.set(JSON.parse(initialEmailSend));
+        privacySearchData.set(JSON.parse(initialPrivacySearch));
         getColumnList();
     });
 
     const handleEmPurposeSelect = (el) => {
-        console.log(el.dataset.value);
+        emailSendData.update(obj => {
+            obj.emPurpose = el.dataset.value;
+            return obj;
+        });
     }
 
     let isEmailPersonSelectPop = false;
@@ -56,6 +42,35 @@
     const closeEmailBookPop = () => {
         isEmailBookPop = false;
     }
+
+    const formatMiniBarDate = (datetime) => {
+        if (datetime) {
+            const date = new Date(datetime);
+            let year = date.getFullYear();
+            let month = (1 + date.getMonth()).toString().padStart(2, '0');
+            let day = date.getDate().toString().padStart(2, '0');
+
+            let hours = date.getHours().toString().padStart(2, '0');
+            let minutes = date.getMinutes().toString().padStart(2, '0');
+
+            const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+            let weekday = weekdays[date.getDay()];
+
+            return `${year}. ${month}. ${day} (${weekday}) ${hours}:${minutes}`;
+        } else {
+            return '';
+        }
+    }
+
+    $: miniBarDate = formatMiniBarDate($emailSendData.emReservationDate);
+
+    const handleResetEmReservationDate = () => {
+        emailSendData.update(obj => {
+            obj.emReservationDate = 0;
+            return obj;
+        });
+    }
+
 </script>
 
 <Header />
@@ -78,12 +93,12 @@
                     {#if isEmailBookPop}
                         <EmailBookPop {closeEmailBookPop}/>
                     {/if}
-                    {#if false}
+                    {#if $emailSendData.emReservationDate}
                         <!-- 이메일 예약 선택된 정보 영역 -->
                         <div class="cur_reserve marT16">
                             <p>예약</p>
-                            <dl><span>2023. 03. 20</span> <span>(월)</span> <span>14:00</span></dl>
-                            <div class="reserve_close"></div>
+                            <dl>{miniBarDate}</dl>
+                            <div class="reserve_close" on:click={handleResetEmReservationDate} ></div>
                         </div>
                     {/if}
                 </div>
@@ -107,7 +122,8 @@
                         <div class="se_item seradio">
                             <div class="popRadio">
                                 <div class="check poprCheck">
-                                    <input type="radio" class="radio" name="use_noneuse" id="전체 회원" value="1" >
+                                    <input type="radio" class="radio" name="use_noneuse" id="전체 회원" value="1"
+                                           bind:group={$emailSendData.emReceiverType} >
                                     <label for="전체 회원">
                                         <em><dt></dt></em>
                                         전체 회원
@@ -115,7 +131,8 @@
                                     </label>
                                 </div>
                                 <div class="check poprCheck">
-                                    <input type="radio" class="radio" name="use_noneuse" id="선택 회원" value="2" >
+                                    <input type="radio" class="radio" name="use_noneuse" id="선택 회원" value="2"
+                                           bind:group={$emailSendData.emReceiverType} >
                                     <label for="선택 회원">
                                         <em><dt></dt></em>
                                         선택 회원

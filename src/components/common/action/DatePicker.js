@@ -300,8 +300,8 @@ export const singleDatePicker = (elementId, callback, additionalProp = {}) => {
     jQuery('#' + elementId).daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
+        autoApply: true,
         minYear: 1990,
-        maxYear: parseInt(moment().format('YYYY'),10),
         locale : localeKr,
         ...additionalProp,
     }, callback);
