@@ -71,6 +71,98 @@
         });
     }
 
+    const FILE_SIZE_LIMIT = 20 * 1024 * 1024 // 20MB
+    let totalSize = '0.0';
+    const handleAddFile = (e) => {
+        if (e.target.files) {
+            const newFiles = Array.from(e.target.files);
+
+            const currentFilesSize = $emailSendData.multipartFiles.reduce((total, file) => total + file.size, 0);
+            const newFilesSize = newFiles.reduce((total, file) => total + file.size, 0);
+
+            if (currentFilesSize + newFilesSize > FILE_SIZE_LIMIT) {
+                alert('Total file size cannot exceed 20MB');
+            } else {
+                totalSize = ((currentFilesSize + newFilesSize) / (1024 * 1024)).toFixed(1);
+                emailSendData.update(obj => {
+                    obj.multipartFiles = [...obj.multipartFiles, ...newFiles];
+                    return obj;
+                });
+            }
+        }
+    }
+
+    const handleRemoveFile = (e) => {
+        emailSendData.update(obj => {
+            obj.multipartFiles = obj.multipartFiles.filter((_, i) => i !== Number(e.target.dataset.index));
+            const currentFilesSize = obj.multipartFiles.reduce((total, file) => total + file.size, 0);
+            totalSize = (currentFilesSize / (1024 * 1024)).toFixed(1);
+            return obj;
+        });
+
+    }
+
+    const handleOnSubmitBtnClick = () => {
+        const sendForm = new FormData();
+        const es = $emailSendData;
+        sendForm.set('emType', es.emType);
+        sendForm.set('emReservationDate', es.emReservationDate);
+        sendForm.set('emPurpose', es.emPurpose);
+        sendForm.set('emEtc', es.emEtc);
+        sendForm.set('emReceiverType', es.emReceiverType);
+        sendForm.set('emEmailSend', es.emEmailSend);
+        sendForm.set('emTitle', es.emTitle);
+        sendForm.set('emContents', es.emContents);
+        for (const email of es.emailSendChoseList) {
+            sendForm.append('emailSendChoseList', email);
+        }
+        for (const file of es.multipartFiles) {
+            sendForm.append('multipartFiles', file);
+        }
+
+        console.log('결과데이터', Object.fromEntries(sendForm));
+    }
+
+    // function addFile(obj){
+    //     var maxFileCnt = 5;   // 첨부파일 최대 개수
+    //     var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
+    //     var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
+    //     var curFileCnt = obj.files.length;  // 현재 선택된 첨부파일 개수
+    //
+    //     // 첨부파일 개수 확인
+    //     if (curFileCnt > remainFileCnt) {
+    //         alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
+    //     }
+    //
+    //     for (var i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) {
+    //
+    //         const file = obj.files[i];
+    //
+    //         // 첨부파일 검증
+    //         if (validation(file)) {
+    //             // 파일 배열에 담기
+    //             var reader = new FileReader();
+    //             reader.onload = function () {
+    //                 filesArr.push(file);
+    //             };
+    //             reader.readAsDataURL(file)
+    //
+    //             // 목록 추가
+    //             let htmlData = '';
+    //             htmlData += '<div id="file' + fileNo + '" class="filebox">';
+    //             htmlData += '   <p class="name">' + file.name + '</p>';
+    //             htmlData += '   <div class="delete" onclick="deleteFile(' + fileNo + ');"></div>';
+    //             htmlData += '</div>';
+    //             $('.file-list').append(htmlData);
+    //             fileNo++;
+    //         } else {
+    //             continue;
+    //         }
+    //     }
+    //     // 초기화
+    //     document.querySelector("input[type=file]").value = "";
+    // }
+
 </script>
 
 <Header />
@@ -86,7 +178,7 @@
             <form>
                 <div>
                     <div class="semBtnBox">
-                        <div><button type="submit" class="semBtn">발송하기</button></div>
+                        <div><button type="button" class="semBtn" on:click={handleOnSubmitBtnClick}>발송하기</button></div>
                         <div class="mail_reserveBtn" on:click={openEmailBookPop}>예약</div>
                     </div>
                     <!-- 이메일 예약 팝업 영역 -->
@@ -146,13 +238,14 @@
                     <div class="semailitemBox marB20">
                         <dl>발신자 설정</dl>
                         <div class="se_item ">
-                            <input type="text" placeholder="발신자의 이메일을 적어주세요."/>
+                            <input type="text" placeholder="발신자의 이메일을 적어주세요."
+                                   bind:value={$emailSendData.emEmailSend} />
                         </div>
                     </div>
                     <div class="semailitemBox marB20">
                         <dl>제목</dl>
                         <div class="se_item ">
-                            <input type="text" placeholder="제목을 적어주세요."/>
+                            <input type="text" placeholder="제목을 적어주세요." bind:value={$emailSendData.emTitle} />
                         </div>
                     </div>
                     <div class="semailitemBox sefileCont">
@@ -160,9 +253,19 @@
                         <div class="se_item">
                             <div class="sc_fileBox">
                                 <div class="fileInner">
-                                    <div class="file-list"></div>
+                                    <div class="file-list">
+                                        {#each $emailSendData.multipartFiles as {name}, i }
+                                            <div id="file{i}" class="filebox">
+                                                <p class="name">{name}</p>
+                                                <div class="delete" data-index={i} on:click={handleRemoveFile}></div>
+                                            </div>
+                                        {/each}
+                                    </div>
                                     <label for="file">첨부</label>
-                                    <input type="file" id="file" onchange="addFile(this);" multiple />
+                                    <input type="file" id="file" multiple on:change={handleAddFile} />
+                                    <span style="font-size: 1.6rem; line-height: 3.8rem;color: #00C389;margin-left: 1rem;">
+                                        {totalSize}MB / 20MB
+                                    </span>
                                 </div>
                             </div>
                         </div>

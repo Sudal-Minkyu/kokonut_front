@@ -7,9 +7,8 @@
     import 'summernote/dist/summernote-lite.css';
     import '/src/components/common/extension/summernote-localizing.js'
 
-
     onMount(() => {
-        jQuery("#summernote").summernote({
+        jQuery('#summernote').summernote({
             height: 300,
             placeholder: '내용을 입력해 주세요.',
             tabsize: 2,
@@ -25,6 +24,9 @@
         });
     });
 
+    export const getText = () => {
+        return jQuery('#summernote').summernote('code');
+    }
 
 </script>
 

@@ -30,6 +30,7 @@ export const getColumnList = () => {
 };
 
 export const SEARCH_CONDITION_LIMIT = 5;
+export const EMAIL_SEARCH_CONDITION_LIMIT = SEARCH_CONDITION_LIMIT - 1;
 
 export const addSearchCondition = () => {
     privacySearchData.update(obj => {
@@ -65,28 +66,42 @@ export const handleChangeColumnBox = (el, i) => {
     });
 }
 
-export const getUserListByCondition = (page = 1) => {
+export const getUserListByCondition = (page = 1, baseColumnList) => {
+    const baseSearchCodes = [];
+    const baseSearchTexts = [];
+    if (baseColumnList && baseColumnList.length) {
+        for (const code of baseColumnList) {
+            if (code) {
+                baseSearchCodes.push(code);
+                baseSearchTexts.push('');
+            }
+        }
+    }
     const searchCondition = {
         pageNum: page,
         limitNum: '10',
     };
     privacySearchData.update(obj => {
         obj.searchResultState = 0;
-        searchCondition.searchCodes = obj.searchConditionList.map(obj => obj.searchCode);
-        searchCondition.searchTexts = obj.searchConditionList.map(obj => obj.searchText);
+        searchCondition.searchCodes = [...baseSearchCodes, ...obj.searchConditionList.map(obj => obj.searchCode)];
+        searchCondition.searchTexts = [...baseSearchTexts, ...obj.searchConditionList.map(obj => obj.searchText)];
         return obj;
     });
     console.log('검색조건', searchCondition);
-    if (verifySearchCondition(searchCondition).isVerifyFail) {
-        openConfirm({
-            icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-            title: '검색 대상 중복', // 제목
-            contents1: '중복되는 검색 대상이 존재합니다.', // 내용
-            contents2: '한 대상당 하나의 조건으로 검색 가능합니다.',
-            btnCheck: '확인', // 확인 버튼의 텍스트
-        });
-        return false;
-    }
+    // if (verifySearchCondition(searchCondition).isVerifyFail) {
+    //     openConfirm({
+    //         icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+    //         title: '검색 대상 중복', // 제목
+    //         contents1: '중복되는 검색 대상이 존재합니다.', // 내용
+    //         contents2: '한 대상당 하나의 조건으로 검색 가능합니다.',
+    //         btnCheck: '확인', // 확인 버튼의 텍스트
+    //     });
+    //     privacySearchData.update(obj => {
+    //         obj.searchResultState = -1;
+    //         return obj;
+    //     });
+    //     return false;
+    // }
 
     ajaxBody('/v2/api/DynamicUser/privacyUserSearch', searchCondition, (res) => {
         console.log('검색결과', res);
@@ -136,6 +151,11 @@ export const getUserListByCondition = (page = 1) => {
             }
             return obj;
         });
+    }, (errCode, errMsg) => {
+        privacySearchData.update(obj => {
+            obj.searchResultState = -1;
+            return obj;
+        });
     });
 }
 
@@ -147,9 +167,9 @@ const verifySearchCondition = (searchCondition) => {
     return {isVerifyFail: set.size < searchCondition.searchCodes.length};
 }
 
-export const handleEnterSearchText = (e) => {
+export const handleEnterSearchText = (e, baseColumnList) => {
     if (e.key === 'Enter') {
-        getUserListByCondition();
+        getUserListByCondition(1, baseColumnList);
     }
 }
 

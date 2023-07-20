@@ -307,7 +307,7 @@ export const initialEmailSend = JSON.stringify({
     emEmailSend: '', // 발신자 이메일
     emTitle: '', // 제목
     emContents: '', // 내용
-    multipartFiles: 0, // 첨부파일 목록 -> 20MB미만일 경우만
+    multipartFiles: [], // 첨부파일 목록 -> 20MB미만일 경우만
 });
 
 export const emailSendData = writable(JSON.parse(initialEmailSend));

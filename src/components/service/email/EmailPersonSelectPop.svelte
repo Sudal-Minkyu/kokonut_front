@@ -1,5 +1,5 @@
 <script>
-    import {SEARCH_CONDITION_LIMIT, addSearchCondition, removeSearchCondition, handleChangeColumnBox,
+    import {EMAIL_SEARCH_CONDITION_LIMIT, addSearchCondition, removeSearchCondition, handleChangeColumnBox,
         getUserListByCondition, handleEnterSearchText, handleOpenDetail, handleChangePage,
         distinguishSearchTextPlaceholder} from "../../common/privacySearch/privacySearch.js";
     import {privacySearchData} from "../../../lib/store.js";
@@ -7,8 +7,20 @@
     import Pagination from "../../common/ui/Pagination.svelte";
     import LoadingOverlay from "../../common/ui/LoadingOverlay.svelte";
     import {fade} from "svelte/transition";
+    import {ajaxGet} from "../../common/ajax.js";
+    import {onMount} from "svelte";
 
+    onMount(() => {
+        getCsEmailCodeSetting();
+    });
     export let closeEmailPersonSelectPop;
+
+    let csEmailCodeSetting = '';
+    const getCsEmailCodeSetting = () => {
+        ajaxGet('/v2/api/CompanySetting/settingInfo', false, (res) => {
+            csEmailCodeSetting = res.data.sendData.settingInfo.csEmailCodeSetting;
+        });
+    }
 </script>
 
 <!-- [D] 회원선택 팝업 -->
@@ -35,8 +47,8 @@
                             <input type="text" class="wid320"
                                    placeholder={distinguishSearchTextPlaceholder($privacySearchData.searchConditionList[i])}
                                    bind:value={$privacySearchData.searchConditionList[i].searchText}
-                                   on:keypress={handleEnterSearchText} />
-                            <button on:click={() => {getUserListByCondition()}}><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
+                                   on:keypress={(e) => {handleEnterSearchText(e, [csEmailCodeSetting])}} />
+                            <button on:click={() => {getUserListByCondition(1, [csEmailCodeSetting])}}><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
                         </div>
                     </div>
                     <div style="position: relative; width: 13px; visibility: {$privacySearchData.searchConditionList.length > 1 ? 'visible' : 'hidden'}"
@@ -45,29 +57,22 @@
                     </div>
                 </div>
             {/each}
-            {#if $privacySearchData.searchConditionList.length < SEARCH_CONDITION_LIMIT}
+            {#if $privacySearchData.searchConditionList.length < EMAIL_SEARCH_CONDITION_LIMIT}
                 <button type="button" class="pr_fieldBtn" on:click={addSearchCondition}></button>
             {/if}
 
 
-            <div class="memselBox marT20 marB36">
-                <div class="memName">김코코(인사팀)<button class="memdel"></button></div>
-                <div class="memName">정코코(인사팀)<button class="memdel"></button></div>
-                <div class="memName">최코코(인사팀)<button class="memdel"></button></div>
-                <div class="memName">박코코(인사팀)<button class="memdel"></button></div>
-                <div class="memName">이코코(인사팀)<button class="memdel"></button></div>
-                <div class="memName">오코코(인사팀)<button class="memdel"></button></div>
-                <div class="memName">한코코(인사팀)<button class="memdel"></button></div>
-                <div class="memName">박코코(인사팀)<button class="memdel"></button></div>
-                <div class="memName">강코코(인사팀)<button class="memdel"></button></div>
-                <div class="memName">장코코(인사팀)<button class="memdel"></button></div>
-                <div class="memName">주코코(인사팀)<button class="memdel"></button></div>
-            </div>
+<!--            <div class="memselBox marT20 marB36">-->
+<!--                <div class="memName">김코코(인사팀)<button class="memdel"></button></div>-->
+<!--                <div class="memName">정코코(인사팀)<button class="memdel"></button></div>-->
+<!--                <div class="memName">최코코(인사팀)<button class="memdel"></button></div>-->
+<!--                <div class="memName">박코코(인사팀)<button class="memdel"></button></div>-->
+<!--            </div>-->
 
             {#if $privacySearchData.searchResultState !== -1}
                 <LoadingOverlay bind:loadState={$privacySearchData.searchResultState} >
                     <div class="sea_resultWrap" in:fade>
-                        <div class="kotable search_result marT50">
+                        <div class="kotable search_result">
                             <div class="kt_tableTopBox marB24">
                                 <div class="kt_total">총 <span>{$privacySearchData.resultValueList.length}</span>건</div>
                                 <div class="kt_selbox wid120">
