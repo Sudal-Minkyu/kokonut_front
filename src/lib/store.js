@@ -242,7 +242,10 @@ export const initialPrivacySearch = JSON.stringify({
     }],
     rawResultList: [],
     resultColumnList: [],
+    visibleColumnList: [],
+    invisibleColumnList: [],
     resultValueList: [],
+    visibleValueList: [],
     currentPage: 1,
     totalPosts: 0,
 });

@@ -1,14 +1,24 @@
 
 <script>
     import Header from "../../../components/service/layout/Header.svelte"
-    import {link} from 'svelte-spa-router'
-    import {backBtn, privacySearchData, emailSendData, initialEmailSend, initialPrivacySearch} from '../../../lib/store'
+    import {link, push} from 'svelte-spa-router'
+    import {
+        backBtn,
+        privacySearchData,
+        emailSendData,
+        initialEmailSend,
+        initialPrivacySearch,
+    } from '../../../lib/store'
     import TextEditor from "../../../components/common/TextEditor.svelte";
     import EmailPersonSelectPop from "../../../components/service/email/EmailPersonSelectPop.svelte";
     import EmailBookPop from "../../../components/service/email/EmailBookPop.svelte";
     import {SelectBoxManager} from "../../../components/common/action/SelectBoxManager.js";
     import {onMount} from "svelte";
-    import {getColumnList} from "../../../components/common/privacySearch/privacySearch.js";
+    import {getColumnList} from "../../../components/common/privacySearch/privacySearchFullData.js";
+    import {ajaxMultipart} from "../../../components/common/ajax.js";
+    import {openConfirm} from "../../../components/common/ui/DialogManager.js";
+
+    let textEditorComponent;
 
     onMount(() => {
         emailSendData.set(JSON.parse(initialEmailSend));
@@ -99,10 +109,13 @@
             totalSize = (currentFilesSize / (1024 * 1024)).toFixed(1);
             return obj;
         });
-
     }
 
     const handleOnSubmitBtnClick = () => {
+        emailSendData.update(obj => {
+            obj.emContents = textEditorComponent.getText();
+            return obj;
+        });
         const sendForm = new FormData();
         const es = $emailSendData;
         sendForm.set('emType', es.emType);
@@ -120,49 +133,20 @@
             sendForm.append('multipartFiles', file);
         }
 
-        console.log('결과데이터', Object.fromEntries(sendForm));
+        console.log('결과 송신 데이터', Object.fromEntries(sendForm));
+        ajaxMultipart('/v2/api/Email/sendEmailService', sendForm, (res) => {
+            console.log('발송성공응답', res);
+            emailSendData.set(JSON.parse(initialEmailSend));
+            privacySearchData.set(JSON.parse(initialPrivacySearch));
+            document.getElementById('emPurposeLabel').innerHTML = '주요공지';
+            textEditorComponent.resetText();
+            openConfirm({
+                icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: "메일 발송을 성공 하였습니다.", // 제목
+                btnCheck: '확인', // 확인 버튼의 텍스트
+            });
+        });
     }
-
-    // function addFile(obj){
-    //     var maxFileCnt = 5;   // 첨부파일 최대 개수
-    //     var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
-    //     var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
-    //     var curFileCnt = obj.files.length;  // 현재 선택된 첨부파일 개수
-    //
-    //     // 첨부파일 개수 확인
-    //     if (curFileCnt > remainFileCnt) {
-    //         alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
-    //     }
-    //
-    //     for (var i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) {
-    //
-    //         const file = obj.files[i];
-    //
-    //         // 첨부파일 검증
-    //         if (validation(file)) {
-    //             // 파일 배열에 담기
-    //             var reader = new FileReader();
-    //             reader.onload = function () {
-    //                 filesArr.push(file);
-    //             };
-    //             reader.readAsDataURL(file)
-    //
-    //             // 목록 추가
-    //             let htmlData = '';
-    //             htmlData += '<div id="file' + fileNo + '" class="filebox">';
-    //             htmlData += '   <p class="name">' + file.name + '</p>';
-    //             htmlData += '   <div class="delete" onclick="deleteFile(' + fileNo + ');"></div>';
-    //             htmlData += '</div>';
-    //             $('.file-list').append(htmlData);
-    //             fileNo++;
-    //         } else {
-    //             continue;
-    //         }
-    //     }
-    //     // 초기화
-    //     document.querySelector("input[type=file]").value = "";
-    // }
-
 </script>
 
 <Header />
@@ -200,13 +184,19 @@
                         <dl>발송목적</dl>
                         <div class="se_item seselCont">
                             <div class="selectBox wid122 nonePad" use:SelectBoxManager={{callback: handleEmPurposeSelect}}>
-                                <div class="label">주요공지</div>
+                                <div class="label" id="emPurposeLabel">주요공지</div>
                                 <ul class="optionList">
                                     <li class="optionItem curv" data-value="1">주요공지</li>
                                     <li class="optionItem curv" data-value="2">광고/홍보</li>
                                     <li class="optionItem curv" data-value="3">기타</li>
                                 </ul>
                             </div>
+                            {#if $emailSendData.emPurpose === '3'}
+                                <div class="se_item wid220 marL30">
+                                    <input type="text" placeholder="발송목적을 적어주세요."
+                                           bind:value={$emailSendData.emEtc} />
+                                </div>
+                            {/if}
                         </div>
                     </div>
                     <div class="semailitemBox marB20">
@@ -219,7 +209,7 @@
                                     <label for="전체 회원">
                                         <em><dt></dt></em>
                                         전체 회원
-                                        <span>500명</span>
+                                        <span>500명(작업필)</span>
                                     </label>
                                 </div>
                                 <div class="check poprCheck">
@@ -228,7 +218,7 @@
                                     <label for="선택 회원">
                                         <em><dt></dt></em>
                                         선택 회원
-                                        <span>20명</span>
+                                        <span>{$emailSendData.emailSendChoseList.length}</span>
                                         <div class="sendMemberBtn" id="email_member_pop" on:click={openEmailPersonSelectPop}>회원선택</div>
                                     </label>
                                 </div>
@@ -272,7 +262,7 @@
                     </div>
 
                     <div class="writeToolBox marT40">
-                        <TextEditor />
+                        <TextEditor bind:this={textEditorComponent}/>
                     </div>
                 </div>
             </form>

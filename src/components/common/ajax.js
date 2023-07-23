@@ -38,7 +38,7 @@ export const ajaxBody = (url, sendData = {}, handleSuccess = () => {}, handleFai
     });
 };
 
-export const ajaxMultipart = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
+export const ajaxMultipart = (url, sendData = new FormData(), handleSuccess = () => {}, handleFail = () => {}) => {
     restapi({
         url,
         handleSuccess,

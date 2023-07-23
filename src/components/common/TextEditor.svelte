@@ -28,6 +28,9 @@
         return jQuery('#summernote').summernote('code');
     }
 
+    export const resetText = () => {
+        jQuery('#summernote').summernote('reset');
+    }
 </script>
 
 <div id="summernote"></div>

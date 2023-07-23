@@ -66,6 +66,12 @@ export const handleChangeColumnBox = (el, i) => {
     });
 }
 
+const splitArray = (arr, start, end) => {
+    const a = arr.slice(start, end);
+    const b = [...arr];
+    b.splice(start, end - start);
+    return [a, b];
+}
 export const getUserListByCondition = (page = 1, limitNum = 10, baseColumnList) => {
     const baseSearchCodes = [];
     const baseSearchTexts = [];
@@ -115,22 +121,24 @@ export const getUserListByCondition = (page = 1, limitNum = 10, baseColumnList) 
                 // 결과 페이지의 행에 사용될 값과 값으로 사용될 값을 정제
                 const keyList = Object.keys(obj.rawResultList[0]);
                 const dynamicColumnKeyList = keyList.filter(key => !['kokonut_IDX', 'NO', '회원가입일시', '마지막로그인일시'].includes(key));
-                obj.resultColumnList = [ 'kokonut_IDX',
-                    'NO',
+                obj.resultColumnList = [
+                    'kokonut_IDX',
                     ...dynamicColumnKeyList,
                     '회원가입일시',
                     '마지막로그인일시',
                 ];
-                let i = (page -1) * limitNum;
+                [obj.visibleColumnList, obj.invisibleColumnList] = splitArray(obj.resultColumnList, 0, 10);
+
                 obj.resultValueList = obj.rawResultList.map(rawObj => {
                     return [
                         rawObj['kokonut_IDX'],
-                        ++i,
                         ...dynamicColumnKeyList.map(key => rawObj[key]),
                         rawObj['회원가입일시'],
                         rawObj['마지막로그인일시'],
                     ];
                 });
+                obj.visibleValueList = obj.resultValueList.slice(0, 10);
+
                 privacySearchData.update(obj => {
                     obj.searchResultState = 1;
                     return obj;
@@ -200,7 +208,12 @@ export const handleOpenDetail = (kokonut_IDX) => {
 }
 
 export const handleChangePage = ({page, limitNum}) => {
-    getUserListByCondition(page, limitNum);
+    const start = (page - 1) * limitNum;
+    privacySearchData.update(obj => {
+        [obj.visibleColumnList, obj.invisibleColumnList] = splitArray(obj.resultColumnList, start, start + limitNum);
+        obj.visibleValueList = obj.resultValueList.slice(start, start + limitNum);
+        return obj;
+    });
 }
 
 export const distinguishSearchTextPlaceholder = (targetSearchCondition) => {
