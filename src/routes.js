@@ -13,6 +13,7 @@ import AdminActivity from "./routes/service/admin/AdminActivity.svelte"
 import AdminManagement from "./routes/service/admin/AdminManagement.svelte"
 
 import Email from "./routes/service/email/Email.svelte"
+import EmailSend from "./routes/service/email/EmailSend.svelte"
 
 import Environment from "./routes/service/Environment.svelte"
 
@@ -72,9 +73,7 @@ export default {
     // 이메일 발송내역 페이지
     "/service/emailList": Email,
     // 이메일 발송 페이지
-    "/service/emailSend": wrap({
-        asyncComponent: () => import("./routes/service/email/EmailSend.svelte"),
-    }),
+    "/service/emailSend": EmailSend,
 
     // 메일인증 후 이동하는 -> 관리자 등록  페이지
     "/create": wrap({
