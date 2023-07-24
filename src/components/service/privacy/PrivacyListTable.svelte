@@ -1,13 +1,19 @@
 
 <script>
-    import { link } from 'svelte-spa-router'
-    import { page } from "../../../lib/store"
+    import {page, privacyDetailData} from "../../../lib/store"
 
     export let size;
     export let total;
     export let provision_list;
 
     export let downloadHistoryClick;
+
+    const handleOpenDetail = (proId) => {
+        privacyDetailData.update(obj => {
+            obj.proId = proId;
+            return obj;
+        });
+    }
 
 </script>
 
@@ -59,7 +65,7 @@
                     <td><div class="dcount downcountPop" on:click={() => downloadHistoryClick(provision.proCode)}>{provision.downloadCount}</div></td>
                     <td>
                         <div class="dlink">
-                            <a use:link href="/service/privacy/privacyDetail/{provision.proId}">상세보기</a>
+                            <a on:click={() => {handleOpenDetail(provision.proId)}}>상세보기</a>
                         </div>
                     </td>
                 </tr>

@@ -252,6 +252,12 @@ export const initialPrivacySearch = JSON.stringify({
 
 export const privacySearchData = writable(JSON.parse(initialPrivacySearch));
 
+export const initialPrivacyDetail = JSON.stringify({
+    proId: 0,
+});
+
+export const privacyDetailData = writable(JSON.parse(initialPrivacyDetail));
+
 export const initialServiceSetting = JSON.stringify({
     accessIpList: [],  // 접속 허용 IP
     accessIpSearchResultList: [],

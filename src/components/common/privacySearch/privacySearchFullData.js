@@ -73,13 +73,11 @@ const splitArray = (arr, start, end) => {
     return [a, b];
 }
 export const getUserListByCondition = (page = 1, limitNum = 10, baseColumnList) => {
-    const baseSearchCodes = [];
-    const baseSearchTexts = [];
+    let baseSearchCodes = [];
     if (baseColumnList && baseColumnList.length) {
         for (const code of baseColumnList) {
             if (code) {
                 baseSearchCodes.push(code);
-                baseSearchTexts.push('');
             }
         }
     }
@@ -89,10 +87,15 @@ export const getUserListByCondition = (page = 1, limitNum = 10, baseColumnList) 
     };
     privacySearchData.update(obj => {
         obj.searchResultState = 0;
-        searchCondition.searchCodes = [...baseSearchCodes, ...obj.searchConditionList.map(obj => obj.searchCode)];
-        searchCondition.searchTexts = [...baseSearchTexts, ...obj.searchConditionList.map(obj => obj.searchText)];
+        const searchCodes = obj.searchConditionList.map(obj => obj.searchCode);
+        baseSearchCodes = baseSearchCodes.filter(item => !searchCodes.includes(item));
+        const baseSearchTexts = new Array(baseSearchCodes.length).fill('');
+        const searchTexts = obj.searchConditionList.map(obj => obj.searchText);
+        searchCondition.searchCodes = [...baseSearchCodes, ...searchCodes];
+        searchCondition.searchTexts = [...baseSearchTexts, ...searchTexts];
         return obj;
     });
+
     console.log('검색조건', searchCondition);
     if (verifySearchCondition(searchCondition).isVerifyFail) {
         openConfirm({
@@ -218,8 +221,16 @@ export const handleChangePage = ({page, limitNum}) => {
 
 export const distinguishSearchTextPlaceholder = (targetSearchCondition) => {
     let resultText = '';
-    if (targetSearchCondition.currentColumnName === '휴대전화번호') {
-        resultText = '휴대전화번호 뒷자리 4자리를 입력해 주세요.';
+    if (['휴대전화번호', '연락처'].includes(targetSearchCondition.currentColumnName)) {
+        resultText = '전화번호 뒷자리 4자리를 입력해 주세요.';
+    } else if (targetSearchCondition.currentColumnName === '이름') {
+        resultText = '맨앞자, 맨뒷자, 혹은 정확한 이름을 입력해 주세요.';
+    } else if (['주민등록번호', '거소신고번호', '외국인등록번호'].includes(targetSearchCondition.currentColumnName)) {
+        resultText = '앞 6자리 혹은 완전히 일치하는 검색어를 입력해 주세요.';
+    } else if (targetSearchCondition.currentColumnName === '여권번호') {
+        resultText = '앞 4자리 혹은 완전히 일치하는 검색어를 입력해 주세요.';
+    } else if (targetSearchCondition.currentColumnName === '이메일주소') {
+        resultText = '도메인 주소 혹은 완전히 일치하는 검색어를 입력해 주세요.';
     } else if (targetSearchCondition.currentColumnSecrity === 1) {
         resultText = '완전히 일치하는 검색어를 입력해 주세요.';
     } else {
