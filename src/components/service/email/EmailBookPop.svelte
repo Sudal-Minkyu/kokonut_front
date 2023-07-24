@@ -43,6 +43,7 @@
 
         emailSendData.update(obj => {
             obj.emReservationDate = selectedDate.setHours(selectedHour);
+            obj.emType = '2';
             return obj;
         });
 

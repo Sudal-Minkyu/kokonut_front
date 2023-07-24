@@ -1,20 +1,19 @@
 
 <script>
     import Header from "../../../components/service/layout/Header.svelte"
-    import {link, push} from 'svelte-spa-router'
+    import {link} from 'svelte-spa-router'
     import {
         backBtn,
         privacySearchData,
         emailSendData,
         initialEmailSend,
-        initialPrivacySearch,
+        initialPrivacySearch, mainScreenBlockerVisibility,
     } from '../../../lib/store'
     import TextEditor from "../../../components/common/TextEditor.svelte";
     import EmailPersonSelectPop from "../../../components/service/email/EmailPersonSelectPop.svelte";
     import EmailBookPop from "../../../components/service/email/EmailBookPop.svelte";
     import {SelectBoxManager} from "../../../components/common/action/SelectBoxManager.js";
     import {onMount} from "svelte";
-    import {getColumnList} from "../../../components/common/privacySearch/privacySearchFullData.js";
     import {ajaxMultipart} from "../../../components/common/ajax.js";
     import {openConfirm} from "../../../components/common/ui/DialogManager.js";
 
@@ -23,7 +22,6 @@
     onMount(() => {
         emailSendData.set(JSON.parse(initialEmailSend));
         privacySearchData.set(JSON.parse(initialPrivacySearch));
-        getColumnList();
     });
 
     const handleEmPurposeSelect = (el) => {
@@ -77,6 +75,7 @@
     const handleResetEmReservationDate = () => {
         emailSendData.update(obj => {
             obj.emReservationDate = 0;
+            obj.emType = '1';
             return obj;
         });
     }
@@ -88,10 +87,23 @@
             const newFiles = Array.from(e.target.files);
 
             const currentFilesSize = $emailSendData.multipartFiles.reduce((total, file) => total + file.size, 0);
+
             const newFilesSize = newFiles.reduce((total, file) => total + file.size, 0);
 
-            if (currentFilesSize + newFilesSize > FILE_SIZE_LIMIT) {
-                alert('Total file size cannot exceed 20MB');
+            if (newFiles.some(file => file.size > 10*1024*1024) && false) {
+                openConfirm({
+                    icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: '첨부 파일 용량 초과', // 제목
+                    contents1: '단일 첨부파일 용량은 10MB를 초과할 수 없습니다.',
+                    btnCheck: '확인', // 확인 버튼의 텍스트
+                });
+            } else if (currentFilesSize + newFilesSize > FILE_SIZE_LIMIT) {
+                openConfirm({
+                    icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: '첨부 파일 용량 초과', // 제목
+                    contents1: '첨부파일의 총 용량은 ' + FILE_SIZE_LIMIT / 1024 / 1024 + 'MB 를 초과할 수 없습니다.',
+                    btnCheck: '확인', // 확인 버튼의 텍스트
+                });
             } else {
                 totalSize = ((currentFilesSize + newFilesSize) / (1024 * 1024)).toFixed(1);
                 emailSendData.update(obj => {
@@ -99,6 +111,7 @@
                     return obj;
                 });
             }
+            e.target.value = '';
         }
     }
 
@@ -112,6 +125,7 @@
     }
 
     const handleOnSubmitBtnClick = () => {
+        mainScreenBlockerVisibility.set(true);
         emailSendData.update(obj => {
             obj.emContents = textEditorComponent.getText();
             return obj;
@@ -145,6 +159,9 @@
                 title: "메일 발송을 성공 하였습니다.", // 제목
                 btnCheck: '확인', // 확인 버튼의 텍스트
             });
+            mainScreenBlockerVisibility.set(false);
+        }, (errCode, errMsg) => {
+            mainScreenBlockerVisibility.set(false);
         });
     }
 </script>
@@ -209,7 +226,6 @@
                                     <label for="전체 회원">
                                         <em><dt></dt></em>
                                         전체 회원
-                                        <span>500명(작업필)</span>
                                     </label>
                                 </div>
                                 <div class="check poprCheck">

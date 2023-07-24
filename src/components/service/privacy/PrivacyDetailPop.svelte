@@ -1,6 +1,7 @@
 <script>
     import {initialPrivacyDetail, privacyDetailData} from "../../../lib/store.js";
     import {onMount} from "svelte";
+    import {ajaxGet} from "../../common/ajax.js";
 
     onMount(() => {
 
@@ -12,6 +13,27 @@
 
     const closePop = () => {
         privacyDetailData.set(JSON.parse(initialPrivacyDetail));
+    }
+
+    const handleExcelDownload = () => {
+        ajaxGet('/v2/api/Provision/provisionDownloadExcel', false, (res) => {
+            const fileData = res.data.sendData.fileData;
+            const fileName = res.data.sendData.fileName;
+            var byteCharacters = atob(fileData);
+            var byteNumbers = new Array(byteCharacters.length);
+            for (var i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            var byteArray = new Uint8Array(byteNumbers);
+            var blob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+
+            var downloadUrl = URL.createObjectURL(blob);
+            var a = document.createElement("a");
+            a.href = downloadUrl;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+        });
     }
 
 </script>
@@ -45,7 +67,7 @@
                     </ul>
                 </div>
                 <div class="memseaBox marB24">
-                    <div class="pridownBtn" id="pridownPop">
+                    <div class="pridownBtn" on:click={handleExcelDownload}>
                         개인정보 다운로드
                     </div>
                 </div>

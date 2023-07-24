@@ -1,7 +1,7 @@
 <script>
     import {EMAIL_SEARCH_CONDITION_LIMIT, addSearchCondition, removeSearchCondition, handleChangeColumnBox,
-        getUserListByCondition, handleEnterSearchText, handleOpenDetail, handleChangePage,
-        distinguishSearchTextPlaceholder} from "../../common/privacySearch/privacySearchFullData.js";
+        getUserListByCondition, handleEnterSearchText, handleChangePage,
+        distinguishSearchTextPlaceholder, getColumnList} from "../../common/privacySearch/privacySearchFullData.js";
     import {emailSendData, privacySearchData} from "../../../lib/store.js";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
     import Pagination from "../../common/ui/Pagination.svelte";
@@ -11,6 +11,7 @@
     import {onMount} from "svelte";
 
     onMount(() => {
+        getColumnList();
         getCsEmailCodeSetting();
         backupExistingCondition();
         determineChkSelectAllInfo();
@@ -115,35 +116,37 @@
             <div class="koko_popup_title">
                 <h3 class="">회원선택 <span>{$emailSendData.emailSendChoseList.length}</span></h3>
             </div>
-            {#each $privacySearchData.searchConditionList as {searchCode, currentColumnName, key}, i (key)}
-                <div class="memseaBox marB8" style="justify-content: center;">
-                    <div class="mu_SelBox wid130">
-                        <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: (e) => {handleChangeColumnBox(e, i)}}}>
-                            <div class="label">{currentColumnName}</div>
-                            <ul class="optionList" style="z-index: 21;">
-                                {#each $privacySearchData.columnList as {fieldCode, fieldComment, fieldSecrity}, j (fieldCode)}
-                                    <li class="optionItem curv" data-value={fieldCode} data-secrity={fieldSecrity}>{fieldComment}</li>
-                                {/each}
-                            </ul>
+            {#if $privacySearchData.columnList.length}
+                {#each $privacySearchData.searchConditionList as {searchCode, currentColumnName, key}, i (key)}
+                    <div class="memseaBox marB8" style="justify-content: center;">
+                        <div class="mu_SelBox wid130">
+                            <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: (e) => {handleChangeColumnBox(e, i)}}}>
+                                <div class="label">{currentColumnName}</div>
+                                <ul class="optionList" style="z-index: 21;">
+                                    {#each $privacySearchData.columnList as {fieldCode, fieldComment, fieldSecrity}, j (fieldCode)}
+                                        <li class="optionItem curv" data-value={fieldCode} data-secrity={fieldSecrity}>{fieldComment}</li>
+                                    {/each}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="memselBox wid320">
+                            <div class="koinput wid100per">
+                                <input type="text" class="wid320"
+                                       placeholder={distinguishSearchTextPlaceholder($privacySearchData.searchConditionList[i])}
+                                       bind:value={$privacySearchData.searchConditionList[i].searchText}
+                                       on:keypress={handleEnterSearch} />
+                                <button on:click={handleClickSearch}><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
+                            </div>
+                        </div>
+                        <div style="position: relative; width: 13px; visibility: {$privacySearchData.searchConditionList.length > 1 ? 'visible' : 'hidden'}"
+                             on:click={() => {removeSearchCondition(i)}}>
+                            <a class="pr_delete"></a>
                         </div>
                     </div>
-                    <div class="memselBox wid320">
-                        <div class="koinput wid100per">
-                            <input type="text" class="wid320"
-                                   placeholder={distinguishSearchTextPlaceholder($privacySearchData.searchConditionList[i])}
-                                   bind:value={$privacySearchData.searchConditionList[i].searchText}
-                                   on:keypress={handleEnterSearch} />
-                            <button on:click={handleClickSearch}><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
-                        </div>
-                    </div>
-                    <div style="position: relative; width: 13px; visibility: {$privacySearchData.searchConditionList.length > 1 ? 'visible' : 'hidden'}"
-                         on:click={() => {removeSearchCondition(i)}}>
-                        <a class="pr_delete"></a>
-                    </div>
-                </div>
-            {/each}
-            {#if $privacySearchData.searchConditionList.length < EMAIL_SEARCH_CONDITION_LIMIT}
-                <button type="button" class="pr_fieldBtn" on:click={addSearchCondition}></button>
+                {/each}
+                {#if $privacySearchData.searchConditionList.length < EMAIL_SEARCH_CONDITION_LIMIT}
+                    <button type="button" class="pr_fieldBtn" on:click={addSearchCondition}></button>
+                {/if}
             {/if}
 
 
