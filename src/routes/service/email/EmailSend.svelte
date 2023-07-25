@@ -1,7 +1,7 @@
 
 <script>
     import Header from "../../../components/service/layout/Header.svelte"
-    import {link} from 'svelte-spa-router'
+    import {link, push} from 'svelte-spa-router'
     import {
         backBtn,
         privacySearchData,
@@ -158,6 +158,9 @@
                 icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                 title: "메일 발송을 성공 하였습니다.", // 제목
                 btnCheck: '확인', // 확인 버튼의 텍스트
+                callback: () => {
+                    push($emailSendData.emType === '1' ? '/service/emailSendComplete' : '/service/emailBookComplete');
+                }
             });
             mainScreenBlockerVisibility.set(false);
         }, (errCode, errMsg) => {

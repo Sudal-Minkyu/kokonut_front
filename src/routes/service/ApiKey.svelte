@@ -4,27 +4,21 @@
     // 레이아웃
     import Header from "../../components/service/layout/Header.svelte"
     import { link } from 'svelte-spa-router'
-    import { backBtn } from '../../lib/store'
-
+    import {backBtn, userInfoData} from '../../lib/store'
     import { onMount } from 'svelte';
-    import restapi from "../../lib/api.js";
-    import { is_login, accessToken } from "../../lib/store.js"
-
-    import { push } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
-
     import jQuery from 'jquery';
     import CustumAlert from "../../components/common/CustumAlert.svelte"
     import { popOpenBtn, }from '../../lib/common'
-
     import TitleAlarm from '../../components/common/TitleAlarm.svelte'
-
     import ApiKeyIpDelete from '../../components/service/environment/apikey/ApiKeyIpDelete.svelte'
     import ApiKeyIpAdd from '../../components/service/environment/apikey/ApiKeyIpAdd.svelte'
     import ApiKeyExplan from '../../components/service/environment/apikey/ApiKeyExplan.svelte'
     import {logout} from "../../components/common/authActions.js";
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
+
+    const isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
 
     let allChecked = false;
     let deleteIpList = [];
@@ -259,7 +253,9 @@
                             </div>
                         </div>
 
-                        <button id="excel_download_pop" on:click={popOpenBtn}>API Key 재발급</button>
+                        {#if isModifiable}
+                            <button id="excel_download_pop" on:click={popOpenBtn}>API Key 재발급</button>
+                        {/if}
 
                     </div>
 
@@ -267,10 +263,10 @@
                         <div class="ipseaBox marB46">
                             <div class="koinput"></div>
                             <div class="floatBtnBox">
-                                {#if ipSize >= 1}
+                                {#if ipSize >= 1 && isModifiable}
                                     <button class="del" on:click={() => ipChange(1)} id="ipdel_pop">삭제</button>
                                 {/if}
-                                {#if ipSize !== 5}
+                                {#if ipSize !== 5 && isModifiable}
                                     <button class="add" on:click={() => ipChange(2)} id="ipadd_pop">추가</button>
                                 {/if}
                             </div>
@@ -278,18 +274,22 @@
                         <div class="prtable">
                             <table>
                                 <colgroup>
-                                    <col style="width:8.21%;">
+                                    {#if isModifiable}
+                                        <col style="width:8.21%;">
+                                    {/if}
                                     <col style="width:71.14%;">
-                                    <col style="width:20.66%;">
+                                    <col>
                                 </colgroup>
                                 <thead>
                                 <tr>
-                                    <th>
-                                        <div class="koko_check">
-                                            <input type="checkbox" bind:checked="{allChecked}" on:click|preventDefault={allcheckBox} id="allcheck">
-                                            <label for="allcheck"><em></em></label>
-                                        </div>
-                                    </th>
+                                    {#if isModifiable}
+                                        <th>
+                                            <div class="koko_check">
+                                                <input type="checkbox" bind:checked="{allChecked}" on:click|preventDefault={allcheckBox} id="allcheck">
+                                                <label for="allcheck"><em></em></label>
+                                            </div>
+                                        </th>
+                                    {/if}
                                     <th>공인 IP</th>
                                     <th>메모</th>
                                 </tr>
@@ -298,12 +298,14 @@
                                 {#if ipSize !== 0}
                                     {#each accessIpList as accessIp, i}
                                         <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" id="ip{i+1}" class="partcheck" value="accessIp{i+1}" on:click={checkBoxClick} >
-                                                    <label for="ip{i+1}"><em></em></label>
-                                                </div>
-                                            </td>
+                                            {#if isModifiable}
+                                                <td>
+                                                    <div class="koko_check">
+                                                        <input type="checkbox" id="ip{i+1}" class="partcheck" value="accessIp{i+1}" on:click={checkBoxClick} >
+                                                        <label for="ip{i+1}"><em></em></label>
+                                                    </div>
+                                                </td>
+                                            {/if}
                                             <td id="accessIp{i+1}">{accessIp.accessIp}</td>
                                             <td id="accessMemo{i+1}">{accessIp.memo}</td>
                                         </tr>

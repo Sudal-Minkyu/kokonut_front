@@ -38,6 +38,8 @@ import PrivacyHistory from "./routes/service/privacy/PrivacyHistory.svelte"
 import PrivacySearch from "./routes/service/privacy/PrivacySearch.svelte"
 import Subscription from "./routes/service/Subscription.svelte";
 import ThirdPartyConnection from "./routes/service/ThirdPartyConnection.svelte";
+import EmailSendComplete from "./routes/service/email/EmailSendComplete.svelte";
+import EmailBookComplete from "./routes/service/email/EmailBookComplete.svelte";
 
 export default {
     // API 테스트하는 화면
@@ -74,6 +76,9 @@ export default {
     "/service/emailList": Email,
     // 이메일 발송 페이지
     "/service/emailSend": EmailSend,
+    // 이메일 전송, 예약 완료 관련 페이지
+    "/service/emailSendComplete": EmailSendComplete,
+    "/service/emailBookComplete": EmailBookComplete,
 
     // 메일인증 후 이동하는 -> 관리자 등록  페이지
     "/create": wrap({

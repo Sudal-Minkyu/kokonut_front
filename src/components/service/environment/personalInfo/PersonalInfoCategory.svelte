@@ -1,7 +1,9 @@
 <script>
-    import {personalInfoCategoryData} from "../../../../lib/store.js";
+    import {personalInfoCategoryData, userInfoData} from "../../../../lib/store.js";
     import {onDestroy, onMount} from "svelte";
     export let personalInfoCategoryService;
+
+    const isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
 
     // 카테고리를 선택했을 때 해당 카테고리에 맞는 항목들을 보여주기 위함
     const catBoxControl = (e) => {
@@ -25,7 +27,9 @@
     <div class="prptitle">
         <h2>항목 분류</h2>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="myAddBtn" on:click={personalInfoCategoryService.createItemPop.show}>나만의 항목 추가</div>
+        {#if isModifiable}
+            <div class="myAddBtn" on:click={personalInfoCategoryService.createItemPop.show}>나만의 항목 추가</div>
+        {/if}
     </div>
     <div class="categorydivision_box">
         <div>
@@ -118,20 +122,22 @@
             </div>
         </div>
 
-        <div class="sel_cateListBox">
-            <div class="sel_cateList">
-                {#each $personalInfoCategoryData.checkedItemObjList as {ciName}, i}
-                    <div class="sel_cate" id="choseCategory{i}">
-                        {ciName}
-                        <button on:click={() => personalInfoCategoryService.removeCheckedItem(ciName)}>X</button>
-                    </div>
-                {/each}
+        {#if isModifiable}
+            <div class="sel_cateListBox">
+                <div class="sel_cateList">
+                    {#each $personalInfoCategoryData.checkedItemObjList as {ciName}, i}
+                        <div class="sel_cate" id="choseCategory{i}">
+                            {ciName}
+                            <button on:click={() => personalInfoCategoryService.removeCheckedItem(ciName)}>X</button>
+                        </div>
+                    {/each}
+                </div>
+                <div class="sel_cateBtnBox">
+                    <button class="cateResetBtn" on:click={personalInfoCategoryService.resetCheckedItemState}>초기화</button>
+                    <button class="cateAddBtn" on:click={personalInfoCategoryService.insertItemPop.handleAddItemBtnClick}>오른쪽에 추가</button>
+                </div>
             </div>
-            <div class="sel_cateBtnBox">
-                <button class="cateResetBtn" on:click={personalInfoCategoryService.resetCheckedItemState}>초기화</button>
-                <button class="cateAddBtn" on:click={personalInfoCategoryService.insertItemPop.handleAddItemBtnClick}>오른쪽에 추가</button>
-            </div>
-        </div>
+        {/if}
 <!--                    <div class="cateAddInfoBox">-->
 <!--                        <div class="cateAddInfo" id="commerce_pop">전자상거래법 적용 대상이세요?</div><br>-->
 <!--                        <div class="cateAddInfo" id="create_item_pop">원하시는 개인정보 항목이 없나요?</div>-->

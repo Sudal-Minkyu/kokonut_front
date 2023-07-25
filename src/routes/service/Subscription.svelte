@@ -15,7 +15,7 @@
     let payBeforeUnsubscribeConfirmVisibility = false;
     let unsubscribeDoneConfirmVisibility = false;
 
-    const moddableRole = ['ROLE_MASTER', 'ROLE_ADMIN'];
+    const isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
     let gotPaymentState = 0;
 
     onMount(() => {
@@ -136,7 +136,7 @@
                     <dl>이용중인 상품</dl>
                     <div class="myInfoBox">
                         <div class="top_stand0{($subscriptionManagementData.companyPaymentInfo.cpiPayType + 1) * 2 - 1}">{cpiPayTypeName[$subscriptionManagementData.companyPaymentInfo.cpiPayType]}</div>
-                        {#if moddableRole.includes($userInfoData.role) }
+                        {#if $userInfoData.role === 'ROLE_MASTER' }
                             &nbsp;&nbsp;<button class="myinfoChangeBtn marL8impor" id="unsubscribe_pop" on:click={handleUnsubscribeBtn}>구독해지</button>
                         {/if}
                         <!--
@@ -151,7 +151,7 @@
                     <dl>결제수단</dl>
                     <div class="myInfoBox">
                         <span>{$subscriptionManagementData.companyPaymentInfo.cpiInfoCardName}</span>
-                        {#if moddableRole.includes($userInfoData.role) }
+                        {#if isModifiable }
                             <button class="myinfoChangeBtn" id="method_pop" on:click={handleChangePayMethod}>변경</button>
                         {/if}
                     </div>

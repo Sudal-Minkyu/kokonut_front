@@ -71,10 +71,11 @@
         let sendData = {
             searchText : searchText,
             stime : stimeVal,
-            emailType : jQuery("#emailTypeSelect").text(),
+            emailPurpose : jQuery("#emailTypeSelect").text(),
         };
 
         ajaxGet(url, sendData, (res) => {
+            console.log(res);
             email_list = res.data.datalist;
             total = res.data.total_rows;
         }, (errCode, errMsg) => {

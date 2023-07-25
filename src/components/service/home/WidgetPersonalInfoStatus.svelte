@@ -3,6 +3,7 @@
     import {ajaxGet} from "../../common/ajax.js";
     import {onMount} from "svelte";
     import {DateRangePicker} from "../../common/action/DatePicker.js";
+    import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
 
     let privacyIndexDto = {};
 
@@ -13,12 +14,10 @@
     let options = {
         series: [0, 0, 0],
         chart: {
-            width: 300,
             type: 'pie',
         },
         plotOptions: {
             pie: {
-                customScale: 0.9,
             },
         },
         dataLabels: {
@@ -54,8 +53,8 @@
         });
     };
 
-    const handleSelectPeriod = (periodObj) => {
-        console.log('선택됨', periodObj); // api 기간용으로 전환시 반영
+    const handleSelectPeriod = (el) => {
+        getPrivacyIndexCount(el.dataset.datatype);
     };
 
     const handleDatepickerRendered = (periodObj) => {
@@ -77,17 +76,27 @@
                 <dt>개인정보 현황</dt>
             </div>
             <div class="">
-                <div class="calenderBox" style="padding: 0;">
-                    <div style="width: 100%; position: relative;">
-                        <input id="stime" type="text" class="form-control" placeholer="날짜선택"
-                               aria-describedby="stime_addon" style="width: 170px; font-size: 1.5rem; font-family: Pretendard,sans-serif;" use:DateRangePicker={dateRangePickerProps} readonly />
-                        <input type="radio" class="radio" name="period" id="radioToday" value="7" style="display: none" checked />
+                <div class="sc_SelBox">
+                    <div class="selectBox" use:SelectBoxManager={{callback: handleSelectPeriod}}>
+                        <div class="label">오늘</div>
+                        <ul class="optionList">
+                            <li class="optionItem" data-datetype="1">오늘</li>
+                            <li class="optionItem" data-datetype="2">이번주</li>
+                            <li class="optionItem" data-datetype="3">이번달</li>
+                        </ul>
                     </div>
                 </div>
+<!--                <div class="calenderBox" style="padding: 0;">-->
+<!--                    <div style="width: 100%; position: relative;">-->
+<!--                        <input id="stime" type="text" class="form-control" placeholer="날짜선택"-->
+<!--                               aria-describedby="stime_addon" style="width: 170px; font-size: 1.5rem; font-family: Pretendard,sans-serif;" use:DateRangePicker={dateRangePickerProps} readonly />-->
+<!--                        <input type="radio" class="radio" name="period" id="radioToday" value="7" style="display: none" checked />-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
-        <div class="wjgrBox marT24">
-            <div use:chart={options}></div>
+        <div class="wjgrBox marT24" style="align-content: center">
+            <div use:chart={options} ></div>
 <!--            <div class="wjgr"></div>-->
 <!--            <div class="wjgr_tabe">-->
 <!--                <div class="grtabe grt_01">활성<span>(2920)</span></div>-->
