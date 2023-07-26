@@ -92,9 +92,9 @@
             policyDetailLayout = 1;
         }, (errCode) => {
             state = 1;
-            pageErrMsg1 = "선택하신 페이지가 존재하지 않습니다."
-            pageErrMsg2 = "다시 시도해주사길 바랍니다."
-            pageErrUrl = "/service/policyList"
+            pageErrMsg1 = "선택하신 처리방침이 존재하지 않습니다.";
+            pageErrMsg2 = "다시 시도해주사길 바랍니다.";
+            pageErrUrl = "/service/policyList";;
             console.log("조회된 데이터가 없습니다.");
             return {action: 'NONE'};
         });

@@ -7,14 +7,12 @@
         from "../../../components/service/environment/personalInfo/PersonalInfoCreateItemPop.svelte";
     import PersonalInfoAddTabPop
         from "../../../components/service/environment/personalInfo/PersonalInfoAddTabPop.svelte";
-
     import { onMount } from 'svelte'
     import {link} from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
-
     import jQuery from "jquery";
     import restapi from "../../../lib/api.js";
-    import {backBtn, personalInfoCategoryData, personalInfoTableData} from '../../../lib/store.js'
+    import {backBtn, personalInfoCategoryData, personalInfoTableData, userInfoData} from '../../../lib/store.js'
     import PersonalInfoRemoveColumnPop
         from "../../../components/service/environment/personalInfo/PersonalInfoRemoveColumnPop.svelte";
     import PersonalInfoInsertItemPop

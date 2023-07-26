@@ -8,9 +8,10 @@
     import PrivacyListSearch from "../../../components/service/privacy/PrivacyListSearch.svelte";
     import PrivacyDownloadHistory from "../../../components/service/privacy/PrivacyDownloadHistory.svelte";
     import Paging from "../../../components/common/Paging.svelte";
-    import { page, popupPage } from "../../../lib/store.js";
+    import {page, popupPage, privacyDetailData} from "../../../lib/store.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet} from "../../../components/common/ajax.js";
+    import PrivacyDetailPop from "../../../components/service/privacy/PrivacyDetailPop.svelte";
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -159,4 +160,8 @@
 
 {#if downloadPop === 1}
     <PrivacyDownloadHistory {downloadPopClose} {provisionDownload_size} {provisionDownload_total} {provisionDownload_total_page} {provisionDownloadHistory_list} {downloadHistoryList}  />
+{/if}
+
+{#if $privacyDetailData.proCode}
+    <PrivacyDetailPop />
 {/if}

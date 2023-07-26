@@ -8,7 +8,7 @@ export const bootpayStartSubscription = (handleSuccess, handleFail) => {
     addOrChangeCard({
         order_name: '코코넛 이용을 위한 결제 수단 등록',
         subscription_comment: '매월 사용료에 따라 결제됩니다. 사용료는 환경설정 - 구독관리 페이지를 통해 확인할 수 있습니다.',
-        success_msg: '구독을 개시하였습니다.',
+        success_msg: '카드등록이 완료되었습니다.',
         handleSuccess,
         handleFail,
     });

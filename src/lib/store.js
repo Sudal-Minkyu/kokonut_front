@@ -30,7 +30,7 @@ export const initialUserInfo = JSON.stringify({
     knName: '', // 헤더바에 나올 사용자명
     knPhoneNumber: '', // 사용자 전화번호
     paymentBillingCheck: '', // 0 -> 새로가입했지만 아직 구독하지 않은 고객사, 1 -> 구독중인 고객사, 2 -> 구독해지한 고객사
-    emailSendSettingState: '0', // 0 -> 이메일 발송 세팅하지 않음, 1 -> 이메일 발송 세팅함
+    emailSendSettingState: '', // 0 -> 이메일 발송 세팅하지 않음, 1 -> 이메일 발송 세팅함
     role: '', // 로그인한 사용자 권한
 });
 
@@ -242,12 +242,21 @@ export const initialPrivacySearch = JSON.stringify({
     }],
     rawResultList: [],
     resultColumnList: [],
+    visibleColumnList: [],
+    invisibleColumnList: [],
     resultValueList: [],
+    visibleValueList: [],
     currentPage: 1,
     totalPosts: 0,
 });
 
 export const privacySearchData = writable(JSON.parse(initialPrivacySearch));
+
+export const initialPrivacyDetail = JSON.stringify({
+    proCode: '',
+});
+
+export const privacyDetailData = writable(JSON.parse(initialPrivacyDetail));
 
 export const initialServiceSetting = JSON.stringify({
     accessIpList: [],  // 접속 허용 IP
@@ -296,3 +305,18 @@ export const initialSubscriptionManagement = JSON.stringify({
 });
 
 export const subscriptionManagementData = writable(JSON.parse(initialSubscriptionManagement));
+
+export const initialEmailSend = JSON.stringify({
+    emType: '1', // 발송타입(1 : 일반발송, 2 : 예약발송)
+    emReservationDate: 0, // 예약발송일 경우 발송시간
+    emPurpose: '1', // 발송목적(1:주요공지, 2:광고/홍보, 3:기타)
+    emEtc: '', // 기타일 경우 해당 내용
+    emReceiverType: '0', // 발송대상(1 : 전체회원, 2 : 선택회원)
+    emailSendChoseList: [], // 선택회원 리스트
+    emEmailSend: '', // 발신자 이메일
+    emTitle: '', // 제목
+    emContents: '', // 내용
+    multipartFiles: [], // 첨부파일 목록 -> 20MB미만일 경우만
+});
+
+export const emailSendData = writable(JSON.parse(initialEmailSend));

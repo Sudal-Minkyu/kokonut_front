@@ -83,8 +83,8 @@
                             <div class="thirdItem">
                                 <div class="thirdItemIconLine">
                                     <div class="thirdItemIcon">
-                                        <img src="/assets/images/common/google_forms_icon.png" alt="">
-                                        <h2>Google Forms</h2>
+                                        <img src="/assets/images/common/bizmlogo.png" alt="비즈엠로고">
+                                        <h2>비즈엠</h2>
                                         <a href="">사용가이드<span></span></a>
                                     </div>
                                 </div>

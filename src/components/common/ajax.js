@@ -38,7 +38,7 @@ export const ajaxBody = (url, sendData = {}, handleSuccess = () => {}, handleFai
     });
 };
 
-export const ajaxMultipart = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
+export const ajaxMultipart = (url, sendData = new FormData(), handleSuccess = () => {}, handleFail = () => {}) => {
     restapi({
         url,
         handleSuccess,
@@ -119,6 +119,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         if (okRes.data.status === 200) {
             handleSuccess(okRes);
         } else {
+            console.log(okRes);
             const code = okRes.data.err_code;
             const handleFailResult = handleFail(code, okRes.data.err_msg);
             const actionString = handleFailResult?.action || okRes.data.err_action || '';

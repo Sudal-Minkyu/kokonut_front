@@ -14,7 +14,6 @@
     import {openConfirm} from "../../../components/common/ui/DialogManager.js";
 
     onMount(async () => {
-        checkEmailColumnAvailable();
         await fatchSearchModule();
     });
 
@@ -28,7 +27,29 @@
         emailSendList($page);
     }
 
-    const checkEmailColumnAvailable = () => {
+    // 이메일 사용가능여부 체크
+    const checkEmailColumnAvailableInterval = setInterval(() => {
+        let chkCount = 0;
+        if (chkCount === 100) { // 10초간 사용자 정보를 가져오지 못하면......
+            openConfirm({
+                icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: "통신 상태 불량", // 제목
+                contents1: '이메일 주소가 담겨있는 항목을 가져오지 못했습니다.',
+                contents2: '통신 연결 상태를 점검하시고, 이상이 없는 경우 관리자에게 문의해 주세요.',
+                btnCheck: '확인', // 확인 버튼의 텍스트
+                callback: () => {
+                    push('/service');
+                },
+            });
+            clearInterval(checkEmailColumnAvailableInterval);
+            return;
+        }
+
+        if ($userInfoData.emailSendSettingState === '') {
+            chkCount++;
+            return;
+        }
+
         if ($userInfoData.emailSendSettingState === '0') {
             const openConfirmProps = {
                 icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
@@ -48,7 +69,8 @@
             }
             openConfirm(openConfirmProps);
         }
-    }
+        clearInterval(checkEmailColumnAvailableInterval);
+    }, 100);
 
     let customSelectBoxOpt = [
         {id : "emailTypeSelect", use_all : true, codeName : "email_type"},
@@ -71,10 +93,11 @@
         let sendData = {
             searchText : searchText,
             stime : stimeVal,
-            emailType : jQuery("#emailTypeSelect").text(),
+            emailPurpose : jQuery("#emailTypeSelect").text(),
         };
 
         ajaxGet(url, sendData, (res) => {
+            console.log(res);
             email_list = res.data.datalist;
             total = res.data.total_rows;
         }, (errCode, errMsg) => {

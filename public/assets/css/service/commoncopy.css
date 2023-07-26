@@ -1622,7 +1622,7 @@
 
 /* 이메일 회원선택 팝업 */
 .email_member_pop{background:rgba(255,255,255,0)!important;}
-.email_member_pop .koko_popup_inner {top: 12rem;width: 63rem;}
+.email_member_pop .koko_popup_inner {top: 8rem;width: 84rem;}
 
 .memselBox{width:100%;max-height:10rem;position:relative;overflow:auto;text-align:left;}
 .memselBox::-webkit-scrollbar{width: 0.5rem;}
