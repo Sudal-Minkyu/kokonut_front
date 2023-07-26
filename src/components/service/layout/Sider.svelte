@@ -2,7 +2,7 @@
     import { link } from 'svelte-spa-router'
     import {is_login, page, userInfoData} from "../../../lib/store.js"
 
-    const roleCat1 = ['ROLE_MASTER', 'ROLE_ADMIN', 'ROLE_USER'].includes($userInfoData.role);
+    $: roleCat1 = ['ROLE_MASTER', 'ROLE_ADMIN', 'ROLE_USER'].includes($userInfoData.role);
 </script>
 
 {#if $is_login}

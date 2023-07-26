@@ -90,7 +90,7 @@
 
             const newFilesSize = newFiles.reduce((total, file) => total + file.size, 0);
 
-            if (newFiles.some(file => file.size > 10*1024*1024) && false) {
+            if (newFiles.some(file => file.size > 10*1024*1024)) {
                 openConfirm({
                     icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                     title: '첨부 파일 용량 초과', // 제목
@@ -154,15 +154,8 @@
             privacySearchData.set(JSON.parse(initialPrivacySearch));
             document.getElementById('emPurposeLabel').innerHTML = '주요공지';
             textEditorComponent.resetText();
-            openConfirm({
-                icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                title: "메일 발송을 성공 하였습니다.", // 제목
-                btnCheck: '확인', // 확인 버튼의 텍스트
-                callback: () => {
-                    push($emailSendData.emType === '1' ? '/service/emailSendComplete' : '/service/emailBookComplete');
-                }
-            });
             mainScreenBlockerVisibility.set(false);
+            push($emailSendData.emType === '1' ? '/service/emailSendComplete' : '/service/emailBookComplete');
         }, (errCode, errMsg) => {
             mainScreenBlockerVisibility.set(false);
         });

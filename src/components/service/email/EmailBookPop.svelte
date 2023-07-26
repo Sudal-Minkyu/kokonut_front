@@ -107,6 +107,9 @@
         <ErrorHighlight message={highlightMsg} />
     </div>
     <div class="mrBottomBox">
+        <div class="marT20 marL30" style="color: #888; font-size: 1.5rem;">
+            예약된 발송은 관리자 문의를 통해서만 취소가 가능합니다.
+        </div>
         <div class="floatBtnBox">
             <div class="del mailreserve_cancal" on:click={handleCancel}>취소</div>
             <div class="add mailreserve_confirm" on:click={handleConfirm}>확인</div>

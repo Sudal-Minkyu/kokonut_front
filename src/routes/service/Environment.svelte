@@ -4,7 +4,7 @@
     import Header from "../../components/service/layout/Header.svelte"
     import { link } from 'svelte-spa-router'
     import {userInfoData} from "../../lib/store.js";
-    const roleCat1 = ['ROLE_MASTER', 'ROLE_ADMIN', 'ROLE_USER'].includes($userInfoData.role);
+    $: roleCat1 = ['ROLE_MASTER', 'ROLE_ADMIN', 'ROLE_USER'].includes($userInfoData.role);
 </script>
 
 <Header />
