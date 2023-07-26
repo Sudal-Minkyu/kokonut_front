@@ -162,6 +162,6 @@
     <PrivacyDownloadHistory {downloadPopClose} {provisionDownload_size} {provisionDownload_total} {provisionDownload_total_page} {provisionDownloadHistory_list} {downloadHistoryList}  />
 {/if}
 
-{#if $privacyDetailData.proId}
+{#if $privacyDetailData.proCode}
     <PrivacyDetailPop />
 {/if}

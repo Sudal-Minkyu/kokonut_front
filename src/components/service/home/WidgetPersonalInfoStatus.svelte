@@ -15,17 +15,13 @@
         series: [0, 0, 0],
         chart: {
             type: 'pie',
-        },
-        plotOptions: {
-            pie: {
-            },
+            width: 300,
         },
         dataLabels: {
             enabled: false,
         },
         tooltip: {
             enabled: true,
-
         },
         legend: {
             show: true,
@@ -95,8 +91,8 @@
 <!--                </div>-->
             </div>
         </div>
-        <div class="wjgrBox marT24" style="align-content: center">
-            <div use:chart={options} ></div>
+        <div class="wjgrBox marT24">
+            <div use:chart={options} style="margin: 0 auto;"></div>
 <!--            <div class="wjgr"></div>-->
 <!--            <div class="wjgr_tabe">-->
 <!--                <div class="grtabe grt_01">활성<span>(2920)</span></div>-->

@@ -17,7 +17,6 @@
                 ['color', ['color']],
                 ['para', ['paragraph']],
                 ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
                 ['view', ['codeview']]
             ],
             lang: 'ko-KR',

@@ -14,7 +14,7 @@
         <div class="mailcomplateBox">
             <div class="mailcomplate">
                 <div class="mailcomplateicon">
-                    <img src="/kokonut/member/public/img/common/mail_send_icon.png" alt="">
+                    <img src="/assets/images/public/img/common/mail_send_icon.png" alt="">
                 </div>
                 <h2>메일 발송이 완료되었습니다.</h2>
                 <div class="mailcomplateBtnBox">

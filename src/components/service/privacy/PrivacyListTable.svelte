@@ -8,9 +8,9 @@
 
     export let downloadHistoryClick;
 
-    const handleOpenDetail = (proId) => {
+    const handleOpenDetail = (proCode) => {
         privacyDetailData.update(obj => {
-            obj.proId = proId;
+            obj.proCode = proCode;
             return obj;
         });
     }
@@ -65,7 +65,7 @@
                     <td><div class="dcount downcountPop" on:click={() => downloadHistoryClick(provision.proCode)}>{provision.downloadCount}</div></td>
                     <td>
                         <div class="dlink">
-                            <a on:click={() => {handleOpenDetail(provision.proId)}}>상세보기</a>
+                            <a on:click={() => {handleOpenDetail(provision.proCode)}}>상세보기</a>
                         </div>
                     </td>
                 </tr>

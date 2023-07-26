@@ -253,7 +253,7 @@ export const initialPrivacySearch = JSON.stringify({
 export const privacySearchData = writable(JSON.parse(initialPrivacySearch));
 
 export const initialPrivacyDetail = JSON.stringify({
-    proId: 0,
+    proCode: '',
 });
 
 export const privacyDetailData = writable(JSON.parse(initialPrivacyDetail));
