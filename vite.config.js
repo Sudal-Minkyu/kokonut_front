@@ -15,8 +15,4 @@ export default defineConfig({
         host: '127.0.0.1'
     }
 
-    // server: {
-    //     port: 8051,
-    //     host: '0.0.0.0'
-    // }
-})
+});
