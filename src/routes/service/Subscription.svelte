@@ -15,7 +15,7 @@
     let payBeforeUnsubscribeConfirmVisibility = false;
     let unsubscribeDoneConfirmVisibility = false;
 
-    const isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
+    $: isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
     let gotPaymentState = 0;
 
     onMount(() => {

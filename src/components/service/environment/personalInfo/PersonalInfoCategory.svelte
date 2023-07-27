@@ -3,7 +3,7 @@
     import {onDestroy, onMount} from "svelte";
     export let personalInfoCategoryService;
 
-    const isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
+    $: isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
 
     // 카테고리를 선택했을 때 해당 카테고리에 맞는 항목들을 보여주기 위함
     const catBoxControl = (e) => {

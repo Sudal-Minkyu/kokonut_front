@@ -3,7 +3,7 @@
     import 'swiper/css/bundle';
     export let personalInfoTableService;
 
-    const isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
+    $: isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
 </script>
 
 <div class="prPart2_box" style="width: 41%;">
