@@ -327,31 +327,6 @@
         },
     ];
 
-    import { Carousel } from "svelte-images";
-    const { Modal, open, close } = Carousel;
-
-    // export let images = [];
-
-    const popModal = idx =>
-        setTimeout(() => {
-            open(images, idx);
-        }, 0);
-
-    import {Swiper, SwiperSlide} from 'svelte-swiper';
-    import 'swiper/swiper-bundle.css';
-    let swiper_options = {
-        direction: "vertical",
-        loop: true,
-        autoplay: {
-            delay: 2500,
-            disableOnInteraction: false,
-        },
-        navigation: {   // 버튼
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-    };
-
     import { Bootpay } from '@bootpay/client-js'
 
     // 부트페이 결제창
