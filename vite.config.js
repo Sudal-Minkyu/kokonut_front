@@ -9,10 +9,14 @@ export default defineConfig({
             external: ['svelte-swiper'],
         },
     },
-
     server: {
         port: 5173,
         host: '127.0.0.1'
-    }
+    },
+    resolve: {
+        alias: {
+            'jQuery': 'jquery'
+        },
+    },
 
 });

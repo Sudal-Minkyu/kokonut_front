@@ -248,6 +248,8 @@
     let pageErrUrl;
 
     let policyDetailLayout= 0;
+
+    let section2Count = 1;
 </script>
 
 <Header />
@@ -348,7 +350,7 @@
                 <div class="priContentBox">
                     <div class="priC_title marB24">{++step}. 수집하는 개인정보의 항목 및 수집방법</div>
                     <div class="prtextaddbox marB40">
-                        <dl>(1) 서비스 가입 시 수집하는 개인정보</dl>
+                        <dl>({section2Count++}) 서비스 가입 시 수집하는 개인정보</dl>
                         <div class="prtextTablethBox colum4Line borT">
                             <div class="prtti">처리목적</div>
                             <div class="prtti">수집 항목</div>
@@ -374,118 +376,127 @@
                         <div class="prdot_text marT16">기기 정보를 수집하는 경우에는 일방향 암호화(Hash)를 통해 기기를 식별할 수 없는 방법으로 변환하여 보관합니다.</div>
                     </div>
 
-                    <div class="prtextaddbox marB40">
-                        <dl>(2) 서비스 가입 후 수집하는 개인정보</dl>
-                        <div class="prtextTablethBox colum4Line borT">
-                            <div class="prtti">처리목적</div>
-                            <div class="prtti">수집 항목</div>
-                            <div class="prtti">필수/선택</div>
-                            <div class="prtti">처리 및 보유 기간</div>
-                        </div>
-
-                        {#each policyInfoData.afterDataList as {piaPurpose, piaInfo, piaChose, piaPeriod}, i}
-                            <div class="prtextTableBox">
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{piaPurpose}</div>
-                                </div>
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{piaInfo}</div>
-                                </div>
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{piaChose}</div>
-                                </div>
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{piaPeriod}</div>
-                                </div>
+                    {#if policyInfoData.afterDataList.length}
+                        <div class="prtextaddbox marB40">
+                            <dl>({section2Count++}) 서비스 가입 후 수집하는 개인정보</dl>
+                            <div class="prtextTablethBox colum4Line borT">
+                                <div class="prtti">처리목적</div>
+                                <div class="prtti">수집 항목</div>
+                                <div class="prtti">필수/선택</div>
+                                <div class="prtti">처리 및 보유 기간</div>
                             </div>
-                        {/each}
-                    </div>
 
-                    <div class="prtextaddbox marB40">
-                        <dl>(3) 서비스 이용 중 자동 생성 및 수집하는 정보</dl>
-                        <div class="prtextTablethBox colum4Line borT">
-                            <div class="prtti">처리목적</div>
-                            <div class="prtti">수집 항목</div>
-                            <div class="prtti">필수/선택</div>
-                            <div class="prtti">처리 및 보유 기간</div>
+                            {#each policyInfoData.afterDataList as {piaPurpose, piaInfo, piaChose, piaPeriod}, i}
+                                <div class="prtextTableBox">
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{piaPurpose}</div>
+                                    </div>
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{piaInfo}</div>
+                                    </div>
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{piaChose}</div>
+                                    </div>
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{piaPeriod}</div>
+                                    </div>
+                                </div>
+                            {/each}
                         </div>
+                    {/if}
 
-                        {#each policyInfoData.serviceAutoDataList as {pisaPurpose, pisaInfo, pisaMethodology, pisaPeriod}, i}
-                            <div class="prtextTableBox">
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{pisaPurpose}</div>
-                                </div>
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{pisaInfo}</div>
-                                </div>
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{pisaMethodology}</div>
-                                </div>
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{pisaPeriod}</div>
-                                </div>
+                    {#if policyInfoData.serviceAutoDataList.length}
+                        <div class="prtextaddbox marB40">
+                            <dl>({section2Count++}) 서비스 이용 중 자동 생성 및 수집하는 정보</dl>
+                            <div class="prtextTablethBox colum4Line borT">
+                                <div class="prtti">처리목적</div>
+                                <div class="prtti">수집 항목</div>
+                                <div class="prtti">필수/선택</div>
+                                <div class="prtti">처리 및 보유 기간</div>
                             </div>
-                        {/each}
-                    </div>
 
-                    <div class="prtextaddbox marB40">
-                        <dl>(4) 법령에 따른 개인정보의 보유기간</dl>
-                        <div class="prarea_table">
-                            <table>
-                                <colgroup>
-                                    <col style="width:33.3333333%;">
-                                    <col style="width:33.3333333%;">
-                                    <col style="width:33.3333333%;">
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th class="praLeft">수집항목</th>
-                                    <th class="praLeft">근거법</th>
-                                    <th class="praLeft">보유기간</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {#if policyInfoData.policyData.piInternetChose}
-                                    <tr>
-                                        <td class="praLeft">인터넷 접속 로그</td>
-                                        <td class="praLeft">통신비밀보호법 제2조</td>
-                                        <td class="praLeft">3개월</td>
-                                    </tr>
-                                {/if}
-                                {#if policyInfoData.policyData.piContractChose}
-                                    <tr>
-                                        <td class="praLeft">계약 또는 청약철회 등에 관한 기록</td>
-                                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률</td>
-                                        <td class="praLeft">5년</td>
-                                    </tr>
-                                {/if}
-                                {#if policyInfoData.policyData.piPayChose}
-                                    <tr>
-                                        <td class="praLeft">대금결제 및 재화 등의 공급에 관한 기록</td>
-                                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
-                                        <td class="praLeft">5년</td>
-                                    </tr>
-                                {/if}
-                                {#if policyInfoData.policyData.piConsumerChose}
-                                    <tr>
-                                        <td class="praLeft">소비자의 불만 또는 분쟁처리에 관한 기록</td>
-                                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
-                                        <td class="praLeft">3년</td>
-                                    </tr>
-                                {/if}
-                                {#if policyInfoData.policyData.piAdvertisementChose}
-                                    <tr>
-                                        <td class="praLeft">표시·광고에 관한 기록</td>
-                                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
-                                        <td class="praLeft">6개월</td>
-                                    </tr>
-                                {/if}
-                                </tbody>
-                            </table>
+                            {#each policyInfoData.serviceAutoDataList as {pisaPurpose, pisaInfo, pisaMethodology, pisaPeriod}, i}
+                                <div class="prtextTableBox">
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{pisaPurpose}</div>
+                                    </div>
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{pisaInfo}</div>
+                                    </div>
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{pisaMethodology}</div>
+                                    </div>
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{pisaPeriod}</div>
+                                    </div>
+                                </div>
+                            {/each}
                         </div>
-                    </div>
+                    {/if}
+
+                    {#if policyInfoData.policyData.piInternetChose || policyInfoData.policyData.piContractChose
+                        || policyInfoData.policyData.piPayChose || policyInfoData.policyData.piConsumerChose
+                        || policyInfoData.policyData.piAdvertisementChose }
+                        <div class="prtextaddbox marB40">
+                            <dl>({section2Count++}) 법령에 따른 개인정보의 보유기간</dl>
+                            <div class="prarea_table">
+                                <table>
+                                    <colgroup>
+                                        <col style="width:33.3333333%;">
+                                        <col style="width:33.3333333%;">
+                                        <col style="width:33.3333333%;">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th class="praLeft">수집항목</th>
+                                        <th class="praLeft">근거법</th>
+                                        <th class="praLeft">보유기간</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {#if policyInfoData.policyData.piInternetChose}
+                                        <tr>
+                                            <td class="praLeft">인터넷 접속 로그</td>
+                                            <td class="praLeft">통신비밀보호법 제2조</td>
+                                            <td class="praLeft">3개월</td>
+                                        </tr>
+                                    {/if}
+                                    {#if policyInfoData.policyData.piContractChose}
+                                        <tr>
+                                            <td class="praLeft">계약 또는 청약철회 등에 관한 기록</td>
+                                            <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률</td>
+                                            <td class="praLeft">5년</td>
+                                        </tr>
+                                    {/if}
+                                    {#if policyInfoData.policyData.piPayChose}
+                                        <tr>
+                                            <td class="praLeft">대금결제 및 재화 등의 공급에 관한 기록</td>
+                                            <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
+                                            <td class="praLeft">5년</td>
+                                        </tr>
+                                    {/if}
+                                    {#if policyInfoData.policyData.piConsumerChose}
+                                        <tr>
+                                            <td class="praLeft">소비자의 불만 또는 분쟁처리에 관한 기록</td>
+                                            <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
+                                            <td class="praLeft">3년</td>
+                                        </tr>
+                                    {/if}
+                                    {#if policyInfoData.policyData.piAdvertisementChose}
+                                        <tr>
+                                            <td class="praLeft">표시·광고에 관한 기록</td>
+                                            <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
+                                            <td class="praLeft">6개월</td>
+                                        </tr>
+                                    {/if}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {/if}
+
                     <div class="prtextaddbox nonebor">
-                        <dl>(5) 개인정보를 자동으로 수집하는 장치의 설치운영 및 그 거부에 관한 사항</dl>
+                        <dl>({section2Count++}) 개인정보를 자동으로 수집하는 장치의 설치운영 및 그 거부에 관한 사항</dl>
                         <div class="prnor_text">
                             <div class="pttext"><dt>1.</dt>회사는 이용자에게 개별적인 맞춤서비스를 제공하기 위해 이용 정보를 저장하고 수시로 불러오는 ‘쿠키(cookie)’를 사용할 수 있습니다.</div>
                         </div>
@@ -504,33 +515,35 @@
                 </div>
 
                 <!------------ No.5 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{++step}. 개인정보 처리 업무의 위탁에 관한 사항</div>
+                {#if policyInfoData.outDataList.length}
+                    <div class="priContentBox">
+                        <div class="priC_title marB24">{++step}. 개인정보 처리 업무의 위탁에 관한 사항</div>
 
-                    <div class="prtextTablethBox colum4Line borT">
-                        <div class="prtti">수탁 업체</div>
-                        <div class="prtti">필수 / 선택</div>
-                        <div class="prtti">위탁 업무</div>
-                        <div class="prtti">처리 및 보유 기간</div>
-                    </div>
-
-                    {#each policyInfoData.outDataList as {pioOutsourcingCompany, pioChose, pioConsignmentCompany, pioPeriod}, i}
-                        <div class="prtextTableBox">
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pioOutsourcingCompany}</div>
-                            </div>
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pioChose}</div>
-                            </div>
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pioConsignmentCompany}</div>
-                            </div>
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pioPeriod}</div>
-                            </div>
+                        <div class="prtextTablethBox colum4Line borT">
+                            <div class="prtti">수탁 업체</div>
+                            <div class="prtti">필수 / 선택</div>
+                            <div class="prtti">위탁 업무</div>
+                            <div class="prtti">처리 및 보유 기간</div>
                         </div>
-                    {/each}
-                </div>
+
+                        {#each policyInfoData.outDataList as {pioOutsourcingCompany, pioChose, pioConsignmentCompany, pioPeriod}, i}
+                            <div class="prtextTableBox">
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pioOutsourcingCompany}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pioChose}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pioConsignmentCompany}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pioPeriod}</div>
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
+                {/if}
 
                 <!------------ No.5-1 ------------>
                 {#if policyInfoData.policyData.piOutChose}
@@ -643,39 +656,41 @@
                 {/if}
 
                 <!------------ No.9 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{++step}. 개인정보보호 책임자에 관한 사항</div>
-                    <div class="prinortext marB24">
-                        정보주체는 개인정보 보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보보호 책임자에게 문의하실 수 있습니다. 개인정보보호 책임자는 이용자의 문의에 대해 지체없이 답변 및 처리해 드릴 것입니다.
-                    </div>
-                    <div class="prtextTablethBox colum5Line borT">
-                        <div class="prtti">성명</div>
-                        <div class="prtti">직책</div>
-                        <div class="prtti">이메일</div>
-                        <div class="prtti">연락처</div>
-                        <div class="prtti">담당부서</div>
-                    </div>
-                    {#each policyInfoData.reponsibleDataList as
-                        {pirName, pirPosition, pirEmail, pirContact, pirDepartment}, i}
-                        <div class="prtextTableBox">
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pirName}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pirPosition}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pirEmail}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pirContact}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pirDepartment}</div>
-                            </div>
+                {#if policyInfoData.reponsibleDataList.length}
+                    <div class="priContentBox">
+                        <div class="priC_title marB24">{++step}. 개인정보보호 책임자에 관한 사항</div>
+                        <div class="prinortext marB24">
+                            정보주체는 개인정보 보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보보호 책임자에게 문의하실 수 있습니다. 개인정보보호 책임자는 이용자의 문의에 대해 지체없이 답변 및 처리해 드릴 것입니다.
                         </div>
-                    {/each}
-                </div>
+                        <div class="prtextTablethBox colum5Line borT">
+                            <div class="prtti">성명</div>
+                            <div class="prtti">직책</div>
+                            <div class="prtti">이메일</div>
+                            <div class="prtti">연락처</div>
+                            <div class="prtti">담당부서</div>
+                        </div>
+                        {#each policyInfoData.reponsibleDataList as
+                            {pirName, pirPosition, pirEmail, pirContact, pirDepartment}, i}
+                            <div class="prtextTableBox">
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pirName}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pirPosition}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pirEmail}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pirContact}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pirDepartment}</div>
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
+                {/if}
 
                 <!------------ No.10 ------------>
                 {#if policyInfoData.policyData.piChangeChose}

@@ -18,7 +18,7 @@
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
 
-    const isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
+    $: isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
 
     let allChecked = false;
     let deleteIpList = [];

@@ -15,6 +15,10 @@
         });
     }
 
+    const handleDownloadExcel = (proCode) => {
+
+    }
+
 </script>
 
 <div class="kotable privacyList">
@@ -42,7 +46,7 @@
             <th>다운로드 유무</th>
             <th>제공인원 수</th>
             <th>다운로드 횟수</th>
-            <th>상세보기</th>
+            <th>다운로드</th>
         </tr>
         </thead>
         <tbody>
@@ -65,7 +69,7 @@
                     <td><div class="dcount downcountPop" on:click={() => downloadHistoryClick(provision.proCode)}>{provision.downloadCount}</div></td>
                     <td>
                         <div class="dlink">
-                            <a on:click={() => {handleOpenDetail(provision.proCode)}}>상세보기</a>
+                            <a on:click={() => {handleDownloadExcel(provision.proCode)}}>다운로드</a>
                         </div>
                     </td>
                 </tr>
