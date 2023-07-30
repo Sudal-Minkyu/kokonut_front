@@ -5,9 +5,7 @@
 
     import {fade} from "svelte/transition"
     import {onMount} from "svelte";
-    import {page} from "../../../lib/store.js";
-    import {setDateRangePicker, stimeVal} from "../../../lib/libSearch.js";
-    import restapi from "../../../lib/api.js";
+    import {stimeVal} from "../../../components/common/action/DatePicker.js";
 
     import PrivacyHistoryTable from "../../../components/service/privacy/PrivacyHistoryTable.svelte";
     import PrivacyHistorySearch from "../../../components/service/privacy/PrivacyHistorySearch.svelte";
@@ -15,47 +13,32 @@
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet} from "../../../components/common/ajax.js";
 
-    onMount(async ()=>{
-        await fatchSearchModule();
-        // setTimeout(() => provisionLayout = 1, 500);
-
-        // 페이지번호 초기화
-        page.set(0);
-        privacyHistoryList($page);
-    })
-
-    async function fatchSearchModule() {
-        setDateRangePicker('stime', true, 'period');
-    }
-
-
     let privacyHistoryLayout = 0;
 
     let privacy_history_list = [];
-    let size = 10;
+    const size = 10;
     let total = 0;
     let total_page;
-    $: total_page = Math.ceil(total/size)
+    $: total_page = Math.ceil(total/size);
 
     const searchCondition = {
+        pageNum: 0,
+        size,
         searchText: '',
         stime: '',
         filterRole: '',
         filterState: '',
     }
 
-    function privacyHistoryList(pageNum) {
+    function privacyHistoryList(pageNum = 0) {
         searchCondition.stime = stimeVal;
+        searchCondition.pageNum = pageNum;
         console.log("개인정보처리이력 리스트 호출 클릭!");
 
-        if(privacyHistoryLayout === 1) {
-            privacyHistoryLayout = 0;
-        }
+        privacyHistoryLayout = 0;
+        let url = "/v2/api/PrivacyHistory/privacyHistoryList";
 
-        page.set(pageNum);
-
-        let url = "/v2/api/PrivacyHistory/privacyHistoryList?page=" + pageNum+"&size="+size;
-
+        console.log('조회데이터', searchCondition);
         ajaxGet(url, searchCondition, (res) => {
             console.log("조회된 데이터가 있습니다.");
             privacy_history_list = res.data.datalist;
@@ -74,10 +57,11 @@
     function enterPress(event) {
         if(event.key === "Enter") {
             // 페이지번호 초기화
-            page.set(0);
-            privacyHistoryList($page);
+            privacyHistoryList(0);
         }
     }
+
+
 
 </script>
 
@@ -94,7 +78,7 @@
         </div>
 
         <!-- 상단 검색 영역 -->
-        <PrivacyHistorySearch {searchCondition}/>
+        <PrivacyHistorySearch {searchCondition} {privacyHistoryList}/>
 
         <LoadingOverlay bind:loadState={privacyHistoryLayout} left={55} >
             <div in:fade>

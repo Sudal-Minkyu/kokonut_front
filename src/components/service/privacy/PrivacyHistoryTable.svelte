@@ -19,7 +19,6 @@
     }
 
     const tooltipEvent = (e) => {
-        console.log('act');
         if (e.target.classList.contains('tiptool')) {
             var children = e.target.children;
 

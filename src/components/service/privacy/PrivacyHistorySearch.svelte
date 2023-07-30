@@ -1,13 +1,29 @@
 <script>
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    import {DateRangePicker} from "../../common/action/DatePicker.js";
+
     export let searchCondition;
+    export let privacyHistoryList;
 
     const handleFilterRole = (el) => {
         searchCondition.filterRole = el.dataset.rating;
+        privacyHistoryList(0);
     }
     const handleFilterState = (el) => {
         searchCondition.filterState = el.dataset.rating;
+        privacyHistoryList(0);
     }
+
+    const handleSelectPeriod = (result) => {
+        privacyHistoryList(0);
+    }
+
+    const dateRangePickerProps = {
+        callback: handleSelectPeriod,
+        handleRendered: handleSelectPeriod,
+        periodName: 'period',
+        eraseOnCancel: false,
+    };
 
 </script>
 
@@ -19,7 +35,8 @@
                 <dl>활동 일시</dl>
                 <div class="calenderBox">
                     <div class="calenderInput">
-                        <input id="stime" type="text" class="form-control" placeholer="날짜선택" aria-describedby="stime_addon" readonly />
+                        <input id="stime" type="text" class="form-control" placeholer="날짜선택"
+                               aria-describedby="stime_addon" readonly use:DateRangePicker={dateRangePickerProps} />
                         <img src="/assets/images/common/callendericon.png" alt="">
                     </div>
                 </div>
