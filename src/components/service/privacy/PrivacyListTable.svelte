@@ -1,6 +1,7 @@
 
 <script>
     import {privacyDetailData} from "../../../lib/store"
+    import {ajaxParam} from "../../common/ajax.js";
 
     export let page;
     export let size;
@@ -16,8 +17,30 @@
         });
     }
 
-    const handleDownloadExcel = (proCode) => {
+    // 우디가 해놈
+    const handleExcelDownload = (proCode) => {
+        const sendData = {
+            proCode: proCode,
+        }
 
+        ajaxParam('/v2/api/Provision/provisionDownloadExcel', sendData, (res) => {
+            const fileData = res.data.sendData.fileData;
+            const fileName = res.data.sendData.fileName;
+            const byteCharacters = atob(fileData);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+
+            const downloadUrl = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = downloadUrl;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+        });
     }
 
 </script>
@@ -70,7 +93,7 @@
                     <td><div class="dcount downcountPop" on:click={() => downloadHistoryClick(provision.proCode)}>{provision.downloadCount}</div></td>
                     <td>
                         <div class="dlink">
-                            <a on:click={() => {handleDownloadExcel(provision.proCode)}}>다운로드</a>
+                            <a on:click={() => {handleExcelDownload(provision.proCode)}}>다운로드</a>
                         </div>
                     </td>
                 </tr>

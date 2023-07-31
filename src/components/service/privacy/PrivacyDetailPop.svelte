@@ -2,6 +2,7 @@
     import {initialPrivacyDetail, privacyDetailData} from "../../../lib/store.js";
     import {onMount} from "svelte";
     import {ajaxGet} from "../../common/ajax.js";
+    import {openConfirm} from "../../common/ui/DialogManager.js";
 
     onMount(() => {
 
@@ -33,6 +34,13 @@
             a.download = fileName;
             document.body.appendChild(a);
             a.click();
+            openConfirm({
+                icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: "메일로 암호 전송됨", // 제목
+                contents1: '엑셀 파일이 담긴 압축 파일을 다운로드 하였습니다.',
+                contents2: '당신의 이메일로 전송된 암호를 통해 압축을 해제하세요.',
+                btnCheck: '확인', // 확인 버튼의 텍스트
+            });
         });
     }
 

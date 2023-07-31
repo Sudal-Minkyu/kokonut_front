@@ -159,5 +159,5 @@
 </section>
 
 {#if excelPop}
-    <ActivityExcel {excelPopClick} {total} />
+    <ActivityExcel {excelPopClick} {total} {searchCondition} />
 {/if}
