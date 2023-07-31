@@ -26,7 +26,7 @@
 <div class="wjItem">
     <div class="wj_contentBox">
         <div class="wjtitle">
-            <a use:link href="/#/service/environment/personalInfoItem">개인정보 항목<span></span></a>
+            <a use:link href="/service/environment/personalInfoItem">개인정보 항목<span></span></a>
         </div>
         <div class="wj_total marT20">총 개인정보 항목<span>{privacyItemCount.totalAddCount}</span></div>
         <div class="wjcountBox marT12">

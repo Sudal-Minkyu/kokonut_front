@@ -29,7 +29,7 @@
     <div class="wjItem">
         <div class="wj_contentBox">
             <div class="wjtitle wjsel">
-                <a use:link href="/#/service/emailList">이메일 발송<span></span></a>
+                <a use:link href="/service/emailList">이메일 발송<span></span></a>
                 <div class="">
                     <div class="sc_SelBox">
                         <div class="selectBox" use:SelectBoxManager={{callback: handleSelectDuration}}>

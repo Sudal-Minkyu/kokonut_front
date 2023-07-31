@@ -224,7 +224,7 @@
     const updateEmailSelectBoxString = (csEmailCodeSetting = csEmailCodeSetting) => {
         const selectedColumnArray = $serviceSettingData.columnList.filter(obj => obj.fieldCode === csEmailCodeSetting);
         console.log($serviceSettingData.columnList);
-        document.getElementById('emailColumnLabel').innerHTML = selectedColumnArray.length ? selectedColumnArray[0].fieldComment : '항목선택';
+        document.getElementById('emailColumnLabel').innerHTML = selectedColumnArray.length ? selectedColumnArray[0].fieldComment : '미지정';
     }
 </script>
 

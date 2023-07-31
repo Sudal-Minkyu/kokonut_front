@@ -43,7 +43,8 @@
             ...ppd.step3,
             proTargetType: ppd.step4.proTargetType,
             provisionEntrySaveDtos: ppd.step4.sendDataList,
-            piplTargetIdxs: ppd.step5.piplTargetIdxs,
+            piplTargetIdxs: ppd.step5.provideTargetMemberScope === 'everyone' ?
+                ppd.step5.memberList.map(item => item.kokonut_IDX) : ppd.step5.piplTargetIdxs,
         };
         if (ppd.step2.provideTargetType === 'self') {
             sendData.adminEmailList = [$userInfoData.knEmail];
@@ -66,6 +67,7 @@
 
     const getAllCustomerList = () => {
         ajaxGet('/v2/api/DynamicUser/tableBasicList', false, (json_success) => {
+            console.log(json_success);
             providePrivacyWriteData.update(obj => {
                 obj.step5.memberList = json_success.data.sendData.basicTableList || [];
                 pickColumnAndDetermineWidth();
