@@ -75,8 +75,8 @@
             }
         }, (errCode, errMsg) => {
             // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-            alert(errMsg);
-            logout();
+            // alert(errMsg);
+            // logout();
         });
     }
 
@@ -140,7 +140,7 @@
         let sendData = {
             piId : $piId,
         }
-        ajaxParam(url, sendData, (res) => {
+        ajaxGet(url, sendData, (res) => {
             stage = $piStage;
             console.log("현재까지 작성된 데이터 가져오기");
             console.log(res)
