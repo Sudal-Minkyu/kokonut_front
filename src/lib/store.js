@@ -175,7 +175,7 @@ export const initialProvidePrivacyWrite = JSON.stringify({
     step3: {
         proStartDate: '',
         proExpDate: '',
-        proDownloadYn: '', // 다운로드 유무 - 0: NO, 1:YES
+        proDownloadYn: 1, // 다운로드 유무 - 0: NO, 1:YES
     },
     step4: {
         proTargetType: '', // 제공 개인정보 여부 - 0: 전체 개인정보, 1: 일부 개인정보
