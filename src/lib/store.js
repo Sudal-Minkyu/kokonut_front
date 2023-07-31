@@ -181,7 +181,9 @@ export const initialProvidePrivacyWrite = JSON.stringify({
         proTargetType: '', // 제공 개인정보 여부 - 0: 전체 개인정보, 1: 일부 개인정보
         columnList: [],
         targetColumnList: [],
-        sendDataList: [],
+        sendDataList: {
+            pipeTableTargets: [],
+        },
         displayColumnList: [],
     },
     step5: {
