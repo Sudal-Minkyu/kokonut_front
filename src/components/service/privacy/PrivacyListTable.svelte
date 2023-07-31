@@ -1,6 +1,8 @@
 
 <script>
     import {privacyDetailData} from "../../../lib/store"
+    import {ajaxGet} from "../../common/ajax.js";
+    import {buildExcelFromBase64} from "../../common/buildExcelFromBase64.js";
 
     export let page;
     export let size;
@@ -16,8 +18,11 @@
         });
     }
 
+    // 전송받은 파일 데이터를 다시 파일로 생성하여 다운로드.
     const handleDownloadExcel = (proCode) => {
-
+        ajaxGet('/v2/api/Provision/provisionDownloadExcel2', false, (res) => {
+            buildExcelFromBase64(res);
+        });
     }
 
 </script>
