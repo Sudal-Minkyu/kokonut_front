@@ -2,6 +2,7 @@
     import {ajaxGet} from "../../common/ajax.js";
     import {onMount} from "svelte";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    import {link} from "svelte-spa-router";
 
     let provisionIndexDto = {
         offerInsideCount: '',
@@ -35,7 +36,7 @@
 <div class="wjItem">
     <div class="wj_contentBox">
         <div class="wjtitle wjsel">
-            <a href="/#/service/privacy/privacyList">개인정보 제공 건<span></span></a>
+            <a use:link href="/service/privacy/privacyList">개인정보 제공 건<span></span></a>
 <!--            <span class="tiptool" id="tool_btn01">-->
 <!--                <div class="layerToolType wjtool_01" id="tool_box01">-->
 <!--                    <div class="tipContents">-->

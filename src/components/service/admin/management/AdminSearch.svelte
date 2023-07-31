@@ -1,6 +1,16 @@
-
 <script>
+    import {SelectBoxManager} from "../../../common/action/SelectBoxManager.js";
+    export let adminList;
+    export let searchCondition;
 
+    const handleFilterRole = (el) => {
+        searchCondition.filterRole = el.dataset.value;
+        adminList(0);
+    }
+    const handleFilterState = (el) => {
+        searchCondition.filterState = el.dataset.value;
+        adminList(0);
+    }
 </script>
 
 <div class="seaWrap marB28">
@@ -50,7 +60,7 @@
             <div class="seaCont wid50per">
                 <dl>관리자 등급</dl>
                 <div class="sc_SelBox">
-                    <div class="selectBox wid162">
+                    <div class="selectBox wid162" use:SelectBoxManager={{callback: handleFilterRole}}>
                         <div class="label" id="roleSelect" ></div>
                         <ul class="optionList">
                         </ul>
@@ -60,8 +70,8 @@
             <div class="seaCont wid50per">
                 <dl>계정 상태</dl>
                 <div class="sc_SelBox">
-                    <div class="selectBox wid162">
-                        <div class="label" id="stateSelect" ></div>
+                    <div class="selectBox wid162" use:SelectBoxManager={{callback:handleFilterState}} >
+                        <div class="label" id="stateSelect"></div>
                         <ul class="optionList">
                         </ul>
                     </div>

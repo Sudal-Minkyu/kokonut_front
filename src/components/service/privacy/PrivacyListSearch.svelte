@@ -1,14 +1,28 @@
 <script>
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    import {DateRangePicker} from "../../common/action/DatePicker.js";
     export let searchCondition;
+    export let provisionList;
 
     const handleFilterDownload = (el) => {
         searchCondition.filterDownload = el.dataset.rating;
+        provisionList(0);
     }
     const handleFilterState = (el) => {
         searchCondition.filterState = el.dataset.rating;
+        provisionList(0);
     }
 
+    const handleSelectPeriod = (result) => {
+        provisionList(0);
+    }
+
+    const dateRangePickerProps = {
+        callback: handleSelectPeriod,
+        handleRendered: handleSelectPeriod,
+        periodName: 'period',
+        eraseOnCancel: false,
+    };
 </script>
 
 <div class="seaWrap marB28">
@@ -19,7 +33,8 @@
                 <dl>만든 날짜</dl>
                 <div class="calenderBox">
                     <div class="calenderInput">
-                        <input id="stime" type="text" class="form-control" placeholer="날짜선택" aria-describedby="stime_addon" readonly />
+                        <input id="stime" type="text" class="form-control" placeholer="날짜선택"
+                               aria-describedby="stime_addon" readonly use:DateRangePicker={dateRangePickerProps} />
                         <img src="/assets/images/common/callendericon.png" alt="">
                     </div>
                 </div>
@@ -60,7 +75,7 @@
                     <div class="selectBox wid164" use:SelectBoxManager={{callback: handleFilterDownload}}>
                         <div class="label" data-rating="">전체</div>
                         <ul class="optionList">
-                            <li class="optionItem curv" data-rating="2">전체</li>
+                            <li class="optionItem curv" data-rating="">전체</li>
                             <li class="optionItem curv" data-rating="0">N</li>
                             <li class="optionItem curv" data-rating="1">Y</li>
                         </ul>

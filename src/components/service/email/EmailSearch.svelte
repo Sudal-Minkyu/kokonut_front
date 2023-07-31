@@ -1,5 +1,27 @@
 
 <script>
+    import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    import {DateRangePicker} from "../../common/action/DatePicker.js";
+
+    export let searchCondition;
+    export let emailSendList;
+
+
+    const handleSelectPeriod = (result) => {
+        emailSendList(0);
+    }
+
+    const dateRangePickerProps = {
+        callback: handleSelectPeriod,
+        handleRendered: handleSelectPeriod,
+        periodName: 'period',
+        eraseOnCancel: false,
+    };
+
+    const handleFilterPurpose = (el) => {
+        searchCondition.emPurpose = el.dataset.value;
+        emailSendList(0);
+    }
 
 </script>
 
@@ -9,7 +31,8 @@
             <dl>발송 날짜</dl>
             <div class="calenderBox">
                 <div class="calenderInput">
-                    <input id="stime" type="text" class="form-control" placeholer="날짜선택" aria-describedby="stime_addon" readonly />
+                    <input id="stime" type="text" class="form-control" placeholer="날짜선택"
+                           aria-describedby="stime_addon" readonly use:DateRangePicker={dateRangePickerProps} />
                     <img src="/assets/images/common/callendericon.png" alt="">
                 </div>
             </div>
@@ -47,7 +70,7 @@
         <div class="seaCont wid50per">
             <dl>발송목적</dl>
             <div class="sc_SelBox">
-                <div class="selectBox wid162">
+                <div class="selectBox wid162" use:SelectBoxManager={{callback: handleFilterPurpose}}>
                     <div class="label" id="emailTypeSelect">전체</div>
                     <ul class="optionList">
                     </ul>

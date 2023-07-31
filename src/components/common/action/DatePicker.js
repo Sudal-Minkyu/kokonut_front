@@ -29,6 +29,7 @@ let localeKr = {
  * @constructor
  */
 export const DateRangePicker = (targetEl, props = {}) => {
+
     const defaultProps = {
         jQueryEl: jQuery(targetEl),
         callback: () => {}, // 확인 버튼을 누를 때 동작할 콜백
@@ -64,11 +65,11 @@ export const DateRangePicker = (targetEl, props = {}) => {
             }
         },
     };
-}
 
-const handlePeriodTagsClick = (finalProps) => {
-    finalProps.periodDays = this.value;
-    setOptDateRangePicker(finalProps);
+    function handlePeriodTagsClick() {
+        finalProps.periodDays = this.value;
+        setOptDateRangePicker(finalProps);
+    }
 }
 
 /**
@@ -175,6 +176,7 @@ const setOptDateRangePicker = ({jQueryEl, periodDays, periodTags, callback, eras
         callback({
             start: stimeVal.substring(0, 10),
             end: stimeVal.substring(13, 23),
+            period: stimeVal,
         });
     });
 
@@ -189,6 +191,7 @@ const setOptDateRangePicker = ({jQueryEl, periodDays, periodTags, callback, eras
     handleRendered({
         start: stimeVal.substring(0, 10),
         end: stimeVal.substring(13, 23),
+        period: stimeVal,
     });
 }
 

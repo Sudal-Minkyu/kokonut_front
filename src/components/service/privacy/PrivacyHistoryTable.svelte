@@ -1,8 +1,8 @@
 
 <script>
-    import { page } from "../../../lib/store"
     import {onDestroy, onMount} from "svelte";
 
+    export let page;
     export let size;
     export let total;
     export let privacy_history_list;
@@ -19,7 +19,6 @@
     }
 
     const tooltipEvent = (e) => {
-        console.log('act');
         if (e.target.classList.contains('tiptool')) {
             var children = e.target.children;
 
@@ -88,7 +87,7 @@
         {#if privacy_history_list.length !== 0}
             {#each privacy_history_list as privacyHistory, i}
                 <tr>
-                    <td>{ total - ($page * size) - i }</td>
+                    <td>{ total - (page * size) - i }</td>
                     {#if privacyHistory.privacyHistoryCode === "생성"}
                         <td><div class="processing produce">생성</div></td>
                     {:else if privacyHistory.privacyHistoryCode === "변경"}

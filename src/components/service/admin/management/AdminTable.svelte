@@ -1,8 +1,8 @@
 
 <script>
-    import {page} from "../../../../lib/store"
     import {openBanner} from "../../../common/ui/DialogManager.js";
 
+    export let page;
     export let size;
     export let total;
     export let admin_list;
@@ -39,7 +39,7 @@
         {#if admin_list.length !== 0}
             {#each admin_list as admin, i}
                 <tr>
-                    <td>{ total - ($page * size) - i }</td>
+                    <td>{ total - (page * size) - i }</td>
                     <td>{admin.knName}({admin.knEmail})</td>
                     {#if admin.knRoleCode === "ROLE_MASTER"}
                         <td style="left: 10px">{admin.knRoleDesc}<div class="mastericon"></div></td>

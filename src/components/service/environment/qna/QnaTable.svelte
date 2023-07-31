@@ -1,8 +1,8 @@
 
 <script>
     import { link } from 'svelte-spa-router'
-    import {page} from "../../../../lib/store"
 
+    export let page;
     export let size;
     export let total;
     export let qna_list;
@@ -32,7 +32,7 @@
         {#if qna_list.length !== 0}
             {#each qna_list as qna, i}
                 <tr>
-                    <td>{ total - ($page * size) - i }</td>
+                    <td>{ total - (page * size) - i }</td>
                     <td>
                         {#if qna.qnaType === 0}
                             기타

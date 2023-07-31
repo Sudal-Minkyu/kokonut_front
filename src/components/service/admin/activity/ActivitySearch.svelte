@@ -1,5 +1,9 @@
 <script>
     import jQuery from "jquery";
+    import {DateRangePicker} from "../../../common/action/DatePicker.js";
+
+    export let searchCondition;
+    export let activityList;
 
     export let activityConfirm;
     export let activityCancel;
@@ -11,6 +15,16 @@
     export let choseMax;
     export let choseMaxText;
 
+    const handleSelectPeriod = (result) => {
+        activityList(0);
+    }
+
+    const dateRangePickerProps = {
+        callback: handleSelectPeriod,
+        handleRendered: handleSelectPeriod,
+        periodName: 'period',
+        eraseOnCancel: false,
+    };
 </script>
 
 <!-- 상단 검색 영역 -->
@@ -21,7 +35,8 @@
                 <dl>활동 날짜</dl>
                 <div class="calenderBox">
                     <div class="calenderInput">
-                        <input id="stime" type="text" class="form-control" placeholer="날짜선택" aria-describedby="stime_addon" readonly />
+                        <input id="stime" type="text" class="form-control" placeholer="날짜선택"
+                               aria-describedby="stime_addon" readonly use:DateRangePicker={dateRangePickerProps} />
                         <img src="/assets/images/common/callendericon.png" alt="">
                     </div>
                 </div>

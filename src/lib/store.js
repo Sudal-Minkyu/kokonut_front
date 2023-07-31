@@ -16,8 +16,6 @@ const persist_storage = (key, initValue) => {
 export const accessToken = persist_storage('accessToken','');
 // 로그인 여부
 export const is_login = persist_storage('is_login',false);
-// 페이징 번호
-export const page = persist_storage('page', 0);
 export const expireDate = persist_storage('expireDate', new Date(new Date().setMinutes(new Date().getMinutes() + 60)).toISOString());
 
 // 사용자 로그인 정보 초기화값 /v2/api/Admin/authorityCheck 를 통해 헤더가 호출될 때 갱신된다.
@@ -177,13 +175,15 @@ export const initialProvidePrivacyWrite = JSON.stringify({
     step3: {
         proStartDate: '',
         proExpDate: '',
-        proDownloadYn: '', // 다운로드 유무 - 0: NO, 1:YES
+        proDownloadYn: 1, // 다운로드 유무 - 0: NO, 1:YES
     },
     step4: {
         proTargetType: '', // 제공 개인정보 여부 - 0: 전체 개인정보, 1: 일부 개인정보
         columnList: [],
         targetColumnList: [],
-        sendDataList: [],
+        sendDataList: {
+            pipeTableTargets: [],
+        },
         displayColumnList: [],
     },
     step5: {
