@@ -1,8 +1,8 @@
 
 <script>
     import { link } from 'svelte-spa-router'
-    import { page } from "../../../lib/store"
 
+    export let page;
     export let size;
     export let total;
     export let policy_list;
@@ -41,7 +41,7 @@
         {#if policy_list.length !== 0}
             {#each policy_list as policy, i}
                 <tr>
-                    <td>{ total - ($page * size) - i }</td>
+                    <td>{ total - (page * size) - i }</td>
                     <td>{policy.piVersion}</td>
                     <td>{policy.knName}</td>
                     {#if policy.knRoleCode === "ROLE_MASTER"}
@@ -61,7 +61,7 @@
             {/each}
         {:else}
             <tr class="none_inq">
-                <td>제작하신 개인정보처리방침이 없습니다.</td>
+                <td>조회된 개인정보처리방침이 없습니다.</td>
             </tr>
         {/if}
         </tbody>

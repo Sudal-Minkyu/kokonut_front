@@ -1,4 +1,4 @@
-import {accessToken, is_login, page, userInfoData, initialUserInfo} from "../../lib/store.js";
+import {accessToken, is_login, userInfoData, initialUserInfo} from "../../lib/store.js";
 import {ajaxParam} from "./ajax.js";
 import {get} from "svelte/store";
 
@@ -12,7 +12,6 @@ export const logout = () => {
         userInfoData.set(JSON.parse(initialUserInfo));
         is_login.set(false);
         accessToken.set('');
-        page.set(0);
         location.href = location.origin + '/#/login';
     }, (errorCode) => {
         return {

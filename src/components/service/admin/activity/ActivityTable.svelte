@@ -1,7 +1,6 @@
 
 <script >
-    import {page} from "../../../../lib/store"
-
+    export let page;
     export let size;
     export let total;
     export let activity_list;
@@ -37,7 +36,7 @@
         {#if activity_list.length !== 0}
             {#each activity_list as activity, i}
                 <tr>
-                    <td>{ total - ($page * size) - i }</td>
+                    <td>{ total - (page * size) - i }</td>
                     <td>{activity.knName}({activity.knEmail})</td>
                     <td>{activity.knRoleCode}</td>
                     <td>{activity.activityCode}</td>

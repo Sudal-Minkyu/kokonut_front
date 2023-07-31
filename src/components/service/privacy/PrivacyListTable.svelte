@@ -1,7 +1,8 @@
 
 <script>
-    import {page, privacyDetailData} from "../../../lib/store"
+    import {privacyDetailData} from "../../../lib/store"
 
+    export let page;
     export let size;
     export let total;
     export let provision_list;
@@ -53,7 +54,7 @@
         {#if provision_list.length !== 0}
             {#each provision_list as provision, i}
                 <tr>
-                    <td>{ total - ($page * size) - i }</td>
+                    <td>{ total - (page * size) - i }</td>
                     {#if provision.proState === "0"}
                         <td><div class="condition waiting">대기중</div></td>
                     {:else if provision.proState === "1"}

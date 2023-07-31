@@ -1,17 +1,13 @@
-
 <script>
-
     import Header from "../../../components/service/layout/Header.svelte"
-
     import {fade} from "svelte/transition"
-    import {onMount} from "svelte";
     import {stimeVal} from "../../../components/common/action/DatePicker.js";
-
     import PrivacyHistoryTable from "../../../components/service/privacy/PrivacyHistoryTable.svelte";
     import PrivacyHistorySearch from "../../../components/service/privacy/PrivacyHistorySearch.svelte";
     import Paging from "../../../components/common/Paging.svelte";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet} from "../../../components/common/ajax.js";
+    import {debounce200} from "../../../components/common/eventRateControls.js";
 
     let privacyHistoryLayout = 0;
 
@@ -22,7 +18,7 @@
     $: total_page = Math.ceil(total/size);
 
     const searchCondition = {
-        pageNum: 0,
+        page: 0,
         size,
         searchText: '',
         stime: '',
@@ -30,9 +26,9 @@
         filterState: '',
     }
 
-    function privacyHistoryList(pageNum = 0) {
+    const privacyHistoryList = debounce200((page = 0) => {
         searchCondition.stime = stimeVal;
-        searchCondition.pageNum = pageNum;
+        searchCondition.page = page;
         console.log("개인정보처리이력 리스트 호출 클릭!");
 
         privacyHistoryLayout = 0;
@@ -51,7 +47,7 @@
             privacyHistoryLayout = 1;
             return {action: 'NONE'};
         });
-    }
+    });
 
     // 엔터키 클릭
     function enterPress(event) {
@@ -83,9 +79,9 @@
         <LoadingOverlay bind:loadState={privacyHistoryLayout} left={55} >
             <div in:fade>
                 <!-- 테이블 영역 -->
-                <PrivacyHistoryTable {privacy_history_list} {size} {total} />
+                <PrivacyHistoryTable page={searchCondition.page} {privacy_history_list} {size} {total} />
                 <!-- 페이징 영역 -->
-                <Paging total_page="{total_page}" data_list="{privacy_history_list}" dataFunction="{privacyHistoryList}" />
+                <Paging page={searchCondition.page} total_page="{total_page}" data_list="{privacy_history_list}" dataFunction="{privacyHistoryList}" />
             </div>
         </LoadingOverlay>
     </div>

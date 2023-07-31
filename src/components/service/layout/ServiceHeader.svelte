@@ -1,7 +1,6 @@
 <script>
     import { link } from 'svelte-spa-router'
     import {
-        page,
         userInfoData,
         expireDate,
     } from "../../../lib/store.js"
@@ -117,7 +116,7 @@
     <div class="topHead">
         <div class="topHeadInner">
             <div class="toplogo">
-                <a use:link href="/service" on:click="{() => {$page = 0}}">
+                <a use:link href="/service">
                     <img src="/assets/images/common/kokonutLogo.png" alt="kokonutLogo">
                 </a>
             </div>

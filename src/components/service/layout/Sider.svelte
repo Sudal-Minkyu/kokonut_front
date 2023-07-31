@@ -1,6 +1,6 @@
 <script>
     import { link } from 'svelte-spa-router'
-    import {is_login, page, userInfoData} from "../../../lib/store.js"
+    import {is_login, userInfoData} from "../../../lib/store.js"
 
     $: roleCat1 = ['ROLE_MASTER', 'ROLE_ADMIN', 'ROLE_USER'].includes($userInfoData.role);
 </script>
@@ -15,14 +15,14 @@
                         <li class="onedepth"><img src="/assets/images/common/menu_icon_privacy.png" alt="">개인정보 현황</li>
                         <li><a use:link href="/service">대시보드</a></li>
                         <li><a use:link href="/service/privacy/PrivacySearch">개인정보 검색</a></li>
-                        <li><a use:link href="/service/privacy/PrivacyHistory" on:click="{() => {$page = 0}}">개인정보 처리 이력</a></li>
+                        <li><a use:link href="/service/privacy/PrivacyHistory">개인정보 처리 이력</a></li>
                     </ul>
                 </div>
                 <div class="subNav">
                     <ul>
                         <li class="onedepth"><img src="/assets/images/common/menu_icon_admin.png" alt="">관리자 현황</li>
-                        <li><a use:link href="/service/adminManagement" on:click="{() => {$page = 0}}">관리자 목록 관리</a></li>
-                        <li><a use:link href="/service/adminActivity" on:click="{() => {$page = 0}}">관리자 활동 이력</a></li>
+                        <li><a use:link href="/service/adminManagement">관리자 목록 관리</a></li>
+                        <li><a use:link href="/service/adminActivity">관리자 활동 이력</a></li>
                     </ul>
                 </div>
                 <div class="subNav">
