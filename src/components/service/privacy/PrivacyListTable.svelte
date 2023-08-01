@@ -24,22 +24,7 @@
         }
 
         ajaxParam('/v2/api/Provision/provisionDownloadExcel', sendData, (res) => {
-            const fileData = res.data.sendData.fileData;
-            const fileName = res.data.sendData.fileName;
-            const byteCharacters = atob(fileData);
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
-            }
-            const byteArray = new Uint8Array(byteNumbers);
-            const blob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-
-            const downloadUrl = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = downloadUrl;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
+            buildExcelFromBase64(res);
         });
     }
 

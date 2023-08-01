@@ -3,14 +3,52 @@
     import ConnectionSettingPop
         from "../../components/service/environment/thirdPartyConnection/ConnectionSettingPop.svelte";
     import {onDestroy, onMount} from "svelte";
+    import {ajaxGet} from "../../components/common/ajax.js";
+    import {serviceSettingData} from "../../lib/store.js";
 
     onMount(() => {
-        document.body.addEventListener('click', handleTabEvent);
+        getColumnLIst();
+        getBizmSetting();
+        // document.body.addEventListener('click', handleTabEvent);
     });
 
     onDestroy(() => {
-        document.body.removeEventListener('click', handleTabEvent);
+        // document.body.removeEventListener('click', handleTabEvent);
     });
+
+    let columnList = [];
+    const getColumnLIst = () => {
+        ajaxGet('/v2/api/DynamicUser/searchColumnCall', false, (res2) => {
+            if (res2.data.sendData.fieldList.length) {
+                columnList = res2.data.sendData.fieldList;
+            }
+        });
+    }
+
+    const updateReceiverSelectBoxString = (selectedCode) => {
+        const selectedColumnArray = columnList.filter(obj => obj.fieldCode === selectedCode);
+        document.getElementById('emailColumnLabel').innerHTML = selectedColumnArray.length ? selectedColumnArray[0].fieldComment : '미지정';
+    }
+
+    let bizmSettingData = {
+        settingType: '',
+        choseCode: '',
+    }
+    $: isBizmOn = !!bizmSettingData.choseCode;
+
+    const getBizmSetting = () => {
+        ajaxGet('/v2/api/ThirdParty/bizmGetCode', false, (res) => {
+            const settingData = res.data.sendData.thirdPartySettingInfo;
+            if (settingData.tsBizmReceiverNumCode) {
+                bizmSettingData.settingType = '1';
+                bizmSettingData.choseCode = settingData.tsBizmReceiverNumCode;
+            } else if (settingData.tsBizmAppUserIdCode) {
+                bizmSettingData.settingType = '2';
+                bizmSettingData.choseCode = settingData.tsBizmAppUserIdCode;
+            }
+            console.log('비즈엠세팅데이터', bizmSettingData);
+        });
+    }
 
     const handleTabEvent = (event) => {
         if (!event.target.matches('.thirdTab')) return;
@@ -31,8 +69,15 @@
         contents[tabIndex].style.display = 'block';
     }
 
-
-
+    const connectionSettingPop = {
+        visible: false,
+        open: () => {
+            connectionSettingPop.visible = true;
+        },
+        close: () => {
+            connectionSettingPop.visible = false;
+        },
+    }
 </script>
 
 <Header />
@@ -43,8 +88,7 @@
         </div>
         <div class="thirdWrap marT50">
             <div class="thirdTabBox marB50">
-                <div class="thirdTab ontr_tab">데이터 분석 서비스</div>
-                <div class="thirdTab">SMS 발송 서비스</div>
+                <div class="thirdTab ontr_tab">메시징 서비스</div>
             </div>
             <div class="thirdItemWrap">
                 <div class="thirdItemBox">
@@ -53,156 +97,32 @@
                             <div class="thirdItem">
                                 <div class="thirdItemIconLine">
                                     <div class="thirdItemIcon">
-                                        <img src="/assets/images/common/kakao_icon.png" alt="">
-                                        <h2>카카오톡</h2>
-                                        <a href="">사용가이드<span></span></a>
-                                    </div>
-                                </div>
-                                <div class="thirdItemBtnLine">
-                                    <div class="thirdItem_on">사용중</div>
-                                    <button class="open_change_pop">연동 설정</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="thirdItem">
-                                <div class="thirdItemIconLine">
-                                    <div class="thirdItemIcon">
-                                        <img src="/assets/images/common/slack_icon.png" alt="">
-                                        <h2>슬랙</h2>
-                                        <a href="">사용가이드<span></span></a>
-                                    </div>
-                                </div>
-                                <div class="thirdItemBtnLine">
-                                    <div class="thirdItem_on">사용중</div>
-                                    <button class="open_change_pop">연동 설정</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="thirdItem">
-                                <div class="thirdItemIconLine">
-                                    <div class="thirdItemIcon">
                                         <img src="/assets/images/common/bizmlogo.png" alt="비즈엠로고">
-                                        <h2>비즈엠</h2>
+                                        <h2>카카오 알림톡</h2>
                                         <a href="">사용가이드<span></span></a>
                                     </div>
                                 </div>
                                 <div class="thirdItemBtnLine">
-                                    <div class="thirdItem_off">사용 안 함</div>
-                                    <button class="open_change_pop">연동 설정</button>
+                                    <div class="{isBizmOn ? 'thirdItem_on' : 'thirdItem_off'}">{isBizmOn ? '사용중' : '사용안함'}</div>
+                                    <button class="open_change_pop" on:click={connectionSettingPop.open}>연동 설정</button>
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="thirdItem">
-                                <div class="thirdItemIconLine">
-                                    <div class="thirdItemIcon">
-                                        <img src="/assets/images/common/slack_icon.png" alt="">
-                                        <h2>슬랙</h2>
-                                        <a href="">사용가이드<span></span></a>
-                                    </div>
-                                </div>
-                                <div class="thirdItemBtnLine">
-                                    <div class="thirdItem_on">사용중</div>
-                                    <button class="open_change_pop">연동 설정</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="thirdItem">
-                                <div class="thirdItemIconLine">
-                                    <div class="thirdItemIcon">
-                                        <img src="/assets/images/common/kakao_icon.png" alt="">
-                                        <h2>카카오톡</h2>
-                                        <a href="">사용가이드<span></span></a>
-                                    </div>
-                                </div>
-                                <div class="thirdItemBtnLine">
-                                    <div class="thirdItem_on">사용중</div>
-                                    <button class="open_change_pop">연동 설정</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="thirdItem">
-                                <div class="thirdItemIconLine">
-                                    <div class="thirdItemIcon">
-                                        <img src="/assets/images/common/slack_icon.png" alt="">
-                                        <h2>슬랙</h2>
-                                        <a href="">사용가이드<span></span></a>
-                                    </div>
-                                </div>
-                                <div class="thirdItemBtnLine">
-                                    <div class="thirdItem_on">사용중</div>
-                                    <button class="open_change_pop">연동 설정</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="thirdItem">
-                                <div class="thirdItemIconLine">
-                                    <div class="thirdItemIcon">
-                                        <img src="/assets/images/common/google_forms_icon.png" alt="">
-                                        <h2>Google Forms</h2>
-                                        <a href="">사용가이드<span></span></a>
-                                    </div>
-                                </div>
-                                <div class="thirdItemBtnLine">
-                                    <div class="thirdItem_off">사용 안 함</div>
-                                    <button class="open_change_pop">연동 설정</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="thirdItem">
-                                <div class="thirdItemIconLine">
-                                    <div class="thirdItemIcon">
-                                        <img src="/assets/images/common/slack_icon.png" alt="">
-                                        <h2>슬랙</h2>
-                                        <a href="">사용가이드<span></span></a>
-                                    </div>
-                                </div>
-                                <div class="thirdItemBtnLine">
-                                    <div class="thirdItem_on">사용중</div>
-                                    <button class="open_change_pop">연동 설정</button>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="thirdItemBox">
-                    <ul>
-                        <li>
-                            <div class="thirdItem">
-                                <div class="thirdItemIconLine">
-                                    <div class="thirdItemIcon">
-                                        <img src="/assets/images/common/kakao_icon.png" alt="">
-                                        <h2>카카오톡</h2>
-                                        <a href="">사용가이드<span></span></a>
-                                    </div>
-                                </div>
-                                <div class="thirdItemBtnLine">
-                                    <div class="thirdItem_on">사용중</div>
-                                    <button class="open_change_pop">연동 설정</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="thirdItem">
-                                <div class="thirdItemIconLine">
-                                    <div class="thirdItemIcon">
-                                        <img src="/assets/images/common/slack_icon.png" alt="">
-                                        <h2>슬랙</h2>
-                                        <a href="">사용가이드<span></span></a>
-                                    </div>
-                                </div>
-                                <div class="thirdItemBtnLine">
-                                    <div class="thirdItem_on">사용중</div>
-                                    <button class="open_change_pop">연동 설정</button>
-                                </div>
-                            </div>
-                        </li>
+<!--                        <li>-->
+<!--                            <div class="thirdItem">-->
+<!--                                <div class="thirdItemIconLine">-->
+<!--                                    <div class="thirdItemIcon">-->
+<!--                                        <img src="/assets/images/common/slack_icon.png" alt="">-->
+<!--                                        <h2>슬랙</h2>-->
+<!--                                        <a href="">사용가이드<span></span></a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="thirdItemBtnLine">-->
+<!--                                    <div class="thirdItem_on">사용중</div>-->
+<!--                                    <button class="open_change_pop">연동 설정</button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </li>-->
                     </ul>
                 </div>
             </div>
@@ -210,6 +130,6 @@
     </div>
 </section>
 
-{#if false}
-    <ConnectionSettingPop />
+{#if connectionSettingPop.visible}
+    <ConnectionSettingPop {connectionSettingPop} {columnList} bind:savedBizmSettingData = {bizmSettingData} />
 {/if}
