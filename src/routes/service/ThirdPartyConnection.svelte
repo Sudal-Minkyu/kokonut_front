@@ -46,6 +46,7 @@
                 bizmSettingData.settingType = '2';
                 bizmSettingData.choseCode = settingData.tsBizmAppUserIdCode;
             }
+            console.log('세팅데이터수신', settingData);
             console.log('비즈엠세팅데이터', bizmSettingData);
         });
     }

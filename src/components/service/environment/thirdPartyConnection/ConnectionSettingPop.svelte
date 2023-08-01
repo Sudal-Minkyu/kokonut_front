@@ -60,8 +60,9 @@
         }
 
         ajaxParam('/v2/api/ThirdParty/bizmSetting', bizmSettingData, (res) => {
+            console.log('연동 설정 보낸 데이터:', bizmSettingData);
             savedBizmSettingData = JSON.parse(JSON.stringify(bizmSettingData));
-            openBanner('')
+            openBanner('연동 설정 저장을 완료하였습니다.');
             connectionSettingPop.close();
         });
     }

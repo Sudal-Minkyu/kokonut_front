@@ -3,16 +3,16 @@ import {openConfirm} from "./ui/DialogManager.js";
 export let buildExcelFromBase64 = (res) => {
     const fileData = res.data.sendData.fileData;
     const fileName = res.data.sendData.fileName;
-    var byteCharacters = atob(fileData);
-    var byteNumbers = new Array(byteCharacters.length);
-    for (var i = 0; i < byteCharacters.length; i++) {
+    const byteCharacters = atob(fileData);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
-    var byteArray = new Uint8Array(byteNumbers);
-    var blob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 
-    var downloadUrl = URL.createObjectURL(blob);
-    var a = document.createElement("a");
+    const downloadUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
     a.href = downloadUrl;
     a.download = fileName;
     document.body.appendChild(a);

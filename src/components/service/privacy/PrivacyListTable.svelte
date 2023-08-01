@@ -2,6 +2,7 @@
 <script>
     import {privacyDetailData} from "../../../lib/store"
     import {ajaxParam} from "../../common/ajax.js";
+    import {buildExcelFromBase64} from "../../common/buildExcelFromBase64.js";
 
     export let page;
     export let size;
