@@ -38,7 +38,11 @@
                 <tr>
                     <td>{ total - (page * size) - i }</td>
                     <td>{activity.knName}({activity.knEmail})</td>
-                    <td>{activity.knRoleCode}</td>
+                    {#if activity.knRoleCode === "ROLE_MASTER"}
+                        <td style="left: 10px">{activity.knRoleDesc}<div class="mastericon"></div></td>
+                    {:else}
+                        <td>{activity.knRoleDesc}</td>
+                    {/if}
                     <td>{activity.activityCode}</td>
                     <td>
                         <div class="reason">{activity.ahActivityDetail}</div>
