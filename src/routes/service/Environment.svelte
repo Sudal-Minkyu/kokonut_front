@@ -88,6 +88,16 @@
                         </div>
                     </a>
                 </li>
+                <li>
+                    <a  use:link href="/service/environment/addMember">
+                        <div class="setlistBox">
+                            <div class="setitemBox">
+                                <div class="seticon"></div>
+                                <div class="settitle">테스터용회원가입</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

@@ -40,6 +40,7 @@ import Subscription from "./routes/service/Subscription.svelte";
 import ThirdPartyConnection from "./routes/service/ThirdPartyConnection.svelte";
 import EmailSendComplete from "./routes/service/email/EmailSendComplete.svelte";
 import EmailBookComplete from "./routes/service/email/EmailBookComplete.svelte";
+import addMember from "./routes/service/addMember.svelte";
 
 export default {
     // API 테스트하는 화면
@@ -92,6 +93,9 @@ export default {
 
     // 환경설정 페이지
     "/service/environment": Environment,
+
+    // 구독관리 페이지
+    "/service/environment/addMember": addMember,
 
     // 구독관리 페이지
     "/service/environment/subscription": Subscription,

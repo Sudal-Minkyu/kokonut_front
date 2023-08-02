@@ -115,7 +115,6 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         // ajax 호출 성공시 자동 로그아웃 시간 초기화
         // 같은 객체를 다시 할당하는 이유는, 자동 로그아웃이 해당 변수의 변경을 감지하여 작동하도록 하였기 때문
 
-
         if (okRes.data.status === 200) {
             handleSuccess(okRes);
         } else {
@@ -127,6 +126,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
             const action = actionSymbol ? actionSymbol : errorActionDictionary[code] || errorActionTypes.ERROR;
             const message = handleFailResult?.message || okRes.data.err_msg || '';
             makeUIResponse(action, message, code, handleSuccess);
+            errorReport('ok상태에러 - 사용자환경 : ' + navigator.userAgent, JSON.stringify(okRes));
         }
     }).catch(errorRes => {
         console.log('ErrorResponse', errorRes);
@@ -139,6 +139,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
                 const action = actionSymbol ? actionSymbol : errorActionDictionary[status] || errorActionTypes.ERROR;
                 const message = handleFailResult?.message || createMsgByErrorStatus(status) || '';
                 makeUIResponse(action, message, status, handleSuccess);
+                errorReport('실패에러 - 사용자환경 : ' + navigator.userAgent, JSON.stringify(errorRes));
             } else {
                 handleFail({}); // 분석하여 조치 필요
             }
@@ -368,4 +369,21 @@ const errorActionDictionary = {
 
     KO092: errorActionTypes.ERROR,
     KO093: errorActionTypes.INFO,
+}
+
+const errorReport = (etTitle, etMsg) => {
+
+    fetch(import.meta.env.VITE_SERVER_URL + '/v2/api/Error/errorSave', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': get(accessToken) // Authorization 헤더 추가
+        },
+        body: JSON.stringify({etTitle, etMsg})
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
