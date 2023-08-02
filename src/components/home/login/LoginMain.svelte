@@ -305,9 +305,9 @@
     <div class="join_bottom login">
         <button type="button" on:click={loginBtn}><p>로그인</p></button>
     </div>
-    <div class="join_bottom login">
-        <button type="button" on:click={kk}><p>테스트</p></button>
-    </div>
+<!--    <div class="join_bottom login">-->
+<!--        <button type="button" on:click={kk}><p>테스트</p></button>-->
+<!--    </div>-->
 {:else}
     <LoginOTP {stageChange} {notJoinUser} {initiateGoogleOtpLogin} {knEmail} {otpError} {otp_err_msg} />
 {/if}
