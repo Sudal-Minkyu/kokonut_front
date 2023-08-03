@@ -53,6 +53,8 @@
         ajaxRegister('/v3/api/Auth/register', memberData, apiKey, (res) => {
             alert('맴버 추가 완료');
             resetMemberData();
+        }, (errCode, errMsg) => {
+            alert(errCode + " : " +errMsg);
         });
     }
 

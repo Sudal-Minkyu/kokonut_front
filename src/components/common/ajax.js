@@ -107,7 +107,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         headers["keyBufferSto"] = get(keyBufferSto);
         headers["ivSto"] = get(ivSto);
     } else if(url.slice(0, 5).includes('v3/')) {
-        headers["ApiKey"] = apiKey ? apiKey : "ff5873bbf9faa2218b369a577ea9e452";
+        headers["x-api-key"] = apiKey ? apiKey : "ff5873bbf9faa2218b369a577ea9e452";
 
     }
 
