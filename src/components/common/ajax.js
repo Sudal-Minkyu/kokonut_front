@@ -24,7 +24,6 @@ export const ajaxParam = (url, sendData = {}, handleSuccess = () => {}, handleFa
         params: sendData,
         contentType: 'application/json',
     });
-
 };
 
 export const ajaxBody = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
@@ -46,6 +45,19 @@ export const ajaxMultipart = (url, sendData = new FormData(), handleSuccess = ()
         method: 'post',
         data: sendData,
         contentType: 'multipart/form-data',
+    });
+};
+
+export const ajaxRegister = (url, sendData = {}, apiKey, handleSuccess = () => {}, handleFail = () => {}) => {
+
+    restapi({
+        url,
+        handleSuccess,
+        handleFail,
+        apiKey,
+        method: 'post',
+        params: sendData,
+        contentType: 'application/json',
     });
 };
 
@@ -82,7 +94,7 @@ export const ajaxParamArray = (url, sendData = {}, handleSuccess = () => {}, han
 // handleSuccess -> 호출이 성공했을 경우
 // handleFail -> 호출이 실패했을 경우, 반환되는 객체가 있다면 에러에 대한 처리에 사용한다.
 //            -> 반환값 {action: 에러에 대해서 취할 공통액션(errorActionTypes 참조), message: 팝업으로 전달할 메시지 }
-const restapi = ({url, handleSuccess, handleFail, method, data, params, contentType}) => {
+const restapi = ({url, handleSuccess, handleFail, method, data, params, contentType, apiKey}) => {
     const headers = {};
     headers["Content-Type"] = contentType;
 
@@ -91,11 +103,12 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
     if (url.slice(0, 5).includes('v2/')) {
         // type이 'v2', 'v3' 일 경우 -> JWT토큰 필수
         headers["Authorization"] = get(accessToken);
-    } else if(url.slice(0, 5).includes('v3/')) {
-        headers["ApiKey"] = "ff5873bbf9faa2218b369a577ea9e452";
     } else if(url.slice(0, 5).includes('v1/')) {
         headers["keyBufferSto"] = get(keyBufferSto);
         headers["ivSto"] = get(ivSto);
+    } else if(url.slice(0, 5).includes('v3/')) {
+        headers["ApiKey"] = apiKey ? apiKey : "ff5873bbf9faa2218b369a577ea9e452";
+
     }
 
     axios({
