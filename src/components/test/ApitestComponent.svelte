@@ -438,7 +438,7 @@
 
     <input type="button" on:click="{() => jwtRoleTest('adminTest')}" value="최고관리자일 경우 JWT 테스트"><br/>
 
-    <input type="button" on:click="{() => jwtRoleTest('userTest')}" value="일반관리자일 경우 JWT 테스트"><br/>
+    <input type="button" on:click="{() => jwtRoleTest('userTest')}" value="관리자일 경우 JWT 테스트"><br/>
 
     <input type="button" on:click="{() => jwtRoleTest('guestTest')}" value="게스트일 경우 JWT 테스트"><br/>
 </div>

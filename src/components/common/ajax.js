@@ -117,6 +117,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
 
         if (okRes.data.status === 200) {
             handleSuccess(okRes);
+            errorReport('제목', '내용');
         } else {
             console.log(okRes);
             const code = okRes.data.err_code;
@@ -372,7 +373,7 @@ const errorActionDictionary = {
 }
 
 const errorReport = (etTitle, etMsg) => {
-
+    console.log(etTitle, etMsg);
     fetch(import.meta.env.VITE_SERVER_URL + '/v2/api/Error/errorSave', {
         method: 'POST',
         headers: {

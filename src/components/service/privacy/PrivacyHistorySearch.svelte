@@ -80,8 +80,8 @@
                             <li class="optionItem anoGrade" data-rating="">전체</li>
                             <li class="optionItem masterSel" data-rating="ROLE_MASTER">최고관리자<span></span></li>
                             <li class="optionItem anoGrade" data-rating="ROLE_ADMIN">최고관리자</li>
-                            <li class="optionItem anoGrade" data-rating="ROLE_USER">일반관리자</li>
-                            <li class="optionItem anoGrade" data-rating="ROLE_MASTER">임시관리자</li>
+                            <li class="optionItem anoGrade" data-rating="ROLE_USER">관리자</li>
+                            <li class="optionItem anoGrade" data-rating="ROLE_MASTER">게스트</li>
                         </ul>
                     </div>
                 </div>
