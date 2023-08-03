@@ -84,62 +84,79 @@
                                 <input type="checkbox" name="activity" class="act_sel" id="로그인" value="AC_01"/>
                                 <label for="로그인">로그인</label>
                             </div>
-                            <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="회원정보 변경" value="AC_02"/>
-                                <label for="회원정보 변경">회원정보 변경</label>
-                            </div>
-                            <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="회원정보 삭제" value="AC_03"/>
-                                <label for="회원정보 삭제">회원정보 삭제</label>
-                            </div>
+<!--                            <div class="actCheck">-->
+<!--                                <input type="checkbox" name="activity" class="act_sel" id="회원정보 변경" value="AC_02"/>-->
+<!--                                <label for="회원정보 변경">회원정보 변경</label>-->
+<!--                            </div>-->
+<!--                            <div class="actCheck">-->
+<!--                                <input type="checkbox" name="activity" class="act_sel" id="회원정보 삭제" value="AC_03"/>-->
+<!--                                <label for="회원정보 삭제">회원정보 삭제</label>-->
+<!--                            </div>-->
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="관리자 추가" value="AC_04"/>
                                 <label for="관리자 추가">관리자 추가</label>
                             </div>
+<!--                            <div class="actCheck">-->
+<!--                                <input type="checkbox" name="activity" class="act_sel" id="관리자 권한 변경" value="AC_05"/>-->
+<!--                                <label for="관리자 권한 변경">관리자 권한 변경</label>-->
+<!--                            </div>-->
+<!--                            <div class="actCheck">-->
+<!--                                <input type="checkbox" name="activity" class="act_sel" id="처리이력 다운로드" value="AC_31"/>-->
+<!--                                <label for="처리이력 다운로드">처리이력 다운로드</label>-->
+<!--                            </div>-->
                             <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="관리자 권한 변경" value="AC_05"/>
-                                <label for="관리자 권한 변경">관리자 권한 변경</label>
+                                <input type="checkbox" name="activity" class="act_sel" id="테이블 항목 추가" value="AC_19"/>
+                                <label for="테이블 항목 추가">테이블 항목 추가</label>
                             </div>
                             <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="처리이력 다운로드" value="AC_31"/>
-                                <label for="처리이력 다운로드">처리이력 다운로드</label>
+                                <input type="checkbox" name="activity" class="act_sel" id="테이블 항목 삭제" value="AC_21"/>
+                                <label for="테이블 항목 삭제">테이블 항목 삭제</label>
                             </div>
+
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="활동이력 다운로드" value="AC_07"/>
                                 <label for="활동이력 다운로드">활동이력 다운로드</label>
                             </div>
                             <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 DB관리 변경" value="AC_11"/>
-                                <label for="개인정보 DB관리 변경">개인정보 DB관리 변경</label>
+                                <input type="checkbox" name="activity" class="act_sel" id="추가 카테고리 항목 추가" value="AC_42"/>
+                                <label for="추가 카테고리 항목 추가">추가 카테고리 항목 추가</label>
                             </div>
                             <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 DB항목 변경" value="AC_12"/>
-                                <label for="개인정보 DB항목 변경">개인정보 DB항목 변경</label>
+                                <input type="checkbox" name="activity" class="act_sel" id="개인정보제공 등록" value="AC_48"/>
+                                <label for="개인정보제공 등록">개인정보제공 등록</label>
+                            </div>
+                            <div class="actCheck">
+                                <input type="checkbox" name="activity" class="act_sel" id="개인정보제공 다운로드" value="AC_47_2"/>
+                                <label for="개인정보제공 다운로드">개인정보제공 다운로드</label>
+                            </div>
+                            <div class="actCheck">
+                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 열람데이터 다운로드" value="AC_06"/>
+                                <label for="개인정보 열람데이터 다운로드">개인정보 열람데이터 다운로드</label>
+                            </div>
+                            <div class="actCheck">
+                                <input type="checkbox" name="activity" class="act_sel" id="API KEY 재발급" value="AC_25"/>
+                                <label for="API KEY 재발급">API KEY 재발급</label>
+                            </div>
+                            <div class="actCheck">
+                                <input type="checkbox" name="activity" class="act_sel" id="1:1 문의등록" value="AC_41"/>
+                                <label for="1:1 문의등록">1:1 문의등록</label>
+                            </div>
+                            <div class="actCheck">
+                                <input type="checkbox" name="activity" class="act_sel" id="이메일 발송" value="AC_59_3"/>
+                                <label for="이메일 발송">이메일 발송</label>
                             </div>
 <!--                            <div class="actCheck">-->
-<!--                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 등록" value="AC_13"/>-->
-<!--                                <label for="개인정보 등록">개인정보 등록</label>-->
+<!--                                <input type="checkbox" name="activity" class="act_sel" id="정보파기 관리" value="AC_15"/>-->
+<!--                                <label for="정보파기 관리">정보파기 관리</label>-->
 <!--                            </div>-->
-                            <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="정보제공 목록" value="AC_14"/>
-                                <label for="정보제공 목록">정보제공 목록</label>
-                            </div>
-                            <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="정보파기 관리" value="AC_15"/>
-                                <label for="정보파기 관리">정보파기 관리</label>
-                            </div>
-                            <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="테이블 생성" value="AC_16"/>
-                                <label for="테이블 생성">테이블 생성</label>
-                            </div>
-                            <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="전체DB 다운로드" value="AC_32"/>
-                                <label for="전체DB 다운로드">전체DB 다운로드</label>
-                            </div>
-                            <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 관리 변경" value="AC_18"/>
-                                <label for="개인정보 관리 변경">개인정보 관리 변경</label>
-                            </div>
+<!--                            <div class="actCheck">-->
+<!--                                <input type="checkbox" name="activity" class="act_sel" id="전체DB 다운로드" value="AC_32"/>-->
+<!--                                <label for="전체DB 다운로드">전체DB 다운로드</label>-->
+<!--                            </div>-->
+<!--                            <div class="actCheck">-->
+<!--                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 관리 변경" value="AC_18"/>-->
+<!--                                <label for="개인정보 관리 변경">개인정보 관리 변경</label>-->
+<!--                            </div>-->
                         </div>
                         <div class="floatBtnList">
                             <p style="right:10px" class="{choseMax === false ? 'notxt not_work' : 'notxt'}">{choseMaxText}</p>
