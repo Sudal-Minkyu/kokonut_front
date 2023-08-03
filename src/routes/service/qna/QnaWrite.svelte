@@ -38,7 +38,7 @@
 
     let textState= 0;
     function qnaStart() {
-        if(qnaTitle === "" || qnaTitle.search(/\s/) !== -1) {
+        if(qnaTitle.trim() === "") {
             textState = 1;
             return false;
         }
