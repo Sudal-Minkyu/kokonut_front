@@ -7,6 +7,7 @@
     import {serviceSettingData} from "../../lib/store.js";
 
     onMount(() => {
+        getThirdPartyInfo();
         getColumnLIst();
         getBizmSetting();
         // document.body.addEventListener('click', handleTabEvent);
@@ -16,11 +17,21 @@
         // document.body.removeEventListener('click', handleTabEvent);
     });
 
+    let thirdPartyInfo = {
+        bizmUseType: '0',
+    }
+    const getThirdPartyInfo = () => {
+        ajaxGet('/v2/api/Index/thirdPartyInfo', false, (res) => {
+            thirdPartyInfo = res.data.sendData;
+            console.log('서드파티사용여부', thirdPartyInfo);
+        });
+    }
+
     let columnList = [];
     const getColumnLIst = () => {
-        ajaxGet('/v2/api/DynamicUser/searchColumnCall', false, (res2) => {
-            if (res2.data.sendData.fieldList.length) {
-                columnList = res2.data.sendData.fieldList;
+        ajaxGet('/v2/api/DynamicUser/searchColumnCall', false, (res) => {
+            if (res.data.sendData.fieldList.length) {
+                columnList = res.data.sendData.fieldList;
             }
         });
     }
@@ -31,22 +42,14 @@
     }
 
     let bizmSettingData = {
-        settingType: '',
-        choseCode: '',
+        tsBizmReceiverNumCode: '',
+        tsBizmAppUserIdCode: '',
     }
     $: isBizmOn = !!bizmSettingData.choseCode;
 
     const getBizmSetting = () => {
         ajaxGet('/v2/api/ThirdParty/bizmGetCode', false, (res) => {
-            const settingData = res.data.sendData.thirdPartySettingInfo;
-            if (settingData.tsBizmReceiverNumCode) {
-                bizmSettingData.settingType = '1';
-                bizmSettingData.choseCode = settingData.tsBizmReceiverNumCode;
-            } else if (settingData.tsBizmAppUserIdCode) {
-                bizmSettingData.settingType = '2';
-                bizmSettingData.choseCode = settingData.tsBizmAppUserIdCode;
-            }
-            console.log('세팅데이터수신', settingData);
+            bizmSettingData = res.data.sendData.thirdPartySettingInfo;
             console.log('비즈엠세팅데이터', bizmSettingData);
         });
     }
@@ -104,7 +107,7 @@
                                     </div>
                                 </div>
                                 <div class="thirdItemBtnLine">
-                                    <div class="{isBizmOn ? 'thirdItem_on' : 'thirdItem_off'}">{isBizmOn ? '사용중' : '사용안함'}</div>
+                                    <div class="{thirdPartyInfo.bizmUseType === '1' ? 'thirdItem_on' : 'thirdItem_off'}">{thirdPartyInfo.bizmUseType === '1'  ? '사용중' : '사용안함'}</div>
                                     <button class="open_change_pop" on:click={connectionSettingPop.open}>연동 설정</button>
                                 </div>
                             </div>
@@ -132,5 +135,5 @@
 </section>
 
 {#if connectionSettingPop.visible}
-    <ConnectionSettingPop {connectionSettingPop} {columnList} bind:savedBizmSettingData = {bizmSettingData} />
+    <ConnectionSettingPop {connectionSettingPop} {columnList} {getThirdPartyInfo} bind:savedBizmSettingData={bizmSettingData} />
 {/if}

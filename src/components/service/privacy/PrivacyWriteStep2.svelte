@@ -200,7 +200,7 @@
                                                 <ul class="optionList">
                                                     <li class="optionItem popanoGrade" data-rating="">전체</li>
                                                     <li class="optionItem popanoGrade" data-rating="최고관리자">최고관리자</li>
-                                                    <li class="optionItem popanoGrade" data-rating="일반관리자">일반관리자</li>
+                                                    <li class="optionItem popanoGrade" data-rating="관리자">관리자</li>
                                                 </ul>
                                             </div>
                                         </div>

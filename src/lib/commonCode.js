@@ -19,13 +19,13 @@ export const commonCode = [
 	// {label : "kn_role_code", text : "코코넛직원", value: "ROLE_SYSTEM"}, // 제외
 	// {label : "kn_role_code", text : "대표관리자", value: "ROLE_MASTER"},
 	{label : "kn_role_code", text : "최고관리자", value: "ROLE_ADMIN"},
-	{label : "kn_role_code", text : "일반관리자", value: "ROLE_USER"},
-	{label : "kn_role_code", text : "임시관리자", value: "ROLE_GUEST"},
+	{label : "kn_role_code", text : "관리자", value: "ROLE_USER"},
+	{label : "kn_role_code", text : "게스트", value: "ROLE_GUEST"},
 
 	// 관리자 등록
 	{label : "admin_create_role_code", text : "최고관리자", value: "ROLE_ADMIN"},
-	{label : "admin_create_role_code", text : "일반관리자", value: "ROLE_USER"},
-	{label : "admin_create_role_code", text : "임시관리자", value: "ROLE_GUEST"},
+	{label : "admin_create_role_code", text : "관리자", value: "ROLE_USER"},
+	{label : "admin_create_role_code", text : "게스트", value: "ROLE_GUEST"},
 
 	// 1:1 문의 등록
 	{label : "qna_type", text : "기타", value: "0"},

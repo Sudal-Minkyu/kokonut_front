@@ -13,6 +13,7 @@
     import {ajaxGet} from "../../../components/common/ajax.js";
     import {debounce200} from "../../../components/common/eventRateControls.js";
     import {stimeVal} from "../../../components/common/action/DatePicker.js";
+    import ExcelDownloadPop from "../../../components/common/ui/ExcelDownloadPop.svelte";
 
     onMount(async () => {
         await fatchSearchModule();
@@ -46,6 +47,11 @@
 
         let url = "/v2/api/History/activityList";
         ajaxGet(url, searchCondition, (res) => {
+            excelDownloadPopService.requestData = {
+                searchText: searchCondition.searchText,
+                stime: searchCondition.stime,
+                actvityType: searchCondition.actvityType,
+            };
             console.log("조회된 데이터가 있습니다.");
             activity_list = res.data.datalist
             total = res.data.total_rows
@@ -125,6 +131,21 @@
         excelPop = !excelPop
     }
 
+    const excelDownloadPopService = {
+        visibility: false,
+        requestURL: '/v2/api/History/activityDownloadExcel',
+        requestData: {
+            searchText: '',
+            stime: '',
+            actvityType: '',
+        },
+        close: () => {
+            excelDownloadPopService.visibility = false;
+        },
+        open: () => {
+            excelDownloadPopService.visibility = true;
+        },
+    }
 </script>
 
 <Header />
@@ -137,7 +158,7 @@
 
         <div class="seaWrap">
             <div class="kotopBtn">
-                <button id="excel_download_pop" on:click={excelPopClick}>현재목록 엑셀 다운로드</button>
+                <button id="excel_download_pop" on:click={excelDownloadPopService.open}>현재목록 엑셀 다운로드</button>
             </div>
             <div class="koinput marB32">
                 <input type="text" bind:value="{searchCondition.searchText}" class="wid360" placeholder="이름, 이메일 검색" on:keypress={enterPress} />
@@ -158,6 +179,6 @@
     </div>
 </section>
 
-{#if excelPop}
-    <ActivityExcel {excelPopClick} {total} {searchCondition} />
+{#if excelDownloadPopService.visibility}
+    <ExcelDownloadPop {excelDownloadPopService} />
 {/if}
