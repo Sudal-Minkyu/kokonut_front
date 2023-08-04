@@ -66,7 +66,7 @@
             <th>처리 내역</th>
             <th>관리자</th>
             <th>관리자 등급</th>
-            <th>해당 회원 ID</th>
+            <th>관리자 이메일</th>
             <th>활동 일시
             <span class="tiptool" id="tool_btn01">
                 <!-- [D] tooltip : 처리목적 -->

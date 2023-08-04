@@ -3,6 +3,7 @@
     import ErrorHighlight from "./ErrorHighlight.svelte";
     import {ajaxParam} from "../ajax.js";
     import {buildExcelFromBase64} from "../buildExcelFromBase64.js";
+    import {onlyNumber} from "../../../lib/common.js";
 
     export let excelDownloadPopService = {
         visibility: false,
@@ -67,8 +68,9 @@
                     <ErrorHighlight message={downloadReasonErrMsg}/>
                 </div>
                 <div class="kopopinput marB24">
-                    <label>OTP</label>
-                    <input type="text" placeholder="OTP를 적어주세요." bind:value={requestData.otpValue} />
+                    <label>구글 OTP 인증번호(6자리)</label>
+                    <input type="text" bind:value={requestData.otpValue} maxlength="6"
+                           on:keyup={() => requestData.otpValue = onlyNumber(requestData.otpValue)} placeholder="OTP를 적어주세요." />
                     <ErrorHighlight message={otpValueErrMsg}/>
                 </div>
                 <div class="popcaseInfoBox">

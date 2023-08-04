@@ -134,6 +134,10 @@
                                 <label for="개인정보 열람데이터 다운로드">개인정보 열람데이터 다운로드</label>
                             </div>
                             <div class="actCheck">
+                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 처리이력 다운로드" value="AC_10"/>
+                                <label for="개인정보 처리이력 다운로드">개인정보 처리이력 다운로드</label>
+                            </div>
+                            <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="API KEY 재발급" value="AC_25"/>
                                 <label for="API KEY 재발급">API KEY 재발급</label>
                             </div>
