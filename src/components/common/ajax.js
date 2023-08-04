@@ -267,7 +267,7 @@ const errorActionTypes = {
 
 const errorActionDictionary = {
     400: errorActionTypes.ERROR,
-    401: errorActionTypes.LOGIN,
+    401: errorActionTypes.NONE,
     403: errorActionTypes.ERROR,
     404: errorActionTypes.ERROR,
     KO000: errorActionTypes.MAIN,
