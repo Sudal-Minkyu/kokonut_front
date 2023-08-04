@@ -85,6 +85,7 @@
             choseMaxText = '5개 이상 선택 할 수 없습니다.';
         }
         else{
+            searchCondition.actvityType = '';
             jQuery('input[type="checkbox"]:checked').each(function (index) {
                 if (index !== 0) {
                     select_text += ', ';

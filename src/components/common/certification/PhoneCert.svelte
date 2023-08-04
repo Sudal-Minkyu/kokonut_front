@@ -122,7 +122,7 @@
         // }
     }
 
-    // 이메일 찾기
+    // ID 찾기
     function emailFind(keyEmail) {
         if(keyEmail !== null) {
             let url = "/v1/api/Auth/findKnEmail"

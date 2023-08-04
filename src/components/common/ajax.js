@@ -56,7 +56,7 @@ export const ajaxRegister = (url, sendData = {}, apiKey, handleSuccess = () => {
         handleFail,
         apiKey,
         method: 'post',
-        params: sendData,
+        data: JSON.stringify(sendData),
         contentType: 'application/json',
     });
 };
@@ -130,7 +130,6 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
 
         if (okRes.data.status === 200) {
             handleSuccess(okRes);
-            errorReport('제목', '내용');
         } else {
             console.log(okRes);
             const code = okRes.data.err_code;
