@@ -4,6 +4,7 @@
     import {ajaxParam} from "../ajax.js";
     import {buildExcelFromBase64} from "../buildExcelFromBase64.js";
     import {onlyNumber} from "../../../lib/common.js";
+    import {mainScreenBlockerVisibility} from "../../../lib/store.js";
 
     export let excelDownloadPopService = {
         visibility: false,
@@ -46,10 +47,14 @@
         } else {
             cautionErrMsg = '';
         }
+        mainScreenBlockerVisibility.set(true);
 
         ajaxParam(excelDownloadPopService.requestURL, {...requestData, ...excelDownloadPopService.requestData}, (res) => {
+            mainScreenBlockerVisibility.set(false);
             buildExcelFromBase64(res);
             excelDownloadPopService.close();
+        }, (errCode, errMsg) => {
+            mainScreenBlockerVisibility.set(false);
         });
     }
 </script>

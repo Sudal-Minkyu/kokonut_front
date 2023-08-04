@@ -11,6 +11,9 @@
     import {userInfoData} from "../../../lib/store.js";
     import {openConfirm} from "../../../components/common/ui/DialogManager.js";
     import {debounce200} from "../../../components/common/eventRateControls.js";
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
+
+    let emailHistoryListState = 0;
 
     onMount(async () => {
         await fatchSearchModule();
@@ -85,6 +88,7 @@
     }
 
     const emailSendList = debounce200((page) => {
+        emailHistoryListState = 0;
         console.log("이메일 발송내역 리스트 호출!");
         searchCondition.stime = stimeVal;
         searchCondition.page = page;
@@ -92,10 +96,12 @@
         let url = "/v2/api/Email/emailList";
 
         ajaxGet(url, searchCondition, (res) => {
+            emailHistoryListState = 1;
             console.log(res);
             email_list = res.data.datalist;
             total = res.data.total_rows;
         }, (errCode, errMsg) => {
+            emailHistoryListState = 1;
             email_list = [];
             total = 0;
             return {action: 'NONE'};
@@ -133,9 +139,9 @@
 
         <EmailSearch {searchCondition} {emailSendList} />
 
-        <EmailTable {emailSendList} {email_list} {total} {size} {total_page} />
-
-        <Paging page={searchCondition.page} total_page="{total_page}" data_list="{email_list}" dataFunction="{emailSendList}" />
-
+        <LoadingOverlay bind:loadState={emailHistoryListState} left={55}>
+            <EmailTable {emailSendList} {email_list} {total} {size} {total_page} />
+            <Paging page={searchCondition.page} total_page="{total_page}" data_list="{email_list}" dataFunction="{emailSendList}" />
+        </LoadingOverlay>
     </div>
 </section>

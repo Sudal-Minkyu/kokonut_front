@@ -92,14 +92,6 @@
             <h1>개인정보 처리이력</h1>
         </div>
 
-<!--        <div class="koinput marB32">-->
-<!--            <div class="kotopBtn">-->
-<!--                <button id="excel_download_pop" on:click={excelDownloadPopService.open}>현재목록 엑셀 다운로드</button>-->
-<!--            </div>-->
-<!--            <input type="text" bind:value="{searchCondition.searchText}" on:keypress={enterPress} class="wid360" placeholder="관리자 검색" />-->
-<!--            <button on:click={() => privacyHistoryList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>-->
-<!--        </div>-->
-
         <div class="seaWrap">
             <div class="kotopBtn">
                 <button id="excel_download_pop" on:click={excelDownloadPopService.open}>현재목록 엑셀 다운로드</button>
