@@ -8,6 +8,7 @@
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet} from "../../../components/common/ajax.js";
     import {debounce200} from "../../../components/common/eventRateControls.js";
+    import ExcelDownloadPop from "../../../components/common/ui/ExcelDownloadPop.svelte";
 
     let privacyHistoryLayout = 0;
 
@@ -27,6 +28,7 @@
     }
 
     const privacyHistoryList = debounce200((page = 0) => {
+
         searchCondition.stime = stimeVal;
         searchCondition.page = page;
         console.log("개인정보처리이력 리스트 호출 클릭!");
@@ -36,6 +38,13 @@
 
         console.log('조회데이터', searchCondition);
         ajaxGet(url, searchCondition, (res) => {
+            // 엑셀 다운로드를 위한 조회했던 정보의 기억
+            excelDownloadPopService.requestData = {
+                searchText: searchCondition.searchText,
+                stime: searchCondition.stime,
+                filterRole: searchCondition.filterRole,
+                filterState: searchCondition.filterState,
+            };
             console.log("조회된 데이터가 있습니다.");
             privacy_history_list = res.data.datalist;
             total = res.data.total_rows;
@@ -57,7 +66,22 @@
         }
     }
 
-
+    const excelDownloadPopService = {
+        visibility: false,
+        requestURL: '/v2/api/PrivacyHistory/privacyHistoryDownloadExcel',
+        requestData: {
+            searchText: '',
+            stime: '',
+            filterRole: '',
+            filterState: '',
+        },
+        close: () => {
+            excelDownloadPopService.visibility = false;
+        },
+        open: () => {
+            excelDownloadPopService.visibility = true;
+        },
+    }
 
 </script>
 
@@ -68,9 +92,14 @@
             <h1>개인정보 처리이력</h1>
         </div>
 
-        <div class="koinput marB32">
-            <input type="text" bind:value="{searchCondition.searchText}" on:keypress={enterPress} class="wid360" placeholder="관리자 검색" />
-            <button on:click={() => privacyHistoryList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
+        <div class="seaWrap">
+            <div class="kotopBtn">
+                <button id="excel_download_pop" on:click={excelDownloadPopService.open}>현재목록 엑셀 다운로드</button>
+            </div>
+            <div class="koinput marB32">
+                <input type="text" bind:value="{searchCondition.searchText}" on:keypress={enterPress} class="wid360" placeholder="관리자 검색" />
+                <button on:click={() => privacyHistoryList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
+            </div>
         </div>
 
         <!-- 상단 검색 영역 -->
@@ -86,3 +115,7 @@
         </LoadingOverlay>
     </div>
 </section>
+
+{#if excelDownloadPopService.visibility}
+    <ExcelDownloadPop {excelDownloadPopService} />
+{/if}

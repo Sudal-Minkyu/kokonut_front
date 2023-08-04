@@ -40,7 +40,7 @@
         <div class="seaRadioBox borL">
             <div class="seaRadio">
                 <div class="check radioCheck">
-                    <input type="radio" class="radio" name="period" id="당일" value="1" checked>
+                    <input type="radio" class="radio" name="period" id="당일" value="1" >
                     <label for="당일"><em><dt></dt></em>당일</label>
                 </div>
                 <div class="check radioCheck">
@@ -48,7 +48,7 @@
                     <label for="최근 1주일"><em><dt></dt></em>최근 1주일</label>
                 </div>
                 <div class="check radioCheck">
-                    <input type="radio" class="radio" name="period" id="최근 한 달" value="30" >
+                    <input type="radio" class="radio" name="period" id="최근 한 달" value="30" checked>
                     <label for="최근 한 달"><em><dt></dt></em>최근 한 달</label>
                 </div>
                 <div class="check radioCheck">

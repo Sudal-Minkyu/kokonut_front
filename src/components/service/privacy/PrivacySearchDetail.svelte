@@ -2,18 +2,21 @@
     import {backBtn, privacySearchData} from "../../../lib/store.js";
     import {fade} from "svelte/transition";
 
+    export let excelDownloadPopService;
     const handleToPreviousPage = () => {
         privacySearchData.update(obj => {
             obj.currentState = 'search';
             return obj;
         });
     }
+
+
 </script>
 <div class="contentInnerWrap sea_detail">
     <div class="pageTitleBtn seaTitle seaWrap marB50">
         <a on:click={handleToPreviousPage}>{$backBtn}</a>
         <dl>개인정보 열람</dl>
-        <div class="kotopBtn"><button>엑셀 다운로드</button></div>
+        <div class="kotopBtn"><button type="button" on:click={excelDownloadPopService.open}>개인정보 엑셀 다운로드</button></div>
     </div>
 
     <div in:fade>
@@ -31,3 +34,4 @@
         </div>
     </div>
 </div>
+

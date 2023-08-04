@@ -11,6 +11,7 @@
     import {ajaxGet} from "../../../components/common/ajax.js";
     import PrivacyDetailPop from "../../../components/service/privacy/PrivacyDetailPop.svelte";
     import {stimeVal} from "../../../components/common/action/DatePicker.js";
+    import ExcelDownloadPop from "../../../components/common/ui/ExcelDownloadPop.svelte";
 
 
     let provisionLayout = 0;
@@ -110,6 +111,19 @@
         popupPage.set(0);
     }
 
+    const excelDownloadPopService = {
+        visibility: false,
+        requestURL: '/v2/api/Provision/provisionDownloadExcel',
+        requestData: {},
+        close: () => {
+            excelDownloadPopService.visibility = false;
+        },
+        open: (data) => {
+            excelDownloadPopService.requestData = data;
+            excelDownloadPopService.visibility = true;
+        },
+    }
+
 </script>
 
 <Header />
@@ -135,7 +149,7 @@
         <LoadingOverlay bind:loadState={provisionLayout} left={55} >
             <div in:fade>
                 <!-- 테이블 영역 -->
-                <PrivacyListTable page={searchCondition.page} {downloadHistoryClick} {provision_list} {size} {total} />
+                <PrivacyListTable page={searchCondition.page} {downloadHistoryClick} {provision_list} {size} {total} {excelDownloadPopService} />
 
                 <!-- 페이징 영역 -->
                 <Paging page={searchCondition.page} total_page={total_page} data_list={provision_list} dataFunction={provisionList} />
@@ -150,4 +164,8 @@
 
 {#if $privacyDetailData.proCode}
     <PrivacyDetailPop />
+{/if}
+
+{#if excelDownloadPopService.visibility}
+    <ExcelDownloadPop {excelDownloadPopService} />
 {/if}

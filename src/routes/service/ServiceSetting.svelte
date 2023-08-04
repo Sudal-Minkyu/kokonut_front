@@ -10,10 +10,10 @@
     import {backBtn, initialServiceSetting, serviceSettingData, userInfoData} from "../../lib/store.js";
     import {openConfirm} from "../../components/common/ui/DialogManager.js";
     import {link} from "svelte-spa-router";
+    import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
 
     // 서비스설정 가져오기
     onMount(() => {
-        setTimeout(() => serviceSettingLayout = 1, 500);
         getServiceSettingDataAndInitializing();
         setBasicEvents();
     });
@@ -24,10 +24,13 @@
 
     $: isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
 
+    let settingLoadState = 1;
     let csEmailCodeSetting = '';
 
     const getServiceSettingDataAndInitializing = () => {
+        settingLoadState = 1;
         ajaxGet('/v2/api/CompanySetting/settingInfo', false, (res) => {
+            settingLoadState = 1;
             const settingData = res.data.sendData;
             console.log('초기 데이터', settingData);
             serviceSettingData.update(obj => {
@@ -85,8 +88,6 @@
             toggleDisableBox(!document.querySelector(".period").checked);
         });
     }
-
-    let serviceSettingLayout = 0;
 
     let serviceIpState = 0;
     function changeStatePop(val) {
@@ -239,7 +240,8 @@
             </dl>
         </div>
 
-        <div class="seaContentBox">
+        <LoadingOverlay bind:loadState={settingLoadState} >
+            <div class="seaContentBox">
             <div class="seaContentLine borB">
                 <div class="seaCont wid100per">
                     <dl>해외 로그인 설정</dl>
@@ -460,6 +462,7 @@
                 </div>
             </div>
         </div>
+        </LoadingOverlay>
     </div>
 </section>
 

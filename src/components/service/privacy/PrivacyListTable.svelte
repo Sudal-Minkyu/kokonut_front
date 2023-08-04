@@ -10,6 +10,7 @@
     export let provision_list;
 
     export let downloadHistoryClick;
+    export let excelDownloadPopService;
 
     const handleOpenDetail = (proCode) => {
         privacyDetailData.update(obj => {
@@ -55,7 +56,7 @@
             <th>제공 기간</th>
             <th>다운로드 유무</th>
             <th>제공인원 수</th>
-            <th>다운로드 횟수</th>
+            <th>다운로드인원 수</th>
             <th>다운로드</th>
         </tr>
         </thead>
@@ -78,9 +79,11 @@
                     <td>{provision.offerCount}</td>
                     <td><div class="dcount downcountPop" on:click={() => downloadHistoryClick(provision.proCode)}>{provision.downloadCount}</div></td>
                     <td>
-                        <div class="dlink">
-                            <a on:click={() => {handleExcelDownload(provision.proCode)}}>다운로드</a>
-                        </div>
+                        {#if provision.proState === "1"}
+                            <div class="dlink">
+                                <a on:click={() => {excelDownloadPopService.open({proCode: provision.proCode})}}>다운로드</a>
+                            </div>
+                        {/if}
                     </td>
                 </tr>
             {/each}

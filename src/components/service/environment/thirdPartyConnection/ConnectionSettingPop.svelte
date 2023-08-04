@@ -7,9 +7,10 @@
 
     export let connectionSettingPop;
     export let columnList;
+    export let getThirdPartyInfo;
 
-    let settingTypeErrMsg = '';
-    let choseCodeErrMsg = '';
+    let tsBizmReceiverNumCodeErrMsg = '';
+    let tsBizmAppUserIdCodeErrMsg = '';
     let confirmCheckErrMsg = '';
 
     export let savedBizmSettingData;
@@ -20,15 +21,14 @@
     });
 
     const initializeSelectBoxes = (bizmSettingData) => {
-        if (bizmSettingData.settingType === '1') {
-            document.getElementById('settingTypeLabel').innerHTML = '휴대전화번호';
-        } else if (bizmSettingData.settingType === '2') {
-            document.getElementById('settingTypeLabel').innerHTML = '사용자 앱아이디';
+        if (bizmSettingData.tsBizmReceiverNumCode) {
+            const selectedColumn = columnList.filter(obj => obj.fieldCode === bizmSettingData.tsBizmReceiverNumCode);
+            document.getElementById('tsBizmReceiverNumCodeLabel').innerHTML = selectedColumn.length ? selectedColumn[0].fieldComment : '선택';
         }
 
-        if (bizmSettingData.choseCode) {
-            const selectedColumn = columnList.filter(obj => obj.fieldCode === bizmSettingData.choseCode);
-            document.getElementById('choseCodeLabel').innerHTML = selectedColumn.length ? selectedColumn[0].fieldComment : '선택';
+        if (bizmSettingData.tsBizmAppUserIdCode) {
+            const selectedColumn = columnList.filter(obj => obj.fieldCode === bizmSettingData.tsBizmAppUserIdCode);
+            document.getElementById('tsBizmAppUserIdCodeLabel').innerHTML = selectedColumn.length ? selectedColumn[0].fieldComment : '선택';
         }
     }
 
@@ -38,20 +38,6 @@
 
     let isConfirmChecked = false;
     const handleSave = () => {
-        if (!bizmSettingData.settingType) {
-            settingTypeErrMsg = '수신 기준 데이터를 선택해 주세요.';
-            return;
-        } else {
-            settingTypeErrMsg = '';
-        }
-
-        if (!bizmSettingData.choseCode) {
-            choseCodeErrMsg = '수신자 항목 지정을 선택해 주세요.';
-            return;
-        } else {
-            choseCodeErrMsg = '';
-        }
-
         if (!isConfirmChecked) {
             confirmCheckErrMsg = '안내사항에 동의를 해 주세요.';
             return;
@@ -60,6 +46,7 @@
         }
 
         ajaxParam('/v2/api/ThirdParty/bizmSetting', bizmSettingData, (res) => {
+            getThirdPartyInfo();
             console.log('연동 설정 보낸 데이터:', bizmSettingData);
             savedBizmSettingData = JSON.parse(JSON.stringify(bizmSettingData));
             openBanner('연동 설정 저장을 완료하였습니다.');
@@ -67,13 +54,13 @@
         });
     }
 
-    const handleSelectSettingType = (el) => {
-        bizmSettingData.settingType = el.dataset.value;
+    const handleSelectTsBizmReceiverNumCode = (el) => {
+        bizmSettingData.tsBizmReceiverNumCode = el.dataset.value;
         console.log(bizmSettingData);
     }
 
-    const handleSelectChoseCode = (el) => {
-        bizmSettingData.choseCode = el.dataset.value;
+    const handleSelectTsBizmAppUserIdCode = (el) => {
+        bizmSettingData.tsBizmAppUserIdCode = el.dataset.value;
         console.log(bizmSettingData);
     }
 </script>
@@ -100,35 +87,38 @@
 <!--                    </div>-->
 <!--                </div>-->
                 <div class="kopopinput marB24">
-                    <label>수신 기준 데이터</label>
+                    <label>휴대전화번호</label>
                     <div class="mrtBox" style="height: 5rem">
                         <div class="mrtSelBox" style="height: 5rem">
-                            <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: handleSelectSettingType}}>
-                                <div class="label" id="settingTypeLabel">선택</div>
+                            <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: handleSelectTsBizmReceiverNumCode}}>
+                                <div class="label" id="tsBizmReceiverNumCodeLabel">사용안함</div>
                                 <ul class="optionList">
-                                    <li class="optionItem" data-value="1">휴대전화번호</li>
-                                    <li class="optionItem" data-value="2">사용자 앱아이디</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <ErrorHighlight message={settingTypeErrMsg} />
-                </div>
-                <div class="kopopinput marB24">
-                    <label>수신자 항목 지정</label>
-                    <div class="mrtBox" style="height: 5rem">
-                        <div class="mrtSelBox" style="height: 5rem">
-                            <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: handleSelectChoseCode}}>
-                                <div class="label" id="choseCodeLabel">선택</div>
-                                <ul class="optionList">
-                                    {#each columnList as {fieldCode, fieldComment}, j (fieldCode)}
+                                    <li class="optionItem" data-value='' >사용안함</li>
+                                    {#each columnList as {fieldCode, fieldComment}, i (fieldCode)}
                                         <li class="optionItem" data-value={fieldCode} >{fieldComment}</li>
                                     {/each}
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <ErrorHighlight message={choseCodeErrMsg} />
+                    <ErrorHighlight message={tsBizmReceiverNumCodeErrMsg} />
+                </div>
+                <div class="kopopinput marB24">
+                    <label>카카오 앱 아이디</label>
+                    <div class="mrtBox" style="height: 5rem">
+                        <div class="mrtSelBox" style="height: 5rem">
+                            <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: handleSelectTsBizmAppUserIdCode}}>
+                                <div class="label" id="tsBizmAppUserIdCodeLabel">사용안함</div>
+                                <ul class="optionList">
+                                    <li class="optionItem" data-value='' >사용안함</li>
+                                    {#each columnList as {fieldCode, fieldComment}, i (fieldCode)}
+                                        <li class="optionItem" data-value={fieldCode} >{fieldComment}</li>
+                                    {/each}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <ErrorHighlight message={tsBizmAppUserIdCodeErrMsg} />
                 </div>
 <!--                <div class="kopopinput marB24">-->
 <!--                    <label>카카오앱아이디 항목 지정</label>-->

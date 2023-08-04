@@ -12,15 +12,6 @@
 
     <table>
         <caption>관리자 활동 이력 리스트</caption>
-        <colgroup>
-            <col style="width:4.79%;">
-            <col style="width:19.18%;">
-            <col style="width:8.22%;">
-            <col style="width:13.01%;">
-            <col style="width:23.40%;">
-            <col style="width:22.49%;">
-            <col style="width:8.90%;">
-        </colgroup>
         <thead>
         <tr>
             <th>No</th>

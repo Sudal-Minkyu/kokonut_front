@@ -44,7 +44,7 @@
             <div class="seaRadioBox borL">
                 <div class="seaRadio">
                     <div class="check radioCheck">
-                        <input type="radio" class="radio" name="period" id="당일" value="1" checked>
+                        <input type="radio" class="radio" name="period" id="당일" value="1">
                         <label for="당일"><em><dt></dt></em>당일</label>
                     </div>
                     <div class="check radioCheck">
@@ -52,7 +52,7 @@
                         <label for="최근 1주일"><em><dt></dt></em>최근 1주일</label>
                     </div>
                     <div class="check radioCheck">
-                        <input type="radio" class="radio" name="period" id="최근 한 달" value="30" >
+                        <input type="radio" class="radio" name="period" id="최근 한 달" value="30" checked>
                         <label for="최근 한 달"><em><dt></dt></em>최근 한 달</label>
                     </div>
                     <div class="check radioCheck">
@@ -132,6 +132,10 @@
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="개인정보 열람데이터 다운로드" value="AC_06"/>
                                 <label for="개인정보 열람데이터 다운로드">개인정보 열람데이터 다운로드</label>
+                            </div>
+                            <div class="actCheck">
+                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 처리이력 다운로드" value="AC_10"/>
+                                <label for="개인정보 처리이력 다운로드">개인정보 처리이력 다운로드</label>
                             </div>
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="API KEY 재발급" value="AC_25"/>

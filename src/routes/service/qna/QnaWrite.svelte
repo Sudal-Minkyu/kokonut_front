@@ -38,7 +38,7 @@
 
     let textState= 0;
     function qnaStart() {
-        if(qnaTitle.trim() === "") {
+        if(!qnaTitle.trim()) {
             textState = 1;
             return false;
         }

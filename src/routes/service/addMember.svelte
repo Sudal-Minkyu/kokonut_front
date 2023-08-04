@@ -1,7 +1,7 @@
 
 <script>
     import Header from "../../components/service/layout/Header.svelte";
-    import {ajaxGet} from "../../components/common/ajax.js";
+    import {ajaxGet, ajaxRegister} from "../../components/common/ajax.js";
     import {onMount} from "svelte";
 
     onMount(() => {
@@ -19,6 +19,10 @@
                 }, ...res2.data.sendData.fieldList];
                 console.log('컬럼리스트', columnList);
             }
+
+            for (const {fieldCode} of columnList) {
+                memberData[fieldCode] = '';
+            }
         });
     }
 
@@ -33,6 +37,29 @@
         }, (errCode, errMsg) => {
             return {action: 'NONE'};
         });
+    }
+
+    let memberData = {};
+    const handleAddMember = () => {
+        if (!memberData['1_pw']) {
+            alert('패스워드는 필수값 입니다.');
+            return;
+        }
+        if (!memberData['1_id']) {
+            alert('아이디는 필수값 입니다.');
+            return;
+        }
+        console.log(memberData);
+        ajaxRegister('/v3/api/Auth/register', memberData, apiKey, (res) => {
+            alert('맴버 추가 완료');
+            resetMemberData();
+        });
+    }
+
+    const resetMemberData = () => {
+        for (let key in memberData) {
+            memberData[key] = '';
+        }
     }
 </script>
 
@@ -52,16 +79,26 @@
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td colspan="2">
+                        <button type="button" on:click={handleAddMember} >추가하기</button>
+                    </td>
+                </tr>
                 {#each columnList as {fieldCode, fieldComment}}
                     <tr>
                         <td>
                             {fieldComment} ({fieldCode})
                         </td>
                         <td>
-                            <input type="text" class="wid100per" style="border-color: lightgrey; border: solid;">
+                            <input type="text" class="wid100per" style="border: solid;" bind:value={memberData[fieldCode]}>
                         </td>
                     </tr>
                 {/each}
+                <tr>
+                    <td colspan="2">
+                        <button type="button" on:click={handleAddMember} >추가하기</button>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
