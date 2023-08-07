@@ -5,7 +5,7 @@
 <div class="wjItem">
     <div class="wj_contentBox">
         <div class="wjtitle">
-            <a use:link href="/service">서드파티 연동<span></span></a>
+            <a use:link href="/service/environment/thirdpartyconnection">서드파티 연동<span></span></a>
         </div>
         <div class="wjthirdBox marT24">
             <div class="wjthird">

@@ -11,6 +11,7 @@
     import {openConfirm} from "../../components/common/ui/DialogManager.js";
     import {link} from "svelte-spa-router";
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
+    import { fade } from 'svelte/transition'
 
     // 서비스설정 가져오기
     onMount(() => {
@@ -240,8 +241,8 @@
             </dl>
         </div>
 
-        <LoadingOverlay bind:loadState={settingLoadState} >
-            <div class="seaContentBox">
+        <LoadingOverlay bind:loadState={settingLoadState}>
+            <div class="seaContentBox" in:fade>
             <div class="seaContentLine borB">
                 <div class="seaCont wid100per">
                     <dl>해외 로그인 설정</dl>

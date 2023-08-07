@@ -4,7 +4,9 @@
         from "../../components/service/environment/thirdPartyConnection/ConnectionSettingPop.svelte";
     import {onDestroy, onMount} from "svelte";
     import {ajaxGet} from "../../components/common/ajax.js";
-    import {serviceSettingData} from "../../lib/store.js";
+    import {backBtn} from "../../lib/store.js";
+    import {link} from 'svelte-spa-router'
+    import { fade } from 'svelte/transition'
 
     onMount(() => {
         getThirdPartyInfo();
@@ -88,9 +90,10 @@
 <section class="bodyWrap">
     <div class="contentInnerWrap">
         <div class="pageTitleBtn marB50">
+            <a use:link href="/service/environment">{$backBtn}</a>
             <h1>서드파티 연동</h1>
         </div>
-        <div class="thirdWrap marT50">
+        <div class="thirdWrap marT50" in:fade >
             <div class="thirdTabBox marB50">
                 <div class="thirdTab ontr_tab">메시징 서비스</div>
             </div>
