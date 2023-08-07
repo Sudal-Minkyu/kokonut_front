@@ -43,7 +43,7 @@
                     createLayout = 2;
                 } else if(errCode === "KO085") {
                     pageErrMsg1 = "해당페이지가 만료되었습니다."
-                    pageErrMsg2 = "관리자에게 이메일 재인증요청을 해주시길 바랍니다."
+                    pageErrMsg2 = "관리자에게 이메일 재인증 요청을 해주시길 바랍니다."
                     pageErrUrl = "/"
                     createLayout = 2;
                 } else if(errCode === "KO086") {
