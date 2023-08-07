@@ -22,15 +22,15 @@
             <col style="width:11.44%;">
         </colgroup>
         <thead>
-            <tr>
-                <th>No</th>
-                <th>관리자</th>
-                <th>등급</th>
-                <th>활동내역</th>
-                <th>활동상세내역</th>
-                <th>활동일시(접속IP)</th>
-                <th>상태</th>
-            </tr>
+        <tr>
+            <th>No</th>
+            <th>관리자</th>
+            <th>등급</th>
+            <th>활동내역</th>
+            <th>활동상세내역</th>
+            <th>활동일시(접속IP)</th>
+            <th>상태</th>
+        </tr>
         </thead>
         <tbody>
         {#if activity_list.length !== 0}

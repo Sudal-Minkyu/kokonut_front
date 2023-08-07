@@ -29,9 +29,7 @@
             <th>등록자</th>
             <th>등록 일시</th>
             <th>최근 접속일시 (접속IP)</th>
-<!--            <th>최근 접속일시</th>-->
             <th>이메일 인증</th>
-<!--            <th>상태</th>-->
             <th>설정</th>
         </tr>
         </thead>
@@ -48,14 +46,13 @@
                     {/if}
                     <td>{admin.insertName}</td>
                     <td>{admin.insert_date}</td>
-                    <td>
-                        {#if admin.ah_Insert_date !== null}
-                            <!--{admin.ah_Insert_date}-->
-                            {admin.ah_Insert_date} (IP:{admin.ahIpAddr})
-                        {:else}
-                            없음
-                        {/if}
-                    </td>
+
+                    {#if admin.knLastLoginDate === ""}
+                        <td>없음</td>
+                    {:else}
+                        <td>{admin.knLastLoginDate}(IP:{admin.knIpAddr})</td>
+                    {/if}
+
                     <td>
                         {#if admin.knIsEmailAuth === "Y"}
                             <div class="normal">완료</div>
@@ -80,7 +77,11 @@
 
                     <td>
 <!--                        <button on:click={()=>{openBanner("현재 준비중인 서비스입니다.")}}>사업자 변경</button>-->
-                        <button on:click={()=>{openBanner("현재 준비중인 서비스입니다.")}}>비밀번호 변경</button>
+                        {#if admin.knIsEmailAuth === "Y"}
+                            <button on:click={()=>{openBanner("현재 준비중인 서비스입니다.")}}>비밀번호 변경</button>
+                        {:else}
+                            <button on:click={()=>{openBanner("현재 준비중인 서비스입니다.")}}>인증메일 재전송</button>
+                        {/if}
                     </td>
                 </tr>
             {/each}
