@@ -44,7 +44,21 @@
         };
         ajaxGet('/v2/api/Index/privacyIndexCount', filterCondition, (res)=> {
             privacyIndexDto = res.data.sendData.privacyIndexDto;
-            options.series = [privacyIndexDto.nowUserCount, privacyIndexDto.newUserCount, privacyIndexDto.leaveUserCount];
+            if (privacyIndexDto.nowUserCount || privacyIndexDto.newUserCount || privacyIndexDto.leaveUserCount) {
+                options.series = [privacyIndexDto.nowUserCount, privacyIndexDto.newUserCount, privacyIndexDto.leaveUserCount];
+            } else {
+                options.series = [1];
+                options.labels = [''];
+                options.colors = ['#eaeaea'];
+                options.legend.show = false;
+                options.legend.onItemHover.highlightDataSeries = false;
+                options.chart.width = 250;
+                options.tooltip.enabled = false;
+                options.states = {
+                    hover: {filter: {type: 'none'}},
+                    active: {filter: {type: 'none'}},
+                };
+            }
             console.log('개인정보 현황', privacyIndexDto);
         });
     };

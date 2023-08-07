@@ -32,8 +32,6 @@
         });
     }
 
-    let piChangeChose = !!$policyInfoData.reponsibleDataList.length;
-
     const sixthDepthSave = (goToState) => {
         console.log('저장전데이터', $policyInfoData);
         let url = "/v2/api/Policy/privacyPolicySixthSave";
@@ -44,7 +42,7 @@
             piYear: $policyInfoData.policyData3.piYear,
             piMonth: $policyInfoData.policyData3.piMonth,
             piDay: $policyInfoData.policyData3.piDay,
-            piChangeChose: piChangeChose,
+            piChangeChose: !!($policyInfoData.policyData3.piYear && $policyInfoData.policyData3.piMonth && $policyInfoData.policyData3.piDay),
         }
         restapi('v2', 'post', url, "body", sendData, 'application/json',
             (json_success) => {
@@ -131,13 +129,6 @@
     <!------------ No.10 ------------>
     <div class="priContentBox">
         <div class="priC_title marB24">6. 개인정보 처리방침의 변경에 관한 사항
-            <div class="title_check">
-                <input type="checkbox" value="1" name="pr6-1_involve" id="pr6-1_involve" bind:checked={piChangeChose} >
-                <label for="pr6-1_involve">
-                    <p class="check">포함여부</p>
-                    <em></em>
-                </label>
-            </div>
         </div>
         <div class="prinortext marB16">
             개인정보 처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 홈페이지 또는 이메일 등 개별 통지 방법을 통해 고지할 것입니다.

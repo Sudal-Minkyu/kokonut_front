@@ -1,6 +1,6 @@
 <script>
-    import jQuery from "jquery";
     import {DateRangePicker} from "../../../common/action/DatePicker.js";
+    import {onDestroy, onMount} from "svelte";
 
     export let searchCondition;
     export let activityList;
@@ -8,9 +8,32 @@
     export let activityConfirm;
     export let activityCancel;
 
-    jQuery(document).on("click", ".fccheckBtn", function () {
-        jQuery('.floatCheckBox').css("display", 'inline-block');
+
+    onMount(() => {
+        document.addEventListener('click', floatCheckboxEvent);
     });
+
+    onDestroy(() => {
+        document.removeEventListener('click', floatCheckboxEvent);
+    });
+
+    const floatCheckboxEvent = (event) => {
+        let targetElement = event.target;
+        const elements = document.querySelectorAll('.floatCheckBox');
+        const isOpenBtn = targetElement.matches('.fccheckBtn');
+        const isInsideFloatBoxBtn = targetElement.matches('.activityConfirm') || targetElement.matches('.activityCancel');
+        let isFloatBox = false;
+        while (targetElement != null) {
+            if (targetElement.classList.contains('floatCheckBox')) {
+                isFloatBox = true;
+            }
+            targetElement = targetElement.parentElement;
+        }
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].style.display = (isOpenBtn || isFloatBox) && !isInsideFloatBoxBtn ? 'inline-block' : 'none';
+        }
+
+    }
 
     export let choseMax;
     export let choseMaxText;

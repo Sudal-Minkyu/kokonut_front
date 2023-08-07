@@ -21,8 +21,12 @@
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet, ajaxParam} from "../../../components/common/ajax.js";
 
+    // 툴팁기능 (클릭시 펼쳐지는 물음표) 동작을 위함
     const tooltipEvent = (e) => {
-        console.log('act');
+        const toolTipElements = document.getElementsByClassName('layerToolType');
+        for (const el of toolTipElements) {
+            el.style.display = 'none';
+        }
         if (e.target.classList.contains('tiptool')) {
             var children = e.target.children;
 
@@ -33,15 +37,10 @@
                     break;
                 }
             }
-        } else {
-            const toolTipElements = document.getElementsByClassName('layerToolType');
-            for (const el of toolTipElements) {
-                el.style.display = 'none';
-            }
         }
     }
 
-    onMount(async () => {
+    onMount(() => {
         if($piStage === 0) {
             policyCheck();
         } else {
@@ -50,7 +49,7 @@
         document.addEventListener('click', tooltipEvent);
     });
 
-    onDestroy(async () => {
+    onDestroy(() => {
         document.removeEventListener('click', tooltipEvent);
     });
 

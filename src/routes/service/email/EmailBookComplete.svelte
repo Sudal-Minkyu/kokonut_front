@@ -14,7 +14,7 @@
         <div class="mailcomplateBox">
             <div class="mailcomplate">
                 <div class="mailcomplateicon">
-                    <img src="/assets/images/common/mail_reserve_send_icon.png" alt="">
+                    <img src="../../../../public/assets/images/common/mail_reserve_send_icon.png" alt="">
                 </div>
                 <h2>메일 발송 예약이 완료되었습니다.</h2>
                 <div class="mailcomplateBtnBox">

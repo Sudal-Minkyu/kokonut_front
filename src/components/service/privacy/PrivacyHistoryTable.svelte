@@ -18,7 +18,12 @@
         return hour < 8 || hour > 20;
     }
 
+    // 툴팁기능 (클릭시 펼쳐지는 물음표) 동작을 위함
     const tooltipEvent = (e) => {
+        const toolTipElements = document.getElementsByClassName('layerToolType');
+        for (const el of toolTipElements) {
+            el.style.display = 'none';
+        }
         if (e.target.classList.contains('tiptool')) {
             var children = e.target.children;
 
@@ -28,11 +33,6 @@
                     child.style.display = 'block';
                     break;
                 }
-            }
-        } else {
-            const toolTipElements = document.getElementsByClassName('layerToolType');
-            for (const el of toolTipElements) {
-                el.style.display = 'none';
             }
         }
     }
@@ -66,7 +66,7 @@
         <tr>
             <th>No</th>
             <th>처리 내역</th>
-            <th>사유</th>
+            <th>처리 내용</th>
             <th>관리자</th>
             <th>관리자 등급</th>
             <th>관리자 이메일</th>
@@ -104,7 +104,7 @@
                     {:else}
                         <td><div class="condition complete">알수없음</div></td>
                     {/if}
-                    <td>{privacyHistory.kphReson}</td>
+                    <td>{privacyHistory.kphReason}</td>
                     <td>{privacyHistory.knName}</td>
                     {#if privacyHistory.knRoleCode === "ROLE_MASTER"}
                         <td style="left: 10px">{privacyHistory.knRoleDesc}<div class="mastericon"></div></td>
