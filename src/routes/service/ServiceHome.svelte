@@ -1,7 +1,6 @@
 <script>
     // 레이아웃
     import Header from "../../components/service/layout/Header.svelte"
-    import WidgetSwiperNews from "../../components/service/home/WidgetSwiperNews.svelte";
     import WidgetTodayStatus from "../../components/service/home/WidgetTodayStatus.svelte";
     import DynamicComponentPlacer from "../../components/service/home/DynamicComponentPlacer.svelte";
     import {userInfoData} from "../../lib/store.js";
@@ -49,7 +48,8 @@
             askSubscribeService.handleCancel = () => {
                 openAsk({
                     callback: () => {
-                        askSubscribeService.visibility = false; // 로그아웃 구현 후 삭제
+                        askSubscribeService.visibility = false;
+                        logout();
                     }, // 로그아웃 공용화하여 추가
                     icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                     title: '로그아웃 하시겠습니까?', // 제목
@@ -86,7 +86,8 @@
             askSubscribeService.handleCancel = () => {
                 openAsk({
                     callback: () => {
-                        askSubscribeService.visibility = false; // 로그아웃 구현 후 삭제
+                        askSubscribeService.visibility = false;
+                        logout();
                     }, // 로그아웃 공용화하여 추가
                     icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                     title: '로그아웃 하시겠습니까?', // 제목
