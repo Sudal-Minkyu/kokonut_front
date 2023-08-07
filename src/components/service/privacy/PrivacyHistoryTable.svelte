@@ -52,18 +52,21 @@
     <table>
         <caption>개인정보 처리이력 리스트</caption>
         <colgroup>
-            <col style="width:5.48%;">
-            <col style="width:15.07%;">
-            <col style="width:10.96%;">
-            <col style="width:13.70%;">
-            <col style="width:20.55%;">
-            <col style="width:17.81%;">
-            <col style="width:16.44%;">
+            <col style="width:5%;">
+            <col style="width:10%;">
+            <col style="width:30%;">
+            <col style="width:5%;">
+            <col style="width:10%;">
+            <col style="width:20%;">
+            <col style="width:10%;">
+            <col style="width:15%;">
+            <col style="width:10%;">
         </colgroup>
         <thead>
         <tr>
             <th>No</th>
             <th>처리 내역</th>
+            <th>사유</th>
             <th>관리자</th>
             <th>관리자 등급</th>
             <th>관리자 이메일</th>
@@ -101,6 +104,7 @@
                     {:else}
                         <td><div class="condition complete">알수없음</div></td>
                     {/if}
+                    <td>{privacyHistory.kphReson}</td>
                     <td>{privacyHistory.knName}</td>
                     {#if privacyHistory.knRoleCode === "ROLE_MASTER"}
                         <td style="left: 10px">{privacyHistory.knRoleDesc}<div class="mastericon"></div></td>
