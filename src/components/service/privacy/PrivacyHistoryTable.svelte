@@ -66,7 +66,7 @@
         <tr>
             <th>No</th>
             <th>처리 내역</th>
-            <th>사유</th>
+            <th>처리 내용</th>
             <th>관리자</th>
             <th>관리자 등급</th>
             <th>관리자 이메일</th>
@@ -104,7 +104,7 @@
                     {:else}
                         <td><div class="condition complete">알수없음</div></td>
                     {/if}
-                    <td>{privacyHistory.kphReson}</td>
+                    <td>{privacyHistory.kphReason}</td>
                     <td>{privacyHistory.knName}</td>
                     {#if privacyHistory.knRoleCode === "ROLE_MASTER"}
                         <td style="left: 10px">{privacyHistory.knRoleDesc}<div class="mastericon"></div></td>
