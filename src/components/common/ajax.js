@@ -4,6 +4,8 @@ import axios from 'axios';
 import {openConfirm} from "./ui/DialogManager.js";
 import {logout} from "./authActions.js";
 
+const pendingRequests = new Map();
+
 export const ajaxGet = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
     restapi({
         url,
@@ -111,14 +113,25 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
 
     }
 
-    axios({
+    const requestConfig = {
         url: import.meta.env.VITE_SERVER_URL + url,
         method,
         params,
         data,
         headers,
         withCredentials: true,
-    }).then(okRes => {
+    };
+
+    const configString = JSON.stringify(requestConfig);
+    if (pendingRequests.has(configString)) {
+        console.log('짧은 시간 내 중복된 요청되어 추가 요청은 프론트에서 거부됨');
+        return;
+    }
+
+    pendingRequests.set(configString, true);
+
+    axios(requestConfig).then(okRes => {
+        pendingRequests.delete(configString);
         // 토큰만료시 재발급, 추후 토큰관리를 쿠키로 이전하고 나면 삭제
         let newJwtAccessToken = okRes.headers.get("Authorization");
         if (newJwtAccessToken !== null && newJwtAccessToken !== undefined) {
@@ -142,6 +155,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
             errorReport('ok상태에러 - 사용자환경 : ' + navigator.userAgent, JSON.stringify(okRes));
         }
     }).catch(errorRes => {
+        pendingRequests.delete(configString);
         console.log('ErrorResponse', errorRes);
         try {
             if (errorRes.response) {

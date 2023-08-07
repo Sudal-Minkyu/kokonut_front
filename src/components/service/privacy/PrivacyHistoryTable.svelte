@@ -18,7 +18,12 @@
         return hour < 8 || hour > 20;
     }
 
+    // 툴팁기능 (클릭시 펼쳐지는 물음표) 동작을 위함
     const tooltipEvent = (e) => {
+        const toolTipElements = document.getElementsByClassName('layerToolType');
+        for (const el of toolTipElements) {
+            el.style.display = 'none';
+        }
         if (e.target.classList.contains('tiptool')) {
             var children = e.target.children;
 
@@ -28,11 +33,6 @@
                     child.style.display = 'block';
                     break;
                 }
-            }
-        } else {
-            const toolTipElements = document.getElementsByClassName('layerToolType');
-            for (const el of toolTipElements) {
-                el.style.display = 'none';
             }
         }
     }
