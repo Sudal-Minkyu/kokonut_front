@@ -11,8 +11,9 @@
     import {setOptionItem} from "../../../lib/libSearch.js";
     import {commonCode} from "../../../lib/commonCode.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
-    import {ajaxGet} from "../../../components/common/ajax.js";
+    import {ajaxGet, ajaxParam} from "../../../components/common/ajax.js";
     import {debounce200} from "../../../components/common/eventRateControls.js";
+    import {openBanner} from "../../../components/common/ui/DialogManager.js";
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -74,6 +75,29 @@
     }
 
     // 관리자 목록 호출 함수
+    const emailSend = function emailAgain(userEmail) {
+        console.log("관리자 재인증 메일전송 클릭!");
+
+        const sendDate = {
+            userEmail : userEmail
+        }
+
+        let url = "/v2/api/Admin/createMailAgain";
+
+        ajaxParam(url, sendDate,(res) => {
+            // console.log("재인증메일을 전송하였습니다.");
+            openBanner("재인증메일을 전송하였습니다.");
+        });
+    }
+
+    // 엔터키 클릭
+    function enterPress(event) {
+        if(event.key === "Enter") {
+            adminList(0);
+        }
+    }
+
+    // 관리자 목록 호출 함수
     const adminList = debounce200((page) => {
         adminManagementLayout = 0;
         console.log("관리자 목록호출 클릭!");
@@ -94,13 +118,6 @@
             return {action: 'NONE'};
         });
     });
-
-    // 엔터키 클릭
-    function enterPress(event) {
-        if(event.key === "Enter") {
-            adminList(0);
-        }
-    }
 
 </script>
 
@@ -128,7 +145,7 @@
         <LoadingOverlay bind:loadState={adminManagementLayout} left={55} >
             <div in:fade>
                 <!-- 테이블 영역 -->
-                <AdminTable page={searchCondition.page} {admin_list} {size} {total} />
+                <AdminTable page={searchCondition.page} {admin_list} {size} {total} {emailSend} />
                 <!-- 페이징 영역 -->
                 <Paging page={searchCondition.page} total_page="{total_page}" data_list="{admin_list}" dataFunction="{adminList}" />
             </div>

@@ -6,6 +6,8 @@
     export let size;
     export let total;
     export let admin_list;
+
+    export let emailSend;
 </script>
 
 <div class="kotable adminManagement">
@@ -80,7 +82,7 @@
                         {#if admin.knIsEmailAuth === "Y"}
                             <button on:click={()=>{openBanner("현재 준비중인 서비스입니다.")}}>비밀번호 변경</button>
                         {:else}
-                            <button on:click={()=>{openBanner("현재 준비중인 서비스입니다.")}}>인증메일 재전송</button>
+                            <button on:click={()=>emailSend(admin.knEmail)}>인증메일 재전송</button>
                         {/if}
                     </td>
                 </tr>
