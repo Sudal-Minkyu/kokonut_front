@@ -14,11 +14,11 @@
         <caption>관리자 활동 이력 리스트</caption>
         <colgroup>
             <col style="width:5.48%;">
-            <col style="width:13.59%;">
+            <col style="width:20.59%;">
             <col style="width:10.96%;">
             <col style="width:15.4%;">
             <col style="width:20.07%;">
-            <col style="width:25.07%;">
+            <col style="width:18.07%;">
             <col style="width:11.44%;">
         </colgroup>
         <thead>
