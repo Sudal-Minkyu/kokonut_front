@@ -54,7 +54,7 @@
             <dt>나의 접속 현황</dt>
         </div>
         <div class="wjcurrentBox marT24" style="overflow: visible;">
-            {#each myConnectList as {ahPublicIpAddr, ahReason, ahState, csiRemarks, time, yyymmdd}, i}
+            {#each myConnectList as {ahPublicIpAddr, ahReason, ahState, csipRemarks, time, yyymmdd}, i}
                 <div class="wjcurBox">
                     <div class="wjcurTime">
                         <p>{yyymmdd.replaceAll(' ', '')}</p>
@@ -75,7 +75,13 @@
                                 </span>
                             {/if}
                         </span>
-                        <dl>{ahPublicIpAddr}</dl>
+                        <dl><span>
+                        {#if csipRemarks !== ""}
+                            {csipRemarks} - {ahPublicIpAddr}
+                        {:else}
+                            {ahPublicIpAddr}
+                        {/if}
+                        </span></dl>
                     </div>
                 </div>
             {/each}

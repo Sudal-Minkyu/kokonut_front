@@ -3,6 +3,8 @@
     import Header from "../../components/service/layout/Header.svelte";
     import {ajaxGet, ajaxRegister} from "../../components/common/ajax.js";
     import {onMount} from "svelte";
+    import {backBtn} from "../../lib/store.js";
+    import {link} from "svelte-spa-router";
 
     onMount(() => {
         getColumnLIst();
@@ -67,6 +69,7 @@
 <section class="bodyWrap">
     <div class="contentInnerWrap">
         <div class="pageTitleBtn marB50">
+            <a use:link href="/service/environment">{$backBtn}</a>
             <h1>테스터용 개인정보 추가</h1>
         </div>
     </div>

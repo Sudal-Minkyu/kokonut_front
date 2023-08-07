@@ -566,37 +566,3 @@
 {#if $personalInfoTableData.removeColumnPop.visible}
     <PersonalInfoRemoveColumnPop {personalInfoTableService} />
 {/if}
-
-
-<!-- [D] 전자상거래 적용 대상 팝업 -->
-<!--<div class="koko_popup commerce_pop" data-popup="commerce_pop" style="display:block;">-->
-<!--    <div class="koko_popup_inner">-->
-<!--        <div class="koko_popup_container">-->
-<!--            <div class="koko_popup_titleh4">-->
-<!--                <h4 class="">-->
-<!--                    <span>전자상거래법 적용 대상</span> 이신가요?-->
-<!--                </h4>-->
-<!--            </div>-->
-<!--            <form>-->
-<!--                <div class="popcaseInfoBoxType02">-->
-<!--                    <dl>-->
-<!--                        정보주체(고객)의 개인정보 파기 이후에도 일정 기간 거래기록을 보존해야 하는 사업자는 체크박스에 체크해주세요. 이 경우 최소한의 개인정보 식별을 위한 <span>이름, 생년월일, 휴대전화번호를 필수로 등록</span>하게 됩니다.-->
-<!--                    </dl>-->
-<!--                </div>-->
-<!--                <div class="popRadioBox">-->
-<!--                    <div class="check popRadioType02">-->
-<!--                        <input type="radio" class="radio" name="commerce_yesno" id="commerce_yes" value="commerce_yes">-->
-<!--                        <label for="commerce_yes"><em><dt></dt></em><p class="ox_o"></p><span class="colgr">네,</span> 전자상거래법 적용 대상입니다.</label>-->
-<!--                    </div>-->
-<!--                    <div class="check popRadioType02">-->
-<!--                        <input type="radio" class="radio" name="commerce_yesno" id="commerce_no" value="commerce_no">-->
-<!--                        <label for="commerce_no"><em><dt></dt></em><p class="ox_x"></p><span class="colred">아니요,</span> 이 팝업을 1년간 안 보이게 해주세요.</label>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="kokopopBtnBox">-->
-<!--                    <div class="koko_go"><button type="submit">확인</button></div>-->
-<!--                </div>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
