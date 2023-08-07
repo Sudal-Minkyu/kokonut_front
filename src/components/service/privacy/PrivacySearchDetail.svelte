@@ -14,7 +14,7 @@
 </script>
 <div class="contentInnerWrap sea_detail">
     <div class="pageTitleBtn seaTitle seaWrap marB50">
-        <a on:click={handleToPreviousPage}>{$backBtn}</a>
+        <a style="cursor: pointer" on:click={handleToPreviousPage}>{$backBtn}</a>
         <dl>개인정보 열람</dl>
         <div class="kotopBtn"><button type="button" on:click={excelDownloadPopService.open}>개인정보 엑셀 다운로드</button></div>
     </div>
