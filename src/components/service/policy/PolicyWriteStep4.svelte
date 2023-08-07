@@ -60,8 +60,6 @@
         });
     }
 
-    let policyOutDetailYn = !!$policyInfoData.outDetailDataList.length;
-
     const fourthDepthSave = (goToState) => {
         console.log('저장전데이터', $policyInfoData);
         let url = "/v2/api/Policy/privacyPolicyFourthSave";
@@ -71,7 +69,7 @@
             policyOutDeleteIdList: outRemoveIdList,
             policyOutDetailSaveDtoList: $policyInfoData.outDetailDataList,
             policyOutDetailDeleteIdList: outDetailRemoveIdList,
-            policyOutDetailYn: policyOutDetailYn,
+            policyOutDetailYn: !!$policyInfoData.outDetailDataList.length,
         }
         restapi('v2', 'post', url, "body", sendData, 'application/json',
             (json_success) => {
@@ -179,13 +177,6 @@
                     </div>
                 </div>
             </span>
-            <div class="title_check">
-                <input type="checkbox" value="1" name="pr5-1_involve" id="pr5-1_involve" bind:checked={policyOutDetailYn}>
-                <label for="pr5-1_involve">
-                    <p class="check">포함여부</p>
-                    <em></em>
-                </label>
-            </div>
         </div>
         <div class="prtextTablethBox colum7Line borT">
             <div class="prtti">수탁 업체</div>
