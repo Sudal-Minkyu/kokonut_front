@@ -54,7 +54,7 @@
                 {#each email_list as email, i}
                     <tr>
                         <td>{getEmPurposeName(email)}</td>
-                        <td>{email.knName} ( {email.insert_email} )</td>
+                        <td>{email.knName}({email.insert_email})</td>
                         <td>{email.emTitle}</td>
                         <td>{#if email.emState === '2'}<span>예약</span>{/if}{getSendDateText(email)}</td>
                         <td>{email.emSendAllCount}</td>
