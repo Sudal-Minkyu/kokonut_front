@@ -113,6 +113,7 @@
 
     const excelDownloadPopService = {
         visibility: false,
+        useBodyParam: false,
         requestURL: '/v2/api/Provision/provisionDownloadExcel',
         requestData: {},
         close: () => {

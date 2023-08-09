@@ -50,6 +50,20 @@ export const ajaxMultipart = (url, sendData = new FormData(), handleSuccess = ()
     });
 };
 
+export const ajaxExcelBodyParam = (url, sendData = {}, sendParams = {}, handleSuccess = () => {}, handleFail = () => {}) => {
+    console.log('보내는 데이터', sendData);
+    restapi({
+        url,
+        handleSuccess,
+        handleFail,
+        method: 'post',
+        params: sendParams,
+        data: JSON.stringify(sendData),
+        contentType: 'application/json',
+    });
+
+}
+
 export const ajaxRegister = (url, sendData = {}, apiKey, handleSuccess = () => {}, handleFail = () => {}) => {
 
     restapi({
@@ -407,10 +421,7 @@ const errorReport = (etTitle, etMsg) => {
             'Authorization': get(accessToken) // Authorization 헤더 추가
         },
         body: JSON.stringify({etTitle, etMsg})
-    })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+    }).catch((error) => {
+        console.error('Error:', error);
+    });
 }

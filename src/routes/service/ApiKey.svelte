@@ -126,6 +126,7 @@
         let url = "/v2/api/ApiKey/apiKeyCheck"
 
         ajaxGet(url, false, (res) => {
+            console.log(res);
             apikeyTrueFalse = res.data.sendData.result;
             // apikeyTrueFalse = 0;
             // console.log("apikeyTrueFalse : "+apikeyTrueFalse);
@@ -232,7 +233,7 @@
 
         <div class="apikeyBox">
             <LoadingOverlay bind:loadState={apikeyTrueFalse} >
-                {#if apikeyTrueFalse === 1}
+                {#if apikeyTrueFalse === 1 && isModifiable}
                 <div class="apikeyBtn" on:click={popOpenBtn} in:fade>API Key 발급</div>
                 {:else}
                 <div class="apiwrap" in:fade>
