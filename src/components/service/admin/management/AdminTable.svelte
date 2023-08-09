@@ -14,14 +14,15 @@
     <table>
         <caption>관리자 목록 리스트</caption>
         <colgroup>
-            <col style="width:4.11%;">
+            <col style="width:4%;">
             <col style="width:22%;">
-            <col style="width:9%;">
-            <col style="width:6.85%;">
-            <col style="width:13.36%;">
+            <col style="width:8%;">
+            <col style="width:6%;">
+            <col style="width:13%;">
             <col style="width:25%;">
-            <col style="width:6.85%;">
-            <col style="width:21%;">
+            <col style="width:6%;">
+            <col style="width:8%;">
+            <col style="width:12%;">
         </colgroup>
         <thead>
         <tr>
@@ -32,6 +33,7 @@
             <th>등록 일시</th>
             <th>최근 접속일시 (접속IP)</th>
             <th>이메일 인증</th>
+            <th>계정 상태</th>
             <th>설정</th>
         </tr>
         </thead>
@@ -63,19 +65,19 @@
                         {/if}
                     </td>
 
-<!--                    <td>-->
-<!--                        {#if admin.knState === 1}-->
-<!--                            <div class="normal">정상</div>-->
-<!--                        {:else if admin.knState === 3}-->
-<!--                            <div class="secession">탈퇴</div>-->
-<!--                        {:else if admin.knState === 4}-->
-<!--                            <div class="dormancy">휴면</div>-->
-<!--                        {:else if admin.knState === 2}-->
-<!--                            <div class="secession">로그인제한</div>-->
-<!--                        {:else if admin.knState === 0}-->
-<!--                            <div class="secession">정지</div>-->
-<!--                        {/if}-->
-<!--                    </td>-->
+                    <td>
+                        {#if admin.knState === 1}
+                            <div class="normal">정상</div>
+                        {:else if admin.knState === 3}
+                            <div class="secession">탈퇴</div>
+                        {:else if admin.knState === 4}
+                            <div class="dormancy">휴면</div>
+                        {:else if admin.knState === 2}
+                            <div class="secession">로그인제한</div>
+                        {:else if admin.knState === 0}
+                            <div class="secession">정지</div>
+                        {/if}
+                    </td>
 
                     <td>
 <!--                        <button on:click={()=>{openBanner("현재 준비중인 서비스입니다.")}}>사업자 변경</button>-->

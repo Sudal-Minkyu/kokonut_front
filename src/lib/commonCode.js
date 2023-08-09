@@ -9,11 +9,11 @@ export const commonCode = [
 	{label : "common_all", text : "전체", value: ""},
 
 	// 관리자 목록관리 페이지
-	{label : "kn_state", text : "정지", value: "0"},
+	// {label : "kn_state", text : "정지", value: "0"},
 	{label : "kn_state", text : "정상", value: "1"},
 	{label : "kn_state", text : "로그인제한", value: "2"},
-	{label : "kn_state", text : "탈퇴", value: "3"},
-	{label : "kn_state", text : "휴면", value: "4"},
+	// {label : "kn_state", text : "탈퇴", value: "3"},
+	// {label : "kn_state", text : "휴면", value: "4"},
 
 	// 관리자 목록관리 페이지
 	// {label : "kn_role_code", text : "코코넛직원", value: "ROLE_SYSTEM"}, // 제외
