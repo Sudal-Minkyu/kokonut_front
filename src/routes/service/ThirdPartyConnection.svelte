@@ -106,7 +106,7 @@
                                     <div class="thirdItemIcon">
                                         <img src="/assets/images/common/bizmlogo.png" alt="비즈엠로고">
                                         <h2>카카오 알림톡</h2>
-                                        <a href="">사용가이드<span></span></a>
+                                        <a href="../../../public/assets/file/알림톡%20템플릿%20검수가이드.pdf" download="알림톡 템플릿 검수가이드.pdf">알림톡 가이드<span></span></a>
                                     </div>
                                 </div>
                                 <div class="thirdItemBtnLine">

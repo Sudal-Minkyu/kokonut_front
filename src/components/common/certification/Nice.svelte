@@ -31,7 +31,7 @@
 
             ajaxGet(url, sendData, (res) => { // 차후 인증실패시 에러메시지를 ajax.js 기본기능으로 사용하여 표출할 수 있도록 할 것
                 alert("인증이 완료되었습니다.");
-                if(stateVal === "1" || stateVal === "5" || stateVal === "6") {
+                if(stateVal === "1" || stateVal === "5" || stateVal === "6" || stateVal === "7") {
                     opener.phoneCertCheck(stateVal, res.data.sendData.joinName, res.data.sendData.joinPhone);
                 } else {
                     opener.phoneCertCheck(stateVal, res.data.sendData.keyEmail, res.data.sendData.authOtpKey);

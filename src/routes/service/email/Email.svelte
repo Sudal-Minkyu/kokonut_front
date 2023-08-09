@@ -132,7 +132,7 @@
                 <button on:click={moveEmailSend} id="adm_registration_pop">이메일 발송</button>
             </div>
             <div class="koinput marB32">
-                <input type="text" bind:value="{searchCondition.searchText}" class="wid360" placeholder="이름, 이메일 검색" on:keypress={enterPress} />
+                <input type="text" bind:value="{searchCondition.searchText}" class="wid360" placeholder="보낸사람 검색(이름, 아이디)" on:keypress={enterPress} />
                 <button on:click={() => emailSendList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
             </div>
         </div>
