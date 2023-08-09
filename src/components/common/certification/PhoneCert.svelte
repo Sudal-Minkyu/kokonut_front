@@ -26,7 +26,7 @@
         let url = "/v1/api/NiceId/open"
 
         let sendData = {
-            state : state // 잘못된 요청 -> "0", 회원가입 -> "1", 이메일찾기 -> "2", 비밀번호찾기 -> "3", OTP변경 -> "4", 핸드폰번호변경 -> "5"
+            state : state // 잘못된 요청 -> "0", 회원가입 -> "1", 이메일찾기 -> "2", 비밀번호찾기 -> "3", OTP변경 -> "4", 핸드폰번호변경 -> "5", 해외로그인 -> "6", 비밀번호변경(메일전송) -> "7"
         }
 
         ajaxGet(url, sendData, (res) => {
@@ -50,7 +50,7 @@
         console.log("keyEmail : "+keyEmail);
         console.log("otpKey : "+otpKey);
 
-        if(state === "1") {
+        if(state === "1" || state === "7") {
             console.log("회원가입 창으로");
             conditionFun(2, keyEmail, otpKey); // 회원가입 : keyEmail -> joinName, otpKey -> joinPhone
         } else if(state === "2") {
@@ -287,6 +287,12 @@
     </div>
 {:else if state === 5}
     <button class="myinfoChangeBtn" on:click|preventDefault="{() => phoneCheckOpen(state)}">변경하기</button>
+{:else if state === 6}
+    <div class="join_bottom" on:click|preventDefault="{() => phoneCheckOpen(state)}">
+        <button type="submit">
+            <p>휴대폰 인증하기</p>
+        </button>
+    </div>
 {:else}
     <div class="join_bottom" on:click|preventDefault="{() => phoneCheckOpen(state)}">
         <button type="submit">

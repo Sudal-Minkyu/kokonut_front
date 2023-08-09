@@ -162,7 +162,7 @@
                 <button id="excel_download_pop" on:click={excelDownloadPopService.open}>현재목록 엑셀 다운로드</button>
             </div>
             <div class="koinput marB32">
-                <input type="text" bind:value="{searchCondition.searchText}" class="wid360" placeholder="이름, 이메일 검색" on:keypress={enterPress} />
+                <input type="text" bind:value="{searchCondition.searchText}" class="wid360" placeholder="관리자 검색(이름, 아이디)" on:keypress={enterPress} />
                 <button on:click={() => activityList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
             </div>
         </div>

@@ -23,6 +23,9 @@
             type: 'area',
             toolbar: {
                 show: false,
+            },
+            zoom: {
+                enabled: false,
             }
         },
         dataLabels: {

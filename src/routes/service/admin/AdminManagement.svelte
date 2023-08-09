@@ -90,6 +90,22 @@
         });
     }
 
+    // 관리자 목록 호출 함수
+    const pwChangeMail = function pwChange(userEmail) {
+        console.log("비밀번호 변경 메일전송 클릭!");
+
+        const sendDate = {
+            userEmail : userEmail
+        }
+
+        let url = "/v2/api/Admin/passwordChangeMail";
+
+        ajaxParam(url, sendDate,(res) => {
+            // console.log("재인증메일을 전송하였습니다.");
+            openBanner("비밀번호변경 메일을 전송하였습니다.");
+        });
+    }
+
     // 엔터키 클릭
     function enterPress(event) {
         if(event.key === "Enter") {
@@ -134,7 +150,7 @@
                 <button on:click={adminSavePopChange} id="adm_registration_pop">관리자 등록</button>
             </div>
             <div class="koinput marB32">
-                <input type="text" bind:value="{searchCondition.searchText}"  class="wid360" placeholder="이름, 이메일 검색" on:keypress={enterPress} />
+                <input type="text" bind:value="{searchCondition.searchText}"  class="wid360" placeholder="관리자 검색(이름, 아이디)" on:keypress={enterPress} />
                 <button on:click={() => adminList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
             </div>
         </div>
@@ -145,7 +161,7 @@
         <LoadingOverlay bind:loadState={adminManagementLayout} left={55} >
             <div in:fade>
                 <!-- 테이블 영역 -->
-                <AdminTable page={searchCondition.page} {admin_list} {size} {total} {emailSend} />
+                <AdminTable page={searchCondition.page} {admin_list} {size} {total} {emailSend} {pwChangeMail} />
                 <!-- 페이징 영역 -->
                 <Paging page={searchCondition.page} total_page="{total_page}" data_list="{admin_list}" dataFunction="{adminList}" />
             </div>

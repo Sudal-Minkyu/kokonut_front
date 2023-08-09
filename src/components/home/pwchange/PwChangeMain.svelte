@@ -1,6 +1,6 @@
 <script>
 
-    import CreateUser from './CreateUser.svelte'
+    import PwChangeUser from '../pwchange/PwChangeUser.svelte'
     import PhoneCert from '../../common/certification/PhoneCert.svelte'
 
     let stage = 0;
@@ -37,9 +37,9 @@
         {/if}
         {#if stage === 0}
             <figure class="f_emailImg"><img alt="handphone" src="/assets/images/join/f-email.png"></figure>
-            <PhoneCert state="{1}" {conditionFun} />
+            <PhoneCert state="{7}" {conditionFun} />
         {:else}
-            <CreateUser {stage} {joinName} {joinPhone} {userEmail} {stageChange} />
+            <PwChangeUser {stage} {userEmail} {stageChange} />
         {/if}
     </div>
 </div>
