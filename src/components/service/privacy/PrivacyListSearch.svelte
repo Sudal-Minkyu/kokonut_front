@@ -4,8 +4,8 @@
     export let searchCondition;
     export let provisionList;
 
-    const handleFilterDownload = (el) => {
-        searchCondition.filterDownload = el.dataset.rating;
+    const handleFilterOfferType = (el) => {
+        searchCondition.filterOfferType = el.dataset.rating;
         provisionList(0);
     }
     const handleFilterState = (el) => {
@@ -70,14 +70,14 @@
         </div>
         <div class="seaContentLine">
             <div class="seaCont wid33per">
-                <dl>다운로드 유무</dl>
+                <dl>제공 타입</dl>
                 <div class="sc_SelBox" >
-                    <div class="selectBox wid164" use:SelectBoxManager={{callback: handleFilterDownload}}>
+                    <div class="selectBox wid164" use:SelectBoxManager={{callback: handleFilterOfferType}}>
                         <div class="label" data-rating="">전체</div>
                         <ul class="optionList">
                             <li class="optionItem curv" data-rating="">전체</li>
-                            <li class="optionItem curv" data-rating="0">N</li>
-                            <li class="optionItem curv" data-rating="1">Y</li>
+                            <li class="optionItem curv" data-rating="0">제공함</li>
+                            <li class="optionItem curv" data-rating="1">제공받음</li>
                         </ul>
                     </div>
                 </div>

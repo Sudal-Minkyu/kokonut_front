@@ -54,7 +54,7 @@
             <th>제공자</th>
             <th>만든 날짜</th>
             <th>제공 기간</th>
-            <th>다운로드 유무</th>
+            <th>제공 타입</th>
             <th>제공인원 수</th>
             <th>다운로드인원 수</th>
             <th>다운로드</th>
@@ -75,7 +75,11 @@
                     <td>{provision.knName}</td>
                     <td>{provision.insert_date}</td>
                     <td>{provision.proStartDate} ~ {provision.proExpDate}</td>
-                    <td>{provision.proDownloadYn}</td>
+                    {#if provision.offerType === "1"}
+                        <td><div>제공함</div></td>
+                    {:else}
+                        <td><div>제공받음</div></td>
+                    {/if}
                     <td>{provision.offerCount}</td>
                     <td><div class="dcount downcountPop" on:click={() => downloadHistoryClick(provision.proCode)}>{provision.downloadCount}</div></td>
                     <td>
