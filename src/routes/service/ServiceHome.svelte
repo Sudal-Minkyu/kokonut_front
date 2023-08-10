@@ -8,6 +8,7 @@
     import {bootpayContinueSubscription, bootpayStartSubscription} from "../../components/common/bootpayment.js";
     import {openAsk, openConfirm} from "../../components/common/ui/DialogManager.js";
     import {logout} from "../../components/common/authActions.js";
+    import {ajaxParam} from "../../components/common/ajax.js";
 
     let isBillingCheckTriggerNotActivatedYet = true;
 
@@ -66,23 +67,7 @@
                 notification: '다시 요금이 청구됩니다. 수정필요',
                 agreement: '안내사항을 확인하였으며, 구독을 재개하는 것에 대해 동의합니다.',
             };
-            askSubscribeService.handleNext = () => {
-                bootpayContinueSubscription((res) => {
-
-                }, (err) => {
-                    openConfirm({
-                        icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                        title: "결제수단 등록 실패", // 제목
-                        contents1: err.message,
-                        contents2: '필요시, 관리자에게 해당 사실을 문의해 주세요.',
-                        btnCheck: '확인', // 확인 버튼의 텍스트
-                        callback: () => {
-                            askSubscribeService.askContinueSubscribe();
-                        }
-                    });
-                });
-                askSubscribeService.visibility = false;
-            };
+            askSubscribeService.handleNext = $userInfoData.paymentDeleteCancel === "1" ? askSubscribeService.continueSubscribeWhenCardInfoExist : askSubscribeService.continueSubscribeWhenCardInfoDeleted;
             askSubscribeService.handleCancel = () => {
                 openAsk({
                     callback: () => {
@@ -96,6 +81,29 @@
                 });
             };
             askSubscribeService.visibility = true;
+        },
+        continueSubscribeWhenCardInfoDeleted: () => {
+            bootpayContinueSubscription((res) => {
+
+            }, (err) => {
+                openConfirm({
+                    icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: "결제수단 등록 실패", // 제목
+                    contents1: err.message,
+                    contents2: '필요시, 관리자에게 해당 사실을 문의해 주세요.',
+                    btnCheck: '확인', // 확인 버튼의 텍스트
+                    callback: () => {
+                        askSubscribeService.askContinueSubscribe();
+                    }
+                });
+            });
+            askSubscribeService.visibility = false;
+        },
+        continueSubscribeWhenCardInfoExist: () => {
+            ajaxParam('/v2/api/Payment/billingDeleteCancel', {}, (res) => {
+                openBanner('구독을 재개하였습니다.');
+                askSubscribeService.visibility = false;
+            });
         },
     }
 
@@ -118,6 +126,7 @@
             });
         }
     } else if ($userInfoData.paymentBillingCheck === '2') { // 2는 구독을 해지한 사람임을 의미
+        console.log($userInfoData);
         if (subscribableRoleList.includes($userInfoData.role)) {
             isBillingCheckTriggerNotActivatedYet = false;
             askSubscribeService.askContinueSubscribe();
