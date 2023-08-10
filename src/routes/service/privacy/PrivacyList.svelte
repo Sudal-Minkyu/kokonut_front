@@ -27,7 +27,7 @@
         size,
         searchText: '',
         stime: '',
-        filterDownload: '',
+        filterOfferType: '',
         filterState: '',
     }
     function provisionList(page) {

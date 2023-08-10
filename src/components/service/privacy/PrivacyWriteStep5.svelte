@@ -113,7 +113,8 @@
                         displayColumnList.push(examConditionObj);
                     }
                 }
-                obj.step5.displayColumnList = calculateRelativeWidth(displayColumnList);
+                obj.step5.displayColumnList = displayColumnList;
+                // obj.step5.displayColumnList = calculateRelativeWidth(displayColumnList);
                 console.log('처리된 컬럼 표시 정보', displayColumnList);
                 return obj;
             });

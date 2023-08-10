@@ -2,15 +2,20 @@
     import Header from "../../components/service/layout/Header.svelte";
     import {onMount} from "svelte";
     import {bootpayChangeToAnotherMethod} from "../../components/common/bootpayment.js";
-    import {backBtn, subscriptionManagementData, userInfoData,} from "../../lib/store.js";
+    import {backBtn, mainScreenBlockerVisibility, subscriptionManagementData, userInfoData,} from "../../lib/store.js";
     import CalendarPop from "../../components/service/environment/subscription/CalendarPop.svelte";
     import PaymentPop from "../../components/service/environment/subscription/PaymentPop.svelte";
     import UnsubscribePop from "../../components/service/environment/subscription/UnsubscribePop.svelte";
     import Pagination from "../../components/common/ui/Pagination.svelte";
     import {openAsk} from "../../components/common/ui/DialogManager.js";
-    import {ajaxGet} from "../../components/common/ajax.js";
+    import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
     import {link} from "svelte-spa-router";
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
+    import {onlyNumber} from "../../lib/common.js";
+    import ErrorHighlight from "../../components/common/ui/ErrorHighlight.svelte";
+    import {fade} from "svelte/transition";
+    import {logout} from "../../components/common/authActions.js";
+    import {openConfirm} from "../../components/common/ui/DialogManager.js";
 
     let payBeforeUnsubscribeConfirmVisibility = false;
     let unsubscribeDoneConfirmVisibility = false;
@@ -43,6 +48,14 @@
                 obj.paymentList.total_rows = res.data.total_rows;
                 return obj;
             });
+        }, (errCode, errMsg) => {
+            subscriptionManagementData.update(obj => {
+                obj.paymentList.dataList = [];
+                obj.paymentList.total_rows = 0;
+                return obj;
+            });
+            gotPaymentState = 1;
+            return {action:'NONE'}
         });
     }
 
@@ -121,6 +134,55 @@
         '0': '월 정기 구독',
         '1': '연 정기 구독',
     };
+
+    const suspendSubscriptionPopService = {
+        visible: false,
+        isCautionChecked: '',
+        requestData: {
+            downloadReason: '',
+            otpValue: '',
+        },
+        downloadReasonErrMsg: '',
+        otpValueErrMsg: '',
+        cautionErrMsg: '',
+        open: () => {
+            suspendSubscriptionPopService.visible = true;
+        },
+        close: () => {
+            suspendSubscriptionPopService.visible = false;
+        },
+        proceedCancelSubscription: () => {
+            if (!suspendSubscriptionPopService.requestData.otpValue) {
+                suspendSubscriptionPopService.otpValueErrMsg = 'OTP를 적어주세요.';
+                return;
+            } else {
+                suspendSubscriptionPopService.otpValueErrMsg = '';
+            }
+
+            if (!suspendSubscriptionPopService.isCautionChecked) {
+                suspendSubscriptionPopService.cautionErrMsg = '주의사항을 확인하고 체크해 주세요.';
+                return;
+            } else {
+                suspendSubscriptionPopService.cautionErrMsg = '';
+            }
+
+            mainScreenBlockerVisibility.set(true);
+
+            ajaxParam('/v2/api/Payment/billingDelete', suspendSubscriptionPopService.requestData, (res) => {
+                mainScreenBlockerVisibility.set(false);
+                openConfirm({
+                    icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: "구독 해지를 완료하였습니다.", // 제목
+                    contents1: '그동안 이용해 주셔서 감사합니다.',
+                    contents2: '로그인 페이지로 이동합니다.',
+                    btnCheck: '확인', // 확인 버튼의 텍스트
+                    callback: logout,
+                });
+            }, (errCode, errMsg) => {
+                mainScreenBlockerVisibility.set(false);
+            });
+        },
+    }
 </script>
 
 <Header />
@@ -137,7 +199,7 @@
                     <div class="myInfoBox">
                         <div class="top_stand0{($subscriptionManagementData.companyPaymentInfo.cpiPayType + 1) * 2 - 1}">{cpiPayTypeName[$subscriptionManagementData.companyPaymentInfo.cpiPayType]}</div>
                         {#if $userInfoData.role === 'ROLE_MASTER' }
-                            &nbsp;&nbsp;<button class="myinfoChangeBtn marL8impor" id="unsubscribe_pop" on:click={handleUnsubscribeBtn}>구독해지</button>
+                            &nbsp;&nbsp;<button class="myinfoChangeBtn marL8impor" id="unsubscribe_pop" on:click={suspendSubscriptionPopService.open}>구독해지</button>
                         {/if}
                         <!--
                         <div class="top_stand02">Standard2</div>
@@ -266,4 +328,50 @@
             </div>
         </div>
     </div>
+{/if}
+
+{#if suspendSubscriptionPopService.visible}
+    <!-- [D] 구독 해지 -->
+    <div class="koko_popup excel_download_pop" data-popup="excel_download_pop" in:fade out:fade >
+        <div class="koko_popup_inner">
+            <div class="koko_popup_container">
+                <div class="koko_popup_title">
+                    <h3 class="">구독 해지</h3>
+                </div>
+                <form>
+                    <div class="kopopinput marB24">
+                        <label>사유</label>
+                        <textarea placeholder="사유를 적어주세요." bind:value={suspendSubscriptionPopService.requestData.downloadReason}></textarea>
+                        <ErrorHighlight message={suspendSubscriptionPopService.downloadReasonErrMsg}/>
+                    </div>
+                    <div class="kopopinput marB24">
+                        <label>구글 OTP 인증번호(6자리)</label>
+                        <input type="text" bind:value={suspendSubscriptionPopService.requestData.otpValue} maxlength="6"
+                               on:keyup={() => suspendSubscriptionPopService.requestData.otpValue = onlyNumber(suspendSubscriptionPopService.requestData.otpValue)} placeholder="OTP를 적어주세요." />
+                        <ErrorHighlight message={suspendSubscriptionPopService.otpValueErrMsg}/>
+                    </div>
+                    <div class="popcaseInfoBox">
+                        <p>주의사항</p>
+                        <dl>구독이 해지됩니다.</dl>
+                        <dl>서비스 제공시 즉시 중단됩니다.</dl>
+                    </div>
+                    <div class="koko_check">
+                        <input type="checkbox" value="1" id="pricheck" bind:checked={suspendSubscriptionPopService.isCautionChecked}>
+                        <label for="pricheck">
+                            <em></em>
+                            <p class="check">주의사항에 대해 확인했습니다.</p>
+                        </label>
+                        <ErrorHighlight message={suspendSubscriptionPopService.cautionErrMsg}/>
+                    </div>
+
+                    <div class="kokopopBtnBox">
+                        <div class="koko_go"><button type="button" on:click={suspendSubscriptionPopService.proceedCancelSubscription}>구독해지</button></div>
+                        <div class="koko_cancel" on:click={suspendSubscriptionPopService.close}>취소</div>
+                    </div>
+                </form>
+            </div>
+            <div class="koko-popup-close excel_download_pop_close" data-popup-close="excel_download_pop_close" on:click={suspendSubscriptionPopService.close} ></div>
+        </div>
+    </div>
+    <!-- // [D] 구독 해지 -->
 {/if}
