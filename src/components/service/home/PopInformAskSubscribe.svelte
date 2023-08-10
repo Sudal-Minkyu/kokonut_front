@@ -1,5 +1,6 @@
 <script>
     import ErrorHighlight from "../../common/ui/ErrorHighlight.svelte";
+    import {userInfoData} from "../../../lib/store.js";
 
     export let askSubscribeService;
 
@@ -41,7 +42,7 @@
             </div>
             <div class="payBtnBox">
                 <div class="koko_cancel unsubscribe_pop_close" on:click={askSubscribeService.handleCancel}>로그아웃</div>
-                <div class="koko_go"><button class="tippop" id="tip_btn03" on:click={handleAddCard}>카드등록</button></div>
+                <div class="koko_go"><button class="tippop" id="tip_btn03" on:click={handleAddCard}>{$userInfoData.paymentDeleteCancel === "1" ? "구독재개" : "카드등록"}</button></div>
             </div>
         </div>
         <div class="koko-popup-close unsubscribe_pop_close" data-popup-close="unsubscribe_pop_close"

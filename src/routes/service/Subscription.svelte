@@ -176,9 +176,11 @@
                     contents1: '그동안 이용해 주셔서 감사합니다.',
                     contents2: '로그인 페이지로 이동합니다.',
                     btnCheck: '확인', // 확인 버튼의 텍스트
+                    callback: logout,
                 });
-                logout();
-            })
+            }, (errCode, errMsg) => {
+                mainScreenBlockerVisibility.set(false);
+            });
         },
     }
 </script>
