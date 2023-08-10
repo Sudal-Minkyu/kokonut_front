@@ -15,14 +15,14 @@
 
     const excelDownloadPopService = {
         visibility: false,
+        useBodyParam: true,
         requestURL: '/v2/api/DynamicUser/privacyUserDownloadExcel',
-        requestData: {
-            paramMap: $privacySearchData.currentDetail,
-        },
+        requestData: [],
         close: () => {
             excelDownloadPopService.visibility = false;
         },
         open: () => {
+            excelDownloadPopService.requestData = $privacySearchData.currentDetail;
             excelDownloadPopService.visibility = true;
         },
     }

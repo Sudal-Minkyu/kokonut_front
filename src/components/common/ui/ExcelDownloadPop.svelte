@@ -1,13 +1,14 @@
 <script>
     import {fade} from "svelte/transition";
     import ErrorHighlight from "./ErrorHighlight.svelte";
-    import {ajaxParam} from "../ajax.js";
+    import {ajaxParam, ajaxExcelBodyParam} from "../ajax.js";
     import {buildExcelFromBase64} from "../buildExcelFromBase64.js";
     import {onlyNumber} from "../../../lib/common.js";
     import {mainScreenBlockerVisibility} from "../../../lib/store.js";
 
     export let excelDownloadPopService = {
         visibility: false,
+        useBodyParam: false,
         requestURL: '',
         requestData: {},
         close: () => {
@@ -49,14 +50,25 @@
         }
         mainScreenBlockerVisibility.set(true);
 
-        ajaxParam(excelDownloadPopService.requestURL, {...requestData, ...excelDownloadPopService.requestData}, (res) => {
-            mainScreenBlockerVisibility.set(false);
-            buildExcelFromBase64(res);
-            excelDownloadPopService.close();
-        }, (errCode, errMsg) => {
-            mainScreenBlockerVisibility.set(false);
-        });
+        if (excelDownloadPopService.useBodyParam) {
+            console.log('리퀘스트', excelDownloadPopService.requestData);
+            ajaxExcelBodyParam(excelDownloadPopService.requestURL, excelDownloadPopService.requestData, requestData
+                , excelReqSuccess, excelReqFail);
+        } else {
+            ajaxParam(excelDownloadPopService.requestURL, {...requestData, ...excelDownloadPopService.requestData}
+                , excelReqSuccess, excelReqFail);
+        }
     }
+
+    const excelReqSuccess = (res) => {
+        mainScreenBlockerVisibility.set(false);
+        buildExcelFromBase64(res);
+        excelDownloadPopService.close();
+    };
+
+    const excelReqFail = (errCode, errMsg) => {
+        mainScreenBlockerVisibility.set(false);
+    };
 </script>
 
 <!-- [D] 엑셀 다운로드 팝업 -->

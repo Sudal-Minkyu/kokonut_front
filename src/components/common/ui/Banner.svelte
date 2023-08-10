@@ -18,7 +18,7 @@
 <style>
     .titleDiv {
         padding: 10px 20px 10px 20px;
-        position: absolute;
+        position: fixed;
         top: 100px;
         right: 40%;
         font-size: 22px;

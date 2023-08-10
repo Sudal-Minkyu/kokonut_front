@@ -42,9 +42,6 @@ import EmailSendComplete from "./routes/service/email/EmailSendComplete.svelte";
 import EmailBookComplete from "./routes/service/email/EmailBookComplete.svelte";
 import addMember from "./routes/service/addMember.svelte";
 
-import MailTemplate from "./template/mail/MailTemplate.svelte";
-
-
 export default {
     // API 테스트하는 화면
     "/Apitest": wrap({
@@ -144,8 +141,6 @@ export default {
     "/service/privacy/PrivacyHistory": PrivacyHistory,
     // 개인정보 검색 페이지
     "/service/privacy/PrivacySearch": PrivacySearch,
-
-    "/MailTemplate": MailTemplate,
 
     "*": wrap({
         asyncComponent: () => import("./routes/NotFound.svelte"),

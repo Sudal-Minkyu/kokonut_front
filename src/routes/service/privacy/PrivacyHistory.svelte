@@ -68,6 +68,7 @@
 
     const excelDownloadPopService = {
         visibility: false,
+        useBodyParam: false,
         requestURL: '/v2/api/PrivacyHistory/privacyHistoryDownloadExcel',
         requestData: {
             searchText: '',
