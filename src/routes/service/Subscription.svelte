@@ -30,7 +30,6 @@
 
     const getCompanyPaymentInfo = () => {
         ajaxGet('/v2/api/Company/companyPaymentInfo', false, (res) => {
-            console.log('기초데이터', res);
             subscriptionManagementData.update(obj => {
                 obj.companyPaymentInfo = res.data.sendData.paymentInfo;
                 return obj;
@@ -42,7 +41,6 @@
         gotPaymentState = 0;
         ajaxGet('/v2/api/Company/paymentList', false, (res) => {
             gotPaymentState = 1;
-            console.log('기초데이터2', res);
             subscriptionManagementData.update(obj => {
                 obj.paymentList.dataList = res.data.datalist;
                 obj.paymentList.total_rows = res.data.total_rows;
@@ -61,7 +59,11 @@
 
     const calendarService = {
         visibility: false,
+        year: 2023,
+        month: 8,
         open: (useDate) => {
+            calendarService.year = Number(useDate.substring(0, 4));
+            calendarService.month = Number(useDate.substring(5, 7));
             calendarService.visibility = true;
         },
         close: () => {

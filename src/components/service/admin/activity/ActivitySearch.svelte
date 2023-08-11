@@ -1,6 +1,7 @@
 <script>
     import {DateRangePicker} from "../../../common/action/DatePicker.js";
     import {onDestroy, onMount} from "svelte";
+    import {SelectBoxManager} from "../../../common/action/SelectBoxManager.js";
 
     export let searchCondition;
     export let activityList;
@@ -48,6 +49,11 @@
         periodName: 'period',
         eraseOnCancel: false,
     };
+
+    const handleFilterRole = (el) => {
+        searchCondition.filterRole = el.dataset.value;
+        activityList(0);
+    }
 </script>
 
 <!-- 상단 검색 영역 -->
@@ -94,14 +100,27 @@
             </div>
         </div>
         <div class="seaContentLine">
-            <div class="seaCont wid100per">
+            <div class="seaCont wid50per">
+                <dl>관리자등급</dl>
+                <div class="sc_SelBox">
+                    <div class="selectBox wid164" use:SelectBoxManager={{callback: handleFilterRole}}>
+                        <div class="label grade" data-value="">전체</div>
+                        <ul class="optionList">
+                            <li class="optionItem anoGrade" data-value="">전체</li>
+                            <li class="optionItem anoGrade" data-value="ROLE_ADMIN">최고관리자</li>
+                            <li class="optionItem anoGrade" data-value="ROLE_USER">관리자</li>
+                            <li class="optionItem anoGrade" data-value="ROLE_GUEST">게스트</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="seaCont wid50per">
                 <dl>활동 선택</dl>
                 <div class="sc_multiBox" >
                     <div class="fccheckText">
                         <span class="fccheckBtn" id="result">활동전체</span>
                     </div>
-
-                    <div class="floatCheckBox">
+                    <div class="floatCheckBox" style="margin-left: -300px">
                         <div class="floatCheckList borB">
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="로그인" value="AC_01"/>
@@ -195,7 +214,6 @@
                             <input type=button  class="activityConfirm" on:click={activityConfirm} value="선택완료" />
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

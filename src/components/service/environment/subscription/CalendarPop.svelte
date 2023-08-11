@@ -1,13 +1,9 @@
 <script>
-    import {onMount} from "svelte";
     import {ajaxGet} from "../../../common/ajax.js";
-
-    export let year = 2023;
-    export let month = 6;
 
     export let calendarService;
 
-    $: calendarData = generateCalendarData(year, month);
+    $: calendarData = generateCalendarData(calendarService.year, calendarService.month);
 
     // 달력 배열의 생성
     // 향후 달력에 들어가야할 데이터가 필요한 경우 여기에 로직 추가
@@ -38,7 +34,7 @@
             res.data.sendData.dayList.map(obj => {
                 personalInfoCountList[obj.ppcDate] = obj.ppcCount;
             });
-            if (year === targetYear && month === targetMonth) {
+            if (calendarService.year === targetYear && calendarService.month === targetMonth) {
                 calendarData = calendarData.map(obj => {
                     obj.count = personalInfoCountList[obj.day] ? personalInfoCountList[obj.day] : '';
                     return obj;
@@ -55,23 +51,23 @@
         return (checkYear <= currentYear && (checkYear !== currentYear || checkMonth <= currentMonth));
     }
 
-    $: isEnableIncrementMonthBtn = checkFutureMonth(year, month);
+    $: isEnableIncrementMonthBtn = checkFutureMonth(calendarService.year, calendarService.month);
 
     function handleIncrementMonth() {
         if (isEnableIncrementMonthBtn) {
-            month++;
-            if (month === 13) {
-                year++;
-                month = 1;
+            calendarService.month++;
+            if (calendarService.month === 13) {
+                calendarService.year++;
+                calendarService.month = 1;
             }
         }
     }
     // 월이 바뀔 때 마다 데이터 호출에 대한 동작이 추가되어야 할 것
     function handleDecrementMonth() {
-        month--;
-        if (month === 0) {
-            year--;
-            month = 12;
+        calendarService.month--;
+        if (calendarService.month === 0) {
+            calendarService.year--;
+            calendarService.month = 12;
         }
     }
 
@@ -87,7 +83,7 @@
             <div class="calframe marT40">
                 <div class="calframeTop">
                     <div class="clafprev" on:click={handleDecrementMonth}></div>
-                    <div class="claf_num"><span>{year}</span>년 <span>{month}</span>월</div>
+                    <div class="claf_num"><span>{calendarService.year}</span>년 <span>{calendarService.month}</span>월</div>
                     <div class="clafnext {isEnableIncrementMonthBtn ? '' : 'dont'}" on:click={handleIncrementMonth}></div>
                 </div>
                 <table>
