@@ -20,29 +20,13 @@
             <div class="pricTTileBox">
                 <p class="pr_gtitle">PRICE</p>
                 <p class="pr_title">가격 정책</p>
-                <p class="pr_stxt">처음 2주는 무료입니다.</p>
+                <p class="pr_stxt">서비스 가입 이후 API 연동 및 시스템 구축에 걸리는 첫 한달은 무료입니다.<br>*단 AWS 서버 실비는 청구</p>
             </div>
-            <div class="pricTCont">
-                <div class="pricTLeft">
+            <div class="pricTCont" style="padding-left: 25%; padding-right: 25%;">
+                <div class="pricTLeft"  style="width: 100%;">
                     <div class="pc_titleBox">
-                        <p class="gtype">BASIC</p>
-                        <p class="btype">베이직 플랜</p>
-                        <p class="pc_price">FREE</p>
-                        <p class="pc_pricefree">~5,000명 까지 무료</p>
-                    </div>
-                    <ul class="cus_list">
-                        <li>소규모 고객을 보유한 스타트업</li>
-                        <li>고객정보를 수집하는 소상공인</li>
-                        <li>멤버 관리가 필요한 소모임 및 동아리</li>
-                        <li>사업 진행 전 DB 구축 단계의 팀</li>
-                    </ul>
-                </div>
-                <div class="pricTRight">
-                    <div class="pc_titleBox">
-                        <p class="gtype">STANDARD</p>
-                        <p class="btype">스탠다드 플랜</p>
-                        <div class="pc_price"><p class="won">&#8361;</p><span>10</span>원</div>
-                        <p class="pc_pricefree">개인정보 1건당 / 무제한</p>
+                        <p class="pc_price" style="font-size: 5rem;margin-top: 1rem;">월 99,000원 부터</p>
+                        <p class="btype">기업이 보유한 개인정보 볼륨에<br>따라 요금이 변동됩니다.<br>자세한 요금 정책은 문의 바랍니다.</p>
                     </div>
                     <ul class="cus_list">
                         <li>소규모 고객을 보유한 스타트업</li>
@@ -98,10 +82,6 @@
                             <li>자동 결제</li>
                         </ul>
                     </div>
-                </div>
-                <div class="consultBox">
-                    <p class="">충분한 고민 끝에 결정해 주세요.</p>
-                    <div class="consultBtn"><p>컨설팅 신청하기</p></div>
                 </div>
             </div>
         </div>

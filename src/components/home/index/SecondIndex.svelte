@@ -22,19 +22,16 @@
 
 <!-- 코코넛은 가능합니다 -->
 <div class="" id="koko_sure">
-    <div class="koko_change">
+    <div class="koko_change secen-secend">
         <div class="techTitleBox">
             <div class="Title">
                 <p class="managerstitle">코코넛은 가능합니다.</p>
-                <div class="hid_02 line"></div>
-                <figure class="hid_02"><img src="/assets/images/main/b_koko_logo.png" alt="개인정보보호 서비스 코코넛 로고"></figure>
             </div>
             <div class="koko_textBox">
                 <div class="lock"><div class="koko_textBox01">항상 지켜야할<br class="mo_br"> <span>보안</span>부터</div></div>
                 <div class="lock02"><div class="koko_textBox02">앞으로 지켜야할<br class="mo_br"> <span>관리</span>까지</div></div>
             </div>
         </div>
-        <div class="add" data-add="fisrt"></div>
         <div class="add" data-add="secend"></div>
         <div class="add" data-add="thrid"></div>
     </div>

@@ -10,18 +10,12 @@
 
             jQuery(".text2").addClass("show");
 
-            jQuery(".blackBox01").addClass("down");
-            jQuery(".blackBox02").removeClass("down");
-
         } else {
             jQuery(".text1").removeClass("hidn");
             jQuery(".text2").removeClass("show");
 
             jQuery(".main_Num").removeClass("here");
             jQuery(".main_Num.one").addClass("here");
-
-            jQuery(".blackBox01").removeClass("down");
-            jQuery(".blackBox02").addClass("down");
         }
     });
 </script>
@@ -39,14 +33,14 @@
                     <h1 class="text1">
                         <div class="mv_title line_1"><p class="wow AFadeInUp" data-wow-duration="0.8s">복잡한 개인정보보호를<br> 쉽게하는 가장 좋은 방법</p></div>
                         <div class="text2">
-                            <div class="mv_title"><p>SaaS 형<br> 개인정보보호 서비스 코코넛</p></div>
+                            <div class="mv_title"><p>B2B SaaS<br> 개인정보보호 서비스<br>코코넛</p></div>
                         </div>
                     </h1>
                 </div>
                 <div class="slideWrap">
                     <div class="slide">
                         <div class="blackBox blackBox01"></div>
-                        <div class="blackBox blackBox02"></div>
+                        <div class="blackBox blackBox02 down"></div>
                     </div>
                 </div>
                 <div class="scrollDown">
