@@ -6,11 +6,11 @@
     export let privacyHistoryList;
 
     const handleFilterRole = (el) => {
-        searchCondition.filterRole = el.dataset.rating;
+        searchCondition.filterRole = el.dataset.value;
         privacyHistoryList(0);
     }
     const handleFilterState = (el) => {
-        searchCondition.filterState = el.dataset.rating;
+        searchCondition.filterState = el.dataset.value;
         privacyHistoryList(0);
     }
 
@@ -75,13 +75,12 @@
                 <dl>관리자등급</dl>
                 <div class="sc_SelBox">
                     <div class="selectBox wid164" use:SelectBoxManager={{callback: handleFilterRole}}>
-                        <div class="label grade" data-rating="">전체</div>
+                        <div class="label grade" data-value="">전체</div>
                         <ul class="optionList">
-                            <li class="optionItem anoGrade" data-rating="">전체</li>
-                            <li class="optionItem masterSel" data-rating="ROLE_MASTER">최고관리자<span></span></li>
-                            <li class="optionItem anoGrade" data-rating="ROLE_ADMIN">최고관리자</li>
-                            <li class="optionItem anoGrade" data-rating="ROLE_USER">관리자</li>
-                            <li class="optionItem anoGrade" data-rating="ROLE_MASTER">게스트</li>
+                            <li class="optionItem anoGrade" data-value="">전체</li>
+                            <li class="optionItem anoGrade" data-value="ROLE_ADMIN">최고관리자</li>
+                            <li class="optionItem anoGrade" data-value="ROLE_USER">관리자</li>
+                            <li class="optionItem anoGrade" data-value="ROLE_GUEST">게스트</li>
                         </ul>
                     </div>
                 </div>
@@ -92,12 +91,12 @@
                     <div class="selectBox wid164" use:SelectBoxManager={{callback: handleFilterState}}>
                         <div class="label">전체</div>
                         <ul class="optionList">
-                            <li class="optionItem curv" data-rating="">전체</li>
-                            <li class="optionItem curv" data-rating="PHC_01">개인정보 생성</li>
-                            <li class="optionItem curv" data-rating="PHC_02">개인정보 변경</li>
-                            <li class="optionItem curv" data-rating="PHC_03">개인정보 삭제</li>
-                            <li class="optionItem curv" data-rating="PHC_04">개인정보 조회</li>
-                            <li class="optionItem curv" data-rating="PHC_05">개인정보 열람</li>
+                            <li class="optionItem curv" data-value="">전체</li>
+                            <li class="optionItem curv" data-value="PHC_01">개인정보 생성</li>
+                            <li class="optionItem curv" data-value="PHC_02">개인정보 변경</li>
+                            <li class="optionItem curv" data-value="PHC_03">개인정보 삭제</li>
+                            <li class="optionItem curv" data-value="PHC_04">개인정보 조회</li>
+                            <li class="optionItem curv" data-value="PHC_05">개인정보 열람</li>
                         </ul>
                     </div>
                 </div>

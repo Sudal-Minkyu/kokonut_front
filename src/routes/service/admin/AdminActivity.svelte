@@ -37,6 +37,7 @@
         searchText: '',
         stime: '',
         actvityType: '',
+        filterRole: '',
     }
     const activityList = debounce200((page) => {
         console.log('페이지', page);
