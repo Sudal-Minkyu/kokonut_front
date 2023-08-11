@@ -18,8 +18,8 @@
                         <p class="mContTitle wow TitleUp" data-wow-delay="0.1s">코코넛의 다양한 기능의 API 제공으로 쉬운 커스터마이징</p>
                     </div>
                     <div class="f_ContBoxCont wow m_ConttxtBoxUp" data-wow-delay="0.2s">
-                        <figure class="fa_figure01"><img alt="" src="/assets/images/main/Power_1-1.png"></figure>
-                        <figure class="fa_figure02"><img alt="" src="/assets/images/main/Power_1-2.png"></figure>
+                        <figure class="fa_figure01"><img alt="" src="/assets/images/main/api_guide_2.png"></figure>
+                        <figure class="fa_figure02"><img alt="" src="/assets/images/main/api_guide_1.png"></figure>
                     </div>
                 </div>
             </div>
