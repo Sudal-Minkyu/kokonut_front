@@ -78,6 +78,7 @@
                         <div class="label grade" data-value="">전체</div>
                         <ul class="optionList">
                             <li class="optionItem anoGrade" data-value="">전체</li>
+                            <li class="optionItem masterSel" data-value="ROLE_MASTER">최고관리자<span></span></li>
                             <li class="optionItem anoGrade" data-value="ROLE_ADMIN">최고관리자</li>
                             <li class="optionItem anoGrade" data-value="ROLE_USER">관리자</li>
                             <li class="optionItem anoGrade" data-value="ROLE_GUEST">게스트</li>

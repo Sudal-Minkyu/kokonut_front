@@ -9,7 +9,6 @@
     export let activityConfirm;
     export let activityCancel;
 
-
     onMount(() => {
         document.addEventListener('click', floatCheckboxEvent);
     });
@@ -39,7 +38,7 @@
     export let choseMax;
     export let choseMaxText;
 
-    const handleSelectPeriod = (result) => {
+    const handleSelectPeriod = () => {
         activityList(0);
     }
 
@@ -107,6 +106,7 @@
                         <div class="label grade" data-value="">전체</div>
                         <ul class="optionList">
                             <li class="optionItem anoGrade" data-value="">전체</li>
+                            <li class="optionItem masterSel" data-value="ROLE_MASTER">최고관리자<span></span></li>
                             <li class="optionItem anoGrade" data-value="ROLE_ADMIN">최고관리자</li>
                             <li class="optionItem anoGrade" data-value="ROLE_USER">관리자</li>
                             <li class="optionItem anoGrade" data-value="ROLE_GUEST">게스트</li>
@@ -126,14 +126,6 @@
                                 <input type="checkbox" name="activity" class="act_sel" id="로그인" value="AC_01"/>
                                 <label for="로그인">로그인</label>
                             </div>
-<!--                            <div class="actCheck">-->
-<!--                                <input type="checkbox" name="activity" class="act_sel" id="회원정보 변경" value="AC_02"/>-->
-<!--                                <label for="회원정보 변경">회원정보 변경</label>-->
-<!--                            </div>-->
-<!--                            <div class="actCheck">-->
-<!--                                <input type="checkbox" name="activity" class="act_sel" id="회원정보 삭제" value="AC_03"/>-->
-<!--                                <label for="회원정보 삭제">회원정보 삭제</label>-->
-<!--                            </div>-->
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="관리자 등록" value="AC_04"/>
                                 <label for="관리자 등록">관리자 등록</label>
@@ -142,14 +134,6 @@
                                 <input type="checkbox" name="activity" class="act_sel" id="관리자 인증메일 재전송" value="AC_05"/>
                                 <label for="관리자 인증메일 재전송">관리자 인증메일 재전송</label>
                             </div>
-<!--                            <div class="actCheck">-->
-<!--                                <input type="checkbox" name="activity" class="act_sel" id="관리자 권한 변경" value="AC_05"/>-->
-<!--                                <label for="관리자 권한 변경">관리자 권한 변경</label>-->
-<!--                            </div>-->
-<!--                            <div class="actCheck">-->
-<!--                                <input type="checkbox" name="activity" class="act_sel" id="처리이력 다운로드" value="AC_31"/>-->
-<!--                                <label for="처리이력 다운로드">처리이력 다운로드</label>-->
-<!--                            </div>-->
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="테이블 항목 추가" value="AC_19"/>
                                 <label for="테이블 항목 추가">테이블 항목 추가</label>
@@ -195,18 +179,6 @@
                                 <input type="checkbox" name="activity" class="act_sel" id="이메일 발송" value="AC_59_3"/>
                                 <label for="이메일 발송">이메일 발송</label>
                             </div>
-<!--                            <div class="actCheck">-->
-<!--                                <input type="checkbox" name="activity" class="act_sel" id="정보파기 관리" value="AC_15"/>-->
-<!--                                <label for="정보파기 관리">정보파기 관리</label>-->
-<!--                            </div>-->
-<!--                            <div class="actCheck">-->
-<!--                                <input type="checkbox" name="activity" class="act_sel" id="전체DB 다운로드" value="AC_32"/>-->
-<!--                                <label for="전체DB 다운로드">전체DB 다운로드</label>-->
-<!--                            </div>-->
-<!--                            <div class="actCheck">-->
-<!--                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 관리 변경" value="AC_18"/>-->
-<!--                                <label for="개인정보 관리 변경">개인정보 관리 변경</label>-->
-<!--                            </div>-->
                         </div>
                         <div class="floatBtnList">
                             <p style="right:10px" class="{choseMax === false ? 'notxt not_work' : 'notxt'}">{choseMaxText}</p>
