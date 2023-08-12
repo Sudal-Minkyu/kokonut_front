@@ -65,14 +65,18 @@
         <div class="gnb">
             <ul>
                 <li class="price h_contact"><a use:link href="/price">요금안내 페이지</a></li>
-                <li class="privacy"><a on:click={handleInformPIS}>개인정보보호 더 알기</a></li>
+                <li class="privacy" style="cursor: pointer"><a on:click={handleInformPIS}>개인정보보호 더 알기</a></li>
                 <li class="teamInfo"><a target="_blank" href="https://kokonut.oopy.io/team">팀 소개</a></li>
             </ul>
         </div>
         <div class="loginGroup">
             <div class="loginArea">
                 <ul>
-                    <li class="free"><a use:link href="/login">로그인</a></li>
+                    <li>
+                        <a use:link href="/login" style="display: block; width: 100%; height: 100%; color: #FFF; padding: 1rem 2.8rem; background: #00C389; border-radius: 0.6rem;">
+                            로그인
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="side_menu_Btn" on:click={navShow}>
