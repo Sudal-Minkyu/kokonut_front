@@ -8,7 +8,6 @@
     import { onMount } from 'svelte';
     import {fade} from "svelte/transition"
     import { pageTransitionData } from "../../../lib/store.js";
-    import {setOptionItem} from "../../../lib/libSearch.js";
     import {commonCode} from "../../../lib/commonCode.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet, ajaxParam} from "../../../components/common/ajax.js";
@@ -16,7 +15,6 @@
     import {openBanner} from "../../../components/common/ui/DialogManager.js";
 
     onMount(async ()=>{
-        await fatchSearchModule();
         // 페이지번호 초기화
         adminList(0);
         checkPageTransitionDataExists();
@@ -42,15 +40,6 @@
             }
         }
     }
-
-    async function fatchSearchModule(){
-        setOptionItem(customSelectBoxOpt);
-    }
-
-    let customSelectBoxOpt = [
-        {id : "roleSelect", use_all : true, codeName : "kn_role_code"},
-        {id : "stateSelect", use_all : true, codeName : "kn_state"},
-    ]; // 선택 박스 옵션
 
     // 관리자 등록 팝업
     let adminSavePop = false;

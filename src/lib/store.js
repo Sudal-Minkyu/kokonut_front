@@ -18,6 +18,8 @@ export const accessToken = persist_storage('accessToken','');
 export const is_login = persist_storage('is_login',false);
 export const expireDate = persist_storage('expireDate', new Date(new Date().setMinutes(new Date().getMinutes() + 60)).toISOString());
 
+export const doChangePwdLater = persist_storage('doChangePwdLater', false); // 로그인시 false -> 암호 변경 나중에 하기 -> true
+
 // 사용자 로그인 정보 초기화값 /v2/api/Admin/authorityCheck 를 통해 헤더가 호출될 때 갱신된다.
 export const initialUserInfo = JSON.stringify({
     cpName: '', // 사이드바에 나올 소속명
@@ -34,8 +36,6 @@ export const initialUserInfo = JSON.stringify({
 
 // 사용자 로그인 정보
 export const userInfoData = writable(JSON.parse(initialUserInfo));
-
-export const doChangePwdLater = writable(true); // 로그인시 false -> 암호 변경 나중에 하기 -> true
 
 export const backBtn = writable('<-'); // 뒤로가기버튼 텍스트
 export const popupPage = writable(0); // 팝업용 페이지번호

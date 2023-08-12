@@ -3,6 +3,7 @@
     import {
         userInfoData,
         expireDate,
+        is_login,
     } from "../../../lib/store.js"
     import {openConfirm} from "../../common/ui/DialogManager.js";
     import {onDestroy, onMount} from "svelte";
@@ -40,7 +41,9 @@
     const handleTimeoutReset = () => {
         clearTimeout(debouncingTime);
         debouncingTime = setTimeout(() => {
-            expireDate.set(getFutureDate(Number($userInfoData.csAutoLogoutSetting)).toISOString());
+            if ($is_login) {
+                expireDate.set(getFutureDate(Number($userInfoData.csAutoLogoutSetting)).toISOString());
+            }
         }, 1000); // 1000ms 동안 추가 이벤트가 없을 때 처리
     }
 

@@ -20,7 +20,7 @@
         });
     }).scroll();
 
-    onMount(async => {
+    onMount(() => {
 
         class TextScramble {
             constructor(el) {
@@ -77,14 +77,14 @@
         }
 
         const phrases = [
-            `코코넛<br>
+            `홍길동<br>
+            010-1234-5678<br>
             contact@kokonut.me<br>
-            서울시 대한구 코코넛로<br>
-            123 000-111-2222`,
-                    `A$D<br>
-            FG^YDA%^RT!J<br>
-            G#BDF%2<br>
-            BND$(G`,
+            서울시 강남구 역삼로 165`,
+                    `$6Tg#9l!4aR%0xV*3Ee@<br>
+            &P8m^4jV$5uO#1pT!3D-<br>
+            +k4G~5j?6L0mN!1bV_9c<br>
+            !qR&3t#8uI%5oP$9lM@2`,
         ]
 
 
@@ -105,13 +105,12 @@
 
 
 <!-- 기술적 보호조치 -->
-<div id="technical" class="technicalC">
+<div id="technical" class="technicalC titleUp showArea-show01">
     <div class="sstic">
         <div class="ssticInner">
             <div class="s_Title">
-                <div class="s_TitleBox wow AFadeInUp">
-                    <p class="greenTxt"><span>Technical</span> Safeguards</p>
-                    <p class="boldTxt"><span>기술적</span> 보호조치</p>
+                <div class="s_TitleBox wow AFadeInUp" data-wow-delay="0.0s">
+                    <p class="boldTxt"><span>보안</span> 기능</p>
                 </div>
             </div>
         </div>
@@ -122,11 +121,11 @@
             <div class="mInner">
                 <div class="m_ContBox">
                     <div class="m_ContTitleBox">
-                        <p class="mContpurple wow TitleUp">보안</p>
-                        <p class="mContTitle wow TitleUp">클라우드 기반 철저한 보안 체계 구축</p>
-                        <p class="mContsTxt wow TitleUp">외부 공격으로부터 접근을 통제하고, 안전한 알고리즘과 키관리로 개인정보를 암호화합니다.</p>
+                        <p class="mContpurple wow TitleUp" data-wow-delay="0.1s">접근통제 및 보안 조치</p>
+                        <p class="mContTitle wow TitleUp" data-wow-delay="0.2s">클라우드 기반 철저한 보안 체계 구축</p>
+                        <p class="mContsTxt wow TitleUp" data-wow-delay="0.3s">외부 공격으로부터 접근을 통제하고, 필수적인 보안 체계를 구축하였습니다.</p>
                     </div>
-                    <div class="t_ContBoxCont wow m_ConttxtBoxUp">
+                    <div class="t_ContBoxCont wow m_ConttxtBoxUp" data-wow-delay="0.4s">
                         <div class="t_CB">
                             <div class="t_CBTxtBox">
                                 <p class="t_CBTitle">접근 통제</p>
@@ -173,10 +172,10 @@
             <div class="mInner">
                 <div class="m_ContBox">
                     <div class="m_ContTitleBox">
-                        <p class="mContpurple wow TitleUp">암호화</p>
-                        <p class="mContTitle wow TitleUp">정교한 알고리즘과 키관리를 통한 개인정보 암호화</p>
+                        <p class="mContpurple wow TitleUp" data-wow-delay="0.0s">암호화</p>
+                        <p class="mContTitle wow TitleUp" data-wow-delay="0.1s">정교한 알고리즘과 키관리를 통한 개인정보 암호화</p>
                     </div>
-                    <div class="m_ContBoxCont wow m_ConttxtBoxUp">
+                    <div class="m_ContBoxCont wow m_ConttxtBoxUp" data-wow-delay="0.2s">
                         <div class="m_ContImgBox cbcw100">
                             <div class="cont">
                                 <div class="text-change-container">
@@ -193,12 +192,12 @@
             <div class="mInner">
                 <div class="m_ContBox">
                     <div class="m_ContTitleBox">
-                        <p class="mContpurple wow TitleUp">재난 대비</p>
-                        <p class="mContTitle wow TitleUp">재해 재난으로 인한 긴급한 상황에도 안전하게</p>
-                        <p class="mContsTxt wow TitleUp">원격에 개인정보를 백업하고 문제 발생 시 신속하게 복구합니다.</p>
+                        <p class="mContpurple wow TitleUp" data-wow-delay="0.0s">재난 대비</p>
+                        <p class="mContTitle wow TitleUp" data-wow-delay="0.1s">재해 재난으로 인한 긴급한 상황에도 안전하게</p>
+                        <p class="mContsTxt wow TitleUp" data-wow-delay="0.2s">원격에 개인정보를 백업하고 문제 발생 시 신속하게 복구합니다.</p>
                     </div>
-                    <div class="m_ContBoxCont four wow m_ConttxtBoxUp">
-                        <div class="m_ContImgBox cbcw100 wow FadeInUp">
+                    <div class="m_ContBoxCont four wow m_ConttxtBoxUp" data-wow-delay="0.3s">
+                        <div class="m_ContImgBox cbcw100 wow FadeInUp" data-wow-delay="0.4s">
                             <img src="/assets/images/main/calamity.jpg" class="pc_only" alt="">
                             <img src="/assets/images/main/calamity_mo.png" class="mo_only" alt="">
                         </div>
