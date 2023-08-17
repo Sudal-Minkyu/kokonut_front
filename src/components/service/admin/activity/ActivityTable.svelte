@@ -50,9 +50,9 @@
                     <td>{activity.insert_date}(IP:{activity.ahIpAddr})</td>
                     <td>
                         {#if activity.ahState === 1}
-                            <div class="normal">정상</div>
+                            <div class="normal">성공</div>
                         {:else}
-                            <div class="secession">비정상</div>
+                            <div class="secession">실패</div>
                         {/if}
                     </td>
                 </tr>
