@@ -1,5 +1,5 @@
 <script>
-    import {ajaxGet} from "../../common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../common/ajax.js";
     import {onMount} from "svelte";
     import {link} from "svelte-spa-router";
 
@@ -16,8 +16,12 @@
 
     const getPrivacyItemCount = () => {
         ajaxGet('/v2/api/Index/privacyItemCount', false, (res) => {
-            privacyItemCount = res.data.sendData.privacyItemCount;
-            console.log('개인정보 항목', privacyItemCount);
+            try {
+                privacyItemCount = res.data.sendData.privacyItemCount;
+                console.log('개인정보 항목', privacyItemCount);
+            } catch (e) {
+                reportCatch('temp136', e);
+            }
         });
     }
 

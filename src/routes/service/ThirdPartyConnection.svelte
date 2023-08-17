@@ -3,7 +3,7 @@
     import ConnectionSettingPop
         from "../../components/service/environment/thirdPartyConnection/ConnectionSettingPop.svelte";
     import {onDestroy, onMount} from "svelte";
-    import {ajaxGet} from "../../components/common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../components/common/ajax.js";
     import {backBtn} from "../../lib/store.js";
     import {link} from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
@@ -24,16 +24,24 @@
     }
     const getThirdPartyInfo = () => {
         ajaxGet('/v2/api/Index/thirdPartyInfo', false, (res) => {
-            thirdPartyInfo = res.data.sendData;
-            console.log('서드파티사용여부', thirdPartyInfo);
+            try {
+                thirdPartyInfo = res.data.sendData;
+                console.log('서드파티사용여부', thirdPartyInfo);
+            } catch (e) {
+                reportCatch('temp056', e);
+            }
         });
     }
 
     let columnList = [];
     const getColumnLIst = () => {
         ajaxGet('/v2/api/DynamicUser/searchColumnCall', false, (res) => {
-            if (res.data.sendData.fieldList.length) {
-                columnList = res.data.sendData.fieldList;
+            try {
+                if (res.data.sendData.fieldList.length) {
+                    columnList = res.data.sendData.fieldList;
+                }
+            } catch (e) {
+                reportCatch('temp057', e);
             }
         });
     }
@@ -51,8 +59,12 @@
 
     const getBizmSetting = () => {
         ajaxGet('/v2/api/ThirdParty/bizmGetCode', false, (res) => {
-            bizmSettingData = res.data.sendData.thirdPartySettingInfo;
-            console.log('비즈엠세팅데이터', bizmSettingData);
+            try {
+                bizmSettingData = res.data.sendData.thirdPartySettingInfo;
+                console.log('비즈엠세팅데이터', bizmSettingData);
+            } catch (e) {
+                reportCatch('temp058', e);
+            }
         });
     }
 

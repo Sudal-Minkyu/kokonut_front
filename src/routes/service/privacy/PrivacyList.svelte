@@ -8,7 +8,7 @@
     import Paging from "../../../components/common/Paging.svelte";
     import {popupPage, privacyDetailData} from "../../../lib/store.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
-    import {ajaxGet} from "../../../components/common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
     import PrivacyDetailPop from "../../../components/service/privacy/PrivacyDetailPop.svelte";
     import {stimeVal} from "../../../components/common/action/DatePicker.js";
     import ExcelDownloadPop from "../../../components/common/ui/ExcelDownloadPop.svelte";
@@ -41,16 +41,24 @@
 
         let url = "/v2/api/Provision/provisionList";
         ajaxGet(url, searchCondition, (res) => {
-            console.log("조회된 데이터가 있습니다.");
-            provision_list = res.data.datalist;
-            total = res.data.total_rows;
-            provisionLayout = 1;
+            try {
+                console.log("조회된 데이터가 있습니다.");
+                provision_list = res.data.datalist;
+                total = res.data.total_rows;
+                provisionLayout = 1;
+            } catch (e) {
+                reportCatch('temp089', e);
+            }
         }, (errCode) => {
-            provision_list = [];
-            total = 0;
-            console.log("조회된 데이터가 없습니다.");
-            provisionLayout = 1;
-            return {action: 'NONE'};
+            try {
+                provision_list = [];
+                total = 0;
+                console.log("조회된 데이터가 없습니다.");
+                provisionLayout = 1;
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp090', e);
+            }
         });
     }
 
@@ -92,15 +100,23 @@
         };
 
         ajaxGet(url, sendData, (res) => {
-            console.log("조회된 데이터가 있습니다.");
-            provisionDownloadHistory_list = res.data.datalist
-            provisionDownload_total = res.data.total_rows
+            try {
+                console.log("조회된 데이터가 있습니다.");
+                provisionDownloadHistory_list = res.data.datalist
+                provisionDownload_total = res.data.total_rows
+            } catch (e) {
+                reportCatch('temp091', e);
+            }
         }, (errCode) => {
-            provisionDownloadHistory_list = [];
-            provisionDownload_total = 0;
-            console.log("조회된 데이터가 없습니다.");
-            provisionLayout = 1;
-            return {action: 'NONE'};
+            try {
+                provisionDownloadHistory_list = [];
+                provisionDownload_total = 0;
+                console.log("조회된 데이터가 없습니다.");
+                provisionLayout = 1;
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp092', e);
+            }
         });
     }
 

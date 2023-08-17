@@ -14,7 +14,7 @@
     import EmailBookPop from "../../../components/service/email/EmailBookPop.svelte";
     import {SelectBoxManager} from "../../../components/common/action/SelectBoxManager.js";
     import {onMount} from "svelte";
-    import {ajaxMultipart} from "../../../components/common/ajax.js";
+    import {ajaxMultipart, reportCatch} from "../../../components/common/ajax.js";
     import {openConfirm} from "../../../components/common/ui/DialogManager.js";
 
     let textEditorComponent;
@@ -149,15 +149,23 @@
 
         console.log('결과 송신 데이터', Object.fromEntries(sendForm));
         ajaxMultipart('/v2/api/Email/sendEmailService', sendForm, (res) => {
-            console.log('발송성공응답', res);
-            emailSendData.set(JSON.parse(initialEmailSend));
-            privacySearchData.set(JSON.parse(initialPrivacySearch));
-            document.getElementById('emPurposeLabel').innerHTML = '주요공지';
-            textEditorComponent.resetText();
-            mainScreenBlockerVisibility.set(false);
-            push($emailSendData.emType === '1' ? '/service/emailSendComplete' : '/service/emailBookComplete');
+            try {
+                console.log('발송성공응답', res);
+                emailSendData.set(JSON.parse(initialEmailSend));
+                privacySearchData.set(JSON.parse(initialPrivacySearch));
+                document.getElementById('emPurposeLabel').innerHTML = '주요공지';
+                textEditorComponent.resetText();
+                mainScreenBlockerVisibility.set(false);
+                push($emailSendData.emType === '1' ? '/service/emailSendComplete' : '/service/emailBookComplete');
+            } catch (e) {
+                reportCatch('temp071', e);
+            }
         }, (errCode, errMsg) => {
-            mainScreenBlockerVisibility.set(false);
+            try {
+                mainScreenBlockerVisibility.set(false);
+            } catch (e) {
+                reportCatch('temp072', e);
+            }
         });
     }
 </script>

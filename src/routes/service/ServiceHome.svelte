@@ -8,7 +8,7 @@
     import {bootpayContinueSubscription, bootpayStartSubscription} from "../../components/common/bootpayment.js";
     import {openAsk, openConfirm} from "../../components/common/ui/DialogManager.js";
     import {logout} from "../../components/common/authActions.js";
-    import {ajaxParam} from "../../components/common/ajax.js";
+    import {ajaxParam, reportCatch} from "../../components/common/ajax.js";
     import {openBanner} from "../../components/common/ui/DialogManager.js";
 
     let isBillingCheckTriggerNotActivatedYet = true;
@@ -102,12 +102,16 @@
         },
         continueSubscribeWhenCardInfoExist: () => {
             ajaxParam('/v2/api/Payment/billingDeleteCancel', {}, (res) => {
-                openBanner('구독을 재개하였습니다.');
-                userInfoData.update(obj => {
-                    obj.paymentBillingCheck = '1';
-                    return obj;
-                });
-                askSubscribeService.visibility = false;
+                try {
+                    openBanner('구독을 재개하였습니다.');
+                    userInfoData.update(obj => {
+                        obj.paymentBillingCheck = '1';
+                        return obj;
+                    });
+                    askSubscribeService.visibility = false;
+                } catch (e) {
+                    reportCatch('temp051', e);
+                }
             });
         },
     }

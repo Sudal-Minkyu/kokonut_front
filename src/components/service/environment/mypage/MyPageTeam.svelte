@@ -3,7 +3,7 @@
     import { fade } from 'svelte/transition'
     import { callCapsLock } from '../../../../lib/common'
     import {logout} from "../../../common/authActions.js";
-    import {ajaxParam} from "../../../common/ajax.js";
+    import {ajaxParam, reportCatch} from "../../../common/ajax.js";
 
     let knDepartment = "";
     let knPassword = "";
@@ -35,21 +35,29 @@
         }
 
         ajaxParam(url, sendData, (res) => {
-            contentsChange(2, knDepartment);
-            if(knDepartmentState === "등록") {
-                contentsChange(3, "변경");
+            try {
+                contentsChange(2, knDepartment);
+                if (knDepartmentState === "등록") {
+                    contentsChange(3, "변경");
+                }
+                changeStatePop(0);
+            } catch (e) {
+                reportCatch('temp127', e);
             }
-            changeStatePop(0);
         }, (errCode, errMsg) => {
-            if (errCode === "KO013") {
-                pwdNot = true;
-                knPassword = "";
-            } else {
-                // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
-                alert(errMsg);
-                logout();
+            try {
+                if (errCode === "KO013") {
+                    pwdNot = true;
+                    knPassword = "";
+                } else {
+                    // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
+                    alert(errMsg);
+                    logout();
+                }
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp128', e);
             }
-            return {action: 'NONE'};
         });
     }
 

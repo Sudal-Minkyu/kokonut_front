@@ -18,7 +18,7 @@
     import PrivacyWriteStep4 from "../../../components/service/privacy/PrivacyWriteStep4.svelte";
     import PrivacyWriteStep5 from "../../../components/service/privacy/PrivacyWriteStep5.svelte";
     import {onMount} from "svelte";
-    import {ajaxGet} from "../../../components/common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     onMount(async () => {
@@ -36,10 +36,14 @@
 
     const getColumnList = () => {
         ajaxGet('/v2/api/DynamicUser/tableColumnCall', false, (json_success) => {
-            providePrivacyWriteData.update(obj => {
-                obj.step4.columnList = json_success.data.sendData.fieldList.filter(item => item.fieldName !== 'PASSWORD');
-                return obj;
-            });
+            try {
+                providePrivacyWriteData.update(obj => {
+                    obj.step4.columnList = json_success.data.sendData.fieldList.filter(item => item.fieldName !== 'PASSWORD');
+                    return obj;
+                });
+            } catch (e) {
+                reportCatch('temp093', e);
+            }
         });
     }
 

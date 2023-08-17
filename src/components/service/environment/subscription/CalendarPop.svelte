@@ -1,5 +1,5 @@
 <script>
-    import {ajaxGet} from "../../../common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../../common/ajax.js";
 
     export let calendarService;
 
@@ -30,16 +30,20 @@
     const getCalendarPersonalInfoCount = (targetYear, targetMonth) => {
         ajaxGet('/v2/api/Company/paymentPrivacyCount',
             {choseDate: targetYear + '.' + targetMonth.toString().padStart(2, '0')}, (res) => {
-            const personalInfoCountList = {};
-            res.data.sendData.dayList.map(obj => {
-                personalInfoCountList[obj.ppcDate] = obj.ppcCount;
-            });
-            if (calendarService.year === targetYear && calendarService.month === targetMonth) {
-                calendarData = calendarData.map(obj => {
-                    obj.count = personalInfoCountList[obj.day] ? personalInfoCountList[obj.day] : '';
-                    return obj;
-                });
-            }
+                try {
+                    const personalInfoCountList = {};
+                    res.data.sendData.dayList.map(obj => {
+                        personalInfoCountList[obj.ppcDate] = obj.ppcCount;
+                    });
+                    if (calendarService.year === targetYear && calendarService.month === targetMonth) {
+                        calendarData = calendarData.map(obj => {
+                            obj.count = personalInfoCountList[obj.day] ? personalInfoCountList[obj.day] : '';
+                            return obj;
+                        });
+                    }
+                } catch (e) {
+                    reportCatch('temp034', e);
+                }
         });
     }
     function checkFutureMonth(checkYear, checkMonth) {

@@ -11,7 +11,7 @@
     import Banner from "../../common/ui/Banner.svelte";
     import MyPagePwd from "../environment/mypage/MyPagePwd.svelte";
     import {logout} from "../../common/authActions.js";
-    import {ajaxGet} from "../../common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../common/ajax.js";
     import MainScreenBlocker from "../../common/ui/MainScreenBlocker.svelte";
 
     let isMyPagePwdVisible = false;
@@ -26,16 +26,24 @@
                 let url = "/v2/api/Admin/authorityCheck"
 
                 ajaxGet(url, false, (res) => {
-                    const userInfo = res.data.sendData;
-                    is_login.set(true);
-                    userInfoData.set(userInfo);
-                    expireDate.set(getFutureDate(Number(userInfo.csAutoLogoutSetting)).toISOString());
+                    try {
+                        const userInfo = res.data.sendData;
+                        is_login.set(true);
+                        userInfoData.set(userInfo);
+                        expireDate.set(getFutureDate(Number(userInfo.csAutoLogoutSetting)).toISOString());
 
-                    if (!$doChangePwdLater && userInfo.csPasswordChangeState === '2') {
-                        isMyPagePwdVisible = true;
+                        if (!$doChangePwdLater && userInfo.csPasswordChangeState === '2') {
+                            isMyPagePwdVisible = true;
+                        }
+                    } catch (e) {
+                        reportCatch('temp037', e);
                     }
                 }, (errCode, errMsg) => {
-                    logout();
+                    try {
+                        logout();
+                    } catch (e) {
+                        reportCatch('temp038', e);
+                    }
                 });
             } else {
                 // alert("세션이 종료되어 로그아웃됩니다.");

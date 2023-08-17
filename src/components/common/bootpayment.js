@@ -1,7 +1,7 @@
 import {Bootpay} from "@bootpay/client-js";
 import {get} from 'svelte/store';
 import {userInfoData} from "../../lib/store.js";
-import {ajaxParam} from "./ajax.js";
+import {ajaxParam, reportCatch} from "./ajax.js";
 import {openBanner, openConfirm} from "./ui/DialogManager.js";
 
 export const bootpayStartSubscription = (handleSuccess, handleFail) => {
@@ -116,16 +116,24 @@ const addOrChangeCard = ({order_name, subscription_comment, success_msg, handleS
                 return;
             }
             ajaxParam('/v2/api/Payment/billingSave', receiptIdInfo, (res) => {
-                openBanner(success_msg);
-                handleSuccess(res);
+                try {
+                    openBanner(success_msg);
+                    handleSuccess(res);
+                } catch (e) {
+                    reportCatch('temp009', e);
+                }
             }, () => {
-                openConfirm({
-                    icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                    title: "카드가 등록되었으나 반영실패", // 제목
-                    contents1: '카드가 등록되었지만 프로그램에 반영하는 것을 실패하였습니다.',
-                    contents2: '관리자에게 해당 사실을 문의해 주세요.',
-                    btnCheck: '확인', // 확인 버튼의 텍스트
-                });
+                try {
+                    openConfirm({
+                        icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: "카드가 등록되었으나 반영실패", // 제목
+                        contents1: '카드가 등록되었지만 프로그램에 반영하는 것을 실패하였습니다.',
+                        contents2: '관리자에게 해당 사실을 문의해 주세요.',
+                        btnCheck: '확인', // 확인 버튼의 텍스트
+                    });
+                } catch (e) {
+                    reportCatch('temp010', e);
+                }
             });
         } else {
             openConfirm({

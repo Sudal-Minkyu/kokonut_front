@@ -2,7 +2,7 @@
     import {SelectBoxManager} from "../../../common/action/SelectBoxManager.js";
     import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
     import {onMount} from "svelte";
-    import {ajaxParam} from "../../../common/ajax.js";
+    import {ajaxParam, reportCatch} from "../../../common/ajax.js";
     import {openBanner} from "../../../common/ui/DialogManager.js";
 
     export let connectionSettingPop;
@@ -46,11 +46,15 @@
         }
 
         ajaxParam('/v2/api/ThirdParty/bizmSetting', bizmSettingData, (res) => {
-            getThirdPartyInfo();
-            console.log('연동 설정 보낸 데이터:', bizmSettingData);
-            savedBizmSettingData = JSON.parse(JSON.stringify(bizmSettingData));
-            openBanner('연동 설정 저장을 완료하였습니다.');
-            connectionSettingPop.close();
+            try {
+                getThirdPartyInfo();
+                console.log('연동 설정 보낸 데이터:', bizmSettingData);
+                savedBizmSettingData = JSON.parse(JSON.stringify(bizmSettingData));
+                openBanner('연동 설정 저장을 완료하였습니다.');
+                connectionSettingPop.close();
+            } catch (e) {
+                reportCatch('temp133', e);
+            }
         });
     }
 

@@ -20,7 +20,7 @@
     import PersonalInfoEditItemPop
         from "../../../components/service/environment/personalInfo/PersonalInfoEditItemPop.svelte";
     import {openAsk, openBanner} from "../../../components/common/ui/DialogManager.js";
-    import {ajaxBody, ajaxGet, ajaxParam} from "../../../components/common/ajax.js";
+    import {ajaxBody, ajaxGet, ajaxParam, reportCatch} from "../../../components/common/ajax.js";
     import {logout} from "../../../components/common/authActions.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
@@ -28,12 +28,16 @@
         loadState: 0,
         getTableColumnList() {
             ajaxGet('/v2/api/DynamicUser/tableColumnCall', false, (json_success) => {
-                personalInfoTableData.update(obj => {
-                    obj.columnList = json_success.data.sendData.fieldList;
-                    return obj;
-                });
-                console.log('탭정보', $personalInfoTableData.columnList);
-                personalInfoItemProp.loadState = 1;
+                try {
+                    personalInfoTableData.update(obj => {
+                        obj.columnList = json_success.data.sendData.fieldList;
+                        return obj;
+                    });
+                    console.log('탭정보', $personalInfoTableData.columnList);
+                    personalInfoItemProp.loadState = 1;
+                } catch (e) {
+                    reportCatch('temp073', e);
+                }
             });
         },
     }
@@ -203,13 +207,17 @@
                     ciId: $personalInfoCategoryData.editItemPop.inputData.ciId,
                 }
                 ajaxParam('/v2/api/Company/deleteItem', sendData, (json_success) => {
-                    personalInfoCategoryData.update(obj => {
-                        obj.checkedItemObjList = obj.checkedItemObjList.filter(obj => obj.ciId !== sendData.ciId);
-                        return obj;
-                    });
-                    personalInfoCategoryService.getAdditionalItemList();
-                    personalInfoCategoryService.editItemPop.hide();
-                    openBanner("선택한 항목을 삭제하였습니다.");
+                    try {
+                        personalInfoCategoryData.update(obj => {
+                            obj.checkedItemObjList = obj.checkedItemObjList.filter(obj => obj.ciId !== sendData.ciId);
+                            return obj;
+                        });
+                        personalInfoCategoryService.getAdditionalItemList();
+                        personalInfoCategoryService.editItemPop.hide();
+                        openBanner("선택한 항목을 삭제하였습니다.");
+                    } catch (e) {
+                        reportCatch('temp074', e);
+                    }
                 });
             }
         },
@@ -247,10 +255,14 @@
                 }
 
                 ajaxBody('/v2/api/DynamicUser/tableColumnAdd', sendData, (json_success) => {
-                    openBanner("선택한 항목을 추가하였습니다.");
+                    try {
+                        openBanner("선택한 항목을 추가하였습니다.");
 
-                    personalInfoItemProp.getTableColumnList();
-                    personalInfoCategoryService.resetCheckedItemState();
+                        personalInfoItemProp.getTableColumnList();
+                        personalInfoCategoryService.resetCheckedItemState();
+                    } catch (e) {
+                        reportCatch('temp075', e);
+                    }
                 });
             },
         },
@@ -338,34 +350,43 @@
         },
         getAdditionalItemList() {
             ajaxGet('/v2/api/Company/addItemList', false, (json_success) => {
-                personalInfoCategoryData.update(obj => {
-                    obj.addItemList = json_success.data.sendData.itemList.map((innerObj) => {
-                        return {...innerObj, categoryName: '추가항목', textColor: 'greentext'};
+                try {
+                    personalInfoCategoryData.update(obj => {
+                        obj.addItemList = json_success.data.sendData.itemList.map((innerObj) => {
+                            return {...innerObj, categoryName: '추가항목', textColor: 'greentext'};
+                        });
+                        return obj;
                     });
-                    return obj;
-                });
-                console.log('추가 카테고리 리스트', $personalInfoCategoryData.addItemList);
+                    console.log('추가 카테고리 리스트', $personalInfoCategoryData.addItemList);
 
-                if($personalInfoCategoryData.addItemList.length === 0) {
-                    jQuery("#defaultField").css("display", "block");
+                    if ($personalInfoCategoryData.addItemList.length === 0) {
+                        jQuery("#defaultField").css("display", "block");
+                    }
+                } catch (e) {
+                    reportCatch('temp076', e);
                 }
             });
         },
         getBasicCategoryList() {
             ajaxGet('/v2/api/Company/categoryList', false, (res) => {
-                personalInfoCategoryData.update(obj => {
-                    obj.basicCategoryList = res.data.sendData.defaultCategoryList;
-                    for (const itemCategory of obj.basicCategoryList) {
-                        itemCategory.categoryItemListDtoList = itemCategory.categoryItemListDtoList.map((itemObj) => {
-                            return {...itemObj, ciName: itemObj.cddName, ciSecurity: itemObj.cddSecurity,
-                                categoryName: itemObj.cddSubName, textColor: itemObj.cddClassName,
-                                combinedValue: `${itemObj.cddName}_${itemObj.cddSecurity}_${itemObj.cddSubName}_${itemObj.cddClassName}`,
-                            };
-                        });
-                    }
-                    return obj;
-                });
-                console.log('기본 카테고리 리스트', $personalInfoCategoryData.basicCategoryList);
+                try {
+                    personalInfoCategoryData.update(obj => {
+                        obj.basicCategoryList = res.data.sendData.defaultCategoryList;
+                        for (const itemCategory of obj.basicCategoryList) {
+                            itemCategory.categoryItemListDtoList = itemCategory.categoryItemListDtoList.map((itemObj) => {
+                                return {
+                                    ...itemObj, ciName: itemObj.cddName, ciSecurity: itemObj.cddSecurity,
+                                    categoryName: itemObj.cddSubName, textColor: itemObj.cddClassName,
+                                    combinedValue: `${itemObj.cddName}_${itemObj.cddSecurity}_${itemObj.cddSubName}_${itemObj.cddClassName}`,
+                                };
+                            });
+                        }
+                        return obj;
+                    });
+                    console.log('기본 카테고리 리스트', $personalInfoCategoryData.basicCategoryList);
+                } catch (e) {
+                    reportCatch('temp077', e);
+                }
             });
         },
     };

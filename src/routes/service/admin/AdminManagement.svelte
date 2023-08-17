@@ -10,7 +10,7 @@
     import { pageTransitionData } from "../../../lib/store.js";
     import {commonCode} from "../../../lib/commonCode.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
-    import {ajaxGet, ajaxParam} from "../../../components/common/ajax.js";
+    import {ajaxGet, ajaxParam, reportCatch} from "../../../components/common/ajax.js";
     import {debounce200} from "../../../components/common/eventRateControls.js";
     import {openBanner} from "../../../components/common/ui/DialogManager.js";
 
@@ -74,8 +74,11 @@
         let url = "/v2/api/Admin/createMailAgain";
 
         ajaxParam(url, sendDate,(res) => {
-            // console.log("재인증메일을 전송하였습니다.");
-            openBanner("재인증메일을 전송하였습니다.");
+            try { // console.log("재인증메일을 전송하였습니다.");
+                openBanner("재인증메일을 전송하였습니다.");
+            } catch (e) {
+                reportCatch('temp065', e);
+            }
         });
     }
 
@@ -90,8 +93,11 @@
         let url = "/v2/api/Admin/passwordChangeMail";
 
         ajaxParam(url, sendDate,(res) => {
-            // console.log("재인증메일을 전송하였습니다.");
-            openBanner("비밀번호변경 메일을 전송하였습니다.");
+            try { // console.log("재인증메일을 전송하였습니다.");
+                openBanner("비밀번호변경 메일을 전송하였습니다.");
+            } catch (e) {
+                reportCatch('temp066', e);
+            }
         });
     }
 
@@ -111,16 +117,24 @@
         let url = "/v2/api/Admin/list";
 
         ajaxGet(url, searchCondition, (res) => {
-            console.log("조회된 데이터가 있습니다.");
-            admin_list = res.data.sendData.datalist
-            total = res.data.sendData.total_rows
-            adminManagementLayout = 1;
+            try {
+                console.log("조회된 데이터가 있습니다.");
+                admin_list = res.data.sendData.datalist
+                total = res.data.sendData.total_rows
+                adminManagementLayout = 1;
+            } catch (e) {
+                reportCatch('temp067', e);
+            }
         }, (errCode) => {
-            admin_list = [];
-            total = 0;
-            console.log("조회된 데이터가 없습니다.");
-            adminManagementLayout = 1;
-            return {action: 'NONE'};
+            try {
+                admin_list = [];
+                total = 0;
+                console.log("조회된 데이터가 없습니다.");
+                adminManagementLayout = 1;
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp068', e);
+            }
         });
     });
 

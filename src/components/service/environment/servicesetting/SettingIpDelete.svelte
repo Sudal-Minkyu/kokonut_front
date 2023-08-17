@@ -1,7 +1,7 @@
 
 <script>
 import {serviceSettingData} from "../../../../lib/store.js";
-import {ajaxBody} from "../../../common/ajax.js";
+import {ajaxBody, reportCatch} from "../../../common/ajax.js";
 import {openBanner, openConfirm} from "../../../common/ui/DialogManager.js";
 import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
 
@@ -40,8 +40,12 @@ const commitRemoveAccessIp = () => {
     }
 
     ajaxBody('/v2/api/CompanySetting/accessIpDelete', removeTargetInfo, (res) => {
-        openBanner('선택하신 IP를 삭제하였습니다.');
-        getServiceSettingDataAndInitializing();
+        try {
+            openBanner('선택하신 IP를 삭제하였습니다.');
+            getServiceSettingDataAndInitializing();
+        } catch (e) {
+            reportCatch('temp132', e);
+        }
     });
 }
 </script>

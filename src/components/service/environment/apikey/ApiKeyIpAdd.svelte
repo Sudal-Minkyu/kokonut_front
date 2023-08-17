@@ -3,7 +3,7 @@
     import { fade } from 'svelte/transition'
 
     import { ipCheck, onlyNumber} from '../../../../lib/common'
-    import {ajaxParam} from "../../../common/ajax.js";
+    import {ajaxParam, reportCatch} from "../../../common/ajax.js";
 
     export let apiKeyInfo;
     export let ipChange;
@@ -50,15 +50,23 @@
             }
 
             ajaxParam(url, sendData, (res) => {
-                apiKeyInfo();
-                ipChange(0);
-            }, (errCode, errMsg) => {
-                if(errCode === 500) {
-                    alert(errMsg);
+                try {
                     apiKeyInfo();
                     ipChange(0);
+                } catch (e) {
+                    reportCatch('temp121', e);
                 }
-                return {action: 'NONE'};
+            }, (errCode, errMsg) => {
+                try {
+                    if (errCode === 500) {
+                        alert(errMsg);
+                        apiKeyInfo();
+                        ipChange(0);
+                    }
+                    return {action: 'NONE'};
+                } catch (e) {
+                    reportCatch('temp122', e);
+                }
             });
         } else {
             // IP 형식에 맞지않음

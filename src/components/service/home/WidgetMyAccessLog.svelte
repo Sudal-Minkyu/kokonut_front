@@ -1,5 +1,5 @@
 <script>
-    import {ajaxGet} from "../../common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../common/ajax.js";
     import {onDestroy, onMount} from "svelte";
 
     onMount(() => {
@@ -15,16 +15,19 @@
     let lastYyymmdd = '';
     const getMyAccessLogInfo = () => {
         ajaxGet('/v2/api/Index/myLoginInfo', false, (res) => {
-            // 온 데이터에서 같은 날짜가 되는 부분의 숨김처리
-            myConnectList = res.data.sendData.myConnectList.map(obj => {
-                if (lastYyymmdd === obj.yyymmdd) {
-                    obj.yyymmdd = '';
-                } else {
-                    lastYyymmdd = obj.yyymmdd;
-                }
-                return obj;
-            });
-            console.log('나의 접속 현황', myConnectList);
+            try { // 온 데이터에서 같은 날짜가 되는 부분의 숨김처리
+                myConnectList = res.data.sendData.myConnectList.map(obj => {
+                    if (lastYyymmdd === obj.yyymmdd) {
+                        obj.yyymmdd = '';
+                    } else {
+                        lastYyymmdd = obj.yyymmdd;
+                    }
+                    return obj;
+                });
+                console.log('나의 접속 현황', myConnectList);
+            } catch (e) {
+                reportCatch('temp035', e);
+            }
         });
     };
 

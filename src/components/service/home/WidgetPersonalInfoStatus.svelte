@@ -1,6 +1,6 @@
 <script>
     import {chart} from 'svelte-apexcharts';
-    import {ajaxGet} from "../../common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../common/ajax.js";
     import {onMount} from "svelte";
     import {DateRangePicker} from "../../common/action/DatePicker.js";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
@@ -43,23 +43,27 @@
             dateType,
         };
         ajaxGet('/v2/api/Index/privacyIndexCount', filterCondition, (res)=> {
-            privacyIndexDto = res.data.sendData.privacyIndexDto;
-            if (privacyIndexDto.nowUserCount || privacyIndexDto.newUserCount || privacyIndexDto.leaveUserCount) {
-                options.series = [privacyIndexDto.nowUserCount, privacyIndexDto.newUserCount, privacyIndexDto.leaveUserCount];
-            } else {
-                options.series = [1];
-                options.labels = [''];
-                options.colors = ['#eaeaea'];
-                options.legend.show = false;
-                options.legend.onItemHover.highlightDataSeries = false;
-                options.chart.width = 250;
-                options.tooltip.enabled = false;
-                options.states = {
-                    hover: {filter: {type: 'none'}},
-                    active: {filter: {type: 'none'}},
-                };
+            try {
+                privacyIndexDto = res.data.sendData.privacyIndexDto;
+                if (privacyIndexDto.nowUserCount || privacyIndexDto.newUserCount || privacyIndexDto.leaveUserCount) {
+                    options.series = [privacyIndexDto.nowUserCount, privacyIndexDto.newUserCount, privacyIndexDto.leaveUserCount];
+                } else {
+                    options.series = [1];
+                    options.labels = [''];
+                    options.colors = ['#eaeaea'];
+                    options.legend.show = false;
+                    options.legend.onItemHover.highlightDataSeries = false;
+                    options.chart.width = 250;
+                    options.tooltip.enabled = false;
+                    options.states = {
+                        hover: {filter: {type: 'none'}},
+                        active: {filter: {type: 'none'}},
+                    };
+                }
+                console.log('개인정보 현황', privacyIndexDto);
+            } catch (e) {
+                reportCatch('temp036', e);
             }
-            console.log('개인정보 현황', privacyIndexDto);
         });
     };
 

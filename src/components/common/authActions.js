@@ -1,5 +1,5 @@
 import {accessToken, is_login, userInfoData, initialUserInfo} from "../../lib/store.js";
-import {ajaxParam} from "./ajax.js";
+import {ajaxParam, reportCatch} from "./ajax.js";
 import {get} from "svelte/store";
 
 export const logout = () => {
@@ -8,10 +8,18 @@ export const logout = () => {
     }
 
     ajaxParam('/v1/api/Auth/logout', sendData, (json_success) => {
-        initializingUserData();
+        try {
+            initializingUserData();
+        } catch (e) {
+            reportCatch('temp007', e);
+        }
     }, (errorCode) => {
-        return {
-            action: 'ERRORDO',
+        try {
+            return {
+                action: 'ERRORDO',
+            }
+        } catch (e) {
+            reportCatch('temp008', e);
         }
     });
 }

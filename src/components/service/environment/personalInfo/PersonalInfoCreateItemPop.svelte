@@ -2,21 +2,29 @@
     import { fade } from 'svelte/transition'
     import {personalInfoCategoryData} from "../../../../lib/store.js";
     import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
-    import {ajaxParam} from "../../../common/ajax.js";
+    import {ajaxParam, reportCatch} from "../../../common/ajax.js";
 
     export let personalInfoCategoryService;
 
     const handleCreateItem = () => {
         ajaxParam('/v2/api/Company/saveItem', $personalInfoCategoryData.createItemPop.inputData, (res) => {
-            personalInfoCategoryService.getAdditionalItemList();
-            personalInfoCategoryService.createItemPop.initInputData();
-            personalInfoCategoryService.createItemPop.hide();
-        }, (errCode, errMsg) => {
-            if (errCode === 'KO087') {
-                alert('이미 등록되어 있는 항목입니다.');
+            try {
+                personalInfoCategoryService.getAdditionalItemList();
+                personalInfoCategoryService.createItemPop.initInputData();
+                personalInfoCategoryService.createItemPop.hide();
+            } catch (e) {
+                reportCatch('temp129', e);
             }
-            personalInfoCategoryService.createItemPop.initInputData();
-            personalInfoCategoryService.createItemPop.hide();
+        }, (errCode, errMsg) => {
+            try {
+                if (errCode === 'KO087') {
+                    alert('이미 등록되어 있는 항목입니다.');
+                }
+                personalInfoCategoryService.createItemPop.initInputData();
+                personalInfoCategoryService.createItemPop.hide();
+            } catch (e) {
+                reportCatch('temp130', e);
+            }
 
         });
     }

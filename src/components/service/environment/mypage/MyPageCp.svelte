@@ -4,7 +4,7 @@
     import { callCapsLock } from '../../../../lib/common'
     import {userInfoData} from "../../../../lib/store.js"
     import {logout} from "../../../common/authActions.js";
-    import {ajaxParam} from "../../../common/ajax.js";
+    import {ajaxParam, reportCatch} from "../../../common/ajax.js";
 
     let cpName = "";
     let knPassword = "";
@@ -40,22 +40,30 @@
         }
 
         ajaxParam(url, sendData, (res) => {
-            contentsChange(1, cpName);
-            userInfoData.update(obj => {
-                obj.cpName = cpName;
-                return obj;
-            });
-            changeStatePop(0);
-        }, (errCode, errMsg) => {
-            if (errCode === "KO013") {
-                pwdNot = true;
-                knPassword = "";
-            } else {
-                // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
-                alert(errMsg);
-                logout();
+            try {
+                contentsChange(1, cpName);
+                userInfoData.update(obj => {
+                    obj.cpName = cpName;
+                    return obj;
+                });
+                changeStatePop(0);
+            } catch (e) {
+                reportCatch('temp125', e);
             }
-            return {action: 'NONE'};
+        }, (errCode, errMsg) => {
+            try {
+                if (errCode === "KO013") {
+                    pwdNot = true;
+                    knPassword = "";
+                } else {
+                    // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
+                    alert(errMsg);
+                    logout();
+                }
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp126', e);
+            }
         });
     }
 

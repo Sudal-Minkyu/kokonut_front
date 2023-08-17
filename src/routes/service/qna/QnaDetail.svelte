@@ -12,7 +12,7 @@
     import {imgView} from "../../../lib/common.js";
     import jQuery from "jquery";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
-    import {ajaxBody, ajaxGet} from "../../../components/common/ajax.js";
+    import {ajaxBody, ajaxGet, reportCatch} from "../../../components/common/ajax.js";
 
     let qnaId;
 
@@ -42,26 +42,34 @@
         let url = "/v2/api/Qna/qnaDetail/"+qnaId;
 
         ajaxGet(url, false, (res) => {
-            console.log("조회된 데이터가 있습니다.");
-            qnaDetailData = res.data.sendData.qnaDetail;
-            qnaDetailFileData = res.data.sendData.qnaDetailFile;
-            qnaLayout = 1;
-        }, (errCode, errMsg) => {
-            if (errCode === "KO053" || errCode === "KO054") {
-                popTitle = "존재하지 않은 문의글"
-                popContents1 = errMsg;
-                imgState = 3;
-                popOpenBtn();
-            } else if (errCode === "KO055") {
-                popTitle = "권한없음"
-                popContents1 = "본인이 작성한 문의만 확인 가능합니다.";
-                imgState = 2;
-                popOpenBtn();
-            } else {
-                console.log("조회된 데이터가 없습니다.");
-                console.log("혹은 1:1 문의하기 리스트 호출 실패");
+            try {
+                console.log("조회된 데이터가 있습니다.");
+                qnaDetailData = res.data.sendData.qnaDetail;
+                qnaDetailFileData = res.data.sendData.qnaDetailFile;
+                qnaLayout = 1;
+            } catch (e) {
+                reportCatch('temp094', e);
             }
-            return {action: 'NONE'};
+        }, (errCode, errMsg) => {
+            try {
+                if (errCode === "KO053" || errCode === "KO054") {
+                    popTitle = "존재하지 않은 문의글"
+                    popContents1 = errMsg;
+                    imgState = 3;
+                    popOpenBtn();
+                } else if (errCode === "KO055") {
+                    popTitle = "권한없음"
+                    popContents1 = "본인이 작성한 문의만 확인 가능합니다.";
+                    imgState = 2;
+                    popOpenBtn();
+                } else {
+                    console.log("조회된 데이터가 없습니다.");
+                    console.log("혹은 1:1 문의하기 리스트 호출 실패");
+                }
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp095', e);
+            }
         });
     }
     let qnaLayout = 0;
@@ -84,25 +92,33 @@
         }
 
         ajaxBody(url, sendData, (res) => {
-            popTitle = "답변을 완료했습니다."
-            imgState = 1;
-            popOpenBtn();
-        }, (errCode, errMsg) => {
-            if (errCode === "KO053" || errCode === "KO054") {
-                popTitle = "존재하지 않은 문의글"
-                popContents1 = errMsg;
-                imgState = 3;
+            try {
+                popTitle = "답변을 완료했습니다."
+                imgState = 1;
                 popOpenBtn();
-            } else if (errCode === "KO001") {
-                popTitle = "권한없음"
-                popContents1 = "답변할 권한이 없습니다.";
-                imgState = 2;
-                popOpenBtn();
-            } else {
-                console.log("조회된 데이터가 없습니다.");
-                console.log("혹은 1:1 답변하기 호출 실패");
+            } catch (e) {
+                reportCatch('temp096', e);
             }
-            return {action: 'NONE'};
+        }, (errCode, errMsg) => {
+            try {
+                if (errCode === "KO053" || errCode === "KO054") {
+                    popTitle = "존재하지 않은 문의글"
+                    popContents1 = errMsg;
+                    imgState = 3;
+                    popOpenBtn();
+                } else if (errCode === "KO001") {
+                    popTitle = "권한없음"
+                    popContents1 = "답변할 권한이 없습니다.";
+                    imgState = 2;
+                    popOpenBtn();
+                } else {
+                    console.log("조회된 데이터가 없습니다.");
+                    console.log("혹은 1:1 답변하기 호출 실패");
+                }
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp097', e);
+            }
         });
     }
 

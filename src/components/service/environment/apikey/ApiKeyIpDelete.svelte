@@ -1,7 +1,7 @@
 <script>
     import { fade } from 'svelte/transition'
     import { onlyNumber } from '../../../../lib/common'
-    import {ajaxBody} from "../../../common/ajax.js";
+    import {ajaxBody, reportCatch} from "../../../common/ajax.js";
 
     export let deleteIpListInit;
     export let apiKeyInfo;
@@ -37,17 +37,25 @@
                 }
 
                 ajaxBody(url, sendData, (res) => {
-                    deleteIpListInit(); // 값 초기화
-                    apiKeyInfo();
-                    ipChange(0);
-                }, (errCode, errMsg) => {
-                    if (errCode === "KO010" || errCode === "KO011" || errCode === "KO012") {
-                        otpError = true;
-                        otp_err_msg = errMsg;
-                    } else {
-                        alert(errMsg);
+                    try {
+                        deleteIpListInit(); // 값 초기화
+                        apiKeyInfo();
+                        ipChange(0);
+                    } catch (e) {
+                        reportCatch('temp123', e);
                     }
-                    return {action: 'NONE'};
+                }, (errCode, errMsg) => {
+                    try {
+                        if (errCode === "KO010" || errCode === "KO011" || errCode === "KO012") {
+                            otpError = true;
+                            otp_err_msg = errMsg;
+                        } else {
+                            alert(errMsg);
+                        }
+                        return {action: 'NONE'};
+                    } catch (e) {
+                        reportCatch('temp124', e);
+                    }
                 });
             }
         } else {

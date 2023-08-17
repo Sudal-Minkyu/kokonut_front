@@ -3,7 +3,7 @@
     import jQuery from "jquery";
     import { push } from 'svelte-spa-router'
     import { emailCheck } from "../../../lib/common.js" // 공통함수
-    import {ajaxBody, ajaxGet} from "../../common/ajax.js";
+    import {ajaxBody, ajaxGet, reportCatch} from "../../common/ajax.js";
 
     let cpNameBlank = true;
 
@@ -72,17 +72,25 @@
             }
 
             ajaxGet(url, sendData, (res) => {
-                seconds = 180;
-                timer = "";
-                clearInterval(interval);
-                conditionFun(2, true);
-                emailStep = 1;
-                existsEmailCheck = true;
-                numberSendEmail();
+                try {
+                    seconds = 180;
+                    timer = "";
+                    clearInterval(interval);
+                    conditionFun(2, true);
+                    emailStep = 1;
+                    existsEmailCheck = true;
+                    numberSendEmail();
+                } catch (e) {
+                    reportCatch('temp022', e);
+                }
             }, (errCode, errMsg) => {
-                error_msg = errMsg;
-                conditionFun(2, false);
-                return {action: 'NONE'};
+                try {
+                    error_msg = errMsg;
+                    conditionFun(2, false);
+                    return {action: 'NONE'};
+                } catch (e) {
+                    reportCatch('temp023', e);
+                }
             });
         }
     }
@@ -99,7 +107,11 @@
 			}
 
             ajaxGet(url, sendData, (res) => {
-                interval = setInterval(count_down_timer, 1000); // 해당 함수 1초마다 실행
+                try {
+                    interval = setInterval(count_down_timer, 1000); // 해당 함수 1초마다 실행
+                } catch (e) {
+                    reportCatch('temp024', e);
+                }
             });
 		} else {
             error_msg = '이메일 중복체크 먼저 해주세요.';
@@ -141,16 +153,24 @@
         }
 
         ajaxGet(url, sendData, (res) => {
-            if(knEmailNotCheck) {
-                knEmailNotCheck = false;
+            try {
+                if (knEmailNotCheck) {
+                    knEmailNotCheck = false;
+                }
+                knEmailCheck = true;
+                emailStep = 2;
+                emailCode = "";
+            } catch (e) {
+                reportCatch('temp025', e);
             }
-            knEmailCheck = true;
-            emailStep = 2;
-            emailCode = "";
         }, (errCode, errMsg) => {
-            numberCheck = true;
-            email_error_msg = errMsg;
-            return {action: 'NONE'};
+            try {
+                numberCheck = true;
+                email_error_msg = errMsg;
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp026', e);
+            }
         });
     }
 
@@ -268,11 +288,19 @@
             console.log('회원가입보내는정보', sendData);
 
             ajaxBody(url, sendData, (res) => {
-                push('/joinsu');
+                try {
+                    push('/joinsu');
+                } catch (e) {
+                    reportCatch('temp027', e);
+                }
             }, (errCode, errMsg) => {
-                alert(errMsg);
-                push('/join');
-                return {action: 'NONE'};
+                try {
+                    alert(errMsg);
+                    push('/join');
+                    return {action: 'NONE'};
+                } catch (e) {
+                    reportCatch('temp111', e);
+                }
             });
         }
     }

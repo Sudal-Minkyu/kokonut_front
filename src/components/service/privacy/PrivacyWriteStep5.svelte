@@ -3,7 +3,7 @@
     import { fade } from 'svelte/transition'
     import {initialProvidePrivacyWrite, userInfoData, providePrivacyWriteData} from "../../../lib/store.js";
     import {onMount} from "svelte";
-    import {ajaxBody, ajaxGet} from "../../common/ajax.js";
+    import {ajaxBody, ajaxGet, reportCatch} from "../../common/ajax.js";
     import PrivacyWriteStep5FilterPop from "./PrivacyWriteStep5FilterPop.svelte";
     import {openBanner, openConfirm} from "../../common/ui/DialogManager.js";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
@@ -48,15 +48,19 @@
         };
         if (ppd.step2.provideTargetType === 'self') {
             sendData.adminEmailList = [$userInfoData.knEmail];
-        } else if (ppd.step2.provideTargetType === 'teammate') {
+        } else if (ppd.step2.provideTargetType === 'teammate' || $providePrivacyWriteData.step1.proProvide === 1) {
             sendData.adminEmailList = ppd.step2.selectedAdminObjList.map(item => item.knEmail);
         }
 
         console.log('저장데이터', sendData);
         ajaxBody('/v2/api/Provision/provisionSave', sendData, (json_success) => {
-            providePrivacyWriteData.set(JSON.parse(initialProvidePrivacyWrite));
-            openBanner('개인 정보 제공을 등록하였습니다.');
-            push('/service/privacy/privacyList');
+            try {
+                providePrivacyWriteData.set(JSON.parse(initialProvidePrivacyWrite));
+                openBanner('개인 정보 제공을 등록하였습니다.');
+                push('/service/privacy/privacyList');
+            } catch (e) {
+                reportCatch('temp039', e);
+            }
         });
     }
 
@@ -67,13 +71,17 @@
 
     const getAllCustomerList = () => {
         ajaxGet('/v2/api/DynamicUser/tableBasicList', false, (json_success) => {
-            console.log(json_success);
-            providePrivacyWriteData.update(obj => {
-                obj.step5.memberList = json_success.data.sendData.basicTableList || [];
-                pickColumnAndDetermineWidth();
-                return obj;
-            });
-            filterMemberList();
+            try {
+                console.log(json_success);
+                providePrivacyWriteData.update(obj => {
+                    obj.step5.memberList = json_success.data.sendData.basicTableList || [];
+                    pickColumnAndDetermineWidth();
+                    return obj;
+                });
+                filterMemberList();
+            } catch (e) {
+                reportCatch('temp040', e);
+            }
         });
     };
 

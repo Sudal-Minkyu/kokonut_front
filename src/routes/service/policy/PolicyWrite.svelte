@@ -19,7 +19,7 @@
     import {openAsk} from "../../../components/common/ui/DialogManager.js";
     import {logout} from "../../../components/common/authActions.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
-    import {ajaxGet, ajaxParam} from "../../../components/common/ajax.js";
+    import {ajaxGet, ajaxParam, reportCatch} from "../../../components/common/ajax.js";
 
     // 툴팁기능 (클릭시 펼쳐지는 물음표) 동작을 위함
     const tooltipEvent = (e) => {
@@ -64,13 +64,17 @@
         let url = "/v2/api/Policy/policyCheck"
 
         ajaxGet(url, false, (res) => {
-            let result = res.data.sendData.result;
-            if(result) {
-                writingCheck = true;
-                piId.set(res.data.sendData.piId)
-                piStage.set(res.data.sendData.piStage);
-            } else {
-                setTimeout(() => stage = 1, 500);
+            try {
+                let result = res.data.sendData.result;
+                if (result) {
+                    writingCheck = true;
+                    piId.set(res.data.sendData.piId)
+                    piStage.set(res.data.sendData.piStage);
+                } else {
+                    setTimeout(() => stage = 1, 500);
+                }
+            } catch (e) {
+                reportCatch('temp83', e);
             }
         }, (errCode, errMsg) => {
             // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
@@ -122,10 +126,14 @@
         }
 
         ajaxParam(url, sendData, (res) => {
-            piId.set(0);
-            piStage.set(0);
-            policyInfoData.set(JSON.parse(initialPolicyInfo));
-            push("/service/policyList");
+            try {
+                piId.set(0);
+                piStage.set(0);
+                policyInfoData.set(JSON.parse(initialPolicyInfo));
+                push("/service/policyList");
+            } catch (e) {
+                reportCatch('temp084', e);
+            }
         });
     }
 
@@ -140,28 +148,36 @@
             piId : $piId,
         }
         ajaxGet(url, sendData, (res) => {
-            stage = $piStage;
-            console.log("현재까지 작성된 데이터 가져오기");
-            console.log(res)
-            policyInfoData.update(obj => {
-                obj.policyData1 = res.data.sendData.policyInfo1;
-                obj.purposeDataList = res.data.sendData.purposeInfo;
-                obj.beforeDataList = res.data.sendData.beforeDataList;
-                obj.afterDataList = res.data.sendData.afterDataList;
-                obj.serviceAutoDataList = res.data.sendData.serviceAutoDataList;
-                obj.policyData2 = res.data.sendData.policyInfo2;
-                obj.outDataList = res.data.sendData.outDataList;
-                obj.outDetailDataList = res.data.sendData.outDetailDataList;
-                obj.thirdDataList = res.data.sendData.thirdDataList;
-                obj.thirdOverseasDataList = res.data.sendData.thirdOverseasDataList;
-                obj.reponsibleDataList = res.data.sendData.reponsibleDataList;
-                obj.policyData3 = res.data.sendData.policyInfo3;
-                return obj;
-            });
+            try {
+                stage = $piStage;
+                console.log("현재까지 작성된 데이터 가져오기");
+                console.log(res)
+                policyInfoData.update(obj => {
+                    obj.policyData1 = res.data.sendData.policyInfo1;
+                    obj.purposeDataList = res.data.sendData.purposeInfo;
+                    obj.beforeDataList = res.data.sendData.beforeDataList;
+                    obj.afterDataList = res.data.sendData.afterDataList;
+                    obj.serviceAutoDataList = res.data.sendData.serviceAutoDataList;
+                    obj.policyData2 = res.data.sendData.policyInfo2;
+                    obj.outDataList = res.data.sendData.outDataList;
+                    obj.outDetailDataList = res.data.sendData.outDetailDataList;
+                    obj.thirdDataList = res.data.sendData.thirdDataList;
+                    obj.thirdOverseasDataList = res.data.sendData.thirdOverseasDataList;
+                    obj.reponsibleDataList = res.data.sendData.reponsibleDataList;
+                    obj.policyData3 = res.data.sendData.policyInfo3;
+                    return obj;
+                });
+            } catch (e) {
+                reportCatch('temp085', e);
+            }
         }, (errCode, errMsg) => {
-            // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-            alert(errMsg);
-            logout();
+            try {
+                // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+                alert(errMsg);
+                logout();
+            } catch (e) {
+                reportCatch('temp086', e);
+            }
         });
     }
 </script>

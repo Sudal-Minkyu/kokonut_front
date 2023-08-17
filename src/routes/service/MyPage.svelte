@@ -18,7 +18,7 @@
     import GoogleOTP from "../../components/common/certification/GoogleOTP.svelte";
     import {logout} from "../../components/common/authActions.js";
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
-    import {ajaxGet} from "../../components/common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../components/common/ajax.js";
 
     let changeState = 0;
     function changeStatePop(val) {
@@ -44,19 +44,27 @@
         let url = "/v2/api/Admin/myInfo"
 
         ajaxGet(url, false, (res) => {
-            knEmail = res.data.sendData.knEmail;
-            knName = res.data.sendData.knName;
-            knPhoneNumber = res.data.sendData.knPhoneNumber;
-            cpName = res.data.sendData.cpName;
-            knDepartment = res.data.sendData.knDepartment;
-            if(knDepartment === "") {
-                knDepartmentState = "등록";
-            } else {
-                knDepartmentState = "변경";
+            try {
+                knEmail = res.data.sendData.knEmail;
+                knName = res.data.sendData.knName;
+                knPhoneNumber = res.data.sendData.knPhoneNumber;
+                cpName = res.data.sendData.cpName;
+                knDepartment = res.data.sendData.knDepartment;
+                if (knDepartment === "") {
+                    knDepartmentState = "등록";
+                } else {
+                    knDepartmentState = "변경";
+                }
+                myInfoLayout = 1;
+            } catch (e) {
+                reportCatch('temp047', e);
             }
-            myInfoLayout = 1;
         }, (errCode) => {
-            logout();
+            try {
+                logout();
+            } catch (e) {
+                reportCatch('temp048', e);
+            }
         });
     }
 
@@ -74,10 +82,18 @@
         }
 
         ajaxGet(url, sendData, (res) => {
-            src = res.data.sendData.url;
-            knOtpKey = res.data.sendData.otpKey;
+            try {
+                src = res.data.sendData.url;
+                knOtpKey = res.data.sendData.otpKey;
+            } catch (e) {
+                reportCatch('temp049', e);
+            }
         }, (err) => {
-            googleOtpPop = !googleOtpPop;
+            try {
+                googleOtpPop = !googleOtpPop;
+            } catch (e) {
+                reportCatch('temp050', e);
+            }
         })
     }
 

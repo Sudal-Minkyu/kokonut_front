@@ -7,7 +7,7 @@
     import { emailCheck, popOpenBtn} from "../../../../lib/common.js";
     import jQuery from "jquery";
     import CustumAlert from '../../../../components/common/CustumAlert.svelte';
-    import {ajaxGet, ajaxParam} from "../../../common/ajax.js";
+    import {ajaxGet, ajaxParam, reportCatch} from "../../../common/ajax.js";
 
     export let adminSavePopChange;
     export let adminList;
@@ -53,14 +53,22 @@
             }
 
             ajaxGet(url, sendData, (res) => {
-                const inputElement = document.getElementById("knEmail");
-                inputElement.readOnly = true;
-                inputElement.style.backgroundColor = "#E9EBED";
-                emailPass = true;
+                try {
+                    const inputElement = document.getElementById("knEmail");
+                    inputElement.readOnly = true;
+                    inputElement.style.backgroundColor = "#E9EBED";
+                    emailPass = true;
+                } catch (e) {
+                    reportCatch('temp116', e);
+                }
             }, (errCode, errMsg) => {
-                emailConfirm = true;
-                error_msg = errMsg;
-                return {action: 'NONE'};
+                try {
+                    emailConfirm = true;
+                    error_msg = errMsg;
+                    return {action: 'NONE'};
+                } catch (e) {
+                    reportCatch('temp117', e);
+                }
             });
         }
     }
@@ -86,35 +94,43 @@
         }
 
         ajaxParam(url, sendData, (res) => {
-            popType = 1;
-            imgState = 1;
-            popTitle = "관리자 등록완료";
-            popContents1 = "안내에 따라 이어서 가입을 해주세요."
-            popContents2 = "이메일인증후 등록은 24시간동안만 유효합니다."
-            popCheck = "확인";
-            startFun = adminSavePopChange;
-            adminList(0);
-            popOpenBtn();
-        }, (errCode, errMsg) => {
-            if(errCode === "KO041") {
+            try {
                 popType = 1;
-                imgState = 2;
-                popTitle = "메일 전송실패";
-                popContents1 = "메일 전송에 실패했습니다."
-                popContents2 = "관리자에게 1:1 문의하세요."
+                imgState = 1;
+                popTitle = "관리자 등록완료";
+                popContents1 = "안내에 따라 이어서 가입을 해주세요."
+                popContents2 = "이메일인증후 등록은 24시간동안만 유효합니다."
                 popCheck = "확인";
-                startFun = undefined
-            } else {
-                popType = 1;
-                imgState = 2;
-                popTitle = "접근권한 없음";
-                popContents1 = errMsg;
-                popContents2 = ""
-                popCheck = "확인";
-                startFun = undefined
+                startFun = adminSavePopChange;
+                adminList(0);
+                popOpenBtn();
+            } catch (e) {
+                reportCatch('temp118', e);
             }
-            popOpenBtn();
-            return {action: 'NONE'};
+        }, (errCode, errMsg) => {
+            try {
+                if (errCode === "KO041") {
+                    popType = 1;
+                    imgState = 2;
+                    popTitle = "메일 전송실패";
+                    popContents1 = "메일 전송에 실패했습니다."
+                    popContents2 = "관리자에게 1:1 문의하세요."
+                    popCheck = "확인";
+                    startFun = undefined
+                } else {
+                    popType = 1;
+                    imgState = 2;
+                    popTitle = "접근권한 없음";
+                    popContents1 = errMsg;
+                    popContents2 = ""
+                    popCheck = "확인";
+                    startFun = undefined
+                }
+                popOpenBtn();
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp119', e);
+            }
         });
     }
 
