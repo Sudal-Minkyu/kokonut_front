@@ -8,7 +8,7 @@
     import {onMount} from "svelte";
     import {backBtn, userInfoData} from '../../../lib/store.js'
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
-    import {ajaxGet} from "../../../components/common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
     import {openBanner, openConfirm} from "../../../components/common/ui/DialogManager.js";
 
     let piId;
@@ -63,40 +63,48 @@
         let url = "/v2/api/Policy/policyDetail/"+piId;
 
         ajaxGet(url, false, (res) => {
-            console.log("조회된 데이터가 있습니다.");
+            try {
+                console.log("조회된 데이터가 있습니다.");
 
-            console.log(res)
-            policyInfoData.policyData = res.data.sendData.policyData;
+                console.log(res)
+                policyInfoData.policyData = res.data.sendData.policyData;
 
-            policyInfoData.purposeDataList = res.data.sendData.purposeDataList;
+                policyInfoData.purposeDataList = res.data.sendData.purposeDataList;
 
-            policyInfoData.beforeDataList = res.data.sendData.beforeDataList;
-            policyInfoData.afterDataList = res.data.sendData.afterDataList;
-            policyInfoData.serviceAutoDataList = res.data.sendData.serviceAutoDataList;
+                policyInfoData.beforeDataList = res.data.sendData.beforeDataList;
+                policyInfoData.afterDataList = res.data.sendData.afterDataList;
+                policyInfoData.serviceAutoDataList = res.data.sendData.serviceAutoDataList;
 
-            policyInfoData.outDataList = res.data.sendData.outDataList;
-            if(policyInfoData.policyData.piOutChose) {
-                policyInfoData.outDetailDataList = res.data.sendData.outDetailDataList;
+                policyInfoData.outDataList = res.data.sendData.outDataList;
+                if (policyInfoData.policyData.piOutChose) {
+                    policyInfoData.outDetailDataList = res.data.sendData.outDetailDataList;
+                }
+
+                if (policyInfoData.policyData.piThirdChose) {
+                    policyInfoData.thirdDataList = res.data.sendData.thirdDataList;
+                }
+
+                if (policyInfoData.policyData.piThirdOverseasChose) {
+                    policyInfoData.thirdOverseasDataList = res.data.sendData.thirdOverseasDataList;
+                }
+                policyInfoData.reponsibleDataList = res.data.sendData.reponsibleDataList;
+                console.log(policyInfoData)
+
+                policyDetailLayout = 1;
+            } catch (e) {
+                reportCatch('temp078', e);
             }
-
-            if(policyInfoData.policyData.piThirdChose) {
-                policyInfoData.thirdDataList = res.data.sendData.thirdDataList;
-            }
-
-            if(policyInfoData.policyData.piThirdOverseasChose) {
-                policyInfoData.thirdOverseasDataList = res.data.sendData.thirdOverseasDataList;
-            }
-            policyInfoData.reponsibleDataList = res.data.sendData.reponsibleDataList;
-            console.log(policyInfoData)
-
-            policyDetailLayout = 1;
         }, (errCode) => {
-            state = 1;
-            pageErrMsg1 = "선택하신 처리방침이 존재하지 않습니다.";
-            pageErrMsg2 = "다시 시도해주사길 바랍니다.";
-            pageErrUrl = "/service/policyList";;
-            console.log("조회된 데이터가 없습니다.");
-            return {action: 'NONE'};
+            try {
+                state = 1;
+                pageErrMsg1 = "선택하신 처리방침이 존재하지 않습니다.";
+                pageErrMsg2 = "다시 시도해주사길 바랍니다.";
+                pageErrUrl = "/service/policyList";
+                console.log("조회된 데이터가 없습니다.");
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp079', e);
+            }
         });
     }
 

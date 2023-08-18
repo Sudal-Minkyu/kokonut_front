@@ -1,7 +1,7 @@
 
 <script>
     import Header from "../../components/service/layout/Header.svelte";
-    import {ajaxGet, ajaxRegister} from "../../components/common/ajax.js";
+    import {ajaxGet, ajaxRegister, reportCatch} from "../../components/common/ajax.js";
     import {onMount} from "svelte";
     import {backBtn} from "../../lib/store.js";
     import {link} from "svelte-spa-router";
@@ -14,16 +14,20 @@
     let columnList = [];
     const getColumnLIst = () => {
         ajaxGet('/v2/api/DynamicUser/searchColumnCall', false, (res2) => {
-            if (res2.data.sendData.fieldList.length) {
-                columnList = [{
-                    fieldCode: '1_pw',
-                    fieldComment: '비밀번호',
-                }, ...res2.data.sendData.fieldList];
-                console.log('컬럼리스트', columnList);
-            }
+            try {
+                if (res2.data.sendData.fieldList.length) {
+                    columnList = [{
+                        fieldCode: '1_pw',
+                        fieldComment: '비밀번호',
+                    }, ...res2.data.sendData.fieldList];
+                    console.log('컬럼리스트', columnList);
+                }
 
-            for (const {fieldCode} of columnList) {
-                memberData[fieldCode] = '';
+                for (const {fieldCode} of columnList) {
+                    memberData[fieldCode] = '';
+                }
+            } catch (e) {
+                reportCatch('temp059', e);
             }
         });
     }
@@ -33,11 +37,19 @@
         let url = "/v2/api/ApiKey/apiKeyCheck";
 
         ajaxGet(url, false, (res) => {
-            if(res.data.sendData.result === 2) {
-                apiKey = res.data.sendData.apiKey;
+            try {
+                if (res.data.sendData.result === 2) {
+                    apiKey = res.data.sendData.apiKey;
+                }
+            } catch (e) {
+                reportCatch('temp060', e);
             }
         }, (errCode, errMsg) => {
-            return {action: 'NONE'};
+            try {
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp061', e);
+            }
         });
     }
 
@@ -53,8 +65,12 @@
         }
         console.log(memberData);
         ajaxRegister('/v3/api/Auth/register', memberData, apiKey, (res) => {
-            alert('맴버 추가 완료');
-            resetMemberData();
+            try {
+                alert('맴버 추가 완료');
+                resetMemberData();
+            } catch (e) {
+                reportCatch('temp062', e);
+            }
         });
     }
 

@@ -7,7 +7,7 @@
     import Paging from '../../../components/common/Paging.svelte'
     import {onMount} from "svelte";
     import {stimeVal, setOptionItem} from "../../../components/common/action/DatePicker.js";
-    import {ajaxGet} from "../../../components/common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
     import {userInfoData} from "../../../lib/store.js";
     import {openConfirm} from "../../../components/common/ui/DialogManager.js";
     import {debounce200} from "../../../components/common/eventRateControls.js";
@@ -96,15 +96,23 @@
         let url = "/v2/api/Email/emailList";
 
         ajaxGet(url, searchCondition, (res) => {
-            emailHistoryListState = 1;
-            console.log(res);
-            email_list = res.data.datalist;
-            total = res.data.total_rows;
+            try {
+                emailHistoryListState = 1;
+                console.log(res);
+                email_list = res.data.datalist;
+                total = res.data.total_rows;
+            } catch (e) {
+                reportCatch('temp069', e);
+            }
         }, (errCode, errMsg) => {
-            emailHistoryListState = 1;
-            email_list = [];
-            total = 0;
-            return {action: 'NONE'};
+            try {
+                emailHistoryListState = 1;
+                email_list = [];
+                total = 0;
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp070', e);
+            }
         });
     });
 

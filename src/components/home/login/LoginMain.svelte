@@ -11,7 +11,7 @@
     } from '../../../lib/store'
     import { callCapsLock, encryptData } from '../../../lib/common'
     import {openAsk, openConfirm} from "../../common/ui/DialogManager.js";
-    import { ajaxParam } from "../../common/ajax.js";
+    import {ajaxParam, reportCatch} from "../../common/ajax.js";
     import jQuery from "jquery";
     import MainScreenBlocker from "../../common/ui/MainScreenBlocker.svelte";
     import axios from "axios";
@@ -157,55 +157,65 @@
 		}
 
         ajaxParam(url, sendData, (res) => {
-            mainScreenBlockerVisibility.set(false);
-            $accessToken = res.data.sendData.jwtToken;
-            if(res.data.sendData.blockAbroad !== undefined) {
-                // console.log("해외로그인차단 : "+json_success.data.sendData.blockAbroadMsg);
-                ahId = res.data.sendData.blockAbroad;
-                knPhoneNumber = res.data.sendData.knPhoneNumber;
-                knName = res.data.sendData.knName;
-                openAsk({
-                    callback: () => {phoneCheckOpenLogin(6)},
-                    icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                    title: res.data.sendData.blockAbroadMsg, // 제목
-                    contents1: "",
-                    btnStart: '본인인증', // 실행 버튼의 텍스트
-                    btnCancel: '취소', // 취소 버튼의 텍스트
-                })
-            } else {
-                is_login.set(true);
-                keyBufferSto.set('');
-                ivSto.set('');
-                doChangePwdLater.set(false);
-                knPassword= "";
-                push("/service");
+            try {
+                mainScreenBlockerVisibility.set(false);
+                $accessToken = res.data.sendData.jwtToken;
+                if (res.data.sendData.blockAbroad !== undefined) {
+                    // console.log("해외로그인차단 : "+json_success.data.sendData.blockAbroadMsg);
+                    ahId = res.data.sendData.blockAbroad;
+                    knPhoneNumber = res.data.sendData.knPhoneNumber;
+                    knName = res.data.sendData.knName;
+                    openAsk({
+                        callback: () => {
+                            phoneCheckOpenLogin(6)
+                        },
+                        icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: res.data.sendData.blockAbroadMsg, // 제목
+                        contents1: "",
+                        btnStart: '본인인증', // 실행 버튼의 텍스트
+                        btnCancel: '취소', // 취소 버튼의 텍스트
+                    })
+                } else {
+                    is_login.set(true);
+                    keyBufferSto.set('');
+                    ivSto.set('');
+                    doChangePwdLater.set(false);
+                    knPassword = "";
+                    push("/service");
+                }
+            } catch (e) {
+                reportCatch('temp112', e);
             }
         }, (errCode, errMsg) => {
-            mainScreenBlockerVisibility.set(false);
-            if (errCode === "KO012" || errCode === "KO011" || errCode === "KO010"
-                || errCode === "KO094") {
-                // console.log("로그인실패");
-                otpError = true;
-                otp_err_msg = errMsg;
-            } else if (errCode === "KO096" || errCode === "KO095") {
-                openConfirm({
-                    icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                    title: "비밀번호 오류횟수 초과", // 제목
-                    contents1: errMsg,
-                    btnCheck: '확인', // 확인 버튼의 텍스트
-                })
-                notErrPwd_msg = errMsg;
-                notErrPwdFun();
-                knPassword= "";
-            } else if (errCode === "KO016") {
-                // console.log("가입된회원이 아님 or 아이디/비밀번호가 일치하지 않음");
-                knPassword= "";
-                notJoinUser();
-            } else {
-                console.log("로그인 에러");
-                knPassword= "";
+            try {
+                mainScreenBlockerVisibility.set(false);
+                if (errCode === "KO012" || errCode === "KO011" || errCode === "KO010"
+                    || errCode === "KO094") {
+                    // console.log("로그인실패");
+                    otpError = true;
+                    otp_err_msg = errMsg;
+                } else if (errCode === "KO096" || errCode === "KO095") {
+                    openConfirm({
+                        icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: "비밀번호 오류횟수 초과", // 제목
+                        contents1: errMsg,
+                        btnCheck: '확인', // 확인 버튼의 텍스트
+                    })
+                    notErrPwd_msg = errMsg;
+                    notErrPwdFun();
+                    knPassword = "";
+                } else if (errCode === "KO016") {
+                    // console.log("가입된회원이 아님 or 아이디/비밀번호가 일치하지 않음");
+                    knPassword = "";
+                    notJoinUser();
+                } else {
+                    console.log("로그인 에러");
+                    knPassword = "";
+                }
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp113', e);
             }
-            return {action: 'NONE'};
         });
     }
 
@@ -221,15 +231,19 @@
         }
 
         ajaxParam(url, sendData, (res) => {
-            token_version_id = res.data.sendData.token_version_id;
-            integrity_value = res.data.sendData.integrity_value;
-            enc_data= res.data.sendData.enc_data;
+            try {
+                token_version_id = res.data.sendData.token_version_id;
+                integrity_value = res.data.sendData.integrity_value;
+                enc_data = res.data.sendData.enc_data;
 
-            document.getElementById('token_version_id').value = token_version_id;
-            document.getElementById('integrity_value').value = integrity_value;
-            document.getElementById('enc_data').value = enc_data;
+                document.getElementById('token_version_id').value = token_version_id;
+                document.getElementById('integrity_value').value = integrity_value;
+                document.getElementById('enc_data').value = enc_data;
 
-            jQuery("#niceForm").submit();
+                jQuery("#niceForm").submit();
+            } catch (e) {
+                reportCatch('temp114', e);
+            }
         });
     }
 
@@ -259,12 +273,15 @@
             ahId : ahId,
         }
         ajaxParam('/v2/api/History/activityUpdate', sendData, (json_success) => {
-            // 기본값 초기화처리
-            $is_login = true;
-            $keyBufferSto = "";
-            $ivSto = "";
-            knPassword= "";
-            // push("/service");
+            try { // 기본값 초기화처리
+                $is_login = true;
+                $keyBufferSto = "";
+                $ivSto = "";
+                knPassword = "";
+                // push("/service");
+            } catch (e) {
+                reportCatch('temp115', e);
+            }
         });
     }
 

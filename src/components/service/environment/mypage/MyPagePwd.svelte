@@ -7,7 +7,7 @@
     import {push} from "svelte-spa-router";
     import {openAsk, openConfirm} from "../../../common/ui/DialogManager.js";
     import {logout} from "../../../common/authActions.js";
-    import {ajaxParam} from "../../../common/ajax.js";
+    import {ajaxParam, reportCatch} from "../../../common/ajax.js";
 
     export let visible = false; // 현재 페이지의 팝업 보임 여부
     export let regularChangeRoutine = false; // 비밀번호 변경 주기 도래에 따른 변경창일 경우
@@ -78,25 +78,33 @@
         }
 
         ajaxParam(url, sendData, (res) => {
-            visible = false;
-            doChangePwdLater.set(true);
-            openConfirm({
-                icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                title: '비밀번호가 변경되었습니다.', // 제목 - 백엔드의 에러 code
-                btnCheck: '확인',
-            });
-        }, (errCode, errMsg) => {
-            if (errCode === "KO013") {
-                oldknPassword = "";
-                pwdNot = true;
-            } else if (errCode === "KO083") {
-                alert(errMsg);
-            } else {
-                // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
-                alert(errMsg);
-                logout();
+            try {
+                visible = false;
+                doChangePwdLater.set(true);
+                openConfirm({
+                    icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: '비밀번호가 변경되었습니다.', // 제목 - 백엔드의 에러 code
+                    btnCheck: '확인',
+                });
+            } catch (e) {
+                reportCatch('temp032', e);
             }
-            return {action: 'NONE'};
+        }, (errCode, errMsg) => {
+            try {
+                if (errCode === "KO013") {
+                    oldknPassword = "";
+                    pwdNot = true;
+                } else if (errCode === "KO083") {
+                    alert(errMsg);
+                } else {
+                    // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
+                    alert(errMsg);
+                    logout();
+                }
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp033', e);
+            }
         });
     }
 

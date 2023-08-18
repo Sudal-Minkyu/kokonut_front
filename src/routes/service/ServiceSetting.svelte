@@ -6,7 +6,7 @@
     import SettingIpDelete from '../../components/service/environment/servicesetting/SettingIpDelete.svelte'
     import SettingIpAdd from '../../components/service/environment/servicesetting/SettingIpAdd.svelte'
     import {SelectBoxManager} from "../../components/common/action/SelectBoxManager.js";
-    import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
+    import {ajaxGet, ajaxParam, reportCatch} from "../../components/common/ajax.js";
     import {backBtn, initialServiceSetting, serviceSettingData, userInfoData} from "../../lib/store.js";
     import {openConfirm} from "../../components/common/ui/DialogManager.js";
     import {link} from "svelte-spa-router";
@@ -31,19 +31,23 @@
     const getServiceSettingDataAndInitializing = () => {
         settingLoadState = 1;
         ajaxGet('/v2/api/CompanySetting/settingInfo', false, (res) => {
-            settingLoadState = 1;
-            const settingData = res.data.sendData;
-            console.log('초기 데이터', settingData);
-            serviceSettingData.update(obj => {
-                obj = JSON.parse(initialServiceSetting);
-                obj.accessIpList = settingData.accessIpList;
-                obj.settingInfo = settingData.settingInfo;
-                return obj;
-            });
-            csEmailCodeSetting = settingData.settingInfo.csEmailCodeSetting;
-            setUnbindableInitialData(settingData);
-            filterAccessIpList();
-            getEmailColumnLIst();
+            try {
+                settingLoadState = 1;
+                const settingData = res.data.sendData;
+                console.log('초기 데이터', settingData);
+                serviceSettingData.update(obj => {
+                    obj = JSON.parse(initialServiceSetting);
+                    obj.accessIpList = settingData.accessIpList;
+                    obj.settingInfo = settingData.settingInfo;
+                    return obj;
+                });
+                csEmailCodeSetting = settingData.settingInfo.csEmailCodeSetting;
+                setUnbindableInitialData(settingData);
+                filterAccessIpList();
+                getEmailColumnLIst();
+            } catch (e) {
+                reportCatch('temp052', e);
+            }
         });
     }
 
@@ -98,11 +102,19 @@
     const ajaxAgainstEveryChanges = (url, sendObj) => {
         console.log('act', sendObj);
         ajaxParam(url, sendObj, (res) => {
-            console.log(res);
+            try {
+                console.log(res);
+            } catch (e) {
+                reportCatch('temp053', e);
+            }
         }, (errCode) => {
-            return {
-                action: 'REFRESH',
-                message: '설정 변경 도중 문제가 발생하였습니다. 페이지를 새로고침합니다.',
+            try {
+                return {
+                    action: 'REFRESH',
+                    message: '설정 변경 도중 문제가 발생하였습니다. 페이지를 새로고침합니다.',
+                }
+            } catch (e) {
+                reportCatch('temp054', e);
             }
         });
     }
@@ -208,12 +220,16 @@
 
     const getEmailColumnLIst = () => {
         ajaxGet('/v2/api/DynamicUser/searchColumnCall', false, (res2) => {
-            if (res2.data.sendData.fieldList.length) {
-                serviceSettingData.update(obj => {
-                    obj.columnList = res2.data.sendData.fieldList.filter(obj => obj.emailAvailable);
-                    return obj;
-                });
-                updateEmailSelectBoxString(csEmailCodeSetting);
+            try {
+                if (res2.data.sendData.fieldList.length) {
+                    serviceSettingData.update(obj => {
+                        obj.columnList = res2.data.sendData.fieldList.filter(obj => obj.emailAvailable);
+                        return obj;
+                    });
+                    updateEmailSelectBoxString(csEmailCodeSetting);
+                }
+            } catch (e) {
+                reportCatch('temp055', e);
             }
         });
     }

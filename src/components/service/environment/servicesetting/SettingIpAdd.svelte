@@ -2,7 +2,7 @@
 <script>
     import {serviceSettingData} from "../../../../lib/store.js";
     import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
-    import {ajaxParam} from "../../../common/ajax.js";
+    import {ajaxParam, reportCatch} from "../../../common/ajax.js";
     import {openBanner} from "../../../common/ui/DialogManager.js";
 
     export let getServiceSettingDataAndInitializing;
@@ -82,8 +82,12 @@
         }
 
         ajaxParam('/v2/api/CompanySetting/accessIpSave', addData, (res) => {
-            openBanner('접속 허용 IP를 추가하였습니다.');
-            getServiceSettingDataAndInitializing();
+            try {
+                openBanner('접속 허용 IP를 추가하였습니다.');
+                getServiceSettingDataAndInitializing();
+            } catch (e) {
+                reportCatch('temp131', e);
+            }
         });
     }
 </script>

@@ -9,7 +9,7 @@
     import jQuery from "jquery";
     import restapi from "../../../lib/api.js";
     import CustumAlert from '../../../components/common/CustumAlert.svelte';
-    import {ajaxMultipart} from "../../../components/common/ajax.js";
+    import {ajaxMultipart, reportCatch} from "../../../components/common/ajax.js";
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -72,8 +72,12 @@
         }
 
         ajaxMultipart(url, formData, (res) => {
-            console.log(res);
-            push('/service/environment/qnaList');
+            try {
+                console.log(res);
+                push('/service/environment/qnaList');
+            } catch (e) {
+                reportCatch('temp100', e);
+            }
         });
     }
 

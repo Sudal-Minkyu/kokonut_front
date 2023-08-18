@@ -4,7 +4,7 @@
 
     import {openDiv, findEmail, findPwd, tempPwd, userInfoData} from '../../../lib/store'
     import {openConfirm} from "../ui/DialogManager.js";
-    import {ajaxGet, ajaxParam} from "../ajax.js";
+    import {ajaxGet, ajaxParam, reportCatch} from "../ajax.js";
 
     jQuery(function() {
         // 나이스 폼열기
@@ -30,15 +30,19 @@
         }
 
         ajaxGet(url, sendData, (res) => {
-            token_version_id = res.data.sendData.token_version_id;
-            integrity_value = res.data.sendData.integrity_value;
-            enc_data= res.data.sendData.enc_data;
+            try {
+                token_version_id = res.data.sendData.token_version_id;
+                integrity_value = res.data.sendData.integrity_value;
+                enc_data = res.data.sendData.enc_data;
 
-            document.getElementById('token_version_id').value = token_version_id;
-            document.getElementById('integrity_value').value = integrity_value;
-            document.getElementById('enc_data').value = enc_data;
+                document.getElementById('token_version_id').value = token_version_id;
+                document.getElementById('integrity_value').value = integrity_value;
+                document.getElementById('enc_data').value = enc_data;
 
-            jQuery("#niceForm").submit();
+                jQuery("#niceForm").submit();
+            } catch (e) {
+                reportCatch('temp013', e);
+            }
         });
     }
 
@@ -132,8 +136,12 @@
             }
 
             ajaxGet(url, sendData, (res) => {
-                $openDiv = 1;
-                $findEmail = res.data.sendData.knEmail
+                try {
+                    $openDiv = 1;
+                    $findEmail = res.data.sendData.knEmail
+                } catch (e) {
+                    reportCatch('temp104', e);
+                }
             });
         }
     }
@@ -152,9 +160,13 @@
         }
 
         ajaxParam(url, sendData, (res) => {
-            $openDiv = 2;
-            console.log(res);
-            $tempPwd = res.data.sendData.tempPassword;
+            try {
+                $openDiv = 2;
+                console.log(res);
+                $tempPwd = res.data.sendData.tempPassword;
+            } catch (e) {
+                reportCatch('temp105', e);
+            }
         });
     }
 
@@ -239,7 +251,11 @@
         // console.log(sendData);
 
         ajaxParam(url, sendData, (res) => {
-            initValue();
+            try {
+                initValue();
+            } catch (e) {
+                reportCatch('temp106', e);
+            }
         });
 	}
 
@@ -260,13 +276,17 @@
         }
 
         ajaxParam(url, sendData, (res) => {
-            let filterPhone = phone.substring(0,3) + "-****-" + phone.substring(7,11);
-            initValue(name, filterPhone);
-            userInfoData.update(obj => {
-                obj.knName = name;
-                return obj;
-            });
-            conditionFun();
+            try {
+                let filterPhone = phone.substring(0, 3) + "-****-" + phone.substring(7, 11);
+                initValue(name, filterPhone);
+                userInfoData.update(obj => {
+                    obj.knName = name;
+                    return obj;
+                });
+                conditionFun();
+            } catch (e) {
+                reportCatch('temp107', e);
+            }
         });
     }
 

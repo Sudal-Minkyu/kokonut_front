@@ -2,7 +2,7 @@
 import {onMount} from "svelte";
 import {Swiper} from "swiper/bundle";
 import 'swiper/css/bundle';
-import {ajaxGet} from "../../common/ajax.js";
+import {ajaxGet, reportCatch} from "../../common/ajax.js";
 
 let provisionIndexDto = {};
 
@@ -37,7 +37,11 @@ const getProvidedOfferCount = () => {
     };
 
     ajaxGet('/v2/api/Index/provisionIndexCount', filterCondition, (res) => {
-        provisionIndexDto = res.data.sendData.provisionIndexDto;
+        try {
+            provisionIndexDto = res.data.sendData.provisionIndexDto;
+        } catch (e) {
+            reportCatch('temp138', e);
+        }
     });
 };
 

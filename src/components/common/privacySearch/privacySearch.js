@@ -1,30 +1,34 @@
-import {ajaxBody, ajaxGet} from "../ajax.js";
+import {ajaxBody, ajaxGet, reportCatch} from "../ajax.js";
 import {privacySearchData} from "../../../lib/store.js";
 import {openConfirm} from "../ui/DialogManager.js";
 import {push} from "svelte-spa-router";
 
 export const getColumnList = () => {
     ajaxGet('/v2/api/DynamicUser/searchColumnCall', false, (res2) => {
-        if (res2.data.sendData.fieldList.length) {
-            privacySearchData.update(obj => {
-                obj.columnList = res2.data.sendData.fieldList;
-                console.log('컬럼리스트', obj.columnList);
-                obj.searchConditionList[0].searchCode = obj.columnList[0].fieldCode;
-                obj.searchConditionList[0].currentColumnName = obj.columnList[0].fieldComment;
-                obj.searchConditionList[0].currentTableColumnList = obj.columnList;
-                return obj;
-            });
-        } else {
-            openConfirm({
-                icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                title: "항목이 존재하지 않음", // 제목
-                contents1: '항목이 존재하지 않아 사용할 수 없습니다.',
-                contents2: '관리자에게 해당 사실을 문의해 주세요.',
-                btnCheck: '확인', // 확인 버튼의 텍스트
-                callback: () => {
-                    push('/service');
-                },
-            });
+        try {
+            if (res2.data.sendData.fieldList.length) {
+                privacySearchData.update(obj => {
+                    obj.columnList = res2.data.sendData.fieldList;
+                    console.log('컬럼리스트', obj.columnList);
+                    obj.searchConditionList[0].searchCode = obj.columnList[0].fieldCode;
+                    obj.searchConditionList[0].currentColumnName = obj.columnList[0].fieldComment;
+                    obj.searchConditionList[0].currentTableColumnList = obj.columnList;
+                    return obj;
+                });
+            } else {
+                openConfirm({
+                    icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: "항목이 존재하지 않음", // 제목
+                    contents1: '항목이 존재하지 않아 사용할 수 없습니다.',
+                    contents2: '관리자에게 해당 사실을 문의해 주세요.',
+                    btnCheck: '확인', // 확인 버튼의 텍스트
+                    callback: () => {
+                        push('/service');
+                    },
+                });
+            }
+        } catch (e) {
+            reportCatch('temp014', e);
         }
     });
 };
@@ -104,58 +108,66 @@ export const getUserListByCondition = (page = 1, limitNum = 10, baseColumnList) 
     }
 
     ajaxBody('/v2/api/DynamicUser/privacyUserSearch', searchCondition, (res) => {
-        console.log('검색결과', res);
-        const searchResultList = res.data.sendData.privacyList;
-        privacySearchData.update(obj => {
-            obj.currentPage = page;
-            obj.totalPosts = res.data.sendData.totalCount;
-            console.log(obj.currentPage);
-            obj.rawResultList = searchResultList || [];
-            if (searchResultList.length) {
-                // 결과 페이지의 행에 사용될 값과 값으로 사용될 값을 정제
-                const keyList = Object.keys(obj.rawResultList[0]);
-                const dynamicColumnKeyList = keyList.filter(key => !['kokonut_IDX', 'NO', '회원가입일시', '마지막로그인일시'].includes(key));
-                obj.resultColumnList = [ 'kokonut_IDX',
-                    'NO',
-                    ...dynamicColumnKeyList,
-                    '회원가입일시',
-                    '마지막로그인일시',
-                ];
-                let i = (page -1) * limitNum;
-                obj.resultValueList = obj.rawResultList.map(rawObj => {
-                    return [
-                        rawObj['kokonut_IDX'],
-                        ++i,
-                        ...dynamicColumnKeyList.map(key => rawObj[key]),
-                        rawObj['회원가입일시'],
-                        rawObj['마지막로그인일시'],
+        try {
+            console.log('검색결과', res);
+            const searchResultList = res.data.sendData.privacyList;
+            privacySearchData.update(obj => {
+                obj.currentPage = page;
+                obj.totalPosts = res.data.sendData.totalCount;
+                console.log(obj.currentPage);
+                obj.rawResultList = searchResultList || [];
+                if (searchResultList.length) {
+                    // 결과 페이지의 행에 사용될 값과 값으로 사용될 값을 정제
+                    const keyList = Object.keys(obj.rawResultList[0]);
+                    const dynamicColumnKeyList = keyList.filter(key => !['kokonut_IDX', 'NO', '회원가입일시', '마지막로그인일시'].includes(key));
+                    obj.resultColumnList = ['kokonut_IDX',
+                        'NO',
+                        ...dynamicColumnKeyList,
+                        '회원가입일시',
+                        '마지막로그인일시',
                     ];
-                });
-                privacySearchData.update(obj => {
-                    obj.searchResultState = 1;
-                    return obj;
-                });
-            } else {
-                openConfirm({
-                    icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                    title: '검색결과없음', // 제목
-                    contents1: '찾으시는 개인정보 검색 결과가 없습니다.', // 내용
-                    contents2: '',
-                    btnCheck: '확인', // 확인 버튼의 텍스트
-                });
-                privacySearchData.update(obj => {
-                    obj.searchResultState = -1;
-                    return obj;
-                });
-                document.activeElement.blur();
-            }
-            return obj;
-        });
+                    let i = (page - 1) * limitNum;
+                    obj.resultValueList = obj.rawResultList.map(rawObj => {
+                        return [
+                            rawObj['kokonut_IDX'],
+                            ++i,
+                            ...dynamicColumnKeyList.map(key => rawObj[key]),
+                            rawObj['회원가입일시'],
+                            rawObj['마지막로그인일시'],
+                        ];
+                    });
+                    privacySearchData.update(obj => {
+                        obj.searchResultState = 1;
+                        return obj;
+                    });
+                } else {
+                    openConfirm({
+                        icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: '검색결과없음', // 제목
+                        contents1: '찾으시는 개인정보 검색 결과가 없습니다.', // 내용
+                        contents2: '',
+                        btnCheck: '확인', // 확인 버튼의 텍스트
+                    });
+                    privacySearchData.update(obj => {
+                        obj.searchResultState = -1;
+                        return obj;
+                    });
+                    document.activeElement.blur();
+                }
+                return obj;
+            });
+        } catch (e) {
+            reportCatch('temp108', e);
+        }
     }, (errCode, errMsg) => {
-        privacySearchData.update(obj => {
-            obj.searchResultState = -1;
-            return obj;
-        });
+        try {
+            privacySearchData.update(obj => {
+                obj.searchResultState = -1;
+                return obj;
+            });
+        } catch (e) {
+            reportCatch('temp109', e);
+        }
     });
 }
 
@@ -176,26 +188,30 @@ export const handleEnterSearchText = (e, baseColumnList, limitNum = 10) => {
 export const handleOpenDetail = (kokonut_IDX) => {
     console.log({kokonut_IDX});
     ajaxGet('/v2/api/DynamicUser/privacyUserOpen', {kokonut_IDX}, (res) => {
-        const rawDetail = res.data.sendData.privacyInfo;
-        console.log('상세보기결과', rawDetail);
+        try {
+            const rawDetail = res.data.sendData.privacyInfo;
+            console.log('상세보기결과', rawDetail);
 
-        const refinedDetail = [];
-        if (rawDetail.length) {
-            const detailKeyList = Object.keys(rawDetail[0]).sort();
-            for (const columnKey of detailKeyList) {
-                refinedDetail.push({
-                    columnName: columnKey,
-                    columnValue: rawDetail[0][columnKey],
-                });
+            const refinedDetail = [];
+            if (rawDetail.length) {
+                const detailKeyList = Object.keys(rawDetail[0]).sort();
+                for (const columnKey of detailKeyList) {
+                    refinedDetail.push({
+                        columnName: columnKey,
+                        columnValue: rawDetail[0][columnKey],
+                    });
+                }
             }
-        }
 
-        privacySearchData.update(obj => {
-            obj.currentDetail = refinedDetail;
-            obj.currentState = 'detail';
-            console.log('정제된상세보기', refinedDetail);
-            return obj;
-        });
+            privacySearchData.update(obj => {
+                obj.currentDetail = refinedDetail;
+                obj.currentState = 'detail';
+                console.log('정제된상세보기', refinedDetail);
+                return obj;
+            });
+        } catch (e) {
+            reportCatch('temp110', e);
+        }
     });
 }
 

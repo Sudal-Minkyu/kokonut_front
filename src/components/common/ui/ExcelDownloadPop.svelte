@@ -1,7 +1,7 @@
 <script>
     import {fade} from "svelte/transition";
     import ErrorHighlight from "./ErrorHighlight.svelte";
-    import {ajaxParam, ajaxExcelBodyParam} from "../ajax.js";
+    import {ajaxParam, ajaxExcelBodyParam, reportCatch} from "../ajax.js";
     import {buildExcelFromBase64} from "../buildExcelFromBase64.js";
     import {onlyNumber} from "../../../lib/common.js";
     import {mainScreenBlockerVisibility} from "../../../lib/store.js";
@@ -61,13 +61,21 @@
     }
 
     const excelReqSuccess = (res) => {
-        mainScreenBlockerVisibility.set(false);
-        buildExcelFromBase64(res);
-        excelDownloadPopService.close();
+        try {
+            mainScreenBlockerVisibility.set(false);
+            buildExcelFromBase64(res);
+            excelDownloadPopService.close();
+        } catch (e) {
+            reportCatch('temp016', e);
+        }
     };
 
     const excelReqFail = (errCode, errMsg) => {
-        mainScreenBlockerVisibility.set(false);
+        try {
+            mainScreenBlockerVisibility.set(false);
+        } catch (e) {
+            reportCatch('temp017', e);
+        }
     };
 </script>
 

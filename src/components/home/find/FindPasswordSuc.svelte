@@ -4,7 +4,7 @@
     import { popOpenBtn } from "../../../lib/common.js"
 
     import { push } from 'svelte-spa-router'
-    import {ajaxBody} from "../../common/ajax.js";
+    import {ajaxBody, reportCatch} from "../../common/ajax.js";
 
     let tempPassword = ""
     let knPassword = "";
@@ -42,15 +42,23 @@
             }
 
             ajaxBody(url, sendData, (res) => {
-                popOpenBtn();
-                imgState = 1;
-                popTitle = "비밀번호가 변경되었습니다.";
-                popContents1 = "변경된 정보로 로그인해주시길 바랍니다."
+                try {
+                    popOpenBtn();
+                    imgState = 1;
+                    popTitle = "비밀번호가 변경되었습니다.";
+                    popContents1 = "변경된 정보로 로그인해주시길 바랍니다."
+                } catch (e) {
+                    reportCatch('temp020', e);
+                }
             }, (errCode, errMsg) => {
-                popOpenBtn();
-                imgState = 3;
-                popTitle = errMsg;
-                return {action: 'NONE'};
+                try {
+                    popOpenBtn();
+                    imgState = 3;
+                    popTitle = errMsg;
+                    return {action: 'NONE'};
+                } catch (e) {
+                    reportCatch('temp021', e);
+                }
             });
         }
     }

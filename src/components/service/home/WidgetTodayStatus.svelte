@@ -1,6 +1,6 @@
 <script>
     import {chart} from 'svelte-apexcharts';
-    import {ajaxGet} from "../../common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../common/ajax.js";
     import {onMount} from "svelte";
 
     onMount(() => {
@@ -53,11 +53,15 @@
 
     const getTodayChartData = () => {
         ajaxGet('/v2/api/Index/todayIndexGraph', false, (res) => {
-            const chartData = res.data.sendData;
-            console.log('오늘의 서비스 현황', chartData);
-            options.series[0].data = chartData.apiCallIndexList;
-            options.series[1].data = chartData.encryptionIndexList;
-            options.series[2].data = chartData.decryptionIndexList;
+            try {
+                const chartData = res.data.sendData;
+                console.log('오늘의 서비스 현황', chartData);
+                options.series[0].data = chartData.apiCallIndexList;
+                options.series[1].data = chartData.encryptionIndexList;
+                options.series[2].data = chartData.decryptionIndexList;
+            } catch (e) {
+                reportCatch('temp139', e);
+            }
         });
     };
 </script>

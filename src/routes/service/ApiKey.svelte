@@ -16,7 +16,7 @@
     import ApiKeyExplan from '../../components/service/environment/apikey/ApiKeyExplan.svelte'
     import {logout} from "../../components/common/authActions.js";
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
-    import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
+    import {ajaxGet, ajaxParam, reportCatch} from "../../components/common/ajax.js";
 
     $: isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
 
@@ -126,41 +126,49 @@
         let url = "/v2/api/ApiKey/apiKeyCheck"
 
         ajaxGet(url, false, (res) => {
-            console.log(res);
-            apikeyTrueFalse = res.data.sendData.result;
-            // apikeyTrueFalse = 0;
-            // console.log("apikeyTrueFalse : "+apikeyTrueFalse);
+            try {
+                console.log(res);
+                apikeyTrueFalse = res.data.sendData.result;
+                // apikeyTrueFalse = 0;
+                // console.log("apikeyTrueFalse : "+apikeyTrueFalse);
 
-            popType = 2;
-            if(apikeyTrueFalse === 2) {
-                apiKey = res.data.sendData.apiKey;
-                filterApiKey = res.data.sendData.filterApiKey;
-                accessIpList = res.data.sendData.accessIpList;
-                ipSize = accessIpList.length;
-                if(ipSize === 5) {
-                    addBtn = false;
+                popType = 2;
+                if (apikeyTrueFalse === 2) {
+                    apiKey = res.data.sendData.apiKey;
+                    filterApiKey = res.data.sendData.filterApiKey;
+                    accessIpList = res.data.sendData.accessIpList;
+                    ipSize = accessIpList.length;
+                    if (ipSize === 5) {
+                        addBtn = false;
+                    }
+                    // console.log(accessIpList);
+                    // console.log(apiKey);
+                    // console.log(ipSize);
+
+                    explanState = false;
+                    popTitle = "Key를 재발급받으시겠습니까?";
+                    popContents1 = "재발급 받으실 경우 이전에 받으신";
+                    popContents2 = "API Key의 사용은 불가합니다.";
+                    imgState = 2;
+                } else {
+                    explanState = true;
+                    popTitle = "Key를 발급받으시겠습니까?";
+                    popContents1 = "";
+                    popContents2 = "";
+                    imgState = 4;
                 }
-                // console.log(accessIpList);
-                // console.log(apiKey);
-                // console.log(ipSize);
-
-                explanState = false;
-                popTitle = "Key를 재발급받으시겠습니까?";
-                popContents1 = "재발급 받으실 경우 이전에 받으신";
-                popContents2 = "API Key의 사용은 불가합니다.";
-                imgState = 2;
-            } else {
-                explanState = true;
-                popTitle = "Key를 발급받으시겠습니까?";
-                popContents1 = "";
-                popContents2 = "";
-                imgState = 4;
+            } catch (e) {
+                reportCatch('temp043', e);
             }
         }, (errCode, errMsg) => {
-            // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-            alert(errMsg);
-            logout();
-            return {action: 'NONE'};
+            try {
+                // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+                alert(errMsg);
+                logout();
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp044', e);
+            }
         });
     }
 
@@ -170,7 +178,11 @@
         let url = "/v2/api/ApiKey/apiKeyIssue"
 
         ajaxParam(url, {}, (res) => {
-            apiKeyInfo();
+            try {
+                apiKeyInfo();
+            } catch (e) {
+                reportCatch('temp045', e);
+            }
         });
     }
 

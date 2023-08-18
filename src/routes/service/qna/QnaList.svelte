@@ -11,7 +11,7 @@
     import QnaTable from "../../../components/service/environment/qna/QnaTable.svelte"
     import Paging from "../../../components/common/Paging.svelte"
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
-    import {ajaxGet} from "../../../components/common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
 
     // 나의정보 가져오기
     onMount(() => {
@@ -36,14 +36,22 @@
 
         let url = "/v2/api/Qna/qnaList";
         ajaxGet(url, false, (res) => {
-            qna_list = res.data.datalist
-            total = res.data.total_rows
-            qnaLayout = 1;
+            try {
+                qna_list = res.data.datalist
+                total = res.data.total_rows
+                qnaLayout = 1;
+            } catch (e) {
+                reportCatch('temp098', e);
+            }
         }, (errCode) => {
-            qna_list = [];
-            total = 0;
-            qnaLayout = 1;
-            return {action: 'NONE'};
+            try {
+                qna_list = [];
+                total = 0;
+                qnaLayout = 1;
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp099', e);
+            }
         });
     }
 

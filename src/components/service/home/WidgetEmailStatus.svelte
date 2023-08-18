@@ -1,7 +1,7 @@
 <script>
     import {link} from "svelte-spa-router";
     import {onMount} from "svelte";
-    import {ajaxGet} from "../../common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../common/ajax.js";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
 
     onMount(() => {
@@ -15,8 +15,12 @@
 
     const getEmailCount = (dateType) => {
         ajaxGet('/v2/api/Index/emailSendCount', {dateType}, (res) => {
-            emailSendCountDto = res.data.sendData.emailSendCountDto;
-            console.log('이메일 발송', emailSendCountDto);
+            try {
+                emailSendCountDto = res.data.sendData.emailSendCountDto;
+                console.log('이메일 발송', emailSendCountDto);
+            } catch (e) {
+                reportCatch('temp134', e);
+            }
         });
     }
 

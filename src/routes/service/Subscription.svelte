@@ -8,7 +8,7 @@
     import UnsubscribePop from "../../components/service/environment/subscription/UnsubscribePop.svelte";
     import Pagination from "../../components/common/ui/Pagination.svelte";
     import {openAsk} from "../../components/common/ui/DialogManager.js";
-    import {ajaxGet, ajaxParam} from "../../components/common/ajax.js";
+    import {ajaxGet, ajaxParam, reportCatch} from "../../components/common/ajax.js";
     import {link} from "svelte-spa-router";
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
     import {onlyNumber} from "../../lib/common.js";
@@ -30,30 +30,42 @@
 
     const getCompanyPaymentInfo = () => {
         ajaxGet('/v2/api/Company/companyPaymentInfo', false, (res) => {
-            subscriptionManagementData.update(obj => {
-                obj.companyPaymentInfo = res.data.sendData.paymentInfo;
-                return obj;
-            });
+            try {
+                subscriptionManagementData.update(obj => {
+                    obj.companyPaymentInfo = res.data.sendData.paymentInfo;
+                    return obj;
+                });
+            } catch (e) {
+                reportCatch('temp001', e);
+            }
         });
     }
     
     const getPaymentList = () => {
         gotPaymentState = 0;
         ajaxGet('/v2/api/Company/paymentList', false, (res) => {
-            gotPaymentState = 1;
-            subscriptionManagementData.update(obj => {
-                obj.paymentList.dataList = res.data.datalist;
-                obj.paymentList.total_rows = res.data.total_rows;
-                return obj;
-            });
+            try {
+                gotPaymentState = 1;
+                subscriptionManagementData.update(obj => {
+                    obj.paymentList.dataList = res.data.datalist;
+                    obj.paymentList.total_rows = res.data.total_rows;
+                    return obj;
+                });
+            } catch (e) {
+                reportCatch('temp002', e);
+            }
         }, (errCode, errMsg) => {
-            subscriptionManagementData.update(obj => {
-                obj.paymentList.dataList = [];
-                obj.paymentList.total_rows = 0;
-                return obj;
-            });
-            gotPaymentState = 1;
-            return {action:'NONE'}
+            try {
+                subscriptionManagementData.update(obj => {
+                    obj.paymentList.dataList = [];
+                    obj.paymentList.total_rows = 0;
+                    return obj;
+                });
+                gotPaymentState = 1;
+                return {action: 'NONE'}
+            } catch (e) {
+                reportCatch('temp003', e);
+            }
         });
     }
 
@@ -171,17 +183,25 @@
             mainScreenBlockerVisibility.set(true);
 
             ajaxParam('/v2/api/Payment/billingDelete', suspendSubscriptionPopService.requestData, (res) => {
-                mainScreenBlockerVisibility.set(false);
-                openConfirm({
-                    icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                    title: "구독 해지를 완료하였습니다.", // 제목
-                    contents1: '그동안 이용해 주셔서 감사합니다.',
-                    contents2: '로그인 페이지로 이동합니다.',
-                    btnCheck: '확인', // 확인 버튼의 텍스트
-                    callback: logout,
-                });
+                try {
+                    mainScreenBlockerVisibility.set(false);
+                    openConfirm({
+                        icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: "구독 해지를 완료하였습니다.", // 제목
+                        contents1: '그동안 이용해 주셔서 감사합니다.',
+                        contents2: '로그인 페이지로 이동합니다.',
+                        btnCheck: '확인', // 확인 버튼의 텍스트
+                        callback: logout,
+                    });
+                } catch (e) {
+                    reportCatch('temp004', e);
+                }
             }, (errCode, errMsg) => {
-                mainScreenBlockerVisibility.set(false);
+                try {
+                    mainScreenBlockerVisibility.set(false);
+                } catch (e) {
+                    reportCatch('temp005', e);
+                }
             });
         },
     }

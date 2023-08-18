@@ -99,8 +99,15 @@ export const ajaxParamArray = (url, sendData = {}, handleSuccess = () => {}, han
         data: params,
         contentType: 'application/x-www-form-urlencoded',
     });
-
 };
+
+export const reportCatch = (name, e) => {
+    if (e && e.stack) {
+        errorReport('try/catch : ' + name, e.stack);
+    } else {
+        errorReport('try/catch : ' + name, e.message);
+    }
+}
 
 // RestAPI 호출 함수 from. Woody, mod. Joffrey
 // 호출 주소 앞단은 크게 v0, v1, v2 세 종류로 나뉘며 v0은 인증없이 접근할 수 있다.
@@ -185,7 +192,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
                 handleFail({}); // 분석하여 조치 필요
             }
         } catch (e) {
-            console.log('에러 발생', e);
+            reportCatch('temp006', e);
         }
     });
 };

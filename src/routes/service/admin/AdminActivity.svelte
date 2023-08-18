@@ -10,7 +10,7 @@
     import { onMount } from "svelte";
     import {fade} from "svelte/transition"
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
-    import {ajaxGet} from "../../../components/common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
     import {debounce200} from "../../../components/common/eventRateControls.js";
     import {stimeVal} from "../../../components/common/action/DatePicker.js";
     import ExcelDownloadPop from "../../../components/common/ui/ExcelDownloadPop.svelte";
@@ -48,20 +48,28 @@
 
         let url = "/v2/api/History/activityList";
         ajaxGet(url, searchCondition, (res) => {
-            excelDownloadPopService.requestData = {
-                searchText: searchCondition.searchText,
-                stime: searchCondition.stime,
-                actvityType: searchCondition.actvityType,
-            };
-            console.log("조회된 데이터가 있습니다.");
-            activity_list = res.data.datalist
-            total = res.data.total_rows
-            adminActivityLayout = 1;
+            try {
+                excelDownloadPopService.requestData = {
+                    searchText: searchCondition.searchText,
+                    stime: searchCondition.stime,
+                    actvityType: searchCondition.actvityType,
+                };
+                console.log("조회된 데이터가 있습니다.");
+                activity_list = res.data.datalist
+                total = res.data.total_rows
+                adminActivityLayout = 1;
+            } catch (e) {
+                reportCatch('temp063', e);
+            }
         }, (errCode) => {
-            activity_list = [];
-            total = 0;
-            adminActivityLayout = 1;
-            return {action: 'NONE'};
+            try {
+                activity_list = [];
+                total = 0;
+                adminActivityLayout = 1;
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp064', e);
+            }
         });
     });
 

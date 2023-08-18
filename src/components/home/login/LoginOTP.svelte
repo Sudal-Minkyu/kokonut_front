@@ -2,7 +2,7 @@
     import { onlyNumber } from '../../../lib/common'
 	import { onMount } from 'svelte'
     import GoogleOTP from '../../common/certification/GoogleOTP.svelte'
-    import {ajaxGet} from "../../common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../common/ajax.js";
 
 	let otpInput;
     
@@ -41,12 +41,20 @@
 		}
 
         ajaxGet(url, sendData, (res) => {
-            src = res.data.sendData.url;
-            knOtpKey = res.data.sendData.otpKey;
+            try {
+                src = res.data.sendData.url;
+                knOtpKey = res.data.sendData.otpKey;
+            } catch (e) {
+                reportCatch('temp028', e);
+            }
         }, (errCode, errMsg) => {
-            notJoinUser();
-            alert(errMsg);
-            return {action: 'NONE'};
+            try {
+                notJoinUser();
+                alert(errMsg);
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp029', e);
+            }
         });
     }
 

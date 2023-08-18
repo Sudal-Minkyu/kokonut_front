@@ -1,5 +1,5 @@
 <script>
-    import {ajaxGet} from "../../common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../common/ajax.js";
     import {onMount} from "svelte";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
     import {link} from "svelte-spa-router";
@@ -23,8 +23,12 @@
         };
 
         ajaxGet('/v2/api/Index/provisionIndexCount', filterCondition, (res) => {
-            provisionIndexDto = res.data.sendData.provisionIndexDto;
-            console.log('개인정보 제공 건', provisionIndexDto);
+            try {
+                provisionIndexDto = res.data.sendData.provisionIndexDto;
+                console.log('개인정보 제공 건', provisionIndexDto);
+            } catch (e) {
+                reportCatch('temp137', e);
+            }
         });
     };
 

@@ -4,7 +4,7 @@
     import CustumAlert from '../../common/CustumAlert.svelte'
     import { push } from 'svelte-spa-router'
     import { popOpenBtn } from "../../../lib/common.js";
-    import {ajaxBody} from "../../common/ajax.js";
+    import {ajaxBody, reportCatch} from "../../common/ajax.js";
 
     // 패스워드 조건 변수
     let passwordBlank = true;
@@ -136,13 +136,21 @@
 			}
 
             ajaxBody(url, sendData, (res) => {
-                link = "/login"
-                customAlertData(1, 1, "비밀번호 변경을 완료했습니다.", "로그인후 이용해주시길 바랍니다.", "", "확인", "", "", linkMove);
-                popOpenBtn();
+                try {
+                    link = "/login"
+                    customAlertData(1, 1, "비밀번호 변경을 완료했습니다.", "로그인후 이용해주시길 바랍니다.", "", "확인", "", "", linkMove);
+                    popOpenBtn();
+                } catch (e) {
+                    reportCatch('temp030', e);
+                }
             }, (errCode, errMsg) => {
-                customAlertData(1, 3, "에러발생", "알 수 없는 에러가 발생했습니다.", "코코넛으로 문의해주시길 바랍니다.", "확인", "", "", linkMove);
-                popOpenBtn();
-                return {action: 'NONE'};
+                try {
+                    customAlertData(1, 3, "에러발생", "알 수 없는 에러가 발생했습니다.", "코코넛으로 문의해주시길 바랍니다.", "확인", "", "", linkMove);
+                    popOpenBtn();
+                    return {action: 'NONE'};
+                } catch (e) {
+                    reportCatch('temp031', e);
+                }
             });
         }
     }

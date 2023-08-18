@@ -6,7 +6,7 @@
     import {Swiper} from "swiper/bundle";
     import 'swiper/css/bundle';
     import {onMount} from "svelte";
-    import {ajaxMultipart} from "../../components/common/ajax.js";
+    import {ajaxMultipart, reportCatch} from "../../components/common/ajax.js";
 
     onMount(() => {
         const galleryThumbs = new Swiper('.gallery-thumbs', {
@@ -44,7 +44,11 @@
         formData.set('2_3', '추가테이블문자열');
 
         ajaxMultipart('/v1/abcdef', formData, (success_response) => {
-            console.log('성공신호다', success_response);
+            try {
+                console.log('성공신호다', success_response);
+            } catch (e) {
+                reportCatch('temp046', e);
+            }
         });
 
         console.log('전송시도한 데이터', Object.fromEntries(formData))

@@ -7,7 +7,7 @@
     import Pagination from "../../common/ui/Pagination.svelte";
     import LoadingOverlay from "../../common/ui/LoadingOverlay.svelte";
     import {fade} from "svelte/transition";
-    import {ajaxGet} from "../../common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../common/ajax.js";
     import {onMount} from "svelte";
 
     onMount(() => {
@@ -29,7 +29,11 @@
     let csEmailCodeSetting = '';
     const getCsEmailCodeSetting = () => {
         ajaxGet('/v2/api/CompanySetting/settingInfo', false, (res) => {
-            csEmailCodeSetting = res.data.sendData.settingInfo.csEmailCodeSetting;
+            try {
+                csEmailCodeSetting = res.data.sendData.settingInfo.csEmailCodeSetting;
+            } catch (e) {
+                reportCatch('temp120', e);
+            }
         });
     }
 

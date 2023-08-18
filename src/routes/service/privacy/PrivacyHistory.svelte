@@ -6,7 +6,7 @@
     import PrivacyHistorySearch from "../../../components/service/privacy/PrivacyHistorySearch.svelte";
     import Paging from "../../../components/common/Paging.svelte";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
-    import {ajaxGet} from "../../../components/common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
     import {debounce200} from "../../../components/common/eventRateControls.js";
     import ExcelDownloadPop from "../../../components/common/ui/ExcelDownloadPop.svelte";
 
@@ -38,23 +38,31 @@
 
         console.log('조회데이터', searchCondition);
         ajaxGet(url, searchCondition, (res) => {
-            // 엑셀 다운로드를 위한 조회했던 정보의 기억
-            excelDownloadPopService.requestData = {
-                searchText: searchCondition.searchText,
-                stime: searchCondition.stime,
-                filterRole: searchCondition.filterRole,
-                filterState: searchCondition.filterState,
-            };
-            console.log("조회된 데이터가 있습니다.");
-            privacy_history_list = res.data.datalist;
-            total = res.data.total_rows;
-            privacyHistoryLayout = 1;
+            try {
+                // 엑셀 다운로드를 위한 조회했던 정보의 기억
+                excelDownloadPopService.requestData = {
+                    searchText: searchCondition.searchText,
+                    stime: searchCondition.stime,
+                    filterRole: searchCondition.filterRole,
+                    filterState: searchCondition.filterState,
+                };
+                console.log("조회된 데이터가 있습니다.");
+                privacy_history_list = res.data.datalist;
+                total = res.data.total_rows;
+                privacyHistoryLayout = 1;
+            } catch (e) {
+                reportCatch('temp087', e);
+            }
         }, (errCode) => {
-            privacy_history_list = [];
-            total = 0;
-            console.log("조회된 데이터가 없습니다.");
-            privacyHistoryLayout = 1;
-            return {action: 'NONE'};
+            try {
+                privacy_history_list = [];
+                total = 0;
+                console.log("조회된 데이터가 없습니다.");
+                privacyHistoryLayout = 1;
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp088', e);
+            }
         });
     });
 

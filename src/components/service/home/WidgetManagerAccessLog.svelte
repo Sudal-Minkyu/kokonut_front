@@ -1,6 +1,6 @@
 <script>
     import {onMount} from "svelte";
-    import {ajaxGet} from "../../common/ajax.js";
+    import {ajaxGet, reportCatch} from "../../common/ajax.js";
     import {link} from "svelte-spa-router";
 
     let adminConnectInfo = {
@@ -14,8 +14,12 @@
 
     const getManagerAccessLog = () => {
         ajaxGet('/v2/api/Index/adminConnectInfo', false, (res) => {
-            adminConnectInfo = res.data.sendData;
-            console.log('관리자 활동 이력', adminConnectInfo);
+            try {
+                adminConnectInfo = res.data.sendData;
+                console.log('관리자 활동 이력', adminConnectInfo);
+            } catch (e) {
+                reportCatch('temp135', e);
+            }
         });
     };
 </script>

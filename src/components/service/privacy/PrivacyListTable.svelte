@@ -1,7 +1,7 @@
 
 <script>
     import {privacyDetailData} from "../../../lib/store"
-    import {ajaxParam} from "../../common/ajax.js";
+    import {ajaxParam, reportCatch} from "../../common/ajax.js";
     import {buildExcelFromBase64} from "../../common/buildExcelFromBase64.js";
 
     export let page;
@@ -26,7 +26,11 @@
         }
 
         ajaxParam('/v2/api/Provision/provisionDownloadExcel', sendData, (res) => {
-            buildExcelFromBase64(res);
+            try {
+                buildExcelFromBase64(res);
+            } catch (e) {
+                reportCatch('temp141', e);
+            }
         });
     }
 
