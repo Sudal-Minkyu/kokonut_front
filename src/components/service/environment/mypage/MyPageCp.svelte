@@ -2,9 +2,9 @@
 <script>
     import { fade } from 'svelte/transition'
     import { callCapsLock } from '../../../../lib/common'
-    import {cpNameSider, is_login, accessToken} from "../../../../lib/store.js"
-    import restapi from "../../../../lib/api.js";
-    import {push} from "svelte-spa-router";
+    import {userInfoData} from "../../../../lib/store.js"
+    import {logout} from "../../../common/authActions.js";
+    import {ajaxParam, reportCatch} from "../../../common/ajax.js";
 
     let cpName = "";
     let knPassword = "";
@@ -39,27 +39,32 @@
             state : 1
         }
 
-        restapi('v2', 'post', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    contentsChange(1, cpName);
-                    cpNameSider.set(cpName);
-                    changeStatePop(0);
-                } else if (json_success.data.err_code === "KO013") {
+        ajaxParam(url, sendData, (res) => {
+            try {
+                contentsChange(1, cpName);
+                userInfoData.update(obj => {
+                    obj.cpName = cpName;
+                    return obj;
+                });
+                changeStatePop(0);
+            } catch (e) {
+                reportCatch('temp125', e);
+            }
+        }, (errCode, errMsg) => {
+            try {
+                if (errCode === "KO013") {
                     pwdNot = true;
                     knPassword = "";
                 } else {
                     // 회사가 존재하지 않을 시 로그인페이지로 이동시킴
-                    alert(json_success.data.err_msg);
-                    is_login.set(false);
-                    accessToken.set("");
-                    push('/login');
+                    alert(errMsg);
+                    logout();
                 }
-            },
-            (json_error) => {
-                console.log(json_error);
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp126', e);
             }
-        )
+        });
     }
 
     let cpNameBlank = false;

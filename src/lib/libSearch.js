@@ -27,8 +27,9 @@ let localeKr = {
  * @param id daterangepicker가 적용될 input 태그 id 입력
  * @param use_range 조회 기간 선택 버튼 사용 여부, [ true | false ]
  * @param periodName 조회 기간 선택 버튼(rangeRadio) name, 또는 '' 입력
+ * @param callback
  */
-export const setDateRangePicker = (id, use_range, periodName) => {
+export const setDateRangePicker = (id, use_range, periodName, callback = () => {}) => {
 	// 인풋태그 아이디
 	const dtIptId = '#'+id;
 
@@ -53,15 +54,15 @@ export const setDateRangePicker = (id, use_range, periodName) => {
 		if(periodDays == null || periodDays == undefined || periodDays == ''){
 			console.log("기본으로 선택된 조회 기간이 없습니다. /n 첫번째 조회기간만큼 조회합니다. (" + periodTags.eq(0).attr('value')+") 일");
 			// 첫번째 조회 기간 버튼의 기간만큼 조회한다.
-			setOptDateRangePicker(dtIptId, periodTags.eq(0).attr('value'), periodTags);
+			setOptDateRangePicker(dtIptId, periodTags.eq(0).attr('value'), periodTags, callback);
 			
 		}else{
 			console.log("기본으로 선택된 조회 기간은 " + periodDays + "일 입니다.");
-			setOptDateRangePicker(dtIptId, periodDays, periodTags);
+			setOptDateRangePicker(dtIptId, periodDays, periodTags, callback);
 		}
 		
 		periodTags.on("click", function(){
-			setOptDateRangePicker(dtIptId, this.value, periodTags);
+			setOptDateRangePicker(dtIptId, this.value, periodTags, callback);
 		});
 	}
 	// return jQuery(dtIptId).val();
@@ -73,8 +74,9 @@ export const setDateRangePicker = (id, use_range, periodName) => {
  * @param id daterangepicker가 적용될 input 태그 Id
  * @param periodDays 기간선택일자 [ negative | 0 | positive]
  * @param periodTags 선택 라디오 박스 객체
+ * @param callback
  */
-const setOptDateRangePicker = (id, periodDays, periodTags) => {
+const setOptDateRangePicker = (id, periodDays, periodTags, callback = () => {}) => {
 
 	if(periodDays === "t"){
 		// negative -  all_days
@@ -166,7 +168,12 @@ const setOptDateRangePicker = (id, periodDays, periodTags) => {
 			}else{
 				periodTags.eq(i).prop('checked', false);
 			}
-		}		
+		}
+
+		callback({
+			start: stimeVal.substring(0, 10),
+			end: stimeVal.substring(13, 23),
+		});
 	});  
 
 	// 캘린더 '취소' 선택 시 클리어

@@ -1,0 +1,24 @@
+.note-editable {
+    box-sizing: content-box;
+    outline: initial;
+    font-size: 20px;
+    border: initial;
+}
+
+.note-placeholder {
+    font-size: 20px;
+}
+.note-dropdown-menu {
+    box-sizing: content-box;
+}
+
+.note-modal-content {
+    margin: 100px auto 100px auto;
+    box-sizing: content-box;
+}
+
+@media (min-width: 768px) {
+    .note-modal-content {
+        margin: 100px auto 100px auto;
+    }
+}

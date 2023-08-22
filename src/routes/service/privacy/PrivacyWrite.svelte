@@ -4,7 +4,13 @@
 
     import { link } from 'svelte-spa-router'
 
-    import {backBtn, is_login, accessToken} from '../../../lib/store.js'
+    import {
+        backBtn,
+        is_login,
+        accessToken,
+        providePrivacyWriteData,
+        initialProvidePrivacyWrite
+    } from '../../../lib/store.js'
 
     import PrivacyWriteStep1 from "../../../components/service/privacy/PrivacyWriteStep1.svelte";
     import PrivacyWriteStep2 from "../../../components/service/privacy/PrivacyWriteStep2.svelte";
@@ -12,16 +18,34 @@
     import PrivacyWriteStep4 from "../../../components/service/privacy/PrivacyWriteStep4.svelte";
     import PrivacyWriteStep5 from "../../../components/service/privacy/PrivacyWriteStep5.svelte";
     import {onMount} from "svelte";
+    import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     onMount(async () => {
         setTimeout(() => priavacyStage = 1, 500);
-    })
+        providePrivacyWriteData.set(JSON.parse(initialProvidePrivacyWrite));
+        getColumnList();
+    });
 
     function stateChange(val) {
         priavacyStage = val;
     }
 
     let priavacyStage = 0;
+
+
+    const getColumnList = () => {
+        ajaxGet('/v2/api/DynamicUser/tableColumnCall', false, (json_success) => {
+            try {
+                providePrivacyWriteData.update(obj => {
+                    obj.step4.columnList = json_success.data.sendData.fieldList.filter(item => item.fieldName !== 'PASSWORD');
+                    return obj;
+                });
+            } catch (e) {
+                reportCatch('temp093', e);
+            }
+        });
+    }
 
 </script>
 
@@ -36,22 +60,19 @@
                 </dl>
             </div>
 
-            {#if priavacyStage === 0}
-                <div class="loaderParent" style="top: 40%;left: 55%">
-                    <div class="loader"></div>
-                </div>
-            {:else if priavacyStage === 1}
+            <LoadingOverlay bind:loadState={priavacyStage} top={40} left={55} >
+                {#if priavacyStage === 1}
                 <PrivacyWriteStep1 {stateChange} />
-            {:else if priavacyStage === 2}
+                {:else if priavacyStage === 2}
                 <PrivacyWriteStep2 {stateChange} />
-            {:else if priavacyStage === 3}
+                {:else if priavacyStage === 3}
                 <PrivacyWriteStep3 {stateChange} />
-            {:else if priavacyStage === 4}
+                {:else if priavacyStage === 4}
                 <PrivacyWriteStep4 {stateChange} />
-            {:else if priavacyStage === 5}
+                {:else if priavacyStage === 5}
                 <PrivacyWriteStep5 {stateChange} />
-            {/if}
-
+                {/if}
+            </LoadingOverlay>
         </div>
 
 

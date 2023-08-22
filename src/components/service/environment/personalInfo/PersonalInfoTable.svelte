@@ -1,44 +1,26 @@
 <script>
-    import {personalInfoTableData} from "../../../../lib/store.js";
-    export let personalInfoItemProp;
+    import {personalInfoTableData, userInfoData} from "../../../../lib/store.js";
+    import 'swiper/css/bundle';
     export let personalInfoTableService;
+
+    $: isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
 </script>
 
-<div class="prPart2_box" >
-
-
+<div class="prPart2_box" style="width: 41%;">
     <div class="prptitle marB24">
-        <h2>개인정보 항목
-            <button class="addtabBtn" id="add_tab_pop"  on:click={personalInfoTableService.addTabPop.show}>
-                <img src="/assets/images/common/tab_add_button_ver2.png" alt="탭추가">
-            </button>
-        </h2>
+        <h2>개인정보 항목</h2>
     </div>
 
-    <div class="bo_tabBox" style="overflow: scroll">
-        <div class="tabWrap">
-            {#each $personalInfoTableData.userTableData as table, i}
-                <div class="bo_tab {!i ? 'on_bo' : ''}" on:click={() => personalInfoItemProp.userTableClick(table.ctName)}>
-                    {table.ctDesignation}
-                </div>
-            {/each}
-        </div>
-    </div>
-
-    <div class="boaTabBox">
+    <div class="boaTabBox" style="padding-top: 0.2rem;">
         <div class="bo_tabContentBox">
-            <div class="prtable" style="height: 38em;">
+            <div class="prtable" style="max-height: 41.5rem">
                 <table>
-                    <colgroup>
-                        <col style="width:8.21%;">
-                        <col style="width:11.00%;">
-                        <col style="width:20.66%;">
-                        <col style="width:60.14%;">
-                    </colgroup>
                     <thead>
                     <tr>
                         <th>No</th>
-                        <th>선택</th>
+                        {#if isModifiable}
+                            <th>선택</th>
+                        {/if}
                         <th>고유번호</th>
                         <th>항목</th>
                     </tr>
@@ -47,9 +29,9 @@
                     {#each $personalInfoTableData.columnList as column, i}
                         <tr>
                             <td>{i+1}</td>
-                            {#if column.fieldName === "ID" || column.fieldName === "PASSWORD" }
+                            {#if ['1_id', '1_pw'].includes(column.fieldCode) && isModifiable}
                                 <td></td>
-                            {:else}
+                            {:else if (isModifiable)}
                                 <td>
                                     <div class="koko_check">
                                         <input type="checkbox" bind:group={$personalInfoTableData.checkedColumnNameList} on:change={personalInfoTableService.handleColumnChecked} value="{column.fieldName}" id="ip{i}" class="partcheck">
@@ -64,12 +46,16 @@
                                 <td>
                                     <div class="lockicon"></div>
                                     {column.fieldComment}
-                                    <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
+                                    {#if column.fieldCategory}
+                                        <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
+                                    {/if}
                                 </td>
                             {:else}
                                 <td>
                                     {column.fieldComment}
-                                    <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
+                                    {#if column.fieldCategory}
+                                        <span class="subElement {column.fieldColor}">{column.fieldCategory}</span>
+                                    {/if}
                                 </td>
                             {/if}
                             <!--{#if column.fieldName === "ID" || column.fieldName === "PASSWORD" }-->
@@ -94,9 +80,11 @@
         </div>
     </div>
 
-    <div class="prDelBtn marT20" style="visibility: {$personalInfoTableData.columnList.length ? 'visible' : 'hidden'};">
-        <button id="delete_pr_pop" on:click={personalInfoTableService.removeColumnPop.show}>삭제</button>
-    </div>
+    {#if isModifiable}
+        <div class="prDelBtn marT20" style="visibility: {$personalInfoTableData.columnList.length ? 'visible' : 'hidden'};">
+            <button id="delete_pr_pop" on:click={personalInfoTableService.removeColumnPop.show}>삭제</button>
+        </div>
+    {/if}
     <div class="prbott">
         <ul>
             <li>항목의 추가, 수정, 삭제 시 데이터 양에 따라 최대 3일까지 소요될 수 있습니다.</li>

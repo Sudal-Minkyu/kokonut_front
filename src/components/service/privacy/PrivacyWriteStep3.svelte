@@ -4,6 +4,7 @@
     import {providePrivacyWriteData} from "../../../lib/store.js";
     import {onMount} from "svelte";
     import {setCustomSelectBox, setDateRangePicker, setOptionItem} from "../../../lib/libSearch.js";
+    import {openConfirm} from "../../common/ui/DialogManager.js";
 
     export let stateChange;
 
@@ -14,6 +15,37 @@
     const fatchSearchModule = () => {
         setDateRangePicker('stime', true, 'period');
         setCustomSelectBox();
+    }
+
+    const handleNext = () => {
+        const stime = document.getElementById('stime').value;
+
+        const confirmProps = {
+            icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+            title: '', // 제목
+            contents1: '', // 내용
+            contents2: '',
+            btnCheck: '확인', // 확인 버튼의 텍스트
+        };
+        console.log(stime.length)
+        if (stime.length !== 23) {
+            confirmProps.title = '제공 기간 선택';
+            confirmProps.contents1 = '제공하실 기간을 선택해 주세요.';
+        } else if ($providePrivacyWriteData.step3.proDownloadYn === '') {
+            confirmProps.title = '다운로드 여부 선택';
+            confirmProps.contents1 = '다운로드 가능 여부를 선택해 주세요.';
+        }
+        if (confirmProps.title) {
+            openConfirm(confirmProps);
+            return;
+        }
+
+        providePrivacyWriteData.update(obj => {
+            obj.step3.proStartDate = stime.substring(0, 10);
+            obj.step3.proExpDate = stime.substring(13, 23);
+            return obj;
+        });
+        stateChange(4);
     }
 </script>
 
@@ -61,21 +93,21 @@
                     </div>
                 </div>
             </div>
-            <div class="">
-                <label class="steplabel">다운로드가 가능하게 할까요?</label>
-                <div class="step_radioBox">
-                    <div class="step_radio">
-                        <input type="radio" class="stradio" name="porim" id="radioAllow" value="allow"
-                               bind:group={$providePrivacyWriteData.step3.isDownloadAvailable} />
-                        <label for="radioAllow"><em><dt></dt></em>가능</label>
-                    </div>
-                    <div class="step_radio">
-                        <input type="radio" class="stradio" name="porim" id="radioDeny" value="deny"
-                               bind:group={$providePrivacyWriteData.step3.isDownloadAvailable} />
-                        <label for="radioDeny"><em><dt></dt></em>불가능</label>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="">-->
+<!--                <label class="steplabel">다운로드가 가능하게 할까요?</label>-->
+<!--                <div class="step_radioBox">-->
+<!--                    <div class="step_radio">-->
+<!--                        <input type="radio" class="stradio" name="porim" id="radioAllow" value={1}-->
+<!--                               bind:group={$providePrivacyWriteData.step3.proDownloadYn} />-->
+<!--                        <label for="radioAllow"><em><dt></dt></em>가능</label>-->
+<!--                    </div>-->
+<!--                    <div class="step_radio">-->
+<!--                        <input type="radio" class="stradio" name="porim" id="radioDeny" value={0}-->
+<!--                               bind:group={$providePrivacyWriteData.step3.proDownloadYn} />-->
+<!--                        <label for="radioDeny"><em><dt></dt></em>불가능</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 </div>
@@ -93,7 +125,7 @@
                 <div class="pris_num">
                     <dl style="padding: 3px"><span>3</span> / 5</dl>
                 </div>
-                <button on:click={() => stateChange(4)} class="pri_nextBtn">다음</button>
+                <button on:click={handleNext} class="pri_nextBtn">다음</button>
             </div>
         </div>
     </div>

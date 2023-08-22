@@ -1,4 +1,4 @@
-import { is_login, accessToken } from "./store.js"
+import { is_login, accessToken, keyBufferSto, ivSto } from "./store.js"
 
 import { get } from 'svelte/store'
 import { push } from 'svelte-spa-router'
@@ -35,6 +35,9 @@ const restapi = (type, operation, url, dataType, sendData, content_type, success
         headers["Authorization"] = get(accessToken);
     } else if(type === 'v3') {
         headers["ApiKey"] = "ff5873bbf9faa2218b369a577ea9e452";
+    } else if(type === 'login') {
+        headers["keyBufferSto"] = get(keyBufferSto);
+        headers["ivSto"] = get(ivSto);
     }
 
     // type이 'v0' 일 경우 -> JWT토큰 불필요

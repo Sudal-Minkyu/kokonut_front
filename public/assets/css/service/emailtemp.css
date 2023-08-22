@@ -1,0 +1,61 @@
+.emotpbox{display:inline-block;overflow:hidden;width:600px;height:auto;position:relative;}
+
+.emotphead{width:100%;margin-bottom:40px;display:block;}
+.emotphead img{max-width:100%;}
+
+.emottitle{display:block;}
+.emottitle strong{display:block;text-align:left;margin-bottom:24px;color: var(--gray-60, #222);font-family: Pretendard, sans-serif;font-size: 30px;font-style: normal;font-weight: 700;line-height: 40px;}
+.emottitle dl{display:block;text-align:left;color: var(--gray-40, #666);font-family: Pretendard, sans-serif;font-size: 18px;font-style: normal;font-weight: 500;line-height: 28px; }
+
+.emot_table {margin-top:60px;width: 100%;position: relative;}
+.emot_table table {width: 100%;position: relative;}
+.emot_table table thead {position: relative;}
+.emot_table table thead:before {content: '';position: absolute;left: 0;top: 0;width: 100%;height: 1px;background: #E4E7EB;z-index: 10;}
+.emot_table table thead tr {background: #fff;position: relative;}
+.emot_table table thead tr th {word-break: break-word;vertical-align: top;font-family: Pretendard, sans-serif;font-size: 16px;font-weight: 600;line-height: 24px;letter-spacing: 0;text-align: left;color: var(--gray-50, #444);padding: 12px 10px;}
+.emot_table table thead tr:after {content: '';position: absolute;left: 0;bottom: 0;width: 100%;height: 1px;background: #E4E7EB;z-index: 10;}
+.emot_table table tbody{position: relative;}
+.emot_table table tbody:before {content: '';position: absolute;left: 0;bottom: 0;width: 100%;height: 1px;background: #E4E7EB;z-index: 10;}
+.emot_table table tbody tr {word-break: break-word;background: #fff;position: relative;}
+.emot_table table tbody tr td {word-break: break-word;padding: 12px 10px;vertical-align: top;position: relative;font-family: Pretendard, sans-serif;font-size: 16px;font-weight: 400;line-height: 24px;letter-spacing: 0;text-align: left;color: var(--gray-50, #444);}
+
+.emot_table_type2 {margin-top:60px;width: 100%;position: relative;}
+.emot_table_type2 table {width: 100%;position: relative;}
+.emot_table_type2 table tbody{position: relative;}
+.emot_table_type2 table tbody:before {content: '';position: absolute;left: 0;top: 0;width: 100%;height: 1px;background: #E4E7EB;z-index: 10;}
+.emot_table_type2 table tbody:after {content: '';position: absolute;left: 0;bottom: 0;width: 100%;height: 1px;background: #E4E7EB;z-index: 10;}
+.emot_table_type2 table tbody tr {background: #fff;position: relative;}
+.emot_table_type2 table tbody tr td:nth-child(1) {word-break: break-word;padding: 12px 10px;vertical-align: top;position: relative;font-family: Pretendard, sans-serif;font-size: 16px;font-weight: 600;line-height: 24px;letter-spacing: 0;text-align: left;color: var(--gray-50, #444);}
+.emot_table_type2 table tbody tr td {word-break: break-word;padding: 12px 10px;vertical-align: top;position: relative;font-family: Pretendard, sans-serif;font-size: 16px;font-weight: 400;line-height: 24px;letter-spacing: 0;text-align: left;color: var(--gray-50, #444);}
+
+.emotbtnbox{display:block;text-align:Center;margin-top:40px;}
+.emotbtn{display:inline-block;position:relative;width:122px;height:48px;}
+.emotbtn a{position:absolute;left:0;top:0;width:100%;height:100%;border-radius: 10px;background: var(--green-primary, #00C389);color: var(--white, #FFF);text-align: center;font-family: Pretendard, sans-serif;font-size: 16px;font-style: normal;font-weight: 500;line-height: 48px;}
+.emotbtn a:hover{background: #00BA83;}
+
+.emotpfooterBox{width:100%;position:relative;margin-top:80px;padding:20px 24px;background: #F7F8F9;}
+.emof_text{word-break: break-word;color: var(--gray-40, #666);font-family: Pretendard, sans-serif;font-size: 14px;font-style: normal;font-weight: 400;line-height: 24px; }
+.emof_text span{color: var(--gray-40, #666);font-family: Pretendard, sans-serif;font-size: 14px;font-style: normal;font-weight: 400;line-height: 24px;text-decoration-line: underline;}
+.emof_text span a{color: var(--gray-40, #666);}
+
+@media (max-width:800px) {
+	.emotpbox {width:100%;padding: 0px 20px;}
+	.emotphead {margin-bottom: 20px;}
+	.emottitle strong {margin-bottom: 16px;font-size: 22px;line-height: 30px;}
+	.emottitle dl {font-size: 15px;line-height: 22px;}
+	.emotpfooterBox {margin-top: 50px;padding: 14px 10px;}
+	.emof_text {font-size: 13px;line-height: 18px;}
+
+
+	.emot_table {margin-top: 40px;}
+	.emot_table table thead tr th {font-size: 14px;line-height: 18px;padding: 10px 4px;}
+	.emot_table table tbody tr td {padding: 10px 4px;font-size: 14px;line-height: 18px;}
+
+	.emot_table_type2 {margin-top: 40px;}
+	.emot_table_type2 table tbody tr td:nth-child(1) {padding: 10px 4px;font-size: 14px;line-height: 18px;}
+	.emot_table_type2 table tbody tr td {padding: 10px 4px;font-size: 14px;line-height: 18px;}
+
+	.emotbtnbox {margin-top: 20px;}
+	.emotbtn {width: 110px;height: 42px;}
+	.emotbtn a {border-radius: 8px;font-size: 15px;line-height: 42px;}
+}

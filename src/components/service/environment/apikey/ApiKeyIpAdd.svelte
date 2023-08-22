@@ -3,9 +3,11 @@
     import { fade } from 'svelte/transition'
 
     import { ipCheck, onlyNumber} from '../../../../lib/common'
+    import {ajaxParam, reportCatch} from "../../../common/ajax.js";
 
     export let apiKeyInfo;
     export let ipChange;
+    export let accessIpList;
 
     let myIpCheck = false;
     let ipChecked = false;
@@ -28,6 +30,13 @@
         }
 
         let accessIp = ip1+"."+ip2+"."+ip3+"."+ip4
+
+        if (accessIpList.map(obj => obj.accessIp).includes(accessIp)) {
+            ipChecked = true;
+            ipCheckedMsg = "이미 등록된 IP 입니다.";
+            return false;
+        }
+
         let ipCheckResult = ipCheck(accessIp);
 
         if(!ipCheckResult) {
@@ -40,18 +49,25 @@
                 ipMemo : ipMemo,
             }
 
-            restapi('v2', 'post', url, "param", sendData, 'application/json',
-                (json_success) => {
-                    if(json_success.data.status === 500) {
-                        alert(json_success.data.err_msg);
-                    }
+            ajaxParam(url, sendData, (res) => {
+                try {
                     apiKeyInfo();
                     ipChange(0);
-                },
-                (json_error) => {
-                    console.log(json_error);
+                } catch (e) {
+                    reportCatch('temp121', e);
                 }
-            )
+            }, (errCode, errMsg) => {
+                try {
+                    if (errCode === 500) {
+                        alert(errMsg);
+                        apiKeyInfo();
+                        ipChange(0);
+                    }
+                    return {action: 'NONE'};
+                } catch (e) {
+                    reportCatch('temp122', e);
+                }
+            });
         } else {
             // IP 형식에 맞지않음
             ipChecked = true;

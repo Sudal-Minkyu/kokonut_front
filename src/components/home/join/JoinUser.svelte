@@ -3,7 +3,7 @@
     import jQuery from "jquery";
     import { push } from 'svelte-spa-router'
     import { emailCheck } from "../../../lib/common.js" // 공통함수
-    import restapi from "../../../lib/api.js";
+    import {ajaxBody, ajaxGet, reportCatch} from "../../common/ajax.js";
 
     let cpNameBlank = true;
 
@@ -71,26 +71,27 @@
                 knEmail : knEmail
             }
 
-            restapi('v1', 'get', url, "param", sendData, 'application/json',
-                (json_success) => {
-                    if(json_success.data.status === 200) {
-                        seconds = 180;
-                        timer = "";
-                        clearInterval(interval);
-                        conditionFun(2, true);
-                        emailStep = 1;
-                        existsEmailCheck = true;
-                        numberSendEmail();
-                    } else {
-                        error_msg = json_success.data.err_msg;
-                        conditionFun(2, false);
-                    }
-                },
-                (json_error) => {
-                    console.error(json_error);
-                    console.error("이메일 중복체크 실패");
+            ajaxGet(url, sendData, (res) => {
+                try {
+                    seconds = 180;
+                    timer = "";
+                    clearInterval(interval);
+                    conditionFun(2, true);
+                    emailStep = 1;
+                    existsEmailCheck = true;
+                    numberSendEmail();
+                } catch (e) {
+                    reportCatch('temp022', e);
                 }
-            )
+            }, (errCode, errMsg) => {
+                try {
+                    error_msg = errMsg;
+                    conditionFun(2, false);
+                    return {action: 'NONE'};
+                } catch (e) {
+                    reportCatch('temp023', e);
+                }
+            });
         }
     }
 
@@ -105,18 +106,14 @@
 				knEmail : knEmail
 			}
 
-			restapi('v1', 'get', url, "param", sendData, 'application/json',
-				(json_success) => {
-					if(json_success.data.status === 200) {
-						interval = setInterval(count_down_timer, 1000); // 해당 함수 1초마다 실행
-					}
-				},
-				(json_error) => {
-					console.error("인증번호 받기 실패");
-				}
-			)
-		} 
-        else {
+            ajaxGet(url, sendData, (res) => {
+                try {
+                    interval = setInterval(count_down_timer, 1000); // 해당 함수 1초마다 실행
+                } catch (e) {
+                    reportCatch('temp024', e);
+                }
+            });
+		} else {
             error_msg = '이메일 중복체크 먼저 해주세요.';
             conditionFun(2, false);
 		}
@@ -155,25 +152,26 @@
             knEmail : knEmail
         }
 
-        restapi('v1', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    if(knEmailNotCheck) {
-                        knEmailNotCheck = false;
-                    }
-
-                    knEmailCheck = true;
-                    emailStep = 2;
-                    emailCode = "";
-                } else {
-                    numberCheck = true;
-                    email_error_msg = json_success.data.err_msg;
+        ajaxGet(url, sendData, (res) => {
+            try {
+                if (knEmailNotCheck) {
+                    knEmailNotCheck = false;
                 }
-            },
-            (json_error) => {
-                console.error("무슨 에러인지 확인해보세요.3");
+                knEmailCheck = true;
+                emailStep = 2;
+                emailCode = "";
+            } catch (e) {
+                reportCatch('temp025', e);
             }
-        )
+        }, (errCode, errMsg) => {
+            try {
+                numberCheck = true;
+                email_error_msg = errMsg;
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp026', e);
+            }
+        });
     }
 
     // 비밀번호 검증함수
@@ -271,7 +269,8 @@
             // conditionFun(2, false);
             knEmailNotCheck = true;
         }
-        
+
+        console.log(cpNameBlank + "_" + passwordCheck + "_" + passwordConfirmCheck + "_" + emailStep + "_" + knEmailCheck);
         if(cpNameBlank &&passwordCheck && passwordConfirmCheck && emailStep ===2 && knEmailCheck) {
             console.log("회원가입 조건 충족 완료 -> 시작!");
 
@@ -286,22 +285,23 @@
                 knPasswordConfirm : knPasswordConfirm,
                 knEmailCheck : knEmailCheck,
 			}
+            console.log('회원가입보내는정보', sendData);
 
-			restapi('v1', 'post', url, "body", sendData, 'application/json',
-				(json_success) => {
-					if(json_success.data.status === 200) {
-                        push('/joinsu');
-					} else {
-                        alert(json_success.data.err_msg);
-                        push('/join');
-                    }
-				},
-				(json_error) => {
-					console.error("회원가입 실패");
-                    console.error(json_error);
-				}
-			)
-            
+            ajaxBody(url, sendData, (res) => {
+                try {
+                    push('/joinsu');
+                } catch (e) {
+                    reportCatch('temp027', e);
+                }
+            }, (errCode, errMsg) => {
+                try {
+                    alert(errMsg);
+                    push('/join');
+                    return {action: 'NONE'};
+                } catch (e) {
+                    reportCatch('temp111', e);
+                }
+            });
         }
     }
 

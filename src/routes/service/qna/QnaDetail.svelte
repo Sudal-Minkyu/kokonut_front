@@ -4,17 +4,15 @@
     import Header from "../../../components/service/layout/Header.svelte"
     import { link, push } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
-    import { backBtn, role } from '../../../lib/store.js'
+    import { backBtn, userInfoData } from '../../../lib/store.js'
 
     import { onMount } from 'svelte';
     import { popOpenBtn } from "../../../lib/common.js";
-
     import CustumAlert from '../../../components/common/CustumAlert.svelte';
-
-    import restapi from "../../../lib/api.js";
-
     import {imgView} from "../../../lib/common.js";
     import jQuery from "jquery";
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxBody, ajaxGet, reportCatch} from "../../../components/common/ajax.js";
 
     let qnaId;
 
@@ -43,42 +41,37 @@
 
         let url = "/v2/api/Qna/qnaDetail/"+qnaId;
 
-        restapi('v2', 'get', url, "", {}, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-                    console.log("조회된 데이터가 있습니다.");
-
-                    // role.set(json_success.data.sendData.role);
-                    qnaDetailData = json_success.data.sendData.qnaDetail;
-                    qnaDetailFileData = json_success.data.sendData.qnaDetailFile;
-
-                    // console.log(qnaDetailData);
-                    // console.log(qnaDetailFileData);
-
-                    qnaLayout = 1;
-                } else if (json_success.data.err_code === "KO053" || json_success.data.err_code === "KO054") {
+        ajaxGet(url, false, (res) => {
+            try {
+                console.log("조회된 데이터가 있습니다.");
+                qnaDetailData = res.data.sendData.qnaDetail;
+                qnaDetailFileData = res.data.sendData.qnaDetailFile;
+                qnaLayout = 1;
+            } catch (e) {
+                reportCatch('temp094', e);
+            }
+        }, (errCode, errMsg) => {
+            try {
+                if (errCode === "KO053" || errCode === "KO054") {
                     popTitle = "존재하지 않은 문의글"
-                    popContents1 = json_success.data.err_msg;
+                    popContents1 = errMsg;
                     imgState = 3;
                     popOpenBtn();
-                } else if (json_success.data.err_code === "KO055") {
+                } else if (errCode === "KO055") {
                     popTitle = "권한없음"
                     popContents1 = "본인이 작성한 문의만 확인 가능합니다.";
                     imgState = 2;
                     popOpenBtn();
                 } else {
                     console.log("조회된 데이터가 없습니다.");
+                    console.log("혹은 1:1 문의하기 리스트 호출 실패");
                 }
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("1:1 문의하기 리스트 호출 실패");
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp095', e);
             }
-        )
-
+        });
     }
-
     let qnaLayout = 0;
 
     let qnaAnswerContents = ""; // 답변내용
@@ -98,33 +91,35 @@
             qnaAnswer : qnaAnswerContents
         }
 
-        restapi('v2', 'post', url, "body", sendData, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-                    $role = "";
-                    popTitle = "답변을 완료했습니다."
-                    imgState = 1;
-                    popOpenBtn();
-                } else if (json_success.data.err_code === "KO053" || json_success.data.err_code === "KO054") {
+        ajaxBody(url, sendData, (res) => {
+            try {
+                popTitle = "답변을 완료했습니다."
+                imgState = 1;
+                popOpenBtn();
+            } catch (e) {
+                reportCatch('temp096', e);
+            }
+        }, (errCode, errMsg) => {
+            try {
+                if (errCode === "KO053" || errCode === "KO054") {
                     popTitle = "존재하지 않은 문의글"
-                    popContents1 = json_success.data.err_msg;
+                    popContents1 = errMsg;
                     imgState = 3;
                     popOpenBtn();
-                } else if (json_success.data.err_code === "KO001") {
+                } else if (errCode === "KO001") {
                     popTitle = "권한없음"
                     popContents1 = "답변할 권한이 없습니다.";
                     imgState = 2;
                     popOpenBtn();
                 } else {
                     console.log("조회된 데이터가 없습니다.");
+                    console.log("혹은 1:1 답변하기 호출 실패");
                 }
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("1:1 답변하기 호출 실패");
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp097', e);
             }
-        )
+        });
     }
 
 </script>
@@ -140,11 +135,7 @@
             </dl>
         </div>
 
-        {#if qnaLayout === 0}
-            <div class="loaderParent">
-                <div class="loader"></div>
-            </div>
-        {:else if qnaLayout === 1}
+        <LoadingOverlay bind:loadState={qnaLayout} >
             <div class="seaWrap marT24" in:fade>
                 <div class="seaContentBox">
                     <div class="seaContentLine borB">
@@ -207,10 +198,10 @@
                         </div>
                     </div>
                 </div>
-<!--            <div class="wr_BtnBox marT24">-->
-<!--                <button class="wr_del">삭제하기</button>-->
-<!--                <button class="wr_revise">수정하기</button>-->
-<!--            </div>-->
+                <!--            <div class="wr_BtnBox marT24">-->
+                <!--                <button class="wr_del">삭제하기</button>-->
+                <!--                <button class="wr_revise">수정하기</button>-->
+                <!--            </div>-->
                 <div class="seaWrap marT60">
                     <div class="seaContentBox">
                         <div class="seaContentLine borB">
@@ -248,7 +239,7 @@
                             </div>
                         {/if}
 
-                        {#if qnaDetailData.qnaState === 0 && $role === "ROLE_SYSTEM"}
+                        {#if qnaDetailData.qnaState === 0 && $userInfoData.role === "ROLE_SYSTEM"}
                             <div class="seaContentLine borB">
                                 <div class="seaCont wid100per">
                                     <dl>답변내용</dl>
@@ -260,15 +251,15 @@
                             </div>
                         {/if}
                     </div>
-                    {#if qnaDetailData.qnaState === 0 && $role === "ROLE_SYSTEM"}
+                    {#if qnaDetailData.qnaState === 0 && $userInfoData.role === "ROLE_SYSTEM"}
                         <div class="wr_BtnBox marT24">
-<!--                        <button class="wr_del">삭제하기</button>-->
+                            <!--                        <button class="wr_del">삭제하기</button>-->
                             <button class="wr_revise" on:click={qnaAnswer}>답변하기</button>
                         </div>
                     {/if}
                 </div>
             </div>
-        {/if}
+        </LoadingOverlay>
     </div>
 </section>
 

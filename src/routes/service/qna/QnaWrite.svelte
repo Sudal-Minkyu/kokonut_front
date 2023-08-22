@@ -9,11 +9,11 @@
     import jQuery from "jquery";
     import restapi from "../../../lib/api.js";
     import CustumAlert from '../../../components/common/CustumAlert.svelte';
+    import {ajaxMultipart, reportCatch} from "../../../components/common/ajax.js";
 
     onMount(async ()=>{
         await fatchSearchModule();
-
-    })
+    });
 
     async function fatchSearchModule(){
         let libSearch = await import('../../../lib/libSearch.js');
@@ -38,7 +38,7 @@
 
     let textState= 0;
     function qnaStart() {
-        if(qnaTitle === "" || qnaTitle.search(/\s/) !== -1) {
+        if(!qnaTitle.trim()) {
             textState = 1;
             return false;
         }
@@ -71,16 +71,14 @@
             }
         }
 
-        restapi('v2', 'post', url, "multi", formData, 'multipart/form-data',
-            (json_success) => {
-                console.log(json_success);
+        ajaxMultipart(url, formData, (res) => {
+            try {
+                console.log(res);
                 push('/service/environment/qnaList');
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("문의하기 호출 실패");
+            } catch (e) {
+                reportCatch('temp100', e);
             }
-        )
+        });
     }
 
     let filesArr = [];

@@ -15,8 +15,8 @@
             <div class="erroe404_illustration"><img src="/assets/images/common/404erroe_illustration.png" alt=""></div>
             <div class="erroe404tbox">
                 <dl>
-                    <p>죄송합니다</p>
-                    <span>요청하신 페이지를 찾을 수 없습니다.</span>
+                    <p>요청하신 페이지가 존재하지 않습니다.</p>
+                    <span>(ERROR 404)</span>
                 </dl>
                 {#if is_login}
                     <div class="erroe404btn"><a use:link href="/service">돌아가기</a></div>

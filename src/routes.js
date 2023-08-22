@@ -13,6 +13,7 @@ import AdminActivity from "./routes/service/admin/AdminActivity.svelte"
 import AdminManagement from "./routes/service/admin/AdminManagement.svelte"
 
 import Email from "./routes/service/email/Email.svelte"
+import EmailSend from "./routes/service/email/EmailSend.svelte"
 
 import Environment from "./routes/service/Environment.svelte"
 
@@ -25,6 +26,7 @@ import QnaWrite from "./routes/service/qna/QnaWrite.svelte"
 import QnaDetail from "./routes/service/qna/QnaDetail.svelte"
 
 import PersonalInfoItem from "./routes/service/personalInfo/PersonalInfoItem.svelte"
+import DevsTableManagement from "./routes/service/DevsTableManagement.svelte"
 
 import PolicyList from "./routes/service/policy/PolicyList.svelte"
 import PolicyWrite from "./routes/service/policy/PolicyWrite.svelte"
@@ -32,6 +34,13 @@ import PolicyDetail from "./routes/service/policy/PolicyDetail.svelte"
 
 import PrivacyList from "./routes/service/privacy/PrivacyList.svelte"
 import PrivacyWrite from "./routes/service/privacy/PrivacyWrite.svelte"
+import PrivacyHistory from "./routes/service/privacy/PrivacyHistory.svelte"
+import PrivacySearch from "./routes/service/privacy/PrivacySearch.svelte"
+import Subscription from "./routes/service/Subscription.svelte";
+import ThirdPartyConnection from "./routes/service/ThirdPartyConnection.svelte";
+import EmailSendComplete from "./routes/service/email/EmailSendComplete.svelte";
+import EmailBookComplete from "./routes/service/email/EmailBookComplete.svelte";
+import addMember from "./routes/service/addMember.svelte";
 
 export default {
     // API 테스트하는 화면
@@ -67,9 +76,10 @@ export default {
     // 이메일 발송내역 페이지
     "/service/emailList": Email,
     // 이메일 발송 페이지
-    "/service/emailSend": wrap({
-        asyncComponent: () => import("./routes/service/email/EmailSend.svelte"),
-    }),
+    "/service/emailSend": EmailSend,
+    // 이메일 전송, 예약 완료 관련 페이지
+    "/service/emailSendComplete": EmailSendComplete,
+    "/service/emailBookComplete": EmailBookComplete,
 
     // 메일인증 후 이동하는 -> 관리자 등록  페이지
     "/create": wrap({
@@ -83,6 +93,15 @@ export default {
 
     // 환경설정 페이지
     "/service/environment": Environment,
+
+    // 구독관리 페이지
+    "/service/environment/addMember": addMember,
+
+    // 구독관리 페이지
+    "/service/environment/subscription": Subscription,
+
+    // 서드파티 연동 페이지
+    "/service/environment/thirdpartyconnection": ThirdPartyConnection,
 
     // API Key 관리 페이지
     "/service/environment/apikey": ApiKey,
@@ -103,6 +122,9 @@ export default {
     // 개인정보항목관리 페이지
     "/service/environment/personalInfoItem": PersonalInfoItem,
 
+    // 개발자 테이블 관리 페이지
+    "/service/environment/devsTableManagement": DevsTableManagement,
+
     // 개인정보처리방침 리스트 페이지
     "/service/PolicyList": PolicyList,
     // 개인정보처리방침 작성페이지
@@ -115,6 +137,10 @@ export default {
     // 개인정보 제공페이지
     "/service/privacy/PrivacyWrite": PrivacyWrite,
 
+    // 개인정보 처리이력 페이지
+    "/service/privacy/PrivacyHistory": PrivacyHistory,
+    // 개인정보 검색 페이지
+    "/service/privacy/PrivacySearch": PrivacySearch,
 
     "*": wrap({
         asyncComponent: () => import("./routes/NotFound.svelte"),

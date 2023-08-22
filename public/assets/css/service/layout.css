@@ -75,7 +75,7 @@
 .marB70{margin-bottom:7rem;}
 .marB80{margin-bottom:8rem;}
 .marB100{margin-bottom:10rem;}
-.noneMarB{margin-bottom:0rem!important;}
+.noneMarB{margin-bottom:0!important;}
 
 
 .marT12{margin-top:1.2rem;}
@@ -94,14 +94,14 @@
 .marR10{margin-right:1rem;}
 .marR30{margin-right:3rem;}
 .marR40{margin-right:4rem;}
-.noneMarR{margin-right:0rem!important;}
+.noneMarR{margin-right:0!important;}
 
 .marL8impor{margin-left:0.8rem!important;}
 .marL8{margin-left:0.8rem;}
 .marL10{margin-left:1rem;}
 .marL16{margin-left:1.6rem;}
 .marL30{margin-left:3rem;}
-.noneMarL{margin-left:0rem!important;}
+.noneMarL{margin-left:0!important;}
 
 
 /*--------------------------------------------------------------
@@ -118,18 +118,18 @@
 /*--------------------------------------------------------------
 # border 클래스
 --------------------------------------------------------------*/
-.borT:after{content:'';position:absolute;left:0rem;top:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
-.borB:after{content:'';position:absolute;left:0rem;bottom:0rem;width:100%;height:1px;background:#E2E5EA;z-index:10;}
-.borL:after{content:'';position:absolute;left:0rem;top:0rem;width:1px;height:100%;background:#E2E5EA;z-index:10;}
+.borT:after{content:'';position:absolute;left:0;top:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.borB:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
+.borL:after{content:'';position:absolute;left:0;top:0;width:1px;height:100%;background:#E2E5EA;z-index:10;}
 
 
 
 /*--------------------------------------------------------------
 # dialog 팝업
 --------------------------------------------------------------*/
-dialog[open] {max-width: 100%;left: 0px;width: 100%;display: flex;overflow: auto;padding: 0rem 0rem 0rem 0rem;border: none;background: inherit;margin: 0;align-items: center;justify-content: center;height: 100%;top: 0px;position: fixed;max-height: 100%;}
+dialog[open] {max-width: 100%;left: 0;width: 100%;display: flex;overflow: auto;padding: 0 0rem 0 0rem;border: none;background: inherit;margin: 0;align-items: center;justify-content: center;height: 100%;top: 0;position: fixed;max-height: 100%;}
 dialog::backdrop{background: rgba(0, 0, 0, 0.4);}
 
 .dialog_inner {display: inline-block;position: relative;padding-bottom: 10rem;}
-.dialog_container {height: auto;outline: none;border-radius: 0px;position: relative;box-sizing: border-box;background-color: #fff;padding: 4rem 4rem 4rem 4rem;border-radius: 1.8rem;filter: drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.15));}
-.dialog-popup-close {cursor: pointer;border: none;z-index: 1!important;width: 1.6rem;height: 1.6rem;padding-top: 0px;display: inline-block;position: absolute;top: 2rem;right: 2rem;text-align: center;line-height: 100%;background-image: url(../img/common/kokopop_button_close.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;}
+.dialog_container {height: auto;outline: none;border-radius: 0;position: relative;box-sizing: border-box;background-color: #fff;padding: 4rem 4rem 4rem 4rem;border-radius: 1.8rem;filter: drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.15));}
+.dialog-popup-close {cursor: pointer;border: none;z-index: 1!important;width: 1.6rem;height: 1.6rem;padding-top: 0;display: inline-block;position: absolute;top: 2rem;right: 2rem;text-align: center;line-height: 100%;background-image: url(../img/common/kokopop_button_close.png);background-size: 1.6rem;background-repeat: no-repeat;background-position: center;}

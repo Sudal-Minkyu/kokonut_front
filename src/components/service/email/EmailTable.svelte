@@ -1,30 +1,51 @@
 
 <script>
-    import {page} from "../../../lib/store"
 
     export let size;
     export let total;
     export let email_list;
+
+    const getEmPurposeName = ({emPurpose, emEtc}) => {
+        const nameObj = {
+            '1': '주요공지',
+            '2': '광고/홍보',
+            '3': '기타',
+        }
+
+        return (nameObj[emPurpose] || '미분류') + (emPurpose === '3' ? ` (${emEtc})` : '');
+    }
+
+    const getSendDateText = ({send_date}) => {
+        return send_date.substring(0, 10) + ' ' + send_date.substring(11, 16);
+    }
+
+    const getEmStateName = ({emState}) => {
+        const nameObj = {
+            '1': '발송중',
+            '2': '발송예약중',
+            '3': '일부실패',
+            '4': '발송실패',
+            '5': '발송완료',
+            '6': '발송취소',
+        }
+
+        return nameObj[emState] || '미분류';
+    }
+
 </script>
 
 <div class="kotable email_list">
     <table>
         <caption>이메일 발송 리스트</caption>
-        <colgroup>
-            <col style="width:8.22%;">
-            <col style="width:19.18%;">
-            <col style="width:38.36%;">
-            <col style="width:8.22%;">
-            <col style="width:13.70%;">
-            <col style="width:12.33%;">
-        </colgroup>
         <thead>
             <tr>
                 <th>발송 목적</th>
                 <th>보낸 사람</th>
                 <th>제목</th>
-                <th>받는 사람 수</th>
                 <th>날짜</th>
+                <th>대상 수</th>
+                <th>성공 수</th>
+                <th>실패 수</th>
                 <th>상태</th>
             </tr>
         </thead>
@@ -32,20 +53,14 @@
             {#if email_list.length !== 0}
                 {#each email_list as email, i}
                     <tr>
-                        <td>{email.sendType}</td>
-                        <td>{email.sendName}({email.sendEmail})</td>
-                        <td>{email.title}</td>
-<!--                        <td>-->
-<!--                            <div class="reason">{activity.ahActivityDetail}</div>-->
-<!--                        </td>-->
-<!--                        <td>{activity.insert_date}(IP:{activity.ahIpAddr})</td>-->
-<!--                        <td>-->
-<!--                            {#if activity.ahState === 1}-->
-<!--                                <div class="normal">정상</div>-->
-<!--                            {:else}-->
-<!--                                <div class="secession">비정상</div>-->
-<!--                            {/if}-->
-<!--                        </td>-->
+                        <td>{getEmPurposeName(email)}</td>
+                        <td>{email.knName}({email.insert_email})</td>
+                        <td>{email.emTitle}</td>
+                        <td>{#if email.emState === '2'}<span>예약</span>{/if}{getSendDateText(email)}</td>
+                        <td>{email.emSendAllCount}</td>
+                        <td>{email.emSendSucCount}</td>
+                        <td>{email.emSendFailCount}</td>
+                        <td>{getEmStateName(email)}</td>
                     </tr>
                 {/each}
             {:else}
@@ -53,26 +68,6 @@
                     <td>조회된 데이터가 없습니다.</td>
                 </tr>
             {/if}
-            <tr>
-                <td>주요공지</td>
-                <td>코코넛 (testestest@kokonut.me)</td>
-                <td>
-                    <div class="reason">[코코넛] 안녕하세요. 개인정보처림방침 관련 안내 메일입니다.</div>
-                </td>
-                <td>500</td>
-                <td><span>예약</span>오후 02:30</td>
-                <td>발송전<button>취소</button></td>
-            </tr>
-            <tr>
-                <td>광고·홍보</td>
-                <td>코코넛 (test@kokonut.me)</td>
-                <td>
-                    <div class="reason">[코코넛] 안녕하세요. 개인정보처림방침 관련 안내 메일입니다.</div>
-                </td>
-                <td>500</td>
-                <td>2023-01-27 09:00</td>
-                <td>발송완료</td>
-            </tr>
         </tbody>
     </table>
 </div>

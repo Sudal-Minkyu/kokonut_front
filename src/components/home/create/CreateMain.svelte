@@ -18,10 +18,12 @@
     let joinName = ""; // 가입하는 회원명
     let joinPhone = ""; // 가입하는 회원번호
     export let userEmail;
+
+    export let pagetext;
 </script>
 
 <div class="joinContBox">
-    <p class="joinmTitle">관리자 등록</p>
+    <p class="joinmTitle">{pagetext}</p>
     {#if stage === 0}
         <span class="precessbar1"></span>
     {:else}

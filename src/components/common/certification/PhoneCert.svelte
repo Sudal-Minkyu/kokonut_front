@@ -2,7 +2,9 @@
     import restapi from "../../../lib/api.js";
     import jQuery from "jquery";
 
-    import { openDiv, findEmail, findPwd, tempPwd, knNameHeader } from '../../../lib/store'
+    import {openDiv, findEmail, findPwd, tempPwd, userInfoData} from '../../../lib/store'
+    import {openConfirm} from "../ui/DialogManager.js";
+    import {ajaxGet, ajaxParam, reportCatch} from "../ajax.js";
 
     jQuery(function() {
         // 나이스 폼열기
@@ -24,28 +26,24 @@
         let url = "/v1/api/NiceId/open"
 
         let sendData = {
-            state : state // 잘못된 요청 -> "0", 회원가입 -> "1", 이메일찾기 -> "2", 비밀번호찾기 -> "3", OTP변경 -> "4"
+            state : state // 잘못된 요청 -> "0", 회원가입 -> "1", 이메일찾기 -> "2", 비밀번호찾기 -> "3", OTP변경 -> "4", 핸드폰번호변경 -> "5", 해외로그인 -> "6", 비밀번호변경(메일전송) -> "7"
         }
 
-        restapi('v1', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-                // console.log(json_success);
-
-                token_version_id = json_success.data.sendData.token_version_id;
-                integrity_value = json_success.data.sendData.integrity_value;
-                enc_data= json_success.data.sendData.enc_data;
+        ajaxGet(url, sendData, (res) => {
+            try {
+                token_version_id = res.data.sendData.token_version_id;
+                integrity_value = res.data.sendData.integrity_value;
+                enc_data = res.data.sendData.enc_data;
 
                 document.getElementById('token_version_id').value = token_version_id;
                 document.getElementById('integrity_value').value = integrity_value;
                 document.getElementById('enc_data').value = enc_data;
 
                 jQuery("#niceForm").submit();
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("휴대폰인증창열기 실패");
+            } catch (e) {
+                reportCatch('temp013', e);
             }
-        )
+        });
     }
 
     // 휴대폰 인증완료후 처리함수
@@ -53,10 +51,10 @@
         console.log("휴대폰 본인인증 완료!");
 
         console.log("state : "+state);
-        // console.log("keyEmail : "+keyEmail);
-        // console.log("otpKey : "+otpKey);
+        console.log("keyEmail : "+keyEmail);
+        console.log("otpKey : "+otpKey);
 
-        if(state === "1") {
+        if(state === "1" || state === "7") {
             console.log("회원가입 창으로");
             conditionFun(2, keyEmail, otpKey); // 회원가입 : keyEmail -> joinName, otpKey -> joinPhone
         } else if(state === "2") {
@@ -81,22 +79,15 @@
     };
 
     export let state = 0;
-    export let conditionFun = undefined; // 공통 상태변경 함수
+    export let conditionFun = () => {}; // 공통 상태변경 함수
 
-    // export let joinName = undefined;
-    // export let joinPhone = undefined;
-
-    export let emailNotForm = undefined; // 이메일 형식에 맞지않음
-    // 이메일 존재여부 API 호출
+    // 이메일 존재여부 API 호출 (비밀번호찾기시)
     function emailCheck(email) {
         if($findPwd === "") {
-            conditionFun(3, false);
+            conditionFun(false, "이메일을 입력해주세요.");
             return false;
         } else {
-            conditionFun(3, true);
-        }
-    
-        if(emailNotForm) {
+            conditionFun(true, "");
             console.log("이메일 존재여부 체크");
 
             let url = "/v1/api/Auth/checkKnEmail"
@@ -107,10 +98,19 @@
             restapi('v1', 'get', url, "param", sendData, 'application/json',
                 (json_success) => {
                     if(json_success.data.status === 200) {
-                        conditionFun(2, json_success.data.sendData.result);
+                        console.log("결과 : "+json_success.data.sendData.result);
+                        conditionFun(json_success.data.sendData.result, "가입되지 않은 이메일입니다.");
                         if(json_success.data.sendData.result) {
                             phoneCheckOpen(state);
                         }
+                    } else if (json_success.data.err_code === "KO096" || json_success.data.err_code === "KO095") {
+                        openConfirm({
+                            icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                            title: "비밀번호 오류횟수 초과", // 제목
+                            contents1: json_success.data.err_msg,
+                            btnCheck: '확인', // 확인 버튼의 텍스트
+                        })
+                        conditionFun(false, json_success.data.err_msg);
                     }
                 },
                 (json_error) => {
@@ -119,11 +119,15 @@
                 }
             )
         }
+
+        // console.log("emailErrorState : "+emailErrorState);
+        // if(emailErrorState) {
+        //
+        // }
     }
 
-    // 이메일 찾기
+    // ID 찾기
     function emailFind(keyEmail) {
-        // console.log("keyEmail : "+keyEmail);
         if(keyEmail !== null) {
             let url = "/v1/api/Auth/findKnEmail"
 
@@ -131,15 +135,14 @@
                 keyEmail : keyEmail
             }
 
-            restapi('v1', 'get', url, "param", sendData, 'application/json',
-                (json_success) => {
+            ajaxGet(url, sendData, (res) => {
+                try {
                     $openDiv = 1;
-                    $findEmail = json_success.data.sendData.knEmail
-                },
-                (json_error) => {
-                    console.log(json_error);
+                    $findEmail = res.data.sendData.knEmail
+                } catch (e) {
+                    reportCatch('temp104', e);
                 }
-            )
+            });
         }
     }
 
@@ -156,16 +159,15 @@
             knEmail : $findPwd
         }
 
-        restapi('v1', 'post', url, "param", sendData, 'application/json',
-            (json_success) => {
+        ajaxParam(url, sendData, (res) => {
+            try {
                 $openDiv = 2;
-                console.log(json_success);
-                $tempPwd = json_success.data.sendData.tempPassword;
-            },
-            (json_error) => {
-                console.log(json_error);
+                console.log(res);
+                $tempPwd = res.data.sendData.tempPassword;
+            } catch (e) {
+                reportCatch('temp105', e);
             }
-        )
+        });
     }
 
     let authOtpKey; // 등록/재등로 할 OTP 인증키
@@ -248,16 +250,13 @@
 		}
         // console.log(sendData);
 
-		restapi('v1', 'post', url, "param", sendData, 'application/json',
-			(json_success) => {
-                if(json_success.data.status === 200) {
-                    initValue();
-                }
-			},
-            (json_error) => {
-                console.log(json_error);
+        ajaxParam(url, sendData, (res) => {
+            try {
+                initValue();
+            } catch (e) {
+                reportCatch('temp106', e);
             }
-		)
+        });
 	}
 
     export let googleOtpPopBtn = undefined;
@@ -276,19 +275,19 @@
             knPhoneNumber : phone,
         }
 
-        restapi('v2', 'post', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    let filterPhone = phone.substring(0,3) + "-****-" + phone.substring(7,11);
-                    initValue(name, filterPhone);
-                    knNameHeader.set(name);
-                    conditionFun();
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
+        ajaxParam(url, sendData, (res) => {
+            try {
+                let filterPhone = phone.substring(0, 3) + "-****-" + phone.substring(7, 11);
+                initValue(name, filterPhone);
+                userInfoData.update(obj => {
+                    obj.knName = name;
+                    return obj;
+                });
+                conditionFun();
+            } catch (e) {
+                reportCatch('temp107', e);
             }
-        )
+        });
     }
 
 </script>
@@ -308,6 +307,12 @@
     </div>
 {:else if state === 5}
     <button class="myinfoChangeBtn" on:click|preventDefault="{() => phoneCheckOpen(state)}">변경하기</button>
+{:else if state === 6}
+    <div class="join_bottom" on:click|preventDefault="{() => phoneCheckOpen(state)}">
+        <button type="submit">
+            <p>휴대폰 인증하기</p>
+        </button>
+    </div>
 {:else}
     <div class="join_bottom" on:click|preventDefault="{() => phoneCheckOpen(state)}">
         <button type="submit">
@@ -316,7 +321,7 @@
     </div>
 {/if}
 <form style="height: 0;" name="niceForm" id="niceForm" action="https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb">
-    <input type="hidden"  id="m" name="m" value="service" /> <br/>
+    <input type="hidden" id="m" name="m" value="service" /> <br/>
     <input type="hidden" id="token_version_id" name="token_version_id" /> <br/>
     <input type="hidden" id="enc_data" name="enc_data" /> <br/>
     <input type="hidden" id="integrity_value" name="integrity_value" /> <br/>

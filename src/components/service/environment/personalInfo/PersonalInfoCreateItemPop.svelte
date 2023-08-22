@@ -1,27 +1,32 @@
 <script>
     import { fade } from 'svelte/transition'
-    import restapi from "../../../../lib/api.js";
     import {personalInfoCategoryData} from "../../../../lib/store.js";
     import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
+    import {ajaxParam, reportCatch} from "../../../common/ajax.js";
 
     export let personalInfoCategoryService;
 
     const handleCreateItem = () => {
-        restapi('v2', 'post', '/v2/api/Company/saveItem', "param", $personalInfoCategoryData.createItemPop.inputData, 'application/json',
-            (json_success) => {
-                console.log('아이템 추가 성공', json_success);
-                if(json_success.data.status === 200) {
-                    personalInfoCategoryService.getAdditionalItemList();
-                } else if (json_success.data.err_code === 'KO087') {
+        ajaxParam('/v2/api/Company/saveItem', $personalInfoCategoryData.createItemPop.inputData, (res) => {
+            try {
+                personalInfoCategoryService.getAdditionalItemList();
+                personalInfoCategoryService.createItemPop.initInputData();
+                personalInfoCategoryService.createItemPop.hide();
+            } catch (e) {
+                reportCatch('temp129', e);
+            }
+        }, (errCode, errMsg) => {
+            try {
+                if (errCode === 'KO087') {
                     alert('이미 등록되어 있는 항목입니다.');
                 }
                 personalInfoCategoryService.createItemPop.initInputData();
                 personalInfoCategoryService.createItemPop.hide();
-            },
-            (json_error) => {
-                console.log('아이템 추가 실패', json_error);
+            } catch (e) {
+                reportCatch('temp130', e);
             }
-        );
+
+        });
     }
 
 </script>

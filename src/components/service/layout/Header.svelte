@@ -1,11 +1,20 @@
 <script>
 	import ServiceHeader from "./ServiceHeader.svelte"
 	import Sider from "./Sider.svelte"
-    import {is_login, knNameHeader, knEmailHeader, cpNameSider, role, electronic} from "../../../lib/store.js"
-    import restapi from "../../../lib/api.js";
-    import {beforeUpdate} from "svelte";
+    import {
+        is_login,
+        doChangePwdLater,
+        userInfoData, expireDate, mainScreenBlockerVisibility,
+    } from "../../../lib/store.js"
+    import {beforeUpdate, onMount} from "svelte";
     import CustomConfirm from "../../common/ui/CustomConfirm.svelte";
     import Banner from "../../common/ui/Banner.svelte";
+    import MyPagePwd from "../environment/mypage/MyPagePwd.svelte";
+    import {logout} from "../../common/authActions.js";
+    import {ajaxGet, reportCatch} from "../../common/ajax.js";
+    import MainScreenBlocker from "../../common/ui/MainScreenBlocker.svelte";
+
+    let isMyPagePwdVisible = false;
 
     // let auth = false;
     //
@@ -16,29 +25,58 @@
             if (value === true) {
                 let url = "/v2/api/Admin/authorityCheck"
 
-                restapi('v2', 'get', url, "", {}, 'application/json',
-                    (json_success) => {
-                        console.log(json_success);
+                ajaxGet(url, false, (res) => {
+                    try {
+                        const userInfo = res.data.sendData;
                         is_login.set(true);
-                        knNameHeader.set(json_success.data.sendData.knName);
-                        knEmailHeader.set(json_success.data.sendData.knEmail);
-                        cpNameSider.set(json_success.data.sendData.cpName);
-                        role.set(json_success.data.sendData.role);
-                        electronic.set(json_success.data.sendData.electronic)
-                    },
-                    (json_error) => {
-                        console.log(json_error);
-                        is_login.set(false);
+                        userInfoData.set(userInfo);
+                        expireDate.set(getFutureDate(Number(userInfo.csAutoLogoutSetting)).toISOString());
+
+                        if (!$doChangePwdLater && userInfo.csPasswordChangeState === '2') {
+                            isMyPagePwdVisible = true;
+                        }
+                    } catch (e) {
+                        reportCatch('temp037', e);
                     }
-                )
+                }, (errCode, errMsg) => {
+                    try {
+                        logout();
+                    } catch (e) {
+                        reportCatch('temp038', e);
+                    }
+                });
             } else {
                 // alert("세션이 종료되어 로그아웃됩니다.");
                 console.log("로그아웃 하였습니다.");
-                is_login.set(false);
+                logout();
             }
         });
-    })
+    });
 
+    function getFutureDate(minutesFromNow) {
+        let futureDate = new Date();
+        futureDate.setMinutes(futureDate.getMinutes() + minutesFromNow);
+        return futureDate;
+    }
+
+    const reportURLToBeusable = () => {
+        const w = window;
+        const d = document;
+        const a = "//rum.beusable.net/load/b230714e123446u947";
+        w.__beusablerumclient__ = {
+            load : function(src){
+                var b = d.createElement("script");
+                b.src = src; b.async=true; b.type = "text/javascript";
+                d.getElementsByTagName("head")[0].appendChild(b);
+            }
+        };
+        w.__beusablerumclient__.load(a + "?url=" + encodeURIComponent(d.URL));
+    }
+
+    onMount(() => {
+        // 뷰저블 서비스 사용하려 한다면 주석해제
+        // reportURLToBeusable();
+    });
 </script>
 
 <!--{#if auth }-->
@@ -48,3 +86,7 @@
 
 <CustomConfirm />
 <Banner />
+<MainScreenBlocker  visibility={$mainScreenBlockerVisibility}/>
+
+<!-- 비밀번호 변경 기간 도래에 따른 팝업 -->
+<MyPagePwd bind:visible={isMyPagePwdVisible} regularChangeRoutine={true} />

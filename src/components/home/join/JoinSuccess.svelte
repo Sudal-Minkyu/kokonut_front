@@ -16,7 +16,7 @@
                 <p class="joinmTitle">회원가입</p>
                 <span class="precessbar3"></span>
                 <figure class="f_emailImg">
-                    <img src="/assets/images/join/join_f.png"></figure>
+                    <img alt="" src="/assets/images/join/join_f.png"></figure>
                 <div class="findContArea">
                     <p class="findEx">회원가입이 완료되었습니다.<br>코코넛과 함께 만들어가요!</p>
                 </div>

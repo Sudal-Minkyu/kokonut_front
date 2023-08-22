@@ -1,6 +1,10 @@
-import {is_login, accessToken} from "../../lib/store.js";
-import { get } from 'svelte/store';
+import {accessToken, ivSto, keyBufferSto} from "../../lib/store.js";
+import {get} from 'svelte/store';
 import axios from 'axios';
+import {openConfirm} from "./ui/DialogManager.js";
+import {logout} from "./authActions.js";
+
+const pendingRequests = new Map();
 
 export const ajaxGet = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
     restapi({
@@ -22,7 +26,6 @@ export const ajaxParam = (url, sendData = {}, handleSuccess = () => {}, handleFa
         params: sendData,
         contentType: 'application/json',
     });
-
 };
 
 export const ajaxBody = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
@@ -36,7 +39,7 @@ export const ajaxBody = (url, sendData = {}, handleSuccess = () => {}, handleFai
     });
 };
 
-export const ajaxMultipart = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
+export const ajaxMultipart = (url, sendData = new FormData(), handleSuccess = () => {}, handleFail = () => {}) => {
     restapi({
         url,
         handleSuccess,
@@ -47,73 +50,385 @@ export const ajaxMultipart = (url, sendData = {}, handleSuccess = () => {}, hand
     });
 };
 
+export const ajaxExcelBodyParam = (url, sendData = {}, sendParams = {}, handleSuccess = () => {}, handleFail = () => {}) => {
+    console.log('보내는 데이터', sendData);
+    restapi({
+        url,
+        handleSuccess,
+        handleFail,
+        method: 'post',
+        params: sendParams,
+        data: JSON.stringify(sendData),
+        contentType: 'application/json',
+    });
+
+}
+
+export const ajaxRegister = (url, sendData = {}, apiKey, handleSuccess = () => {}, handleFail = () => {}) => {
+
+    restapi({
+        url,
+        handleSuccess,
+        handleFail,
+        apiKey,
+        method: 'post',
+        data: JSON.stringify(sendData),
+        contentType: 'application/json',
+    });
+};
+
+export const ajaxParamArray = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
+    let params = new URLSearchParams();
+
+    for (let key in sendData) {
+        if (Array.isArray(sendData[key])) {
+            sendData[key].forEach(value => {
+                params.append(`${key}`, value);
+            });
+        } else {
+            params.append(key, sendData[key]);
+        }
+    }
+    console.log(params.toString());
+
+    restapi({
+        url,
+        handleSuccess,
+        handleFail,
+        method: 'post',
+        data: params,
+        contentType: 'application/x-www-form-urlencoded',
+    });
+};
+
+export const reportCatch = (name, e) => {
+    if (e && e.stack) {
+        errorReport('try/catch : ' + name, e.stack);
+    } else {
+        errorReport('try/catch : ' + name, e.message);
+    }
+}
+
 // RestAPI 호출 함수 from. Woody, mod. Joffrey
 // 호출 주소 앞단은 크게 v0, v1, v2 세 종류로 나뉘며 v0은 인증없이 접근할 수 있다.
 // url -> 호출할 api 주소
 // data, params -> 보낼데이터
 // contentType -> 컨텐츠 타입
-// handleSuccess -> 통신이 성공했을 경우
-// handleFail -> 통신이 실패했을 경우
-const restapi = ({url, handleSuccess, handleFail, method, data, params, contentType}) => {
+// handleSuccess -> 호출이 성공했을 경우
+// handleFail -> 호출이 실패했을 경우, 반환되는 객체가 있다면 에러에 대한 처리에 사용한다.
+//            -> 반환값 {action: 에러에 대해서 취할 공통액션(errorActionTypes 참조), message: 팝업으로 전달할 메시지 }
+const restapi = ({url, handleSuccess, handleFail, method, data, params, contentType, apiKey}) => {
     const headers = {};
     headers["Content-Type"] = contentType;
 
+    // 토큰관리를 쿠키로 이전하고 나면 삭제
     // type이 'v0' 일 경우 -> JWT토큰 불필요
     if (url.slice(0, 5).includes('v2/')) {
         // type이 'v2', 'v3' 일 경우 -> JWT토큰 필수
         headers["Authorization"] = get(accessToken);
+    } else if(url.slice(0, 5).includes('v1/')) {
+        headers["keyBufferSto"] = get(keyBufferSto);
+        headers["ivSto"] = get(ivSto);
     } else if(url.slice(0, 5).includes('v3/')) {
-        headers["ApiKey"] = "ff5873bbf9faa2218b369a577ea9e452";
+        headers["x-api-key"] = apiKey ? apiKey : "ff5873bbf9faa2218b369a577ea9e452";
+
     }
 
-    axios({
+    const requestConfig = {
         url: import.meta.env.VITE_SERVER_URL + url,
         method,
         params,
         data,
         headers,
-        withCredentials: true, // 쿠키 값 보내기 설정
-    }).then(response => {
-        // 토큰만료시 재발급
-        let newJwtAccessToken = response.headers.get("Authorization");
+        withCredentials: true,
+    };
+
+    const configString = JSON.stringify(requestConfig);
+    if (pendingRequests.has(configString)) {
+        console.log('짧은 시간 내 중복된 요청되어 추가 요청은 프론트에서 거부됨');
+        return;
+    }
+
+    pendingRequests.set(configString, true);
+
+    axios(requestConfig).then(okRes => {
+        pendingRequests.delete(configString);
+        // 토큰만료시 재발급, 추후 토큰관리를 쿠키로 이전하고 나면 삭제
+        let newJwtAccessToken = okRes.headers.get("Authorization");
         if (newJwtAccessToken !== null && newJwtAccessToken !== undefined) {
             accessToken.set(newJwtAccessToken);
-            // console.log("새로발급한 토큰 : "+newJwtAccessToken);
         }
 
-        if (response.data.status === 200) {
-            // console.log("Rest API 호출 성공");
-            handleSuccess(response);
+        // ajax 호출 성공시 자동 로그아웃 시간 초기화
+        // 같은 객체를 다시 할당하는 이유는, 자동 로그아웃이 해당 변수의 변경을 감지하여 작동하도록 하였기 때문
+
+        if (okRes.data.status === 200) {
+            handleSuccess(okRes);
         } else {
-            if (response.data.status === 500) {
-                handleSuccess(response);
-            } else {
-                console.log(response);
-                console.log("무슨 에러인지 확인해보세요.1");
-                handleFail(response);
-            }
+            console.log(okRes);
+            const code = okRes.data.err_code;
+            const handleFailResult = handleFail(code, okRes.data.err_msg);
+            const actionString = handleFailResult?.action || okRes.data.err_action || '';
+            const actionSymbol = errorActionTypes[actionString.toUpperCase()];
+            const action = actionSymbol ? actionSymbol : errorActionDictionary[code] || errorActionTypes.ERROR;
+            const message = handleFailResult?.message || okRes.data.err_msg || '';
+            makeUIResponse(action, message, code, handleSuccess);
+            errorReport('ok상태에러 - 사용자환경 : ' + navigator.userAgent, JSON.stringify(okRes));
         }
-    }).catch(error => {
-        console.log("Rest API 에러캣치");
-        console.log(error);
-        if (operation !== 'logout') {
-            if (error.response.status === 401) {
-                alert("인증되지 않은 사용자입니다. 다시 로그인해주세요.");
-                is_login.set(false);
-                location.href = '/login';
-            } else if (error.response.status === 403) {
-                handleFail();
-                // alert("접근 권한이 없습니다.");
-            } else if (error.response.status === 400) {
-                handleFail();
-                alert("전송한 파라메터 데이터가 일치하지 않습니다.");
+    }).catch(errorRes => {
+        pendingRequests.delete(configString);
+        console.log('ErrorResponse', errorRes);
+        try {
+            if (errorRes.response) {
+                const status = errorRes.response.status;
+                const handleFailResult = handleFail(status, createMsgByErrorStatus(status));
+                const actionString = handleFailResult?.action || '';
+                const actionSymbol = errorActionTypes[actionString.toUpperCase()];
+                const action = actionSymbol ? actionSymbol : errorActionDictionary[status] || errorActionTypes.ERROR;
+                const message = handleFailResult?.message || createMsgByErrorStatus(status) || '';
+                makeUIResponse(action, message, status, handleSuccess);
+                errorReport('실패에러 - 사용자환경 : ' + navigator.userAgent, JSON.stringify(errorRes));
             } else {
-                console.log("무슨 에러인지 확인해보세요.2");
-                console.log(error);
+                handleFail({}); // 분석하여 조치 필요
             }
-        } else {
-            is_login.set(false);
-            location.href = '/login';
+        } catch (e) {
+            reportCatch('temp006', e);
         }
     });
 };
+
+const openError = (message, errorCode = '', callback = () => {}) => {
+    openConfirm({
+        icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+        title: `오류${errorCode ? ' (' + errorCode + ')' : '' }`, // 제목 - 백엔드의 에러 code
+        contents1: message, // 내용 - 백엔드의 에러 desc
+        contents2: '',
+        btnCheck: '확인', // 확인 버튼의 텍스트
+        callback,
+    });
+}
+
+const openInfo = (message, errorCode = '', callback = () => {}) => {
+    openConfirm({
+        icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+        title: `알림${errorCode ? ' (' + errorCode + ')' : ''}`, // 제목
+        contents1: message, // 내용 - 백엔드의 에러 desc
+        contents2: '',
+        btnCheck: '확인', // 확인 버튼의 텍스트
+        callback,
+    });
+}
+
+const makeUIResponse = (action, message, errorCode, handleSuccess) => {
+    switch (action) {
+        case errorActionTypes.INFO:
+            openInfo(message);
+            break;
+        case errorActionTypes.ERROR:
+            openError(message, errorCode);
+            break;
+        case errorActionTypes.MAIN:
+            openError(message, errorCode, () => {
+                location.href = '/#/service';
+            });
+            break;
+        case errorActionTypes.LOGIN:
+            openError(message, errorCode, () => {
+                logout();
+            });
+            break;
+        case errorActionTypes.UP:
+            openError(message, errorCode, () => {
+                const li = location.href.lastIndexOf('/');
+                location.href = location.href.substring(0, li);
+            });
+            break;
+        case errorActionTypes.REFRESH:
+            openError(message, errorCode, () => {
+                location.reload();
+            });
+            break;
+        case errorActionTypes.INFODO:
+            openInfo(message, errorCode, () => {
+                handleSuccess({data: {msg: '에러가 발생했지만 성공 진행'}});
+            });
+            break;
+        case errorActionTypes.ERRORDO:
+            openError(message, errorCode, () => {
+                handleSuccess({data: {msg: '에러가 발생했지만 성공 진행'}});
+            });
+            break;
+        case errorActionTypes.NONE:
+            break;
+        default:
+            openError(message, errorCode);
+            break;
+    }
+}
+
+const createMsgByErrorStatus = (status) => {
+    let msg = '';
+    switch (status) {
+        case 400:
+            msg = '전송한 파라메터 데이터가 일치하지 않습니다.';
+            break;
+        case 401:
+            msg = '인증되지 않은 사용자입니다. 다시 로그인해주세요.';
+            break;
+        case 403:
+            msg = '해당기능을 사용할 수 있는 권한이 없습니다.';
+            break;
+        case 404:
+            msg = '요청한 기능의 경로가 잘못되었습니다. 관리자에게 문의해 주시기를 바랍니다.';
+            break;
+        default:
+            msg = `${status} 에러가 발생하였습니다.`;
+            break;
+    }
+    return msg;
+}
+
+const errorActionTypes = {
+    INFO: Symbol('INFO'), // 알림 메시지 표출 후 추가 동작 없음
+    ERROR: Symbol('ERROR'), // 에러 메시지 표출 후 추가 동작 없음
+    MAIN: Symbol('MAIN'), // 에러 메시지 표출 후 확인시 메인화면 이동
+    LOGIN: Symbol('LOGIN'), // 에러 메시지 표출 후 확인시 로그아웃과 함께 로그인화면 이동
+    UP: Symbol('UP'), // 에러 메시지 표출 후 확인시 상위 경로로 이동
+    REFRESH: Symbol('REFRESH'), // 에러 메시지 표출 후 확인시 현재 경로 재진입
+    INFODO: Symbol('INFODO'), // 알림 메시지 표출 후 성공시의 동작 수행
+    ERRORDO: Symbol('ERRORDO'), // 에러 메시지 표출 후 성공시의 동작 수행
+    NONE: Symbol('NONE'),
+}
+
+const errorActionDictionary = {
+    400: errorActionTypes.ERROR,
+    401: errorActionTypes.NONE,
+    403: errorActionTypes.ERROR,
+    404: errorActionTypes.ERROR,
+    KO000: errorActionTypes.MAIN,
+    KO001: errorActionTypes.MAIN,
+    KO002: errorActionTypes.MAIN,
+    KO003: errorActionTypes.INFO,
+    KO004: errorActionTypes.INFO,
+    KO005: errorActionTypes.INFO,
+    KO006: errorActionTypes.LOGIN,
+    KO007: errorActionTypes.LOGIN,
+
+    KO009: errorActionTypes.LOGIN,
+    KO010: errorActionTypes.ERROR,
+    KO011: errorActionTypes.INFO,
+    KO012: errorActionTypes.INFO,
+    KO013: errorActionTypes.INFO,
+    KO014: errorActionTypes.ERROR,
+    KO015: errorActionTypes.INFO,
+    KO016: errorActionTypes.INFO,
+    KO017: errorActionTypes.INFO,
+    KO018: errorActionTypes.INFO,
+    KO019: errorActionTypes.INFO,
+    KO020: errorActionTypes.ERROR,
+    KO021: errorActionTypes.ERROR,
+    KO022: errorActionTypes.ERROR,
+    KO023: errorActionTypes.ERROR,
+    KO024: errorActionTypes.INFO,
+    KO025: errorActionTypes.INFO,
+    KO026: errorActionTypes.ERROR,
+    KO027: errorActionTypes.ERROR,
+    KO028: errorActionTypes.ERROR,
+    KO029: errorActionTypes.ERROR,
+    KO030: errorActionTypes.ERROR,
+    KO031: errorActionTypes.ERROR,
+    KO032: errorActionTypes.ERROR,
+
+    KO033: errorActionTypes.INFO,
+    KO034: errorActionTypes.INFO,
+    KO035: errorActionTypes.INFO,
+    KO036: errorActionTypes.ERROR,
+
+    KO038: errorActionTypes.INFO,
+    KO039: errorActionTypes.ERROR,
+
+    KO040: errorActionTypes.ERROR,
+    KO041: errorActionTypes.ERROR,
+    KO042: errorActionTypes.ERROR,
+
+    KO043: errorActionTypes.ERROR,
+    KO044: errorActionTypes.INFO,
+    KO045: errorActionTypes.ERROR,
+    KO046: errorActionTypes.INFO,
+
+    KO047: errorActionTypes.ERROR,
+    KO048: errorActionTypes.ERROR,
+
+    KO049: errorActionTypes.ERROR,
+    KO050: errorActionTypes.ERROR,
+
+    KO051: errorActionTypes.ERROR,
+    KO052: errorActionTypes.ERROR,
+
+    KO053: errorActionTypes.ERROR,
+    KO054: errorActionTypes.ERROR,
+    KO055: errorActionTypes.UP,
+
+    KO056: errorActionTypes.ERROR,
+
+    KO057: errorActionTypes.ERROR,
+
+    KO058: errorActionTypes.ERROR,
+    KO059: errorActionTypes.ERROR,
+    KO060: errorActionTypes.INFO,
+    KO061: errorActionTypes.INFO,
+    KO062: errorActionTypes.ERROR,
+    KO063: errorActionTypes.ERROR,
+    KO064: errorActionTypes.INFO,
+    KO065: errorActionTypes.INFO,
+    KO066: errorActionTypes.INFO,
+    KO067: errorActionTypes.ERROR,
+    KO068: errorActionTypes.ERROR,
+    KO069: errorActionTypes.ERROR,
+    KO070: errorActionTypes.ERROR,
+    KO071: errorActionTypes.ERROR,
+    KO072: errorActionTypes.INFO,
+    KO073: errorActionTypes.ERROR,
+
+    KO074: errorActionTypes.INFO,
+    KO075: errorActionTypes.INFO,
+    KO076: errorActionTypes.INFO,
+
+    KO077: errorActionTypes.INFO,
+
+    KO078: errorActionTypes.INFO,
+    KO079: errorActionTypes.INFO,
+    KO080: errorActionTypes.ERROR,
+    KO081: errorActionTypes.ERROR,
+    KO082: errorActionTypes.ERROR,
+    KO083: errorActionTypes.INFO,
+
+    KO084: errorActionTypes.ERROR,
+    KO085: errorActionTypes.ERROR,
+    KO086: errorActionTypes.INFO,
+
+    KO087: errorActionTypes.INFO,
+    KO088: errorActionTypes.INFO,
+    KO089: errorActionTypes.INFO,
+
+    KO090: errorActionTypes.ERROR,
+
+    KO091: errorActionTypes.ERROR,
+
+    KO092: errorActionTypes.ERROR,
+    KO093: errorActionTypes.INFO,
+}
+
+const errorReport = (etTitle, etMsg) => {
+    console.log(etTitle, etMsg);
+    fetch(import.meta.env.VITE_SERVER_URL + '/v2/api/Error/errorSave', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': get(accessToken) // Authorization 헤더 추가
+        },
+        body: JSON.stringify({etTitle, etMsg})
+    }).catch((error) => {
+        console.error('Error:', error);
+    });
+}

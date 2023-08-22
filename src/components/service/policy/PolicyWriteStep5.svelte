@@ -66,10 +66,10 @@
         let sendData = {
             piId : $piId,
             policyThirdSaveDtoList: $policyInfoData.thirdDataList,
-            policyThirdYn: policyThirdYn,
+            policyThirdYn: !!$policyInfoData.thirdDataList.length,
             policyThirdDeleteIdList: policyThirdDeleteIdList,
             policyThirdOverseasSaveDtoList: $policyInfoData.thirdOverseasDataList,
-            policyThirdOverseasYn: policyThirdOverseasYn,
+            policyThirdOverseasYn: !!$policyInfoData.thirdOverseasDataList.length,
             policyThirdOverseasDeleteIdList: policyThirdOverseasDeleteIdList,
         }
         restapi('v2', 'post', url, "body", sendData, 'application/json',
@@ -99,13 +99,6 @@
                     </div>
                 </div>
             </span>
-            <div class="title_check" style="top: 0">
-                <input type="checkbox" value="1" name="pr6_involve" id="pr6_involve" bind:checked={policyThirdYn} >
-                <label for="pr6_involve">
-                    <p class="check">포함여부</p>
-                    <em></em>
-                </label>
-            </div>
         </div>
         <div class="prinortext marB24">
             회사는 원칙적으로 개인정보를 외부에 제공하지 않습니다. 단, 개인정보보호법에 근거해 정보주체의 별도 동의나 관련 법령에 의해 개인정보 제출의 의무가 있는 경우, 또는 정보주체의 생명이나 안전에 급박한 위험이 확인되어 이를 해소하기 위한 경우에 한하여 개인정보를 제공합니다.
@@ -154,13 +147,6 @@
                     </div>
                 </div>
             </span>
-            <div class="title_check">
-                <input type="checkbox" value="1" name="pr6-1_involve" id="pr6-1_involve"  bind:checked={policyThirdOverseasYn} >
-                <label for="pr6-1_involve">
-                    <p class="check">포함여부</p>
-                    <em></em>
-                </label>
-            </div>
         </div>
         <div class="prtextTablethBox colum5Line borT">
             <div class="prtti">제공받는 자</div>

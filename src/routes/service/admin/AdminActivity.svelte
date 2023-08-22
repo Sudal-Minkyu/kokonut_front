@@ -2,92 +2,84 @@
 <script>
     // 레이아웃
     import Header from "../../../components/service/layout/Header.svelte"
-
     import ActivitySearch from '../../../components/service/admin/activity/ActivitySearch.svelte'
     import ActivityTable from '../../../components/service/admin/activity/ActivityTable.svelte'
     import ActivityExcel from '../../../components/service/admin/activity/ActivityExcel.svelte'
-
     import Paging from '../../../components/common/Paging.svelte'
-
-    import restapi from "../../../lib/api.js"
-
-    import {page} from "../../../lib/store.js"
     import jQuery from 'jquery';
-
     import { onMount } from "svelte";
+    import {fade} from "svelte/transition"
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
+    import {debounce200} from "../../../components/common/eventRateControls.js";
+    import {stimeVal} from "../../../components/common/action/DatePicker.js";
+    import ExcelDownloadPop from "../../../components/common/ui/ExcelDownloadPop.svelte";
 
-
-    import {stimeVal, setDateRangePicker} from "../../../lib/libSearch.js";
-
-    onMount(async ()=>{
+    onMount(async () => {
         await fatchSearchModule();
+    });
 
-    })
-
-    async function fatchSearchModule(){
-        setDateRangePicker('stime', true, 'period');
-
+    async function fatchSearchModule() {
         // 페이지번호 초기화
-        page.set(0);
-        activityList($page);
+        activityList(0);
     }
 
     let activity_list = [];
     let size = 10;
     let total = 0;
     let total_page;
-    $: total_page = Math.ceil(total/size)
+    $: total_page = Math.ceil(total/size);
+    let adminActivityLayout = 0;
 
-    function activityList(pageNum) {
+    const searchCondition = {
+        page: 0,
+        size,
+        searchText: '',
+        stime: '',
+        actvityType: '',
+        filterRole: '',
+    }
+    const activityList = debounce200((page) => {
+        console.log('페이지', page);
+        adminActivityLayout = 0;
+        searchCondition.stime = stimeVal;
+        searchCondition.page = page;
         console.log("관리자 활동이력 리스트 데이터 호출");
 
-        // $: $page, activityList(page); 대체함
-        page.set(pageNum);
-
-        console.log("searchText : "+searchText);
-        console.log("stimeVal : "+stimeVal);
-        console.log("actvityType : "+actvityType);
-
-        let url = "/v2/api/History/activityList?page=" + pageNum+"&size="+size;
-        let sendData = {
-            searchText : searchText,
-            stime : stimeVal,
-            actvityType : actvityType,
-        };
-
-        restapi('v2', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    console.log("조회된 데이터가 있습니다.");
-                    // console.log(json_success);
-                    activity_list = json_success.data.datalist
-                    total = json_success.data.total_rows
-                    // console.log(activity_list);
-                    // console.log(total);
-                } else {
-                    // alert(json_success.data.err_msg);
-                    activity_list = [];
-                    total = 0;
-                    console.log("조회된 데이터가 없습니다.");
-                }
-                // console.log("관리자활동이력 리스트 호출 성공");
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("관리자활동이력 리스트 호출 실패");
+        let url = "/v2/api/History/activityList";
+        ajaxGet(url, searchCondition, (res) => {
+            try {
+                excelDownloadPopService.requestData = {
+                    searchText: searchCondition.searchText,
+                    stime: searchCondition.stime,
+                    actvityType: searchCondition.actvityType,
+                };
+                console.log("조회된 데이터가 있습니다.");
+                activity_list = res.data.datalist
+                total = res.data.total_rows
+                adminActivityLayout = 1;
+            } catch (e) {
+                reportCatch('temp063', e);
             }
-        )
-    }
+        }, (errCode) => {
+            try {
+                activity_list = [];
+                total = 0;
+                adminActivityLayout = 1;
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp064', e);
+            }
+        });
+    });
 
     // 검색 변수
     let searchText = ""; // 이름 및 이메일 검색
-    let actvityType =""; // 활동선택
 
     let choseMax = false;
     let choseMaxText = '';
     function activityConfirm() {
         let select_text = '';
-        actvityType = '';
         if(jQuery("input[name='activity']:checked").length === 0){
             console.log("1");
             choseMax = true;
@@ -102,12 +94,13 @@
             choseMaxText = '5개 이상 선택 할 수 없습니다.';
         }
         else{
+            searchCondition.actvityType = '';
             jQuery('input[type="checkbox"]:checked').each(function (index) {
                 if (index !== 0) {
                     select_text += ', ';
-                    actvityType += ',';
+                    searchCondition.actvityType += ',';
                 }
-                actvityType += jQuery(this).val();
+                searchCondition.actvityType += jQuery(this).val();
 
                 const answer = jQuery(this).attr("id");
                 select_text += jQuery("label[for='"+answer+"']").text();
@@ -119,26 +112,27 @@
             choseMaxText = '';
 
             // actvityType = '['+actvityType+']'
-            console.log("바뀌기전 actvityType : "+actvityType);
+            console.log("바뀌기전 actvityType : "+searchCondition.actvityType);
             // actvityType = actvityType.split(",");
             // console.log("바뀌기후 actvityType : "+actvityType);
             console.log("바뀌기후 select_text : "+select_text);
+            activityList(0);
         }
     }
 
     function activityCancel() {
-        actvityType = '';
+        searchCondition.actvityType = '';
         jQuery(".act_sel").prop("checked",false);
         document.getElementById('result').innerText = '활동전체';
         jQuery('.floatCheckBox').css("display", 'none');
+        activityList(0);
     }
 
     // 엔터키 클릭
     function enterPress(event) {
         if(event.key === "Enter") {
             // 페이지번호 초기화
-            page.set(0);
-            activityList($page);
+            activityList(0);
         }
     }
 
@@ -147,6 +141,22 @@
         excelPop = !excelPop
     }
 
+    const excelDownloadPopService = {
+        visibility: false,
+        useBodyParam: false,
+        requestURL: '/v2/api/History/activityDownloadExcel',
+        requestData: {
+            searchText: '',
+            stime: '',
+            actvityType: '',
+        },
+        close: () => {
+            excelDownloadPopService.visibility = false;
+        },
+        open: () => {
+            excelDownloadPopService.visibility = true;
+        },
+    }
 </script>
 
 <Header />
@@ -159,23 +169,27 @@
 
         <div class="seaWrap">
             <div class="kotopBtn">
-                <button id="excel_download_pop" on:click={excelPopClick}>현재목록 엑셀 다운로드</button>
+                <button id="excel_download_pop" on:click={excelDownloadPopService.open}>현재목록 엑셀 다운로드</button>
             </div>
             <div class="koinput marB32">
-                <input type="text" bind:value="{searchText}" class="wid360" placeholder="이름, 이메일 검색" on:keypress={enterPress} />
+                <input type="text" bind:value="{searchCondition.searchText}" class="wid360" placeholder="관리자 검색(이름, 아이디)" on:keypress={enterPress} />
                 <button on:click={() => activityList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
             </div>
         </div>
 
-        <ActivitySearch {choseMax} {choseMaxText} {activityCancel} {activityConfirm} />
+        <ActivitySearch {choseMax} {choseMaxText} {activityCancel} {activityConfirm} {searchCondition} {activityList} />
 
-        <ActivityTable {activityList} {activity_list} {total} {size} {total_page} />
-
-        <Paging total_page="{total_page}" data_list="{activity_list}" dataFunction="{activityList}" />
-
+        <LoadingOverlay bind:loadState={adminActivityLayout} >
+            <div in:fade>
+                <!-- 테이블 영역 -->
+                <ActivityTable page={searchCondition.page} {activityList} {activity_list} {total} {size} {total_page} />
+                <!-- 페이징 영역 -->
+                <Paging page={searchCondition.page} total_page="{total_page}" data_list="{activity_list}" dataFunction="{activityList}" />
+            </div>
+        </LoadingOverlay>
     </div>
 </section>
 
-{#if excelPop}
-    <ActivityExcel {excelPopClick} {total} />
+{#if excelDownloadPopService.visibility}
+    <ExcelDownloadPop {excelDownloadPopService} />
 {/if}

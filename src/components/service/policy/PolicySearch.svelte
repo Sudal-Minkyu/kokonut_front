@@ -1,4 +1,26 @@
+<script>
+    import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
+    import {DateRangePicker} from "../../common/action/DatePicker.js";
 
+    export let searchCondition;
+    export let policyList;
+
+    const handleSelectPeriod = (result) => {
+        policyList(0);
+    }
+
+    const dateRangePickerProps = {
+        callback: handleSelectPeriod,
+        handleRendered: handleSelectPeriod,
+        periodName: 'period',
+        eraseOnCancel: false,
+    };
+
+    const handleFilterType = (el) => {
+        searchCondition.filterDate = el.dataset.value;
+        policyList(0);
+    }
+</script>
 <!-- 상단 검색 영역 -->
 <div class="seaWrap marB28">
     <div class="seaContentBox">
@@ -7,7 +29,7 @@
                 <dl>날짜 선택</dl>
                 <div class="seaflexBox">
                     <div class="sc_SelBox">
-                        <div class="selectBox wid162">
+                        <div class="selectBox wid162"  use:SelectBoxManager={{callback: handleFilterType}} >
                             <div class="label" id="policySelect" ></div>
                             <ul class="optionList">
                             </ul>
@@ -15,7 +37,8 @@
                     </div>
                     <div class="calenderBox borL">
                         <div class="calenderInput">
-                            <input id="stime" type="text" class="form-control" placeholer="날짜선택" aria-describedby="stime_addon" readonly />
+                            <input id="stime" type="text" class="form-control" placeholer="날짜선택"
+                                   aria-describedby="stime_addon" readonly use:DateRangePicker={dateRangePickerProps}/>
                             <img src="/assets/images/common/callendericon.png" alt="">
                         </div>
                     </div>

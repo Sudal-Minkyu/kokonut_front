@@ -43,7 +43,7 @@
     import CustumAlert from "../common/CustumAlert.svelte"
     import restapi from "../../lib/api.js"
     import jQuery from 'jquery';
-    import { ipCheck, popOpenBtn} from "../../lib/common.js"
+    import { ipCheck, popOpenBtn, encryptData, decryptData} from "../../lib/common.js"
 
     export let state;
 
@@ -257,7 +257,7 @@
     import { chart } from "svelte-apexcharts";
     import axios from "axios";
     import {get} from "svelte/store";
-    import {accessToken} from "../../lib/store.js";
+    import {accessToken, keyBufferSto, ivSto} from "../../lib/store.js";
     let options = {
         chart: {
             type: "bar",
@@ -327,31 +327,6 @@
         },
     ];
 
-    import { Carousel } from "svelte-images";
-    const { Modal, open, close } = Carousel;
-
-    // export let images = [];
-
-    const popModal = idx =>
-        setTimeout(() => {
-            open(images, idx);
-        }, 0);
-
-    import {Swiper, SwiperSlide} from 'svelte-swiper';
-    import 'swiper/swiper-bundle.css';
-    let swiper_options = {
-        direction: "vertical",
-        loop: true,
-        autoplay: {
-            delay: 2500,
-            disableOnInteraction: false,
-        },
-        navigation: {   // 버튼
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-    };
-
     import { Bootpay } from '@bootpay/client-js'
 
     // 부트페이 결제창
@@ -401,31 +376,52 @@
     // 부트페이 정기결제 카드등록
     function bootpayBilling() {
         Bootpay.requestSubscription({
-            application_id: '6369c021cf9f6d001b23e2ef',
+            application_id: import.meta.env.VITE_BOOT_PAY_SECRET,
             pg: '나이스페이',
-            price: 1000,
-            tax_free: 0,
-            order_name: '정기결제 테스트 입니다',
+            // price: 1000,
+            // tax_free: 0,
+            order_name: '코코넛 정기결제 등록',
             subscription_id: (new Date()).getTime(),
             user: {
                 username: '홍길동',
-                phone: '01000000000'
+                phone: '01000000000',
+                email: 'email@gmail.com'
             },
             extra: {
-                subscription_comment: '매월 1,000원이 결제됩니다',
+                subscription_comment: '매월 사용료에 따라 결제됩니다.\n 사용료는 환경설정 - 구독관리 페이지를 통해 확인할 수 있습니다.',
                 subscribe_test_payment: true
             }
         }).then(
             function (response) {
                 console.log(response)
                 if (response.event === 'done') {
-                    alert('빌링키 발급이 완료되었습니다.')
+                    console.log("빌링키 : "+response.data.receipt_id);
+                    alert('빌링키 발급이 완료되었습니다.');
                 }
             },
             function (error) {
                 console.log(error.message)
             }
-        )
+        );
+    }
+
+    // 사용 예시
+    const dataToEncrypt = 'Hello, World!';
+    // const encryptionKey = "kokonuttest123123456431234512323"
+    console.log("dataToEncrypt : "+dataToEncrypt);
+    // console.log("encryptionKey : "+encryptionKey)
+    let testpw;
+    function aesfun() {
+        testpw = encryptData(dataToEncrypt)
+            .then((encryptedData) => {
+                console.log("암호화 : "+encryptedData);
+                // 암호화된 데이터를 서버로 전송하거나 다른 처리를 수행합니다.
+                decryptData(encryptedData, $keyBufferSto, $ivSto)
+                    .then((decryptData) => {
+                        console.log("복호화 : "+decryptData);
+                    })
+            })
+
     }
 
 </script>
@@ -442,7 +438,7 @@
 
     <input type="button" on:click="{() => jwtRoleTest('adminTest')}" value="최고관리자일 경우 JWT 테스트"><br/>
 
-    <input type="button" on:click="{() => jwtRoleTest('userTest')}" value="일반관리자일 경우 JWT 테스트"><br/>
+    <input type="button" on:click="{() => jwtRoleTest('userTest')}" value="관리자일 경우 JWT 테스트"><br/>
 
     <input type="button" on:click="{() => jwtRoleTest('guestTest')}" value="게스트일 경우 JWT 테스트"><br/>
 </div>
@@ -526,4 +522,11 @@
     <input type="button" on:click|preventDefault="{bootpayPayment}" value="부트페이 결제창 열기"><br/>
 
     <input type="button" on:click|preventDefault="{bootpayBilling}" value="부트페이 카드빌링창 열기"><br/>
+</div>
+
+<div class="testDiv">
+    <h1>AES 암호화 테스트</h1><br/>
+
+    <input type="button" on:click|preventDefault="{aesfun}" value="AES 암호화"><br/>
+
 </div>

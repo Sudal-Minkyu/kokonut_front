@@ -4,24 +4,21 @@
     // 레이아웃
     import Header from "../../components/service/layout/Header.svelte"
     import { link } from 'svelte-spa-router'
-    import { backBtn } from '../../lib/store'
-
+    import {backBtn, userInfoData} from '../../lib/store'
     import { onMount } from 'svelte';
-    import restapi from "../../lib/api.js";
-    import { is_login, accessToken } from "../../lib/store.js"
-
-    import { push } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
-
     import jQuery from 'jquery';
     import CustumAlert from "../../components/common/CustumAlert.svelte"
     import { popOpenBtn, }from '../../lib/common'
-
     import TitleAlarm from '../../components/common/TitleAlarm.svelte'
-
     import ApiKeyIpDelete from '../../components/service/environment/apikey/ApiKeyIpDelete.svelte'
     import ApiKeyIpAdd from '../../components/service/environment/apikey/ApiKeyIpAdd.svelte'
     import ApiKeyExplan from '../../components/service/environment/apikey/ApiKeyExplan.svelte'
+    import {logout} from "../../components/common/authActions.js";
+    import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet, ajaxParam, reportCatch} from "../../components/common/ajax.js";
+
+    $: isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
 
     let allChecked = false;
     let deleteIpList = [];
@@ -128,53 +125,51 @@
     function apiKeyInfo() {
         let url = "/v2/api/ApiKey/apiKeyCheck"
 
-        restapi('v2', 'get', url, "", {}, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    // console.log(json_success);
+        ajaxGet(url, false, (res) => {
+            try {
+                console.log(res);
+                apikeyTrueFalse = res.data.sendData.result;
+                // apikeyTrueFalse = 0;
+                // console.log("apikeyTrueFalse : "+apikeyTrueFalse);
 
-                    apikeyTrueFalse = json_success.data.sendData.result;
-                    // apikeyTrueFalse = 0;
-                    // console.log("apikeyTrueFalse : "+apikeyTrueFalse);
-
-                    popType = 2;
-                    if(apikeyTrueFalse === 2) {
-                        apiKey = json_success.data.sendData.apiKey;
-                        filterApiKey = json_success.data.sendData.filterApiKey;
-                        accessIpList = json_success.data.sendData.accessIpList;
-                        ipSize = accessIpList.length;
-                        if(ipSize === 5) {
-                            addBtn = false;
-                        }
-                        // console.log(accessIpList);
-                        // console.log(apiKey);
-                        // console.log(ipSize);
-
-                        explanState = false;
-                        popTitle = "Key를 재발급받으시겠습니까?";
-                        popContents1 = "재발급 받으실 경우 이전에 받으신";
-                        popContents2 = "API Key의 사용은 불가합니다.";
-                        imgState = 2;
-
-                    } else {
-                        explanState = true;
-                        popTitle = "Key를 발급받으시겠습니까?";
-                        popContents1 = "";
-                        popContents2 = "";
-                        imgState = 4;
+                popType = 2;
+                if (apikeyTrueFalse === 2) {
+                    apiKey = res.data.sendData.apiKey;
+                    filterApiKey = res.data.sendData.filterApiKey;
+                    accessIpList = res.data.sendData.accessIpList;
+                    ipSize = accessIpList.length;
+                    if (ipSize === 5) {
+                        addBtn = false;
                     }
+                    // console.log(accessIpList);
+                    // console.log(apiKey);
+                    // console.log(ipSize);
+
+                    explanState = false;
+                    popTitle = "Key를 재발급받으시겠습니까?";
+                    popContents1 = "재발급 받으실 경우 이전에 받으신";
+                    popContents2 = "API Key의 사용은 불가합니다.";
+                    imgState = 2;
                 } else {
-                    // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                    alert(json_success.data.err_msg);
-                    is_login.set(false);
-                    accessToken.set("");
-                    push('/login');
+                    explanState = true;
+                    popTitle = "Key를 발급받으시겠습니까?";
+                    popContents1 = "";
+                    popContents2 = "";
+                    imgState = 4;
                 }
-            },
-            (json_error) => {
-                console.log(json_error);
+            } catch (e) {
+                reportCatch('temp043', e);
             }
-        )
+        }, (errCode, errMsg) => {
+            try {
+                // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
+                alert(errMsg);
+                logout();
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp044', e);
+            }
+        });
     }
 
     // API Key 발급 및 재발급
@@ -182,16 +177,13 @@
         console.log("API Key 발급 및 재발급");
         let url = "/v2/api/ApiKey/apiKeyIssue"
 
-        restapi('v2', 'post', url, "", {}, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    apiKeyInfo();
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
+        ajaxParam(url, {}, (res) => {
+            try {
+                apiKeyInfo();
+            } catch (e) {
+                reportCatch('temp045', e);
             }
-        )
+        });
     }
 
     // API ket 복사
@@ -252,13 +244,10 @@
         <TitleAlarm {titleMessage} {titleClick} />
 
         <div class="apikeyBox">
-            {#if apikeyTrueFalse === 0}
-                <div class="loaderParent">
-                    <div class="loader"></div>
-                </div>
-            {:else if apikeyTrueFalse === 1}
+            <LoadingOverlay bind:loadState={apikeyTrueFalse} >
+                {#if apikeyTrueFalse === 1 && isModifiable}
                 <div class="apikeyBtn" on:click={popOpenBtn} in:fade>API Key 발급</div>
-            {:else}
+                {:else}
                 <div class="apiwrap" in:fade>
                     <div class="apicodeContentBox marB60">
                         <div class="codeContentBox">
@@ -277,7 +266,9 @@
                             </div>
                         </div>
 
-                        <button id="excel_download_pop" on:click={popOpenBtn}>API Key 재발급</button>
+                        {#if isModifiable}
+                            <button id="excel_download_pop" on:click={popOpenBtn}>API Key 재발급</button>
+                        {/if}
 
                     </div>
 
@@ -285,10 +276,10 @@
                         <div class="ipseaBox marB46">
                             <div class="koinput"></div>
                             <div class="floatBtnBox">
-                                {#if ipSize >= 1}
+                                {#if ipSize >= 1 && isModifiable}
                                     <button class="del" on:click={() => ipChange(1)} id="ipdel_pop">삭제</button>
                                 {/if}
-                                {#if ipSize !== 5}
+                                {#if ipSize !== 5 && isModifiable}
                                     <button class="add" on:click={() => ipChange(2)} id="ipadd_pop">추가</button>
                                 {/if}
                             </div>
@@ -296,18 +287,22 @@
                         <div class="prtable">
                             <table>
                                 <colgroup>
-                                    <col style="width:8.21%;">
+                                    {#if isModifiable}
+                                        <col style="width:8.21%;">
+                                    {/if}
                                     <col style="width:71.14%;">
-                                    <col style="width:20.66%;">
+                                    <col>
                                 </colgroup>
                                 <thead>
                                 <tr>
-                                    <th>
-                                        <div class="koko_check">
-                                            <input type="checkbox" bind:checked="{allChecked}" on:click|preventDefault={allcheckBox} id="allcheck">
-                                            <label for="allcheck"><em></em></label>
-                                        </div>
-                                    </th>
+                                    {#if isModifiable}
+                                        <th>
+                                            <div class="koko_check">
+                                                <input type="checkbox" bind:checked="{allChecked}" on:click|preventDefault={allcheckBox} id="allcheck">
+                                                <label for="allcheck"><em></em></label>
+                                            </div>
+                                        </th>
+                                    {/if}
                                     <th>공인 IP</th>
                                     <th>메모</th>
                                 </tr>
@@ -316,12 +311,14 @@
                                 {#if ipSize !== 0}
                                     {#each accessIpList as accessIp, i}
                                         <tr>
-                                            <td>
-                                                <div class="koko_check">
-                                                    <input type="checkbox" id="ip{i+1}" class="partcheck" value="accessIp{i+1}" on:click={checkBoxClick} >
-                                                    <label for="ip{i+1}"><em></em></label>
-                                                </div>
-                                            </td>
+                                            {#if isModifiable}
+                                                <td>
+                                                    <div class="koko_check">
+                                                        <input type="checkbox" id="ip{i+1}" class="partcheck" value="accessIp{i+1}" on:click={checkBoxClick} >
+                                                        <label for="ip{i+1}"><em></em></label>
+                                                    </div>
+                                                </td>
+                                            {/if}
                                             <td id="accessIp{i+1}">{accessIp.accessIp}</td>
                                             <td id="accessMemo{i+1}">{accessIp.memo}</td>
                                         </tr>
@@ -341,7 +338,8 @@
                         </div>
                     </div>
                 </div>
-            {/if}
+                {/if}
+            </LoadingOverlay>
 
             {#if apikeyTrueFalse !== 0}
                 <ApiKeyExplan {explanState} />
@@ -353,7 +351,7 @@
 {#if ipPopState === 1}
     <ApiKeyIpDelete {apiKeyInfo} {ipChange} {deleteIpListInit} {deleteIpList} />
 {:else if ipPopState === 2}
-    <ApiKeyIpAdd {apiKeyInfo} {ipChange} {getMyIp} />
+    <ApiKeyIpAdd {apiKeyInfo} {ipChange} {getMyIp} {accessIpList} />
 {/if}
 
 <CustumAlert popType = {popType} imgState = {imgState} startFun = {startFun} {popTitle} {popContents1} {popContents2} {popStart} {popCancel} {popCheck} />

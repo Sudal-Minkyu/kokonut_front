@@ -1,7 +1,7 @@
 <script>
-    import restapi from "../../../../lib/api.js";
     import { fade } from 'svelte/transition'
     import { onlyNumber } from '../../../../lib/common'
+    import {ajaxBody, reportCatch} from "../../../common/ajax.js";
 
     export let deleteIpListInit;
     export let apiKeyInfo;
@@ -36,23 +36,27 @@
                     deleteIpList : deleteIpList,
                 }
 
-                restapi('v2', 'post', url, "body", sendData, 'application/json',
-                    (json_success) => {
-                        if(json_success.data.status === 200) {
-                            deleteIpListInit(); // 값 초기화
-                            apiKeyInfo();
-                            ipChange(0);
-                        } else if (json_success.data.err_code === "KO010" || json_success.data.err_code === "KO011" || json_success.data.err_code === "KO012") {
-                            otpError = true;
-                            otp_err_msg = json_success.data.err_msg;
-                        } else {
-                            alert(json_success.data.err_msg);
-                        }
-                    },
-                    (json_error) => {
-                        console.log(json_error);
+                ajaxBody(url, sendData, (res) => {
+                    try {
+                        deleteIpListInit(); // 값 초기화
+                        apiKeyInfo();
+                        ipChange(0);
+                    } catch (e) {
+                        reportCatch('temp123', e);
                     }
-                )
+                }, (errCode, errMsg) => {
+                    try {
+                        if (errCode === "KO010" || errCode === "KO011" || errCode === "KO012") {
+                            otpError = true;
+                            otp_err_msg = errMsg;
+                        } else {
+                            alert(errMsg);
+                        }
+                        return {action: 'NONE'};
+                    } catch (e) {
+                        reportCatch('temp124', e);
+                    }
+                });
             }
         } else {
             // 주의사항 체크해야함

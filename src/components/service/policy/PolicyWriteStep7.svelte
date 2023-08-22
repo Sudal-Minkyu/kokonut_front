@@ -43,7 +43,7 @@
                             const pathName = '/service/policyDetail/' + $piId;
                             piId.set(0);
                             piStage.set(0);
-                            policyInfoData.set(JSON.parse(JSON.stringify(initialPolicyInfo)));
+                            policyInfoData.set(JSON.parse(initialPolicyInfo));
                             push(pathName);
                         }, // 확인버튼시 동작
                         icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표

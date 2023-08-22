@@ -1,20 +1,15 @@
-
+록
 <script>
-
     // 레이아웃
     import Header from "../../../components/service/layout/Header.svelte"
     import Error from "../../../components/common/error/Error.svelte";
-
-    // 컴포넌트
-    import TitleAlarm from "../../../components/common/TitleAlarm.svelte";
-
-    import { link } from 'svelte-spa-router'
-    import { fade } from 'svelte/transition'
+    import {link} from 'svelte-spa-router'
+    import {fade} from 'svelte/transition'
     import {onMount} from "svelte";
-
-    import {backBtn, role} from '../../../lib/store.js'
-    import restapi from "../../../lib/api.js";
-    import {writable} from "svelte/store";
+    import {backBtn, userInfoData} from '../../../lib/store.js'
+    import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
+    import {openBanner, openConfirm} from "../../../components/common/ui/DialogManager.js";
 
     let piId;
 
@@ -67,56 +62,192 @@
 
         let url = "/v2/api/Policy/policyDetail/"+piId;
 
-        restapi('v2', 'get', url, "", {}, 'application/json',
-            (json_success) => {
-                console.log(json_success);
-                if(json_success.data.status === 200) {
-                    console.log("조회된 데이터가 있습니다.");
+        ajaxGet(url, false, (res) => {
+            try {
+                console.log("조회된 데이터가 있습니다.");
 
-                    console.log(json_success)
-                    policyInfoData.policyData = json_success.data.sendData.policyData;
+                console.log(res)
+                policyInfoData.policyData = res.data.sendData.policyData;
 
-                    policyInfoData.purposeDataList = json_success.data.sendData.purposeDataList;
+                policyInfoData.purposeDataList = res.data.sendData.purposeDataList;
 
-                    policyInfoData.beforeDataList = json_success.data.sendData.beforeDataList;
-                    policyInfoData.afterDataList = json_success.data.sendData.afterDataList;
-                    policyInfoData.serviceAutoDataList = json_success.data.sendData.serviceAutoDataList;
+                policyInfoData.beforeDataList = res.data.sendData.beforeDataList;
+                policyInfoData.afterDataList = res.data.sendData.afterDataList;
+                policyInfoData.serviceAutoDataList = res.data.sendData.serviceAutoDataList;
 
-                    policyInfoData.outDataList = json_success.data.sendData.outDataList;
-                    if(policyInfoData.policyData.piOutChose) {
-                        policyInfoData.outDetailDataList = json_success.data.sendData.outDetailDataList;
-                    }
-
-                    if(policyInfoData.policyData.piThirdChose) {
-                        policyInfoData.thirdDataList = json_success.data.sendData.thirdDataList;
-                    }
-
-                    if(policyInfoData.policyData.piThirdOverseasChose) {
-                        policyInfoData.thirdOverseasDataList = json_success.data.sendData.thirdOverseasDataList;
-                    }
-
-                    policyInfoData.reponsibleDataList = json_success.data.sendData.reponsibleDataList;
-
-                    console.log(policyInfoData)
-
-                    policyDetailLayout = 1;
+                policyInfoData.outDataList = res.data.sendData.outDataList;
+                if (policyInfoData.policyData.piOutChose) {
+                    policyInfoData.outDetailDataList = res.data.sendData.outDetailDataList;
                 }
-                else {
-                    state = 1;
-                    pageErrMsg1 = "선택하신 페이지가 존재하지 않습니다."
-                    pageErrMsg2 = "다시 시도해주사길 바랍니다."
-                    pageErrUrl = "/service/policyList"
 
-                    console.log("조회된 데이터가 없습니다.");
+                if (policyInfoData.policyData.piThirdChose) {
+                    policyInfoData.thirdDataList = res.data.sendData.thirdDataList;
                 }
-            },
-            (json_error) => {
-                console.log(json_error);
-                console.log("개인정보처리방침 상세 호출 실패");
+
+                if (policyInfoData.policyData.piThirdOverseasChose) {
+                    policyInfoData.thirdOverseasDataList = res.data.sendData.thirdOverseasDataList;
+                }
+                policyInfoData.reponsibleDataList = res.data.sendData.reponsibleDataList;
+                console.log(policyInfoData)
+
+                policyDetailLayout = 1;
+            } catch (e) {
+                reportCatch('temp078', e);
             }
-        )
+        }, (errCode) => {
+            try {
+                state = 1;
+                pageErrMsg1 = "선택하신 처리방침이 존재하지 않습니다.";
+                pageErrMsg2 = "다시 시도해주사길 바랍니다.";
+                pageErrUrl = "/service/policyList";
+                console.log("조회된 데이터가 없습니다.");
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp079', e);
+            }
+        });
+    }
 
+    const processPrivacyPolicy = (method) => {
+        const stylesString = '\n' +
+            '<style>\n' +
+            '* {box-sizing: border-box;outline: 0;}\n' +
+            'html {width: 100%;height: 100%;scroll-behavior: smooth;min-width: 1400px;max-width: 2700px;margin: 0 auto;font-size: 62.5%;font-family: Pretendard, sans-serif;position: relative;padding: 0;border: 0;}\n' +
+            '@media (max-width:1600px) {html {font-size: 56.5%;}}\n' +
+            '@media (max-width:1450px) {html {font-size: 52.5%;}}\n' +
+            'body{width:100%;position:relative;min-height: 100vh;}\n' +
+            'body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {margin: 0;padding: 0;border: 0;vertical-align: baseline;}\n' +
+            'article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block;}\n' +
+            'body {line-height: 1;}\n' +
+            'ol, ul {list-style: none;}\n' +
+            'blockquote, q {quotes: none;}\n' +
+            'blockquote:before, blockquote:after,\n' +
+            'q:before, q:after {content: \'\';content: none;}\n' +
+            'p {margin: 0;/* word-break: keep-all; */}\n' +
+            'a {color: inherit;text-decoration: none;-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none;}\n' +
+            'ul {padding-left: 0;margin: 0;list-style-type: none;}\n' +
+            'button {margin: 0;padding: 0;cursor: pointer;border: none;background-color: inherit;-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none;font-family: inherit;color: inherit;}\n' +
+            'button:focus {outline: 0;}\n' +
+            'input {border: none;}\n' +
+            'iframe {border-width: 0;border-style: none;border-color: transparent;border-image: none;}\n' +
+            'table {border-color: transparent;border-collapse: collapse;border-spacing: 0;word-break: break-all;}\n' +
+            'img {vertical-align: middle;}\n' +
+            '#privacyPolicy {padding: 10rem 8rem 10rem 8rem;width: 100%;height: 100%;background-color: #fff;font-family: Pretendard, sans-serif;position:relative;z-index:5;}\n' +
+            '.pageTitleBtn{width:100%;position:relative;text-align:left;}\n' +
+            '.pageTitleBtn h1{display:inline-block;font-size: 4rem;font-weight: 700;line-height: 5rem;letter-spacing: 0;text-align: left;color:#222;}\n' +
+            '.pageTitleBtn dl{display:block;margin-top:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 500;line-height: 2.8rem;letter-spacing: 0;text-align: left;color:#666;}\n' +
+            '.pageTitleBtn a{margin-left: -50px;margin-right: 10px;display:inline-block;font-size: 4rem;font-weight: 700;line-height: 5rem;letter-spacing: 0;text-align: left;color:#00C389;}\n' +
+            '.pageTitleBtn a:hover{color:#05de9e;}\n' +
+            '@media (max-width: 1700px) {#privacyPolicy {padding: 10rem 6rem 10rem 6rem;}}\n' +
+            '.pri_versionBox{width:100%;position:relative;display:flex;background: #F7F8F9;border-radius: 1.2rem;padding:2.4rem 3.6rem 2.4rem 3.6rem;}\n' +
+            '.marB50{margin-bottom:5rem;}\n' +
+            '.priverBox{width:25%;position:relative;}\n' +
+            '.priverBox dl{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;margin-bottom:0.8rem;}\n' +
+            '.priverBox span {display: flex;height: 3.8rem;font-family: Pretendard, sans-serif;font-size: 1.5rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0;text-align: left;color: #AAAAAA;align-items: center;}\n' +
+            '.priverBox p{font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.8rem;letter-spacing: 0;text-align: right;display:block;color:#222;}\n' +
+            '.hei60{height:6rem;}\n' +
+            '.priv_divider {width: 1px;height: 6.2rem;background: #E4E7EB;margin: 0 3.6rem 0 3.6rem;}\n' +
+            '.priContentBox{width:100%;position:relative;padding:2.4rem 0 0rem 0;margin-bottom:8rem;border-top:1px solid #666;}\n' +
+            '.priC_title{display: flex;font-family: Pretendard, sans-serif;font-size: 2rem;font-weight: 600;line-height: 3rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.priC_title .tiptool{top: 0.6rem;}\n' +
+            '.marB24{margin-bottom:2.4rem;}\n' +
+            '.priCIntrotext{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;\t}\n' +
+            '.priCIntrotext .koinput{margin:0 0.4rem 0 0.4rem;}\n' +
+            '.priCIntrotext input {width: 100%;height: 3.8rem;border-radius: 1rem;padding: 0 1.2rem 0 1.2rem;font-size: 1.5rem;font-weight: 400;}\n' +
+            '.priCIntrotext input:focus{border:2px solid #00C389;padding: 0 1.1rem 0 1.1rem;}\n' +
+            '.priCIntrotext input::placeholder{font-weight: 400;font-size: 1.5rem;color:#aaa;}\n' +
+            '.priCIntrotext dl{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;display:block;margin-bottom:0.8rem;}\n' +
+            '.priCIntrotext dl:last-child{margin-bottom:0;}\n' +
+            '.pr_wrap{position:relative;border-top:1px solid #E2E5EA;}\n' +
+            '.prbox{display:flex;position:relative;padding:1.3rem 0 1.3rem 0;}\n' +
+            '.prbox:after{content:\'\';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}\n' +
+            '.prbox input{border:1px solid #fff;height:2.4rem;width:100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color: #666;}\n' +
+            '.prti{padding:0 1.6rem 0 1.6rem; font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;}\n' +
+            '.w1528per{width:15.28%;}\n' +
+            '.prst{width: 100%;padding:0 1.6rem 0 1.6rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;}\n' +
+            '.w8472per{width:84.72%;}\n' +
+            '.prtextaddbox{width:100%;position:relative;}\n' +
+            '.prtextaddbox dl{display: flex;padding:1.3rem 0 1.3rem 0;position:relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.prtextaddbox dl:after{content:\'\';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}\n' +
+            '.prtextTablethBox {position: relative;display: flex;}\n' +
+            '.prtextTablethBox.colum7Line .prtti{width:14.285%;}\n' +
+            '.prtextTablethBox.colum4Line .prtti{width:25%;}\n' +
+            '.prtextTablethBox.colum5Line .prtti{width:20%;}\n' +
+            '.prtti{display: flex;position:relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: left;color:#666;padding:1.3rem 1.6rem 1.3rem 1.6rem;}\n' +
+            '.prtti:after{content:\'\';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}\n' +
+            '.colum7 .prtti{min-height:7.4rem;}\n' +
+            '.prtextTableBox{position:relative;border-bottom:1px solid #E2E5EA;display:flex;}\n' +
+            '.colum4{width:25%;}\n' +
+            '.prtt_value_area{width:100%;position:relative;padding: 1.3rem 1.6rem 1.3rem 1.6rem;width: 100%;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: left;color: #666;}\n' +
+            '.prdot_text{position:relative;width:100%;padding-left:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#666;}\n' +
+            '.prdot_text:before{content:\'\';position: absolute;width: 0.3rem;height: 0.3rem;left: 1rem;top: 1.1rem;border-radius:50%;background: #666666;}\n' +
+            '.marT16{margin-top:1.6rem;}\n' +
+            '.borT:after{content:\'\';position:absolute;left:0;top:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}\n' +
+            '.prarea_table {width: 100%;position: relative;}\n' +
+            '.prarea_table table {width: 100%;position: relative;}\n' +
+            '.prarea_table table thead {position: relative;}\n' +
+            '.prarea_table table thead tr {background: #fff;position: relative;}\n' +
+            '.prarea_table table thead tr:after{content:\'\';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}\n' +
+            '.prarea_table table thead tr th {vertical-align: middle;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 600;line-height: 2.4rem;letter-spacing: 0;text-align: center;color: #666;padding: 1.3rem 1.6rem 1.3rem 1.6rem;}\n' +
+            '.prarea_table table tbody tr {background: #fff;position: relative;}\n' +
+            '.prarea_table table tbody tr:after{content:\'\';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}\n' +
+            '.prarea_table table tbody tr td {padding: 1.3rem 1.6rem 1.3rem 1.6rem;vertical-align: middle;position: relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: center;color: #666;}\n' +
+            '.praLeft{text-align:left!important;}\n' +
+            '.nonebor dl:after{content:none!important;}\n' +
+            '.prnor_text:last-child{margin-bottom:0;}\n' +
+            '.prnor_text{display:block;position:relative;margin-bottom:1.6rem;}\n' +
+            '.prnor_text p{display:block;position:relative;padding-left:2.4rem;}\n' +
+            '.prnor_text p span{position:absolute;left:0;top:0;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.prnor_text p{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.pri8cont .prnor_text{margin-bottom:0.8rem;}\n' +
+            '.pri8cont .prnor_text:last-child{margin-bottom:0;}\n' +
+            '.prnor_text dd{display:block;position:relative;padding-left:2.4rem;}\n' +
+            '.prnor_text dd span{position: absolute;width: 0.3rem;height: 0.3rem;left: 1rem;top: 1.1rem;border-radius:50%;background: #666666;}\n' +
+            '.prnor_text dd{font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#666;}\n' +
+            '.pttext{display:block;position:relative;padding-left:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.pttext dt{position:absolute;left:0;top:0;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.pttext .tiptool{margin-left:0.2rem;}\n' +
+            '.marB4{margin-bottom:0.4rem;}\n' +
+            '.prinortext:last-child{margin-bottom:0;}\n' +
+            '.prinortext {margin-bottom:2.4rem;display: flex;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.6rem;letter-spacing: 0;text-align: left;color: #666;}\n' +
+            '.colum5{width:20%;}\n' +
+            '.marB16{margin-bottom:1.6rem;}\n' +
+            '.prnort{display: flex;align-items: center;position:relative;padding-left:2.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.6rem;letter-spacing: 0;text-align: left;color:#444;}\n' +
+            '.prnort dt {position: absolute;width: 0.3rem;height: 0.3rem;left: 1rem;top: 50%;border-radius: 50%;background: #666666;transform: translateY(-50%);}\n' +
+            '.prnort .tiptool {margin-left: 0.8rem;top: 0;}\n' +
+            '.pradfont{font-weight: 500!important;color: #444!important;}\n' +
+            '#bottomPad{padding-bottom: 10rem;}\n' +
+            '</style>\n';
+        const titleHTML = '<div class="pageTitleBtn marB50"><h1>개인정보처리방침</h1></div>';
+        const element = document.getElementById('privacyPolicy');
+        const outerHTML = element.outerHTML;
+        const titleStartIndex = outerHTML.indexOf('<div id="privacyPolicy" style="">') + '<div id="privacyPolicy" style="">'.length;
+        const elementHTML = stylesString + outerHTML.slice(0, titleStartIndex) + titleHTML + outerHTML.slice(titleStartIndex);
 
+        switch (method) {
+            case 'COPY':
+                navigator.clipboard.writeText(elementHTML).then(function() {
+                    openBanner('HTML 코드가 클립보드로 복사되었습니다.');
+                }, function(err) {
+                    console.error('클릭보드복사오류: ', err);
+                    openConfirm({
+                        icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: 'HTML 복사 오류', // 제목
+                        contents1: '오류가 발생하여 클립보드로 복사할 수 없습니다.', // 내용
+                        contents2: 'HTML 다운로드 기능을 사용해 주세요.',
+                        btnCheck: '확인', // 확인 버튼의 텍스트
+                    });
+                });
+                break;
+            case 'DOWNLOAD':
+                var blob = new Blob([elementHTML], { type: 'text/html;charset=utf-8' });
+                var virtualALink = document.createElement('a');
+                var url = URL.createObjectURL(blob);
+                virtualALink.href = url;
+                virtualALink.download = '개인정보처리방침';
+                virtualALink.click();
+                break;
+        }
     }
 
     let state = 0;
@@ -125,6 +256,8 @@
     let pageErrUrl;
 
     let policyDetailLayout= 0;
+
+    let section2Count = 1;
 </script>
 
 <Header />
@@ -133,45 +266,42 @@
 <section class="bodyWrap">
     <div class="contentInnerWrap">
         <div class="pageTitleBtn marB50">
-            <a use:link href="/service/policyList">{$backBtn}</a><h1>개인정보처리방침 상세보기</h1>
+            <a use:link href="/service/policyList">{$backBtn}</a><h1>개인정보처리방침</h1>
 
-            {#if policyDetailLayout === 1}}
+            {#if policyDetailLayout === 1}
                 <div class="copyBtnBox" in:fade>
-                    <div class="copyBtn">
-                        <dt id="urlcopy">URL 복사</dt>
-                        <span class="tiptool" id="tool_btn01">
-                            <div class="layerToolType pmtool_02" id="tool_box01">
-                                <div class="tipContents">
-                                    <p>
-                                        개인정보처리방침을 위한 별도 페이지를 만들지 않고, 개인정보처리방침 버튼에 링크로 연결해서 사용 가능합니다.
-                                    </p>
-                                </div>
-                            </div>
-                        </span>
+<!--                    <div class="copyBtn">-->
+<!--                        <dt id="urlcopy">URL 복사</dt>-->
+<!--                        <span class="tiptool" id="tool_btn01">-->
+<!--                            <div class="layerToolType pmtool_02" id="tool_box01">-->
+<!--                                <div class="tipContents">-->
+<!--                                    <p>-->
+<!--                                        개인정보처리방침을 위한 별도 페이지를 만들지 않고, 개인정보처리방침 버튼에 링크로 연결해서 사용 가능합니다.-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </span>-->
+<!--                    </div>-->
+                    <div class="copyBtn" on:click={() => {processPrivacyPolicy('COPY')}}>
+                        <dt style="padding-right: 1.6rem">HTML 코드복사</dt>
                     </div>
-                    <div class="copyBtn">
-                        <dt id="htmlcopy">HTML 복사</dt>
-                        <span class="tiptool" id="tool_btn02">
-                            <div class="layerToolType righttool_type" id="tool_box02">
-                                <div class="tipContents">
-                                    <p>
-                                        개인정보처리방침을 위한 별도 페이지가 존재하는 경우, HTML 복사를 이용해 작성하신 개인정보처리방침의 레이아웃까지 빠르게 복사가 가능합니다.
-                                    </p>
-                                </div>
-                            </div>
-                        </span>
+                    <div class="copyBtn" on:click={() => {processPrivacyPolicy('DOWNLOAD')}}>
+                        <dt style="padding-right: 1.6rem">HTML 내려받기</dt>
+<!--                        <span class="tiptool" id="tool_btn02">-->
+<!--                            <div class="layerToolType righttool_type" id="tool_box02">-->
+<!--                                <div class="tipContents">-->
+<!--                                    <p>-->
+<!--                                        개인정보처리방침을 위한 별도 페이지가 존재하는 경우, HTML 복사를 이용해 작성하신 개인정보처리방침의 레이아웃까지 빠르게 복사가 가능합니다.-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </span>-->
                     </div>
                 </div>
             {/if}
         </div>
-
-        {#if policyDetailLayout === 0}
-            <div class="loaderParent">
-                <div class="loader"></div>
-            </div>
-        {:else if policyDetailLayout === 1}
-            <div in:fade>
-
+        <LoadingOverlay bind:loadState={policyDetailLayout} >
+            <div id="privacyPolicy" in:fade>
                 <div class="pri_versionBox marB50">
                     <div class="priverBox hei60">
                         <dl>개정본 버전</dl>
@@ -228,7 +358,7 @@
                 <div class="priContentBox">
                     <div class="priC_title marB24">{++step}. 수집하는 개인정보의 항목 및 수집방법</div>
                     <div class="prtextaddbox marB40">
-                        <dl>(1) 서비스 가입 시 수집하는 개인정보</dl>
+                        <dl>({section2Count++}) 서비스 가입 시 수집하는 개인정보</dl>
                         <div class="prtextTablethBox colum4Line borT">
                             <div class="prtti">처리목적</div>
                             <div class="prtti">수집 항목</div>
@@ -254,119 +384,127 @@
                         <div class="prdot_text marT16">기기 정보를 수집하는 경우에는 일방향 암호화(Hash)를 통해 기기를 식별할 수 없는 방법으로 변환하여 보관합니다.</div>
                     </div>
 
-                    <div class="prtextaddbox marB40">
-                        <dl>(2) 서비스 가입 후 수집하는 개인정보</dl>
-
-                        <div class="prtextTablethBox colum4Line borT">
-                            <div class="prtti">처리목적</div>
-                            <div class="prtti">수집 항목</div>
-                            <div class="prtti">필수/선택</div>
-                            <div class="prtti">처리 및 보유 기간</div>
-                        </div>
-
-                        {#each policyInfoData.afterDataList as {piaPurpose, piaInfo, piaChose, piaPeriod}, i}
-                            <div class="prtextTableBox">
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{piaPurpose}</div>
-                                </div>
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{piaInfo}</div>
-                                </div>
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{piaChose}</div>
-                                </div>
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{piaPeriod}</div>
-                                </div>
+                    {#if policyInfoData.afterDataList.length}
+                        <div class="prtextaddbox marB40">
+                            <dl>({section2Count++}) 서비스 가입 후 수집하는 개인정보</dl>
+                            <div class="prtextTablethBox colum4Line borT">
+                                <div class="prtti">처리목적</div>
+                                <div class="prtti">수집 항목</div>
+                                <div class="prtti">필수/선택</div>
+                                <div class="prtti">처리 및 보유 기간</div>
                             </div>
-                        {/each}
-                    </div>
 
-                    <div class="prtextaddbox marB40">
-                        <dl>(3) 서비스 이용 중 자동 생성 및 수집하는 정보</dl>
-                        <div class="prtextTablethBox colum4Line borT">
-                            <div class="prtti">처리목적</div>
-                            <div class="prtti">수집 항목</div>
-                            <div class="prtti">필수/선택</div>
-                            <div class="prtti">처리 및 보유 기간</div>
+                            {#each policyInfoData.afterDataList as {piaPurpose, piaInfo, piaChose, piaPeriod}, i}
+                                <div class="prtextTableBox">
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{piaPurpose}</div>
+                                    </div>
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{piaInfo}</div>
+                                    </div>
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{piaChose}</div>
+                                    </div>
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{piaPeriod}</div>
+                                    </div>
+                                </div>
+                            {/each}
                         </div>
+                    {/if}
 
-                        {#each policyInfoData.serviceAutoDataList as {pisaPurpose, pisaInfo, pisaMethodology, pisaPeriod}, i}
-                            <div class="prtextTableBox">
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{pisaPurpose}</div>
-                                </div>
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{pisaInfo}</div>
-                                </div>
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{pisaMethodology}</div>
-                                </div>
-                                <div class="prtextTable colum4">
-                                    <div class="prtt_value_area">{pisaPeriod}</div>
-                                </div>
+                    {#if policyInfoData.serviceAutoDataList.length}
+                        <div class="prtextaddbox marB40">
+                            <dl>({section2Count++}) 서비스 이용 중 자동 생성 및 수집하는 정보</dl>
+                            <div class="prtextTablethBox colum4Line borT">
+                                <div class="prtti">처리목적</div>
+                                <div class="prtti">수집 항목</div>
+                                <div class="prtti">필수/선택</div>
+                                <div class="prtti">처리 및 보유 기간</div>
                             </div>
-                        {/each}
-                    </div>
 
-                    <div class="prtextaddbox marB40">
-                        <dl>(4) 법령에 따른 개인정보의 보유기간</dl>
-                        <div class="prarea_table">
-                            <table>
-                                <colgroup>
-                                    <col style="width:33.3333333%;">
-                                    <col style="width:33.3333333%;">
-                                    <col style="width:33.3333333%;">
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th class="praLeft">수집항목</th>
-                                    <th class="praLeft">근거법</th>
-                                    <th class="praLeft">보유기간</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {#if policyInfoData.policyData.piInternetChose}
-                                    <tr>
-                                        <td class="praLeft">인터넷 접속 로그</td>
-                                        <td class="praLeft">통신비밀보호법 제2조</td>
-                                        <td class="praLeft">3개월</td>
-                                    </tr>
-                                {/if}
-                                {#if policyInfoData.policyData.piContractChose}
-                                    <tr>
-                                        <td class="praLeft">계약 또는 청약철회 등에 관한 기록</td>
-                                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률</td>
-                                        <td class="praLeft">5년</td>
-                                    </tr>
-                                {/if}
-                                {#if policyInfoData.policyData.piPayChose}
-                                    <tr>
-                                        <td class="praLeft">대금결제 및 재화 등의 공급에 관한 기록</td>
-                                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
-                                        <td class="praLeft">5년</td>
-                                    </tr>
-                                {/if}
-                                {#if policyInfoData.policyData.piConsumerChose}
-                                    <tr>
-                                        <td class="praLeft">소비자의 불만 또는 분쟁처리에 관한 기록</td>
-                                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
-                                        <td class="praLeft">3년</td>
-                                    </tr>
-                                {/if}
-                                {#if policyInfoData.policyData.piAdvertisementChose}
-                                    <tr>
-                                        <td class="praLeft">표시·광고에 관한 기록</td>
-                                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
-                                        <td class="praLeft">6개월</td>
-                                    </tr>
-                                {/if}
-                                </tbody>
-                            </table>
+                            {#each policyInfoData.serviceAutoDataList as {pisaPurpose, pisaInfo, pisaMethodology, pisaPeriod}, i}
+                                <div class="prtextTableBox">
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{pisaPurpose}</div>
+                                    </div>
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{pisaInfo}</div>
+                                    </div>
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{pisaMethodology}</div>
+                                    </div>
+                                    <div class="prtextTable colum4">
+                                        <div class="prtt_value_area">{pisaPeriod}</div>
+                                    </div>
+                                </div>
+                            {/each}
                         </div>
-                    </div>
+                    {/if}
+
+                    {#if policyInfoData.policyData.piInternetChose || policyInfoData.policyData.piContractChose
+                        || policyInfoData.policyData.piPayChose || policyInfoData.policyData.piConsumerChose
+                        || policyInfoData.policyData.piAdvertisementChose }
+                        <div class="prtextaddbox marB40">
+                            <dl>({section2Count++}) 법령에 따른 개인정보의 보유기간</dl>
+                            <div class="prarea_table">
+                                <table>
+                                    <colgroup>
+                                        <col style="width:33.3333333%;">
+                                        <col style="width:33.3333333%;">
+                                        <col style="width:33.3333333%;">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th class="praLeft">수집항목</th>
+                                        <th class="praLeft">근거법</th>
+                                        <th class="praLeft">보유기간</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {#if policyInfoData.policyData.piInternetChose}
+                                        <tr>
+                                            <td class="praLeft">인터넷 접속 로그</td>
+                                            <td class="praLeft">통신비밀보호법 제2조</td>
+                                            <td class="praLeft">3개월</td>
+                                        </tr>
+                                    {/if}
+                                    {#if policyInfoData.policyData.piContractChose}
+                                        <tr>
+                                            <td class="praLeft">계약 또는 청약철회 등에 관한 기록</td>
+                                            <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률</td>
+                                            <td class="praLeft">5년</td>
+                                        </tr>
+                                    {/if}
+                                    {#if policyInfoData.policyData.piPayChose}
+                                        <tr>
+                                            <td class="praLeft">대금결제 및 재화 등의 공급에 관한 기록</td>
+                                            <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
+                                            <td class="praLeft">5년</td>
+                                        </tr>
+                                    {/if}
+                                    {#if policyInfoData.policyData.piConsumerChose}
+                                        <tr>
+                                            <td class="praLeft">소비자의 불만 또는 분쟁처리에 관한 기록</td>
+                                            <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
+                                            <td class="praLeft">3년</td>
+                                        </tr>
+                                    {/if}
+                                    {#if policyInfoData.policyData.piAdvertisementChose}
+                                        <tr>
+                                            <td class="praLeft">표시·광고에 관한 기록</td>
+                                            <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
+                                            <td class="praLeft">6개월</td>
+                                        </tr>
+                                    {/if}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {/if}
+
                     <div class="prtextaddbox nonebor">
-                        <dl>(5) 개인정보를 자동으로 수집하는 장치의 설치운영 및 그 거부에 관한 사항</dl>
+                        <dl>({section2Count++}) 개인정보를 자동으로 수집하는 장치의 설치운영 및 그 거부에 관한 사항</dl>
                         <div class="prnor_text">
                             <div class="pttext"><dt>1.</dt>회사는 이용자에게 개별적인 맞춤서비스를 제공하기 위해 이용 정보를 저장하고 수시로 불러오는 ‘쿠키(cookie)’를 사용할 수 있습니다.</div>
                         </div>
@@ -385,178 +523,182 @@
                 </div>
 
                 <!------------ No.5 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{++step}. 개인정보 처리 업무의 위탁에 관한 사항</div>
+                {#if policyInfoData.outDataList.length}
+                    <div class="priContentBox">
+                        <div class="priC_title marB24">{++step}. 개인정보 처리 업무의 위탁에 관한 사항</div>
 
-                    <div class="prtextTablethBox colum4Line borT">
-                        <div class="prtti">수탁 업체</div>
-                        <div class="prtti">필수 / 선택</div>
-                        <div class="prtti">위탁 업무</div>
-                        <div class="prtti">처리 및 보유 기간</div>
-                    </div>
-
-                    {#each policyInfoData.outDataList as {pioOutsourcingCompany, pioChose, pioConsignmentCompany, pioPeriod}, i}
-                        <div class="prtextTableBox">
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pioOutsourcingCompany}</div>
-                            </div>
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pioChose}</div>
-                            </div>
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pioConsignmentCompany}</div>
-                            </div>
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pioPeriod}</div>
-                            </div>
+                        <div class="prtextTablethBox colum4Line borT">
+                            <div class="prtti">수탁 업체</div>
+                            <div class="prtti">필수 / 선택</div>
+                            <div class="prtti">위탁 업무</div>
+                            <div class="prtti">처리 및 보유 기간</div>
                         </div>
-                    {/each}
-                </div>
+
+                        {#each policyInfoData.outDataList as {pioOutsourcingCompany, pioChose, pioConsignmentCompany, pioPeriod}, i}
+                            <div class="prtextTableBox">
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pioOutsourcingCompany}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pioChose}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pioConsignmentCompany}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pioPeriod}</div>
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
+                {/if}
 
                 <!------------ No.5-1 ------------>
                 {#if policyInfoData.policyData.piOutChose}
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{step}-1. 개인정보 처리 업무의 위탁에 관한 사항</div>
-                    <div class="prtextTablethBox colum7Line borT">
-                        <div class="prtti">수탁 업체</div>
-                        <div class="prtti">수탁업체의 위치(국가, 도시 등 구체적 주소 작성)</div>
-                        <div class="prtti">위탁 일시 및 방법</div>
-                        <div class="prtti">정보관리책임자의 연락처</div>
-                        <div class="prtti">위탁하는 개인정보 항목</div>
-                        <div class="prtti">위탁 업무 내용</div>
-                        <div class="prtti">위탁 업무 내용개인정보의 보유 및 이용기간</div>
-                    </div>
-                    {#each policyInfoData.outDetailDataList as
-                        {piodCompany, piodLocation, piodMethod, piodContact, piodInfo, piodDetail, piodPeriod}, i}
-                        <div class="prtextTableBox">
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodCompany}</div>
-                            </div>
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodLocation}</div>
-                            </div>
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodMethod}</div>
-                            </div>
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodContact}</div>
-                            </div>
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodInfo}</div>
-                            </div>
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodDetail}</div>
-                            </div>
-                            <div class="prtextTable colum7">
-                                <div class="prtt_value_area">{piodPeriod}</div>
-                            </div>
+                    <div class="priContentBox">
+                        <div class="priC_title marB24">{step}-1. 개인정보 처리 업무의 위탁에 관한 사항</div>
+                        <div class="prtextTablethBox colum7Line borT">
+                            <div class="prtti">수탁 업체</div>
+                            <div class="prtti">수탁업체의 위치(국가, 도시 등 구체적 주소 작성)</div>
+                            <div class="prtti">위탁 일시 및 방법</div>
+                            <div class="prtti">정보관리책임자의 연락처</div>
+                            <div class="prtti">위탁하는 개인정보 항목</div>
+                            <div class="prtti">위탁 업무 내용</div>
+                            <div class="prtti">위탁 업무 내용개인정보의 보유 및 이용기간</div>
                         </div>
-                    {/each}
-                </div>
+                        {#each policyInfoData.outDetailDataList as
+                            {piodCompany, piodLocation, piodMethod, piodContact, piodInfo, piodDetail, piodPeriod}, i}
+                            <div class="prtextTableBox">
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodCompany}</div>
+                                </div>
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodLocation}</div>
+                                </div>
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodMethod}</div>
+                                </div>
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodContact}</div>
+                                </div>
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodInfo}</div>
+                                </div>
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodDetail}</div>
+                                </div>
+                                <div class="prtextTable colum7">
+                                    <div class="prtt_value_area">{piodPeriod}</div>
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
                 {/if}
 
                 <!------------ No.6 ------------>
                 {#if policyInfoData.policyData.piThirdChose}
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{++step}. 개인정보 제3자 제공에 관한 사항</div>
-                    <div class="prinortext">
-                        회사는 원칙적으로 개인정보를 외부에 제공하지 않습니다. 단, 개인정보보호법에 근거해 정보주체의 별도 동의나 관련 법령에 의해 개인정보 제출의 의무가 있는 경우, 또는 정보주체의 생명이나 안전에 급박한 위험이 확인되어 이를 해소하기 위한 경우에 한하여 개인정보를 제공합니다.
-                    </div>
-                    <div class="prtextTablethBox colum4Line borT">
-                        <div class="prtti">제공받는 자</div>
-                        <div class="prtti">제공받는 자의 이용 목적</div>
-                        <div class="prtti">제공하는 개인정보 항목</div>
-                        <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
-                    </div>
-
-                    {#each policyInfoData.thirdDataList as {pitRecipient, pitPurpose, pitInfo, pitPeriod}, i}
-                        <div class="prtextTableBox">
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pitRecipient}</div>
-                            </div>
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pitPurpose}</div>
-                            </div>
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pitInfo}</div>
-                            </div>
-                            <div class="prtextTable colum4">
-                                <div class="prtt_value_area">{pitPeriod}</div>
-                            </div>
+                    <div class="priContentBox">
+                        <div class="priC_title marB24">{++step}. 개인정보 제3자 제공에 관한 사항</div>
+                        <div class="prinortext">
+                            회사는 원칙적으로 개인정보를 외부에 제공하지 않습니다. 단, 개인정보보호법에 근거해 정보주체의 별도 동의나 관련 법령에 의해 개인정보 제출의 의무가 있는 경우, 또는 정보주체의 생명이나 안전에 급박한 위험이 확인되어 이를 해소하기 위한 경우에 한하여 개인정보를 제공합니다.
                         </div>
-                    {/each}
-                </div>
+                        <div class="prtextTablethBox colum4Line borT">
+                            <div class="prtti">제공받는 자</div>
+                            <div class="prtti">제공받는 자의 이용 목적</div>
+                            <div class="prtti">제공하는 개인정보 항목</div>
+                            <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
+                        </div>
+
+                        {#each policyInfoData.thirdDataList as {pitRecipient, pitPurpose, pitInfo, pitPeriod}, i}
+                            <div class="prtextTableBox">
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pitRecipient}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pitPurpose}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pitInfo}</div>
+                                </div>
+                                <div class="prtextTable colum4">
+                                    <div class="prtt_value_area">{pitPeriod}</div>
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
                 {/if}
 
                 <!------------ No.6-1 ------------>
                 {#if policyInfoData.policyData.piThirdOverseasChose}
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{step}-1. 개인정보의 국외 제3자 제공에 관한 사항</div>
-                    <div class="prtextTablethBox colum5Line borT">
-                        <div class="prtti">제공받는 자</div>
-                        <div class="prtti">제공받는 자의 이용 목적</div>
-                        <div class="prtti">제공하는 개인정보 항목</div>
-                        <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
-                        <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
-                    </div>
-
-                    {#each policyInfoData.thirdOverseasDataList as
-                        {pitoRecipient, pitoLocation, pitoPurpose, pitoPurpose, pitoPeriod}, i}
-                        <div class="prtextTableBox">
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pitoRecipient}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pitoLocation}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pitoPurpose}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pitoPurpose}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pitoPeriod}</div>
-                            </div>
+                    <div class="priContentBox">
+                        <div class="priC_title marB24">{step}-1. 개인정보의 국외 제3자 제공에 관한 사항</div>
+                        <div class="prtextTablethBox colum5Line borT">
+                            <div class="prtti">제공받는 자</div>
+                            <div class="prtti">제공받는 자의 이용 목적</div>
+                            <div class="prtti">제공하는 개인정보 항목</div>
+                            <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
+                            <div class="prtti">제공받는 자의 개인정보 보유 및 이용 기간</div>
                         </div>
-                    {/each}
-                </div>
+
+                        {#each policyInfoData.thirdOverseasDataList as
+                            {pitoRecipient, pitoLocation, pitoPurpose, pitoPurpose, pitoPeriod}, i}
+                            <div class="prtextTableBox">
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pitoRecipient}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pitoLocation}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pitoPurpose}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pitoPurpose}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pitoPeriod}</div>
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
                 {/if}
 
                 <!------------ No.9 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{++step}. 개인정보보호 책임자에 관한 사항</div>
-                    <div class="prinortext marB24">
-                        정보주체는 개인정보 보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보보호 책임자에게 문의하실 수 있습니다. 개인정보보호 책임자는 이용자의 문의에 대해 지체없이 답변 및 처리해 드릴 것입니다.
-                    </div>
-                    <div class="prtextTablethBox colum5Line borT">
-                        <div class="prtti">성명</div>
-                        <div class="prtti">직책</div>
-                        <div class="prtti">이메일</div>
-                        <div class="prtti">연락처</div>
-                        <div class="prtti">담당부서</div>
-                    </div>
-                    {#each policyInfoData.reponsibleDataList as
-                        {pirName, pirPosition, pirEmail, pirContact, pirDepartment}, i}
-                        <div class="prtextTableBox">
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pirName}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pirPosition}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pirEmail}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pirContact}</div>
-                            </div>
-                            <div class="prtextTable colum5">
-                                <div class="prtt_value_area">{pirDepartment}</div>
-                            </div>
+                {#if policyInfoData.reponsibleDataList.length}
+                    <div class="priContentBox">
+                        <div class="priC_title marB24">{++step}. 개인정보보호 책임자에 관한 사항</div>
+                        <div class="prinortext marB24">
+                            정보주체는 개인정보 보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보보호 책임자에게 문의하실 수 있습니다. 개인정보보호 책임자는 이용자의 문의에 대해 지체없이 답변 및 처리해 드릴 것입니다.
                         </div>
-                    {/each}
-                </div>
+                        <div class="prtextTablethBox colum5Line borT">
+                            <div class="prtti">성명</div>
+                            <div class="prtti">직책</div>
+                            <div class="prtti">이메일</div>
+                            <div class="prtti">연락처</div>
+                            <div class="prtti">담당부서</div>
+                        </div>
+                        {#each policyInfoData.reponsibleDataList as
+                            {pirName, pirPosition, pirEmail, pirContact, pirDepartment}, i}
+                            <div class="prtextTableBox">
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pirName}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pirPosition}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pirEmail}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pirContact}</div>
+                                </div>
+                                <div class="prtextTable colum5">
+                                    <div class="prtt_value_area">{pirDepartment}</div>
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
+                {/if}
 
                 <!------------ No.10 ------------>
                 {#if policyInfoData.policyData.piChangeChose}
@@ -656,10 +798,11 @@
                     <div class="prnor_text">
                         <dd class="pradfont"><span></span>경찰청 : (국번없이) 182 (ecrm.cyber.go.kr)</dd>
                     </div>
+                    <div id="bottomPad"></div>
                 </div>
 
             </div>
-        {/if}
+        </LoadingOverlay>
 
     </div>
 </section>

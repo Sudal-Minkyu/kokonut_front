@@ -3,8 +3,8 @@
 
     import CustumAlert from '../../common/CustumAlert.svelte'
     import { push } from 'svelte-spa-router'
-    import restapi from "../../../lib/api.js";
     import { popOpenBtn } from "../../../lib/common.js";
+    import {ajaxBody, reportCatch} from "../../common/ajax.js";
 
     // 패스워드 조건 변수
     let passwordBlank = true;
@@ -132,7 +132,7 @@
         if(passwordCheck && passwordConfirmCheck) {
             // console.log("관리자등록 조건 충족 완료 -> 시작!");
 
-            let url = "/v1/api/Auth/createUser"
+            let url = "/v1/api/Auth/createUser";
 
 			let sendData = {
                 userEmail : userEmail,
@@ -142,16 +142,21 @@
                 knPasswordConfirm : knPasswordConfirm,
 			}
 
-			restapi('v1', 'post', url, "body", sendData, 'application/json',
-				(json_success) => {
-					if(json_success.data.status === 200) {
-                        link = "/login"
-                        customAlertData(1, 1, "등록을 완료했습니다.", "로그인후 OTP등록하여 이용해주시길 바랍니다.", "", "확인", "", "", linkMove);
-					} else if(json_success.data.err_code === "KO013") {
+            ajaxBody(url, sendData, (res) => {
+                try {
+                    link = "/login"
+                    customAlertData(1, 1, "등록을 완료했습니다.", "로그인후 OTP등록하여 이용해주시길 바랍니다.", "", "확인", "", "", linkMove);
+                    popOpenBtn();
+                } catch (e) {
+                    reportCatch('temp018', e);
+                }
+            }, (errCode, errMsg) => {
+                try {
+                    if (errCode === "KO013") {
                         customAlertData(1, 3, "등록을 실패했습니다.", "입력하신 비밀번호가 일치하지 않습니다.", "", "확인", "", "", undefined);
-                    } else if(json_success.data.err_code === "KO033") {
+                    } else if (errCode === "KO033") {
                         customAlertData(1, 3, "휴대폰인증 실패", "휴대폰인증을 다시해주시길 바랍니다.", "", "확인", "", "", stageChange);
-                    } else if(json_success.data.err_code === "KO004") {
+                    } else if (errCode === "KO004") {
                         link = "/login"
                         customAlertData(1, 3, "등록을 실패했습니다.", "등록하고자하는 이메일이 존재하지 않습니다.", "관리자에게 문의해주시길 바랍니다.", "확인", "", "", linkMove);
                     } else {
@@ -159,12 +164,11 @@
                         customAlertData(1, 3, "에러발생", "알 수 없는 에러가 발생했습니다.", "코코넛으로 문의해주시길 바랍니다.", "확인", "", "", linkMove);
                     }
                     popOpenBtn();
-				},
-				(json_error) => {
-					console.error("관리자등록 실패");
-                    console.error(json_error);
-				}
-			)
+                    return {action: 'NONE'};
+                } catch (e) {
+                    reportCatch('temp019', e);
+                }
+            });
         }
     }
 
@@ -177,8 +181,6 @@
 
 <form>
     <div class="j_inputArea">
-
-
         <div class="input-field mt30">
             <input type="password" autocomplete="off" id="knPassword" bind:value={knPassword} on:keyup={() => passwordConfirm(1)} required>
             <label for="knPassword"><span>비밀번호</span></label>

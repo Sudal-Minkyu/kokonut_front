@@ -1,6 +1,6 @@
 <script>
     import {customConfirmData} from "../../../lib/store.js";
-
+    import { fade } from "svelte/transition"
     // 확인버튼
     const btnCheck = () => {
         $customConfirmData.callback();
@@ -22,7 +22,7 @@
 
 {#if $customConfirmData.visible}
     <div class="dim" style="display: block"></div>
-    <div class="layerPopType dp_b" id="tip_box">
+    <div class="layerPopType dp_b" id="tip_box" in:fade>
         <header class="popHeader">
             {#if $customConfirmData.icon === 'pass'}
                 <img src="/assets/images/common/minipop_pass.png" alt="popIcon">
@@ -35,13 +35,17 @@
             {/if}
             <h4 class="popTit">{$customConfirmData.title}</h4>
         </header>
-        <section class="popContents">
-            <p>
-                {$customConfirmData.contents1}
-                <br>
-                {$customConfirmData.contents2}
-            </p>
-        </section>
+        {#if $customConfirmData.contents1 || $customConfirmData.contents2}
+            <section class="popContents">
+                <p>
+                    {$customConfirmData.contents1}
+                    {#if $customConfirmData.contents2}
+                        <br>
+                        {$customConfirmData.contents2}
+                    {/if}
+                </p>
+            </section>
+        {/if}
         <div class="popcBtnBox">
             {#if $customConfirmData.type === 'confirm'}
                 <button on:click={btnCheck} type="button" class="popCheck">{$customConfirmData.btnCheck}</button>

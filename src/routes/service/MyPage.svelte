@@ -6,8 +6,6 @@
     import { backBtn } from '../../lib/store'
     import { onMount } from 'svelte';
     import restapi from "../../lib/api"
-    import { is_login, cpNameSider} from "../../lib/store.js"
-    import { push } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
     import CustumAlert from "../../components/common/CustumAlert.svelte"
     import { popOpenBtn, }from '../../lib/common'
@@ -18,6 +16,9 @@
 
     import PhoneCert from '../../components/common/certification/PhoneCert.svelte'
     import GoogleOTP from "../../components/common/certification/GoogleOTP.svelte";
+    import {logout} from "../../components/common/authActions.js";
+    import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
+    import {ajaxGet, reportCatch} from "../../components/common/ajax.js";
 
     let changeState = 0;
     function changeStatePop(val) {
@@ -26,7 +27,6 @@
 
     // 나의정보 가져오기
     onMount(async () => {
-
         await myInfo();
     })
 
@@ -36,37 +36,36 @@
     let knPhoneNumber = "";// 휴대전화
     let cpName = "";// 소속
     let knDepartment = "";// 부서
+    let isMyPagePwdVisible = false; // 비밀번호창 보임 여부
 
     let knDepartmentState = ""; // 부서 등록/변경
     // 내정보 가져오기
     function myInfo() {
         let url = "/v2/api/Admin/myInfo"
 
-        restapi('v2', 'get', url, "", {}, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    knEmail = json_success.data.sendData.knEmail;
-                    knName = json_success.data.sendData.knName;
-                    knPhoneNumber = json_success.data.sendData.knPhoneNumber;
-                    cpName = json_success.data.sendData.cpName;
-                    knDepartment = json_success.data.sendData.knDepartment;
-                    if(knDepartment === "") {
-                        knDepartmentState = "등록";
-                    } else {
-                        knDepartmentState = "변경";
-                    }
-                    myInfoLayout = 1;
+        ajaxGet(url, false, (res) => {
+            try {
+                knEmail = res.data.sendData.knEmail;
+                knName = res.data.sendData.knName;
+                knPhoneNumber = res.data.sendData.knPhoneNumber;
+                cpName = res.data.sendData.cpName;
+                knDepartment = res.data.sendData.knDepartment;
+                if (knDepartment === "") {
+                    knDepartmentState = "등록";
                 } else {
-                    // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                    alert(json_success.data.err_msg);
-                    is_login.set(false);
-                    push('/login');
+                    knDepartmentState = "변경";
                 }
-            },
-            (json_error) => {
-                console.log(json_error);
+                myInfoLayout = 1;
+            } catch (e) {
+                reportCatch('temp047', e);
             }
-        )
+        }, (errCode) => {
+            try {
+                logout();
+            } catch (e) {
+                reportCatch('temp048', e);
+            }
+        });
     }
 
     let src;
@@ -82,20 +81,20 @@
             knEmail : knEmail,
         }
 
-        restapi('v1', 'get', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    src = json_success.data.sendData.url;
-                    knOtpKey = json_success.data.sendData.otpKey;
-                } else {
-                    googleOtpPop = !googleOtpPop;
-                }
-            },
-            (json_error) => {
-                console.log("구글 OTP 등록 및 재등록 실패");
-                alert(json_error.data.err_msg);
+        ajaxGet(url, sendData, (res) => {
+            try {
+                src = res.data.sendData.url;
+                knOtpKey = res.data.sendData.otpKey;
+            } catch (e) {
+                reportCatch('temp049', e);
             }
-        )
+        }, (err) => {
+            try {
+                googleOtpPop = !googleOtpPop;
+            } catch (e) {
+                reportCatch('temp050', e);
+            }
+        })
     }
 
     // 휴대전화번호 변경시 호출되는 함수
@@ -139,11 +138,7 @@
             <a use:link href="/service/environment">{$backBtn}</a>
             <h1>내 정보</h1>
         </div>
-        {#if myInfoLayout === 0}
-            <div class="loaderParent">
-                <div class="loader"></div>
-            </div>
-        {:else}
+        <LoadingOverlay bind:loadState={myInfoLayout} >
             <div class="seaContentBox" in:fade>
                 <div class="seaContentLine borB">
                     <div class="seaCont wid100per">
@@ -169,7 +164,7 @@
                 </div>
                 <div class="seaContentLine borB">
                     <div class="seaCont wid100per">
-                        <dl>이메일</dl>
+                        <dl>ID (e-mail)</dl>
                         <div class="myInfoBox">
                             <span>{knEmail}</span>
                         </div>
@@ -196,7 +191,7 @@
                     <div class="seaCont wid100per">
                         <dl>비밀번호</dl>
                         <div class="myInfoBox">
-                            <button style="margin-left: 0" class="myinfoChangeBtn" on:click|preventDefault={() => changeStatePop(1)}>변경하기</button>
+                            <button style="margin-left: 0" class="myinfoChangeBtn" on:click|preventDefault={()=>{isMyPagePwdVisible = true;}}>변경하기</button>
                         </div>
                     </div>
                 </div>
@@ -210,13 +205,13 @@
                     </div>
                 </div>
             </div>
-        {/if}
+        </LoadingOverlay>
     </div>
 </section>
 
-{#if changeState === 1}
-<MyPagePwd {changeStatePop} />
-{:else if changeState === 2}
+<MyPagePwd bind:visible={isMyPagePwdVisible} />
+
+{#if changeState === 2}
 <MyPageCp {changeStatePop} {contentsChange} />
 {:else if changeState === 3}
 <MyPageTeam {changeStatePop} {contentsChange} {knDepartmentState} />

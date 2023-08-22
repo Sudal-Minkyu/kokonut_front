@@ -34,7 +34,7 @@
                             <div class="poptabContent">
                                 <div class="popcaseInfoBox pi_noneicon">
                                     <p>주의사항</p>
-                                    <dl>삭제할 경우 <span>임시주의사항.</span></dl>
+                                    <dl>분류에서 해당 항목을 삭제합니다. <span>개인정보 항목에 추가된 항목은 삭제되지 않습니다.</span></dl>
                                 </div>
                                 <div class="koko_check">
                                     <input type="checkbox" value="1" name="catedelcheck" id="catedelcheck"

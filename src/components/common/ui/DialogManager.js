@@ -6,7 +6,7 @@ const defaultAskProp = {
     callback: () => {}, // 확인버튼시 동작
     icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
     title: '제목 미설정', // 제목
-    contents1: '내용 미설정', // 내용
+    contents1: '', // 내용
     contents2: '',
     btnCheck: '', // 확인 버튼의 텍스트
     btnStart: '실행', // 실행 버튼의 텍스트
@@ -19,7 +19,7 @@ const defaultConfirmProp = {
     callback: () => {}, // 확인버튼시 동작
     icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
     title: '제목 미설정', // 제목
-    contents1: '내용 미설정', // 내용
+    contents1: '', // 내용
     contents2: '',
     btnCheck: '확인', // 확인 버튼의 텍스트
     btnStart: '', // 실행 버튼의 텍스트

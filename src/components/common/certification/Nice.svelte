@@ -2,6 +2,7 @@
     import restapi from "../../../lib/api.js";
     import {querystring} from 'svelte-spa-router'
     import {onMount} from "svelte";
+    import {ajaxGet, reportCatch} from "../ajax.js";
 
     onMount(async () => {
 
@@ -19,7 +20,6 @@
     let stateVal = searchParams.get("state");
 
     function nicePhoneCert() {
-
         if(encData !== null && encDataCheck === true && stateVal !== "0") {
 
             let url = "/v1/api/NiceId/redirect"
@@ -29,26 +29,32 @@
                 enc_data : encData
             }
 
-            restapi('v1', 'get', url, "param", sendData, 'application/json',
-                (json_success) => {
-                    if(json_success.data.status === 200) {
-                        alert("인증이 완료되었습니다.");
-                        if(stateVal === "1" || stateVal === "5") {
-                            opener.phoneCertCheck(stateVal, json_success.data.sendData.joinName, json_success.data.sendData.joinPhone);
-                        } else {
-                            opener.phoneCertCheck(stateVal, json_success.data.sendData.keyEmail, json_success.data.sendData.authOtpKey);
-                        }
+            ajaxGet(url, sendData, (res) => { // 차후 인증실패시 에러메시지를 ajax.js 기본기능으로 사용하여 표출할 수 있도록 할 것
+                try {
+                    alert("인증이 완료되었습니다.");
+                    if (stateVal === "1" || stateVal === "5" || stateVal === "6" || stateVal === "7") {
+                        opener.phoneCertCheck(stateVal, res.data.sendData.joinName, res.data.sendData.joinPhone);
                     } else {
-                        alert(json_success.data.err_msg);
+                        opener.phoneCertCheck(stateVal, res.data.sendData.keyEmail, res.data.sendData.authOtpKey);
                     }
                     window.close();
-                },
-                (json_error) => {
-                    console.log(json_error)
-                    alert("서버 통신이 실패되었습니다.");
-                    window.close();
+                } catch (e) {
+                    reportCatch('temp011', e);
                 }
-            )
+            }, (errCode, errMsg) => {
+                try {
+                    if (errMsg) {
+                        alert(errMsg);
+                    } else {
+                        alert("통신문제로 인해 실패 하였습니다.");
+                        console.log('실패내용', errMsg);
+                    }
+                    window.close();
+                    return {action: 'NONE'}
+                } catch (e) {
+                    reportCatch('temp012', e);
+                }
+            });
         } else {
             alert("본인인증 실패했습니다.");
             window.close();
