@@ -2,10 +2,9 @@
 
     import { fade } from 'svelte/transition'
     import {policyInfoData, piId, initialPolicyInfo} from "../../../lib/store.js";
-
-    import restapi from "../../../lib/api.js";
     import {onMount} from "svelte";
     import {singleDatePicker} from "../../../lib/libSearch.js";
+    import {ajaxBody, reportCatch} from "../../common/ajax.js";
 
     onMount(async () => {
         console.log("첫번째 뎁스 piId : "+$piId);
@@ -64,22 +63,16 @@
             piHeader : $policyInfoData.policyData1.piHeader,
         }
 
-        restapi('v2', 'post', url, "body", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    // 완료후
-                    if($piId === 0) {
-                        piId.set(json_success.data.sendData.saveId);
-                    }
-
-                    stateChange(2);
+        ajaxBody(url, sendData, (res) => {
+            try {
+                if ($piId === 0) {
+                    piId.set(res.data.sendData.saveId);
                 }
-            },
-            (json_error) => {
-                console.log(json_error);
+                stateChange(2);
+            } catch (e) {
+                reportCatch('t23082302', e);
             }
-        )
-
+        });
     }
 
     console.log('initialPolicyInfo', initialPolicyInfo);

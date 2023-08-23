@@ -3,9 +3,8 @@
 
     import { fade } from 'svelte/transition'
     import {piId, policyInfoData} from '../../../lib/store.js'
-
     import {onMount} from "svelte";
-    import restapi from "../../../lib/api.js";
+    import {ajaxBody, reportCatch} from "../../common/ajax.js";
 
     onMount(async () => {
         console.log("두번째 뎁스 $piId : "+$piId);
@@ -60,17 +59,13 @@
             policyPurposeSaveDtoList : $policyInfoData.purposeDataList,
             policyPurposeDeleteIdList : policyPurposeDeleteIdList
         }
-        restapi('v2', 'post', url, "body", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    // 완료후
-                    stateChange(goToState);
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
+        ajaxBody(url, sendData, (res) => {
+            try {
+                stateChange(goToState);
+            } catch (e) {
+                reportCatch('t23082303', e);
             }
-        );
+        });
     }
 
 </script>
