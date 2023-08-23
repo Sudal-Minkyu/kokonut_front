@@ -140,7 +140,7 @@
         sendForm.set('emEmailSend', es.emEmailSend);
         sendForm.set('emTitle', es.emTitle);
         sendForm.set('emContents', es.emContents);
-        for (const email of es.emailSendChoseList) {
+        for (const email of es.emailSendChoseListFinal) {
             sendForm.append('emailSendChoseList', email);
         }
         for (const file of es.multipartFiles) {
@@ -238,7 +238,7 @@
                                     <label for="선택 회원">
                                         <em><dt></dt></em>
                                         선택 회원
-                                        <span>{$emailSendData.emailSendChoseList.length}</span>
+                                        <span>{$emailSendData.emailSendChoseListFinal.length}</span>
                                         <div class="sendMemberBtn" id="email_member_pop" on:click={openEmailPersonSelectPop}>회원선택</div>
                                     </label>
                                 </div>
