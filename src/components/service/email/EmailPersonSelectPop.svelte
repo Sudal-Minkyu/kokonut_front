@@ -76,12 +76,16 @@
     const handleChkSelectAllInfoChange = (e) => {
         const checkboxes = document.querySelectorAll('.visibleInfoChk');
         const emailSendChoseList = $emailSendData.emailSendChoseList;
+        const emailSendChoseListFinal = $emailSendData.emailSendChoseListFinal;
 
         if (e.target.checked) {
             checkboxes.forEach((checkbox) => {
                 checkbox.checked = true;
                 if (!emailSendChoseList.includes(checkbox.value)) {
                     emailSendChoseList.push(checkbox.value);
+                    if (!emailSendChoseListFinal.includes(checkbox.value)) {
+                        emailSendChoseListFinal.push(checkbox.value);
+                    }
                 }
             });
         } else {
@@ -91,11 +95,16 @@
                 if (index > -1) {
                     emailSendChoseList.splice(index, 1);
                 }
+                const finalIndex = emailSendChoseListFinal.indexOf(checkbox.value);
+                if (finalIndex > -1) {
+                    emailSendChoseListFinal.splice(index, 1);
+                }
             });
         }
 
         emailSendData.update(obj => {
             obj.emailSendChoseList = emailSendChoseList;
+            obj.emailSendChoseListFinal = emailSendChoseListFinal;
             return obj;
         });
     }
@@ -107,10 +116,6 @@
     }
 
     const handleConfirm = () => {
-        emailSendData.update(obj => {
-            obj.emailSendChoseList = [];
-            return obj;
-        });
         closeEmailPersonSelectPop();
     }
 

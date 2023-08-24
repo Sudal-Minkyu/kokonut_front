@@ -10,13 +10,13 @@
     import jQuery from 'jquery';
     import CustumAlert from "../../components/common/CustumAlert.svelte"
     import { popOpenBtn, }from '../../lib/common'
-    import TitleAlarm from '../../components/common/TitleAlarm.svelte'
     import ApiKeyIpDelete from '../../components/service/environment/apikey/ApiKeyIpDelete.svelte'
     import ApiKeyIpAdd from '../../components/service/environment/apikey/ApiKeyIpAdd.svelte'
     import ApiKeyExplan from '../../components/service/environment/apikey/ApiKeyExplan.svelte'
     import {logout} from "../../components/common/authActions.js";
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet, ajaxParam, reportCatch} from "../../components/common/ajax.js";
+    import {openBanner} from "../../components/common/ui/DialogManager.js";
 
     $: isModifiable = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
 
@@ -188,18 +188,11 @@
 
     // API ket 복사
     function apiKeyCopy() {
-
-        titleClick = true;
         const textarea = document.getElementById("copycode");
         textarea.select();
 
         document.execCommand('copy');
-
-        setTimeout(() => {
-            if(titleClick) {
-                titleClick = false;
-            }
-        }, 1000)
+        openBanner('API키를 클립보드에 복사하였습니다.');
     }
 
     let change = true;
@@ -219,9 +212,6 @@
         change = !change
     }
 
-    let titleMessage = "API Key를 복사하였습니다.";
-    let titleClick = false;
-
     let popType;
     let imgState;
     let popTitle;
@@ -240,8 +230,6 @@
         <div class="pageTitleBtn marB50">
             <a use:link href="/service/environment">{$backBtn}</a><h1>API Key 발급</h1>
         </div>
-
-        <TitleAlarm {titleMessage} {titleClick} />
 
         <div class="apikeyBox">
             <LoadingOverlay bind:loadState={apikeyTrueFalse} >

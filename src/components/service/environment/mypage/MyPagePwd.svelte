@@ -1,10 +1,8 @@
 
 <script>
     import { fade } from 'svelte/transition';
-    import restapi from "../../../../lib/api.js";
-    import { callCapsLock, popOpenBtn } from '../../../../lib/common';
-    import {accessToken, doChangePwdLater, is_login} from "../../../../lib/store.js";
-    import {push} from "svelte-spa-router";
+    import { callCapsLock } from '../../../../lib/common';
+    import {doChangePwdLater} from "../../../../lib/store.js";
     import {openAsk, openConfirm} from "../../../common/ui/DialogManager.js";
     import {logout} from "../../../common/authActions.js";
     import {ajaxParam, reportCatch} from "../../../common/ajax.js";
