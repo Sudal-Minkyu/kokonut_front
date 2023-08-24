@@ -8,11 +8,7 @@ phases:
       - echo node version check
       - node -v
       - npm -v
-      
-  pre_build:
-    commands:
-      - npm install
-      
+      -
   build:
     commands:
       - echo Build Starting on `date` 
