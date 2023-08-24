@@ -1,6 +1,9 @@
 #!/bin/bash
 sudo su -
 
+# npm의 경로를 변수로 지정
+NPM_PATH=$(which npm)
+
 PORT=5173
 echo "프로세스 종료용 포트조회 : $PORT"
 
@@ -18,4 +21,6 @@ cd /root/kokonut_frontend
 
 pwd
 
-nohup npm run dev &
+nohup $NPM_PATH run dev &
+
+exit
