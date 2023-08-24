@@ -1,9 +1,6 @@
 #!/bin/bash
-sudo su -
 
-# nvm 초기화 및 Node.js 버전 활성화
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # nvm 초기화
+sudo su -
 
 PORT=5173
 echo "프로세스 종료용 포트조회 : $PORT"
@@ -22,6 +19,6 @@ cd /root/kokonut_frontend
 
 pwd
 
-nohup $NPM_PATH run dev &
+nohup npm run dev &
 
 exit
