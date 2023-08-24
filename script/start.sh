@@ -22,5 +22,3 @@ cd /root/kokonut_frontend
 pwd
 
 nohup npm run dev &
-
-exit
