@@ -4,7 +4,7 @@ sudo -i
 yum update -y
 
 # Change directory to the location of package.json file
-cd /kokonut_frontend
+cd /root/kokonut_frontend
 
 # Remove node_modules folder
 rm -rf node_modules
@@ -26,6 +26,6 @@ else
     sleep 5
 fi
 
-nohup npm run dev
+nohup npm run dev &
 
 exit
