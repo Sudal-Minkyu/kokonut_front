@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /root/kokonut_frontend
+
 # nvm 초기화 및 Node.js 버전 활성화
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # nvm 초기화
@@ -17,7 +19,7 @@ else
     sleep 5
 fi
 
-cd /root/kokonut_frontend
+mkdir /root/kokonut_frontend/logs
 
 nohup npm run dev -- --host 0.0.0.0 1>/root/kokonut_frontend/logs/$(date +%Y-%m-%d)_stdout.log 2>/root/kokonut_frontend/logs/$(date +%Y-%m-%d)_stderr.log &
 
