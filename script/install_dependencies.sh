@@ -8,4 +8,5 @@ rm -rf node_modules
 rm -rf package-lock.json
 
 echo "인스톨시작"
+pwd
 npm install
