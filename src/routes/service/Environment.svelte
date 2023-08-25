@@ -5,6 +5,7 @@
     import { link } from 'svelte-spa-router'
     import {userInfoData} from "../../lib/store.js";
     $: roleCat1 = ['ROLE_MASTER', 'ROLE_ADMIN', 'ROLE_USER'].includes($userInfoData.role);
+    $: roleCat2 = ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
 </script>
 
 <Header />
@@ -27,6 +28,8 @@
                             </div>
                         </a>
                     </li>
+                {/if}
+                {#if roleCat2}
                     <li>
                         <a use:link href="/service/environment/apikey">
                             <div class="setlistBox">
@@ -37,6 +40,8 @@
                             </div>
                         </a>
                     </li>
+                {/if}
+                {#if roleCat1}
                     <li>
                         <a use:link href="/service/environment/thirdpartyconnection">
                             <div class="setlistBox">

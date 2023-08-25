@@ -16,7 +16,7 @@
 <!--    </div>-->
 <!--</div>-->
 <!-- Investor START ~ -->
-<div class="p_companyBtom">
+<div id="p_company" class="p_companyBtom">
     <div class="mInner">
         <div class="logoBottom wow TitleUp" data-wow-delay="0.0s">
             <p class="p_comStitle wow TitleUp" data-wow-delay="0.0s">Investor</p>
