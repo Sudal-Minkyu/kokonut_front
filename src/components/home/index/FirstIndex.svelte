@@ -10,12 +10,20 @@
 
             jQuery(".text2").addClass("show");
 
+            jQuery(".blackBox01").addClass("down");
+            jQuery(".blackBox02").removeClass("down");
+
+
         } else {
             jQuery(".text1").removeClass("hidn");
             jQuery(".text2").removeClass("show");
 
             jQuery(".main_Num").removeClass("here");
             jQuery(".main_Num.one").addClass("here");
+
+            jQuery(".blackBox01").removeClass("down");
+            jQuery(".blackBox02").addClass("down");
+
         }
     });
 </script>
@@ -40,7 +48,7 @@
                 <div class="slideWrap">
                     <div class="slide">
                         <div class="blackBox blackBox01"></div>
-<!--                        <div class="blackBox blackBox02 down"></div>-->
+                        <div class="blackBox blackBox02 down"></div>
                     </div>
                 </div>
                 <div class="scrollDown">

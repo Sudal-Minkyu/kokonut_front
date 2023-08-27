@@ -64,7 +64,7 @@
         </div>
         <div class="gnb">
             <ul>
-                <li class="price h_contact"><a use:link href="/price">요금안내 페이지</a></li>
+                <li class="price h_contact"><a use:link href="/price">요금안내</a></li>
                 <li class="privacy" style="cursor: pointer"><a on:click={handleInformPIS}>개인정보보호 더 알기</a></li>
                 <li class="teamInfo"><a target="_blank" href="https://kokonut.oopy.io/team">팀 소개</a></li>
             </ul>
@@ -101,7 +101,7 @@
         <div class="side_cont_inner">
             <div class="container">
                 <ul id="ac">
-                    <li class="menu01"><a use:link href="/price"><p class="menu01_h">요금안내 페이지</p></a></li>
+                    <li class="menu01"><a use:link href="/price"><p class="menu01_h">요금안내</p></a></li>
                     <li class="menu01"><a on:click={handleInformPIS}><p class="menu01_h">개인정보보호 더 알기</p></a></li>
                     <li class="menu01"><a target="_blank" href="https://kokonut.oopy.io/team"><p class="menu01_h">팀소개</p></a></li>
                 </ul>
