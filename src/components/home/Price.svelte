@@ -25,15 +25,12 @@
             <div class="pricTCont" style="padding-left: 25%; padding-right: 25%;">
                 <div class="pricTLeft"  style="width: 100%;">
                     <div class="pc_titleBox">
+                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                         <p class="pc_price" style="font-size: 5rem;margin-top: 1rem;">월 99,000원 부터</p>
+                        <br /><br />
                         <p class="btype">기업이 보유한 개인정보 볼륨에<br>따라 요금이 변동됩니다.<br>자세한 요금 정책은 문의 바랍니다.</p>
+                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                     </div>
-                    <ul class="cus_list">
-                        <li>소규모 고객을 보유한 스타트업</li>
-                        <li>고객정보를 수집하는 소상공인</li>
-                        <li>멤버 관리가 필요한 소모임 및 동아리</li>
-                        <li>사업 진행 전 DB 구축 단계의 팀</li>
-                    </ul>
                 </div>
             </div>
         </div>

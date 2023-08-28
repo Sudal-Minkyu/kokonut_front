@@ -1,7 +1,5 @@
 <script>
-    import restapi from "../../../lib/api.js";
     import jQuery from "jquery";
-
     import {openDiv, findEmail, findPwd, tempPwd, userInfoData} from '../../../lib/store'
     import {openConfirm} from "../ui/DialogManager.js";
     import {ajaxGet, ajaxParam, reportCatch} from "../ajax.js";
@@ -95,35 +93,32 @@
                 knEmail : email
             }
 
-            restapi('v1', 'get', url, "param", sendData, 'application/json',
-                (json_success) => {
-                    if(json_success.data.status === 200) {
-                        console.log("결과 : "+json_success.data.sendData.result);
-                        conditionFun(json_success.data.sendData.result, "가입되지 않은 이메일입니다.");
-                        if(json_success.data.sendData.result) {
-                            phoneCheckOpen(state);
-                        }
-                    } else if (json_success.data.err_code === "KO096" || json_success.data.err_code === "KO095") {
+            ajaxGet(url, sendData, (res) => {
+                try {
+                    conditionFun(res.data.sendData.result, "가입되지 않은 이메일입니다.");
+                    if (res.data.sendData.result) {
+                        phoneCheckOpen(state);
+                    }
+                } catch (e) {
+                    reportCatch('t23082201', e);
+                }
+            }, (errCode, errMsg) => {
+                try {
+                    if (errCode === "KO096" || errCode === "KO095") {
                         openConfirm({
                             icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                             title: "비밀번호 오류횟수 초과", // 제목
-                            contents1: json_success.data.err_msg,
+                            contents1: errMsg,
                             btnCheck: '확인', // 확인 버튼의 텍스트
-                        })
-                        conditionFun(false, json_success.data.err_msg);
+                        });
+                        conditionFun(false, errMsg);
+                        return {action: 'NONE'};
                     }
-                },
-                (json_error) => {
-                    console.log(json_error);
-                    console.log("이메일 존재여부 체크 실패");
+                } catch (e) {
+                    reportCatch('t23082202', e);
                 }
-            )
+            });
         }
-
-        // console.log("emailErrorState : "+emailErrorState);
-        // if(emailErrorState) {
-        //
-        // }
     }
 
     // ID 찾기
@@ -213,27 +208,27 @@
 			knPassword : knPassword
 		}
 
-        restapi('v1', 'get', url, "param", sendData, 'application/json',
-			(json_success) => {
-				if(json_success.data.status === 200) {
-                    console.log("authOtpKey : "+json_success.data.sendData.authOtpKey);
-                    authOtpKey = json_success.data.sendData.authOtpKey // 재등록하는 OTP의 인증키
-                    phoneCheckOpen(state);
-				} else if (json_success.data.err_code === "KO015" || json_success.data.err_code === "KO012") {
+        ajaxGet(url, sendData, (res) => {
+            try {
+                authOtpKey = res.data.sendData.authOtpKey // 재등록하는 OTP의 인증키
+                phoneCheckOpen(state);
+            } catch (e) {
+                reportCatch('t23082203', e);
+            }
+        }, (errCode, errMsg) => {
+            try {
+                if (errCode === "KO015" || errCode === "KO012") {
                     conditionFun(3, false); // -> KO012
                     // KO015 => 숫자가 아닌 문자가 왔을 경우 에러 -> 자바스크립트에서 처리함
-                } else if(json_success.data.err_code === "KO013") {
+                    return {action: 'NONE'};
+                } else if (errCode === "KO013") {
                     conditionFun(4, false); // -> KO013
+                    return {action: 'NONE'};
                 }
-                else {
-					console.log("OTP 등록/재등록시 인증 호출 에러");
-                    console.log(json_success);
-				}
-			},
-            (json_error) => {
-                console.log(json_error);
+            } catch (e) {
+                reportCatch('t23082204', e);
             }
-		)
+        });
 	}
 
     // 구글 OTP 등록 및 재등록

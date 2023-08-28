@@ -1,8 +1,8 @@
 <script>
 
     import { fade } from 'svelte/transition'
-    import {backBtn,policyInfoData,piId} from "../../../lib/store.js";
-    import restapi from "../../../lib/api.js";
+    import {policyInfoData,piId} from "../../../lib/store.js";
+    import {ajaxBody, reportCatch} from "../../common/ajax.js";
 
     export let stateChange;
 
@@ -57,9 +57,6 @@
         });
     }
 
-    let policyThirdYn = !!$policyInfoData.thirdDataList.length;
-    let policyThirdOverseasYn = !!$policyInfoData.thirdOverseasDataList.length;
-
     const fifthDepthSave = (goToState) => {
         console.log('저장전데이터', $policyInfoData);
         let url = "/v2/api/Policy/privacyPolicyFifthSave";
@@ -72,17 +69,13 @@
             policyThirdOverseasYn: !!$policyInfoData.thirdOverseasDataList.length,
             policyThirdOverseasDeleteIdList: policyThirdOverseasDeleteIdList,
         }
-        restapi('v2', 'post', url, "body", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    // 완료후
-                    stateChange(goToState);
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
+        ajaxBody(url, sendData, (res) => {
+            try {
+                stateChange(goToState);
+            } catch (e) {
+                reportCatch('t23082306', e);
             }
-        );
+        });
     }
 </script>
 

@@ -34,8 +34,8 @@
                         <p class="mContsTxt wow TitleUp" data-wow-delay="0.1s">BI 툴, 알림톡, CRM 툴 등 기존에 활용하던 툴들은 자연스럽게 연동하세요.</p>
                     </div>
                     <div class="f_ContBoxCont wow m_ConttxtBoxUp" data-wow-delay="0.2s">
-                        <figure class="fb_figure01 wow siteImgUp" data-wow-delay="0.3s"><img alt="" src="/assets/images/main/Power_2-1.png"></figure>
-                        <figure class="fb_figure02 wow siteImgUpCenter" data-wow-delay="0.4s"><img alt="" src="/assets/images/main/Power_2-2.png"></figure>
+                        <figure class="fb_figure01 wow siteImgUp" data-wow-delay="0.3s"><img alt="" src="/assets/images/main/thirdparty_img1.png"></figure>
+                        <figure class="fb_figure02 wow siteImgUpCenter" data-wow-delay="0.4s"><img style="border-radius : 10px" alt="" src="/assets/images/main/thirdparty_img2.png"></figure>
                     </div>
                 </div>
             </div>

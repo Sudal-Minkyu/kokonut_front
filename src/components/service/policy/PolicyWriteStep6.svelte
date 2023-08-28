@@ -1,8 +1,8 @@
 <script>
 
-    import { fade } from 'svelte/transition'
-    import {backBtn,policyInfoData,piId} from "../../../lib/store.js";
-    import restapi from "../../../lib/api.js";
+    import {fade} from 'svelte/transition'
+    import {piId, policyInfoData} from "../../../lib/store.js";
+    import {ajaxBody, reportCatch} from "../../common/ajax.js";
 
     export let stateChange;
 
@@ -44,19 +44,33 @@
             piDay: $policyInfoData.policyData3.piDay,
             piChangeChose: !!($policyInfoData.policyData3.piYear && $policyInfoData.policyData3.piMonth && $policyInfoData.policyData3.piDay),
         }
-        restapi('v2', 'post', url, "body", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    // 완료후
-                    stateChange(goToState);
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
+        ajaxBody(url, sendData, (res) => {
+            try {
+                stateChange(goToState);
+            } catch (e) {
+                reportCatch('t23082301', e);
             }
-        );
+        });
     }
 
+        // 숫자와 제어키를 제외한 입력을 입력단계에서 막음
+    function handleOnlyNum(e) {
+        const charCode = e.which ? e.which : e.keyCode;
+
+        if (
+            (charCode < 48 || charCode > 57) &&   // 숫자 키
+            (charCode < 96 || charCode > 105) &&  // 숫자 패드
+            charCode !== 8 &&                     // 백스페이스
+            charCode !== 9 &&                     // 탭
+            charCode !== 37 &&                    // 좌 화살표
+            charCode !== 39 &&                    // 우 화살표
+            charCode !== 35 &&                    // End
+            charCode !== 36 &&                    // Home
+            charCode !== 46                       // Delete
+        ) {
+            e.preventDefault();
+        }
+    }
 </script>
 
 <div in:fade>
@@ -138,15 +152,18 @@
                 <dt></dt>
                 이전 개인정보 처리방침 시행 일자 :
                 <div class="koinput wid64 marL8">
-                    <input type="text" bind:value={$policyInfoData.policyData3.piYear} placeholder="2023" maxlength="4">
+                    <input type="text" bind:value={$policyInfoData.policyData3.piYear} data-cat="piYear"
+                           placeholder="2023" maxlength="4" on:keypress={handleOnlyNum}>
                 </div>
                 년
                 <div class="koinput wid44 marL16">
-                    <input type="text" bind:value={$policyInfoData.policyData3.piMonth} placeholder="01" maxlength="2">
+                    <input type="text" bind:value={$policyInfoData.policyData3.piMonth} data-cat="piMonth"
+                           placeholder="01" maxlength="2" on:keypress={handleOnlyNum}>
                 </div>
                 월
                 <div class="koinput wid44 marL16">
-                    <input type="text" bind:value={$policyInfoData.policyData3.piDay} placeholder="01" maxlength="2">
+                    <input type="text" bind:value={$policyInfoData.policyData3.piDay} data-cat="piDay"
+                           placeholder="01" maxlength="2" on:keypress={handleOnlyNum}>
                 </div>
                 일
             </div>

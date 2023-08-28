@@ -1,11 +1,10 @@
 <script>
     import { fade } from 'svelte/transition'
-    import {backBtn,policyInfoData,piId} from "../../../lib/store.js";
+    import {policyInfoData,piId} from "../../../lib/store.js";
     import {onMount} from "svelte";
-    import restapi from "../../../lib/api.js";
     import ErrorHighlight from "../../common/ui/ErrorHighlight.svelte";
+    import {ajaxBody, reportCatch} from "../../common/ajax.js";
 
-    export let policyWriting;
     export let stateChange;
 
     const beforeRemoveIdList = [];
@@ -112,17 +111,14 @@
             piConsumerChose: $policyInfoData.policyData2.piConsumerChose,
             piAdvertisementChose: $policyInfoData.policyData2.piAdvertisementChose,
         }
-        restapi('v2', 'post', url, "body", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    // 완료후
-                    stateChange(goToState);
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
+
+        ajaxBody(url, sendData, (res) => {
+            try {
+                stateChange(goToState);
+            } catch (e) {
+                reportCatch('t23082304', e);
             }
-        );
+        });
     }
 
 </script>

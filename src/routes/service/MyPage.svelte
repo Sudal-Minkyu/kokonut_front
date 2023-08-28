@@ -5,7 +5,6 @@
     import { link } from 'svelte-spa-router'
     import { backBtn } from '../../lib/store'
     import { onMount } from 'svelte';
-    import restapi from "../../lib/api"
     import { fade } from 'svelte/transition'
     import CustumAlert from "../../components/common/CustumAlert.svelte"
     import { popOpenBtn, }from '../../lib/common'

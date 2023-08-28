@@ -1,15 +1,15 @@
 
 <script>
-    // 레이아웃
     import Header from "../../../components/service/layout/Header.svelte"
     import {link, push} from 'svelte-spa-router'
     import { backBtn } from '../../../lib/store.js'
     import {onMount} from "svelte";
-    import {popOpenBtn} from "../../../lib/common.js";
     import jQuery from "jquery";
-    import restapi from "../../../lib/api.js";
-    import CustumAlert from '../../../components/common/CustumAlert.svelte';
     import {ajaxMultipart, reportCatch} from "../../../components/common/ajax.js";
+    import {openAsk} from "../../../components/common/ui/DialogManager.js";
+    import {openConfirm} from "../../../components/common/ui/DialogManager.js";
+
+    const FILE_SIZE_LIMIT = 20 // 20MB
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -25,16 +25,8 @@
         {id : "qnaType", use_all : false, codeName : "qna_type"},
     ];
 
-    let popType; // 1: 버튼하나, 2: 여부를 묻는 버튼 두개
-    let imgState; // 1 : 성공, 2 : 경고, 3: 실패, 4: 물음표
-    let popTitle = ""; // 제목 텍스트
-    let popContents1 = ""; // 내용1 텍스트
-    let popStart = ""; // 예 텍스트
-    let popCancel = ""; // 아니오 텍스트
-    let popCheck = "";
     let qnaTitle = "";
     let qnaContent = "";
-    let startFun;
 
     let textState= 0;
     function qnaStart() {
@@ -43,14 +35,16 @@
             return false;
         }
 
-        popType = 2;
-        imgState = 2;
-        popTitle = "1:1 문의를 하시겠습니까?";
-        popContents1 = "답변은 최소 3~5일 정도 걸립니다."
-        popStart = "예";
-        popCancel = "아니오";
-        startFun = qnaWrite;
-        popOpenBtn();
+        openAsk({
+            icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+            title: '1:1 문의를 하시겠습니까?', // 제목
+            contents1: '답변은 최소 3~5일 정도 걸립니다.', // 내용
+            contents2: '',
+            btnCheck: '', // 확인 버튼의 텍스트
+            btnStart: '예', // 실행 버튼의 텍스트
+            btnCancel: '아니오', // 취소 버튼의 텍스트
+            callback: qnaWrite, // 확인버튼시 동작
+        });
     }
 
     function qnaWrite() {
@@ -92,20 +86,15 @@
         let remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
         let curFileCnt = files.length;  // 현재 선택된 첨부파일 개수
 
-        // console.log("maxFileCnt : "+maxFileCnt);
-        // console.log("curFileCnt : "+curFileCnt);
-
-        popType = 1;
-        imgState = 3;
-        popTitle = "지원하지 않은 첨부파일";
-        popCheck = "확인";
-        startFun = undefined;
-
         // 첨부파일 개수 확인
         if (curFileCnt > remainFileCnt) {
-            popTitle = "첨부파일 초과"
-            popContents1 = "첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다."
-            popOpenBtn();
+            openConfirm({
+                icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: '첨부파일 초과', // 제목
+                contents1: '첨부파일은 최대 ' + maxFileCnt + '개 까지 첨부 가능합니다.',
+                contents2: '',
+                btnCheck: '확인', // 확인 버튼의 텍스트
+            });
             start = false;
         }
 
@@ -116,15 +105,26 @@
                 if (validation(files[i])) {
                     // 파일 배열에 담기
                     filesArr = [...filesArr, files[i]];
-                    // filesArr.push(files[i]); -> 이렇게하면 동적으로 생성이 안됨. 왜 그런지 모르겠네..ㅜ
                 }
             }
-            console.log("첨부파일 배열 넣음");
-            console.log(filesArr);
-            // console.log(filesArr[0]);
-            // console.log(filesArr[0].name);
-            console.log(filesArr.length);
-            // console.log(typeof filesArr);
+
+            // 파일들의 총 용량을 계산
+            let totalSize = 0;
+            for (let i = 0; i < filesArr.length; i++) {
+                totalSize += filesArr[i].size;
+            }
+
+            // 20MB를 초과하면 경고 표시
+            if (totalSize > (FILE_SIZE_LIMIT * 1024 * 1024)) {
+                openConfirm({
+                    icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: '첨부파일 용량초과', // 제목
+                    contents1: '첨부파일은 최대 ' + FILE_SIZE_LIMIT + 'mb 까지 첨부 가능합니다.',
+                    contents2: '',
+                    btnCheck: '확인', // 확인 버튼의 텍스트
+                });
+                filesArr = [];
+            }
         }
 
         // 초기화
@@ -134,21 +134,28 @@
     /* 첨부파일 검증 */
     function validation(obj){
         const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'application/haansofthwp', 'application/x-hwp'];
+        const failPopProps = {
+            icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+            title: '지원하지 않는 첨부파일', // 제목
+            contents1: '',
+            contents2: '',
+            btnCheck: '확인', // 확인 버튼의 텍스트
+        }
         if (obj.name.length > 100) {
-            popContents1 = "파일명이 100자 이상인 파일은 제외되었습니다."
-            popOpenBtn();
+            failPopProps.contents1 = "파일명이 100자 이상인 파일은 제외되었습니다."
+            openConfirm(failPopProps);
             return false;
-        } else if (obj.size > (100 * 1024 * 1024)) {
-            popContents1 = "최대 파일 용량인 100MB를 초과한 파일은 제외되었습니다."
-            popOpenBtn();
+        } else if (obj.size > (10 * 1024 * 1024)) {
+            failPopProps.contents1 = "최대 파일 용량인 10MB를 초과한 파일은 제외되었습니다."
+            openConfirm(failPopProps);
             return false;
         } else if (obj.name.lastIndexOf('.') === -1) {
-            popContents1 = "확장자가 없는 파일은 제외되었습니다."
-            popOpenBtn();
+            failPopProps.contents1 = "확장자가 없는 파일은 제외되었습니다."
+            openConfirm(failPopProps);
             return false;
         } else if (!fileTypes.includes(obj.type)) {
-            popContents1 = "첨부가 불가능한 파일은 제외되었습니다."
-            popOpenBtn();
+            failPopProps.contents1 = "첨부가 불가능한 파일은 제외되었습니다."
+            openConfirm(failPopProps);
             return false;
         } else {
             return true;
@@ -236,8 +243,5 @@
                 <button type="submit" class="bottomBtn" on:click={qnaStart}>문의하기</button>
             </div>
         </div>
-
     </div>
 </section>
-
-<CustumAlert {popType} {imgState} {startFun} {popTitle} {popContents1} {popStart} {popCancel} {popCheck} />

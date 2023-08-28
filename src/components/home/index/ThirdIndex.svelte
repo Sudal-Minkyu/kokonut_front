@@ -139,7 +139,7 @@
                                     </li>
                                     <li>
                                         <span class="gnum">03</span>
-                                        <p class="gTxt">스스로에게도 제공할 수 있는 기능을 통해<br class="pc_br"> 안전한 관리는 나부터</p>
+                                        <p class="gTxt">스스로에게도 제공할 수 있는 기능을 통해 안전한 관리는 나부터</p>
                                     </li>
                                 </ul>
                             </div>

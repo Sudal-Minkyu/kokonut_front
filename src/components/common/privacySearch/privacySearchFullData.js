@@ -76,7 +76,7 @@ const splitArray = (arr, start, end) => {
     b.splice(start, end - start);
     return [a, b];
 }
-export const getUserListByCondition = (page = 1, limitNum = 10, baseColumnList) => {
+export const getUserListByCondition = (page = 1, limitNum = 10, baseColumnList, callback = () => {}) => {
     let baseSearchCodes = [];
     if (baseColumnList && baseColumnList.length) {
         for (const code of baseColumnList) {
@@ -167,6 +167,7 @@ export const getUserListByCondition = (page = 1, limitNum = 10, baseColumnList) 
                 }
                 return obj;
             });
+            callback();
         } catch (e) {
             reportCatch('temp101', e);
         }
@@ -190,9 +191,9 @@ const verifySearchCondition = (searchCondition) => {
     return {isVerifyFail: set.size < searchCondition.searchCodes.length};
 }
 
-export const handleEnterSearchText = (e, baseColumnList, limitNum = 10) => {
+export const handleEnterSearchText = (e, baseColumnList, limitNum = 10, callback = () => {}) => {
     if (e.key === 'Enter') {
-        getUserListByCondition(1, limitNum, baseColumnList);
+        getUserListByCondition(1, limitNum, baseColumnList, callback);
     }
 }
 

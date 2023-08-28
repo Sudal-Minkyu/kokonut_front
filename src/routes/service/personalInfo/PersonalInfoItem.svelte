@@ -11,8 +11,7 @@
     import {link} from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
     import jQuery from "jquery";
-    import restapi from "../../../lib/api.js";
-    import {backBtn, personalInfoCategoryData, personalInfoTableData, userInfoData} from '../../../lib/store.js'
+    import {backBtn, personalInfoCategoryData, personalInfoTableData} from '../../../lib/store.js'
     import PersonalInfoRemoveColumnPop
         from "../../../components/service/environment/personalInfo/PersonalInfoRemoveColumnPop.svelte";
     import PersonalInfoInsertItemPop
@@ -21,7 +20,6 @@
         from "../../../components/service/environment/personalInfo/PersonalInfoEditItemPop.svelte";
     import {openAsk, openBanner} from "../../../components/common/ui/DialogManager.js";
     import {ajaxBody, ajaxGet, ajaxParam, reportCatch} from "../../../components/common/ajax.js";
-    import {logout} from "../../../components/common/authActions.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     const personalInfoItemProp = {
@@ -95,21 +93,27 @@
                 }
             },
             sendCreateItem() {
-                restapi('v2', 'post', '/v2/api/Company/saveItem', "param", $personalInfoCategoryData.createItemPop.inputData, 'application/json',
-                    (json_success) => {
-                        if (json_success.data.status === 200) {
-                            personalInfoCategoryService.getAdditionalItemList();
-                            openBanner("선택한 항목을 추가하였습니다.");
-                        } else if (json_success.data.err_code === 'KO087') {
-                            alert('이미 등록되어 있는 항목입니다.');
-                        }
+                ajaxParam('/v2/api/Company/saveItem', $personalInfoCategoryData.createItemPop.inputData, (res) => {
+                    try {
+                        personalInfoCategoryService.getAdditionalItemList();
+                        openBanner("선택한 항목을 추가하였습니다.");
                         personalInfoCategoryService.createItemPop.initInputData();
                         personalInfoCategoryService.createItemPop.hide();
-                    },
-                    (json_error) => {
-                        console.log('아이템 추가 실패', json_error);
+                    } catch (e) {
+                        reportCatch('t23082206', e);
                     }
-                );
+                }, (errCode, errMsg) => {
+                    try {
+                        if (errCode === 'KO087') {
+                            alert('이미 등록되어 있는 항목입니다.');
+                            personalInfoCategoryService.createItemPop.initInputData();
+                            personalInfoCategoryService.createItemPop.hide();
+                            return {action: 'NONE'};
+                        }
+                    } catch (e) {
+                        reportCatch('t23082209', e);
+                    }
+                });
             },
         },
         editItemPop: {
@@ -184,23 +188,15 @@
                     ciName: $personalInfoCategoryData.editItemPop.inputData.ciName,
                 }
 
-                restapi('v2', 'post', "/v2/api/Company/updateItem", "param", sendData, 'application/json',
-                    (json_success) => {
-                        if (json_success.data.status === 200) {
-                            personalInfoCategoryService.getAdditionalItemList();
-                            personalInfoCategoryService.editItemPop.hide();
-                            openBanner("선택한 항목명을 수정하였습니다.");
-                        } else {
-                            // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                            // alert(json_success.data.err_msg);
-                            // logout();
-                        }
-                    },
-                    (json_error) => {
-                        console.log(json_error);
-                        console.log("카테고리(컬럼) 추가 호출 실패");
+                ajaxParam('/v2/api/Company/updateItem', sendData, (res) => {
+                    try {
+                        personalInfoCategoryService.getAdditionalItemList();
+                        personalInfoCategoryService.editItemPop.hide();
+                        openBanner("선택한 항목명을 수정하였습니다.");
+                    } catch (e) {
+                        reportCatch('t23082207', e);
                     }
-                );
+                });
             },
             sendDeleteItem() {
                 let sendData = {
@@ -414,23 +410,28 @@
                 });
             },
             sendAddTab() {
-                restapi('v2', 'post', '/v2/api/Company/userTableSave', "param", $personalInfoTableData.addTabPop.inputData, 'application/json',
-                    (json_success) => {
-                        console.log('아이템 추가 성공', json_success);
-                        if(json_success.data.status === 200) {
-                            personalInfoTableService.getUserTableList();
-                        } else if (json_success.data.err_code === 'KO088') {
+                ajaxParam('/v2/api/Company/userTableSave', $personalInfoTableData.addTabPop.inputData, (res) => {
+                    try {
+                        personalInfoTableService.getUserTableList();
+                        personalInfoTableService.addTabPop.hide();
+                        personalInfoTableService.addTabPop.initInput();
+                    } catch (e) {
+                        reportCatch('t23082210', e);
+                    }
+                }, (errCode, errMsg) => {
+                    try {
+                        if (errCode === 'KO088') {
                             alert('이미 등록되어 있는 테이블 명입니다.');
+                            personalInfoTableService.addTabPop.hide();
+                            personalInfoTableService.addTabPop.initInput();
+                            return {action: 'NONE'};
                         }
                         personalInfoTableService.addTabPop.hide();
                         personalInfoTableService.addTabPop.initInput();
-                    },
-                    (json_error) => {
-                        console.log('아이템 추가 실패', json_error);
-                        personalInfoTableService.addTabPop.hide();
-                        personalInfoTableService.addTabPop.initInput();
+                    } catch (e) {
+                        reportCatch('t23082211', e);
                     }
-                );
+                });
             },
             handleClosePop() {
                 personalInfoTableService.addTabPop.hide();
@@ -492,23 +493,15 @@
                     otpValue: $personalInfoTableData.removeColumnPop.otpValue,
                     fieldNames: $personalInfoTableData.checkedColumnNameList
                 };
-                restapi('v2', 'post', '/v2/api/DynamicUser/tableColumnDelete', 'body', targetData, 'application/json',
-                    (json_success) => {
-                        if(json_success.data.status === 200) {
-                            personalInfoTableService.removeColumnPop.hide();
-                            openBanner('선택하신 개인정보 항목을 삭제하였습니다.');
-                            personalInfoItemProp.getTableColumnList();
-                        } else {
-                            // 유저가 존재하지 않을 시 로그인페이지로 이동시킴
-                            alert(json_success.data.err_msg);
-                            logout();
-                        }
-                    },
-                    (json_error) => {
-                        console.log(json_error);
-                        console.log('회사의 테이블리스트 호출 실패');
+                ajaxBody('/v2/api/DynamicUser/tableColumnDelete', targetData, (res) => {
+                    try {
+                        personalInfoTableService.removeColumnPop.hide();
+                        openBanner('선택하신 개인정보 항목을 삭제하였습니다.');
+                        personalInfoItemProp.getTableColumnList();
+                    } catch (e) {
+                        reportCatch('t23082208', e);
                     }
-                )
+                });
             },
         },
         handleColumnChecked() {

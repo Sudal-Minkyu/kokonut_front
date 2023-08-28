@@ -270,32 +270,11 @@
 
             {#if policyDetailLayout === 1}
                 <div class="copyBtnBox" in:fade>
-<!--                    <div class="copyBtn">-->
-<!--                        <dt id="urlcopy">URL 복사</dt>-->
-<!--                        <span class="tiptool" id="tool_btn01">-->
-<!--                            <div class="layerToolType pmtool_02" id="tool_box01">-->
-<!--                                <div class="tipContents">-->
-<!--                                    <p>-->
-<!--                                        개인정보처리방침을 위한 별도 페이지를 만들지 않고, 개인정보처리방침 버튼에 링크로 연결해서 사용 가능합니다.-->
-<!--                                    </p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </span>-->
-<!--                    </div>-->
                     <div class="copyBtn" on:click={() => {processPrivacyPolicy('COPY')}}>
                         <dt style="padding-right: 1.6rem">HTML 코드복사</dt>
                     </div>
                     <div class="copyBtn" on:click={() => {processPrivacyPolicy('DOWNLOAD')}}>
                         <dt style="padding-right: 1.6rem">HTML 내려받기</dt>
-<!--                        <span class="tiptool" id="tool_btn02">-->
-<!--                            <div class="layerToolType righttool_type" id="tool_box02">-->
-<!--                                <div class="tipContents">-->
-<!--                                    <p>-->
-<!--                                        개인정보처리방침을 위한 별도 페이지가 존재하는 경우, HTML 복사를 이용해 작성하신 개인정보처리방침의 레이아웃까지 빠르게 복사가 가능합니다.-->
-<!--                                    </p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </span>-->
                     </div>
                 </div>
             {/if}
@@ -553,6 +532,33 @@
                     </div>
                 {/if}
 
+                <!------------ No.3 ------------>
+                <div class="priContentBox">
+                    <div class="priC_title marB24">{++step}. 개인정보의 파기에 관한 사항</div>
+                    <div class="prinortext">
+                        회사는 보유기간의 경과, 처리목적 달성 등 개인정보가 불필요하게 되었을 때에는 지체없이 해당 개인정보를 파기합니다. 개인정보 보유기간이 경과하거나 처리목적이 달성되었음에도 불구하고 다른 법령에 따라 개인정보를 계속 보존하여야 하는 경우에는, 해당 개인정보를 별도의 데이터베이스(DB)로 옮기거나 보관장소를 달리하여 보존합니다. 이때, DB로 옮겨진 개인정보는 해당 법령에서 허용된 목적 이외의 다른 목적으로 이용되지 않습니다.
+                    </div>
+                    <div class="prinortext">
+                        회사의 개인정보 파기절차 및 방법은 다음과 같습니다.
+                    </div>
+                    <div class="prnor_text">
+                        <div class="pttext"><dt>1.</dt>파기절차</div>
+                        <dd>회사는 보유기간의 경과, 처리목적 달성으로 인해 불필요하게 되었거나 동의 철회, 처리 정지 등 정보주체의 요구가 있은 개인정보를 지체없이 파기합니다. 개인정보보호책임자는 정기적으로 파기된 개인정보 현황을 확인합니다.</dd>
+                    </div>
+                    <div class="prnor_text">
+                        <p><span>2.</span>파기 방법</p>
+                        <dd>회사는 전자적 파일 형태로 기록·저장된 개인정보는 기록을 재생할 수 없도록 파기하며, 종이 문서에 기록·저장된 개인정보는 분쇄기로 분쇄하거나 소각하여 파기합니다.</dd>
+                    </div>
+                </div>
+
+                <!------------ No.4 ------------>
+                <div class="priContentBox">
+                    <div class="priC_title marB24">{++step}. 서비스 미이용자의 개인정보 파기 등에 관한 조치</div>
+                    <div class="prinortext">
+                        회사는 1년 동안 서비스를 이용하지 않은 이용자의 개인정보는 파기하거나 별도로 보관합니다. 별도 보관하는 개인정보는 서비스에 이용하지 않습니다.
+                    </div>
+                </div>
+
                 <!------------ No.5-1 ------------>
                 {#if policyInfoData.policyData.piOutChose}
                     <div class="priContentBox">
@@ -663,6 +669,39 @@
                     </div>
                 {/if}
 
+                <!------------ No.7 ------------>
+                <div class="priContentBox">
+                    <div class="priC_title marB24">{++step}. 정보주체의 권리**·의무** 및 그 행사방법에 관한 사항</div>
+                    <div class="prnor_text">
+                        <p><span>1.</span>이용자는 계약 기간 내에 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며 자신의 개인정보에 대해 정보삭제 및 처리정지 요구 등의 권리를 행사할 수 있습니다.</p>
+                    </div>
+                    <div class="prnor_text">
+                        <p><span>2.</span>온라인으로 제공되지 않는 정보주체의 권리 행사는 개인정보보호 담당부서(privacy@kokonut.me)로 전자우편을 보내주시면, 회사는 이에 대해 지체없이 조치하겠습니다.</p>
+                    </div>
+                    <div class="prnor_text">
+                        <p><span>3.</span>권리 행사는 법정 대리인 또는 정보주체의 위임을 받은 자 등 대리인을 통하여 할 수도 있습니다. 이 경우 “개인정보 처리 방법에 관한 고시(제2020-7호)” 별지 제11호 서식에 따른 위임장을 제출하여야 합니다.</p>
+                    </div>
+                    <div class="prnor_text">
+                        <p><span>4.</span>회사는 정보주체의 권리에 따른 열람·정정·삭제·처리정지의 요구 시 요구를 한 자가 본인이거나 정당한 대리인인지를 확인합니다.</p>
+                    </div>
+                </div>
+
+                <!------------ No.8 ------------>
+                <div class="priContentBox pri8cont">
+                    <div class="priC_title marB24">{++step}. 개인정보의 안전성 확보 조치에 관한 사항</div>
+                    <div class="prinortext marB16">
+                        회사는 개인정보의 안전성 확보를 위해 다음과 같은 조치를 취하고 있습니다.</div>
+                    <div class="prnor_text">
+                        <dd class="pradfont"><span></span>관리적 보호 조치 : 개인정보 내부관리계획 수립·시행, 임직원에 대한 개인정보 보호 교육</dd>
+                    </div>
+                    <div class="prnor_text">
+                        <dd class="pradfont"><span></span>기술적 보호 조치 : 개인정보처리시스템에 대한 접근권한 관리 및 원격 접속 시 2단계 인증, 접속기록 관리, 접근 통제, 개인정보 암호화, 보안 프로그램 운영</dd>
+                    </div>
+                    <div class="prnor_text">
+                        <dd class="pradfont"><span></span>물리적 보호조치 : 개인정보가 포함된 서류는 잠금장치가 있는 장소에 보관</dd>
+                    </div>
+                </div>
+
                 <!------------ No.9 ------------>
                 {#if policyInfoData.reponsibleDataList.length}
                     <div class="priContentBox">
@@ -700,86 +739,6 @@
                     </div>
                 {/if}
 
-                <!------------ No.10 ------------>
-                {#if policyInfoData.policyData.piChangeChose}
-                    <div class="priContentBox">
-                        <div class="priC_title marB24">{++step}. 개인정보 처리방침의 변경에 관한 사항</div>
-                        <div class="prinortext marB16">
-                            개인정보 처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 홈페이지 또는 이메일 등 개별 통지 방법을 통해 고지할 것입니다.
-                        </div>
-                        <div class="prnor_text">
-                            <div class="prnort"><dt></dt>
-                                이전 개인정보 처리방침 시행 일자 :
-                                {policyInfoData.policyData.piYear}.
-                                {policyInfoData.policyData.piMonth}.
-                                {policyInfoData.policyData.piDay}
-                            </div>
-                        </div>
-                    </div>
-                {/if}
-
-                <!------------ No.3 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{++step}. 개인정보의 파기에 관한 사항</div>
-                    <div class="prinortext">
-                        회사는 보유기간의 경과, 처리목적 달성 등 개인정보가 불필요하게 되었을 때에는 지체없이 해당 개인정보를 파기합니다. 개인정보 보유기간이 경과하거나 처리목적이 달성되었음에도 불구하고 다른 법령에 따라 개인정보를 계속 보존하여야 하는 경우에는, 해당 개인정보를 별도의 데이터베이스(DB)로 옮기거나 보관장소를 달리하여 보존합니다. 이때, DB로 옮겨진 개인정보는 해당 법령에서 허용된 목적 이외의 다른 목적으로 이용되지 않습니다.
-                    </div>
-                    <div class="prinortext">
-                        회사의 개인정보 파기절차 및 방법은 다음과 같습니다.
-                    </div>
-                    <div class="prnor_text">
-                        <div class="pttext"><dt>1.</dt>파기절차</div>
-                        <dd>회사는 보유기간의 경과, 처리목적 달성으로 인해 불필요하게 되었거나 동의 철회, 처리 정지 등 정보주체의 요구가 있은 개인정보를 지체없이 파기합니다. 개인정보보호책임자는 정기적으로 파기된 개인정보 현황을 확인합니다.</dd>
-                    </div>
-                    <div class="prnor_text">
-                        <p><span>2.</span>파기 방법</p>
-                        <dd>회사는 전자적 파일 형태로 기록·저장된 개인정보는 기록을 재생할 수 없도록 파기하며, 종이 문서에 기록·저장된 개인정보는 분쇄기로 분쇄하거나 소각하여 파기합니다.</dd>
-                    </div>
-                </div>
-
-                <!------------ No.4 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{++step}. 서비스 미이용자의 개인정보 파기 등에 관한 조치</div>
-                    <div class="prinortext">
-                        회사는 1년 동안 서비스를 이용하지 않은 이용자의 개인정보는 파기하거나 별도로 보관합니다. 별도 보관하는 개인정보는 서비스에 이용하지 않습니다.
-                    </div>
-                </div>
-
-
-                <!------------ No.7 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{++step}. 정보주체의 권리**·의무** 및 그 행사방법에 관한 사항</div>
-                    <div class="prnor_text">
-                        <p><span>1.</span>이용자는 계약 기간 내에 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며 자신의 개인정보에 대해 정보삭제 및 처리정지 요구 등의 권리를 행사할 수 있습니다.</p>
-                    </div>
-                    <div class="prnor_text">
-                        <p><span>2.</span>온라인으로 제공되지 않는 정보주체의 권리 행사는 개인정보보호 담당부서(privacy@kokonut.me)로 전자우편을 보내주시면, 회사는 이에 대해 지체없이 조치하겠습니다.</p>
-                    </div>
-                    <div class="prnor_text">
-                        <p><span>3.</span>권리 행사는 법정 대리인 또는 정보주체의 위임을 받은 자 등 대리인을 통하여 할 수도 있습니다. 이 경우 “개인정보 처리 방법에 관한 고시(제2020-7호)” 별지 제11호 서식에 따른 위임장을 제출하여야 합니다.</p>
-                    </div>
-                    <div class="prnor_text">
-                        <p><span>4.</span>회사는 정보주체의 권리에 따른 열람·정정·삭제·처리정지의 요구 시 요구를 한 자가 본인이거나 정당한 대리인인지를 확인합니다.</p>
-                    </div>
-                </div>
-
-                <!------------ No.8 ------------>
-                <div class="priContentBox pri8cont">
-                    <div class="priC_title marB24">{++step}. 개인정보의 안전성 확보 조치에 관한 사항</div>
-                    <div class="prinortext marB16">
-                        회사는 개인정보의 안전성 확보를 위해 다음과 같은 조치를 취하고 있습니다.</div>
-                    <div class="prnor_text">
-                        <dd class="pradfont"><span></span>관리적 보호 조치 : 개인정보 내부관리계획 수립·시행, 임직원에 대한 개인정보 보호 교육</dd>
-                    </div>
-                    <div class="prnor_text">
-                        <dd class="pradfont"><span></span>기술적 보호 조치 : 개인정보처리시스템에 대한 접근권한 관리 및 원격 접속 시 2단계 인증, 접속기록 관리, 접근 통제, 개인정보 암호화, 보안 프로그램 운영</dd>
-                    </div>
-                    <div class="prnor_text">
-                        <dd class="pradfont"><span></span>물리적 보호조치 : 개인정보가 포함된 서류는 잠금장치가 있는 장소에 보관</dd>
-                    </div>
-                </div>
-
-
                 <!------------ No.11 ------------>
                 <div class="priContentBox noneMarB">
                     <div class="priC_title marB24">{++step}. 개인정보의 권익침해에 대한 구제방법</div>
@@ -800,6 +759,24 @@
                     </div>
                     <div id="bottomPad"></div>
                 </div>
+
+                <!------------ No.10 ------------>
+                {#if policyInfoData.policyData.piChangeChose}
+                    <div class="priContentBox">
+                        <div class="priC_title marB24">{++step}. 개인정보 처리방침의 변경에 관한 사항</div>
+                        <div class="prinortext marB16">
+                            개인정보 처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 홈페이지 또는 이메일 등 개별 통지 방법을 통해 고지할 것입니다.
+                        </div>
+                        <div class="prnor_text">
+                            <div class="prnort"><dt></dt>
+                                이전 개인정보 처리방침 시행 일자 :
+                                {policyInfoData.policyData.piYear}.
+                                {policyInfoData.policyData.piMonth}.
+                                {policyInfoData.policyData.piDay}
+                            </div>
+                        </div>
+                    </div>
+                {/if}
 
             </div>
         </LoadingOverlay>

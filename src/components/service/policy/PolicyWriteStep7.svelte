@@ -3,9 +3,9 @@
     import { push } from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
     import {policyInfoData, piId, initialPolicyInfo, piStage} from "../../../lib/store.js";
-    import restapi from "../../../lib/api.js";
     import ErrorHighlight from "../../common/ui/ErrorHighlight.svelte";
     import {openConfirm} from "../../common/ui/DialogManager.js";
+    import {ajaxParam, reportCatch} from "../../common/ajax.js";
 
     export let stateChange;
 
@@ -35,31 +35,27 @@
         let sendData = {
             piId : $piId,
         }
-        restapi('v2', 'post', url, "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    const customConfirmProp = {
-                        callback: () => {
-                            const pathName = '/service/policyDetail/' + $piId;
-                            piId.set(0);
-                            piStage.set(0);
-                            policyInfoData.set(JSON.parse(initialPolicyInfo));
-                            push(pathName);
-                        }, // 확인버튼시 동작
-                        icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                        title: '제작 완료', // 제목
-                        contents1: '개인정보처리방침 제작을 완료하였습니다.', // 내용
-                        contents2: '',
-                        btnCheck: '확인', // 확인 버튼의 텍스트
-                    }
-                    openConfirm(customConfirmProp);
-
+        ajaxParam(url, sendData, (res) => {
+            try {
+                const customConfirmProp = {
+                    callback: () => {
+                        const pathName = '/service/policyDetail/' + $piId;
+                        piId.set(0);
+                        piStage.set(0);
+                        policyInfoData.set(JSON.parse(initialPolicyInfo));
+                        push(pathName);
+                    }, // 확인버튼시 동작
+                    icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: '제작 완료', // 제목
+                    contents1: '개인정보처리방침 제작을 완료하였습니다.', // 내용
+                    contents2: '',
+                    btnCheck: '확인', // 확인 버튼의 텍스트
                 }
-            },
-            (json_error) => {
-                console.log(json_error);
+                openConfirm(customConfirmProp);
+            } catch (e) {
+                reportCatch('t23082307', e);
             }
-        );
+        });
     }
 </script>
 
