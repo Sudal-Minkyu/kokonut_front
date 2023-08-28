@@ -1,4 +1,32 @@
 
+<style>
+    input[type="checkbox"]{
+        display: none;
+    }
+    input[type="checkbox"] + label{
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        top: 3px;
+        margin-right: 5px;
+        border: 2px solid #00C389;
+        position: relative;
+    }
+    input[id="check1"]:checked + label::after, input[id="check2"]:checked + label::after{
+        content: '';
+        background: url(/assets/images/join/pass_check.png);
+        font-size: 10px;
+        width: 15px;
+        height: 23px;
+        color: #00C389;
+        text-align: center;
+        position: absolute;
+        background-size: 18px 18px;
+        left: 0;
+        top: -2px;
+    }
+
+</style>
 <script>
     import jQuery from "jquery";
     import { push } from 'svelte-spa-router'
@@ -356,6 +384,19 @@
         <ul class="j_password">
             <li><p class="{passwordConfirmCheck === false ? 'notxt' : 'notxt pass'}">비밀번호 일치</p></li>
         </ul>
+
+        <div class="input-field mt30" style="padding: 25px 0 0 0;">
+            <input type="checkbox" id="check1" style="margin-right: 10px">
+            <label for="check1"></label>
+            <span style="font-size: 2rem; font-family: 'Pretendard', sans-serif; color: #9A9A9A" >[필수]&nbsp개인정보 처리방침 동의<a href="" style="cursor: pointer;text-decoration: underline;margin-left: 10px">전문보기</a></span><br/>
+            <br/>
+            <input type="checkbox" id="check2" style="margin-right: 10px;">
+            <label for="check2"></label>
+            <span style="font-size: 2rem; font-family: 'Pretendard', sans-serif; color: #9A9A9A" >[필수]&nbsp이용약관 동의<a href="" style="cursor: pointer;text-decoration: underline;margin-left: 10px">전문보기</a></span>
+
+        </div>
+
+
     </div>
     <!-- 조건 충족 시 not_work 제거 -->
     <div class="join_bottom">
