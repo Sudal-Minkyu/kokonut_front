@@ -47,8 +47,8 @@
                 </div>
                 <div class="slideWrap">
                     <div class="slide">
-                        <div class="blackBox blackBox01"></div>
-                        <div class="blackBox blackBox02 down"></div>
+                        <div class="blackBox blackBox01" style="border-radius: 2rem"></div>
+                        <div class="blackBox blackBox02 down" style="border-radius: 2rem"></div>
                     </div>
                 </div>
                 <div class="scrollDown">
