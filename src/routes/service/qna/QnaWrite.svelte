@@ -1,6 +1,5 @@
 
 <script>
-    // 레이아웃
     import Header from "../../../components/service/layout/Header.svelte"
     import {link, push} from 'svelte-spa-router'
     import { backBtn } from '../../../lib/store.js'
@@ -8,6 +7,9 @@
     import jQuery from "jquery";
     import {ajaxMultipart, reportCatch} from "../../../components/common/ajax.js";
     import {openAsk} from "../../../components/common/ui/DialogManager.js";
+    import {openConfirm} from "../../../components/common/ui/DialogManager.js";
+
+    const FILE_SIZE_LIMIT = 20 // 20MB
 
     onMount(async ()=>{
         await fatchSearchModule();
@@ -103,15 +105,26 @@
                 if (validation(files[i])) {
                     // 파일 배열에 담기
                     filesArr = [...filesArr, files[i]];
-                    // filesArr.push(files[i]); -> 이렇게하면 동적으로 생성이 안됨. 왜 그런지 모르겠네..ㅜ
                 }
             }
-            console.log("첨부파일 배열 넣음");
-            console.log(filesArr);
-            // console.log(filesArr[0]);
-            // console.log(filesArr[0].name);
-            console.log(filesArr.length);
-            // console.log(typeof filesArr);
+
+            // 파일들의 총 용량을 계산
+            let totalSize = 0;
+            for (let i = 0; i < filesArr.length; i++) {
+                totalSize += filesArr[i].size;
+            }
+
+            // 20MB를 초과하면 경고 표시
+            if (totalSize > (FILE_SIZE_LIMIT * 1024 * 1024)) {
+                openConfirm({
+                    icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: '첨부파일 용량초과', // 제목
+                    contents1: '첨부파일은 최대 ' + FILE_SIZE_LIMIT + 'mb 까지 첨부 가능합니다.',
+                    contents2: '',
+                    btnCheck: '확인', // 확인 버튼의 텍스트
+                });
+                filesArr = [];
+            }
         }
 
         // 초기화
@@ -132,8 +145,8 @@
             failPopProps.contents1 = "파일명이 100자 이상인 파일은 제외되었습니다."
             openConfirm(failPopProps);
             return false;
-        } else if (obj.size > (100 * 1024 * 1024)) {
-            failPopProps.contents1 = "최대 파일 용량인 100MB를 초과한 파일은 제외되었습니다."
+        } else if (obj.size > (10 * 1024 * 1024)) {
+            failPopProps.contents1 = "최대 파일 용량인 10MB를 초과한 파일은 제외되었습니다."
             openConfirm(failPopProps);
             return false;
         } else if (obj.name.lastIndexOf('.') === -1) {

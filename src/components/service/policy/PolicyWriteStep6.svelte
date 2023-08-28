@@ -53,13 +53,23 @@
         });
     }
 
+        // 숫자와 제어키를 제외한 입력을 입력단계에서 막음
     function handleOnlyNum(e) {
-        const newValue = e.target.value.replace(/[^0-9]/g, '');
-        e.target.value = newValue
-        policyInfoData.update(obj => {
-            obj.policyData3[e.target.dataset.cat] = newValue;
-            return obj;
-        });
+        const charCode = e.which ? e.which : e.keyCode;
+
+        if (
+            (charCode < 48 || charCode > 57) &&   // 숫자 키
+            (charCode < 96 || charCode > 105) &&  // 숫자 패드
+            charCode !== 8 &&                     // 백스페이스
+            charCode !== 9 &&                     // 탭
+            charCode !== 37 &&                    // 좌 화살표
+            charCode !== 39 &&                    // 우 화살표
+            charCode !== 35 &&                    // End
+            charCode !== 36 &&                    // Home
+            charCode !== 46                       // Delete
+        ) {
+            e.preventDefault();
+        }
     }
 </script>
 
@@ -143,17 +153,17 @@
                 이전 개인정보 처리방침 시행 일자 :
                 <div class="koinput wid64 marL8">
                     <input type="text" bind:value={$policyInfoData.policyData3.piYear} data-cat="piYear"
-                           placeholder="2023" maxlength="4" on:keypres={handleOnlyNum}>
+                           placeholder="2023" maxlength="4" on:keypress={handleOnlyNum}>
                 </div>
                 년
                 <div class="koinput wid44 marL16">
                     <input type="text" bind:value={$policyInfoData.policyData3.piMonth} data-cat="piMonth"
-                           placeholder="01" maxlength="2" on:keypres={handleOnlyNum}>
+                           placeholder="01" maxlength="2" on:keypress={handleOnlyNum}>
                 </div>
                 월
                 <div class="koinput wid44 marL16">
-                    <input type="text" bind:value={$policyInfoData.policyData3.piDay} data-cat="piDat"
-                           placeholder="01" maxlength="2" on:keypres={handleOnlyNum}>
+                    <input type="text" bind:value={$policyInfoData.policyData3.piDay} data-cat="piDay"
+                           placeholder="01" maxlength="2" on:keypress={handleOnlyNum}>
                 </div>
                 일
             </div>
