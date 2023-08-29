@@ -2,7 +2,7 @@
 <script>
 
     import jQuery from 'jquery';
-    import { link } from 'svelte-spa-router'
+    import { link, push } from 'svelte-spa-router'
     import Banner from "../../common/ui/Banner.svelte";
 
     new WOW().init();
@@ -53,6 +53,14 @@
     const handleInformPIS = () => {
         alert('준비중 입니다.');
     }
+
+    const handleLogin = () => {
+        if (window.innerWidth <= 1000) {
+            alert('PC 혹은 더 넓은 해상도의 화면에서 이용하실 수 있습니다.');
+        } else {
+            push('/login');
+        }
+    }
 </script>
 
 <header id="header" class="hupd">
@@ -73,7 +81,7 @@
             <div class="loginArea">
                 <ul>
                     <li>
-                        <a use:link href="/login" style="display: block; width: 100%; height: 100%; color: #FFF; padding: 1rem 2.8rem; background: #00C389; border-radius: 0.6rem;">
+                        <a style="display: block; width: 100%; height: 100%; color: #FFF; padding: 1rem 2.8rem; background: #00C389; border-radius: 0.6rem;" on:click={handleLogin}>
                             로그인
                         </a>
                     </li>
