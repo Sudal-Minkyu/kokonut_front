@@ -121,6 +121,9 @@
         });
     }
 
+    const handleOpenRestrictCookieManual = () => {
+        window.open('https://kokonut.oopy.io/privacy_policy_cookie', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
+    }
 </script>
 
 <div in:fade>
@@ -449,7 +452,7 @@
             </div>
             <div class="prnor_text">
                 <p class="marB4"><span>4.</span>이용자는 다음과 같은 방법으로 쿠키 사용을 거부할 수 있습니다.</p>
-                <dd><span></span>브라우저에서 쿠키를 차단하는 방법</dd>
+                <dd on:click={handleOpenRestrictCookieManual} style="cursor: pointer"><span></span>브라우저에서 쿠키를 차단하는 방법</dd>
             </div>
         </div>
     </div>

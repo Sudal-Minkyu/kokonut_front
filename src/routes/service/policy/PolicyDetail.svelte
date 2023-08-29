@@ -398,7 +398,7 @@
                             <div class="prtextTablethBox colum4Line borT">
                                 <div class="prtti">처리목적</div>
                                 <div class="prtti">수집 항목</div>
-                                <div class="prtti">필수/선택</div>
+                                <div class="prtti">수집 방법</div>
                                 <div class="prtti">처리 및 보유 기간</div>
                             </div>
 
@@ -496,7 +496,7 @@
                         </div>
                         <div class="prnor_text">
                             <p class="marB4"><span>4.</span>이용자는 다음과 같은 방법으로 쿠키 사용을 거부할 수 있습니다.</p>
-                            <dd><span></span>브라우저에서 쿠키를 차단하는 방법</dd>
+                            <dd onclick="window.open('https://kokonut.oopy.io/privacy_policy_cookie', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');" style="cursor: pointer"><span></span>브라우저에서 쿠키를 차단하는 방법</dd>
                         </div>
                     </div>
                 </div>
