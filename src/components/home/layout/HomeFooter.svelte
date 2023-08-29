@@ -41,7 +41,7 @@
                 </li>
                 <li>
                     <p class="ul_title">전화번호</p>
-                    <p class="ul_txt">010-6439-6533</p>
+                    <p class="ul_txt">0507-1348-6533</p>
                 </li>
                 <li class="width100">
                     <p class="ul_title">주소</p>
