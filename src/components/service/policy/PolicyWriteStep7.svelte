@@ -94,27 +94,9 @@
         </div>
     </div>
 
-    <!------------ No.4 ------------>
-    <div class="priContentBox">
-        <div class="priC_title marB24">8. 서비스 미이용자의 개인정보 파기 등에 관한 조치
-            <span class="tiptool" id="tool_btn09">
-                <div class="layerToolType pmtool_02" id="tool_box09">
-                    <div class="tipContents">
-                        <p>
-                            2023년 3월 14일에 개정된 개인정보보호법에서 삭제되었습니다. 2023년 9월 14일까지만 유효한 항목입니다.
-                        </p>
-                    </div>
-                </div>
-            </span>
-        </div>
-        <div class="prinortext">
-            회사는 1년 동안 서비스를 이용하지 않은 이용자의 개인정보는 파기하거나 별도로 보관합니다. 별도 보관하는 개인정보는 서비스에 이용하지 않습니다. 
-        </div>
-    </div>
-
     <!------------ No.7 ------------>
     <div class="priContentBox">
-        <div class="priC_title marB24">9. 정보주체의 권리**·의무** 및 그 행사방법에 관한 사항</div>
+        <div class="priC_title marB24">8. 정보주체의 권리**·의무** 및 그 행사방법에 관한 사항</div>
         <div class="prnor_text">
             <p><span>1.</span>이용자는 계약 기간 내에 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며 자신의 개인정보에 대해 정보삭제 및 처리정지 요구 등의 권리를 행사할 수 있습니다.</p>
         </div>
@@ -131,7 +113,7 @@
 
     <!------------ No.8 ------------>
     <div class="priContentBox">
-        <div class="priC_title marB24">10. 개인정보의 안전성 확보 조치에 관한 사항</div>
+        <div class="priC_title marB24">9. 개인정보의 안전성 확보 조치에 관한 사항</div>
         <div class="prinortext marB16">
             회사는 개인정보의 안전성 확보를 위해 다음과 같은 조치를 취하고 있습니다.
             <span class="tiptool" id="tool_btn16">
@@ -159,7 +141,7 @@
 
     <!------------ No.11 ------------>
     <div class="priContentBox">
-        <div class="priC_title marB24">11. 개인정보의 권익침해에 대한 구제방법</div>
+        <div class="priC_title marB24">10. 개인정보의 권익침해에 대한 구제방법</div>
         <div class="prinortext marB16">
             이용자는 개인정보침해로 인한 구제를 받기 위하여 개인정보분쟁조정위원회, 한국인터넷진흥원 개인정보침해신고센터 등에 분쟁해결이나 상담 등을 신청할 수 있습니다. 이 밖에 기타 개인정보침해의 신고, 상담에 대하여는 아래의 기관에 문의하시기 바랍니다.
         </div>

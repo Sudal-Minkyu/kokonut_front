@@ -306,7 +306,7 @@
                 <div class="priContentBox">
                     <div class="priC_title marB24">머리말</div>
                     <div class="priCIntrotext">
-                        <dl>개인정보 처리방침 {policyInfoData.policyData.piHeader}(이하 회사)은(는) 고객의 개인정보를 중시하며, 개인정보보호법 등 관련 법규를 준수하기 위해 노력하고 있습니다.</dl>
+                        <dl>{policyInfoData.policyData.piHeader}(이하 회사)은(는) 고객의 개인정보를 중시하며, 개인정보보호법 등 관련 법규를 준수하기 위해 노력하고 있습니다.</dl>
                         <dl>회사는 개인정보 처리방침을 통해 고객의 개인정보를 어떠한 용도와 방식으로 이용하고 있으며, 개인정보보호를 위해 어떠한 조치를 취하고 있는지 알려드립니다.</dl>
                         <dl>회사의 개인정보 처리방침은 다음과 같습니다.</dl>
                     </div>
@@ -444,15 +444,15 @@
                                     {#if policyInfoData.policyData.piInternetChose}
                                         <tr>
                                             <td class="praLeft">인터넷 접속 로그</td>
-                                            <td class="praLeft">통신비밀보호법 제2조</td>
+                                            <td class="praLeft">통신비밀보호법 제15조의2, 시행령 제41조</td>
                                             <td class="praLeft">3개월</td>
                                         </tr>
                                     {/if}
                                     {#if policyInfoData.policyData.piContractChose}
                                         <tr>
-                                            <td class="praLeft">계약 또는 청약철회 등에 관한 기록</td>
-                                            <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률</td>
-                                            <td class="praLeft">5년</td>
+                                            <td class="praLeft">개인정보취급자의 서비스 접속 및 이용 기록</td>
+                                            <td class="praLeft">개인정보보호법 제29조, 개인정보의 안전성 확보조치 기준 고시 제8조</td>
+                                            <td class="praLeft">2년</td>
                                         </tr>
                                     {/if}
                                     {#if policyInfoData.policyData.piPayChose}
@@ -548,14 +548,6 @@
                     <div class="prnor_text">
                         <p><span>2.</span>파기 방법</p>
                         <dd>회사는 전자적 파일 형태로 기록·저장된 개인정보는 기록을 재생할 수 없도록 파기하며, 종이 문서에 기록·저장된 개인정보는 분쇄기로 분쇄하거나 소각하여 파기합니다.</dd>
-                    </div>
-                </div>
-
-                <!------------ No.4 ------------>
-                <div class="priContentBox">
-                    <div class="priC_title marB24">{++step}. 서비스 미이용자의 개인정보 파기 등에 관한 조치</div>
-                    <div class="prinortext">
-                        회사는 1년 동안 서비스를 이용하지 않은 이용자의 개인정보는 파기하거나 별도로 보관합니다. 별도 보관하는 개인정보는 서비스에 이용하지 않습니다.
                     </div>
                 </div>
 
@@ -671,7 +663,7 @@
 
                 <!------------ No.7 ------------>
                 <div class="priContentBox">
-                    <div class="priC_title marB24">{++step}. 정보주체의 권리**·의무** 및 그 행사방법에 관한 사항</div>
+                    <div class="priC_title marB24">{++step}. 정보주체의 권리, 의무 및 그 행사방법에 관한 사항</div>
                     <div class="prnor_text">
                         <p><span>1.</span>이용자는 계약 기간 내에 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며 자신의 개인정보에 대해 정보삭제 및 처리정지 요구 등의 권리를 행사할 수 있습니다.</p>
                     </div>

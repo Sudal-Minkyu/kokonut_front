@@ -37,7 +37,7 @@
 
     let textState = 0;
     function firstDepthSave() {
-        if($policyInfoData.policyData1.piVersion === "" || $policyInfoData.policyData1.piVersion.toString().search(/\s/) !== -1) {
+        if($policyInfoData.policyData1.piVersion === "") {
             textState = 1;
             return false;
         }
@@ -47,7 +47,7 @@
             return false;
         }
 
-        if($policyInfoData.policyData1.piHeader === "" || $policyInfoData.policyData1.piHeader.toString().search(/\s/) !== -1) {
+        if($policyInfoData.policyData1.piHeader === "") {
             textState = 3;
             return false;
         }

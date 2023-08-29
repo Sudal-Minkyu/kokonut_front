@@ -32,11 +32,11 @@
                     <p class="ul_txt">곽호림</p>
                 </li>
                 <li>
-                    <p class="ul_title">개인정보관리책임자</p>
+                    <p class="ul_title">개인정보보호책임자</p>
                     <p class="ul_txt">곽호림</p>
                 </li>
                 <li>
-                    <p class="ul_title">메인</p>
+                    <p class="ul_title">이메일주소</p>
                     <p class="ul_txt">contact@kokonut.me</p>
                 </li>
                 <li>
