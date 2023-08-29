@@ -1,9 +1,19 @@
+<script>
+    const handleOpenAgreement = (agreeNo) => {
+        if (agreeNo === 1) {
+            window.open('https://kokonut.oopy.io/privacy_policy_service', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
+        } else if (agreeNo === 2) {
+            window.open('https://everyfeb.notion.site/717899ed48db41e8a1a26cf30a88bf41?pvs=4', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
+        }
+    }
+</script>
+
 <footer>
     <div class="footerInner">
         <div class="footerBox left">
             <ul class="pp_ul pc_only">
-                <a href=""><li><b>개인정보처리방침</b></li></a>
-                <a href=""><li>이용약관</li></a>
+                <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(1)}}><b>개인정보처리방침</b></li>
+                <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(2)}}>이용약관</li>
 <!--            <a href=""><li>임원모집</li></a>-->
             </ul>
             <div class="f_logoBox left">
@@ -49,8 +59,8 @@
             </ul>
         </div>
         <ul class="pp_ul mo_only">
-            <a href=""><li>개인정보처리방침</li></a>
-            <a href=""><li>이용약관</li></a>
+            <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(1)}}><b>개인정보처리방침</b></li>
+            <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(2)}}>이용약관</li>
 <!--            <a href=""><li>임원모집</li></a>-->
         </ul>
     </div>
