@@ -3,7 +3,7 @@
         if (agreeNo === 1) {
             window.open('https://kokonut.oopy.io/privacy_policy_service', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
         } else if (agreeNo === 2) {
-            window.open('https://everyfeb.notion.site/717899ed48db41e8a1a26cf30a88bf41?pvs=4', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
+            window.open('https://kokonut.oopy.io/service_agreement', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
         }
     }
 </script>
