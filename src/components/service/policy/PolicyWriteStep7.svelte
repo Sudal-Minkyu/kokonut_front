@@ -96,7 +96,7 @@
 
     <!------------ No.7 ------------>
     <div class="priContentBox">
-        <div class="priC_title marB24">8. 정보주체의 권리**·의무** 및 그 행사방법에 관한 사항</div>
+        <div class="priC_title marB24">8. 정보주체의 권리, 의무 및 그 행사방법에 관한 사항</div>
         <div class="prnor_text">
             <p><span>1.</span>이용자는 계약 기간 내에 언제든지 등록되어 있는 자신의 개인정보를 조회하거나 수정할 수 있으며 자신의 개인정보에 대해 정보삭제 및 처리정지 요구 등의 권리를 행사할 수 있습니다.</p>
         </div>
