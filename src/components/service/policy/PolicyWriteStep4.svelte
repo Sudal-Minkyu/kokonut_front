@@ -1,11 +1,10 @@
 <script>
 
     import { fade } from 'svelte/transition'
-    import {backBtn,policyInfoData,piId} from "../../../lib/store.js";
-    import restapi from "../../../lib/api.js";
+    import {policyInfoData,piId} from "../../../lib/store.js";
+    import {ajaxBody, reportCatch} from "../../common/ajax.js";
 
     export let stateChange;
-    console.log($policyInfoData);
 
     const outRemoveIdList = [];
     const createOutItem = () => {
@@ -71,17 +70,13 @@
             policyOutDetailDeleteIdList: outDetailRemoveIdList,
             policyOutDetailYn: !!$policyInfoData.outDetailDataList.length,
         }
-        restapi('v2', 'post', url, "body", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    // 완료후
-                    stateChange(goToState);
-                }
-            },
-            (json_error) => {
-                console.log(json_error);
+        ajaxBody(url, sendData, (res) => {
+            try {
+                stateChange(goToState);
+            } catch (e) {
+                reportCatch('t23082305', e);
             }
-        );
+        });
     }
 
 </script>

@@ -16,14 +16,14 @@
 <!--    </div>-->
 <!--</div>-->
 <!-- Investor START ~ -->
-<div class="p_companyBtom">
+<div id="p_company" class="p_companyBtom">
     <div class="mInner">
         <div class="logoBottom wow TitleUp" data-wow-delay="0.0s">
             <p class="p_comStitle wow TitleUp" data-wow-delay="0.0s">Investor</p>
             <p class="p_comTitle wow TitleUp" data-wow-delay="0.1s">코코넛의 가치에 <br class="mo_br">공감하는 투자자</p>
             <ul class="logoGroup wow TitleUp" data-wow-delay="0.2s">
                 <li class="logoBox"><img alt="" src="/assets/images/main/partner/investor_logo.png"></li>
-                <li class="logoBox"><img alt="" src="/assets/images/main/partner/investor_logo2.png"></li>
+                <li class="logoBox"><img alt="" style="padding: 30px 50px 50px 50px" src="/assets/images/main/partner/investor_logo2.png"></li>
                 <li class="logoBox"><img alt="" src="/assets/images/main/partner/investor_logo3.png"></li>
                 <li class="logoBox"></li>
             </ul>

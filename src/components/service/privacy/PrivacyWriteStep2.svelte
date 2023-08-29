@@ -2,11 +2,11 @@
 <script>
     import { fade } from 'svelte/transition'
     import {pageTransitionData, providePrivacyWriteData} from "../../../lib/store.js";
-    import restapi from "../../../lib/api.js";
     import { onMount } from "svelte";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
     import {push} from "svelte-spa-router";
     import {openConfirm} from "../../common/ui/DialogManager.js";
+    import {ajaxGet, reportCatch} from "../../common/ajax.js";
 
     export let stateChange;
     let isMasterCheckBoxChecked = false;
@@ -20,21 +20,17 @@
             type: $providePrivacyWriteData.step1.proProvide,
         }
 
-        restapi('v2', 'get', "/v2/api/Provision/offerAdminList", "param", sendData, 'application/json',
-            (json_success) => {
-                if(json_success.data.status === 200) {
-                    providePrivacyWriteData.update(obj => {
-                        obj.step2.offerList = json_success.data.sendData.offerList;
-                        filterAdminList();
-                        console.log('전달받은 데이터', obj.step2.offerList);
-                        return obj;
-                    });
-                }
-            },
-            (json_error) => {
-                console.log('어드민목록실패', json_error);
+        ajaxGet('/v2/api/Provision/offerAdminList', sendData, (res) => {
+            try {
+                providePrivacyWriteData.update(obj => {
+                    obj.step2.offerList = res.data.sendData.offerList;
+                    filterAdminList();
+                    return obj;
+                });
+            } catch (e) {
+                reportCatch('t23082205', e);
             }
-        );
+        });
     }
 
     const updateByCheckedState = () => {

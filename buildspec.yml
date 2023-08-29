@@ -23,5 +23,5 @@ phases:
 artifacts:
   files:
      - '**/*'
-#  discard-path: no
+#  discard-path: nod
 #  base-directory: build

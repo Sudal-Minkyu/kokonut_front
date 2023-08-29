@@ -1,5 +1,22 @@
 <script>
     import {link} from "svelte-spa-router";
+    import {onMount} from "svelte";
+    import {ajaxGet} from "../../common/ajax.js";
+
+    let thirdPartyOnOffStatus = {
+        bizmUseType: '',
+    }
+
+    onMount(() => {
+        getThirdPartyStatusInfo();
+    });
+
+    const getThirdPartyStatusInfo = () => {
+        ajaxGet('/v2/api/Index/thirdPartyInfo', false, (res) => {
+            console.log('서드파티 연동', res.data.sendData);
+            thirdPartyOnOffStatus = res.data.sendData;
+        });
+    }
 </script>
 
 <div class="wjItem">
@@ -10,11 +27,7 @@
         <div class="wjthirdBox marT24">
             <div class="wjthird">
                 <div class="wjthirdIcon"><img src="/assets/images/common/bizmlogo.png" alt="">비즈엠</div>
-                <div class="on_third">사용중</div>
-            </div>
-            <div class="wjthird">
-                <div class="wjthirdIcon"><img src="/assets/images/common/bizmlogo.png" alt="">비즈엠</div>
-                <div class="off_third">사용안함</div>
+                <div class="{thirdPartyOnOffStatus.bizmUseType === '1' ? 'on_third' : 'off_third'}">사용중</div>
             </div>
         </div>
     </div>

@@ -37,7 +37,21 @@
         });
     }
 
-    const handleTargetChkChange = () => {
+    const handleTargetChkChange = (e) => {
+        emailSendData.update(obj => {
+            if (e.target.checked) {
+                obj.emailSendChoseList.push(e.target.value);
+                if (!obj.emailSendChoseListFinal.includes(e.target.value)) {
+                    obj.emailSendChoseListFinal = [...obj.emailSendChoseListFinal, e.target.value];
+                }
+            } else {
+                obj.emailSendChoseList = obj.emailSendChoseList.filter(email => email !== e.target.value);
+                if (obj.emailSendChoseListFinal.includes(e.target.value)) {
+                    obj.emailSendChoseListFinal = obj.emailSendChoseListFinal.filter(email => email !== e.target.value);
+                }
+            }
+            return obj;
+        });
         setTimeout(() => {
             determineChkSelectAllInfo();
         }, 0);
@@ -62,12 +76,16 @@
     const handleChkSelectAllInfoChange = (e) => {
         const checkboxes = document.querySelectorAll('.visibleInfoChk');
         const emailSendChoseList = $emailSendData.emailSendChoseList;
+        const emailSendChoseListFinal = $emailSendData.emailSendChoseListFinal;
 
         if (e.target.checked) {
             checkboxes.forEach((checkbox) => {
                 checkbox.checked = true;
                 if (!emailSendChoseList.includes(checkbox.value)) {
                     emailSendChoseList.push(checkbox.value);
+                    if (!emailSendChoseListFinal.includes(checkbox.value)) {
+                        emailSendChoseListFinal.push(checkbox.value);
+                    }
                 }
             });
         } else {
@@ -77,11 +95,16 @@
                 if (index > -1) {
                     emailSendChoseList.splice(index, 1);
                 }
+                const finalIndex = emailSendChoseListFinal.indexOf(checkbox.value);
+                if (finalIndex > -1) {
+                    emailSendChoseListFinal.splice(index, 1);
+                }
             });
         }
 
         emailSendData.update(obj => {
             obj.emailSendChoseList = emailSendChoseList;
+            obj.emailSendChoseListFinal = emailSendChoseListFinal;
             return obj;
         });
     }
@@ -97,11 +120,7 @@
     }
 
     const handleEnterSearch = (e) => {
-        emailSendData.update(obj => {
-            obj.emailSendChoseList = [];
-            return obj;
-        });
-        handleEnterSearchText(e, [csEmailCodeSetting], 10000);
+        handleEnterSearchText(e, [csEmailCodeSetting], 10000, handleRefreshCheckBoxOnOff);
     }
 
     const handleClickSearch = () => {
@@ -109,7 +128,28 @@
             obj.emailSendChoseList = [];
             return obj;
         });
-        getUserListByCondition(1, 10000, [csEmailCodeSetting]);
+        getUserListByCondition(1, 10000, [csEmailCodeSetting], handleRefreshCheckBoxOnOff);
+    }
+
+    const handleRefreshCheckBoxOnOff = () => {
+        emailSendData.update(obj => {
+            for (const values of $privacySearchData.visibleValueList) {
+                if (obj.emailSendChoseListFinal.includes(values[0])) {
+                    obj.emailSendChoseList.push(values[0]);
+                }
+            }
+            return obj;
+        });
+        setTimeout(determineChkSelectAllInfo, 0);
+    }
+
+    const handleReset = () => {
+        emailSendData.update(obj => {
+            obj.emailSendChoseList = [];
+            obj.emailSendChoseListFinal = [];
+            return obj;
+        });
+        setTimeout(determineChkSelectAllInfo, 0);
     }
 </script>
 
@@ -118,7 +158,7 @@
     <div class="koko_popup_inner">
         <div class="koko_popup_container">
             <div class="koko_popup_title">
-                <h3 class="">회원선택 <span>{$emailSendData.emailSendChoseList.length}</span></h3>
+                <h3 class="">회원선택 <span>{$emailSendData.emailSendChoseListFinal.length}</span></h3>
             </div>
             {#if $privacySearchData.columnList.length}
                 {#each $privacySearchData.searchConditionList as {searchCode, currentColumnName, key}, i (key)}
@@ -224,7 +264,7 @@
             {/if}
 
             <div class="kokopopBtnBox">
-                <div class="koko_cancel email_member_pop_close" on:click={handleCancel}>취소</div>
+                <div class="koko_cancel email_member_pop_close" on:click={handleReset}>초기화</div>
                 <div class="koko_go"><button type="button" on:click={handleConfirm} >선택</button></div>
             </div>
         </div>

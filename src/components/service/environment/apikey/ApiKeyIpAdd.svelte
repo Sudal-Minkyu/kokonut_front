@@ -1,5 +1,4 @@
 <script>
-    import restapi from "../../../../lib/api.js";
     import { fade } from 'svelte/transition'
 
     import { ipCheck, onlyNumber} from '../../../../lib/common'

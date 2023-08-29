@@ -1,5 +1,4 @@
 <script>
-    import restapi from "../../../lib/api.js";
     import {querystring} from 'svelte-spa-router'
     import {onMount} from "svelte";
     import {ajaxGet, reportCatch} from "../ajax.js";

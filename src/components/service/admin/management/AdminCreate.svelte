@@ -1,7 +1,6 @@
 
 <script>
     import { fade } from 'svelte/transition'
-    import restapi from "../../../../lib/api.js";
     import { onMount } from "svelte";
     import { setCustomSelectBox, setOptionItem } from "../../../../lib/libSearch.js";
     import { emailCheck, popOpenBtn} from "../../../../lib/common.js";

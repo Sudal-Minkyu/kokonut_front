@@ -313,6 +313,7 @@ export const initialEmailSend = JSON.stringify({
     emEtc: '', // 기타일 경우 해당 내용
     emReceiverType: '0', // 발송대상(1 : 전체회원, 2 : 선택회원)
     emailSendChoseList: [], // 선택회원 리스트
+    emailSendChoseListFinal: [], // 선택회원 리스트
     emEmailSend: '', // 발신자 이메일
     emTitle: '', // 제목
     emContents: '', // 내용
