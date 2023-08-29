@@ -3,7 +3,7 @@
         if (agreeNo === 1) {
             window.open('https://kokonut.oopy.io/privacy_policy_service', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
         } else if (agreeNo === 2) {
-            window.open('https://everyfeb.notion.site/717899ed48db41e8a1a26cf30a88bf41?pvs=4', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
+            window.open('https://kokonut.oopy.io/service_agreement', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
         }
     }
 </script>
@@ -12,8 +12,8 @@
     <div class="footerInner">
         <div class="footerBox left">
             <ul class="pp_ul pc_only">
-                <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(1)}}><b>개인정보처리방침</b></li>
                 <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(2)}}>이용약관</li>
+                <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(1)}}><b>개인정보처리방침</b></li>
 <!--            <a href=""><li>임원모집</li></a>-->
             </ul>
             <div class="f_logoBox left">
@@ -32,16 +32,16 @@
                     <p class="ul_txt">곽호림</p>
                 </li>
                 <li>
-                    <p class="ul_title">개인정보관리책임자</p>
+                    <p class="ul_title">개인정보보호책임자</p>
                     <p class="ul_txt">곽호림</p>
                 </li>
                 <li>
-                    <p class="ul_title">메인</p>
+                    <p class="ul_title">이메일주소</p>
                     <p class="ul_txt">contact@kokonut.me</p>
                 </li>
                 <li>
                     <p class="ul_title">전화번호</p>
-                    <p class="ul_txt">010-6439-6533</p>
+                    <p class="ul_txt">0507-1348-6533</p>
                 </li>
                 <li class="width100">
                     <p class="ul_title">주소</p>
@@ -59,8 +59,8 @@
             </ul>
         </div>
         <ul class="pp_ul mo_only">
-            <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(1)}}><b>개인정보처리방침</b></li>
             <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(2)}}>이용약관</li>
+            <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(1)}}><b>개인정보처리방침</b></li>
 <!--            <a href=""><li>임원모집</li></a>-->
         </ul>
     </div>

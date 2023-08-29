@@ -121,6 +121,9 @@
         });
     }
 
+    const handleOpenRestrictCookieManual = () => {
+        window.open('https://kokonut.oopy.io/privacy_policy_cookie', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
+    }
 </script>
 
 <div in:fade>
@@ -358,7 +361,7 @@
                             </div>
                         </td>
                         <td class="praLeft">인터넷 접속 로그</td>
-                        <td class="praLeft">통신비밀보호법 제2조</td>
+                        <td class="praLeft">통신비밀보호법 제15조의2, 시행령 제41조</td>
                         <td class="praLeft">3개월</td>
                     </tr>
                     <tr>
@@ -369,9 +372,9 @@
                                 <label for="prt02"><em></em></label>
                             </div>
                         </td>
-                        <td class="praLeft">계약 또는 청약철회 등에 관한 기록</td>
-                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률</td>
-                        <td class="praLeft">5년</td>
+                        <td class="praLeft">개인정보취급자의 서비스 접속 및 이용 기록</td>
+                        <td class="praLeft">개인정보보호법 제29조, 개인정보의 안전성 확보조치 기준 고시 제8조</td>
+                        <td class="praLeft">2년</td>
                     </tr>
                     <tr>
                         <td>
@@ -449,7 +452,7 @@
             </div>
             <div class="prnor_text">
                 <p class="marB4"><span>4.</span>이용자는 다음과 같은 방법으로 쿠키 사용을 거부할 수 있습니다.</p>
-                <dd><span></span>브라우저에서 쿠키를 차단하는 방법</dd>
+                <dd on:click={handleOpenRestrictCookieManual} style="cursor: pointer"><span></span>브라우저에서 쿠키를 차단하는 방법</dd>
             </div>
         </div>
     </div>

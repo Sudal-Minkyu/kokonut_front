@@ -81,7 +81,7 @@
             </div>
             <div class="prbox">
                 <div class="prti w1528per">서비스 개선</div>
-                <div class="prst w8472per">서비스 개선: 기존 서비스의 개선, 신규 서비스의 발굴 등 고객에 대한 서비스를 개선하는 데 이용합니다.</div>
+                <div class="prst w8472per">기존 서비스의 개선, 신규 서비스의 발굴 등 고객에 대한 서비스를 개선하는 데 이용합니다.</div>
             </div>
             {#each $policyInfoData.purposeDataList as {pipTitle, pipContent}, i}
                 <div class="addelement">
