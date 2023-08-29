@@ -105,9 +105,9 @@ h1.text1 {position: relative; opacity:1; transition:none;}
 	.slide {filter: drop-shadow(34px 22px 50px rgba(25, 58, 48, 0.25));}
 	.blackBox {filter:none;}
 	.blackBox01, .blackBox02 {background-size:contain;}
-	.blackBox.blackBox02.down {transform: translate(12%,-89%);}
+	.blackBox.blackBox02.down {transform: translate(12%,-85%);}
 	.blackBox.blackBox02 {transform: translate(0%,-100%);}
-	.blackBox.blackBox01.down {transform: translate(12%,11%);}
+	.blackBox.blackBox01.down {transform: translate(12%,10%);}
 }
 /* // ~ 메인 비주얼 */
 /* :::::::::============== // ~ Main V END ==============::::::::: */
