@@ -348,7 +348,7 @@
         if (agreeNo === 1) {
             window.open('https://kokonut.oopy.io/privacy_policy_service', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
         } else if (agreeNo === 2) {
-            window.open('https://everyfeb.notion.site/717899ed48db41e8a1a26cf30a88bf41?pvs=4', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
+            window.open('https://kokonut.oopy.io/service_agreement', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
         }
     }
 
@@ -405,16 +405,16 @@
         </ul>
 
         <div class="input-field mt30" style="padding: 25px 0 0 0;">
-            <input type="checkbox" id="check1" style="margin-right: 10px" bind:checked={isFirstAgree}>
-            <label for="check1"></label>
-            <span style="font-size: 2rem; font-family: 'Pretendard', sans-serif; color: #9A9A9A" >[필수]&nbsp개인정보 처리방침 동의<a style="cursor: pointer;text-decoration: underline;margin-left: 10px" on:click={() => {handleOpenAgreement(1)}}>전문보기</a></span>
-            <ErrorHighlight message={firstAgreeCautionMsg} />
-            <br/>
-            <br/>
             <input type="checkbox" id="check2" style="margin-right: 10px;" bind:checked={isSecondAgree}>
             <label for="check2"></label>
             <span style="font-size: 2rem; font-family: 'Pretendard', sans-serif; color: #9A9A9A" >[필수]&nbsp이용약관 동의<a style="cursor: pointer;text-decoration: underline;margin-left: 10px" on:click={() => {handleOpenAgreement(2)}}>전문보기</a></span>
             <ErrorHighlight message={secondAgreeCautionMsg} />
+            <br/>
+            <br/>
+            <input type="checkbox" id="check1" style="margin-right: 10px" bind:checked={isFirstAgree}>
+            <label for="check1"></label>
+            <span style="font-size: 2rem; font-family: 'Pretendard', sans-serif; color: #9A9A9A" >[필수]&nbsp개인정보 처리방침 동의<a style="cursor: pointer;text-decoration: underline;margin-left: 10px" on:click={() => {handleOpenAgreement(1)}}>전문보기</a></span>
+            <ErrorHighlight message={firstAgreeCautionMsg} />
         </div>
 
 
