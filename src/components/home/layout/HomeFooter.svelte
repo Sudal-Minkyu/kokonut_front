@@ -12,8 +12,8 @@
     <div class="footerInner">
         <div class="footerBox left">
             <ul class="pp_ul pc_only">
-                <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(1)}}><b>개인정보처리방침</b></li>
                 <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(2)}}>이용약관</li>
+                <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(1)}}><b>개인정보처리방침</b></li>
 <!--            <a href=""><li>임원모집</li></a>-->
             </ul>
             <div class="f_logoBox left">
@@ -59,8 +59,8 @@
             </ul>
         </div>
         <ul class="pp_ul mo_only">
-            <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(1)}}><b>개인정보처리방침</b></li>
             <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(2)}}>이용약관</li>
+            <li style="cursor: pointer;" on:click={() => {handleOpenAgreement(1)}}><b>개인정보처리방침</b></li>
 <!--            <a href=""><li>임원모집</li></a>-->
         </ul>
     </div>
