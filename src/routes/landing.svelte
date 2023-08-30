@@ -45,7 +45,7 @@
     </div>
 {:else}
     <div class="desktop">
-        <img src="/assets/images/main/onbording.png" alt="onbording"/>
+        <img src="/assets/images/main/onbording_big.png" alt="onbording"/>
     </div>
 {/if}
 
