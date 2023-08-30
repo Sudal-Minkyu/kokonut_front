@@ -1338,4 +1338,110 @@ p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; lette
 }
 
 
+/* 랜딩페이지 관련 css */
+.mobile img {
+	width: 100%;
+}
 
+.desktop img {
+	width: 50%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.landing-background::before {
+	content: "";
+	background-color: black;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;  /* 뒤로 보내기 */
+}
+
+.landing-write {
+	background-color: #00C389;
+	height: 500px;
+}
+
+.row {
+	--bs-gutter-x: 1.5rem;
+	--bs-gutter-y: 0;
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: calc(-1 * var(--bs-gutter-y));
+	margin-right: calc(-0.5 * var(--bs-gutter-x));
+	margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+.align-items-stretch {
+	align-items: stretch !important;
+}
+.mb-5 {
+	margin-bottom: 3rem !important;
+}
+.col-md-6 {
+	flex: 0 0 auto;
+	width: 50%;
+}
+.form-group {
+	margin-bottom: 1.5rem;
+}
+
+.form-control {
+	display: block;
+	width: 100%;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-radius: 0.25rem;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.invalid-feedback {
+	display: none;
+	width: 100%;
+	margin-top: 0.25rem;
+	font-size: 0.875em;
+	color: #dc3545;
+}
+
+.view_text_popup{
+	display:none;
+	position: absolute;
+	animation: fadeInDown 1s;
+	margin-top: 275px;
+	height: 200px;
+	margin-right: 10px;
+}
+.view_text_popup_contents{
+	text-align: center;
+	background-color:#d8d8d8;
+	font-family: pretendard;
+	font-weight: 500;
+	font-size: 14px;
+	padding: 14px;
+	margin: 5px;
+	border: 3px solid black;
+}
+.viewTextTable td {
+	border: 1px solid #444444;
+	text-align: center;
+	font-size: 11px;
+}
+.inquiry_box__close {
+	width: 40px;
+	height: 40px;
+	position: inherit;
+	left: 88%;
+	top: 5px;
+	background-image: url(../../images/main/icon__close.svg);
+}
