@@ -246,6 +246,7 @@ export const initialPrivacySearch = JSON.stringify({
     invisibleColumnList: [],
     resultValueList: [],
     visibleValueList: [],
+    invisibleValueList: [],
     currentPage: 1,
     totalPosts: 0,
 });

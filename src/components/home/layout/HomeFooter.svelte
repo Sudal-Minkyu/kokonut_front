@@ -23,17 +23,16 @@
         </div>
         <div class="footerBox right">
             <ul class="notice_ul">
-                <li class="width100">
-                    <p class="ul_title">상호</p>
-                    <p class="ul_txt">(주)2월대개봉</p>
+                <li class="width100" style="margin-bottom: 10px">
+                    <p class="ul_txt"><b style="font-size: 2rem;">(주)2월대개봉</b></p>
                 </li>
                 <li>
                     <p class="ul_title">대표</p>
                     <p class="ul_txt">곽호림</p>
                 </li>
                 <li>
-                    <p class="ul_title">개인정보보호책임자</p>
-                    <p class="ul_txt">곽호림</p>
+                    <p class="ul_title">사업자등록번호</p>
+                    <p class="ul_txt">348-81-01536</p>
                 </li>
                 <li>
                     <p class="ul_title">이메일주소</p>
@@ -45,17 +44,8 @@
                 </li>
                 <li class="width100">
                     <p class="ul_title">주소</p>
-                    <p class="ul_txt">지사 : 서울시 강남구 역삼로 165, TIPS 타운 3층 (주)2월대개봉<br>본사 : 전북 전주시 오공로 123 1011호(만성동, 전북테크비즈센터)</p>
+                    <p class="ul_txt">서울시 강남구 역삼로 165, TIPS 타운 3층 (주)2월대개봉
                 </li>
-                <li>
-                    <p class="ul_title">사업자등록번호</p>
-                    <p class="ul_txt">348-81-01536</p>
-                </li>
-                <li>
-                    <p class="ul_title">통신판매</p>
-                    <p class="ul_txt">제 2020-전주완산-1013호</p>
-                </li>
-
             </ul>
         </div>
         <ul class="pp_ul mo_only">

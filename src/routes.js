@@ -6,6 +6,7 @@ import Login from "./routes/home/Login.svelte"
 import Find from "./routes/home/Find.svelte"
 import Join from "./routes/home/Register.svelte"
 import Price from "./components/home/Price.svelte"
+import Landing from "./routes/home/Landing.svelte";
 
 // 로그인 후 이용하는 페이지
 import ServiceHome from "./routes/service/ServiceHome.svelte"
@@ -41,9 +42,6 @@ import ThirdPartyConnection from "./routes/service/ThirdPartyConnection.svelte";
 import EmailSendComplete from "./routes/service/email/EmailSendComplete.svelte";
 import EmailBookComplete from "./routes/service/email/EmailBookComplete.svelte";
 import addMember from "./routes/service/addMember.svelte";
-
-import Landing from "./routes/landing.svelte";
-
 
 export default {
     // API 테스트하는 화면

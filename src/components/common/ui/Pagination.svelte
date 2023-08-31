@@ -1,4 +1,6 @@
 <script>
+    import {createEventDispatcher} from "svelte";
+
     export let currentPage = 1; // 현제 페이지,
     export let totalPosts = 0; // 전체 게시물의 수
     export let postsPerPage = 10; // 한 페이지에 보여줄 게시물의 수
@@ -9,13 +11,10 @@
     $: startPage = (group - 1) * buttonsToShow + 1;
     $: endPage = Math.min(group * buttonsToShow, totalPageCount);
 
-    function goToPage(page) {
-        dispatch("change", {page});
-    }
+    const dispatch = createEventDispatcher();
 
-    function dispatch(event, detail) {
-        const customEvent = new CustomEvent(event, { detail });
-        dispatchEvent(customEvent);
+    function goToPage(page) {
+        dispatch('change', {page});
     }
 </script>
 
@@ -28,19 +27,22 @@
                 </button>
             </li>
         {/if}
-        <li class="page-item page-pre {startPage === 1 ? 'disabled' : ''}">
-            <button class="page-link" aria-label="to page {startPage - 1}" on:click={() => goToPage(startPage - 1)}></button>
-        </li>
-
+        {#if startPage > 1}
+            <li class="page-item page-pre {startPage === 1 ? 'disabled' : ''}">
+                <button class="page-link" aria-label="to page {startPage - 1}" on:click={() => goToPage(startPage - 1)}></button>
+            </li>
+        {/if}
         {#each Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i) as page}
             <li class="page-item {currentPage === page ? 'active' : ''}">
                 <button class="page-link" aria-label="to page {page}" on:click={() => goToPage(page)}>{page}</button>
             </li>
         {/each}
 
-        <li class="page-item page-next {endPage === totalPageCount ? 'disabled' : ''}">
-            <button class="page-link " aria-label="to page {endPage + 1}" on:click={() => goToPage(endPage + 1)}></button>
-        </li>
+        {#if endPage < totalPageCount}
+            <li class="page-item page-next {endPage === totalPageCount ? 'disabled' : ''}">
+                <button class="page-link " aria-label="to page {endPage + 1}" on:click={() => goToPage(endPage + 1)}></button>
+            </li>
+        {/if}
         {#if endPage < totalPageCount || false}
             <li class="page-item">
                 <button class="page-link" aria-label="to page {totalPageCount}" on:click={() => goToPage(totalPageCount)}>

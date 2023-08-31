@@ -80,17 +80,16 @@
 
         if (e.target.checked) {
             checkboxes.forEach((checkbox) => {
-                checkbox.checked = true;
                 if (!emailSendChoseList.includes(checkbox.value)) {
                     emailSendChoseList.push(checkbox.value);
                     if (!emailSendChoseListFinal.includes(checkbox.value)) {
                         emailSendChoseListFinal.push(checkbox.value);
                     }
                 }
+                checkbox.checked = true;
             });
         } else {
             checkboxes.forEach((checkbox) => {
-                checkbox.checked = false;
                 const index = emailSendChoseList.indexOf(checkbox.value);
                 if (index > -1) {
                     emailSendChoseList.splice(index, 1);
@@ -99,6 +98,7 @@
                 if (finalIndex > -1) {
                     emailSendChoseListFinal.splice(index, 1);
                 }
+                checkbox.checked = false;
             });
         }
 
@@ -138,6 +138,11 @@
                     obj.emailSendChoseList.push(values[0]);
                 }
             }
+            for (const values of $privacySearchData.invisibleValueList) {
+                if (obj.emailSendChoseListFinal.includes(values[0])) {
+                    obj.emailSendChoseList.push(values[0]);
+                }
+            }
             return obj;
         });
         setTimeout(determineChkSelectAllInfo, 0);
@@ -148,6 +153,18 @@
             obj.emailSendChoseList = [];
             obj.emailSendChoseListFinal = [];
             return obj;
+        });
+        setTimeout(determineChkSelectAllInfo, 0);
+    }
+
+    const handlePage = ({detail}) => {
+        privacySearchData.update(obj => {
+            obj.currentPage = detail.page;
+            return obj;
+        });
+        handleChangePage({
+            page: detail.page,
+            limitNum: 10,
         });
         setTimeout(determineChkSelectAllInfo, 0);
     }
@@ -233,7 +250,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {#each $privacySearchData.visibleValueList as values}
+                                {#each $privacySearchData.visibleValueList as values (values[0])}
                                     <tr>
                                         <td>
                                             <input type="checkbox" name="chkInfo" class="partcheck visibleInfoChk" value={values[0]}
@@ -250,7 +267,7 @@
                                 </tbody>
                             </table>
                             <div style="display: none">
-                                {#each $privacySearchData.invisibleColumnList as values}
+                                {#each $privacySearchData.invisibleValueList as values}
                                     <input type="checkbox" name="chkInfo" class="partcheck" value={values[0]}
                                            bind:group={$emailSendData.emailSendChoseList} >
                                 {/each}
@@ -258,7 +275,7 @@
                         </div>
                         <Pagination bind:currentPage={$privacySearchData.currentPage}
                                     bind:totalPosts={$privacySearchData.totalPosts}
-                                    on:change={handleChangePage} />
+                                    on:change={handlePage} />
                     </div>
                 </LoadingOverlay>
             {/if}

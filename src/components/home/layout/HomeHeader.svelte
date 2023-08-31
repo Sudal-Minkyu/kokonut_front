@@ -81,7 +81,9 @@
             <div class="loginArea">
                 <ul>
                     <li>
-                        <a style="display: block; width: 100%; height: 100%; color: #FFF; padding: 1rem 2.8rem; background: #00C389; border-radius: 0.6rem;" on:click={handleLogin}>
+                        <a class="homepage_login"
+                           style="cursor:pointer;display: block; width: 100%; height: 100%; color: #FFF; padding: 1rem 2.8rem; background: #00C389; border-radius: 0.6rem;"
+                           on:click={handleLogin}>
                             로그인
                         </a>
                     </li>
