@@ -170,10 +170,6 @@
 	color:#fff;
 	border-radius: 10px;
 }
-.join_bottom button:hover {
-	background: #00BA83;
-	/* box-shadow: 6px 8px 20px rgba(0, 189, 133, 0.3); */
-}
 .joinmember {text-align: center;}
 .joinmember a, .joinmember span {
 	font-family: Pretendard, sans-serif;

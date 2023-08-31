@@ -9,6 +9,12 @@
         distinguishSearchTextPlaceholder} from "../../common/privacySearch/privacySearch.js";
 
 
+    const handlePage = ({detail}) => {
+        handleChangePage({
+            page: detail.page,
+            limitNum: 10,
+        });
+    }
 
 </script>
 
@@ -62,7 +68,7 @@
         <div class="sea_resultWrap" in:fade>
             <div class="kotable search_result marT50">
                 <div class="kt_tableTopBox marB24">
-                    <div class="kt_total">총 <span>{$privacySearchData.resultValueList.length}</span>건</div>
+                    <div class="kt_total">총 <span>{$privacySearchData.totalPosts}</span>건</div>
                     <div class="kt_selbox wid120">
                         <!--                <div class="selectBox wid100per nonePad">-->
                         <!--                    <div class="label" id="">최근 등록순</div>-->
@@ -103,7 +109,7 @@
             </div>
             <Pagination bind:currentPage={$privacySearchData.currentPage}
                         bind:totalPosts={$privacySearchData.totalPosts}
-                        on:change={handleChangePage} />
+                        on:change={handlePage} />
         </div>
     </LoadingOverlay>
 {/if}
