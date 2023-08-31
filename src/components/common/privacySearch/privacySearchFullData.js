@@ -129,13 +129,12 @@ export const getUserListByCondition = (page = 1, limitNum = 10, baseColumnList, 
                     // 결과 페이지의 행에 사용될 값과 값으로 사용될 값을 정제
                     const keyList = Object.keys(obj.rawResultList[0]);
                     const dynamicColumnKeyList = keyList.filter(key => !['kokonut_IDX', 'NO', '회원가입일시', '마지막로그인일시'].includes(key));
-                    obj.resultColumnList = [
+                    obj.visibleColumnList = [
                         'kokonut_IDX',
                         ...dynamicColumnKeyList,
                         '회원가입일시',
                         '마지막로그인일시',
                     ];
-                    [obj.visibleColumnList, obj.invisibleColumnList] = splitArray(obj.resultColumnList, 0, 10);
 
                     obj.resultValueList = obj.rawResultList.map(rawObj => {
                         return [
@@ -146,6 +145,7 @@ export const getUserListByCondition = (page = 1, limitNum = 10, baseColumnList, 
                         ];
                     });
                     obj.visibleValueList = obj.resultValueList.slice(0, 10);
+                    obj.invisibleValueList = obj.resultValueList.slice(10);
 
                     privacySearchData.update(obj => {
                         obj.searchResultState = 1;
@@ -230,8 +230,8 @@ export const handleOpenDetail = (kokonut_IDX) => {
 export const handleChangePage = ({page, limitNum}) => {
     const start = (page - 1) * limitNum;
     privacySearchData.update(obj => {
-        [obj.visibleColumnList, obj.invisibleColumnList] = splitArray(obj.resultColumnList, start, start + limitNum);
         obj.visibleValueList = obj.resultValueList.slice(start, start + limitNum);
+        obj.invisibleColumnList = [...obj.resultValueList.slice(0, start), ...obj.resultValueList.slice(start + limitNum)];
         return obj;
     });
 }
