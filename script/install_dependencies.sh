@@ -1,22 +1,21 @@
 #!/bin/bash
 
-# nvm 초기화 및 Node.js 버전 활성화
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # nvm 초기화
-
-# 활성화된 Node.js 버전에 따른 npm의 경로를 변수로 지정
-NPM_PATH=$(which npm)
-
+# update packages
 sudo yum update -y
 
-cd /root/kokonut_frontend
+# install node.js
+#curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
+#sudo yum install -y nodejs
 
+# install npm packages
+#cd /root/kokonut_frontend/
+#npm install --global npm
+
+# Change directory to the location of package.json file
+cd /root/kokonut_frontend/
+
+# Remove node_modules folder
 rm -rf node_modules
-rm -rf package-lock.json
 
-echo "인스톨시작"
-
-pwd
-
-# 변수를 사용하여 npm install 실행
-$NPM_PATH install
+# Install dependencies
+npm install
