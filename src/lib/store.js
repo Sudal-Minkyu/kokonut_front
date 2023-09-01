@@ -23,7 +23,7 @@ export const doChangePwdLater = persist_storage('doChangePwdLater', false); // �
 // 사용자 로그인 정보 초기화값 /v2/api/Admin/authorityCheck 를 통해 헤더가 호출될 때 갱신된다.
 export const initialUserInfo = JSON.stringify({
     cpName: '', // 사이드바에 나올 소속명
-    csAutoLogoutSetting: {minute: '60'}, // 자동로그아웃까지 걸리는 분 (새로고침 위해 객체형태 사용)
+    csAutoLogoutSetting: '60', // 자동로그아웃까지 걸리는 분 (새로고침 위해 객체형태 사용)
     csPasswordChangeState: '', // 비밀번호 변경 기간 도래 여부
     electronic: '', // 전자상거래법 대상 여부 : 0 -> 전자상거래법여부를 모르거나 최초일경우, 1->전자상거래법대상 일경우, 2->전자상거래법대상이 아닐경우
     knEmail: '', // 기본적으로 가져오는 나의 이메일스토어값

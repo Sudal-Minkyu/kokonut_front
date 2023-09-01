@@ -231,7 +231,7 @@ export const handleChangePage = ({page, limitNum}) => {
     const start = (page - 1) * limitNum;
     privacySearchData.update(obj => {
         obj.visibleValueList = obj.resultValueList.slice(start, start + limitNum);
-        obj.invisibleColumnList = [...obj.resultValueList.slice(0, start), ...obj.resultValueList.slice(start + limitNum)];
+        obj.invisibleValueList = [...obj.resultValueList.slice(0, start), ...obj.resultValueList.slice(start + limitNum)];
         return obj;
     });
 }
