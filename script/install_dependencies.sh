@@ -16,6 +16,9 @@ cd /root/kokonut_frontend/
 
 # Remove node_modules folder
 rm -rf node_modules
+rm -rf package-lock.json
+
+echo "인스톨시작"
 
 # Install dependencies
 npm install
