@@ -14,7 +14,6 @@
         // 페이지 변경시마다 실행되도록 하기 위함
         const unsubscribe = location.subscribe((href) => {
             if (currentLocation !== href) {
-                console.log(currentLocation);
                 currentLocation = href;
                 authProcess(href);
             }
