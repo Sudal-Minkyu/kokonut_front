@@ -42,6 +42,7 @@ import ThirdPartyConnection from "./routes/service/ThirdPartyConnection.svelte";
 import EmailSendComplete from "./routes/service/email/EmailSendComplete.svelte";
 import EmailBookComplete from "./routes/service/email/EmailBookComplete.svelte";
 import addMember from "./routes/service/addMember.svelte";
+import DevsGridTest from "./routes/service/DevsGridTest.svelte";
 
 export default {
     // API 테스트하는 화면
@@ -125,6 +126,9 @@ export default {
 
     // 개발자 테이블 관리 페이지
     "/service/environment/devsTableManagement": DevsTableManagement,
+
+    // 개발자 그리드 테스트 페이지
+    "/service/environment/devsGridTest": DevsGridTest,
 
     // 개인정보처리방침 리스트 페이지
     "/service/PolicyList": PolicyList,
