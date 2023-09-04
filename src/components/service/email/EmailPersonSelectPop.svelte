@@ -86,7 +86,6 @@
                         emailSendChoseListFinal.push(checkbox.value);
                     }
                 }
-                checkbox.checked = true;
             });
         } else {
             checkboxes.forEach((checkbox) => {
@@ -96,9 +95,8 @@
                 }
                 const finalIndex = emailSendChoseListFinal.indexOf(checkbox.value);
                 if (finalIndex > -1) {
-                    emailSendChoseListFinal.splice(index, 1);
+                    emailSendChoseListFinal.splice(finalIndex, 1);
                 }
-                checkbox.checked = false;
             });
         }
 
@@ -120,6 +118,12 @@
     }
 
     const handleEnterSearch = (e) => {
+        if (e.key === 'Enter') {
+            emailSendData.update(obj => {
+                obj.emailSendChoseList = [];
+                return obj;
+            });
+        }
         handleEnterSearchText(e, [csEmailCodeSetting], 10000, handleRefreshCheckBoxOnOff);
     }
 
@@ -267,7 +271,7 @@
                                 </tbody>
                             </table>
                             <div style="display: none">
-                                {#each $privacySearchData.invisibleValueList as values}
+                                {#each $privacySearchData.invisibleValueList as values (values[0])}
                                     <input type="checkbox" name="chkInfo" class="partcheck" value={values[0]}
                                            bind:group={$emailSendData.emailSendChoseList} >
                                 {/each}

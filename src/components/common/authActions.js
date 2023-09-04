@@ -1,6 +1,7 @@
 import {accessToken, is_login, userInfoData, initialUserInfo} from "../../lib/store.js";
 import {ajaxParam, reportCatch} from "./ajax.js";
 import {get} from "svelte/store";
+import {push} from "svelte-spa-router";
 
 export const logout = () => {
     let sendData = {
@@ -27,7 +28,7 @@ export const logout = () => {
 // 기본값 초기화처리
 const initializingUserData = () => {
     userInfoData.set(JSON.parse(initialUserInfo));
-    is_login.set(false);
     accessToken.set('');
-    location.href = location.origin + '/#/login';
+    is_login.set(false);
+    push('/login');
 }

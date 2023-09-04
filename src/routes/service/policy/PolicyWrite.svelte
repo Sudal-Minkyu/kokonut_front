@@ -41,11 +41,7 @@
     }
 
     onMount(() => {
-        if($piStage === 0) {
-            policyCheck();
-        } else {
-            policyWriting();
-        }
+        policyCheck();
         document.addEventListener('click', tooltipEvent);
     });
 
@@ -130,7 +126,7 @@
                 piId.set(0);
                 piStage.set(0);
                 policyInfoData.set(JSON.parse(initialPolicyInfo));
-                push("/service/policyList");
+                policyCheck();
             } catch (e) {
                 reportCatch('temp084', e);
             }
