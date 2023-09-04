@@ -1362,8 +1362,8 @@ p.ac {color: #FFF; font-size: 4rem; font-weight: 700; line-height: 5.6rem; lette
 }
 
 .landing-write {
+	display: flex;
 	background-color: #00C389;
-	height: 500px;
 }
 
 .row {
