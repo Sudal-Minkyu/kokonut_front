@@ -37,7 +37,7 @@ ul.cus_list li::before {
 	height:2.1rem;
 	position:absolute;
 	transform:translateY(-50%);
-	background:url(/assets/images/main/price/cus_check_circle.png) no-repeat center / cover;
+	background:url(/public/assets/images/main/price/cus_check_circle.png) no-repeat center / cover;
 }
 .pricTRight .pc_price {font-family: Pretendard, sans-serif; font-size: 2.4rem; font-weight: 700; line-height: 4.1rem; text-align: center; position:relative;}
 .pricTRight .pc_price span {font-family: Outfit, sans-serif; font-size: 6.2rem; font-weight: 700; line-height: 6.4rem; text-align: center; position:relative; padding-left:3.1rem;}
@@ -48,7 +48,7 @@ ul.cus_list li::before {
 	width: 26px;
 	height: 64px;
 	position: absolute;
-	background: url(/assets/images/main/price/won_icon.png) no-repeat center / cover;
+	background: url(/public/assets/images/main/price/won_icon.png) no-repeat center / cover;
 }
 .won {position: absolute; left: 0; top: 0;}
 .worklist {background:#fff;}
@@ -77,7 +77,7 @@ ul.cus_list li::before {
 	height:1.1rem;
 	position:absolute;
 	transform:translateY(-50%);
-	background:url(/assets/images/main/price/green_check.png) no-repeat center / cover;
+	background:url(/public/assets/images/main/price/green_check.png) no-repeat center / cover;
 }
 .wlBox li:last-child {border-bottom:none;}
 .consultBox {
@@ -105,7 +105,7 @@ ul.cus_list li::before {
 	display: inline-block;
 }
 @media (max-width:991px) {
-	.priceTop {background: url(/assets/images/main/price/priceTop_bg.jpg) no-repeat center / cover;}
+	.priceTop {background: url(/public/assets/images/main/price/priceTop_bg.jpg) no-repeat center / cover;}
 	.priceInner {padding: 14rem 2.5rem 10rem;}
 	.pc_price {font-size: 4rem; margin: 2rem 0 1rem; line-height: 4.6rem;}
 
@@ -135,14 +135,14 @@ ul.cus_list li::before {
 	.gtype {font-size: 2rem; line-height: 2.4rem;}
 	.btype {margin-top:0.8rem; font-size:1.6rem; line-height:2rem;}
 
-	.wlBox {padding: 0; width: 100%; border-right: none; margin-bottom: 4rem; padding-bottom: 0; border-bottom: none;}
+	.wlBox {padding: 0; width: 100%; border-right: none; margin-bottom: 4rem; border-bottom: none;}
 	.wlBox:last-child {border-bottom: none; margin-bottom: 0; padding: 0;}
 	.wlBox li {font-size:1.5rem; padding:1.2rem 0 1.2rem 2.2rem;}
 	.wlBox li::before {width:1.3rem; height:1.1rem;}
 
 	.consultBox {display: flex; margin-top: 4rem; padding: 6rem 3rem; background: #E0F7F0; border-radius: 12px; flex-direction: column; justify-content: space-between;}
 	.consultBtn {margin-top: 1rem; line-height: 2rem;}
-	.consultBox .consultBtn p::before {content: ''; width: 1.6rem; height: 1.6rem; background: url(/assets/images/main/price/tel_icon.png) no-repeat center / cover; position: absolute; right: 0; top: 50%; transform: translateY(-50%);}
+	.consultBox .consultBtn p::before {content: ''; width: 1.6rem; height: 1.6rem; background: url(/public/assets/images/main/price/tel_icon.png) no-repeat center / cover; position: absolute; right: 0; top: 50%; transform: translateY(-50%);}
 
 	.priceInner {padding:11rem 2.5rem 5rem;}
 	.consultBox .consultBtn {margin-top: 3rem;}

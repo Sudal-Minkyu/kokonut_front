@@ -206,14 +206,14 @@ footer {background: #F6F6F6;}
 .footerBox .notice_ul li {list-style: none; display: flex; padding-bottom:0.8rem; }
 .footerBox .notice_ul li:last-child {padding-bottom:0;}
 
-.footerBox .notice_ul li p {font-size: 1.5rem; line-height: 2.6rem; font-weight: 300; }
+.footerBox .notice_ul li p {font-size: 1.5rem; line-height: 2.6rem; font-weight: 500; }
 .footerBox .notice_ul li p.ul_title {font-weight: 600; width: 12.6rem; margin-right:4rem;}
 
 .footerBotm {border-top: 1px solid #222; padding-top: 2rem; font-size: 1.5rem;}
 .copy {
 	font-family: Outfit, sans-serif;
 	font-size: 1.4rem;
-	font-weight: 300;
+	font-weight: 500;
 	line-height: 2.6rem;
 	letter-spacing: 0.02em;
 	text-align: left;

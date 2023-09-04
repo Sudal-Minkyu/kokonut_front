@@ -193,7 +193,6 @@
   line-height: 1.6rem;
   font-size: 1.3rem;
   border: 1px solid transparent;
-  white-space: nowrap;
   cursor: pointer;
 }
 .daterangepicker .calendar-table td.ends.available:hover{

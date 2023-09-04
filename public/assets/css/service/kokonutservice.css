@@ -17,5 +17,5 @@ body .error_highlight::before {
     left:0;
     top:inherit;
     transform:unset;
-    background: url(/assets/images/join/red_check.png) no-repeat center / cover;
+    background: url(/public/assets/images/join/red_check.png) no-repeat center / cover;
 }
