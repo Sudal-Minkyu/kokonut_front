@@ -1,0 +1,174 @@
+/* 랜딩페이지 관련 css */
+
+/* 랜딩페이지 상단이미지 */
+.mobile img {
+    width: 100%;
+}
+
+/* 온보딩작성 배경 css */
+.landing-write {
+    display: flex;
+    background: linear-gradient(to bottom right, #00C389, #bdffeb);
+    font-family: Pretendard, sans-serif;
+}
+
+/* 온보딩 컨테이너 css */
+.ontbording_container {
+    width: 100%;
+    font-weight: 600;
+    font-size: 20px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin: 4rem auto 3rem;
+}
+
+/* 해상도 변경될 때 반응형처리 css */
+@media (min-width: 576px) {
+    .ontbording_container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .ontbording_container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .ontbording_container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .ontbording_container {
+        max-width: 1140px;
+    }
+}
+
+/* 라디오버튼 css */
+.ontbording_select input[type=radio]{
+    display: none;
+}
+.ontbording_select input[type=radio]+label{
+    display: inline-block;
+    cursor: pointer;
+    height: 30px;
+    width: 100px;
+    border: 1px solid #333;
+    margin-right: 10px;
+    line-height: 28px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+.ontbording_select input[type=radio]+label{
+    background-color: #fff;
+    color: #333;
+}
+.ontbording_select input[type=radio]:checked+label{
+    background-color: #333;
+    color: #fff;
+}
+
+/* 체크표시 css */
+.ontbording_checkmark {
+    font-size: 2rem;
+    font-weight:600;
+    color: #FC5757;
+}
+.ontbording_checkmark::before {
+    content: '\2714';
+    font-size: 17px;
+    margin-right: 3px;
+}
+
+
+.desktop img {
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.landing-background::before {
+    content: "";
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;  /* 뒤로 보내기 */
+}
+
+.row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+
+.align-items-stretch {
+    align-items: stretch !important;
+}
+
+.mb-5 {
+    margin-bottom: 3rem !important;
+}
+
+.col-md-6 {
+    flex: 0 0 auto;
+    width: 50%;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+}
+
+.view_text_popup{
+    display:none;
+    position: absolute;
+    animation: fadeInDown 1s;
+    margin-top: 275px;
+    height: 200px;
+    margin-right: 10px;
+}
+
+.view_text_popup_contents{
+    text-align: center;
+    background-color:#d8d8d8;
+    font-family: pretendard, serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 14px;
+    margin: 5px;
+    border: 3px solid black;
+}
+
+.viewTextTable td {
+    border: 1px solid #444444;
+    text-align: center;
+    font-size: 11px;
+}
+
+.inquiry_box__close {
+    width: 40px;
+    height: 40px;
+    position: inherit;
+    left: 88%;
+    top: 5px;
+    background-image: url(../../images/main/icon__close.svg);
+}
