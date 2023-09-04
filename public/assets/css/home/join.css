@@ -78,7 +78,6 @@
 	top: 0;
 	color: #9A9A9A;
 	font-weight: 400;
-	transform: inherit;
 	font-size: 1.5rem;
 	line-height: 1.8rem;
 	transform: translateY(-100%);
@@ -88,8 +87,8 @@
 .input-field input:-webkit-autofill:focus,
 .input-field input:-webkit-autofill:active {
 	-webkit-text-fill-color: #000;
-	-webkit-box-shadow: 0 0 0px 1000px #fff inset;
-	box-shadow: 0 0 0px 1000px #fff inset;
+	-webkit-box-shadow: 0 0 0 1000px #fff inset;
+	box-shadow: 0 0 0 1000px #fff inset;
 	transition: background-color 5000s ease-in-out 0s;
 }
 .input-field.filled span {
@@ -125,7 +124,7 @@
 	left: 0;
 	top: 0;
 	box-sizing: border-box;
-	background:url(/assets/images/join/uncheckBox.jpg) no-repeat center / cover;
+	background:url(/public/assets/images/join/uncheckBox.jpg) no-repeat center / cover;
 }
 .id_re input[type="checkbox"]:checked:after  {
 	content: '';
@@ -136,7 +135,7 @@
 	left: 0;
 	top: 0;
 	box-sizing: border-box;
-	background:url(/assets/images/join/checkBox.jpg) no-repeat center / cover;
+	background:url(/public/assets/images/join/checkBox.jpg) no-repeat center / cover;
 }
 .id_re label p {
 	margin-left:0.8rem;
@@ -188,7 +187,7 @@
 	height: 1.9rem;
 	position: absolute;
 	transform: translateY(-50%);
-	background: url(/assets/images/join/joinArrow.png) no-repeat center / cover;
+	background: url(/public/assets/images/join/joinArrow.png) no-repeat center / cover;
 }
 /* ::::::::======== // ~ 로그인 END ========:::::::: */
 
@@ -213,7 +212,7 @@
 .findContArea {margin-top:6rem;}
 .findEx {font-size: 2.2rem; font-weight: 500; line-height: 3.2rem; color:#444;}
 
-.f_emailImg {width: 100%; max-width: 26rem; height: 26rem; margin: 6rem auto 0rem;}
+.f_emailImg {width: 100%; max-width: 26rem; height: 26rem; margin: 6rem auto 0;}
 .f_emailImg img {width:100%; height:auto;}
 
 .find_bottom {
@@ -285,13 +284,13 @@ a.go_fpassword {
 	height: 1.8rem;
 	position: absolute;
 	transform: translateY(-50%);
-	background: url(/assets/images/join/joinArrow_gray.png) no-repeat center / cover;
+	background: url(/public/assets/images/join/joinArrow_gray.png) no-repeat center / cover;
 }
 
 /* ::::::::======== // ~ 이메일 찾기 END ========:::::::: */
 
 /* ::::::::======== 비밀번호 찾기 Start ~ ========:::::::: */
-.find_passoword .f_emailImg {margin: 4rem auto 0rem;}
+.find_passoword .f_emailImg {margin: 4rem auto 0;}
 .find_passoword .j_inputArea {margin-top: 1.8rem;}
 .notxt {
 	display: block;
@@ -311,7 +310,7 @@ a.go_fpassword {
 	left:0;
 	top:inherit;
 	transform:unset;
-	background: url(/assets/images/join/red_check.png) no-repeat center / cover;
+	background: url(/public/assets/images/join/red_check.png) no-repeat center / cover;
 }
 ul.pswdEx {display: flex;}
 ul.pswdEx li {margin-right:1.2rem;}
@@ -319,10 +318,10 @@ ul.pswdEx li:last-child {margin-right:0;}
 ul.pswdEx .notxt {padding-top:0; margin-top:1rem;}
 
 .notxt.pass {color:#00C389!important;}
-.notxt.pass::before {background: url(/assets/images/join/pass_check.png) no-repeat center / cover!important;}
+.notxt.pass::before {background: url(/public/assets/images/join/pass_check.png) no-repeat center / cover!important;}
 
 .notxt.fail {color: #FC5757!important;}
-.notxt.fail::before {background: url(/assets/images/join/red_check.png) no-repeat center / cover!important;}
+.notxt.fail::before {background: url(/public/assets/images/join/red_check.png) no-repeat center / cover!important;}
 
 .notxt.not_work {
 	display: none;
@@ -431,7 +430,7 @@ p.joinmTitle {
 .j_password {display: flex; align-items: center;}
 .j_password li {margin-right:1.12rem;}
 .j_password li .notxt{color:#9A9A9A;}
-.j_password li .notxt::before{background: url(/assets/images/join/gray_check.png) no-repeat center / cover;}
+.j_password li .notxt::before{background: url(/public/assets/images/join/gray_check.png) no-repeat center / cover;}
 .join_membership .join_bottom {margin-top:4rem;}
 
 /* ::::::::======== // ~ 회원가입 END ========:::::::: */
@@ -446,8 +445,7 @@ p.joinmTitle {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: url(/assets/images/join/join_right_bg.jpg)  no-repeat center / contain;
-	background-color: #ECF1F0;
+	background: #ECF1F0 url(/public/assets/images/join/join_right_bg.jpg) no-repeat center;
 }
 .joinBg img {width: 100%; height: auto;}
 
@@ -478,7 +476,7 @@ p.joinmTitle {
 	height: 1.8rem;
 	position: absolute;
 	transform: translateY(-50%);
-	background: url(/assets/images/join/joinArrow_gray.png) no-repeat center / cover;
+	background: url(/public/assets/images/join/joinArrow_gray.png) no-repeat center / cover;
 }
 
 .findContArea {margin-top: 6rem;}
