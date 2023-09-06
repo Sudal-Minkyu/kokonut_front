@@ -127,8 +127,6 @@ const setOptDateRangePicker = (id, periodDays, periodTags, callback = () => {}) 
 			locale : localeKr
 		});
 	}else{
-		+"periodDays를 확인하세요. >> "+ periodDays +"\n"
-		+"기본 조회기간으로 조회합니다. (1일)");
 		jQuery(id).daterangepicker({
 			startDate : moment(),
 			endDate : moment(),
