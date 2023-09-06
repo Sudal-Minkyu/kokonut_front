@@ -106,7 +106,6 @@ const addOrChangeCard = ({order_name, subscription_comment, success_msg, handleS
             subscribe_test_payment: true
         }
     }).then((res) => {
-        console.log('부트페이 성공', res);
         if (res.event === 'done') {
             const receiptIdInfo = {
                 payReceiptId: res.data?.receipt_id,
@@ -146,7 +145,6 @@ const addOrChangeCard = ({order_name, subscription_comment, success_msg, handleS
             // 문제 일어날 가능성 살펴 추가
         }
     }, (err) => {
-        console.log('부트페이 실패', err);
         handleFail(err);
         // 각종 에러 가능성 살펴 등록, 필요할 경우 공용코드로
     });

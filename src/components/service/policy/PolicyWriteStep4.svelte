@@ -60,7 +60,6 @@
     }
 
     const fourthDepthSave = (goToState) => {
-        console.log('저장전데이터', $policyInfoData);
         let url = "/v2/api/Policy/privacyPolicyFourthSave";
         let sendData = {
             piId : $piId,

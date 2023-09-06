@@ -51,7 +51,6 @@
         mainScreenBlockerVisibility.set(true);
 
         if (excelDownloadPopService.useBodyParam) {
-            console.log('리퀘스트', excelDownloadPopService.requestData);
             ajaxExcelBodyParam(excelDownloadPopService.requestURL, excelDownloadPopService.requestData, requestData
                 , excelReqSuccess, excelReqFail);
         } else {

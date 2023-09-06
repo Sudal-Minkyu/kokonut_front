@@ -23,7 +23,6 @@ function phoneNumver(number) {
 // IP 형식 체크 -> true, false 반환
 const filter = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
 function ipCheck(ip_addr) {
-    console.log("체크할 IP : "+ip_addr);
     if (filter.test(ip_addr) === true){
         return false;
     } else{
@@ -63,7 +62,6 @@ function onlyDouble(str) {
 
 // CapsLock 감지함수
 function callCapsLock(event) {
-    // console.log("이벤트 : "+event.getModifierState("CapsLock"));
     return event.getModifierState("CapsLock");
 
     // let regex = /[^0-9]/gi;
@@ -79,7 +77,6 @@ function popOpenBtn() {
 
 // 이미지 크게보기(미완성)
 function imgView(url) {
-    console.log("url : "+url);
 }
 
 // 2주후인 날짜로 반환하는 함수 ex) 2022-03-01 -> 2022. 03. 15 로 반환

@@ -9,7 +9,6 @@ export const getColumnList = () => {
             if (res2.data.sendData.fieldList.length) {
                 privacySearchData.update(obj => {
                     obj.columnList = res2.data.sendData.fieldList;
-                    console.log('컬럼리스트', obj.columnList);
                     obj.searchConditionList[0].searchCode = obj.columnList[0].fieldCode;
                     obj.searchConditionList[0].currentColumnName = obj.columnList[0].fieldComment;
                     obj.searchConditionList[0].currentTableColumnList = obj.columnList;
@@ -91,7 +90,6 @@ export const getUserListByCondition = (page = 1, limitNum = 10, baseColumnList) 
         searchCondition.searchTexts = [...baseSearchTexts, ...obj.searchConditionList.map(obj => obj.searchText)];
         return obj;
     });
-    console.log('검색조건', searchCondition);
     if (verifySearchCondition(searchCondition).isVerifyFail) {
         openConfirm({
             icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
@@ -109,12 +107,10 @@ export const getUserListByCondition = (page = 1, limitNum = 10, baseColumnList) 
 
     ajaxBody('/v2/api/DynamicUser/privacyUserSearch', searchCondition, (res) => {
         try {
-            console.log('검색결과', res);
             const searchResultList = res.data.sendData.privacyList;
             privacySearchData.update(obj => {
                 obj.currentPage = page;
                 obj.totalPosts = res.data.sendData.totalCount;
-                console.log(obj.currentPage);
                 obj.rawResultList = searchResultList || [];
                 if (searchResultList.length) {
                     // 결과 페이지의 행에 사용될 값과 값으로 사용될 값을 정제
@@ -186,12 +182,9 @@ export const handleEnterSearchText = (e, baseColumnList, limitNum = 10) => {
 }
 
 export const handleOpenDetail = (kokonut_IDX) => {
-    console.log({kokonut_IDX});
     ajaxGet('/v2/api/DynamicUser/privacyUserOpen', {kokonut_IDX}, (res) => {
         try {
             const rawDetail = res.data.sendData.privacyInfo;
-            console.log('상세보기결과', rawDetail);
-
             const refinedDetail = [];
             if (rawDetail.length) {
                 const detailKeyList = Object.keys(rawDetail[0]).sort();
@@ -206,7 +199,6 @@ export const handleOpenDetail = (kokonut_IDX) => {
             privacySearchData.update(obj => {
                 obj.currentDetail = refinedDetail;
                 obj.currentState = 'detail';
-                console.log('정제된상세보기', refinedDetail);
                 return obj;
             });
         } catch (e) {

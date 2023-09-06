@@ -45,13 +45,10 @@
 
         ajaxMultipart('/v1/abcdef', formData, (success_response) => {
             try {
-                console.log('성공신호다', success_response);
             } catch (e) {
                 reportCatch('temp046', e);
             }
         });
-
-        console.log('전송시도한 데이터', Object.fromEntries(formData))
     }
 </script>
 

@@ -25,7 +25,6 @@
         ajaxGet('/v2/api/Index/provisionIndexCount', filterCondition, (res) => {
             try {
                 provisionIndexDto = res.data.sendData.provisionIndexDto;
-                console.log('개인정보 제공 건', provisionIndexDto);
             } catch (e) {
                 reportCatch('temp137', e);
             }

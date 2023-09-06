@@ -37,13 +37,10 @@
     }
 
     let startFun = function() {
-        console.log("전자상거랩 업데이트 함수");
-
         let url = "/v2/api/Company/companyElectronicUpdate"
 
         ajaxParam(url, {}, (res) => {
             try {
-                console.log("전자상거랩 업데이트완료");
             } catch (e) {
                 reportCatch('temp080', e);
             }
@@ -68,8 +65,6 @@
     const policyList = debounce200((page) => {
         searchCondition.stime = stimeVal;
         searchCondition.page = page;
-        console.log("개인정보처리방침 리스트 호출 클릭!");
-
         if(policyLayout === 1) {
             policyLayout = 0;
         }
@@ -78,7 +73,6 @@
 
         ajaxGet(url, searchCondition, (res) => {
             try {
-                console.log("조회된 데이터가 있습니다.");
                 policy_list = res.data.datalist
                 total = res.data.total_rows
                 policyLayout = 1;
@@ -89,7 +83,6 @@
             try {
                 policy_list = [];
                 total = 0;
-                console.log("조회된 데이터가 없습니다.");
                 policyLayout = 1;
                 return {action: 'NONE'};
             } catch (e) {

@@ -60,7 +60,6 @@
                         active: {filter: {type: 'none'}},
                     };
                 }
-                console.log('개인정보 현황', privacyIndexDto);
             } catch (e) {
                 reportCatch('temp036', e);
             }
@@ -72,7 +71,6 @@
     };
 
     const handleDatepickerRendered = (periodObj) => {
-        console.log('랜더됨', periodObj); // api 기간용으로 전환시 반영
     };
 
     const dateRangePickerProps = {

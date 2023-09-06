@@ -51,8 +51,6 @@
         } else if (ppd.step2.provideTargetType === 'teammate' || $providePrivacyWriteData.step1.proProvide === 1) {
             sendData.adminEmailList = ppd.step2.selectedAdminObjList.map(item => item.knEmail);
         }
-
-        console.log('저장데이터', sendData);
         ajaxBody('/v2/api/Provision/provisionSave', sendData, (json_success) => {
             try {
                 providePrivacyWriteData.set(JSON.parse(initialProvidePrivacyWrite));
@@ -66,13 +64,11 @@
 
     onMount(async => {
         getAllCustomerList();
-        console.log('현재데이터', $providePrivacyWriteData);
     });
 
     const getAllCustomerList = () => {
         ajaxGet('/v2/api/DynamicUser/tableBasicList', false, (json_success) => {
             try {
-                console.log(json_success);
                 providePrivacyWriteData.update(obj => {
                     obj.step5.memberList = json_success.data.sendData.basicTableList || [];
                     pickColumnAndDetermineWidth();
@@ -123,7 +119,6 @@
                 }
                 obj.step5.displayColumnList = displayColumnList;
                 // obj.step5.displayColumnList = calculateRelativeWidth(displayColumnList);
-                console.log('처리된 컬럼 표시 정보', displayColumnList);
                 return obj;
             });
         }
@@ -173,7 +168,6 @@
 
     const handleMasterCheckBoxChange = (e) => {
         providePrivacyWriteData.update(obj => {
-            console.log(obj.step5.filteredMemberList);
             const filteredMemberIdxList = obj.step5.filteredMemberList.map(item => item.kokonut_IDX);
             obj.step5.piplTargetIdxs = obj.step5.piplTargetIdxs.filter(idx => !filteredMemberIdxList.includes(idx));
             if (e.target.checked) {

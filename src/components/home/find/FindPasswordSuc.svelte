@@ -90,35 +90,30 @@
 
             // 영문,숫자, 특수문자 모두 하나이상을 혼합하여 입력
             if(knPassword.search(/\s/) !== -1) {
-                // console.log("비밀번호는 공백 없이 입력해주세요.");
                 passwordBlank=false;
             } else {
                 passwordBlank=true;
             }
 
             if(eng < 0) {
-                // console.log("영문");
                 passwordCheckEng=false;
             }else {
                 passwordCheckEng=true;
             }
 
             if(num < 0) {
-                // console.log("숫자");
                 passwordCheckNum=false;
             } else {
                 passwordCheckNum=true;
             }
 
             if(spe < 0) {
-                // console.log("특수문자");
                 passwordCheckSpe=false;
             } else {
                 passwordCheckSpe=true;
             }
 
             if(knPassword.length < 10 || knPassword.length > 20) {
-                // console.log("10자리 ~ 20자리 이내로 입력해주세요.");
                 passwordCheckLen=false;
             } else {
                 passwordCheckLen=true;

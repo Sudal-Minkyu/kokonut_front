@@ -30,7 +30,6 @@
         size,
     }
     function qnaList(page) {
-        console.log("1:1 문의하기 리스트 호출 클릭!");
         qnaLayout = 0;
         searchCondition.page = page;
 

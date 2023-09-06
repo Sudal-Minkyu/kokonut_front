@@ -7,11 +7,8 @@
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
 
     onMount(async () => {
-        console.log("첫번째 뎁스 piId : "+$piId);
         if($piId === 0) {
-            console.log("조회안함");
         } else {
-            console.log("조회함");
             policyWriting();
         }
 
@@ -20,7 +17,6 @@
                 obj.policyData1.piDate = result.format('YYYY-MM-DD');
                 return obj;
             });
-            console.log($policyInfoData.policyData1.piDate);
         });
         policyInfoData.update(obj => {
             obj.policyData1.piDate = document.getElementById('startdate').value;
@@ -51,9 +47,6 @@
             textState = 3;
             return false;
         }
-
-        console.log("첫번째 뎁스 저장")
-
         let url = "/v2/api/Policy/privacyPolicyFirstSave"
 
         let sendData = {
@@ -74,12 +67,7 @@
             }
         });
     }
-
-    console.log('initialPolicyInfo', initialPolicyInfo);
-
     const startdateChanged = (e) => {
-        console.log(e);
-        console.log($policyInfoData.policyData1.piDate);
     };
 </script>
 

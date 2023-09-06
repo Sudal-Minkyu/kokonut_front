@@ -41,9 +41,6 @@ export const DateRangePicker = (targetEl, props = {}) => {
     }
 
     const finalProps = {...defaultProps, ...props};
-
-    console.log(jQuery(targetEl));
-
     if (finalProps.periodName) {
         // 기본으로 선택된 기간 찾기 - checked true 찾기
         // 기간 선택버튼 찾기
@@ -80,18 +77,14 @@ export const DateRangePicker = (targetEl, props = {}) => {
  * @param callback
  */
 const setOptDateRangePicker = ({jQueryEl, periodDays, periodTags, callback, eraseOnCancel, handleRendered}) => {
-
-    console.log('작동');
     if(periodDays === "t"){
         // negative -  all_days
-        console.log("선택된 조회 기간은 '전체' 입니다.");
         // daterangepicker 비활성화
         if(jQueryEl.data('daterangepicker')){
             jQueryEl.data('daterangepicker').container.remove();
         }
         jQueryEl.val('');
     }else if(Number(periodDays) < 0){
-        console.log("선택된 조회 기간은 " + periodDays +" 일 입니다.");
         jQueryEl.daterangepicker({
             startDate : moment(),
             endDate : moment().subtract(Number(periodDays)+1, 'days'),
@@ -103,7 +96,6 @@ const setOptDateRangePicker = ({jQueryEl, periodDays, periodTags, callback, eras
         });
     }else if(Number(periodDays) > 0){
         // positive
-        console.log("선택된 조회 기간은 " + periodDays +" 일 입니다.");
         jQueryEl.daterangepicker({
             startDate : moment().subtract(Number(periodDays)-1, 'days'),
             endDate : moment(),
@@ -115,7 +107,6 @@ const setOptDateRangePicker = ({jQueryEl, periodDays, periodTags, callback, eras
         });
     }else if(periodDays === "-0"){
         // zero - custom
-        console.log("선택된 조회 기간은 '사용자 지정' 오늘부터 입니다.");
         jQueryEl.daterangepicker({
             startDate : moment(),
             endDate : moment(),
@@ -127,7 +118,6 @@ const setOptDateRangePicker = ({jQueryEl, periodDays, periodTags, callback, eras
         });
     }else if(periodDays === "0"){
         // zero - custom
-        console.log("선택된 조회 기간은 '사용자 지정' 오늘까지 입니다.");
         jQueryEl.daterangepicker({
             startDate : moment(),
             endDate : moment(),
@@ -138,7 +128,6 @@ const setOptDateRangePicker = ({jQueryEl, periodDays, periodTags, callback, eras
             locale : localeKr
         });
     }else{
-        console.log("periodDays가 범위 밖 입니다.\n"
             +"periodDays를 확인하세요. >> "+ periodDays +"\n"
             +"기본 조회기간으로 조회합니다. (1일)");
         jQueryEl.daterangepicker({
@@ -231,11 +220,8 @@ export const setOptionItem = (option) => {
         tagArea = document.getElementById(opt.id)
         if(tagArea !== null) {
             tagArea = tagArea.nextElementSibling;
-
-            // console.log(tagArea)
             // li 태그 만들기 	<li class="optionItem curv" data-value="코드값"	>코드명</li>
             itemList.forEach((item)=>{
-                // console.log("item.value : " + item.value);
                 newTag = document.createElement('li');
                 newTag.setAttribute('class', 'optionItem curv');
                 newTag.setAttribute('data-value', item.value); 	// 코드값

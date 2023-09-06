@@ -46,7 +46,6 @@
                         alert(errMsg);
                     } else {
                         alert("통신문제로 인해 실패 하였습니다.");
-                        console.log('실패내용', errMsg);
                     }
                     window.close();
                     return {action: 'NONE'}

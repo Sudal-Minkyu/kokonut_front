@@ -135,7 +135,6 @@
             });
         }
     } else if ($userInfoData.paymentBillingCheck === '2') { // 2는 구독을 해지한 사람임을 의미
-        console.log($userInfoData);
         if (subscribableRoleList.includes($userInfoData.role)) {
             isBillingCheckTriggerNotActivatedYet = false;
             askSubscribeService.askContinueSubscribe();

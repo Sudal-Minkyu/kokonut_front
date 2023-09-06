@@ -13,7 +13,6 @@
 
     const getThirdPartyStatusInfo = () => {
         ajaxGet('/v2/api/Index/thirdPartyInfo', false, (res) => {
-            console.log('서드파티 연동', res.data.sendData);
             thirdPartyOnOffStatus = res.data.sendData;
         });
     }

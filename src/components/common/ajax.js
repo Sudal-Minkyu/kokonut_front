@@ -51,7 +51,6 @@ export const ajaxMultipart = (url, sendData = new FormData(), handleSuccess = ()
 };
 
 export const ajaxExcelBodyParam = (url, sendData = {}, sendParams = {}, handleSuccess = () => {}, handleFail = () => {}) => {
-    console.log('보내는 데이터', sendData);
     restapi({
         url,
         handleSuccess,
@@ -89,8 +88,6 @@ export const ajaxParamArray = (url, sendData = {}, handleSuccess = () => {}, han
             params.append(key, sendData[key]);
         }
     }
-    console.log(params.toString());
-
     restapi({
         url,
         handleSuccess,
@@ -145,7 +142,6 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
 
     const configString = JSON.stringify(requestConfig);
     if (pendingRequests.has(configString)) {
-        console.log('짧은 시간 내 중복된 요청되어 추가 요청은 프론트에서 거부됨');
         return;
     }
 
@@ -165,7 +161,6 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         if (okRes.data.status === 200) {
             handleSuccess(okRes);
         } else {
-            console.log(okRes);
             const code = okRes.data.err_code;
             const handleFailResult = handleFail(code, okRes.data.err_msg);
             const actionString = handleFailResult?.action || okRes.data.err_action || '';
@@ -177,7 +172,6 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         }
     }).catch(errorRes => {
         pendingRequests.delete(configString);
-        console.log('ErrorResponse', errorRes);
         try {
             if (errorRes.response) {
                 const status = errorRes.response.status;
@@ -420,7 +414,6 @@ const errorActionDictionary = {
 }
 
 const errorReport = (etTitle, etMsg) => {
-    console.log(etTitle, etMsg);
     fetch(import.meta.env.VITE_SERVER_URL + '/v2/api/Error/errorSave', {
         method: 'POST',
         headers: {
@@ -429,6 +422,5 @@ const errorReport = (etTitle, etMsg) => {
         },
         body: JSON.stringify({etTitle, etMsg})
     }).catch((error) => {
-        console.error('Error:', error);
     });
 }

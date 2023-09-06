@@ -93,8 +93,6 @@
             beforeDataListErrorMsg = '서비스 가입 시 수집하는 개인정보는 최소 1개 이상 작성하여 주세요.';
             return;
         }
-
-        console.log('저장전데이터', $policyInfoData);
         let url = "/v2/api/Policy/privacyPolicyThirdSave";
 
         let sendData = {

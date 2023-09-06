@@ -48,7 +48,6 @@
         ajaxParam('/v2/api/ThirdParty/bizmSetting', bizmSettingData, (res) => {
             try {
                 getThirdPartyInfo();
-                console.log('연동 설정 보낸 데이터:', bizmSettingData);
                 savedBizmSettingData = JSON.parse(JSON.stringify(bizmSettingData));
                 openBanner('연동 설정 저장을 완료하였습니다.');
                 connectionSettingPop.close();
@@ -60,12 +59,10 @@
 
     const handleSelectTsBizmReceiverNumCode = (el) => {
         bizmSettingData.tsBizmReceiverNumCode = el.dataset.value;
-        console.log(bizmSettingData);
     }
 
     const handleSelectTsBizmAppUserIdCode = (el) => {
         bizmSettingData.tsBizmAppUserIdCode = el.dataset.value;
-        console.log(bizmSettingData);
     }
 </script>
 

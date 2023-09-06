@@ -7,18 +7,13 @@
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
 
     onMount(async () => {
-        console.log("두번째 뎁스 $piId : "+$piId);
-
         if($piId === 0) {
-            console.log("조회안함");
         } else {
-            console.log("조회함");
             policyWriting();
         }
     })
 
     window.cd = () => {
-        console.log($policyInfoData);
     }
 
     export let policyWriting;

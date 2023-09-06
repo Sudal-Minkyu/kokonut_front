@@ -94,13 +94,10 @@
 
     // Google OTP 제출
     async function initiateGoogleOtpLogin(otpValue) {
-        console.log("구글OTP 제출 클릭!");
-
         try {
             const encryptedPassword = await processData(knPassword);
             googleOtpLogin(otpValue, knEmail, encryptedPassword);
         } catch (error) {
-            console.error("Error during password encryption: ", error);
         }
     }
 
@@ -109,7 +106,6 @@
         try {
             return await encryptData(knPassword);
         } catch (error) {
-            console.error("Error during encryption: ", error);
         }
     }
 
@@ -131,10 +127,8 @@
             withCredentials: true
         })
             .then(response => {
-                console.log('res', response);
             })
             .catch(error => {
-                console.log('err', error);
             });
     }
 
@@ -161,7 +155,6 @@
                 mainScreenBlockerVisibility.set(false);
                 $accessToken = res.data.sendData.jwtToken;
                 if (res.data.sendData.blockAbroad !== undefined) {
-                    // console.log("해외로그인차단 : "+json_success.data.sendData.blockAbroadMsg);
                     ahId = res.data.sendData.blockAbroad;
                     knPhoneNumber = res.data.sendData.knPhoneNumber;
                     knName = res.data.sendData.knName;
@@ -191,7 +184,6 @@
                 mainScreenBlockerVisibility.set(false);
                 if (errCode === "KO012" || errCode === "KO011" || errCode === "KO010"
                     || errCode === "KO094") {
-                    // console.log("로그인실패");
                     otpError = true;
                     otp_err_msg = errMsg;
                 } else if (errCode === "KO096" || errCode === "KO095") {
@@ -205,11 +197,9 @@
                     notErrPwdFun();
                     knPassword = "";
                 } else if (errCode === "KO016") {
-                    // console.log("가입된회원이 아님 or 아이디/비밀번호가 일치하지 않음");
                     knPassword = "";
                     notJoinUser();
                 } else {
-                    console.log("로그인 에러");
                     knPassword = "";
                 }
                 return {action: 'NONE'};
@@ -249,13 +239,7 @@
 
     // 휴대폰 인증완료후 처리함수
     window.phoneCertCheck = function (state, joinName, joinPhone) {
-        // console.log("휴대폰 본인인증 완료!");
-
-        // console.log("state : "+state);
-        // console.log("joinName : "+joinName);
-        // console.log("joinPhone : "+joinPhone);
         if(state === "6") {
-            // console.log("해외로그인 -> 로그인완료처리");
             if(joinPhone === knPhoneNumber && joinName === knName) {
                 overseasLogin();
             } else {
@@ -268,7 +252,6 @@
 
     // 해외 로그인처리
     function overseasLogin() {
-        // console.log("해외 로그인처리");
         let sendData = {
             ahId : ahId,
         }

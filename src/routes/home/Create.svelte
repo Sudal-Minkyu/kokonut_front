@@ -26,7 +26,6 @@
     let searchParams = new URLSearchParams($querystring);
 
     function createCheck() {
-        // console.log("관리자 등록 키 검증");
         if(searchParams.has("evKo") && searchParams.has("kvKo") && searchParams.has("ivKo")) {
             let url = "/v1/api/Auth/createCheck"
 
