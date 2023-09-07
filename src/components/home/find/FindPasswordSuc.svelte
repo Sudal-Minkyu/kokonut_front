@@ -140,7 +140,6 @@
 
 </script>
 
-
 <figure class="j_logo"><img src="/assets/images/join/j_logo.png" alt=""></figure>
 <p class="j_logotxt">새로운 개인정보보호의 시작</p>
 <div class="findContArea">

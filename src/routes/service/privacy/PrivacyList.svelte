@@ -13,8 +13,7 @@
     import {stimeVal} from "../../../components/common/action/DatePicker.js";
     import ExcelDownloadPop from "../../../components/common/ui/ExcelDownloadPop.svelte";
 
-
-    let provisionLayout = 0;
+let provisionLayout = 0;
 
     let provision_list = [];
     let size = 10;
@@ -65,8 +64,7 @@
         }
     }
 
-
-    let downloadPop = 0;
+let downloadPop = 0;
     let setProCode;
     function downloadHistoryClick(proCode) {
         downloadPop = 1;
@@ -75,8 +73,7 @@
         downloadHistoryList(0);
     }
 
-
-    let provisionDownloadHistory_list = [];
+let provisionDownloadHistory_list = [];
     let provisionDownload_size = 10;
     let provisionDownload_total = 0;
     let provisionDownload_total_page;

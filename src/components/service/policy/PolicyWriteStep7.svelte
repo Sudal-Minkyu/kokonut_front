@@ -12,8 +12,7 @@
     let checkAgree = false;
     let checkAgreeErrorMsg = '';
 
-
-    function scrollToBottom() {
+function scrollToBottom() {
         window.scrollTo({
             top: document.body.scrollHeight,
             behavior: 'smooth'

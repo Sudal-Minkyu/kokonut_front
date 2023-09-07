@@ -10,7 +10,6 @@
         });
     }
 
-
 </script>
 <div class="contentInnerWrap sea_detail">
     <div class="pageTitleBtn seaTitle seaWrap marB50">

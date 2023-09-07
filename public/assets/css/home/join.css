@@ -191,7 +191,6 @@
 }
 /* ::::::::======== // ~ 로그인 END ========:::::::: */
 
-
 /* ::::::::======== 이메일 찾기 Start ~ ========:::::::: */
 
 .f_type {display:flex;}
@@ -435,7 +434,6 @@ p.joinmTitle {
 
 /* ::::::::======== // ~ 회원가입 END ========:::::::: */
 
-
 /* 20230410 CSS 수정 */
 .joinContArea {padding-top:8rem;}
 .login .joinContArea {padding:14rem 13rem 7rem;}
@@ -488,9 +486,6 @@ p.joinmTitle {
 #join_finWrap .f_emailImg {max-width: 34rem; height: 29rem;}
 
 .join_bottom.not_work button:hover {background: #E2E5EA;}
-
-
-
 
 /* // 20230410 CSS 수정 */
 

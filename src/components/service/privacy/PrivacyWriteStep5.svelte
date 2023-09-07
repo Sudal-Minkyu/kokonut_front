@@ -107,8 +107,7 @@
             {key: 'basicGender', columnName: '성별', columnWidthRatio: 1},
         ];
 
-
-        if ($providePrivacyWriteData.step5.memberList.length) {
+if ($providePrivacyWriteData.step5.memberList.length) {
             providePrivacyWriteData.update(obj => {
                 const displayColumnList = [];
                 const testObj = obj.step5.memberList[0];
@@ -412,7 +411,6 @@
         </div>
     </div>
 {/if}
-
 
 {#if false}
     <PrivacyWriteStep5FilterPop />

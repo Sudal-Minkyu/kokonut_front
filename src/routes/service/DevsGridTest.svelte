@@ -22,9 +22,7 @@
 
             width : 120
 
-
-
-        }, {
+}, {
 
             dataField : "product",
 

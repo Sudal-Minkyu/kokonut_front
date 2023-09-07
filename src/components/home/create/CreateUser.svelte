@@ -113,8 +113,7 @@
         startFun = i;
     }
 
-
-    // 관리자등록 버튼
+// 관리자등록 버튼
     function amdinCreateComplete() {
         if(passwordCheck && passwordConfirmCheck) {
             let url = "/v1/api/Auth/createUser";

@@ -319,6 +319,5 @@
     <input type="hidden" id="integrity_value" name="integrity_value" /> <br/>
 </form>
 
-
 <!-- 스크린 블로커 -->
 <MainScreenBlocker visibility={$mainScreenBlockerVisibility} />

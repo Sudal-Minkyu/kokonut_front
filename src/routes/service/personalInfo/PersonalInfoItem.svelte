@@ -551,7 +551,6 @@
     </div>
 </section>
 
-
 {#if $personalInfoCategoryData.createItemPop.visible}
     <PersonalInfoCreateItemPop {personalInfoCategoryService} />
 {/if}

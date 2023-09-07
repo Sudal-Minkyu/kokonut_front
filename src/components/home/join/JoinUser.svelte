@@ -402,8 +402,7 @@
             <ErrorHighlight message={firstAgreeCautionMsg} />
         </div>
 
-
-    </div>
+</div>
     <!-- 조건 충족 시 not_work 제거 -->
     <div class="join_bottom">
         <button type="button" on:click|preventDefault={register}><p>완료</p></button>

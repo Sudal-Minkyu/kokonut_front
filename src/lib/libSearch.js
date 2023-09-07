@@ -12,7 +12,6 @@ export let stimeVal = ""
 // 공통 코드 정의 파일, 사용 검토
 import { commonCode } from './commonCode.js';
 
-
 let localeKr = {
 	format: 'YYYY-MM-DD',
 	applyLabel: '확인',
@@ -65,7 +64,6 @@ export const setDateRangePicker = (id, use_range, periodName, callback = () => {
 	}
 	// return jQuery(dtIptId).val();
 }
-
 
 /**
  * dateRangePicker 세팅값 설정 함수
@@ -173,7 +171,6 @@ const setOptDateRangePicker = (id, periodDays, periodTags, callback = () => {}) 
 	stimeVal = jQuery(id).val();
 }
 
-
 /**
  * 검색 조건 내 selectBox 설정 함수
  * commonCode에서 가져온 공통코드 값으로 동적으로 selectBox optionItem 목록을 생성, 클릭이벤트 추가
@@ -275,7 +272,6 @@ const removeHandleSelectEvent = () => {
 		})
 	}); 
 }
-
 
 export const singleDatePicker = (elementId, callback, additionalProp = {}) => {
 	jQuery('#' + elementId).daterangepicker({

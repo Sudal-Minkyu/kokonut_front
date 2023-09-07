@@ -116,8 +116,7 @@
                 }
             }
 
-
-            // 비밀번호 입력
+// 비밀번호 입력
             const num = newknPassword.search(/[0-9]/g); // 숫자 체크 정규식
             const eng = newknPassword.search(/[a-z]/ig); // 영문 체크 정규식
             const spe = newknPassword.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi); // 특수문자 체크 정규식

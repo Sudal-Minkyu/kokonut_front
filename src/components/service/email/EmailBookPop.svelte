@@ -50,8 +50,7 @@
         closeEmailBookPop();
     }
 
-
-    const handleSelectHour = (el) => {
+const handleSelectHour = (el) => {
         selectedHour = Number(el.dataset.value);
     }
 

@@ -214,8 +214,7 @@
         });
     }
 
-
-    const getEmailColumnLIst = () => {
+const getEmailColumnLIst = () => {
         ajaxGet('/v2/api/DynamicUser/searchColumnCall', false, (res2) => {
             try {
                 if (res2.data.sendData.fieldList.length) {

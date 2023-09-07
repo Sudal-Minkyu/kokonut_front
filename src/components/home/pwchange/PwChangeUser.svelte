@@ -111,8 +111,7 @@
         startFun = i;
     }
 
-
-    // 비밀번호변경 버튼
+// 비밀번호변경 버튼
     function amdinPwChangeComplete() {
         if(passwordCheck && passwordConfirmCheck) {
             let url = "/v1/api/Auth/passwordChange";

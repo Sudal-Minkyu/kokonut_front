@@ -29,8 +29,7 @@
         otpValue: '',
     }
 
-
-    const handleCancel = () => {
+const handleCancel = () => {
 
     }
 

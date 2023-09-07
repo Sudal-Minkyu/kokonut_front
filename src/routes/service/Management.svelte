@@ -246,8 +246,6 @@
     </div>
 </section>
 
-
-
 <!-- [D] 결제수단 변경 팝업 -->
 <div class="koko_popup method_pop" data-popup="method_pop">
     <div class="koko_popup_inner">
@@ -420,7 +418,6 @@
 </div>
 <!-- // [D] 결제 팝업 -->
 
-
 <!-- [D] 구독 해지 팝업 -->
 <div class="koko_popup unsubscribe_pop" data-popup="unsubscribe_pop">
     <div class="koko_popup_inner">
@@ -457,8 +454,6 @@
     </div>
 </div>
 <!-- // [D] 구독 해지 팝업 -->
-
-
 
 <!-- [D] 월 평균 개인정보 팝업 -->
 <div class="koko_popup month_current_pop" data-popup="month_current_pop">

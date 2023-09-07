@@ -49,8 +49,7 @@
         document.removeEventListener('click', tooltipEvent);
     });
 
-
-    let writingCheck = false;
+let writingCheck = false;
     function writingCheckChange() {
         writingCheck = false;
     }

@@ -20,8 +20,7 @@
         companyElectronicCheck();
     });
 
-
-    let customSelectBoxOpt = [
+let customSelectBoxOpt = [
         {id : "policySelect", use_all : true, codeName : "policy_search"},
     ]; // 선택 박스 옵션
 

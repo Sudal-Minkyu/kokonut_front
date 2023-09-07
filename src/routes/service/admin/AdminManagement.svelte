@@ -165,7 +165,6 @@
     </div>
 </section>
 
-
 <!-- [D] 관리자 등록 팝업 -->
 {#if adminSavePop}
     <AdminCreate {adminSavePopChange} {adminList} />
