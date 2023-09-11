@@ -15,17 +15,12 @@
             window.removeEventListener("resize", handleResize);
         };
     });
+
+    function privacyCheck() {
+        console.log("전문보기 클릭!");
+    }
+
 </script>
-
-<style>
-    /*@media (min-width: 1200px)*/
-    /*    .container {*/
-    /*        max-width: 1140px;*/
-    /*    }*/
-
-</style>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <div class="landing-background"></div>
 {#if width < 768}
@@ -55,7 +50,7 @@
 <!--                </tr>-->
 <!--                <tr>-->
 <!--                    <td>문의사항 처리</td>-->
-<!--                    <td>이름, 이메일 주소<br/>연락처, 소속</td>-->
+<!--                    <td>이름, 회사명<br/>서비스명, 연락처, 이메일</td>-->
 <!--                    <td>이용자의 입력</td>-->
 <!--                    <td>1년</td>-->
 <!--                </tr>-->
@@ -68,70 +63,61 @@
 <!--        </div>-->
 <!--    </div>-->
 
-    <div class="ontbording_container">
-        <div class="col-md-6 mx-auto">
+    <div class="onbording_container">
+
+        <div class="onbording_write">
+
             <div >
-                <div class="col-12">
-                    <label for="custnom" class="form-label">선호 온보딩 방식</label>
-                    <div class="ontbording_select">
+                <div class="onbording_deps">
+                    <label class="onbording_label"><a>*</a> 선호 온보딩 방식 <p class="onbording_checkmark">온보딩 방식을 선택해 주세요.</p></label>
+                    <div class="onbording_select">
                         <input type="radio" id="select" name="iqState"><label for="select">오프라인 미팅</label>
                         <input type="radio" id="select2" name="iqState"><label for="select2">온라인 교육</label>
                         <input type="radio" id="select3" name="iqState"><label for="select3">상관없음</label>
                     </div>
-                    <div class="ontbording_checkmark">선택해 주세요.</div>
                 </div>
-                <div class="col-12">
-                    <label for="custnom" class="form-label">이름</label>
-                    <input type="text" class="form-control" id="custnom">
-                    <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: 0.5rem 0 0.5rem 0; font-size: 2rem; font-weight:600; padding-top: 0.4rem;"/>
+                <div class="onbording_deps">
+                    <label for="userName" class="onbording_label"><a>*</a> 이름 <p class="onbording_checkmark">이름을 입력해 주세요.</p></label>
+                    <input type="text" class="onbording_input" id="userName" placeholder="이름을 입력해 주세요.">
                 </div>
-                <div class="col-12">
-                    <label for="companyName" class="form-label">회사명</label>
-                    <input type="text" class="form-control" id="companyName">
-                    <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: 0.5rem 0 0.5rem 0; font-size: 2rem; font-weight:600; padding-top: 0.4rem;"/>
+                <div class="onbording_deps">
+                    <label for="companyName" class="onbording_label"><a>*</a> 회사명 <p class="onbording_checkmark">회사명을 입력해 주세요.</p></label>
+                    <input type="text" class="onbording_input" id="companyName" placeholder="회사명을 입력해 주세요.">
                 </div>
-                <div class="col-12">
-                    <label for="serviceName" class="form-label">서비스명</label>
-                    <input type="text" class="form-control" id="serviceName">
-                    <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: 0.5rem 0 0.5rem 0; font-size: 2rem; font-weight:600; padding-top: 0.4rem;"/>
+                <div class="onbording_deps">
+                    <label for="serviceName" class="onbording_label"><a>*</a> 서비스명 <p class="onbording_checkmark">서비스명을 입력해 주세요.</p></label>
+                    <input type="text" class="onbording_input" id="serviceName" placeholder="서비스명을 입력해 주세요.">
                 </div>
-                <div class="col-12">
-                    <label for="phoneNumber" class="form-label">연락처</label>
-                    <input type="text" class="form-control" id="phoneNumber" placeholder="010-1234-5678">
-                    <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: 0.5rem 0 0.5rem 0; font-size: 2rem; font-weight:600; padding-top: 0.4rem;"/>
+                <div class="onbording_deps">
+                    <label for="phoneNumber" class="onbording_label"><a>*</a> 연락처 <p class="onbording_checkmark">연락처를 입력해 주세요.</p></label>
+                    <input type="text" class="onbording_input" id="phoneNumber" placeholder="연락처를 입력해 주세요.">
                 </div>
-                <div class="col-12">
-                    <label for="email" class="form-label">이메일</label>
-                    <input type="text" class="form-control" id="email" placeholder="you@example.com">
-                    <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: 0.5rem 0 0.5rem 0; font-size: 2rem; font-weight:600; padding-top: 0.4rem;"/>
+                <div class="onbording_deps">
+                    <label for="userEmail" class="onbording_label"><a>*</a> 이메일 <p class="onbording_checkmark">이메일을 입력해 주세요.</p></label>
+                    <input type="text" class="onbording_input" id="userEmail" placeholder="이메일을 입력해 주세요.">
                 </div>
-                <div class="col-12">
-                    <label for="requestOnboarding" class="form-label">온보딩 진행시 요청사항 <span class="text-body-secondary">(선택)</span></label>
-                    <textarea class="form-control" id="requestOnboarding" style="resize: none;"></textarea>
-                    <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: 0.5rem 0 0.5rem 0; font-size: 2rem; font-weight:600; padding-top: 0.4rem;"/>
+                <div class="onbording_deps">
+                    <label for="requestOnboarding" class="onbording_label">온보딩 진행시 요청사항 <span class="text-body-secondary">(선택)</span></label>
+                    <textarea class="onbording_textarea" id="requestOnboarding"></textarea>
                 </div>
             </div>
 
-            <hr class="my-4">
+            <hr class="onbording_hr">
 
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="same-address">
-                <label class="form-check-label" for="same-address">개인정보 수집 및 이용을 동의합니다. (전문보기)</label>
+            <div style="text-align: center">
+                <input type="checkbox" id="pri_check">
+                <label class="onbording_privacy" for="pri_check">개인정보 수집 및 이용을 동의합니다.</label><a class="onbording_privacy_show" on:click={privacyCheck}>전문보기</a>
+                <p class="onbording_privacy_check">개인정보 수집 및 이용을 동의해 주세요.</p>
             </div>
-            <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: -0.7rem 0 1rem 0; padding-top: 0.4rem;"/>
 
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="save-info">
-                <label class="form-check-label" for="save-info">개인정보 수집 및 이용을 동의합니다. 2</label>
-            </div>
-            <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: -0.7rem 0 1rem 0; padding-top: 0.4rem;"/>
+            <button class="onbording_btn" type="button">온보딩 신청하기</button>
 
-            <button class="w-100 btn btn-light btn-lg" type="submit" style="margin-top: 2rem;">온보딩 신청하기</button>
-
-            <p style="margin-top: 2rem;margin-bottom: 0;font-size: 15px;font-weight: 500;text-align: center;">
-                Copyright© 2023 Everyfeb. All Rights Reserved
+            <p class="onbording_footer">
+                Copyright© 2023 Everyfeb<br/>All Rights Reserved
             </p>
+
         </div>
+
     </div>
 
 </div>

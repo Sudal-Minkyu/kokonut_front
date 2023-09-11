@@ -5,6 +5,93 @@
     width: 100%;
 }
 
+/* 작성폼 부트스트랩 css */
+.onbording_write {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto!important;
+    margin-left: auto!important;
+    line-height: 1.5;
+}
+
+/* 작성폼 각 뎁스 css */
+.onbording_deps {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+/* 작성폼 인풋 css */
+.onbording_input {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    background-color: white;
+    background-clip: padding-box;
+    border: 1px solid #333;
+    border-radius: 0.25rem;
+}
+
+/* 작성폼 텍스트에어리아 css */
+.onbording_textarea {
+    display: block;
+    width: 100%;
+    height: 120px;
+    font-size: 1.5rem;
+    background-color: white;
+    background-clip: padding-box;
+    border: 1px solid #333;
+    border-radius: 0.25rem;
+    resize: none;
+}
+
+/* 온보딩 hr선 css */
+.onbording_hr {
+    margin-bottom: 1.5rem!important;
+    margin-top: 1.5rem!important;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+
+/* 온보딩 푸터 css */
+.onbording_footer {
+    margin-top: 2rem;
+    margin-bottom: 0;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* 온보딩 버튼 css */
+.onbording_btn {
+    margin-top: 2rem;
+    cursor: pointer;
+    background-color: white;
+    width: 100%!important;
+    padding: 0.5rem 1rem;
+    font-size: 3rem;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+    display: inline-block;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+/* 온보딩 버튼 hover css */
+.onbording_btn:hover {
+    color: white;
+    background-color: #333;
+    text-decoration: none;
+}
+
 /* 온보딩작성 배경 css */
 .landing-write {
     display: flex;
@@ -13,76 +100,180 @@
 }
 
 /* 온보딩 컨테이너 css */
-.ontbording_container {
+.onbording_container {
     width: 100%;
     font-weight: 600;
-    font-size: 20px;
     padding-right: 15px;
     padding-left: 15px;
     margin: 4rem auto 3rem;
+    font-size: 15px;
 }
 
-/* 해상도 변경될 때 반응형처리 css */
-@media (min-width: 576px) {
-    .ontbording_container {
-        max-width: 540px;
-    }
-}
-
-@media (min-width: 768px) {
-    .ontbording_container {
-        max-width: 720px;
-    }
-}
-
-@media (min-width: 992px) {
-    .ontbording_container {
-        max-width: 960px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .ontbording_container {
-        max-width: 1140px;
-    }
-}
-
-/* 라디오버튼 css */
-.ontbording_select input[type=radio]{
+/* 라디오버튼1 css */
+.onbording_select input[type=radio]{
     display: none;
 }
-.ontbording_select input[type=radio]+label{
+.onbording_select input[type=radio]+label{
     display: inline-block;
     cursor: pointer;
     height: 30px;
-    width: 100px;
+    width: 80px;
     border: 1px solid #333;
-    margin-right: 10px;
+    margin-right: 5px;
     line-height: 28px;
     text-align: center;
     font-weight: bold;
-    font-size: 16px;
-}
-.ontbording_select input[type=radio]+label{
+    font-size: 10px;
     background-color: #fff;
     color: #333;
+    transition: background-color 0.3s;
 }
-.ontbording_select input[type=radio]:checked+label{
+.onbording_select input[type=radio]:checked+label{
     background-color: #333;
     color: #fff;
 }
 
+/* 온보딩 라벨 텍스트 css */
+.onbording_label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+}
+.onbording_label a {
+    color: #ff2f2f;
+    vertical-align: text-top;
+}
+
 /* 체크표시 css */
-.ontbording_checkmark {
-    font-size: 2rem;
+.onbording_checkmark {
+    font-size: 10px;
     font-weight:600;
-    color: #FC5757;
+    color: #ff2f2f;
+    display: inline;
+    margin-left: 5px;
 }
-.ontbording_checkmark::before {
-    content: '\2714';
-    font-size: 17px;
-    margin-right: 3px;
+
+/* 개인정보수집동의 css */
+.onbording_privacy {
+    font-weight: 400;
 }
+/* 전문보기 문구 css */
+.onbording_privacy_show {
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 500;
+    margin-left: 10px;
+}
+/* 개인정보수집동의 체크 css */
+.onbording_privacy_check {
+    font-size: 10px;
+    font-weight:600;
+    color: #ff2f2f;
+}
+
+
+
+
+
+/* 반응형 576px css */
+@media (min-width: 576px) {
+    .onbording_container {
+        max-width: 540px;
+        font-size: 17px;
+    }
+
+    .onbording_select input[type=radio]+label{
+        font-size: 13px;
+        margin-right: 6px;
+        width: 80px;
+    }
+
+    .onbording_checkmark {
+        font-size: 8px;
+    }
+
+    .onbording_privacy_check {
+        font-size: 8px;
+    }
+
+}
+
+/* 반응형 768px css */
+@media (min-width: 768px) {
+    .onbording_write {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .onbording_container {
+        max-width: 720px;
+        font-size: 15px;
+    }
+
+    .onbording_select input[type=radio]+label{
+        font-size: 13px;
+        margin-right: 8px;
+        width: 80px;
+    }
+
+    .onbording_checkmark {
+        font-size: 11px;
+    }
+
+    .onbording_privacy_check {
+        font-size: 11px;
+    }
+
+}
+
+/* 반응형 992px css */
+@media (min-width: 992px) {
+    .onbording_container {
+        max-width: 960px;
+        font-size: 19px;
+    }
+
+}
+
+/* 반응형 1200px css */
+@media (min-width: 1200px) {
+    .onbording_container {
+        max-width: 1140px;
+        font-size: 24px;
+    }
+
+    .onbording_select input[type=radio]+label{
+        font-size: 18px;
+        margin-right: 12px;
+        width: 120px;
+    }
+
+    .onbording_checkmark {
+        font-size: 18px;
+    }
+
+    .onbording_privacy_check {
+        font-size: 18px;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .desktop img {
     width: 50%;
