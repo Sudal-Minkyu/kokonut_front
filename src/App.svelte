@@ -26,7 +26,7 @@
         isReadyToShow = false;
         const isServiceLocation = href.substring(0, 8) === '/service';
         if (isServiceLocation && $is_login) {
-            if ($userInfoData.knEmail === '') { // 사용자 정보 필요
+            if ($userInfoData.knEmail === '' || true) { // 사용자 정보 필요, 임시 통과조치
                 getUserInfo();
             } else { // 사용자 정보 있음
                 // 향후 로그인 정보 특정조건 갱신 필요의 경우 여기에 작성
