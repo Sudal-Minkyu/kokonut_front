@@ -78,15 +78,6 @@ let customSelectBoxOpt = [
             } catch (e) {
                 reportCatch('temp081', e);
             }
-        }, (errCode, errMsg) => {
-            try {
-                policy_list = [];
-                total = 0;
-                policyLayout = 1;
-                return {action: 'NONE'};
-            } catch (e) {
-                reportCatch('temp082', e);
-            }
         });
     });
 

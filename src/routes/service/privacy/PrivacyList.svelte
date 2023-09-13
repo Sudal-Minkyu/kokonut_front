@@ -45,15 +45,6 @@
             } catch (e) {
                 reportCatch('temp089', e);
             }
-        }, (errCode) => {
-            try {
-                provision_list = [];
-                total = 0;
-                provisionLayout = 1;
-                return {action: 'NONE'};
-            } catch (e) {
-                reportCatch('temp090', e);
-            }
         });
     }
 
@@ -93,15 +84,6 @@
                 provisionDownload_total = res.data.total_rows
             } catch (e) {
                 reportCatch('temp091', e);
-            }
-        }, (errCode) => {
-            try {
-                provisionDownloadHistory_list = [];
-                provisionDownload_total = 0;
-                provisionLayout = 1;
-                return {action: 'NONE'};
-            } catch (e) {
-                reportCatch('temp092', e);
             }
         });
     }

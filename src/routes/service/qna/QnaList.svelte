@@ -42,15 +42,6 @@
             } catch (e) {
                 reportCatch('temp098', e);
             }
-        }, (errCode) => {
-            try {
-                qna_list = [];
-                total = 0;
-                qnaLayout = 1;
-                return {action: 'NONE'};
-            } catch (e) {
-                reportCatch('temp099', e);
-            }
         });
     }
 

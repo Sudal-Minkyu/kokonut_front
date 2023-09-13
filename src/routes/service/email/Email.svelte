@@ -102,15 +102,6 @@
             } catch (e) {
                 reportCatch('temp069', e);
             }
-        }, (errCode, errMsg) => {
-            try {
-                emailHistoryListState = 1;
-                email_list = [];
-                total = 0;
-                return {action: 'NONE'};
-            } catch (e) {
-                reportCatch('temp070', e);
-            }
         });
     });
 

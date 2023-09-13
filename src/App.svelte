@@ -1,5 +1,5 @@
 <script>
-    import Router, {loc} from 'svelte-spa-router'
+    import Router from 'svelte-spa-router'
     import routes from './routes.js'
     import {expireDate, is_login, userInfoData} from "./lib/store.js";
     import {onMount} from "svelte";

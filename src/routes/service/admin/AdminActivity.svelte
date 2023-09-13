@@ -57,15 +57,6 @@
             } catch (e) {
                 reportCatch('temp063', e);
             }
-        }, (errCode) => {
-            try {
-                activity_list = [];
-                total = 0;
-                adminActivityLayout = 1;
-                return {action: 'NONE'};
-            } catch (e) {
-                reportCatch('temp064', e);
-            }
         });
     });
 

@@ -48,15 +48,6 @@
             } catch (e) {
                 reportCatch('temp087', e);
             }
-        }, (errCode) => {
-            try {
-                privacy_history_list = [];
-                total = 0;
-                privacyHistoryLayout = 1;
-                return {action: 'NONE'};
-            } catch (e) {
-                reportCatch('temp088', e);
-            }
         });
     });
 
