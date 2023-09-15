@@ -120,7 +120,7 @@ export const reportCatch = (name, e) => {
 // handleFail -> 호출이 실패했을 경우, 반환되는 객체가 있다면 에러에 대한 처리에 사용한다.
 //            -> 반환값 {action: 에러에 대해서 취할 공통액션(errorActionTypes 참조), message: 팝업으로 전달할 메시지 }
 const restapi = ({url, handleSuccess, handleFail, method, data, params, contentType, apiKey}) => {
-    const headers = configureHeaders(url, contentType);
+    const headers = configureHeaders(url, contentType, apiKey);
     const requestConfig = {
         url: import.meta.env.VITE_SERVER_URL + url,
         method,
@@ -138,21 +138,25 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
     pendingRequests.set(configString, true);
 
     axios(requestConfig).then(okRes => {
-        pendingRequests.delete(configString);
-        let newJwtAccessToken = okRes.headers.get("Authorization");
-        if (newJwtAccessToken) {
-            accessToken.set(newJwtAccessToken);
-        }
+        try {
+            pendingRequests.delete(configString);
+            let newJwtAccessToken = okRes.headers.get("Authorization");
+            if (newJwtAccessToken) {
+                accessToken.set(newJwtAccessToken);
+            }
 
-        if (okRes.data.status === 200) {
-            handleSuccess(okRes);
-        } else {
-            handleResponseError(okRes, handleSuccess);
+            if (okRes.data.status === 200) {
+                handleSuccess(okRes);
+            } else {
+                handleResponseError(okRes, handleSuccess, handleFail);
+            }
+        } catch (e) {
+            reportCatch('temp142', e);
         }
     }).catch(errorRes => {
         pendingRequests.delete(configString);
         try {
-            handleAxiosError(errorRes, handleSuccess);
+            handleAxiosError(errorRes, handleSuccess, handleFail);
         } catch (e) {
             reportCatch('temp006', e);
         }
@@ -160,23 +164,24 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
 };
 
 // 헤더 설정
-const configureHeaders = (url, contentType) => {
+const configureHeaders = (url, contentType, apiKey) => {
     const headers = {};
     headers["Content-Type"] = contentType;
 
     if (url.slice(0, 5).includes('v2/')) { // v2는 인증이 필요한 api 호출에 사용
         headers["Authorization"] = get(accessToken);
-    } else if(url.slice(0, 5).includes('v1/')) { // v1은 인증이 불필요한 api 호출에 사용
+    } else if (url.slice(0, 5).includes('v1/')) { // v1은 인증이 불필요한 api 호출에 사용
         headers["keyBufferSto"] = get(keyBufferSto);
         headers["ivSto"] = get(ivSto);
+    } else if (url.slice(0, 5).includes('v3/')) {
+        headers["x-api-key"] = apiKey;
     }
-
     return headers;
 };
 
 
 // 백엔드에서 직접 설정한 응답이 도착했으나 실패를 알릴 때
-const handleResponseError = (okRes, handleSuccess) => {
+const handleResponseError = (okRes, handleSuccess, handleFail) => {
     const code = okRes.data.err_code;
     const handleFailResult = handleFail(code, okRes.data.err_msg);
     const actionString = handleFailResult?.action || okRes.data.err_action || '';
@@ -188,7 +193,7 @@ const handleResponseError = (okRes, handleSuccess) => {
 };
 
 // 엑시오스와 기본백엔드 응답애러가 발생했을 때
-const handleAxiosError = (errorRes, handleSuccess) => {
+const handleAxiosError = (errorRes, handleSuccess, handleFail) => {
     if (errorRes.response) {
         const status = errorRes.response.status;
         const handleFailResult = handleFail(status, createMsgByErrorStatus(status));
@@ -431,13 +436,14 @@ const errorActionDictionary = {
 
 // 프론트 엔드의 에러를 백엔드 서버에 수집하기 위함
 const errorReport = (etTitle, etMsg) => {
-    fetch(import.meta.env.VITE_SERVER_URL + '/v2/api/Error/errorSave', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': get(accessToken) // Authorization 헤더 추가
-        },
-        body: JSON.stringify({etTitle, etMsg})
-    }).catch((error) => {
-    });
+    if (get(accessToken)) {
+        fetch(import.meta.env.VITE_SERVER_URL + '/v2/api/Error/errorSave', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': get(accessToken) // Authorization 헤더 추가
+            },
+            body: JSON.stringify({etTitle, etMsg})
+        });
+    }
 }
