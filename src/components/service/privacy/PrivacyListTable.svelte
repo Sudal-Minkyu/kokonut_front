@@ -87,7 +87,7 @@
                     <td>{provision.offerCount}</td>
                     <td><div class="dcount downcountPop" on:click={() => downloadHistoryClick(provision.proCode)}>{provision.downloadCount}</div></td>
                     <td>
-                        {#if provision.proState === "1"}
+                        {#if provision.proState === "1" && provision.downloadAccept === "1"}
                             <div class="dlink">
                                 <a on:click={() => {excelDownloadPopService.open({proCode: provision.proCode})}}>다운로드</a>
                             </div>
