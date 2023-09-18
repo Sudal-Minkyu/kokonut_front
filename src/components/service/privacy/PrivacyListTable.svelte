@@ -74,7 +74,7 @@
                     {:else if provision.proState === "1"}
                         <td><div class="condition ing">제공중</div></td>
                     {:else}
-                        <td><div class="condition complete">제공완료</div></td>
+                        <td><div class="condition complete">제공기간 만료</div></td>
                     {/if}
                     <td>{provision.knName}</td>
                     <td>{provision.insert_date}</td>

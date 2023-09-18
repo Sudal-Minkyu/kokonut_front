@@ -4,6 +4,7 @@
     import {onMount} from "svelte";
     import ErrorHighlight from "../../common/ui/ErrorHighlight.svelte";
     import {emailSendData} from "../../../lib/store.js";
+    import moment from "moment/moment.js";
 
     let selectedDate;
     let selectedHour;
@@ -19,7 +20,8 @@
             selectedDate = result.toDate();
         }, {
             startDate: baseDate,
-            minDate: new Date(),
+            minDate: moment(),
+            maxDate: moment().add(5, 'years')
         });
 
         selectedDate = new Date(document.getElementById('datepicker').value);

@@ -149,4 +149,22 @@ function base64ToUint8Array(base64String) {
     return bytes;
 }
 
-export { phoneNumver, ipCheck, getToday, emailCheck, onlyNumber, onlyDouble, callCapsLock, popOpenBtn, imgView, addTwoWeeks, encryptData, decryptData };
+/**
+ * 객체와 검사를 무시할 키값을 인자로 받아 빈값이 있을 경우 true를 반환한다.
+ * @param arrOfObjects : Array<Object> - 검사할 객체
+ * @param ignoreKeys : Array<string> - 검사를 무시할 키값의 배열
+ * @returns {boolean}
+ */
+function checkFalsyValuesExceptIgnoredKeys(arrOfObjects, ignoreKeys = []) {
+    return arrOfObjects.every(obj => {
+        for (let key in obj) {
+            if (!ignoreKeys.includes(key) && !obj[key] && obj[key] !== 0) {
+                return true;
+            }
+        }
+        return false;
+    });
+}
+
+export { phoneNumver, ipCheck, getToday, emailCheck, onlyNumber, onlyDouble, callCapsLock, popOpenBtn, imgView
+    , addTwoWeeks, encryptData, decryptData, checkFalsyValuesExceptIgnoredKeys };

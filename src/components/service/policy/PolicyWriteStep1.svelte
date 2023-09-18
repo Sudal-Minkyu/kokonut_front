@@ -5,6 +5,7 @@
     import {onMount} from "svelte";
     import {singleDatePicker} from "../../../lib/libSearch.js";
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
+    import moment from "moment";
 
     onMount(async () => {
         if($piId === 0) {
@@ -17,7 +18,7 @@
                 obj.policyData1.piDate = result.format('YYYY-MM-DD');
                 return obj;
             });
-        });
+        }, {minDate: moment(), maxDate: moment().add(5, 'years')});
         policyInfoData.update(obj => {
             obj.policyData1.piDate = document.getElementById('startdate').value;
             return obj;

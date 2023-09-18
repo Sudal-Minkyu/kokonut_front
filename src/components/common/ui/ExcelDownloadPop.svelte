@@ -29,10 +29,6 @@
         otpValue: '',
     }
 
-const handleCancel = () => {
-
-    }
-
     const handleProceedDownload = () => {
         if (!requestData.otpValue) {
             otpValueErrMsg = 'OTP를 적어주세요.';

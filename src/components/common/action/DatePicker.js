@@ -77,67 +77,39 @@ export const DateRangePicker = (targetEl, props = {}) => {
  * @param callback
  */
 const setOptDateRangePicker = ({jQueryEl, periodDays, periodTags, callback, eraseOnCancel, handleRendered}) => {
-    if(periodDays === "t"){
-        // negative -  all_days
-        // daterangepicker 비활성화
-        if(jQueryEl.data('daterangepicker')){
-            jQueryEl.data('daterangepicker').container.remove();
+
+    // 기간 선택 옵션에 따라 데이트피커에 적용할 옵션을 변경한다.
+    const getOptions = (periodDays) => {
+        const commonOptions = {
+            dateLimit: { days: 180 },
+            locale: localeKr,
+        };
+
+        if (periodDays === "t") return null;
+
+        let period = Number(periodDays);
+        let options = { ...commonOptions, startDate: moment(), endDate: moment(), maxDate: moment() };
+
+        if (periodDays === "-0") options.minDate = moment();
+        else if (period < 0) options.endDate = moment().subtract(period + 1, 'days');
+        else if (period > 0) options.startDate = moment().subtract(period - 1, 'days');
+
+        return options;
+    };
+
+    const setDatePicker = (options) => {
+        if (options) {
+            jQueryEl.daterangepicker(options)
+        } else { // 옵션값이 넘어오지 않는 period가 't' 같은 경우 데이트 피커 작동 해제
+            if (jQueryEl.data('daterangepicker')) {
+                jQueryEl.data('daterangepicker').container.remove();
+            }
+            jQueryEl.val('');
         }
-        jQueryEl.val('');
-    }else if(Number(periodDays) < 0){
-        jQueryEl.daterangepicker({
-            startDate : moment(),
-            endDate : moment().subtract(Number(periodDays)+1, 'days'),
-            minDate: moment(),
-            dateLimit: {
-                'days': 180
-            },
-            locale : localeKr
-        });
-    }else if(Number(periodDays) > 0){
-        // positive
-        jQueryEl.daterangepicker({
-            startDate : moment().subtract(Number(periodDays)-1, 'days'),
-            endDate : moment(),
-            maxDate : moment(),
-            dateLimit: {
-                'days': 180
-            },
-            locale : localeKr
-        });
-    }else if(periodDays === "-0"){
-        // zero - custom
-        jQueryEl.daterangepicker({
-            startDate : moment(),
-            endDate : moment(),
-            minDate : moment(),
-            dateLimit: {
-                'days': 180
-            },
-            locale : localeKr
-        });
-    }else if(periodDays === "0"){
-        // zero - custom
-        jQueryEl.daterangepicker({
-            startDate : moment(),
-            endDate : moment(),
-            maxDate : moment(),
-            dateLimit: {
-                'days': 180
-            },
-            locale : localeKr
-        });
-    }else{
-        jQueryEl.daterangepicker({
-            startDate : moment(),
-            endDate : moment(),
-            maxDate : moment(),
-            dateLimit: {
-                'days': 180
-            },
-            locale : localeKr
-        });
-    }
+    };
+
+    const options = getOptions(periodDays);
+    setDatePicker(options);
 
     // 캘린더 영역 펼쳐질 때 css
     jQueryEl.on("show.daterangepicker", function() {
@@ -288,7 +260,6 @@ export const singleDatePicker = (elementId, callback, additionalProp = {}) => {
         singleDatePicker: true,
         showDropdowns: true,
         autoApply: true,
-        minYear: 1990,
         locale : localeKr,
         ...additionalProp,
     }, callback);
