@@ -35,35 +35,35 @@
 
 <div class="landing-write">
 
-<!--    <div id="view_text_popup" class="view_text_popup">-->
-<!--        <div class="inquiry_box__close"></div>-->
-<!--        <div class="view_text_popup_contents">-->
-<!--            <p style="margin: -5px;padding-top: 20px;">이용자가 입력하는 문의사항을 처리하기 위해</p>-->
-<!--            <p>다음과 같이 개인정보를 수집합니다.</p>-->
-<!--            <table>-->
-<!--                <tbody class="viewTextTable">-->
-<!--                <tr>-->
-<!--                    <td style="width: 140px">처리 목적</td>-->
-<!--                    <td style="width: 200px">수집 항목</td>-->
-<!--                    <td style="width: 150px">수집 방법</td>-->
-<!--                    <td style="width: 180px">처리 및 보유 기간</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>문의사항 처리</td>-->
-<!--                    <td>이름, 회사명<br/>서비스명, 연락처, 이메일</td>-->
-<!--                    <td>이용자의 입력</td>-->
-<!--                    <td>1년</td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--            <p style="margin-top: 20px;margin-bottom: -10px">이용자는 위와 같이 개인정보를 처리하는데</p>-->
-<!--            <p style="margin: 5px 0 11px 0">동의하지 않으실 수 있습니다.</p>-->
-<!--            <p style="margin: -5px">다만, 동의하지 않으시면 문의</p>-->
-<!--            <p style="margin-bottom: 5px">서비스를 받으실 수 없습니다.</p>-->
-<!--        </div>-->
-<!--    </div>-->
-
     <div class="onbording_container">
+
+        <div class="view_text_popup">
+            <div class="inquiry_box__close"></div>
+            <div class="view_text_popup_contents">
+                <p>이용자가 입력하는 문의사항을 처리하기 위해</p>
+                <p style="margin-bottom: 20px;">다음과 같이 개인정보를 수집합니다.</p>
+                <table>
+                    <tbody class="viewTextTable">
+                    <tr>
+                        <td style="width: 140px">처리 목적</td>
+                        <td style="width: 200px">수집 항목</td>
+                        <td style="width: 150px">수집 방법</td>
+                        <td style="width: 180px">처리 및 보유 기간</td>
+                    </tr>
+                    <tr>
+                        <td>문의사항 처리</td>
+                        <td>이름, 회사명, 서비스명, 연락처, 이메일</td>
+                        <td>이용자의 입력</td>
+                        <td>1년</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 20px;">이용자는 위와 같이 개인정보를 처리하는데</p>
+                <p style="margin-bottom: 10px;">동의하지 않으실 수 있습니다.</p>
+                <p>다만, 동의하지 않으시면 문의</p>
+                <p>서비스를 받으실 수 없습니다.</p>
+            </div>
+        </div>
 
         <div class="onbording_write">
 
