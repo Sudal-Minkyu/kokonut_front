@@ -32,7 +32,7 @@
     let iqPhone = ''; // 연락처(휴대전화)
     let iqEmail = ''; // 이메일
     let iqContents = ''; // 온보딩 진행 시 요청사항 (이전에 내용칸 활용)
-    let acceptCheck = '0';
+    let acceptCheck = [];
 
     let iqStateBlank = true;
     let iqWriterBlank = true;
@@ -81,6 +81,7 @@
             iqEmailBlank = true;
         }
 
+        console.log("acceptCheck : "+acceptCheck.length)
         if(acceptCheck.length === 0) {
             acceptBlank = false;
         } else {
@@ -102,21 +103,21 @@
         essentialCheck();
 
         if(essentialCheckMaster) {
-            let url = "/v1/api/Inquiry/send"
-
-            let sendData = {
-                iqState : iqState,
-                iqWriter : iqWriter,
-                iqCompany : iqCompany,
-                iqService : iqService,
-                iqPhone : iqPhone,
-                iqEmail : iqEmail,
-                iqContents : iqContents
-            }
-
-            ajaxBody(url, sendData, (res) => {
+            // let url = "/v1/api/Inquiry/send"
+            //
+            // let sendData = {
+            //     iqState : iqState,
+            //     iqWriter : iqWriter,
+            //     iqCompany : iqCompany,
+            //     iqService : iqService,
+            //     iqPhone : iqPhone,
+            //     iqEmail : iqEmail,
+            //     iqContents : iqContents
+            // }
+            //
+            // ajaxBody(url, sendData, (res) => {
                 alert("온보딩 신청을 완료했습니다.");
-            });
+            // });
         }
 
     }
