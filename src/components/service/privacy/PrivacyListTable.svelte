@@ -74,7 +74,7 @@
                     {:else if provision.proState === "1"}
                         <td><div class="condition ing">제공중</div></td>
                     {:else}
-                        <td><div class="condition complete">제공완료</div></td>
+                        <td><div class="condition complete">제공기간 만료</div></td>
                     {/if}
                     <td>{provision.knName}</td>
                     <td>{provision.insert_date}</td>
@@ -87,7 +87,7 @@
                     <td>{provision.offerCount}</td>
                     <td><div class="dcount downcountPop" on:click={() => downloadHistoryClick(provision.proCode)}>{provision.downloadCount}</div></td>
                     <td>
-                        {#if provision.proState === "1"}
+                        {#if provision.proState === "1" && provision.downloadAccept === "1"}
                             <div class="dlink">
                                 <a on:click={() => {excelDownloadPopService.open({proCode: provision.proCode})}}>다운로드</a>
                             </div>

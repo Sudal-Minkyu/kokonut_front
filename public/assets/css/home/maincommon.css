@@ -132,7 +132,6 @@ p.menu01_h {
 li.menu01 {padding: 1.5rem 0;}
 li.menu01:last-child {border-bottom:none;}
 
-
 .side_menu_BG.showBg { display:none; z-index: 490;opacity: 1;top:0;}
 
 @media (max-width:991px) {
@@ -174,7 +173,6 @@ li.menu01:last-child {border-bottom:none;}
 /* +++ // ~ 모바일 메뉴 END +++ */
 /* ::::::::: // header END ::::::::: */
 
-
 /* ::::::::: Footer START ~ ::::::::: */
 footer {background: #F6F6F6;}
 .footerInner {width: 100%; margin: 0 auto; max-width: 144rem; padding: 10rem 2rem; display: flex;}
@@ -189,7 +187,6 @@ footer {background: #F6F6F6;}
 .footerBox.left {width: 57.65%;}
 
 .pp_ul {display:flex;}
-
 
 .pp_ul li {
 	font-size: 1.7rem;

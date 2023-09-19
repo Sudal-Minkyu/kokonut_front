@@ -18,7 +18,6 @@
 
     const getSubscriptionManagementInfo = (dateType) => {
         ajaxGet('/v2/api/Index/paymentInfo', {dateType}, (res) => {
-            console.log('구독관리', res.data.sendData);
             currentFee = res.data.sendData;
         });
     }

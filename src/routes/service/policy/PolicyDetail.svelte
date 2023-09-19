@@ -58,15 +58,10 @@
 
     // 상세조회
     function policyDetail(piId) {
-        console.log("개인정보처리방침 상세보기 호출");
-
         let url = "/v2/api/Policy/policyDetail/"+piId;
 
         ajaxGet(url, false, (res) => {
             try {
-                console.log("조회된 데이터가 있습니다.");
-
-                console.log(res)
                 policyInfoData.policyData = res.data.sendData.policyData;
 
                 policyInfoData.purposeDataList = res.data.sendData.purposeDataList;
@@ -88,8 +83,6 @@
                     policyInfoData.thirdOverseasDataList = res.data.sendData.thirdOverseasDataList;
                 }
                 policyInfoData.reponsibleDataList = res.data.sendData.reponsibleDataList;
-                console.log(policyInfoData)
-
                 policyDetailLayout = 1;
             } catch (e) {
                 reportCatch('temp078', e);
@@ -100,7 +93,6 @@
                 pageErrMsg1 = "선택하신 처리방침이 존재하지 않습니다.";
                 pageErrMsg2 = "다시 시도해주사길 바랍니다.";
                 pageErrUrl = "/service/policyList";
-                console.log("조회된 데이터가 없습니다.");
                 return {action: 'NONE'};
             } catch (e) {
                 reportCatch('temp079', e);
@@ -229,7 +221,6 @@
                 navigator.clipboard.writeText(elementHTML).then(function() {
                     openBanner('HTML 코드가 클립보드로 복사되었습니다.');
                 }, function(err) {
-                    console.error('클릭보드복사오류: ', err);
                     openConfirm({
                         icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                         title: 'HTML 복사 오류', // 제목

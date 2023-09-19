@@ -6,6 +6,7 @@ import {logout} from "./authActions.js";
 
 const pendingRequests = new Map();
 
+// GET 방식 호출, 보낼 데이터가 없다면 false 나 빈문자 등으로 보낼 것
 export const ajaxGet = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
     restapi({
         url,
@@ -17,6 +18,7 @@ export const ajaxGet = (url, sendData = {}, handleSuccess = () => {}, handleFail
     });
 };
 
+// json 형태의 파라메터를 post 형태로 전송할 경우 (백엔드에서 PARAM으로 받는 경우)
 export const ajaxParam = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
     restapi({
         url,
@@ -28,6 +30,7 @@ export const ajaxParam = (url, sendData = {}, handleSuccess = () => {}, handleFa
     });
 };
 
+// json 형태의 파라메터를 body 형태로 전송할 경우 (백엔드에서 BODY로 받는 경우)
 export const ajaxBody = (url, sendData = {}, handleSuccess = () => {}, handleFail = () => {}) => {
     restapi({
         url,
@@ -39,6 +42,7 @@ export const ajaxBody = (url, sendData = {}, handleSuccess = () => {}, handleFai
     });
 };
 
+// 파일 전송이나 폼데이터를 보내기 위함
 export const ajaxMultipart = (url, sendData = new FormData(), handleSuccess = () => {}, handleFail = () => {}) => {
     restapi({
         url,
@@ -50,8 +54,8 @@ export const ajaxMultipart = (url, sendData = new FormData(), handleSuccess = ()
     });
 };
 
+// body와 param 두가지 동시에 받는 일부 경우 사용
 export const ajaxExcelBodyParam = (url, sendData = {}, sendParams = {}, handleSuccess = () => {}, handleFail = () => {}) => {
-    console.log('보내는 데이터', sendData);
     restapi({
         url,
         handleSuccess,
@@ -61,9 +65,9 @@ export const ajaxExcelBodyParam = (url, sendData = {}, sendParams = {}, handleSu
         data: JSON.stringify(sendData),
         contentType: 'application/json',
     });
-
 }
 
+// 테스터용 개인정보 추가 페이지에서만 사용
 export const ajaxRegister = (url, sendData = {}, apiKey, handleSuccess = () => {}, handleFail = () => {}) => {
 
     restapi({
@@ -89,8 +93,6 @@ export const ajaxParamArray = (url, sendData = {}, handleSuccess = () => {}, han
             params.append(key, sendData[key]);
         }
     }
-    console.log(params.toString());
-
     restapi({
         url,
         handleSuccess,
@@ -118,22 +120,7 @@ export const reportCatch = (name, e) => {
 // handleFail -> 호출이 실패했을 경우, 반환되는 객체가 있다면 에러에 대한 처리에 사용한다.
 //            -> 반환값 {action: 에러에 대해서 취할 공통액션(errorActionTypes 참조), message: 팝업으로 전달할 메시지 }
 const restapi = ({url, handleSuccess, handleFail, method, data, params, contentType, apiKey}) => {
-    const headers = {};
-    headers["Content-Type"] = contentType;
-
-    // 토큰관리를 쿠키로 이전하고 나면 삭제
-    // type이 'v0' 일 경우 -> JWT토큰 불필요
-    if (url.slice(0, 5).includes('v2/')) {
-        // type이 'v2', 'v3' 일 경우 -> JWT토큰 필수
-        headers["Authorization"] = get(accessToken);
-    } else if(url.slice(0, 5).includes('v1/')) {
-        headers["keyBufferSto"] = get(keyBufferSto);
-        headers["ivSto"] = get(ivSto);
-    } else if(url.slice(0, 5).includes('v3/')) {
-        headers["x-api-key"] = apiKey ? apiKey : "ff5873bbf9faa2218b369a577ea9e452";
-
-    }
-
+    const headers = configureHeaders(url, contentType, apiKey);
     const requestConfig = {
         url: import.meta.env.VITE_SERVER_URL + url,
         method,
@@ -145,56 +132,80 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
 
     const configString = JSON.stringify(requestConfig);
     if (pendingRequests.has(configString)) {
-        console.log('짧은 시간 내 중복된 요청되어 추가 요청은 프론트에서 거부됨');
         return;
     }
 
     pendingRequests.set(configString, true);
 
     axios(requestConfig).then(okRes => {
-        pendingRequests.delete(configString);
-        // 토큰만료시 재발급, 추후 토큰관리를 쿠키로 이전하고 나면 삭제
-        let newJwtAccessToken = okRes.headers.get("Authorization");
-        if (newJwtAccessToken !== null && newJwtAccessToken !== undefined) {
-            accessToken.set(newJwtAccessToken);
-        }
+        try {
+            pendingRequests.delete(configString);
+            let newJwtAccessToken = okRes.headers.get("Authorization");
+            if (newJwtAccessToken) {
+                accessToken.set(newJwtAccessToken);
+            }
 
-        // ajax 호출 성공시 자동 로그아웃 시간 초기화
-        // 같은 객체를 다시 할당하는 이유는, 자동 로그아웃이 해당 변수의 변경을 감지하여 작동하도록 하였기 때문
-
-        if (okRes.data.status === 200) {
-            handleSuccess(okRes);
-        } else {
-            console.log(okRes);
-            const code = okRes.data.err_code;
-            const handleFailResult = handleFail(code, okRes.data.err_msg);
-            const actionString = handleFailResult?.action || okRes.data.err_action || '';
-            const actionSymbol = errorActionTypes[actionString.toUpperCase()];
-            const action = actionSymbol ? actionSymbol : errorActionDictionary[code] || errorActionTypes.ERROR;
-            const message = handleFailResult?.message || okRes.data.err_msg || '';
-            makeUIResponse(action, message, code, handleSuccess);
-            errorReport('ok상태에러 - 사용자환경 : ' + navigator.userAgent, JSON.stringify(okRes));
+            if (okRes.data.status === 200) {
+                handleSuccess(okRes);
+            } else {
+                handleResponseError(okRes, handleSuccess, handleFail);
+            }
+        } catch (e) {
+            reportCatch('temp142', e);
         }
     }).catch(errorRes => {
         pendingRequests.delete(configString);
-        console.log('ErrorResponse', errorRes);
         try {
-            if (errorRes.response) {
-                const status = errorRes.response.status;
-                const handleFailResult = handleFail(status, createMsgByErrorStatus(status));
-                const actionString = handleFailResult?.action || '';
-                const actionSymbol = errorActionTypes[actionString.toUpperCase()];
-                const action = actionSymbol ? actionSymbol : errorActionDictionary[status] || errorActionTypes.ERROR;
-                const message = handleFailResult?.message || createMsgByErrorStatus(status) || '';
-                makeUIResponse(action, message, status, handleSuccess);
-                errorReport('실패에러 - 사용자환경 : ' + navigator.userAgent, JSON.stringify(errorRes));
-            } else {
-                handleFail({}); // 분석하여 조치 필요
-            }
+            handleAxiosError(errorRes, handleSuccess, handleFail);
         } catch (e) {
             reportCatch('temp006', e);
         }
     });
+};
+
+// 헤더 설정
+const configureHeaders = (url, contentType, apiKey) => {
+    const headers = {};
+    headers["Content-Type"] = contentType;
+
+    if (url.slice(0, 5).includes('v2/')) { // v2는 인증이 필요한 api 호출에 사용
+        headers["Authorization"] = get(accessToken);
+    } else if (url.slice(0, 5).includes('v1/')) { // v1은 인증이 불필요한 api 호출에 사용
+        headers["keyBufferSto"] = get(keyBufferSto);
+        headers["ivSto"] = get(ivSto);
+    } else if (url.slice(0, 5).includes('v3/')) {
+        headers["x-api-key"] = apiKey;
+    }
+    return headers;
+};
+
+
+// 백엔드에서 직접 설정한 응답이 도착했으나 실패를 알릴 때
+const handleResponseError = (okRes, handleSuccess, handleFail) => {
+    const code = okRes.data.err_code;
+    const handleFailResult = handleFail(code, okRes.data.err_msg);
+    const actionString = handleFailResult?.action || okRes.data.err_action || '';
+    const actionSymbol = errorActionTypes[actionString.toUpperCase()];
+    const action = actionSymbol ? actionSymbol : errorActionDictionary[code] || errorActionTypes.ERROR;
+    const message = handleFailResult?.message || okRes.data.err_msg || '';
+    makeUIResponse(action, message, code, handleSuccess);
+    errorReport('ok상태에러 - 사용자환경 : ' + navigator.userAgent, JSON.stringify(okRes));
+};
+
+// 엑시오스와 기본백엔드 응답애러가 발생했을 때
+const handleAxiosError = (errorRes, handleSuccess, handleFail) => {
+    if (errorRes.response) {
+        const status = errorRes.response.status;
+        const handleFailResult = handleFail(status, createMsgByErrorStatus(status));
+        const actionString = handleFailResult?.action || '';
+        const actionSymbol = errorActionTypes[actionString.toUpperCase()];
+        const action = actionSymbol ? actionSymbol : errorActionDictionary[status] || errorActionTypes.ERROR;
+        const message = handleFailResult?.message || createMsgByErrorStatus(status) || '';
+        makeUIResponse(action, message, status, handleSuccess);
+        errorReport('실패에러 - 사용자환경 : ' + navigator.userAgent, JSON.stringify(errorRes));
+    } else {
+        handleFail({}); // 분석하여 조치 필요
+    }
 };
 
 const openError = (message, errorCode = '', callback = () => {}) => {
@@ -219,6 +230,7 @@ const openInfo = (message, errorCode = '', callback = () => {}) => {
     });
 }
 
+// 에러 형태에 따른 화면단의 처리를 결정
 const makeUIResponse = (action, message, errorCode, handleSuccess) => {
     switch (action) {
         case errorActionTypes.INFO:
@@ -266,6 +278,7 @@ const makeUIResponse = (action, message, errorCode, handleSuccess) => {
     }
 }
 
+// 엑시오스에서 반환받는 기본에러의 메시지 설정
 const createMsgByErrorStatus = (status) => {
     let msg = '';
     switch (status) {
@@ -297,9 +310,11 @@ const errorActionTypes = {
     REFRESH: Symbol('REFRESH'), // 에러 메시지 표출 후 확인시 현재 경로 재진입
     INFODO: Symbol('INFODO'), // 알림 메시지 표출 후 성공시의 동작 수행
     ERRORDO: Symbol('ERRORDO'), // 에러 메시지 표출 후 성공시의 동작 수행
-    NONE: Symbol('NONE'),
+    NONE: Symbol('NONE'), // 아무 동작 안함
 }
 
+// 반환받을 수 있는 에러 코드와 해당 에러코드가 도착했들 때 기본적으로 행동할 방식의 정의
+// 여기에 정의되어있지 않은 경우 기본적으로 ERROR 방식으로 처리된다.
 const errorActionDictionary = {
     400: errorActionTypes.ERROR,
     401: errorActionTypes.NONE,
@@ -419,16 +434,16 @@ const errorActionDictionary = {
     KO093: errorActionTypes.INFO,
 }
 
+// 프론트 엔드의 에러를 백엔드 서버에 수집하기 위함
 const errorReport = (etTitle, etMsg) => {
-    console.log(etTitle, etMsg);
-    fetch(import.meta.env.VITE_SERVER_URL + '/v2/api/Error/errorSave', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': get(accessToken) // Authorization 헤더 추가
-        },
-        body: JSON.stringify({etTitle, etMsg})
-    }).catch((error) => {
-        console.error('Error:', error);
-    });
+    if (get(accessToken)) {
+        fetch(import.meta.env.VITE_SERVER_URL + '/v2/api/Error/errorSave', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': get(accessToken) // Authorization 헤더 추가
+            },
+            body: JSON.stringify({etTitle, etMsg})
+        });
+    }
 }

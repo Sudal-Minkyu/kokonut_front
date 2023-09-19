@@ -24,7 +24,6 @@
                     }
                     return obj;
                 });
-                console.log('나의 접속 현황', myConnectList);
             } catch (e) {
                 reportCatch('temp035', e);
             }

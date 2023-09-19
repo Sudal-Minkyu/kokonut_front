@@ -146,11 +146,8 @@
         for (const file of es.multipartFiles) {
             sendForm.append('multipartFiles', file);
         }
-
-        console.log('결과 송신 데이터', Object.fromEntries(sendForm));
         ajaxMultipart('/v2/api/Email/sendEmailService', sendForm, (res) => {
             try {
-                console.log('발송성공응답', res);
                 emailSendData.set(JSON.parse(initialEmailSend));
                 privacySearchData.set(JSON.parse(initialPrivacySearch));
                 document.getElementById('emPurposeLabel').innerHTML = '주요공지';

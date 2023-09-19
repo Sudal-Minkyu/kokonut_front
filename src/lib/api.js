@@ -47,10 +47,7 @@ const restapi = (type, operation, url, dataType, sendData, content_type, success
     }
 
     headers["Content-type"] = content_type
-    // console.log(headers);
     let _url = import.meta.env.VITE_SERVER_URL+url
-    // console.log("호출 URL : "+_url);
-  
     axios({
         url: _url,
         method: method,
@@ -65,15 +62,12 @@ const restapi = (type, operation, url, dataType, sendData, content_type, success
         let newJwtAccessToken = response.headers.get("Authorization");
         if(newJwtAccessToken !== null && newJwtAccessToken !== undefined) {
             accessToken.set(newJwtAccessToken);
-            // console.log("새로발급한 토큰 : "+newJwtAccessToken);
         }
 
         if(response.data.status === 200) {
-            // console.log("Rest API 호출 성공");
             success_callback(response)
         } else {
             if (operation === 'logout' && response.data.status === 500) { // token time out
-                console.log("토큰 만료시 토큰새로고침 작동해야될 듯");
                 // accessToken.set('')
                 // refreshToken.set('')
                 // refreshTokenExpirationTime.set('')
@@ -85,15 +79,11 @@ const restapi = (type, operation, url, dataType, sendData, content_type, success
                 success_callback(response)
             }
             else {
-                console.log(response);
-                console.log("무슨 에러인지 확인해보세요.1");
                 failure_callback(response)
             }
         }
     })
     .catch(error => {
-        console.log("Rest API 에러캣치")
-        console.log(error)
         if(operation !== 'logout') {
             if(error.response.status === 401) {
                 alert("인증되지 않은 사용자입니다. 다시 로그인해주세요.");
@@ -106,8 +96,6 @@ const restapi = (type, operation, url, dataType, sendData, content_type, success
                 failure_callback();
                 alert("전송한 파라메터 데이터가 일치하지 않습니다.")
             }else {
-                console.log("무슨 에러인지 확인해보세요.2");
-                console.log(error);
             }
         } else {
             is_login.set(false)

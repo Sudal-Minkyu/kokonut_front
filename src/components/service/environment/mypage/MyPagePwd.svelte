@@ -46,8 +46,6 @@
     let passwordCheck = false;
 
     function pwdChageBefore() {
-        console.log("비밀번호 변경 클릭!");
-
         if(passwordBlank && passwordConfirmCheck && passwordCheck
         && !passwordCheckNum && !passwordCheckEng && !passwordCheckSpe && !passwordCheckLen) {
             pwdChageStart();
@@ -118,43 +116,37 @@
                 }
             }
 
-
-            // 비밀번호 입력
+// 비밀번호 입력
             const num = newknPassword.search(/[0-9]/g); // 숫자 체크 정규식
             const eng = newknPassword.search(/[a-z]/ig); // 영문 체크 정규식
             const spe = newknPassword.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi); // 특수문자 체크 정규식
 
             // 영문,숫자, 특수문자 모두 하나이상을 혼합하여 입력
             if (newknPassword.search(/\s/) !== -1) {
-                // console.log("비밀번호는 공백 없이 입력해주세요.");
                 passwordBlank = false;
             } else {
                 passwordBlank = true;
             }
 
             if (eng < 0) {
-                // console.log("영문");
                 passwordCheckEng = true;
             } else {
                 passwordCheckEng = false;
             }
 
             if (num < 0) {
-                // console.log("숫자");
                 passwordCheckNum = true;
             } else {
                 passwordCheckNum = false;
             }
 
             if (spe < 0) {
-                // console.log("특수문자");
                 passwordCheckSpe = true;
             } else {
                 passwordCheckSpe = false;
             }
 
             if (newknPassword.length < 10 || newknPassword.length > 20) {
-                // console.log("10자리 ~ 20자리 이내로 입력해주세요.");
                 passwordCheckLen = true;
             } else {
                 passwordCheckLen = false;

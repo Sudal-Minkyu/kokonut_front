@@ -34,7 +34,6 @@
             try {
                 settingLoadState = 1;
                 const settingData = res.data.sendData;
-                console.log('초기 데이터', settingData);
                 serviceSettingData.update(obj => {
                     obj = JSON.parse(initialServiceSetting);
                     obj.accessIpList = settingData.accessIpList;
@@ -100,10 +99,8 @@
     }
 
     const ajaxAgainstEveryChanges = (url, sendObj) => {
-        console.log('act', sendObj);
         ajaxParam(url, sendObj, (res) => {
             try {
-                console.log(res);
             } catch (e) {
                 reportCatch('temp053', e);
             }
@@ -217,8 +214,7 @@
         });
     }
 
-
-    const getEmailColumnLIst = () => {
+const getEmailColumnLIst = () => {
         ajaxGet('/v2/api/DynamicUser/searchColumnCall', false, (res2) => {
             try {
                 if (res2.data.sendData.fieldList.length) {
@@ -241,7 +237,6 @@
 
     const updateEmailSelectBoxString = (csEmailCodeSetting = csEmailCodeSetting) => {
         const selectedColumnArray = $serviceSettingData.columnList.filter(obj => obj.fieldCode === csEmailCodeSetting);
-        console.log($serviceSettingData.columnList);
         document.getElementById('emailColumnLabel').innerHTML = selectedColumnArray.length ? selectedColumnArray[0].fieldComment : '미지정';
     }
 </script>

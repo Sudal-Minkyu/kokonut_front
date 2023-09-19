@@ -49,14 +49,11 @@
         document.removeEventListener('click', tooltipEvent);
     });
 
-
-    let writingCheck = false;
+let writingCheck = false;
     function writingCheckChange() {
         writingCheck = false;
     }
     function policyCheck() {
-        console.log("여기 실행했니?");
-
         let url = "/v2/api/Policy/policyCheck"
 
         ajaxGet(url, false, (res) => {
@@ -94,7 +91,6 @@
     // let popCancel = "아니오"; // 아니오 텍스트
 
     function stopWrite() {
-        console.log("작성중단 함수");
         if(stage === 1 && $piId === 0) {
             push("/service/policyList")
         } else {
@@ -112,9 +108,6 @@
     }
 
     let startFun = function deletePolicy() {
-        console.log("중단후 작성중이던 글 삭제호출 함수");
-        console.log("삭제할 piId : "+$piId);
-
         let url = "/v2/api/Policy/privacyPolicyDelete"
 
         let sendData = {
@@ -135,10 +128,6 @@
 
     // 개인정보처리방침 작성중인 글 조회
     function policyWriting() {
-        console.log("작성중인 글 조회 실행!");
-        console.log("piId : "+$piId);
-        console.log("piStage : "+$piStage);
-
         let url = "/v2/api/Policy/privacyPolicyWriting"
         let sendData = {
             piId : $piId,
@@ -146,8 +135,6 @@
         ajaxGet(url, sendData, (res) => {
             try {
                 stage = $piStage;
-                console.log("현재까지 작성된 데이터 가져오기");
-                console.log(res)
                 policyInfoData.update(obj => {
                     obj.policyData1 = res.data.sendData.policyInfo1;
                     obj.purposeDataList = res.data.sendData.purposeInfo;

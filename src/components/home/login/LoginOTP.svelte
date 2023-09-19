@@ -31,9 +31,6 @@
     let knOtpKey;
     function otpCreate() {
         googleOtpPop = true;
-
-        console.log("구글 OTP 등록 및 재등록 클릭!");
-        
         let url = "/v1/api/Auth/otpQRcode"
 		
 		let sendData = {

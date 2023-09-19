@@ -13,7 +13,6 @@
     import {stimeVal} from "../../../components/common/action/DatePicker.js";
     import ExcelDownloadPop from "../../../components/common/ui/ExcelDownloadPop.svelte";
 
-
     let provisionLayout = 0;
 
     let provision_list = [];
@@ -33,8 +32,6 @@
     function provisionList(page) {
         searchCondition.stime = stimeVal;
         searchCondition.page = page;
-        console.log("개인정보제공 리스트 호출 클릭!", searchCondition);
-
         if(provisionLayout === 1) {
             provisionLayout = 0;
         }
@@ -42,22 +39,11 @@
         let url = "/v2/api/Provision/provisionList";
         ajaxGet(url, searchCondition, (res) => {
             try {
-                console.log("조회된 데이터가 있습니다.");
                 provision_list = res.data.datalist;
                 total = res.data.total_rows;
                 provisionLayout = 1;
             } catch (e) {
                 reportCatch('temp089', e);
-            }
-        }, (errCode) => {
-            try {
-                provision_list = [];
-                total = 0;
-                console.log("조회된 데이터가 없습니다.");
-                provisionLayout = 1;
-                return {action: 'NONE'};
-            } catch (e) {
-                reportCatch('temp090', e);
             }
         });
     }
@@ -69,17 +55,14 @@
         }
     }
 
-
     let downloadPop = 0;
     let setProCode;
     function downloadHistoryClick(proCode) {
-        console.log("proCode : "+proCode);
         downloadPop = 1;
         setProCode = proCode;
 
         downloadHistoryList(0);
     }
-
 
     let provisionDownloadHistory_list = [];
     let provisionDownload_size = 10;
@@ -87,10 +70,6 @@
     let provisionDownload_total_page;
     $: provisionDownload_total_page = Math.ceil(provisionDownload_total/provisionDownload_size)
     function downloadHistoryList(pageNum) {
-        console.log("다운로드이력 리스트호출");
-
-        console.log("setProCode : "+setProCode);
-
         popupPage.set(pageNum);
 
         let url = "/v2/api/Provision/provisionDownloadList?page=" + pageNum+"&size="+provisionDownload_size;
@@ -101,21 +80,10 @@
 
         ajaxGet(url, sendData, (res) => {
             try {
-                console.log("조회된 데이터가 있습니다.");
                 provisionDownloadHistory_list = res.data.datalist
                 provisionDownload_total = res.data.total_rows
             } catch (e) {
                 reportCatch('temp091', e);
-            }
-        }, (errCode) => {
-            try {
-                provisionDownloadHistory_list = [];
-                provisionDownload_total = 0;
-                console.log("조회된 데이터가 없습니다.");
-                provisionLayout = 1;
-                return {action: 'NONE'};
-            } catch (e) {
-                reportCatch('temp092', e);
             }
         });
     }

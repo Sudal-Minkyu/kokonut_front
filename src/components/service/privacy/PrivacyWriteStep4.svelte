@@ -11,8 +11,7 @@
 
     });
 
-
-    const handleNext = () => {
+const handleNext = () => {
         const confirmProps = {
             icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
             title: '', // 제목

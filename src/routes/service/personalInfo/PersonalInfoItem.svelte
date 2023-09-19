@@ -31,7 +31,6 @@
                         obj.columnList = json_success.data.sendData.fieldList;
                         return obj;
                     });
-                    console.log('탭정보', $personalInfoTableData.columnList);
                     personalInfoItemProp.loadState = 1;
                 } catch (e) {
                     reportCatch('temp073', e);
@@ -58,7 +57,6 @@
             },
             hide() {
                 personalInfoCategoryData.update(obj => {
-                    console.log(obj);
                     obj.createItemPop.visible = false;
                     return obj;
                 });
@@ -318,14 +316,11 @@
                         ...obj.addItemList.filter(item => item.ciName === e.target.value),
                         ...itemsFromBasicCategoryList,
                     ];
-                    console.log(obj.checkedItemObjList);
                     return obj;
                 });
             } else {
                 personalInfoCategoryData.update(obj => {
                     obj.checkedItemObjList = obj.checkedItemObjList.filter(item => item.ciName !== e.target.value);
-                    console.log('체크된 아이템 오브젝트', obj.checkedItemObjList);
-                    console.log('체크된 아이템 이름리스트', obj.checkedItemNameList);
                     return obj;
                 });
             }
@@ -353,8 +348,6 @@
                         });
                         return obj;
                     });
-                    console.log('추가 카테고리 리스트', $personalInfoCategoryData.addItemList);
-
                     if ($personalInfoCategoryData.addItemList.length === 0) {
                         jQuery("#defaultField").css("display", "block");
                     }
@@ -379,7 +372,6 @@
                         }
                         return obj;
                     });
-                    console.log('기본 카테고리 리스트', $personalInfoCategoryData.basicCategoryList);
                 } catch (e) {
                     reportCatch('temp077', e);
                 }
@@ -539,7 +531,6 @@
     });
 
     window.kk = () => {
-        console.log($personalInfoCategoryData.checkedItemObjList);
     }
 </script>
 
@@ -559,7 +550,6 @@
         </LoadingOverlay>
     </div>
 </section>
-
 
 {#if $personalInfoCategoryData.createItemPop.visible}
     <PersonalInfoCreateItemPop {personalInfoCategoryService} />

@@ -37,13 +37,10 @@
 
     // 1:1 문의 상세보기 호출
      function qnaDetail(qnaId) {
-        console.log("1:1 문의 상세보기 호출");
-
         let url = "/v2/api/Qna/qnaDetail/"+qnaId;
 
         ajaxGet(url, false, (res) => {
             try {
-                console.log("조회된 데이터가 있습니다.");
                 qnaDetailData = res.data.sendData.qnaDetail;
                 qnaDetailFileData = res.data.sendData.qnaDetailFile;
                 qnaLayout = 1;
@@ -63,8 +60,6 @@
                     imgState = 2;
                     popOpenBtn();
                 } else {
-                    console.log("조회된 데이터가 없습니다.");
-                    console.log("혹은 1:1 문의하기 리스트 호출 실패");
                 }
                 return {action: 'NONE'};
             } catch (e) {
@@ -81,9 +76,6 @@
             jQuery(".textBlank").css("display","block");
             return false;
         }
-
-        console.log("답변하기 클릭!");
-
         let url = "/v2/api/Qna/qnaAnswer";
 
         let sendData = {
@@ -112,8 +104,6 @@
                     imgState = 2;
                     popOpenBtn();
                 } else {
-                    console.log("조회된 데이터가 없습니다.");
-                    console.log("혹은 1:1 답변하기 호출 실패");
                 }
                 return {action: 'NONE'};
             } catch (e) {

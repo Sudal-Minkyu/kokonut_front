@@ -18,8 +18,7 @@
     });
     export let closeEmailPersonSelectPop;
 
-
-    let backupEmailSendData;
+let backupEmailSendData;
     let backupPrivacySearchData;
     const backupExistingCondition = () => {
         backupEmailSendData = JSON.parse(JSON.stringify($emailSendData));
@@ -213,7 +212,6 @@
                     <button type="button" class="pr_fieldBtn" on:click={addSearchCondition}></button>
                 {/if}
             {/if}
-
 
 <!--            <div class="memselBox marT20 marB36">-->
 <!--                <div class="memName">김코코(인사팀)<button class="memdel"></button></div>-->

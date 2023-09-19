@@ -7,8 +7,7 @@
     export let total;
     export let privacy_history_list;
 
-
-    $: privacy_history_list.map(obj => {
+$: privacy_history_list.map(obj => {
         obj.isOffDutyAction = determineOffDuty(obj.insert_date);
     });
 

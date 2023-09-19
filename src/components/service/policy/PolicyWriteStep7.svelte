@@ -12,8 +12,7 @@
     let checkAgree = false;
     let checkAgreeErrorMsg = '';
 
-
-    function scrollToBottom() {
+function scrollToBottom() {
         window.scrollTo({
             top: document.body.scrollHeight,
             behavior: 'smooth'
@@ -30,7 +29,6 @@
     }
 
     const finalSave = () => {
-        console.log('저장전데이터', $policyInfoData);
         let url = "/v2/api/Policy/privacyPolicyFinalSave";
         let sendData = {
             piId : $piId,

@@ -31,12 +31,8 @@
 
         searchCondition.stime = stimeVal;
         searchCondition.page = page;
-        console.log("개인정보처리이력 리스트 호출 클릭!");
-
         privacyHistoryLayout = 0;
         let url = "/v2/api/PrivacyHistory/privacyHistoryList";
-
-        console.log('조회데이터', searchCondition);
         ajaxGet(url, searchCondition, (res) => {
             try {
                 // 엑셀 다운로드를 위한 조회했던 정보의 기억
@@ -46,22 +42,11 @@
                     filterRole: searchCondition.filterRole,
                     filterState: searchCondition.filterState,
                 };
-                console.log("조회된 데이터가 있습니다.");
                 privacy_history_list = res.data.datalist;
                 total = res.data.total_rows;
                 privacyHistoryLayout = 1;
             } catch (e) {
                 reportCatch('temp087', e);
-            }
-        }, (errCode) => {
-            try {
-                privacy_history_list = [];
-                total = 0;
-                console.log("조회된 데이터가 없습니다.");
-                privacyHistoryLayout = 1;
-                return {action: 'NONE'};
-            } catch (e) {
-                reportCatch('temp088', e);
             }
         });
     });

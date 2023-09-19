@@ -95,14 +95,11 @@
         await myIp();
     })
 
-
-    // 내 공인 IP 가져오기
+// 내 공인 IP 가져오기
     function myIp() {
         getMyIp = ['192', '168', '0', '123'];
         // 이거 잘 작동이 되는건지 확인 한번 더 해야함. woody
         jQuery.getJSON('https://ipapi.co/json/', function(json) {
-            // console.log(json);
-            // console.log("ip : "+json.ip);
             getMyIp = json.ip.split('.');
         });
 
@@ -111,9 +108,7 @@
         //     let head = document.getElementsByTagName('head')[0];
         //     let script= document.createElement('script');
         //     window.getIP = function(json) {
-        //         console.log("json : "+json);
         //         getMyIp = json.ip.split('.');
-        //         console.log("getMyIp : "+getMyIp);
         //     };
         //     script.type= 'text/javascript';
         //     script.src= 'https://api.ipify.org?format=jsonp&callback=getIP';
@@ -127,11 +122,8 @@
 
         ajaxGet(url, false, (res) => {
             try {
-                console.log(res);
                 apikeyTrueFalse = res.data.sendData.result;
                 // apikeyTrueFalse = 0;
-                // console.log("apikeyTrueFalse : "+apikeyTrueFalse);
-
                 popType = 2;
                 if (apikeyTrueFalse === 2) {
                     apiKey = res.data.sendData.apiKey;
@@ -141,10 +133,6 @@
                     if (ipSize === 5) {
                         addBtn = false;
                     }
-                    // console.log(accessIpList);
-                    // console.log(apiKey);
-                    // console.log(ipSize);
-
                     explanState = false;
                     popTitle = "Key를 재발급받으시겠습니까?";
                     popContents1 = "재발급 받으실 경우 이전에 받으신";
@@ -174,7 +162,6 @@
 
     // API Key 발급 및 재발급
     let startFun = function apiKeyIssued() {
-        console.log("API Key 발급 및 재발급");
         let url = "/v2/api/ApiKey/apiKeyIssue"
 
         ajaxParam(url, {}, (res) => {

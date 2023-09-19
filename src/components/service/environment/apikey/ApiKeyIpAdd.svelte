@@ -20,8 +20,6 @@
     let ipMemo;
     // 허용 IP 등록
     function accessIpAdd() {
-        console.log("허용 IP 등록 호출");
-
         if(ip1 === "" || ip2 === "" || ip3 === "" || ip4 === "") {
             ipChecked = true;
             ipCheckedMsg = "IP를 모두 입력해주세요."
@@ -39,8 +37,6 @@
         let ipCheckResult = ipCheck(accessIp);
 
         if(!ipCheckResult) {
-            console.log("허용 IP 등록 시작");
-
             let url = "/v2/api/ApiKey/apiKeyIpSave"
 
             let sendData = {
