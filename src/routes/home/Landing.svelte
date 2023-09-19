@@ -1,8 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { fly } from 'svelte/transition';
-    import {openDiv, tempPwd} from "../../lib/store.js";
-    import {ajaxBody, reportCatch} from "../../components/common/ajax.js";
+    import {ajaxBody} from "../../components/common/ajax.js";
 
     let width = window.innerWidth;
 
@@ -43,56 +42,18 @@
     let acceptBlank = true;
 
     let essentialCheckMaster = false;
+
     function essentialCheck() {
 
-        if(!iqState.trim()) {
-            iqStateBlank = false;
-        } else {
-            iqStateBlank = true;
-        }
+        iqStateBlank = iqState.trim();
+        iqWriterBlank = iqWriter.trim();
+        iqCompanyBlank = iqCompany.trim();
+        iqServiceBlank = iqService.trim();
+        iqPhoneBlank = iqPhone.trim();
+        iqEmailBlank = iqEmail.trim();
+        acceptBlank = acceptCheck.length !== 0;
 
-        if(!iqWriter.trim()) {
-            iqWriterBlank = false;
-        } else {
-            iqWriterBlank = true;
-        }
-
-        if(!iqCompany.trim()) {
-            iqCompanyBlank = false;
-        } else {
-            iqCompanyBlank = true;
-        }
-
-        if(!iqService.trim()) {
-            iqServiceBlank = false;
-        } else {
-            iqServiceBlank = true;
-        }
-
-        if(!iqPhone.trim()) {
-            iqPhoneBlank = false;
-        } else {
-            iqPhoneBlank = true;
-        }
-
-        if(!iqEmail.trim()) {
-            iqEmailBlank = false;
-        } else {
-            iqEmailBlank = true;
-        }
-
-        console.log("acceptCheck : "+acceptCheck.length)
-        if(acceptCheck.length === 0) {
-            acceptBlank = false;
-        } else {
-            acceptBlank = true;
-        }
-
-        if(iqStateBlank && iqWriterBlank && iqCompanyBlank && iqServiceBlank && iqPhoneBlank && iqEmailBlank && acceptBlank) {
-            essentialCheckMaster = true;
-        } else {
-            essentialCheckMaster = false;
-        }
+        essentialCheckMaster = !!(iqStateBlank && iqWriterBlank && iqCompanyBlank && iqServiceBlank && iqPhoneBlank && iqEmailBlank && acceptBlank);
 
     }
 
@@ -103,21 +64,21 @@
         essentialCheck();
 
         if(essentialCheckMaster) {
-            // let url = "/v1/api/Inquiry/send"
-            //
-            // let sendData = {
-            //     iqState : iqState,
-            //     iqWriter : iqWriter,
-            //     iqCompany : iqCompany,
-            //     iqService : iqService,
-            //     iqPhone : iqPhone,
-            //     iqEmail : iqEmail,
-            //     iqContents : iqContents
-            // }
-            //
-            // ajaxBody(url, sendData, (res) => {
+            let url = "/v1/api/Inquiry/send"
+
+            let sendData = {
+                iqState : iqState,
+                iqWriter : iqWriter,
+                iqCompany : iqCompany,
+                iqService : iqService,
+                iqPhone : iqPhone,
+                iqEmail : iqEmail,
+                iqContents : iqContents
+            }
+
+            ajaxBody(url, sendData, () => {
                 alert("온보딩 신청을 완료했습니다.");
-            // });
+            });
         }
 
     }
