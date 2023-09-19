@@ -42,18 +42,55 @@
     let acceptBlank = true;
 
     let essentialCheckMaster = false;
-
     function essentialCheck() {
 
-        iqStateBlank = iqState.trim();
-        iqWriterBlank = iqWriter.trim();
-        iqCompanyBlank = iqCompany.trim();
-        iqServiceBlank = iqService.trim();
-        iqPhoneBlank = iqPhone.trim();
-        iqEmailBlank = iqEmail.trim();
-        acceptBlank = acceptCheck.length !== 0;
+        if(!iqState.trim()) {
+            iqStateBlank = false;
+        } else {
+            iqStateBlank = true;
+        }
 
-        essentialCheckMaster = !!(iqStateBlank && iqWriterBlank && iqCompanyBlank && iqServiceBlank && iqPhoneBlank && iqEmailBlank && acceptBlank);
+        if(!iqWriter.trim()) {
+            iqWriterBlank = false;
+        } else {
+            iqWriterBlank = true;
+        }
+
+        if(!iqCompany.trim()) {
+            iqCompanyBlank = false;
+        } else {
+            iqCompanyBlank = true;
+        }
+
+        if(!iqService.trim()) {
+            iqServiceBlank = false;
+        } else {
+            iqServiceBlank = true;
+        }
+
+        if(!iqPhone.trim()) {
+            iqPhoneBlank = false;
+        } else {
+            iqPhoneBlank = true;
+        }
+
+        if(!iqEmail.trim()) {
+            iqEmailBlank = false;
+        } else {
+            iqEmailBlank = true;
+        }
+
+        if(acceptCheck.length === 0) {
+            acceptBlank = false;
+        } else {
+            acceptBlank = true;
+        }
+
+        if(iqStateBlank && iqWriterBlank && iqCompanyBlank && iqServiceBlank && iqPhoneBlank && iqEmailBlank && acceptBlank) {
+            essentialCheckMaster = true;
+        } else {
+            essentialCheckMaster = false;
+        }
 
     }
 
