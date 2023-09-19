@@ -171,6 +171,10 @@
     margin-left: 5px;
 }
 
+.onbording_checkmark.not_work {
+    display: none;
+}
+
 /* 개인정보수집동의 css */
 .onbording_privacy {
     font-weight: 400;
@@ -188,7 +192,9 @@
     font-weight:600;
     color: #ff2f2f;
 }
-
+.onbording_privacy_check.not_work {
+    display: none;
+}
 
 
 /* 전문보기 팝업 */

@@ -1,8 +1,8 @@
 <script>
     import { onMount } from "svelte";
     import { fly } from 'svelte/transition';
-    import {findPwd, openDiv, tempPwd} from "../../lib/store.js";
-    import {ajaxBody, ajaxParam, reportCatch} from "../../components/common/ajax.js";
+    import {openDiv, tempPwd} from "../../lib/store.js";
+    import {ajaxBody, reportCatch} from "../../components/common/ajax.js";
 
     let width = window.innerWidth;
 
@@ -25,17 +25,68 @@
     }
 
 
-    let iqWriter = undefined; // 작성자
-    let iqState = undefined; // 선호 온보딩 방식 -> 1. 오프라인 미팅 2. 온라인 교육
-    let iqCompany = undefined; // 회사명
-    let iqService = undefined; // 서비스명
-    let iqPhone = undefined; // 연락처(휴대전화)
-    let iqEmail = undefined; // 이메일
-    let iqContents = undefined; // 온보딩 진행 시 요청사항 (이전에 내용칸 활용)
+    let iqState = ''; // 선호 온보딩 방식 -> 1. 오프라인 미팅 2. 온라인 교육
+    let iqWriter = ''; // 작성자
+    let iqCompany = ''; // 회사명
+    let iqService = ''; // 서비스명
+    let iqPhone = ''; // 연락처(휴대전화)
+    let iqEmail = ''; // 이메일
+    let iqContents = ''; // 온보딩 진행 시 요청사항 (이전에 내용칸 활용)
+    let acceptCheck = '0';
+
+    let iqStateBlank = true;
+    let iqWriterBlank = true;
+    let iqCompanyBlank = true;
+    let iqServiceBlank = true;
+    let iqPhoneBlank = true;
+    let iqEmailBlank = true;
+    let acceptBlank = true;
 
     let essentialCheckMaster = false;
     function essentialCheck() {
 
+        if(iqState === "") {
+            iqStateBlank = false;
+        } else {
+            iqStateBlank = true;
+        }
+
+        if(iqWriter === "") {
+            iqWriterBlank = false;
+        } else {
+            iqWriterBlank = true;
+        }
+
+        if(iqCompany === "") {
+            iqCompanyBlank = false;
+        } else {
+            iqCompanyBlank = true;
+        }
+
+        if(iqService === "") {
+            iqServiceBlank = false;
+        } else {
+            iqServiceBlank = true;
+        }
+
+        if(iqPhone === "") {
+            iqPhoneBlank = false;
+        } else {
+            iqPhoneBlank = true;
+        }
+
+        if(iqEmail === "") {
+            iqEmailBlank = false;
+        } else {
+            iqEmailBlank = true;
+        }
+
+        if(acceptCheck === "0") {
+            acceptBlank = false;
+        } else {
+            acceptBlank = true;
+        }
+        essentialCheckMaster = true;
     }
 
     // 온보딩 신청하기
@@ -48,8 +99,8 @@
             let url = "/v1/api/Inquiry/send"
 
             let sendData = {
-                iqWriter : iqWriter,
                 iqState : iqState,
+                iqWriter : iqWriter,
                 iqCompany : iqCompany,
                 iqService : iqService,
                 iqPhone : iqPhone,
@@ -58,14 +109,10 @@
             }
 
             ajaxBody(url, sendData, (res) => {
-                try {
-                    $openDiv = 2;
-                    $tempPwd = res.data.sendData.tempPassword;
-                } catch (e) {
-                    reportCatch('temp105', e);
-                }
+                alert("온보딩 신청을 완료했습니다.");
             });
         }
+
     }
 
 </script>
@@ -91,12 +138,11 @@
                 <div class="view_text_popup" in:fly={{ y: -200 }} out:fly={{ y: -200 }}>
                     <div class="view_text_popup_contents">
                         <div class="inquiry_box__close" on:click={privacyCheck}></div>
-                        <p>이용자가 입력하는 온보딩 신청을 처리하기 위해</p>
-                        <p style="margin-bottom: 20px;">다음과 같이 개인정보를 수집합니다.</p>
+                        <p style="margin-bottom: 20px;">온보딩 신청 처리를 위해 아래와 같이 개인정보를 수집·이용 합니다.</p>
                         <table>
                             <tbody class="viewTextTable">
                             <tr>
-                                <td style="width: 140px">처리 목적</td>
+                                <td style="width: 140px">수집·이용 목적</td>
                                 <td style="width: 200px">수집 항목</td>
                                 <td style="width: 150px">수집 방법</td>
                                 <td style="width: 180px">처리 및 보유 기간</td>
@@ -119,30 +165,31 @@
 
             <div >
                 <div class="onbording_deps">
-                    <label class="onbording_label"><a>*</a> 선호 온보딩 방식 <p class="onbording_checkmark">온보딩 방식을 선택해 주세요.</p></label>
+                    <label class="onbording_label"><a>*</a> 선호 온보딩 방식 <p class="{iqStateBlank === true ? 'onbording_checkmark not_work' : 'onbording_checkmark'}">온보딩 방식을 선택해 주세요.</p></label>
                     <div class="onbording_select">
-                        <input type="radio" id="select" name="iqState"><label for="select">오프라인 미팅</label>
-                        <input type="radio" id="select2" name="iqState"><label for="select2">온라인 교육</label>
+                        <input type="radio" id="select" bind:group={iqState} value="1"><label for="select">오프라인 미팅</label>
+                        <input type="radio" id="select2" bind:group={iqState} value="2"><label for="select2">온라인 교육</label>
                     </div>
                 </div>
+
                 <div class="onbording_deps">
-                    <label for="userName" class="onbording_label"><a>*</a> 이름 <p class="onbording_checkmark">이름을 입력해 주세요.</p></label>
+                    <label for="userName" class="onbording_label"><a>*</a> 이름 <p class="{iqWriterBlank === true ? 'onbording_checkmark not_work' : 'onbording_checkmark'}">이름을 입력해 주세요.</p></label>
                     <input type="text" class="onbording_input" id="userName" bind:value={iqWriter} placeholder="이름을 입력해 주세요.">
                 </div>
                 <div class="onbording_deps">
-                    <label for="companyName" class="onbording_label"><a>*</a> 회사명 <p class="onbording_checkmark">회사명을 입력해 주세요.</p></label>
+                    <label for="companyName" class="onbording_label"><a>*</a> 회사명 <p class="{iqCompanyBlank === true ? 'onbording_checkmark not_work' : 'onbording_checkmark'}">회사명을 입력해 주세요.</p></label>
                     <input type="text" class="onbording_input" id="companyName" bind:value={iqCompany} placeholder="회사명을 입력해 주세요.">
                 </div>
                 <div class="onbording_deps">
-                    <label for="serviceName" class="onbording_label"><a>*</a> 서비스명 <p class="onbording_checkmark">서비스명을 입력해 주세요.</p></label>
+                    <label for="serviceName" class="onbording_label"><a>*</a> 서비스명 <p class="{iqServiceBlank === true ? 'onbording_checkmark not_work' : 'onbording_checkmark'}">서비스명을 입력해 주세요.</p></label>
                     <input type="text" class="onbording_input" id="serviceName" bind:value={iqService} placeholder="서비스명을 입력해 주세요.">
                 </div>
                 <div class="onbording_deps">
-                    <label for="phoneNumber" class="onbording_label"><a>*</a> 연락처 <p class="onbording_checkmark">연락처를 입력해 주세요.</p></label>
+                    <label for="phoneNumber" class="onbording_label"><a>*</a> 연락처 <p class="{iqPhoneBlank === true ? 'onbording_checkmark not_work' : 'onbording_checkmark'}">연락처를 입력해 주세요.</p></label>
                     <input type="text" class="onbording_input" id="phoneNumber" bind:value={iqPhone} placeholder="연락처를 입력해 주세요.">
                 </div>
                 <div class="onbording_deps">
-                    <label for="userEmail" class="onbording_label"><a>*</a> 이메일 <p class="onbording_checkmark">이메일을 입력해 주세요.</p></label>
+                    <label for="userEmail" class="onbording_label"><a>*</a> 이메일 <p class="{iqEmailBlank === true ? 'onbording_checkmark not_work' : 'onbording_checkmark'}">이메일을 입력해 주세요.</p></label>
                     <input type="text" class="onbording_input" id="userEmail" bind:value={iqEmail} placeholder="이메일을 입력해 주세요.">
                 </div>
                 <div class="onbording_deps">
@@ -154,9 +201,9 @@
             <hr class="onbording_hr">
 
             <div style="text-align: center">
-                <input type="checkbox" id="pri_check">
+                <input type="checkbox" id="pri_check" bind:group={acceptCheck} value="1">
                 <label class="onbording_privacy" for="pri_check">개인정보 수집 및 이용을 동의합니다.</label><a class="onbording_privacy_show" on:click={privacyCheck}>전문보기</a>
-                <p class="onbording_privacy_check">개인정보 수집 및 이용을 동의해 주세요.</p>
+                <p class="{acceptBlank === true ? 'onbording_privacy_check not_work' : 'onbording_privacy_check'}">개인정보 수집 및 이용을 동의해 주세요.</p>
             </div>
 
             <button class="onbording_btn" type="button" on:click={onbordingSend}>온보딩 신청하기</button>
