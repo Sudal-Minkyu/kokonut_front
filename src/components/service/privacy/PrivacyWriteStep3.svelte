@@ -27,7 +27,6 @@
             contents2: '',
             btnCheck: '확인', // 확인 버튼의 텍스트
         };
-        console.log(stime.length)
         if (stime.length !== 23) {
             confirmProps.title = '제공 기간 선택';
             confirmProps.contents1 = '제공하실 기간을 선택해 주세요.';

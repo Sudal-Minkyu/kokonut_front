@@ -43,7 +43,7 @@
                 <button class="page-link " aria-label="to page {endPage + 1}" on:click={() => goToPage(endPage + 1)}></button>
             </li>
         {/if}
-        {#if endPage < totalPageCount || false}
+        {#if (endPage < totalPageCount) && false}
             <li class="page-item">
                 <button class="page-link" aria-label="to page {totalPageCount}" on:click={() => goToPage(totalPageCount)}>
                     &raquo;

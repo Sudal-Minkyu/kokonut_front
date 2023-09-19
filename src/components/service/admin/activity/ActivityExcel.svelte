@@ -19,8 +19,7 @@
     }
     let isCautionChecked = false;
 
-
-    const downloadExcelFile = () => {
+const downloadExcelFile = () => {
         if (!additionalInfo.excuses) {
             excusesErrMsg = '사유를 적어주세요.';
             return;
@@ -42,11 +41,8 @@
             cautionErrMsg = '';
         }
 
-        
-
-    }
+}
 </script>
-
 
 <!-- [D] 엑셀 다운로드 팝업 -->
 <div class="koko_popup excel_download_pop" data-popup="excel_download_pop" in:fade out:fade >

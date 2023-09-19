@@ -26,7 +26,6 @@
         ajaxGet('/v2/api/Index/thirdPartyInfo', false, (res) => {
             try {
                 thirdPartyInfo = res.data.sendData;
-                console.log('서드파티사용여부', thirdPartyInfo);
             } catch (e) {
                 reportCatch('temp056', e);
             }
@@ -61,7 +60,6 @@
         ajaxGet('/v2/api/ThirdParty/bizmGetCode', false, (res) => {
             try {
                 bizmSettingData = res.data.sendData.thirdPartySettingInfo;
-                console.log('비즈엠세팅데이터', bizmSettingData);
             } catch (e) {
                 reportCatch('temp058', e);
             }

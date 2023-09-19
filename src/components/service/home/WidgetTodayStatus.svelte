@@ -55,7 +55,6 @@
         ajaxGet('/v2/api/Index/todayIndexGraph', false, (res) => {
             try {
                 const chartData = res.data.sendData;
-                console.log('오늘의 서비스 현황', chartData);
                 options.series[0].data = chartData.apiCallIndexList;
                 options.series[1].data = chartData.encryptionIndexList;
                 options.series[2].data = chartData.decryptionIndexList;

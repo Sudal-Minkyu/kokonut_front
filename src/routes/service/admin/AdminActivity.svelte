@@ -40,12 +40,9 @@
         filterRole: '',
     }
     const activityList = debounce200((page) => {
-        console.log('페이지', page);
         adminActivityLayout = 0;
         searchCondition.stime = stimeVal;
         searchCondition.page = page;
-        console.log("관리자 활동이력 리스트 데이터 호출");
-
         let url = "/v2/api/History/activityList";
         ajaxGet(url, searchCondition, (res) => {
             try {
@@ -54,21 +51,11 @@
                     stime: searchCondition.stime,
                     actvityType: searchCondition.actvityType,
                 };
-                console.log("조회된 데이터가 있습니다.");
                 activity_list = res.data.datalist
                 total = res.data.total_rows
                 adminActivityLayout = 1;
             } catch (e) {
                 reportCatch('temp063', e);
-            }
-        }, (errCode) => {
-            try {
-                activity_list = [];
-                total = 0;
-                adminActivityLayout = 1;
-                return {action: 'NONE'};
-            } catch (e) {
-                reportCatch('temp064', e);
             }
         });
     });
@@ -81,7 +68,6 @@
     function activityConfirm() {
         let select_text = '';
         if(jQuery("input[name='activity']:checked").length === 0){
-            console.log("1");
             choseMax = true;
             choseMaxText = '최소 한개 이상의 선택은 진행해주셔야 합니다.';
             return false;
@@ -89,7 +75,6 @@
 
         let count = jQuery("input[name='activity']:checked").length;
         if(count > 5){
-            console.log("2");
             choseMax = true;
             choseMaxText = '5개 이상 선택 할 수 없습니다.';
         }
@@ -112,10 +97,7 @@
             choseMaxText = '';
 
             // actvityType = '['+actvityType+']'
-            console.log("바뀌기전 actvityType : "+searchCondition.actvityType);
             // actvityType = actvityType.split(",");
-            // console.log("바뀌기후 actvityType : "+actvityType);
-            console.log("바뀌기후 select_text : "+select_text);
             activityList(0);
         }
     }

@@ -79,7 +79,6 @@ const placeComponentList = () => {
     }
 }
 
-window.kk = () => {console.log(leftDiv)}
 </script>
 
 <div class="wjListBox">

@@ -4,6 +4,7 @@
     import {onMount} from "svelte";
     import ErrorHighlight from "../../common/ui/ErrorHighlight.svelte";
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
+    import {checkFalsyValuesExceptIgnoredKeys} from "../../../lib/common.js";
 
     export let stateChange;
 
@@ -84,7 +85,18 @@
 
     onMount(async () => {
         // 툴팁 아이콘 클릭시 툴팁을 보이고 숨기기 위함.
-
+        if (!$policyInfoData.beforeDataList.length) {
+            policyInfoData.update(obj => {
+                obj.beforeDataList = [{
+                    pibId: 0,
+                    pibPurpose: '서비스 제공 및 운영',
+                    pibInfo: '',
+                    pibChose: '',
+                    pibPeriod: '탈퇴 또는 계약 종료 시까지',
+                }];
+                return obj;
+            });
+        }
     });
 
     let beforeDataListErrorMsg = '';
@@ -92,9 +104,10 @@
         if (!$policyInfoData.beforeDataList.length) {
             beforeDataListErrorMsg = '서비스 가입 시 수집하는 개인정보는 최소 1개 이상 작성하여 주세요.';
             return;
+        } else if (checkFalsyValuesExceptIgnoredKeys($policyInfoData.beforeDataList)) {
+            beforeDataListErrorMsg = '서비스 가입 시 수집하는 개인정보를 채워주세요.'
+            return;
         }
-
-        console.log('저장전데이터', $policyInfoData);
         let url = "/v2/api/Policy/privacyPolicyThirdSave";
 
         let sendData = {
@@ -124,6 +137,7 @@
     const handleOpenRestrictCookieManual = () => {
         window.open('https://kokonut.oopy.io/privacy_policy_cookie', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=900,height=1000');
     }
+
 </script>
 
 <div in:fade>
@@ -189,7 +203,7 @@
                             <div class="prtt_area"><textarea type="text" bind:value={pibChose} placeholder="예) 필수 / 선택"></textarea></div>
                             </div>
                         <div class="prtextTable wid25per">
-                            <div class="prtt_area"><textarea type="text" bind:value={pibPeriod} placeholder="예) 처리 및 보유 기간"></textarea></div>
+                            <div class="prtt_area"><textarea type="text" bind:value={pibPeriod} placeholder="예) 탈퇴 또는 계약 종료 시까지"></textarea></div>
                             </div>
                         </div>
                     <a on:click={()=>{removeBeforeItem(i)}} class="pr_delete"></a></div>

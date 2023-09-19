@@ -65,8 +65,6 @@
 
     // 관리자 목록 호출 함수
     const emailSend = function emailAgain(userEmail) {
-        console.log("관리자 재인증 메일전송 클릭!");
-
         const sendDate = {
             userEmail : userEmail
         }
@@ -74,7 +72,7 @@
         let url = "/v2/api/Admin/createMailAgain";
 
         ajaxParam(url, sendDate,(res) => {
-            try { // console.log("재인증메일을 전송하였습니다.");
+            try {
                 openBanner("재인증메일을 전송하였습니다.");
             } catch (e) {
                 reportCatch('temp065', e);
@@ -84,8 +82,6 @@
 
     // 관리자 목록 호출 함수
     const pwChangeMail = function pwChange(userEmail) {
-        console.log("비밀번호 변경 메일전송 클릭!");
-
         const sendDate = {
             userEmail : userEmail
         }
@@ -93,7 +89,7 @@
         let url = "/v2/api/Admin/passwordChangeMail";
 
         ajaxParam(url, sendDate,(res) => {
-            try { // console.log("재인증메일을 전송하였습니다.");
+            try {
                 openBanner("비밀번호변경 메일을 전송하였습니다.");
             } catch (e) {
                 reportCatch('temp066', e);
@@ -111,14 +107,12 @@
     // 관리자 목록 호출 함수
     const adminList = debounce200((page) => {
         adminManagementLayout = 0;
-        console.log("관리자 목록호출 클릭!");
         searchCondition.page = page;
 
         let url = "/v2/api/Admin/list";
 
         ajaxGet(url, searchCondition, (res) => {
             try {
-                console.log("조회된 데이터가 있습니다.");
                 admin_list = res.data.sendData.datalist
                 total = res.data.sendData.total_rows
                 adminManagementLayout = 1;
@@ -129,7 +123,6 @@
             try {
                 admin_list = [];
                 total = 0;
-                console.log("조회된 데이터가 없습니다.");
                 adminManagementLayout = 1;
                 return {action: 'NONE'};
             } catch (e) {
@@ -171,7 +164,6 @@
         </LoadingOverlay>
     </div>
 </section>
-
 
 <!-- [D] 관리자 등록 팝업 -->
 {#if adminSavePop}

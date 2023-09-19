@@ -13,8 +13,7 @@
             jQuery(".blackBox01").addClass("down");
             jQuery(".blackBox02").removeClass("down");
 
-
-        } else {
+} else {
             jQuery(".text1").removeClass("hidn");
             jQuery(".text2").removeClass("show");
 

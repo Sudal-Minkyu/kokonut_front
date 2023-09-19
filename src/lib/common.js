@@ -23,7 +23,6 @@ function phoneNumver(number) {
 // IP 형식 체크 -> true, false 반환
 const filter = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
 function ipCheck(ip_addr) {
-    console.log("체크할 IP : "+ip_addr);
     if (filter.test(ip_addr) === true){
         return false;
     } else{
@@ -63,7 +62,6 @@ function onlyDouble(str) {
 
 // CapsLock 감지함수
 function callCapsLock(event) {
-    // console.log("이벤트 : "+event.getModifierState("CapsLock"));
     return event.getModifierState("CapsLock");
 
     // let regex = /[^0-9]/gi;
@@ -79,7 +77,6 @@ function popOpenBtn() {
 
 // 이미지 크게보기(미완성)
 function imgView(url) {
-    console.log("url : "+url);
 }
 
 // 2주후인 날짜로 반환하는 함수 ex) 2022-03-01 -> 2022. 03. 15 로 반환
@@ -152,4 +149,22 @@ function base64ToUint8Array(base64String) {
     return bytes;
 }
 
-export { phoneNumver, ipCheck, getToday, emailCheck, onlyNumber, onlyDouble, callCapsLock, popOpenBtn, imgView, addTwoWeeks, encryptData, decryptData };
+/**
+ * 객체와 검사를 무시할 키값을 인자로 받아 빈값이 있을 경우 true를 반환한다.
+ * @param arrOfObjects : Array<Object> - 검사할 객체
+ * @param ignoreKeys : Array<string> - 검사를 무시할 키값의 배열
+ * @returns {boolean}
+ */
+function checkFalsyValuesExceptIgnoredKeys(arrOfObjects, ignoreKeys = []) {
+    return arrOfObjects.every(obj => {
+        for (let key in obj) {
+            if (!ignoreKeys.includes(key) && !obj[key] && obj[key] !== 0) {
+                return true;
+            }
+        }
+        return false;
+    });
+}
+
+export { phoneNumver, ipCheck, getToday, emailCheck, onlyNumber, onlyDouble, callCapsLock, popOpenBtn, imgView
+    , addTwoWeeks, encryptData, decryptData, checkFalsyValuesExceptIgnoredKeys };

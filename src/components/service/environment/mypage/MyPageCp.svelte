@@ -10,7 +10,6 @@
     let knPassword = "";
 
     function cpNameChageStart() {
-        console.log("소속명 변경 클릭!");
         if(cpName === ""  || cpName.search(/\s/) !== -1) {
             cpNameBlank = true;
             return false;

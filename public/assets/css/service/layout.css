@@ -77,7 +77,6 @@
 .marB100{margin-bottom:10rem;}
 .noneMarB{margin-bottom:0!important;}
 
-
 .marT12{margin-top:1.2rem;}
 .marT16{margin-top:1.6rem;}
 .marT20{margin-top:2rem;}
@@ -103,7 +102,6 @@
 .marL30{margin-left:3rem;}
 .noneMarL{margin-left:0!important;}
 
-
 /*--------------------------------------------------------------
 # padding 클래스
 --------------------------------------------------------------*/
@@ -121,8 +119,6 @@
 .borT:after{content:'';position:absolute;left:0;top:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 .borB:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:#E2E5EA;z-index:10;}
 .borL:after{content:'';position:absolute;left:0;top:0;width:1px;height:100%;background:#E2E5EA;z-index:10;}
-
-
 
 /*--------------------------------------------------------------
 # dialog 팝업

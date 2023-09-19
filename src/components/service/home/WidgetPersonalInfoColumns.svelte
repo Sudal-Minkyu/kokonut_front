@@ -18,7 +18,6 @@
         ajaxGet('/v2/api/Index/privacyItemCount', false, (res) => {
             try {
                 privacyItemCount = res.data.sendData.privacyItemCount;
-                console.log('개인정보 항목', privacyItemCount);
             } catch (e) {
                 reportCatch('temp136', e);
             }

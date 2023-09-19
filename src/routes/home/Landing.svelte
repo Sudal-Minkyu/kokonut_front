@@ -1,6 +1,8 @@
 <script>
     import { onMount } from "svelte";
-    import ErrorHighlight from "../../components/common/ui/ErrorHighlight.svelte";
+    import { fly } from 'svelte/transition';
+    import {openDiv, tempPwd} from "../../lib/store.js";
+    import {ajaxBody, reportCatch} from "../../components/common/ajax.js";
 
     let width = window.innerWidth;
 
@@ -15,8 +17,106 @@
             window.removeEventListener("resize", handleResize);
         };
     });
+
+    let popupVisible = false;
+
+    function privacyCheck() {
+        popupVisible = !popupVisible;
+    }
+
+
+    let iqState = ''; // 선호 온보딩 방식 -> 1. 오프라인 미팅 2. 온라인 교육
+    let iqWriter = ''; // 작성자
+    let iqCompany = ''; // 회사명
+    let iqService = ''; // 서비스명
+    let iqPhone = ''; // 연락처(휴대전화)
+    let iqEmail = ''; // 이메일
+    let iqContents = ''; // 온보딩 진행 시 요청사항 (이전에 내용칸 활용)
+    let acceptCheck = '0';
+
+    let iqStateBlank = true;
+    let iqWriterBlank = true;
+    let iqCompanyBlank = true;
+    let iqServiceBlank = true;
+    let iqPhoneBlank = true;
+    let iqEmailBlank = true;
+    let acceptBlank = true;
+
+    let essentialCheckMaster = false;
+    function essentialCheck() {
+
+        if(iqState === "") {
+            iqStateBlank = false;
+        } else {
+            iqStateBlank = true;
+        }
+
+        if(iqWriter === "") {
+            iqWriterBlank = false;
+        } else {
+            iqWriterBlank = true;
+        }
+
+        if(iqCompany === "") {
+            iqCompanyBlank = false;
+        } else {
+            iqCompanyBlank = true;
+        }
+
+        if(iqService === "") {
+            iqServiceBlank = false;
+        } else {
+            iqServiceBlank = true;
+        }
+
+        if(iqPhone === "") {
+            iqPhoneBlank = false;
+        } else {
+            iqPhoneBlank = true;
+        }
+
+        if(iqEmail === "") {
+            iqEmailBlank = false;
+        } else {
+            iqEmailBlank = true;
+        }
+
+        if(acceptCheck === "0") {
+            acceptBlank = false;
+        } else {
+            acceptBlank = true;
+        }
+        essentialCheckMaster = true;
+    }
+
+    // 온보딩 신청하기
+    function onbordingSend() {
+
+        // 필수항목 입력했는지 체크하기
+        essentialCheck();
+
+        if(essentialCheckMaster) {
+            let url = "/v1/api/Inquiry/send"
+
+            let sendData = {
+                iqState : iqState,
+                iqWriter : iqWriter,
+                iqCompany : iqCompany,
+                iqService : iqService,
+                iqPhone : iqPhone,
+                iqEmail : iqEmail,
+                iqContents : iqContents
+            }
+
+            ajaxBody(url, sendData, (res) => {
+                alert("온보딩 신청을 완료했습니다.");
+            });
+        }
+
+    }
+
 </script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 <div class="landing-background"></div>
 {#if width < 768}
     <div class="mobile">
@@ -29,113 +129,91 @@
 {/if}
 
 <div class="landing-write">
-    <div id="view_text_popup" class="view_text_popup">
-        <div class="inquiry_box__close"></div>
-        <div class="view_text_popup_contents">
-            <p style="margin: -5px;padding-top: 20px;">이용자가 입력하는 문의사항을 처리하기 위해</p>
-            <p>다음과 같이 개인정보를 수집합니다.</p>
-            <table>
-                <tbody class="viewTextTable">
-                <tr>
-                    <td style="width: 140px">처리 목적</td>
-                    <td style="width: 200px">수집 항목</td>
-                    <td style="width: 150px">수집 방법</td>
-                    <td style="width: 180px">처리 및 보유 기간</td>
-                </tr>
-                <tr>
-                    <td>문의사항 처리</td>
-                    <td>이름, 이메일 주소<br/>연락처, 소속</td>
-                    <td>이용자의 입력</td>
-                    <td>1년</td>
-                </tr>
-                </tbody>
-            </table>
-            <p style="margin-top: 20px;margin-bottom: -10px">이용자는 위와 같이 개인정보를 처리하는데</p>
-            <p style="margin: 5px 0 11px 0">동의하지 않으실 수 있습니다.</p>
-            <p style="margin: -5px">다만, 동의하지 않으시면 문의</p>
-            <p style="margin-bottom: 5px">서비스를 받으실 수 없습니다.</p>
-        </div>
-    </div>
 
-    <div class="container marT40">
-        <main>
-            <div class="row g-5" style="margin-bottom: 3rem;">
-                <div class="col-md-6 mx-auto">
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <h5 class="form-label">선호 온보딩 방식</h5>
-                            <div class="form-check" style="margin-top: 0.3rem;">
-                                <input id="offlineMeeting" name="preferMethod" type="radio" class="form-check-input">
-                                <label class="form-check-label" for="offlineMeeting">오프라인 미팅</label>
-                            </div>
-                            <div class="form-check">
-                                <input id="onlineMeeting" name="preferMethod" type="radio" class="form-check-input">
-                                <label class="form-check-label" for="onlineMeeting">온라인 교육</label>
-                            </div>
-                            <div class="form-check">
-                                <input id="dontCare" name="preferMethod" type="radio" class="form-check-input">
-                                <label class="form-check-label" for="dontCare">상관없음</label>
-                            </div>
-                            <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: -0.5rem 0 -0.5rem 0; padding-top: 0.4rem;"/>
-                        </div>
-                        <div class="col-12">
-                            <label for="custnom" class="form-label">이름</label>
-                            <input type="text" class="form-control" id="custnom">
-                            <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: 0 0 -0.5rem 0; padding-top: 0.4rem;"/>
-                        </div>
-                        <div class="col-12">
-                            <label for="companyName" class="form-label">회사명</label>
-                            <input type="text" class="form-control" id="companyName">
-                            <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: 0 0 -0.5rem 0; padding-top: 0.4rem;"/>
-                        </div>
-                        <div class="col-12">
-                            <label for="serviceName" class="form-label">서비스명</label>
-                            <input type="text" class="form-control" id="serviceName">
-                            <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: 0 0 -0.5rem 0; padding-top: 0.4rem;"/>
-                        </div>
-                        <div class="col-12">
-                            <label for="phoneNumber" class="form-label">연락처</label>
-                            <input type="text" class="form-control" id="phoneNumber" placeholder="010-1234-5678">
-                            <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: 0 0 -0.5rem 0; padding-top: 0.4rem;"/>
-                        </div>
-                        <div class="col-12">
-                            <label for="email" class="form-label">이메일</label>
-                            <input type="text" class="form-control" id="email" placeholder="you@example.com">
-                            <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: 0 0 -0.5rem 0; padding-top: 0.4rem;"/>
-                        </div>
-                        <div class="col-12">
-                            <label for="requestOnboarding" class="form-label">온보딩 진행시 요청사항 <span class="text-body-secondary">(선택)</span></label>
-                            <textarea class="form-control" id="requestOnboarding" style="resize: none;"></textarea>
-                            <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: 0 0 -0.5rem 0; padding-top: 0.4rem;"/>
-                        </div>
+    <div class="onbording_container">
+
+        <div class="onbording_write">
+
+            {#if popupVisible}
+                <div class="view_text_popup" in:fly={{ y: -200 }} out:fly={{ y: -200 }}>
+                    <div class="view_text_popup_contents">
+                        <div class="inquiry_box__close" on:click={privacyCheck}></div>
+                        <p style="margin-bottom: 20px;">온보딩 신청 처리를 위해 아래와 같이 개인정보를 수집·이용 합니다.</p>
+                        <table>
+                            <tbody class="viewTextTable">
+                            <tr>
+                                <td style="width: 140px">수집·이용 목적</td>
+                                <td style="width: 200px">수집 항목</td>
+                                <td style="width: 150px">수집 방법</td>
+                                <td style="width: 180px">처리 및 보유 기간</td>
+                            </tr>
+                            <tr>
+                                <td>온보딩 신청처리</td>
+                                <td>이름, 회사명, 서비스명,<br/>연락처, 이메일</td>
+                                <td>이용자의 입력</td>
+                                <td>1년</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top: 20px;">이용자는 위와 같이 개인정보를 처리하는데</p>
+                        <p style="margin-bottom: 10px;">동의하지 않으실 수 있습니다.</p>
+                        <p>다만, 동의하지 않으시면 온보딩교육</p>
+                        <p>서비스를 받으실 수 없습니다.</p>
                     </div>
+                </div>
+            {/if}
 
-                    <hr class="my-4">
-
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="same-address">
-                        <label class="form-check-label" for="same-address">개인정보 수집 및 이용을 동의합니다. (전문보기)</label>
+            <div >
+                <div class="onbording_deps">
+                    <label class="onbording_label"><a>*</a> 선호 온보딩 방식 <p class="{iqStateBlank === true ? 'onbording_checkmark not_work' : 'onbording_checkmark'}">온보딩 방식을 선택해 주세요.</p></label>
+                    <div class="onbording_select">
+                        <input type="radio" id="select" bind:group={iqState} value="1"><label for="select">오프라인 미팅</label>
+                        <input type="radio" id="select2" bind:group={iqState} value="2"><label for="select2">온라인 교육</label>
                     </div>
-                    <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: -0.7rem 0 1rem 0; padding-top: 0.4rem;"/>
+                </div>
 
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="save-info">
-                        <label class="form-check-label" for="save-info">개인정보 수집 및 이용을 동의합니다. 2</label>
-                    </div>
-                    <ErrorHighlight message="입력해 주세요." fontSize="1.1" style="margin: -0.7rem 0 1rem 0; padding-top: 0.4rem;"/>
-
-                    <button class="w-100 btn btn-light btn-lg" type="submit" style="margin-top: 2rem;">온보딩 신청하기</button>
+                <div class="onbording_deps">
+                    <label for="userName" class="onbording_label"><a>*</a> 이름 <p class="{iqWriterBlank === true ? 'onbording_checkmark not_work' : 'onbording_checkmark'}">이름을 입력해 주세요.</p></label>
+                    <input type="text" class="onbording_input" id="userName" bind:value={iqWriter} placeholder="이름을 입력해 주세요.">
+                </div>
+                <div class="onbording_deps">
+                    <label for="companyName" class="onbording_label"><a>*</a> 회사명 <p class="{iqCompanyBlank === true ? 'onbording_checkmark not_work' : 'onbording_checkmark'}">회사명을 입력해 주세요.</p></label>
+                    <input type="text" class="onbording_input" id="companyName" bind:value={iqCompany} placeholder="회사명을 입력해 주세요.">
+                </div>
+                <div class="onbording_deps">
+                    <label for="serviceName" class="onbording_label"><a>*</a> 서비스명 <p class="{iqServiceBlank === true ? 'onbording_checkmark not_work' : 'onbording_checkmark'}">서비스명을 입력해 주세요.</p></label>
+                    <input type="text" class="onbording_input" id="serviceName" bind:value={iqService} placeholder="서비스명을 입력해 주세요.">
+                </div>
+                <div class="onbording_deps">
+                    <label for="phoneNumber" class="onbording_label"><a>*</a> 연락처 <p class="{iqPhoneBlank === true ? 'onbording_checkmark not_work' : 'onbording_checkmark'}">연락처를 입력해 주세요.</p></label>
+                    <input type="text" class="onbording_input" id="phoneNumber" bind:value={iqPhone} placeholder="연락처를 입력해 주세요.">
+                </div>
+                <div class="onbording_deps">
+                    <label for="userEmail" class="onbording_label"><a>*</a> 이메일 <p class="{iqEmailBlank === true ? 'onbording_checkmark not_work' : 'onbording_checkmark'}">이메일을 입력해 주세요.</p></label>
+                    <input type="text" class="onbording_input" id="userEmail" bind:value={iqEmail} placeholder="이메일을 입력해 주세요.">
+                </div>
+                <div class="onbording_deps">
+                    <label for="requestOnboarding" class="onbording_label">온보딩 진행시 요청사항 <span class="text-body-secondary">(선택)</span></label>
+                    <textarea class="onbording_textarea" id="requestOnboarding" bind:value={iqContents}></textarea>
                 </div>
             </div>
-        </main>
-    </div>
-</div>
 
-<footer class="my-5 pt-5 text-body-secondary text-center text-small" style="margin-top: 0!important;">
-    <p class="mb-1">&copy; 2017–2023 Company Name</p>
-    <ul class="list-inline">
-        <li class="list-inline-item"><a href="#">Privacy</a></li>
-        <li class="list-inline-item"><a href="#">Terms</a></li>
-        <li class="list-inline-item"><a href="#">Support</a></li>
-    </ul>
-</footer>
+            <hr class="onbording_hr">
+
+            <div style="text-align: center">
+                <input type="checkbox" id="pri_check" bind:group={acceptCheck} value="1">
+                <label class="onbording_privacy" for="pri_check">개인정보 수집 및 이용을 동의합니다.</label><a class="onbording_privacy_show" on:click={privacyCheck}>전문보기</a>
+                <p class="{acceptBlank === true ? 'onbording_privacy_check not_work' : 'onbording_privacy_check'}">개인정보 수집 및 이용을 동의해 주세요.</p>
+            </div>
+
+            <button class="onbording_btn" type="button" on:click={onbordingSend}>온보딩 신청하기</button>
+
+            <p class="onbording_footer">
+                Copyright© 2023 Everyfeb<br/>All Rights Reserved
+            </p>
+
+        </div>
+
+    </div>
+
+</div>

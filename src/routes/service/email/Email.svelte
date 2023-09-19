@@ -89,7 +89,6 @@
 
     const emailSendList = debounce200((page) => {
         emailHistoryListState = 0;
-        console.log("이메일 발송내역 리스트 호출!");
         searchCondition.stime = stimeVal;
         searchCondition.page = page;
 
@@ -98,20 +97,10 @@
         ajaxGet(url, searchCondition, (res) => {
             try {
                 emailHistoryListState = 1;
-                console.log(res);
                 email_list = res.data.datalist;
                 total = res.data.total_rows;
             } catch (e) {
                 reportCatch('temp069', e);
-            }
-        }, (errCode, errMsg) => {
-            try {
-                emailHistoryListState = 1;
-                email_list = [];
-                total = 0;
-                return {action: 'NONE'};
-            } catch (e) {
-                reportCatch('temp070', e);
             }
         });
     });

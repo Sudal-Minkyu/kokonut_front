@@ -2,7 +2,6 @@
     import {bootpayRemainingUsageFee} from "../../../common/bootpayment.js";
     export let paymentService;
 
-
 </script>
 
 <!-- [D] 결제 팝업 -->
@@ -73,7 +72,6 @@
         <div class="koko-popup-close subscribe_pop_close" data-popup-close="subscribe_pop_close" on:click={paymentService.close}></div>
     </div>
 </div>
-
 
 <!-- [D] 미니 팝업 : 결제 성공 팝업 -->
 {#if false}

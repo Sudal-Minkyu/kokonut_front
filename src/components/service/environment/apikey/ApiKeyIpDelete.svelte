@@ -26,9 +26,6 @@
                     otp_err_msg = "구글 OTP 값이 존재하지 않습니다.";
                     return false;
                 }
-
-                console.log("허용 IP 삭제 시작");
-
                 let url = "/v2/api/ApiKey/apiKeyIpDelete"
 
                 let sendData = {

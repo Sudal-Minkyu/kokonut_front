@@ -87,8 +87,7 @@
             !qR&3t#8uI%5oP$9lM@2`,
         ]
 
-
-        const el = document.querySelector('.text-change')
+const el = document.querySelector('.text-change')
         const fx = new TextScramble(el)
 
         let counter = 0
@@ -102,7 +101,6 @@
         next()
     });
 </script>
-
 
 <!-- 기술적 보호조치 -->
 <div id="technical" class="technicalC titleUp showArea-show01">

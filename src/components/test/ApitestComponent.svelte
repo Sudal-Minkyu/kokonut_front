@@ -58,15 +58,11 @@
     let authCheck = "버튼을 눌러주세요.";
     let colorCheck = false;
     function jwtRoleTest(role) {
-
-        console.log(role+" jwtRoleTest 호출");
-
         let url = "/v2/api/Admin/"+role
         let sendData = {};
 
         restapi('v2', 'get', url, "", sendData, 'application/json',
         (json_success) => {
-            console.log("JWT 토큰 테스트 완료");
             // alert("접근 권한이 있습니다.");
             popOpenBtn();
             imgState = 1;
@@ -84,18 +80,14 @@
     }
 
     function cookieTest() {
-        console.log("쿠키테스트 클릭!");
-
         let url = "/v1/api/Auth/cookieTest"
 
         let sendData = {}
 
         restapi('v1', 'get', url, "", sendData, 'application/json',
             (json_success) => {
-                console.log(document.cookie);
             },
             (json_error) => {
-                console.log("쿠키테스트 실패");
             }
         )
     }
@@ -106,8 +98,6 @@
     let akAgreeIp4 = "";
     let akAgreeIp5 = "";
     function apiKetTest() {
-        console.log("API Key 발급 테스트")
-
         let url = "/v2/api/ApiKey/apiKeyIssue";
         let sendData = {
             akAgreeIp1 : akAgreeIp1,
@@ -119,18 +109,13 @@
 
         restapi('v2', 'post', url, "body", sendData, 'application/json',
             (json_success) => {
-            console.log(json_success);
         },
             (json_error) => {
-            console.log("실패");
-            // console.log(json_error);
         })
     }
 
     // v3 API 테스트
     function v3ApiTest() {
-        console.log("v3ApiTest 테스트")
-
         let url = "/v3/api/PersonalInfoProvision/save";
         let sendData = {
             piAgreeType: 0,
@@ -151,11 +136,8 @@
 
         restapi('v3', 'post', url, "body", sendData, 'application/json',
             (json_success) => {
-            console.log(json_success);
         },
             (json_error) => {
-            console.log("실패");
-            // console.log(json_error);
         })
     }
 
@@ -164,20 +146,13 @@
     let enc_data = "";
     // 휴대폰인증창 열기 api 호출
     function phoneCheckOpen(state) {
-
-        console.log("휴대폰인증창 클릭!");
-
         let url = "/v1/api/NiceId/open"
-
-        console.log("state : "+state);
         let sendData = {
             state : state // 잘못된 요청 -> "0", 회원가입 -> "1", 이메일찾기 -> "2", 비밀번호찾기 -> "3", OTP변경 -> "4"
         }
 
         restapi('v1', 'get', url, "param", sendData, 'application/json',
             (json_success) => {
-                console.log(json_success);
-
                 token_version_id = json_success.data.sendData.token_version_id;
                 integrity_value = json_success.data.sendData.integrity_value;
                 enc_data= json_success.data.sendData.enc_data;
@@ -189,16 +164,12 @@
                 jQuery("#niceForm").submit();
             },
             (json_error) => {
-                console.log(json_error);
-                console.log("휴대폰인증창열기 실패");
             }
         )
     }
 
     // 이메일 전송테스트
     function emailRestApiTest() {
-        console.log("Rest API 테스트 호출");
-
         let url = "/v1/api/Auth/numberSendKnEmail" // ex) "/v2/api/Admin/"
         let sendData = {
             knEmail : "woody@kokonut.me"
@@ -207,10 +178,8 @@
         // api.js 주석설명 볼 것.
         restapi('v1', 'get', url, "param", sendData, 'application/json',
             (json_success) => {
-                console.log("Rest api 테스트 성공");
             },
             (json_error) => {
-                console.log("Rest api 테스트 실패");
             }
         )
     }
@@ -250,7 +219,6 @@
     }
 
     function startFun() {
-        console.log("예를 누름 그의대한 함수 실행");
     }
 
     // 그래프테스트
@@ -306,10 +274,8 @@
                 "Authorization": get(accessToken),
             }
         }).then((response) => {
-            console.log(response);
             // 파일 업로드 성공 시 로직
         }).catch((error) => {
-            console.error(error);
             // 파일 업로드 실패 시 로직
         });
     }
@@ -393,14 +359,11 @@
             }
         }).then(
             function (response) {
-                console.log(response)
                 if (response.event === 'done') {
-                    console.log("빌링키 : "+response.data.receipt_id);
                     alert('빌링키 발급이 완료되었습니다.');
                 }
             },
             function (error) {
-                console.log(error.message)
             }
         );
     }
@@ -408,17 +371,13 @@
     // 사용 예시
     const dataToEncrypt = 'Hello, World!';
     // const encryptionKey = "kokonuttest123123456431234512323"
-    console.log("dataToEncrypt : "+dataToEncrypt);
-    // console.log("encryptionKey : "+encryptionKey)
     let testpw;
     function aesfun() {
         testpw = encryptData(dataToEncrypt)
             .then((encryptedData) => {
-                console.log("암호화 : "+encryptedData);
                 // 암호화된 데이터를 서버로 전송하거나 다른 처리를 수행합니다.
                 decryptData(encryptedData, $keyBufferSto, $ivSto)
                     .then((decryptData) => {
-                        console.log("복호화 : "+decryptData);
                     })
             })
 

@@ -58,7 +58,6 @@
     }
 
     const fifthDepthSave = (goToState) => {
-        console.log('저장전데이터', $policyInfoData);
         let url = "/v2/api/Policy/privacyPolicyFifthSave";
         let sendData = {
             piId : $piId,

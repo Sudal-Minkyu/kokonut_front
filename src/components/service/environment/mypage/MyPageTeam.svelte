@@ -9,8 +9,6 @@
     let knPassword = "";
 
     function knDepartmentChageStart() {
-        console.log("부서명 변경/등록 클릭!");
-
         if(knDepartment === "" || knDepartment.search(/\s/) !== -1) {
             knDepartmentBlank = true;
             return false;

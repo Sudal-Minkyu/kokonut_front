@@ -8,8 +8,7 @@
         getUserListByCondition, handleEnterSearchText, handleOpenDetail, handleChangePage,
         distinguishSearchTextPlaceholder} from "../../common/privacySearch/privacySearch.js";
 
-
-    const handlePage = ({detail}) => {
+const handlePage = ({detail}) => {
         handleChangePage({
             page: detail.page,
             limitNum: 10,

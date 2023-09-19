@@ -9,6 +9,8 @@
 
     let isReadyToShow;
     let currentLocation;
+    const forceGetUserInfoPage = ['/service', '/service/emailList']; // 사용자 정보 갱신이 필요한 루트들
+    let isForceGetUserInfoPage = forceGetUserInfoPage.includes($location);
 
     onMount(() => {
         // 페이지 변경시마다 실행되도록 하기 위함
@@ -26,7 +28,7 @@
         isReadyToShow = false;
         const isServiceLocation = href.substring(0, 8) === '/service';
         if (isServiceLocation && $is_login) {
-            if ($userInfoData.knEmail === '') { // 사용자 정보 필요
+            if (isForceGetUserInfoPage || $userInfoData.knEmail === '') { // 사용자 정보 필요, 임시 통과조치
                 getUserInfo();
             } else { // 사용자 정보 있음
                 // 향후 로그인 정보 특정조건 갱신 필요의 경우 여기에 작성
@@ -40,6 +42,7 @@
     }
 
     const getUserInfo = () => {
+        isReadyToShow = false;
         ajaxGet('/v2/api/Admin/authorityCheck', false, (res) => {
             try {
                 const userInfo = res.data.sendData;

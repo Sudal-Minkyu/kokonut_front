@@ -91,7 +91,7 @@
                             <li class="optionItem curv" data-rating="">전체</li>
                             <li class="optionItem curv" data-rating="0">대기중</li>
                             <li class="optionItem curv" data-rating="1">제공중</li>
-                            <li class="optionItem curv" data-rating="2">제공완료</li>
+                            <li class="optionItem curv" data-rating="2">제공기간 만료</li>
                         </ul>
                     </div>
                 </div>

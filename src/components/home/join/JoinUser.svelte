@@ -92,8 +92,6 @@
         }
 
         if(emailBlank && emailNotForm && emailAlreadyJoin) {
-            console.log("이메일 중복체크 클릭!");
-
             let url = "/v1/api/Auth/existsByKnEmail"
 
             let sendData = {
@@ -127,8 +125,6 @@
     // 인증번호 받기
     function numberSendEmail() {
         jQuery('.email_codeCount').css('display', 'block');
-
-		console.log("인증번호 받기")
 		if (existsEmailCheck) {
 			let url = "/v1/api/Auth/numberSendKnEmail"
 			let sendData = {
@@ -222,35 +218,30 @@
 
 			// 영문,숫자, 특수문자 모두 하나이상을 혼합하여 입력
 			if(knPassword.search(/\s/) !== -1) {
-				// console.log("비밀번호는 공백 없이 입력해주세요.");
 				passwordBlank=false;
 			} else {
 				passwordBlank=true;
 			}
 			
 			if(eng < 0) {
-				// console.log("영문");
 				passwordCheckEng=true;
 			}else {
 				passwordCheckEng=false;
 			}
 			
 			if(num < 0) {
-				// console.log("숫자");
 				passwordCheckNum=true;
 			} else {
 				passwordCheckNum=false;
 			}
 			
 			if(spe < 0) {
-				// console.log("특수문자");
 				passwordCheckSpe=true;
 			} else {
 				passwordCheckSpe=false;
 			}
 			
 			if(knPassword.length < 10 || knPassword.length > 20) {
-				// console.log("10자리 ~ 20자리 이내로 입력해주세요.");
 				passwordCheckLen=true;
 			} else {
 				passwordCheckLen=false;
@@ -308,11 +299,7 @@
         }
         firstAgreeCautionMsg = isFirstAgree ? '' : '개인정보 처리방침에 동의해 주세요.';
         secondAgreeCautionMsg = isSecondAgree ? '' : '이용약관에 동의해 주세요.';
-
-        console.log(cpNameBlank + "_" + passwordCheck + "_" + passwordConfirmCheck + "_" + emailStep + "_" + knEmailCheck);
         if(cpNameBlank &&passwordCheck && passwordConfirmCheck && emailStep ===2 && knEmailCheck && isFirstAgree && isSecondAgree) {
-            console.log("회원가입 조건 충족 완료 -> 시작!");
-
             let url = "/v1/api/Auth/kokonutSignUp"
 
 			let sendData = {
@@ -324,8 +311,6 @@
                 knPasswordConfirm : knPasswordConfirm,
                 knEmailCheck : knEmailCheck,
 			}
-            console.log('회원가입보내는정보', sendData);
-
             ajaxBody(url, sendData, (res) => {
                 try {
                     push('/joinsu');
@@ -417,8 +402,7 @@
             <ErrorHighlight message={firstAgreeCautionMsg} />
         </div>
 
-
-    </div>
+</div>
     <!-- 조건 충족 시 not_work 제거 -->
     <div class="join_bottom">
         <button type="button" on:click|preventDefault={register}><p>완료</p></button>

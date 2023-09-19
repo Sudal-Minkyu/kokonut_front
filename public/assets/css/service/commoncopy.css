@@ -69,14 +69,12 @@
 .notiallBtn:hover{background:#E2E5EA;}
 /* ==== // 알림 영역 ==== */
 
-
 /*-----------------------------------------------------------------------------------------
 # 박스 레이아웃
 -----------------------------------------------------------------------------------------*/
 .bodyWrap{width:100%;position:relative;padding-left:30rem;padding-top:6.4rem;z-index:5;}
 .contentInnerWrap {padding: 6rem 8rem 10rem 8rem;width: 100%;height: 100%;background-color: #fff;}
 @media (max-width: 1700px) {.contentInnerWrap {padding: 6rem 6rem 10rem 6rem;}}
-
 
 /*-----------------------------------------------------------------------------------------
 # 페이지 상단 검색영역
@@ -298,7 +296,6 @@
 .kopopinput input:-webkit-autofill:focus,
 .kopopinput input:-webkit-autofill:active {-webkit-text-fill-color: #444444;-webkit-box-shadow: 0 0 0px 1000px #fff inset;box-shadow: 0 0 0px 1000px #fff inset;transition: background-color 5000s ease-in-out 0s;}
 
-
 .kopop_SelBox{display:block;}
 .kopop_SelBox p{display:block;font-family: Pretendard, sans-serif;font-size: 1.8rem;font-weight: 600;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#444;margin-bottom:1.2rem;}
 .kopop_SelBox .selectBox {width: 100%;height: 5.2rem;border-radius: 1rem;border: 1px solid #E2E5EA;padding: 1.6rem 2rem 1.6rem 2rem;}
@@ -334,7 +331,6 @@
 .koko_check input[type=checkbox]+label em {left: 0;border-radius: 0.4rem;position: absolute;top: 0.3rem;display: inline-block;margin-right: 0.8rem;vertical-align: middle;width: 1.6rem;height: 1.6rem;border: 2px solid #E2E5EA;}
 .koko_check input[type=checkbox]:checked+label em {border:none;background: url(/assets/images/common/infocheck.png) no-repeat center/cover;}
 
-
 .popRadioType02 {margin-top: 2rem;display: flex;position: relative;align-items: center;}
 .popRadioType02:last-child{margin: 0.6rem 0 0rem 0;}
 .popRadioType02 input{position:absolute;display:none;}
@@ -349,7 +345,6 @@
 .popRadioBox .popRadioType02 input[type=radio].radio+label em dt{position: absolute;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);width:1.6rem;height:1.6rem;border-radius:0.4rem;}
 .popRadioBox .popRadioType02 input[type=radio].radio:checked+label em {border:none;}
 .popRadioBox .popRadioType02 input[type=radio].radio:checked+label em dt{background: url(/assets/images/common/infocheck.png) no-repeat center/cover;}
-
 
 .kokopopBtnBox {display: flex;margin-top: 5rem;align-items: center;justify-content: center;}
 .koko_cancel{cursor:pointer;width: 9rem;height: 4.8rem;background: #E9EBED;border-radius:0.9rem;margin:0 0.4rem 0 0.4rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 4.8rem;letter-spacing: 0;text-align: center;color:#666;position:relative;}
@@ -374,7 +369,6 @@
 .excel_download_pop .koko_popup_inner{top: 12rem;width: 63rem;}
 .excelfile{color: #00C389!important;}
 /* ==== // 엑셀 다운로드 팝업 영역 ==== */
-
 
 /*-----------------------------------------------------------------------------------------
 # 환경설정 > 리스트
@@ -446,7 +440,6 @@
 .wr_revise{margin-left:0.8rem;padding:  1.2rem 1.6rem;background: #00C389;border-radius:1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#fff;}
 .wr_revise:hover{background: #00BA83;}
 
-
 /*-----------------------------------------------------------------------------------------
 # 환경설정 > 개인정보 항목 관리
 -----------------------------------------------------------------------------------------*/
@@ -493,7 +486,6 @@
 .bo_tabContentBox .prtable::-webkit-scrollbar-track{background-color: #fff;border-radius: 0.3rem;}
 .bo_tabContentBox .prtable::-webkit-scrollbar-thumb{background-color: #D3D6DA;border-radius: 0.3rem;}
 /* ==== // 슬라이드 탭 영역 ==== */
-
 
 /* ======================== 항목분류 컨텐츠 영역 ======================== */
 .prPart1_box{width:50%;position:relative;padding-right:5.4rem;}
@@ -593,7 +585,6 @@
 }
 /* ======================== // 항목분류 컨텐츠 영역 ======================== */
 
-
 /* ======================== 개인정보항목 컨텐츠 영역 ======================== */
 .prPart2_box {/* display:none; */width:50%;position: relative;padding-left: 5.4rem;}
 
@@ -655,8 +646,6 @@
 .prtable table tbody tr{background: #fff;position:relative;}
 .prtable table tbody tr td {padding: 0.8rem 1rem 0.8rem 1rem;vertical-align: middle;position: relative;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color: #666;}
 
-
-
 .prtable .koko_check {margin: 0;display: inline-block;}
 .prtable .koko_check input[type=checkbox]+label em{margin-right:0;}
 .prtable .koko_check label {cursor: pointer;position: relative;padding-left: 1.6rem;}
@@ -679,7 +668,6 @@
 /* ==== // 개인정보 선택 항목 삭제 팝업 영역 ==== */
 
 /* ======================== // 개인정보항목 테이블 영역 ======================== */
-
 
 /*-----------------------------------------------------------------------------------------
 # 환경설정 > 내 정보 수정
@@ -756,7 +744,6 @@
 .otpqrInfoImg img{display:block;height:4rem;max-width:100%;}
 /* ==== // otp 재등록 팝업 영역 ==== */
 
-
 /*-----------------------------------------------------------------------------------------
 # 환경설정 > 서비스 설정
 -----------------------------------------------------------------------------------------*/
@@ -830,7 +817,6 @@
 .set_customBox .seaRadio{padding: 1.4rem 2rem 1.4rem 2rem;}
 .set_customBox .selectBox .optionList {top: 4.8rem;}
 
-
 /*-----------------------------------------------------------------------------------------
 # 환경설정 > api-key 발급
 -----------------------------------------------------------------------------------------*/
@@ -878,7 +864,6 @@
 .foldex{margin-bottom:0.8rem;display:block;position:relative;padding-left:4.3rem;font-family: Pretendard, sans-serif;font-size: 1.4rem;font-weight: 400;line-height: 2.2rem;letter-spacing: 0;text-align: left;color:#888;}
 .foldex:last-child{margin-bottom:0;}
 .foldex span {top: 0;position: absolute;left: 0;width: 3.3rem;height: 2.2rem;background: #EBEDEF;border-radius:0.4rem;font-family: Pretendard, sans-serif;font-size: 1.2rem;font-weight: 500;line-height: 2.2rem;letter-spacing: 0;text-align: center;color: #888;}
-
 
 /*-----------------------------------------------------------------------------------------
 # 구독관리
@@ -958,7 +943,6 @@
 
 /* ==== // 월 평균 개인정보 팝업 영역 ==== */
 
-
 /*-----------------------------------------------------------------------------------------
 # 서드파티 연동
 -----------------------------------------------------------------------------------------*/
@@ -1001,8 +985,6 @@
 /* ==== 연동 변경 팝업 영역 ==== */
 .change_pop .koko_popup_inner {top: 8rem;width: 63rem;}
 /* ==== // 연동 변경 팝업 영역 ==== */
-
-
 
 /*-----------------------------------------------------------------------------------------
 # 개인정보 현황 > 개인정보 검색
@@ -1182,7 +1164,6 @@
 .pri_fornt input[type=radio].priradio:checked+label{border: 1px solid #00C389;}
 /* ======== // step01 ======== */
 
-
 /* ======== step02 ======== */
 .pri_componentWrap{width:100%;position:relative;}
 
@@ -1320,7 +1301,6 @@
 
 .step_filter_pop {background: rgba(255,255,255,0)!important;}
 /* ======== // step05 ======== */
-
 
 /*-----------------------------------------------------------------------------------------
 # 개인정보처리방침 관리 > 리스트
@@ -1531,7 +1511,6 @@
 .pmtool_04 {left: -14.6rem;width: 30.8rem;bottom: 3rem;}
 /* // 툴팁 팝업 */
 
-
 /*-----------------------------------------------------------------------------------------
 # 이메일 발송 > 이메일 발송
 -----------------------------------------------------------------------------------------*/
@@ -1577,7 +1556,6 @@
 .mrBottomBox{border-top:1px solid #eee;width:100%;position:relative;height:6rem;}
 .mrBottomBox .floatBtnBox {position: absolute;right: 2rem;top: 1.4rem;display: flex;}
 /* ==== // 이메일 발송 컨텐츠 영역 ==== */
-
 
 .semailContentBox{width:100%;position:relative;}
 .semailitemBox {padding-left: 16rem;display: block;position: relative;height: 5.4rem;}

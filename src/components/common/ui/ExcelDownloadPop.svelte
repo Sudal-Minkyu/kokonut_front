@@ -29,11 +29,6 @@
         otpValue: '',
     }
 
-
-    const handleCancel = () => {
-
-    }
-
     const handleProceedDownload = () => {
         if (!requestData.otpValue) {
             otpValueErrMsg = 'OTP를 적어주세요.';
@@ -51,7 +46,6 @@
         mainScreenBlockerVisibility.set(true);
 
         if (excelDownloadPopService.useBodyParam) {
-            console.log('리퀘스트', excelDownloadPopService.requestData);
             ajaxExcelBodyParam(excelDownloadPopService.requestURL, excelDownloadPopService.requestData, requestData
                 , excelReqSuccess, excelReqFail);
         } else {

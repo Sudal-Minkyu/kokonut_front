@@ -33,8 +33,7 @@
 
     let priavacyStage = 0;
 
-
-    const getColumnList = () => {
+const getColumnList = () => {
         ajaxGet('/v2/api/DynamicUser/tableColumnCall', false, (json_success) => {
             try {
                 providePrivacyWriteData.update(obj => {
@@ -75,6 +74,5 @@
             </LoadingOverlay>
         </div>
 
-
-    </div>
+</div>
 </section>

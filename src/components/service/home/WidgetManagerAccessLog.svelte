@@ -16,7 +16,6 @@
         ajaxGet('/v2/api/Index/adminConnectInfo', false, (res) => {
             try {
                 adminConnectInfo = res.data.sendData;
-                console.log('관리자 활동 이력', adminConnectInfo);
             } catch (e) {
                 reportCatch('temp135', e);
             }

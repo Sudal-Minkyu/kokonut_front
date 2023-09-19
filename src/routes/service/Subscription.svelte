@@ -54,18 +54,6 @@
             } catch (e) {
                 reportCatch('temp002', e);
             }
-        }, (errCode, errMsg) => {
-            try {
-                subscriptionManagementData.update(obj => {
-                    obj.paymentList.dataList = [];
-                    obj.paymentList.total_rows = 0;
-                    return obj;
-                });
-                gotPaymentState = 1;
-                return {action: 'NONE'}
-            } catch (e) {
-                reportCatch('temp003', e);
-            }
         });
     }
 

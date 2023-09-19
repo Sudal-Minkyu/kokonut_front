@@ -48,11 +48,6 @@
     }
 
     function qnaWrite() {
-        console.log("문의하기 클릭!");
-
-        console.log(filesArr);
-        console.log(filesArr.length);
-
         let url =  '/v2/api/Qna/qnaWrite';
 
         let formData = new FormData();
@@ -67,7 +62,6 @@
 
         ajaxMultipart(url, formData, (res) => {
             try {
-                console.log(res);
                 push('/service/environment/qnaList');
             } catch (e) {
                 reportCatch('temp100', e);
@@ -78,8 +72,6 @@
     let filesArr = [];
     let files;
     $: if (files) {
-        console.log("파일업로드 파일선택!");
-
         let start = true;
         let maxFileCnt = 5;   // 첨부파일 최대 개수
         let attFileCnt = document.querySelectorAll('.filebox').length; // 기존 추가된 첨부파일 개수
@@ -97,8 +89,6 @@
             });
             start = false;
         }
-
-        // console.log(files);
         if(start) {
             for (let i = 0; i < curFileCnt; i++) {
                 // 첨부파일 검증
@@ -164,16 +154,9 @@
 
     /* 첨부파일 삭제 */
     function deleteFile(num) {
-        console.log("삭제 할 파일 num번째 : "+num);
         document.querySelector("#file" + num).remove();
-        console.log("filesArr.length : "+filesArr.length);
-        console.log("delete before filesArr : "+filesArr);
-
         // filesArr = filesArr.filter((file, i) => i !== num);
         // filesArr = [...filesArr.slice(0, num), ...filesArr.slice(num + 1)];
-
-        console.log("delete after filesArr : "+filesArr);
-
     }
 
 </script>

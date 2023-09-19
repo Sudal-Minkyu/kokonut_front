@@ -20,7 +20,6 @@
                         fieldCode: '1_pw',
                         fieldComment: '비밀번호',
                     }, ...res2.data.sendData.fieldList];
-                    console.log('컬럼리스트', columnList);
                 }
 
                 for (const {fieldCode} of columnList) {
@@ -63,7 +62,6 @@
             alert('아이디는 필수값 입니다.');
             return;
         }
-        console.log(memberData);
         ajaxRegister('/v3/api/Auth/register', memberData, apiKey, (res) => {
             try {
                 alert('맴버 추가 완료');

@@ -35,35 +35,30 @@
 
 			// 영문,숫자, 특수문자 모두 하나이상을 혼합하여 입력
 			if(knPassword.search(/\s/) !== -1) {
-				// console.log("비밀번호는 공백 없이 입력해주세요.");
 				passwordBlank=false;
 			} else {
 				passwordBlank=true;
 			}
 			
 			if(eng < 0) {
-				// console.log("영문");
 				passwordCheckEng=true;
 			}else {
 				passwordCheckEng=false;
 			}
 			
 			if(num < 0) {
-				// console.log("숫자");
 				passwordCheckNum=true;
 			} else {
 				passwordCheckNum=false;
 			}
 			
 			if(spe < 0) {
-				// console.log("특수문자");
 				passwordCheckSpe=true;
 			} else {
 				passwordCheckSpe=false;
 			}
 			
 			if(knPassword.length < 10 || knPassword.length > 20) {
-				// console.log("10자리 ~ 20자리 이내로 입력해주세요.");
 				passwordCheckLen=true;
 			} else {
 				passwordCheckLen=false;
@@ -116,17 +111,9 @@
         startFun = i;
     }
 
-
-    // 비밀번호변경 버튼
+// 비밀번호변경 버튼
     function amdinPwChangeComplete() {
-
-        // console.log("userEmail : "+userEmail);
-        // console.log("passwordCheck : "+passwordCheck);
-        // console.log("passwordConfirmCheck : "+passwordConfirmCheck);
-
         if(passwordCheck && passwordConfirmCheck) {
-            // console.log("관리자등록 조건 충족 완료 -> 시작!");
-
             let url = "/v1/api/Auth/passwordChange";
 
 			let sendData = {

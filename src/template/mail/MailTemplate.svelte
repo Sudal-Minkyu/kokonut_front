@@ -13,10 +13,6 @@
     
 	const title = getParams($querystring).title;
 	const content = getParams($querystring).content;
-
-	console.log("title : "+title);
-	console.log("content : "+content);
-
 </script>
 
 <div style="display:inline-block;overflow:hidden;width:600px;height:auto;position:relative;">

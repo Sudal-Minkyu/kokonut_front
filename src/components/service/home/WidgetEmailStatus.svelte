@@ -17,7 +17,6 @@
         ajaxGet('/v2/api/Index/emailSendCount', {dateType}, (res) => {
             try {
                 emailSendCountDto = res.data.sendData.emailSendCountDto;
-                console.log('이메일 발송', emailSendCountDto);
             } catch (e) {
                 reportCatch('temp134', e);
             }

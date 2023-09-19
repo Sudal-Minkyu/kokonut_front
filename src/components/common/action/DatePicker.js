@@ -41,9 +41,6 @@ export const DateRangePicker = (targetEl, props = {}) => {
     }
 
     const finalProps = {...defaultProps, ...props};
-
-    console.log(jQuery(targetEl));
-
     if (finalProps.periodName) {
         // 기본으로 선택된 기간 찾기 - checked true 찾기
         // 기간 선택버튼 찾기
@@ -81,76 +78,38 @@ export const DateRangePicker = (targetEl, props = {}) => {
  */
 const setOptDateRangePicker = ({jQueryEl, periodDays, periodTags, callback, eraseOnCancel, handleRendered}) => {
 
-    console.log('작동');
-    if(periodDays === "t"){
-        // negative -  all_days
-        console.log("선택된 조회 기간은 '전체' 입니다.");
-        // daterangepicker 비활성화
-        if(jQueryEl.data('daterangepicker')){
-            jQueryEl.data('daterangepicker').container.remove();
+    // 기간 선택 옵션에 따라 데이트피커에 적용할 옵션을 변경한다.
+    const getOptions = (periodDays) => {
+        const commonOptions = {
+            dateLimit: { days: 180 },
+            locale: localeKr,
+        };
+
+        if (periodDays === "t") return null;
+
+        let period = Number(periodDays);
+        let options = { ...commonOptions, startDate: moment(), endDate: moment(), maxDate: moment() };
+
+        if (periodDays === "-0") options.minDate = moment();
+        else if (period < 0) options.endDate = moment().subtract(period + 1, 'days');
+        else if (period > 0) options.startDate = moment().subtract(period - 1, 'days');
+
+        return options;
+    };
+
+    const setDatePicker = (options) => {
+        if (options) {
+            jQueryEl.daterangepicker(options)
+        } else { // 옵션값이 넘어오지 않는 period가 't' 같은 경우 데이트 피커 작동 해제
+            if (jQueryEl.data('daterangepicker')) {
+                jQueryEl.data('daterangepicker').container.remove();
+            }
+            jQueryEl.val('');
         }
-        jQueryEl.val('');
-    }else if(Number(periodDays) < 0){
-        console.log("선택된 조회 기간은 " + periodDays +" 일 입니다.");
-        jQueryEl.daterangepicker({
-            startDate : moment(),
-            endDate : moment().subtract(Number(periodDays)+1, 'days'),
-            minDate: moment(),
-            dateLimit: {
-                'days': 180
-            },
-            locale : localeKr
-        });
-    }else if(Number(periodDays) > 0){
-        // positive
-        console.log("선택된 조회 기간은 " + periodDays +" 일 입니다.");
-        jQueryEl.daterangepicker({
-            startDate : moment().subtract(Number(periodDays)-1, 'days'),
-            endDate : moment(),
-            maxDate : moment(),
-            dateLimit: {
-                'days': 180
-            },
-            locale : localeKr
-        });
-    }else if(periodDays === "-0"){
-        // zero - custom
-        console.log("선택된 조회 기간은 '사용자 지정' 오늘부터 입니다.");
-        jQueryEl.daterangepicker({
-            startDate : moment(),
-            endDate : moment(),
-            minDate : moment(),
-            dateLimit: {
-                'days': 180
-            },
-            locale : localeKr
-        });
-    }else if(periodDays === "0"){
-        // zero - custom
-        console.log("선택된 조회 기간은 '사용자 지정' 오늘까지 입니다.");
-        jQueryEl.daterangepicker({
-            startDate : moment(),
-            endDate : moment(),
-            maxDate : moment(),
-            dateLimit: {
-                'days': 180
-            },
-            locale : localeKr
-        });
-    }else{
-        console.log("periodDays가 범위 밖 입니다.\n"
-            +"periodDays를 확인하세요. >> "+ periodDays +"\n"
-            +"기본 조회기간으로 조회합니다. (1일)");
-        jQueryEl.daterangepicker({
-            startDate : moment(),
-            endDate : moment(),
-            maxDate : moment(),
-            dateLimit: {
-                'days': 180
-            },
-            locale : localeKr
-        });
-    }
+    };
+
+    const options = getOptions(periodDays);
+    setDatePicker(options);
 
     // 캘린더 영역 펼쳐질 때 css
     jQueryEl.on("show.daterangepicker", function() {
@@ -231,11 +190,8 @@ export const setOptionItem = (option) => {
         tagArea = document.getElementById(opt.id)
         if(tagArea !== null) {
             tagArea = tagArea.nextElementSibling;
-
-            // console.log(tagArea)
             // li 태그 만들기 	<li class="optionItem curv" data-value="코드값"	>코드명</li>
             itemList.forEach((item)=>{
-                // console.log("item.value : " + item.value);
                 newTag = document.createElement('li');
                 newTag.setAttribute('class', 'optionItem curv');
                 newTag.setAttribute('data-value', item.value); 	// 코드값
@@ -304,7 +260,6 @@ export const singleDatePicker = (elementId, callback, additionalProp = {}) => {
         singleDatePicker: true,
         showDropdowns: true,
         autoApply: true,
-        minYear: 1990,
         locale : localeKr,
         ...additionalProp,
     }, callback);

@@ -28,7 +28,7 @@
             </div>
             <div class="popcaseInfoBox pi_noneicon marB32">
                 <p>안내사항</p>
-                <dl>{askSubscribeService.texts.notification}</dl>
+                <dl>{@html askSubscribeService.texts.notification}</dl>
             </div>
             <div class="koko_checkDoubleBox">
                 <div class="koko_check">

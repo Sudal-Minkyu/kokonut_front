@@ -18,9 +18,6 @@
     let enc_data = "";
     // 휴대폰인증창 열기 api 호출
     function phoneCheckOpen(state) {
-        console.log("휴대폰인증창 클릭!");
-        // console.log("state : "+state);
-        
         let url = "/v1/api/NiceId/open"
 
         let sendData = {
@@ -46,29 +43,18 @@
 
     // 휴대폰 인증완료후 처리함수
     window.phoneCertCheck = function (state, keyEmail, otpKey) {
-        console.log("휴대폰 본인인증 완료!");
-
-        console.log("state : "+state);
-        console.log("keyEmail : "+keyEmail);
-        console.log("otpKey : "+otpKey);
-
         if(state === "1" || state === "7") {
-            console.log("회원가입 창으로");
             conditionFun(2, keyEmail, otpKey); // 회원가입 : keyEmail -> joinName, otpKey -> joinPhone
         } else if(state === "2") {
-            console.log("폰인증 완료 -> 이메일찾기 시작");
             emailFind(keyEmail)
         } else if(state === "3") {
-            console.log("폰인증 완료 -> 비밀번호변경 시작");
             // 입력한 이메일 + 인증한 번호와 일치한 이메일로 임시비밀번호 전송하기
             // 이후 비밀번호찾기 완료 페이지이동
             passwordFind(keyEmail)
         } else if(state === "4") {
-            console.log("폰인증 완료 -> OTP변경 창으로");
             // OTP변경 처리 restAPI 호출
             googleOtpSave();
         } else if(state === "5") {
-            console.log("폰인증 완료 -> 휴대전화번호 변경시작");
             // 휴대전화번호변경 restAPI 호출
             changePhoneNumber(keyEmail, otpKey); // 휴대전화번호 변경 : keyEmail -> joinName, otpKey -> joinPhone
         } else {
@@ -86,8 +72,6 @@
             return false;
         } else {
             conditionFun(true, "");
-            console.log("이메일 존재여부 체크");
-
             let url = "/v1/api/Auth/checkKnEmail"
             let sendData = {
                 knEmail : email
@@ -157,7 +141,6 @@
         ajaxParam(url, sendData, (res) => {
             try {
                 $openDiv = 2;
-                console.log(res);
                 $tempPwd = res.data.sendData.tempPassword;
             } catch (e) {
                 reportCatch('temp105', e);
@@ -172,8 +155,6 @@
     export let otpValue = undefined;  // OTP변경시 입력한  OTP인증코드
     export let initValue; // 값 초기화 함수호출
     function otpCheck() {
-        // console.log("knPassword : "+knPassword);
-        // console.log("otpValue : "+otpValue);
         if(knPassword === "") {
             conditionFun(1, false);
             return false;
@@ -194,13 +175,7 @@
     function googleOtpAuth() {
         conditionFun(3, true);
         conditionFun(4, true);
-
-		console.log("OTP 등록/재등록시 인증 호출함수");
-
 		let url = "/v1/api/Auth/checkOTP"
-		// console.log("otpValue : "+otpValue);
-        // console.log("knOtpKey : "+knOtpKey);
-
 		let sendData = {
 			otpValue : otpValue,
 			knOtpKey : knOtpKey,
@@ -233,9 +208,6 @@
 
     // 구글 OTP 등록 및 재등록
 	function googleOtpSave() {
-		console.log("구글 OTP 등록 및 재등록 시작");
-        // console.log("authOtpKey : "+authOtpKey);
-
 		let url = "/v1/api/Auth/saveOTP"
 		
 		let sendData = {
@@ -243,8 +215,6 @@
 			knOtpKey : knOtpKey,
 			knEmail : knEmail
 		}
-        // console.log(sendData);
-
         ajaxParam(url, sendData, (res) => {
             try {
                 initValue();
@@ -258,11 +228,6 @@
 
     // 핸드폰번호 변경
     function changePhoneNumber(name, phone) {
-        console.log("핸드폰번호 변경 시작");
-
-        // console.log("name : "+name);
-        // console.log("phone : "+phone);
-
         let url = "/v2/api/Admin/phoneChange"
 
         let sendData = {

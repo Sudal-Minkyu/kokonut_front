@@ -42,9 +42,6 @@
             if(emailConfirm) {
                 emailConfirm = false;
             }
-
-            console.log("이메일 중복체크 클릭!");
-
             let url = "/v1/api/Auth/existsByKnEmail"
 
             let sendData = {
@@ -83,8 +80,6 @@
         }
 
         // 사용중인 이메일이 아닐경우 해당 이메일로 이메일확인전송 -> 확인 후 해당 관리자 로그인 가능
-        console.log("관리자 등록 클릭!");
-
         let url = "/v2/api/Admin/create"
 
         let sendData = {

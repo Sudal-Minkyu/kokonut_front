@@ -5,7 +5,6 @@
     export let explanState;
 
     function explanClick() {
-        // console.log("내용더보기 클릭");
         explanState = !explanState;
     }
 </script>
