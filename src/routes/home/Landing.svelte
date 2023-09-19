@@ -139,26 +139,28 @@
                     <div class="view_text_popup_contents">
                         <div class="inquiry_box__close" on:click={privacyCheck}></div>
                         <p style="margin-bottom: 20px;">온보딩 신청 처리를 위해 아래와 같이 개인정보를 수집·이용 합니다.</p>
+                        <p style="text-align: left;">▶ 개인정보 수집·이용 내역</p>
                         <table>
                             <tbody class="viewTextTable">
                             <tr>
                                 <td style="width: 140px">수집·이용 목적</td>
                                 <td style="width: 200px">수집 항목</td>
                                 <td style="width: 150px">수집 방법</td>
-                                <td style="width: 180px">처리 및 보유 기간</td>
+                                <td style="width: 180px">보유·이용기간</td>
                             </tr>
                             <tr>
-                                <td>온보딩 신청처리</td>
+                                <td>온보딩 신청 처리</td>
                                 <td>이름, 회사명, 서비스명,<br/>연락처, 이메일</td>
                                 <td>이용자의 입력</td>
                                 <td>1년</td>
                             </tr>
                             </tbody>
                         </table>
-                        <p style="margin-top: 20px;">이용자는 위와 같이 개인정보를 처리하는데</p>
-                        <p style="margin-bottom: 10px;">동의하지 않으실 수 있습니다.</p>
-                        <p>다만, 동의하지 않으시면 온보딩교육</p>
-                        <p>서비스를 받으실 수 없습니다.</p>
+                        <p style="margin-top: 20px;">위의 개인정보 수집·이용에 대한<br/>
+                            동의를 거부할 권리가 있습니다.</p>
+                        <br/>
+                        <p>그러나 동의를 거부할 경우 온보딩</p>
+                        <p style="margin-bottom: 10px;">서비스 이용에 제한을 받을 수 있습니다.</p>
                     </div>
                 </div>
             {/if}
