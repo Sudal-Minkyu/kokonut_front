@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo su -
+
 cd /root/kokonut_frontend/
 
 PORT=5173
@@ -14,7 +14,11 @@ else
     sleep 5
 fi
 
-mkdir /root/kokonut_frontend/logs
+# 디렉토리 존재 여부 확인
+if [ ! -d "/root/kokonut_frontend/logs" ]; then
+    mkdir /root/kokonut_frontend/logs
+fi
+
 nohup npm run dev -- --host 0.0.0.0 1>/root/kokonut_frontend/logs/$(date +%Y-%m-%d)_stdout.log 2>/root/kokonut_frontend/logs/$(date +%Y-%m-%d)_stderr.log &
 
 exit
