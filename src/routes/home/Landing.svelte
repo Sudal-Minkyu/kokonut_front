@@ -45,48 +45,54 @@
     let essentialCheckMaster = false;
     function essentialCheck() {
 
-        if(iqState === "") {
+        if(!iqState.trim()) {
             iqStateBlank = false;
         } else {
             iqStateBlank = true;
         }
 
-        if(iqWriter === "") {
+        if(!iqWriter.trim()) {
             iqWriterBlank = false;
         } else {
             iqWriterBlank = true;
         }
 
-        if(iqCompany === "") {
+        if(!iqCompany.trim()) {
             iqCompanyBlank = false;
         } else {
             iqCompanyBlank = true;
         }
 
-        if(iqService === "") {
+        if(!iqService.trim()) {
             iqServiceBlank = false;
         } else {
             iqServiceBlank = true;
         }
 
-        if(iqPhone === "") {
+        if(!iqPhone.trim()) {
             iqPhoneBlank = false;
         } else {
             iqPhoneBlank = true;
         }
 
-        if(iqEmail === "") {
+        if(!iqEmail.trim()) {
             iqEmailBlank = false;
         } else {
             iqEmailBlank = true;
         }
 
-        if(acceptCheck === "0") {
+        if(acceptCheck.length === 0) {
             acceptBlank = false;
         } else {
             acceptBlank = true;
         }
-        essentialCheckMaster = true;
+
+        if(iqStateBlank && iqWriterBlank && iqCompanyBlank && iqServiceBlank && iqPhoneBlank && iqEmailBlank && acceptBlank) {
+            essentialCheckMaster = true;
+        } else {
+            essentialCheckMaster = false;
+        }
+
     }
 
     // 온보딩 신청하기
