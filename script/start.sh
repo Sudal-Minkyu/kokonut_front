@@ -21,6 +21,6 @@ if [ ! -d "/kokonut_frontend/logs" ]; then
     mkdir /kokonut_frontend/logs
 fi
 
-nohup npm run dev -- --host 0.0.0.0 1>/dev/null 2>/kokonut_frontend/logs/$(date +%Y-%m-%d)_stdout.log 3>/kokonut_frontend/logs/$(date +%Y-%m-%d)_stderr.log &
+nohup npm run dev -- --host 0.0.0.0 1>/kokonut_frontend/logs/$(date +%Y-%m-%d)_stdout.log 3>/kokonut_frontend/logs/$(date +%Y-%m-%d)_stderr.log &
 
 exit
