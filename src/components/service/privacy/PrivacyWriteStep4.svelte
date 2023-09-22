@@ -40,19 +40,19 @@ const handleNext = () => {
     <div class="pristep">
         <div class="pristepContent">
             <div class="marB46">
-                <label class="steplabel">제공할 개인정보를 선택해 주세요.</label>
-                <div class="step_radioBox">
-                    <div class="step_radio">
-                        <input type="radio" class="stradio all" name="porim" id="radioEveryone" value={0}
-                               bind:group={$providePrivacyWriteData.step4.proTargetType} />
-                        <label for="radioEveryone"><em><dt></dt></em>전체 개인정보</label>
-                    </div>
-                    <div class="step_radio">
-                        <input type="radio" class="stradio part" name="porim" id="radioSomeone" value={1}
-                               bind:group={$providePrivacyWriteData.step4.proTargetType} />
-                        <label for="radioSomeone"><em><dt></dt></em>일부 개인정보</label>
-                    </div>
-                </div>
+<!--                <label class="steplabel">제공할 개인정보를 선택해 주세요.</label>-->
+<!--                <div class="step_radioBox">-->
+<!--                    <div class="step_radio">-->
+<!--                        <input type="radio" class="stradio all" name="porim" id="radioEveryone" value={0}-->
+<!--                               bind:group={$providePrivacyWriteData.step4.proTargetType} />-->
+<!--                        <label for="radioEveryone"><em><dt></dt></em>전체 개인정보</label>-->
+<!--                    </div>-->
+<!--                    <div class="step_radio">-->
+<!--                        <input type="radio" class="stradio part" name="porim" id="radioSomeone" value={1}-->
+<!--                               bind:group={$providePrivacyWriteData.step4.proTargetType} />-->
+<!--                        <label for="radioSomeone"><em><dt></dt></em>일부 개인정보</label>-->
+<!--                    </div>-->
+<!--                </div>-->
                 {#if $providePrivacyWriteData.step4.proTargetType === 1}
                     <PrivacyWriteStep4PersonalInfoList />
                 {/if}

@@ -43,7 +43,7 @@
                 <div class="pri_forntImg"><img src="/assets/images/common/privacy_step_img_02.png" alt=""></div>
                 <div class="priletext">
                     <h2>외부 제공</h2>
-                    <h3 style="color: #222">
+                    <h3>
                         외부 위탁 회사의 관리자에게<br>
                         개인정보를 제공하는 기능입니다.
                     </h3>

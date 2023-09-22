@@ -1081,6 +1081,7 @@
 .condition.waiting {background: #FFF4D9;color: #EB920E;}
 .condition.ing {background: #EEF4FF;color: #4070E0;}
 .condition.complete {background: #F4F5F7;color: #888888;}
+.condition.exit {background: #FFECEA;color: #FF6752;}
 
 .downcountPop {display:inline-block;cursor:pointer;text-decoration: underline;color: #4070E0;}
 .dlink{display:inline-block;cursor:pointer;text-decoration: underline;color: #4070E0;}

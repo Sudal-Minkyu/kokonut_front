@@ -34,10 +34,10 @@
     let priavacyStage = 0;
 
 const getColumnList = () => {
-        ajaxGet('/v2/api/DynamicUser/tableColumnCall', false, (json_success) => {
+        ajaxGet('/v2/api/DynamicUser/privateTableColumnCall', false, (json_success) => {
             try {
                 providePrivacyWriteData.update(obj => {
-                    obj.step4.columnList = json_success.data.sendData.fieldList.filter(item => item.fieldName !== 'PASSWORD');
+                    obj.step4.columnList = json_success.data.sendData.fieldList.filter(item => item.fieldName !== 'PASSWORD_1_pw');
                     return obj;
                 });
             } catch (e) {
