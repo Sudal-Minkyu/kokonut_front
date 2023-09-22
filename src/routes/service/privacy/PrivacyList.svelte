@@ -114,6 +114,16 @@
 <Header />
 <section class="bodyWrap">
     <div class="contentInnerWrap">
+
+<!--        <div class="pageTitleBtn marB50">-->
+<!--            <h1>개인정보 제공리스트</h1>-->
+<!--            <div class="TitleBtn">-->
+<!--                <a use:link href="/service/privacy/privacyWrite">-->
+<!--                    <button id="adm_registration_pop">개인정보 제공</button>-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        </div>-->
+
         <div class="pageTitleBtn marB50">
             <h1>개인정보 제공리스트</h1>
             <div class="TitleBtn">
@@ -122,6 +132,7 @@
                 </a>
             </div>
         </div>
+
 
         <div class="koinput marB32">
             <input type="text" bind:value="{searchCondition.searchText}" on:keypress={enterPress} class="wid360" placeholder="제공자 검색" />

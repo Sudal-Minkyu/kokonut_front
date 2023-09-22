@@ -122,12 +122,12 @@
 
         <div class="pageTitleBtn marB50">
             <h1>이메일 발송 내역</h1>
-        </div>
-
-        <div class="seaWrap">
             <div class="TitleBtn">
                 <button on:click={moveEmailSend} id="adm_registration_pop">이메일 발송</button>
             </div>
+        </div>
+
+        <div class="seaWrap">
             <div class="koinput marB32">
                 <input type="text" bind:value="{searchCondition.searchText}" class="wid360" placeholder="보낸사람 검색(이름, 아이디)" on:keypress={enterPress} />
                 <button on:click={() => emailSendList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
