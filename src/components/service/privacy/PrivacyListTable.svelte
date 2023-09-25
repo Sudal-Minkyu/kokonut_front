@@ -32,7 +32,7 @@
 
     }
 
-    function handleExitProvisionBtn () {
+    function handleExitProvisionBtn (proCode) {
         openAsk({
             icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
             title: '개인 정보 제공 종료', // 제목
@@ -41,7 +41,7 @@
             btnCheck: '', // 확인 버튼의 텍스트
             btnStart: '예', // 실행 버튼의 텍스트
             btnCancel: '아니오', // 취소 버튼의 텍스트
-            callback: provisionExit, // 확인버튼시 동작
+            callback: () => {provisionExit(proCode)}, // 확인버튼시 동작
         });
     }
 
@@ -106,7 +106,7 @@
                             </div>
                         {:else if provision.proState === "1" && provision.downloadAccept === "2"}
                             <div class="dlink">
-                                <a on:click={handleExitProvisionBtn}>제공종료</a>
+                                <a on:click={() => {handleExitProvisionBtn(provision.proCode)}}>제공종료</a>
                             </div>
 
                         {:else if provision.proState === "1" && provision.downloadAccept === "3"}
@@ -115,7 +115,7 @@
                             </div>
                             /
                             <div class="dlink">
-                                <a on:click={handleExitProvisionBtn}>제공종료</a>
+                                <a on:click={() => {handleExitProvisionBtn(provision.proCode)}}>제공종료</a>
                             </div>
                         {/if}
                     </td>
