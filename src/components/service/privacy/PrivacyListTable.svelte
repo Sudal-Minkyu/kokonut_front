@@ -1,7 +1,5 @@
 
 <script>
-    import {ajaxParam} from "../../common/ajax.js";
-    import {openAsk, openConfirm} from "../../common/ui/DialogManager.js";
 
     export let page;
     export let size;
@@ -11,39 +9,7 @@
     export let downloadHistoryClick;
     export let excelDownloadPopService;
 
-    // 제공종료
-    function provisionExit(proCode) {
-
-        let url = "/v2/api/Provision/provisionExit"
-
-        let sendData = {
-            proCode : proCode,
-        }
-
-        ajaxParam(url, sendData, () => {
-            openConfirm({
-                icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                title: '개인 정보 제공 종료', // 제목
-                contents1: '선택하신 개인정보제공을 종료하였습니다.', // 내용
-                contents2: '',
-                btnCheck: '확인', // 확인 버튼의 텍스트
-            });
-        });
-
-    }
-
-    function handleExitProvisionBtn (proCode) {
-        openAsk({
-            icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-            title: '개인 정보 제공 종료', // 제목
-            contents1: '개인정보 제공을 종료하시겠습니까?', // 내용
-            contents2: '',
-            btnCheck: '', // 확인 버튼의 텍스트
-            btnStart: '예', // 실행 버튼의 텍스트
-            btnCancel: '아니오', // 취소 버튼의 텍스트
-            callback: () => {provisionExit(proCode)}, // 확인버튼시 동작
-        });
-    }
+    export let handleExitProvisionBtn;
 
 </script>
 

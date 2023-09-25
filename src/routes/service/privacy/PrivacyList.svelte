@@ -8,10 +8,11 @@
     import Paging from "../../../components/common/Paging.svelte";
     import {popupPage, privacyDetailData} from "../../../lib/store.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
-    import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
+    import {ajaxGet, ajaxParam, reportCatch} from "../../../components/common/ajax.js";
     import PrivacyDetailPop from "../../../components/service/privacy/PrivacyDetailPop.svelte";
     import {stimeVal} from "../../../components/common/action/DatePicker.js";
     import ExcelDownloadPop from "../../../components/common/ui/ExcelDownloadPop.svelte";
+    import {openAsk, openConfirm} from "../../../components/common/ui/DialogManager.js";
 
     let provisionLayout = 0;
 
@@ -29,6 +30,7 @@
         filterOfferType: '',
         filterState: '',
     }
+
     function provisionList(page) {
         searchCondition.stime = stimeVal;
         searchCondition.page = page;
@@ -109,20 +111,46 @@
         },
     }
 
+    // 제공종료
+    function provisionExit(proCode) {
+
+        let url = "/v2/api/Provision/provisionExit"
+
+        let sendData = {
+            proCode : proCode,
+        }
+
+        ajaxParam(url, sendData, () => {
+            openConfirm({
+                icon: 'pass', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: '개인 정보 제공 종료', // 제목
+                contents1: '선택하신 개인정보제공을 종료하였습니다.', // 내용
+                contents2: '',
+                btnCheck: '확인', // 확인 버튼의 텍스트
+            });
+            provisionList(searchCondition.page);
+        });
+
+    }
+
+    function handleExitProvisionBtn (proCode) {
+        openAsk({
+            icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+            title: '개인 정보 제공 종료', // 제목
+            contents1: '개인정보 제공을 종료하시겠습니까?', // 내용
+            contents2: '',
+            btnCheck: '', // 확인 버튼의 텍스트
+            btnStart: '예', // 실행 버튼의 텍스트
+            btnCancel: '아니오', // 취소 버튼의 텍스트
+            callback: () => {provisionExit(proCode)}, // 확인버튼시 동작
+        });
+    }
+
 </script>
 
 <Header />
 <section class="bodyWrap">
     <div class="contentInnerWrap">
-
-<!--        <div class="pageTitleBtn marB50">-->
-<!--            <h1>개인정보 제공리스트</h1>-->
-<!--            <div class="TitleBtn">-->
-<!--                <a use:link href="/service/privacy/privacyWrite">-->
-<!--                    <button id="adm_registration_pop">개인정보 제공</button>-->
-<!--                </a>-->
-<!--            </div>-->
-<!--        </div>-->
 
         <div class="pageTitleBtn marB50">
             <h1>개인정보 제공리스트</h1>
@@ -132,7 +160,6 @@
                 </a>
             </div>
         </div>
-
 
         <div class="koinput marB32">
             <input type="text" bind:value="{searchCondition.searchText}" on:keypress={enterPress} class="wid360" placeholder="제공자 검색" />
@@ -145,7 +172,7 @@
         <LoadingOverlay bind:loadState={provisionLayout} left={55} >
             <div in:fade>
                 <!-- 테이블 영역 -->
-                <PrivacyListTable page={searchCondition.page} {downloadHistoryClick} {provision_list} {size} {total} {excelDownloadPopService} />
+                <PrivacyListTable page={searchCondition.page} {downloadHistoryClick} {handleExitProvisionBtn} {provision_list} {size} {total} {excelDownloadPopService} />
 
                 <!-- 페이징 영역 -->
                 <Paging page={searchCondition.page} total_page={total_page} data_list={provision_list} dataFunction={provisionList} />
