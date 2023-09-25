@@ -72,7 +72,7 @@
             <th>제공 타입</th>
             <th>제공인원 수</th>
             <th>다운로드인원 수</th>
-            <th>다운로드</th>
+            <th>제공기능</th>
         </tr>
         </thead>
         <tbody>
