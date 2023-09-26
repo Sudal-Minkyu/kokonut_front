@@ -12,7 +12,3 @@ rm -rf package-lock.json
 
 # Install dependencies
 npm install
-
-cd ..
-
-./update
