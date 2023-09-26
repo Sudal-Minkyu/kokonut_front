@@ -7,14 +7,13 @@
         accessToken,
         emailSave,
         keyBufferSto,
-        ivSto, doChangePwdLater, serviceSettingData, mainScreenBlockerVisibility,
+        ivSto, doChangePwdLater, mainScreenBlockerVisibility,
     } from '../../../lib/store'
     import { callCapsLock, encryptData } from '../../../lib/common'
     import {openAsk, openConfirm} from "../../common/ui/DialogManager.js";
-    import {ajaxParam, reportCatch} from "../../common/ajax.js";
+    import {ajaxGet, ajaxParam, reportCatch} from "../../common/ajax.js";
     import jQuery from "jquery";
     import MainScreenBlocker from "../../common/ui/MainScreenBlocker.svelte";
-    import axios from "axios";
 
     jQuery(function() {
         // 나이스 폼열기
@@ -39,28 +38,55 @@
     let stage = 0;
 
     // 로그인 버튼
-    function loginBtn() {
+    function loginBtn(knEmail, encryptedPassword) {
+        // 아이디 비번 체크
+        mainScreenBlockerVisibility.set(true);
+        document.activeElement.blur();
 
-        if(knEmail === "") {
-            emailBlank = true;
-        } else {
-            emailBlank = false;
-        }
-        if(knPassword === "") {
-            pwdBlank = true;
-        } else {
-            pwdBlank = false;
-        }
-        
-        if(emailSaveCheckBox) {
-            $emailSave = knEmail
-        } else {
-            $emailSave = ""
+        let url = "/v1/api/Auth/emailPwCheck"
+
+        let sendData = {
+            knEmail : knEmail,
+            knPassword : encryptedPassword
         }
 
-        if(!emailBlank && !pwdBlank) {
-            stage=1;
-        }
+        ajaxGet(url, sendData, () => {
+            try {
+                mainScreenBlockerVisibility.set(false);
+                if(notRegister) {
+                    notRegister = false;
+                }
+                if(notErrPwd) {
+                    notErrPwd = false;
+                }
+                stage=1;
+            } catch (e) {
+                reportCatch('temp112', e);
+            }
+        }, (errCode, errMsg) => {
+            try {
+                mainScreenBlockerVisibility.set(false);
+                if (errCode === "KO096" || errCode === "KO095" || errCode === "KO094") {
+                    openConfirm({
+                        icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: "비밀번호 오류횟수 초과", // 제목
+                        contents1: errMsg,
+                        btnCheck: '확인', // 확인 버튼의 텍스트
+                    })
+                    notErrPwd_msg = errMsg;
+                    notErrPwdFun();
+                    knPassword = "";
+                } else if (errCode === "KO016") {
+                    knPassword = "";
+                    notJoinUser();
+                } else {
+                    knPassword = "";
+                }
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp113', e);
+            }
+        });
     }
 
     // 이메일이 존재하지않거나, 비밀번호가 틀렸을 경우 돌아가는 함수
@@ -93,10 +119,35 @@
     }
 
     // Google OTP 제출
-    async function initiateGoogleOtpLogin(otpValue) {
+    async function initiateGoogleOtpLogin(otpValue,num) {
         try {
             const encryptedPassword = await processData(knPassword);
-            googleOtpLogin(otpValue, knEmail, encryptedPassword);
+            if(num === 1) {
+                if(knEmail === "") {
+                    emailBlank = true;
+                } else {
+                    emailBlank = false;
+                }
+                if(knPassword === "") {
+                    pwdBlank = true;
+                } else {
+                    pwdBlank = false;
+                }
+
+                if(emailSaveCheckBox) {
+                    $emailSave = knEmail
+                } else {
+                    $emailSave = ""
+                }
+
+                if(!emailBlank && !pwdBlank) {
+                    console.log("일로잘왔음");
+                    loginBtn(knEmail, encryptedPassword);
+                }
+
+            } else {
+                googleOtpLogin(otpValue, knEmail, encryptedPassword);
+            }
         } catch (error) {
         }
     }
@@ -107,29 +158,6 @@
             return await encryptData(knPassword);
         } catch (error) {
         }
-    }
-
-    const kk = () => {
-        axios.post(import.meta.env.VITE_SERVER_URL + '/v1/api/Auth/kokonutSignUp', {
-            cpName: '우디베타',
-            knName: '김민규',
-            knPhoneNumber: '01020450716',
-            knEmail: 'woody@kokonut.me',
-            knPassword: '!Kokonut123456',
-            knPasswordConfirm: '!Kokonut123456',
-            knEmailCheck: true
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'keyBufferSto': '',
-                'ivSto': ''
-            },
-            withCredentials: true
-        })
-            .then(response => {
-            })
-            .catch(error => {
-            });
     }
 
     let ahId;
@@ -271,9 +299,10 @@
     // 엔터키 클릭
     function enterPress(event) {
         if(event.key === "Enter") {
-            loginBtn();
+            initiateGoogleOtpLogin("",1);
         }
     }
+
 </script>
 
 {#if stage === 0}
@@ -303,11 +332,8 @@
         <a use:link href="/find"><p class="go_find">로그인이 안되시나요?</p></a>
     </div>
     <div class="join_bottom login">
-        <button type="button" on:click={loginBtn}><p>로그인</p></button>
+        <button type="button" on:click={() => initiateGoogleOtpLogin("",1)}><p>로그인</p></button>
     </div>
-<!--    <div class="join_bottom login">-->
-<!--        <button type="button" on:click={kk}><p>테스트</p></button>-->
-<!--    </div>-->
 {:else}
     <LoginOTP {stageChange} {notJoinUser} {initiateGoogleOtpLogin} {knEmail} {otpError} {otp_err_msg} />
 {/if}

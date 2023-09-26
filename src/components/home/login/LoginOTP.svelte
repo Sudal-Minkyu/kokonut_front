@@ -23,7 +23,7 @@
     // 엔터키 클릭
     function enterPress(event) {
         if(event.key === "Enter") {
-            initiateGoogleOtpLogin(otpValue);
+            initiateGoogleOtpLogin(otpValue,2);
         }
     }
    
@@ -77,7 +77,7 @@
     <a on:click|preventDefault={otpCreate}><p class="go_find">구글 OTP 2단계 인증 등록/재등록</p></a>
 </div>
 <div class="join_bottom login">
-    <button on:click|preventDefault={() => initiateGoogleOtpLogin(otpValue)} type="button"><p>인증</p></button>
+    <button on:click|preventDefault={() => initiateGoogleOtpLogin(otpValue,2)} type="button"><p>인증</p></button>
 </div>
 <div class="checkArea" style="display: block; text-align:center">
     <a on:click={stageChange}><p class="go_find">뒤로가기</p></a>
