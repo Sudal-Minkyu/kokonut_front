@@ -144,7 +144,7 @@
                             </div>
 
                             <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="활동이력 다운로드" value="AC_07"/>
+                                <input type="checkbox" name="activity" class="act_sel" id="활동이력 다운로드" value="AC_07_2"/>
                                 <label for="활동이력 다운로드">활동이력 다운로드</label>
                             </div>
                             <div class="actCheck">

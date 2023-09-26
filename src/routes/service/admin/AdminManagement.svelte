@@ -139,12 +139,12 @@
 
         <div class="pageTitleBtn marB50">
             <h1>관리자 목록 관리</h1>
-        </div>
-
-        <div class="seaWrap">
             <div class="TitleBtn">
                 <button on:click={adminSavePopChange} id="adm_registration_pop">관리자 등록</button>
             </div>
+        </div>
+
+        <div class="seaWrap">
             <div class="koinput marB32">
                 <input type="text" bind:value="{searchCondition.searchText}"  class="wid360" placeholder="관리자 검색(이름, 아이디)" on:keypress={enterPress} />
                 <button on:click={() => adminList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>

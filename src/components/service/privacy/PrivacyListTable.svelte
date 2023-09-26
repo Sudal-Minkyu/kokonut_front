@@ -1,8 +1,5 @@
 
 <script>
-    import {privacyDetailData} from "../../../lib/store"
-    import {ajaxParam, reportCatch} from "../../common/ajax.js";
-    import {buildExcelFromBase64} from "../../common/buildExcelFromBase64.js";
 
     export let page;
     export let size;
@@ -12,27 +9,7 @@
     export let downloadHistoryClick;
     export let excelDownloadPopService;
 
-    const handleOpenDetail = (proCode) => {
-        privacyDetailData.update(obj => {
-            obj.proCode = proCode;
-            return obj;
-        });
-    }
-
-    // 우디가 해놈
-    const handleExcelDownload = (proCode) => {
-        const sendData = {
-            proCode: proCode,
-        }
-
-        ajaxParam('/v2/api/Provision/provisionDownloadExcel', sendData, (res) => {
-            try {
-                buildExcelFromBase64(res);
-            } catch (e) {
-                reportCatch('temp141', e);
-            }
-        });
-    }
+    export let handleExitProvisionBtn;
 
 </script>
 
@@ -61,7 +38,7 @@
             <th>제공 타입</th>
             <th>제공인원 수</th>
             <th>다운로드인원 수</th>
-            <th>다운로드</th>
+            <th>제공기능</th>
         </tr>
         </thead>
         <tbody>
@@ -73,8 +50,10 @@
                         <td><div class="condition waiting">대기중</div></td>
                     {:else if provision.proState === "1"}
                         <td><div class="condition ing">제공중</div></td>
-                    {:else}
+                    {:else if provision.proState === "2"}
                         <td><div class="condition complete">제공기간 만료</div></td>
+                    {:else}
+                        <td><div class="condition exit">제공종료</div></td>
                     {/if}
                     <td>{provision.knName}</td>
                     <td>{provision.insert_date}</td>
@@ -90,6 +69,19 @@
                         {#if provision.proState === "1" && provision.downloadAccept === "1"}
                             <div class="dlink">
                                 <a on:click={() => {excelDownloadPopService.open({proCode: provision.proCode})}}>다운로드</a>
+                            </div>
+                        {:else if provision.proState === "1" && provision.downloadAccept === "2"}
+                            <div class="dlink">
+                                <a on:click={() => {handleExitProvisionBtn(provision.proCode)}}>제공종료</a>
+                            </div>
+
+                        {:else if provision.proState === "1" && provision.downloadAccept === "3"}
+                            <div class="dlink">
+                                <a on:click={() => {excelDownloadPopService.open({proCode: provision.proCode})}}>다운로드</a>
+                            </div>
+                            /
+                            <div class="dlink">
+                                <a on:click={() => {handleExitProvisionBtn(provision.proCode)}}>제공종료</a>
                             </div>
                         {/if}
                     </td>

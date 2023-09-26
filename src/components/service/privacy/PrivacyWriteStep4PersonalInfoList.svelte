@@ -62,7 +62,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    {column.fieldCode}
+                                    {#if !['1_idx', '1_regdate', '1_lastlog'].includes(column.fieldCode)}{column.fieldCode}{/if}
                                 </td>
                                 <td>
                                     <div class="{column.fieldSecrity ? 'lockicon' : ''}"></div>
@@ -90,7 +90,7 @@
                 <div class="memselBox maxH410impor">
                     <div class="mspartBox">
                         {#each $providePrivacyWriteData.step4.displayColumnList as {fieldComment, fieldCode}}
-                            <div class="memName">{fieldComment}({fieldCode})
+                            <div class="memName">{fieldComment}{#if !['1_idx', '1_regdate', '1_lastlog'].includes(fieldCode)} ({fieldCode}) {/if}
                                 <button type="button" class="memdel" on:click={() => {handleUncheckColumnByCode(fieldCode)}}></button>
                             </div>
                         {/each}
