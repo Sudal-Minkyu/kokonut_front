@@ -161,25 +161,25 @@
     <div class="pristep">
         <div class="pristepContent">
             <div class="marB46">
-                {#if $providePrivacyWriteData.step1.proProvide === 0}
-                    <label class="steplabel">제공받을 사람을 선택해 주세요.</label>
-                    <div class="step_radioBox">
-                        <div class="step_radio">
-                            <input type="radio" class="stradio solo" name="solo_team" id="radioSelf" value="self"
-                                   bind:group={$providePrivacyWriteData.step2.provideTargetType} />
-                            <label for="radioSelf">본인</label>
-                        </div>
-                        <div class="step_radio">
-                            <input type="radio" class="stradio team" name="solo_team" id="radioTeammate" value="teammate"
-                                   bind:group={$providePrivacyWriteData.step2.provideTargetType} />
-                            <label for="radioTeammate">내부 팀원</label>
-                        </div>
-                    </div>
-                {/if}
+                <!--{#if $providePrivacyWriteData.step1.proProvide === 0}-->
+                <!--    <label class="steplabel">제공받을 사람을 선택해 주세요.</label>-->
+                <!--    <div class="step_radioBox">-->
+                <!--        <div class="step_radio">-->
+                <!--            <input type="radio" class="stradio solo" name="solo_team" id="radioSelf" value="self"-->
+                <!--                   bind:group={$providePrivacyWriteData.step2.provideTargetType} />-->
+                <!--            <label for="radioSelf">본인</label>-->
+                <!--        </div>-->
+                <!--        <div class="step_radio">-->
+                <!--            <input type="radio" class="stradio team" name="solo_team" id="radioTeammate" value="teammate"-->
+                <!--                   bind:group={$providePrivacyWriteData.step2.provideTargetType} />-->
+                <!--            <label for="radioTeammate">내부 팀원</label>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--{/if}-->
 
                 {#if $providePrivacyWriteData.step2.provideTargetType === 'teammate' || $providePrivacyWriteData.step1.proProvide === 1 }
                     <div class="teamtable">
-                        <label class="steplabel">팀원을 선택해 주세요.</label>
+                        <label class="steplabel">제공받을 팀원을 선택해 주세요.</label>
                         <div class="tea_ListFlexBox marT24">
                             <div class="tea_ListBox">
                                 <div class="teamSeaBox">
@@ -256,12 +256,22 @@
                                                                     <label for="mem{i}"><em></em></label>
                                                                 </div>
                                                             </td>
-                                                            <td>{knEmail}</td>
-                                                            <td>{knName}</td>
-                                                            {#if knRoleCode === "ROLE_MASTER"}
-                                                                <td>{knRoleDesc}<div class="mastericon"></div></td>
+                                                            {#if i === 0}
+                                                                <td style="font-weight: 700;">{knEmail}</td>
+                                                                <td style="font-weight: 700;">{knName}(본인)</td>
+                                                                {#if knRoleCode === "ROLE_MASTER"}
+                                                                    <td style="font-weight: 700;">{knRoleDesc}<div class="mastericon"></div></td>
+                                                                {:else}
+                                                                    <td style="font-weight: 700;">{knRoleDesc}</td>
+                                                                {/if}
                                                             {:else}
-                                                                <td>{knRoleDesc}</td>
+                                                                <td>{knEmail}</td>
+                                                                <td>{knName}</td>
+                                                                {#if knRoleCode === "ROLE_MASTER"}
+                                                                    <td>{knRoleDesc}<div class="mastericon"></div></td>
+                                                                {:else}
+                                                                    <td>{knRoleDesc}</td>
+                                                                {/if}
                                                             {/if}
                                                         </tr>
                                                     {/each}
