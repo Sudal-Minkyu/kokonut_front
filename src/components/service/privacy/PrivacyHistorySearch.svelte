@@ -89,7 +89,7 @@
             <div class="seaCont wid33per">
                 <dl>처리내역</dl>
                 <div class="sc_SelBox" >
-                    <div class="selectBox wid164" use:SelectBoxManager={{callback: handleFilterState}}>
+                    <div class="selectBox wid205" use:SelectBoxManager={{callback: handleFilterState}}>
                         <div class="label">전체</div>
                         <ul class="optionList">
                             <li class="optionItem curv" data-value="">전체</li>
@@ -98,6 +98,8 @@
                             <li class="optionItem curv" data-value="PHC_03">개인정보 삭제</li>
                             <li class="optionItem curv" data-value="PHC_04">개인정보 조회</li>
                             <li class="optionItem curv" data-value="PHC_05">개인정보 열람</li>
+                            <li class="optionItem curv" data-value="PHC_06">개인정보 열람 다운로드</li>
+                            <li class="optionItem curv" data-value="PHC_07">개인정보 제공 다운로드</li>
                         </ul>
                     </div>
                 </div>
