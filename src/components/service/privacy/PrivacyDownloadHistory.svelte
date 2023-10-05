@@ -38,8 +38,8 @@
                         <thead>
                         <tr>
                             <th>No</th>
-                            <th>다운로드 일시</th>
-                            <th>다운로드 시간</th>
+                            <th>마지막 다운로드 날짜 시간</th>
+                            <th>다운로드 횟수</th>
                             <th>다운로더</th>
                         </tr>
                         </thead>
@@ -48,8 +48,8 @@
                             {#each provisionDownloadHistory_list as downloadHistory, i}
                                 <tr>
                                     <td>{ provisionDownload_total - ($popupPage * provisionDownload_size) - i }</td>
-                                    <td>{downloadHistory.insert_date}</td>
-                                    <td>{downloadHistory.insert_time}</td>
+                                    <td>{downloadHistory.insert_date} {downloadHistory.insert_time}</td>
+                                    <td>{downloadHistory.piphCount}</td>
                                     <td>{downloadHistory.knName}</td>
                                 </tr>
                             {/each}
