@@ -161,7 +161,7 @@
 
         <ActivitySearch {choseMax} {choseMaxText} {activityCancel} {activityConfirm} {searchCondition} {activityList} />
 
-        <LoadingOverlay bind:loadState={adminActivityLayout} >
+        <LoadingOverlay bind:loadState={adminActivityLayout} top={140} >
             <div in:fade>
                 <!-- 테이블 영역 -->
                 <ActivityTable page={searchCondition.page} {activityList} {activity_list} {total} {size} {total_page} />

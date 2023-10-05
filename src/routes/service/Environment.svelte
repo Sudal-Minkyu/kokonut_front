@@ -1,6 +1,6 @@
 
 <script>
-    // 레이아웃
+    import {fade} from "svelte/transition";
     import Header from "../../components/service/layout/Header.svelte"
     import { link } from 'svelte-spa-router'
     import {userInfoData} from "../../lib/store.js";
@@ -9,13 +9,13 @@
 </script>
 
 <Header />
-<section class="bodyWrap">
+<section class="bodyWrap" >
     <div class="contentInnerWrap">
         <div class="pageTitleBtn marB50">
             <h1>환경설정</h1>
         </div>
 
-        <div class="setListWrap">
+        <div class="setListWrap" in:fade>
             <ul>
                 {#if roleCat1 }
                     <li>

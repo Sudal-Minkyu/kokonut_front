@@ -134,7 +134,7 @@
             <a use:link href="/service/environment">{$backBtn}</a>
             <h1>내 정보</h1>
         </div>
-        <LoadingOverlay bind:loadState={myInfoLayout} >
+        <LoadingOverlay bind:loadState={myInfoLayout} top={300}>
             <div class="seaContentBox" in:fade>
                 <div class="seaContentLine borB">
                     <div class="seaCont wid100per">

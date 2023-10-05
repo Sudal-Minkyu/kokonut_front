@@ -63,7 +63,7 @@ const handlePage = ({detail}) => {
 {/if}
 
 {#if $privacySearchData.searchResultState !== -1}
-    <LoadingOverlay bind:loadState={$privacySearchData.searchResultState} >
+    <LoadingOverlay bind:loadState={$privacySearchData.searchResultState} top={140} >
         <div class="sea_resultWrap" in:fade>
             <div class="kotable search_result marT50">
                 <div class="kt_tableTopBox marB24">

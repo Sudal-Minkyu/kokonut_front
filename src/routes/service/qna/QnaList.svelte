@@ -57,7 +57,7 @@
                 궁금한 내용을 남겨주시면 최대한 빠르게 답변을 드리도록 하겠습니다.
             </dl>
         </div>
-        <LoadingOverlay bind:loadState={qnaLayout} >
+        <LoadingOverlay bind:loadState={qnaLayout} top={150}>
             <div in:fade>
                 <!-- 각 컴포넌트 넣기 -->
                 <div class="bottomBtnBox marB24">

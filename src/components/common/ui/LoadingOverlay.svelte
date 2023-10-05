@@ -3,10 +3,10 @@
     export let left = 0;
     export let top = 0;
 
-    $: styleText = (left ? `left: ${left}%;` : '') + (top ? `top: ${top}%;` : '');
+    $: styleText = (left ? `left: ${left}px;` : '') + (top ? `top: ${top}px;` : '');
 </script>
 
-{#if loadState}
+{#if loadState }
     <slot></slot>
 {:else}
     <div class="loaderParent" style={styleText}>

@@ -1,5 +1,5 @@
-
 <script>
+    import {fade} from "svelte/transition";
 
     export let size;
     export let total;
@@ -34,7 +34,7 @@
 
 </script>
 
-<div class="kotable email_list">
+<div class="kotable email_list" in:fade>
     <table>
         <caption>이메일 발송 리스트</caption>
         <thead>

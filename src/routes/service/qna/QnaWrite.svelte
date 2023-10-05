@@ -1,5 +1,6 @@
 
 <script>
+    import {fade} from "svelte/transition";
     import Header from "../../../components/service/layout/Header.svelte"
     import {link, push} from 'svelte-spa-router'
     import { backBtn } from '../../../lib/store.js'
@@ -171,7 +172,7 @@
                 궁금한 내용을 남겨주시면 최대한 빠르게 답변을 드리도록 하겠습니다.
             </dl>
         </div>
-        <div class="seaWrap marT24">
+        <div class="seaWrap marT24" in:fade>
             <div class="seaContentBox">
                 <div class="seaContentLine borB">
                     <div class="seaCont wid50per">

@@ -173,7 +173,7 @@ let writingCheck = false;
             <dl>해당 페이지는 최고관리자만 이용할 수 있습니다.</dl>
         </div>
 
-        <LoadingOverlay bind:loadState={stage} >
+        <LoadingOverlay bind:loadState={stage} top={300}>
             {#if stage === 1}
             <PolicyWriteStep1 {stateChange} {policyWriting} />
             {:else if stage === 2}
