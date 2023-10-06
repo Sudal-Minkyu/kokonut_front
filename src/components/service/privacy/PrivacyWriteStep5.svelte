@@ -198,7 +198,7 @@ if ($providePrivacyWriteData.step5.memberList.length) {
                 {#if $providePrivacyWriteData.step5.provideTargetMemberScope === 'someone'}
                     <div class="teamtable">
                     <label class="steplabel">회원을 선택해 주세요.<span>{$providePrivacyWriteData.step5.piplTargetIdxs.length}명</span></label>
-                    <div class="tea_ListFlexBox marT24">
+                    <div class="tea_ListFlexBox marT24" in:fade>
                         <div class="tea_ListBox" style="width: 100%">
                             <div class="teamSeaBox">
                                 <div class="memseaBox marB32 hei40">

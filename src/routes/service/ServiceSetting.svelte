@@ -252,7 +252,7 @@ const getEmailColumnLIst = () => {
             </dl>
         </div>
 
-        <LoadingOverlay bind:loadState={settingLoadState}>
+        <LoadingOverlay bind:loadState={settingLoadState} top={300}>
             <div class="seaContentBox" in:fade>
             <div class="seaContentLine borB">
                 <div class="seaCont wid100per">

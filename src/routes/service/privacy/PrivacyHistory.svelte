@@ -99,7 +99,7 @@
         <!-- 상단 검색 영역 -->
         <PrivacyHistorySearch {searchCondition} {privacyHistoryList}/>
 
-        <LoadingOverlay bind:loadState={privacyHistoryLayout} left={55} >
+        <LoadingOverlay bind:loadState={privacyHistoryLayout} top={140} >
             <div in:fade>
                 <!-- 테이블 영역 -->
                 <PrivacyHistoryTable page={searchCondition.page} {privacy_history_list} {size} {total} />

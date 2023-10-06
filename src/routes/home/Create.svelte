@@ -87,7 +87,7 @@
     }
 </script>
 
-<LoadingOverlay bind:loadState={createLayout} left={45} top={30}>
+<LoadingOverlay bind:loadState={createLayout} top={300} >
     {#if createLayout === 1}
         <div class="join_membership" id="joinWrap">
             <div class="joinCont">

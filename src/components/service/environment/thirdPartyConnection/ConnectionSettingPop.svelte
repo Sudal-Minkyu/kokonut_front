@@ -1,4 +1,5 @@
 <script>
+    import {fade} from "svelte/transition";
     import {SelectBoxManager} from "../../../common/action/SelectBoxManager.js";
     import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
     import {onMount} from "svelte";
@@ -68,7 +69,7 @@
 
 <!-- [D] 연동 변경 팝업 -->
 <div class="koko_popup change_pop" data-popup="change_pop">
-    <div class="koko_popup_inner">
+    <div class="koko_popup_inner" in:fade>
         <div class="koko_popup_container">
             <div class="koko_popup_title">
                 <h3 class="">연동 설정</h3>

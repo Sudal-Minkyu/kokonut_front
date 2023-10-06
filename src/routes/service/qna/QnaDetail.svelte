@@ -125,7 +125,7 @@
             </dl>
         </div>
 
-        <LoadingOverlay bind:loadState={qnaLayout} >
+        <LoadingOverlay bind:loadState={qnaLayout} top={150}>
             <div class="seaWrap marT24" in:fade>
                 <div class="seaContentBox">
                     <div class="seaContentLine borB">

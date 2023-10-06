@@ -110,7 +110,7 @@ let customSelectBoxOpt = [
         <!-- 상단 검색 영역 -->
         <PolicySearch {searchCondition} {policyList} />
 
-        <LoadingOverlay bind:loadState={policyLayout} left={55}>
+        <LoadingOverlay bind:loadState={policyLayout} top={195} >
             <div in:fade>
                 <!-- 테이블 영역 -->
                 <PolicyTable page={searchCondition.page} {policy_list} {size} {total} />

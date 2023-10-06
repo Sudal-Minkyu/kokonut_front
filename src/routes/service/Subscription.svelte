@@ -237,49 +237,49 @@
             </div>
         </div>
 
-        <!-- 테이블 영역 -->
-        <div class="kotable subscription">
-            <table>
-                <caption>1:1문의 리스트</caption>
-                <colgroup>
-                    <col style="width:21.82%;">
-                    <col style="width:18.16%;">
-                    <col style="width:18.16%;">
-                    <col style="width:16.35%;">
-                    <col style="width:12.71%;">
-                    <col style="width:12.71%;">
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>요금부과 기간</th>
-                    <th>등록된 개인정보 평균</th>
-                    <th>결제 일시</th>
-                    <th>결제 금액</th>
-                    <th>결제상태</th>
-                    <th>결제방법</th>
-                </tr>
-                </thead>
-                <LoadingOverlay bind:loadState={gotPaymentState} >
-                    <tbody>
-                    {#each $subscriptionManagementData.paymentList.dataList as {payBillingStartDate, payBillingEndDate, payPrivacyCount, payReserveExecuteDate, payAmount, payState, payMethod}}
-                        <tr>
-                            <td>{payBillingStartDate} - {payBillingEndDate.substring(5, 10)}</td>
-                            <td><div class="cur_priNum open_current_pop" on:click={() => {calendarService.open(payBillingEndDate)}}>{payPrivacyCount}</div></td>
-                            <td>{payReserveExecuteDate}</td>
-                            <td>{payAmount.toLocaleString()}원</td>
-                            <td class={payState === '0' ? 'failtext' : ''}>{payStateName[payState]}</td>
-                            <td>{payMethodName[payMethod]}</td>
-                        </tr>
-                    {/each}
-                    {#if $subscriptionManagementData.paymentList.dataList.length === 0}
-                        <tr>
-                            <td colspan="99">요금부과 내역이 없습니다.</td>
-                        </tr>
-                    {/if}
-                    </tbody>
-                </LoadingOverlay>
-            </table>
-        </div>
+        <LoadingOverlay bind:loadState={gotPaymentState} top={150} >
+            <!-- 테이블 영역 -->
+            <div class="kotable subscription" in:fade>
+                <table>
+                    <caption>1:1문의 리스트</caption>
+                    <colgroup>
+                        <col style="width:21.82%;">
+                        <col style="width:18.16%;">
+                        <col style="width:18.16%;">
+                        <col style="width:16.35%;">
+                        <col style="width:12.71%;">
+                        <col style="width:12.71%;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>요금부과 기간</th>
+                        <th>등록된 개인정보 평균</th>
+                        <th>결제 일시</th>
+                        <th>결제 금액</th>
+                        <th>결제상태</th>
+                        <th>결제방법</th>
+                    </tr>
+                    </thead>
+                        <tbody>
+                        {#each $subscriptionManagementData.paymentList.dataList as {payBillingStartDate, payBillingEndDate, payPrivacyCount, payReserveExecuteDate, payAmount, payState, payMethod}}
+                            <tr>
+                                <td>{payBillingStartDate} - {payBillingEndDate.substring(5, 10)}</td>
+                                <td><div class="cur_priNum open_current_pop" on:click={() => {calendarService.open(payBillingEndDate)}}>{payPrivacyCount}</div></td>
+                                <td>{payReserveExecuteDate}</td>
+                                <td>{payAmount.toLocaleString()}원</td>
+                                <td class={payState === '0' ? 'failtext' : ''}>{payStateName[payState]}</td>
+                                <td>{payMethodName[payMethod]}</td>
+                            </tr>
+                        {/each}
+                        {#if $subscriptionManagementData.paymentList.dataList.length === 0}
+                            <tr>
+                                <td colspan="99">요금부과 내역이 없습니다.</td>
+                            </tr>
+                        {/if}
+                        </tbody>
+                </table>
+            </div>
+        </LoadingOverlay>
 
         <Pagination bind:currentPage={$subscriptionManagementData.paymentList.current}
                     bind:totalPosts={$subscriptionManagementData.paymentList.total_rows}

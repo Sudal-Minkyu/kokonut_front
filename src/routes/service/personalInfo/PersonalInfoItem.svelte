@@ -542,7 +542,7 @@
             <h1>개인정보 항목 관리</h1>
         </div>
 
-        <LoadingOverlay bind:loadState={personalInfoItemProp.loadState} >
+        <LoadingOverlay bind:loadState={personalInfoItemProp.loadState} top={150}>
             <div class="prDivideBox" in:fade>
                 <PersonalInfoCategory {personalInfoCategoryService} />
                 <PersonalInfoTable {personalInfoItemProp} {personalInfoTableService} />
