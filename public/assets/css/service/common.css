@@ -661,6 +661,8 @@
 .yeltext{color: #EB920E;background: #FFF4D9;}
 .bluetext{color: #4070E0;background: #EEF4FF;}
 .greentext{color: #00C389;background: #EEF4FF;}
+.purtext{color: #ac78e8;background: #f2ebff;}
+.pinktext{color: #ff55cf;background: #ffe2f7;}
 .noneprtable{width:100%;position:relative;padding:3.4rem 1rem 3.4rem 1rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 400;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#9A9A9A;border-bottom:1px solid #E2E5EA;}
 
 /* ==== 개인정보 선택 항목 삭제 팝업 영역 ==== */
