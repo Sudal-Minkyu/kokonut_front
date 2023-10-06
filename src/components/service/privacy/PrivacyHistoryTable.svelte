@@ -99,6 +99,10 @@ $: privacy_history_list.map(obj => {
                         <td><div class="processing check">조회</div></td>
                     {:else if privacyHistory.privacyHistoryCode === "열람"}
                         <td><div class="processing reading">열람</div></td>
+                    {:else if privacyHistory.privacyHistoryCode === "열람 다운로드"}
+                        <td><div class="processing download">열람다운</div></td>
+                    {:else if privacyHistory.privacyHistoryCode === "제공 다운로드"}
+                        <td><div class="processing download">제공다운</div></td>
                     {:else}
                         <td><div class="condition complete">알수없음</div></td>
                     {/if}
