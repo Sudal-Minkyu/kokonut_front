@@ -84,9 +84,8 @@
     }
 
     onMount(async () => {
-        // 툴팁 아이콘 클릭시 툴팁을 보이고 숨기기 위함.
-        if (!$policyInfoData.beforeDataList.length) {
-            policyInfoData.update(obj => {
+        policyInfoData.update(obj => {
+            if (!obj.beforeDataList.length) {
                 obj.beforeDataList = [{
                     pibId: 0,
                     pibPurpose: '서비스 제공 및 운영',
@@ -94,9 +93,10 @@
                     pibChose: '',
                     pibPeriod: '탈퇴 또는 계약 종료 시까지',
                 }];
-                return obj;
-            });
-        }
+            }
+
+            return obj;
+        });
     });
 
     let beforeDataListErrorMsg = '';
@@ -118,12 +118,20 @@
             policyAfterDeleteIdList: afterRemoveIdList,
             policyServiceAutoSaveDtoList: $policyInfoData.serviceAutoDataList,
             policyServiceAutoDeleteIdList: serviceAutoRemoveIdList,
+
+            // 아래 두개가 추가된 요소
+            piChoseListString: JSON.stringify($policyInfoData.policyData2.piChoseListString),
+            piChoseCustomList: $policyInfoData.policyData2.piChoseCustomList,
+
+            // 아래 다섯개는 더 이상 저장하지 않을 요소
             piInternetChose: $policyInfoData.policyData2.piInternetChose,
             piContractChose: $policyInfoData.policyData2.piContractChose,
             piPayChose: $policyInfoData.policyData2.piPayChose,
             piConsumerChose: $policyInfoData.policyData2.piConsumerChose,
             piAdvertisementChose: $policyInfoData.policyData2.piAdvertisementChose,
         }
+
+        console.log('보내는 데이터', sendData);
 
         ajaxBody(url, sendData, (res) => {
             try {
@@ -369,62 +377,230 @@
                     <tr>
                         <td>
                             <div class="prarea">
-                                <input type="checkbox" name="prt01" id="prt01"
-                                       bind:checked={$policyInfoData.policyData2.piInternetChose} />
-                                <label for="prt01"><em></em></label>
+                                <input type="checkbox" name="pbl00" id="pbl00"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[0]} />
+                                <label for="pbl00"><em></em></label>
                             </div>
                         </td>
-                        <td class="praLeft">인터넷 접속 로그</td>
+                        <td class="praLeft">표시·광고에 관한 기록 </td>
+                        <td class="praLeft">전자상거래 등에서의 소비자 보호에 관한 법률 제6조, 시행령 제6조</td>
+                        <td class="praLeft">6개월</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl01" id="pbl01"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[1]} />
+                                <label for="pbl01"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">계약 또는 청약철회 등에 관한 기록</td>
+                        <td class="praLeft">전자상거래 등에서의 소비자 보호에 관한 법률 제6조, 시행령 제6조</td>
+                        <td class="praLeft">5년</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl02" id="pbl02"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[2]} />
+                                <label for="pbl02"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">대금결제 및 재화등의 공급에 관한 기록</td>
+                        <td class="praLeft">전자상거래 등에서의 소비자 보호에 관한 법률 제6조, 시행령 제6조</td>
+                        <td class="praLeft">5년</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl03" id="pbl03"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[3]} />
+                                <label for="pbl03"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">소비자의 불만 또는 분쟁처리에 관한 기록</td>
+                        <td class="praLeft">전자상거래 등에서의 소비자 보호에 관한 법률 제6조, 시행령 제6조</td>
+                        <td class="praLeft">3년</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl04" id="pbl04"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[4]} />
+                                <label for="pbl04"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">인터넷 로그기록, 인터넷 접속지 추적기록</td>
                         <td class="praLeft">통신비밀보호법 제15조의2, 시행령 제41조</td>
                         <td class="praLeft">3개월</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="prarea">
-                                <input type="checkbox" name="prt02" id="prt02"
-                                       bind:checked={$policyInfoData.policyData2.piContractChose} />
-                                <label for="prt02"><em></em></label>
+                                <input type="checkbox" name="pbl05" id="pbl05"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[5]} />
+                                <label for="pbl05"><em></em></label>
                             </div>
                         </td>
-                        <td class="praLeft">개인정보취급자의 서비스 접속 및 이용 기록</td>
-                        <td class="praLeft">개인정보보호법 제29조, 개인정보의 안전성 확보조치 기준 고시 제8조</td>
-                        <td class="praLeft">2년</td>
+                        <td class="praLeft">통신사실 확인자료(가입자의 전기통신일시, 상대방 가입자번호 등 통신비밀보호법 제2조 제11호 가목~라목, 바목 자료)</td>
+                        <td class="praLeft">통신비밀보호법 제15조의2, 시행령 제41조</td>
+                        <td class="praLeft">12개월</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="prarea">
-                                <input type="checkbox" name="prt03" id="prt03"
-                                       bind:checked={$policyInfoData.policyData2.piPayChose} />
-                                <label for="prt03"><em></em></label>
+                                <input type="checkbox" name="pbl06" id="pbl06"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[6]} />
+                                <label for="pbl06"><em></em></label>
                             </div>
                         </td>
-                        <td class="praLeft">대금결제 및 재화 등의 공급에 관한 기록</td>
-                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
+                        <td class="praLeft">위 자료 중 시외·시내전화역무 관련 자료</td>
+                        <td class="praLeft">통신비밀보호법 제15조의2, 시행령 제41조</td>
+                        <td class="praLeft">6개월</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl07" id="pbl07"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[7]} />
+                                <label for="pbl07"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">환자 명부</td>
+                        <td class="praLeft">의료법 제22조, 시행규칙 제15조</td>
                         <td class="praLeft">5년</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="prarea">
-                                <input type="checkbox" name="prt04" id="prt04"
-                                       bind:checked={$policyInfoData.policyData2.piConsumerChose} />
-                                <label for="prt04"><em></em></label>
+                                <input type="checkbox" name="pbl08" id="pbl08"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[8]} />
+                                <label for="pbl08"><em></em></label>
                             </div>
                         </td>
-                        <td class="praLeft">소비자의 불만 또는 분쟁처리에 관한 기록</td>
-                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
+                        <td class="praLeft">진료기록부</td>
+                        <td class="praLeft">의료법 제22조, 시행규칙 제15조</td>
+                        <td class="praLeft">10년</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl09" id="pbl09"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[9]} />
+                                <label for="pbl09"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">처방전</td>
+                        <td class="praLeft">의료법 제22조, 시행규칙 제15조</td>
+                        <td class="praLeft">2년</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl10" id="pbl10"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[10]} />
+                                <label for="pbl10"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">수술기록</td>
+                        <td class="praLeft">의료법 제22조, 시행규칙 제15조</td>
+                        <td class="praLeft">10년</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl11" id="pbl11"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[11]} />
+                                <label for="pbl11"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">검사내용 및 검사소견기록</td>
+                        <td class="praLeft">의료법 제22조, 시행규칙 제15조</td>
+                        <td class="praLeft">5년</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl12" id="pbl12"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[12]} />
+                                <label for="pbl12"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">방사선사진 및 그 소견서</td>
+                        <td class="praLeft">의료법 제22조, 시행규칙 제15조</td>
+                        <td class="praLeft">5년</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl13" id="pbl13"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[13]} />
+                                <label for="pbl13"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">간호기록부</td>
+                        <td class="praLeft">의료법 제22조, 시행규칙 제15조</td>
+                        <td class="praLeft">5년</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl14" id="pbl14"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[14]} />
+                                <label for="pbl14"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">조산기록부</td>
+                        <td class="praLeft">의료법 제22조, 시행규칙 제15조</td>
+                        <td class="praLeft">5년</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl15" id="pbl15"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[15]} />
+                                <label for="pbl15"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">진단서 등의 부본</td>
+                        <td class="praLeft">의료법 제22조, 시행규칙 제15조</td>
                         <td class="praLeft">3년</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="prarea">
-                                <input type="checkbox" name="prt05" id="prt05"
-                                       bind:checked={$policyInfoData.policyData2.piAdvertisementChose} />
-                                <label for="prt05"><em></em></label>
+                                <input type="checkbox" name="pbl16" id="pbl16"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[16]} />
+                                <label for="pbl16"><em></em></label>
                             </div>
                         </td>
-                        <td class="praLeft">표시·광고에 관한 기록</td>
-                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
-                        <td class="praLeft">6개월</td>
+                        <td class="praLeft">조제기록부</td>
+                        <td class="praLeft">약사법 제30조</td>
+                        <td class="praLeft">5년</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl17" id="pbl17"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[17]} />
+                                <label for="pbl17"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">처방전(요양급여 비용 청구 시)</td>
+                        <td class="praLeft">국민건강보험법 제96조의4, 시행규칙 제58조</td>
+                        <td class="praLeft">3년</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="prarea">
+                                <input type="checkbox" name="pbl18" id="pbl18"
+                                       bind:checked={$policyInfoData.policyData2.piChoseListString[18]} />
+                                <label for="pbl18"><em></em></label>
+                            </div>
+                        </td>
+                        <td class="praLeft">요양급여비용의 청구에 관한 서류</td>
+                        <td class="praLeft">국민건강보험법 제96조의4, 시행규칙 제58조</td>
+                        <td class="praLeft">5년</td>
                     </tr>
                     </tbody>
                 </table>

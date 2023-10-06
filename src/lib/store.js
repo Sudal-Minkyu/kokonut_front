@@ -68,6 +68,9 @@ export const initialPolicyInfo = JSON.stringify({
     afterDataList: [],
     serviceAutoDataList: [],
     policyData2: {
+        piChoseListString: [false, false, null, null, false, null, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        piChoseCustomList: [],
+
         piInternetChose : false,
         piContractChose : false,
         piPayChose : false,
