@@ -221,7 +221,7 @@ let backupEmailSendData;
 <!--            </div>-->
 
             {#if $privacySearchData.searchResultState !== -1}
-                <LoadingOverlay bind:loadState={$privacySearchData.searchResultState} >
+                <LoadingOverlay bind:loadState={$privacySearchData.searchResultState} top={80} >
                     <div class="sea_resultWrap" in:fade>
                         <div class="kotable search_result">
                             <div class="kt_tableTopBox marB24">

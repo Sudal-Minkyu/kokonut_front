@@ -219,7 +219,7 @@
         </div>
 
         <div class="apikeyBox">
-            <LoadingOverlay bind:loadState={apikeyTrueFalse} >
+            <LoadingOverlay bind:loadState={apikeyTrueFalse} top={90}>
                 {#if apikeyTrueFalse === 1 && isModifiable}
                 <div class="apikeyBtn" on:click={popOpenBtn} in:fade>API Key 발급</div>
                 {:else}

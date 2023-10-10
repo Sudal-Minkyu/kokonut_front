@@ -1072,6 +1072,7 @@
 .processing.check{background: #E9F9F4;color:#00C389;}
 .processing.delete{background: #FFECEA;color:#FF6752;}
 .processing.reading{background: #f2ebff;color: #ac78e8;}
+.processing.download{background: #f7ce68; color: #f7ce68}
 
 /*-----------------------------------------------------------------------------------------
 # 개인정보 제공 > 개인정보 제공 리스트

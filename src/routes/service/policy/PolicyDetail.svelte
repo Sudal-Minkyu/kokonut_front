@@ -270,7 +270,7 @@
                 </div>
             {/if}
         </div>
-        <LoadingOverlay bind:loadState={policyDetailLayout} >
+        <LoadingOverlay bind:loadState={policyDetailLayout} top={300}>
             <div id="privacyPolicy" in:fade>
                 <div class="pri_versionBox marB50">
                     <div class="priverBox hei60">

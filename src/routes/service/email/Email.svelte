@@ -136,7 +136,7 @@
 
         <EmailSearch {searchCondition} {emailSendList} />
 
-        <LoadingOverlay bind:loadState={emailHistoryListState} left={55}>
+        <LoadingOverlay bind:loadState={emailHistoryListState} top={140} >
             <EmailTable {emailSendList} {email_list} {total} {size} {total_page} />
             <Paging page={searchCondition.page} total_page="{total_page}" data_list="{email_list}" dataFunction="{emailSendList}" />
         </LoadingOverlay>

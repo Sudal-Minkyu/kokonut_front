@@ -40,6 +40,7 @@
 
         let url = "/v2/api/Provision/provisionList";
         ajaxGet(url, searchCondition, (res) => {
+            console.log(res);
             try {
                 provision_list = res.data.datalist;
                 total = res.data.total_rows;
@@ -169,7 +170,7 @@
         <!-- 상단 검색 영역 -->
         <PrivacyListSearch {searchCondition} {provisionList} />
 
-        <LoadingOverlay bind:loadState={provisionLayout} left={55} >
+        <LoadingOverlay bind:loadState={provisionLayout} top={140} >
             <div in:fade>
                 <!-- 테이블 영역 -->
                 <PrivacyListTable page={searchCondition.page} {downloadHistoryClick} {handleExitProvisionBtn} {provision_list} {size} {total} {excelDownloadPopService} />

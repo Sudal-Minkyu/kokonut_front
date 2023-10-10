@@ -144,8 +144,8 @@
                             </div>
 
                             <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="활동이력 다운로드" value="AC_07_2"/>
-                                <label for="활동이력 다운로드">활동이력 다운로드</label>
+                                <input type="checkbox" name="activity" class="act_sel" id="관리자 활동이력 다운로드" value="AC_07_2"/>
+                                <label for="관리자 활동이력 다운로드">관리자 활동이력 다운로드</label>
                             </div>
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="추가 카테고리 항목 추가" value="AC_42"/>
@@ -154,14 +154,6 @@
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="개인정보제공 등록" value="AC_48"/>
                                 <label for="개인정보제공 등록">개인정보제공 등록</label>
-                            </div>
-                            <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="개인정보제공 다운로드" value="AC_47_2"/>
-                                <label for="개인정보제공 다운로드">개인정보제공 다운로드</label>
-                            </div>
-                            <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 열람데이터 다운로드" value="AC_06"/>
-                                <label for="개인정보 열람데이터 다운로드">개인정보 열람데이터 다운로드</label>
                             </div>
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="개인정보 처리이력 다운로드" value="AC_10"/>

@@ -154,7 +154,7 @@
         <!-- 상단 검색 영역 -->
         <AdminSearch {adminList} {searchCondition}/>
 
-        <LoadingOverlay bind:loadState={adminManagementLayout} left={55} >
+        <LoadingOverlay bind:loadState={adminManagementLayout} top={195} >
             <div in:fade>
                 <!-- 테이블 영역 -->
                 <AdminTable page={searchCondition.page} {admin_list} {size} {total} {emailSend} {pwChangeMail} />

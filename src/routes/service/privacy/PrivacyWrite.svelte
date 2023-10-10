@@ -60,7 +60,7 @@ const getColumnList = () => {
                 </dl>
             </div>
 
-            <LoadingOverlay bind:loadState={priavacyStage} top={40} left={55} >
+            <LoadingOverlay bind:loadState={priavacyStage} top={40} >
                 {#if priavacyStage === 1}
                 <PrivacyWriteStep1 {stateChange} />
                 {:else if priavacyStage === 2}

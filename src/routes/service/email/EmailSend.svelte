@@ -1,5 +1,6 @@
 
 <script>
+    import {fade} from "svelte/transition";
     import Header from "../../../components/service/layout/Header.svelte"
     import {link, push} from 'svelte-spa-router'
     import {
@@ -176,7 +177,7 @@
         </div>
 
         <!-- 이메일 발송 영역 -->
-        <div class="semailWrap">
+        <div class="semailWrap" in:fade>
             <form>
                 <div>
                     <div class="semBtnBox">
