@@ -5,6 +5,7 @@
     import ErrorHighlight from "../../common/ui/ErrorHighlight.svelte";
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
     import {checkFalsyValuesExceptIgnoredKeys} from "../../../lib/common.js";
+    import {legalPrivacyRetention} from "../../common/enum/legalPrivacyRetention.js";
 
     export let stateChange;
 
@@ -50,8 +51,8 @@
     }
     const removeAfterItem = (index) => {
         policyInfoData.update((obj) => {
-            if (obj.afterDataList[index].pibId) {
-                afterRemoveIdList.push(obj.afterDataList[index].pibId);
+            if (obj.afterDataList[index].piaId) {
+                afterRemoveIdList.push(obj.afterDataList[index].piaId);
             }
             obj.afterDataList.splice(index, 1);
             return obj;
@@ -75,10 +76,36 @@
     }
     const removeServiceAutoItem = (index) => {
         policyInfoData.update((obj) => {
-            if (obj.serviceAutoDataList[index].pibId) {
-                serviceAutoRemoveIdList.push(obj.serviceAutoDataList[index].pibId);
+            if (obj.serviceAutoDataList[index].pisaId) {
+                serviceAutoRemoveIdList.push(obj.serviceAutoDataList[index].pisaId);
             }
             obj.serviceAutoDataList.splice(index, 1);
+            return obj;
+        });
+    }
+
+    const piChoseCustomItemRemoveIdList = [];
+    const createPiChoseCustomItem = () => {
+        policyInfoData.update(obj => {
+            obj.policyData2.piChoseCustomList = [
+                ...obj.policyData2.piChoseCustomList, {
+                    pistId: 0,
+                    pisaTitle: '',
+                    pisaContents: '',
+                    pistPeriod: '',
+                    pistCheck: false,
+                }
+            ];
+            return obj;
+        });
+    }
+
+    const removePiChoseCustomItem = (index) => {
+        policyInfoData.update(obj => {
+            if (obj.policyData2.piChoseCustomList[index].pistId) {
+                piChoseCustomItemRemoveIdList.push(obj.policyData2.piChoseCustomList[index].pistId);
+            }
+            obj.policyData2.piChoseCustomList.splice(index, 1);
             return obj;
         });
     }
@@ -119,9 +146,10 @@
             policyServiceAutoSaveDtoList: $policyInfoData.serviceAutoDataList,
             policyServiceAutoDeleteIdList: serviceAutoRemoveIdList,
 
-            // 아래 두개가 추가된 요소
+            // 아래 세개가 추가된 요소
             piChoseListString: JSON.stringify($policyInfoData.policyData2.piChoseListString),
             piChoseCustomList: $policyInfoData.policyData2.piChoseCustomList,
+            piChoseCustomDeleteIdList: piChoseCustomItemRemoveIdList,
 
             // 아래 다섯개는 더 이상 저장하지 않을 요소
             piInternetChose: $policyInfoData.policyData2.piInternetChose,
@@ -360,10 +388,11 @@
             <div class="prarea_table">
                 <table>
                     <colgroup>
-                        <col style="width:5.48%;">
-                        <col style="width:31.51%;">
-                        <col style="width:31.51%;">
-                        <col style="width:31.51%;">
+                        <col class="wid6per">
+                        <col class="wid40per">
+                        <col class="wid40per">
+                        <col class="wid10per">
+                        <col class="wid4per">
                     </colgroup>
                     <thead>
                     <tr>
@@ -598,12 +627,29 @@
                                 <label for="pbl18"><em></em></label>
                             </div>
                         </td>
-                        <td class="praLeft">요양급여비용의 청구에 관한 서류</td>
+                        <td class="praLeft"> 요양급여비용의 청구에 관한 서류</td>
                         <td class="praLeft">국민건강보험법 제96조의4, 시행규칙 제58조</td>
                         <td class="praLeft">5년</td>
                     </tr>
+                    {#each $policyInfoData.policyData2.piChoseCustomList as {pisaTitle, pisaContents, pistPeriod, pistCheck}, i }
+                        <tr>
+                            <td>
+                                <div class="prarea">
+                                    <input type="checkbox" name="pbcl{i}" id="pbcl{i}" bind:checked={pistCheck} />
+                                    <label for="pbcl{i}"><em></em></label>
+                                </div>
+                            </td>
+                            <td class="praLeft"><input class="nonePad wid100per" type="text" bind:value={pisaTitle} placeholder="예) 조제기록부"></td>
+                            <td class="praLeft"><input class="nonePad wid100per" type="text" bind:value={pisaContents} placeholder="예) 약사법 제30조"></td>
+                            <td class="praLeft"><input class="nonePad wid100per" type="text" bind:value={pistPeriod} placeholder="예) 5년"></td>
+                            <td><a on:click={()=>{removePiChoseCustomItem(i)}} class="pr_delete"></a></td>
+                        </tr>
+                    {/each}
                     </tbody>
                 </table>
+            </div>
+            <div class="pr_fieldBtnInner">
+                <button on:click={createPiChoseCustomItem} class="add_pr_field3 pr_fieldBtn"></button>
             </div>
         </div>
         <div class="prtextaddbox nonebor">

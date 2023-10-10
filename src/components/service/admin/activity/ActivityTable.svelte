@@ -45,7 +45,7 @@
                     {/if}
                     <td>{activity.activityCode}</td>
                     <td>
-                        <div>{activity.ahActivityDetail}</div>
+                        <div>{activity.ahActivityDetail || "-" }</div>
                     </td>
                     <td>{activity.insert_date}(IP:{activity.ahIpAddr})</td>
                     <td>
