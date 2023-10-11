@@ -9,6 +9,7 @@ function deepFreeze(obj) {
     return Object.freeze(obj);
 }
 
+// 개인정보처리방침 관리의 법령에 따른 개인정보의 보유기간에 표시될 정보들 (입력과 디테일에 사용)
 export const legalPrivacyRetention = deepFreeze([
     {
         title: '표시·광고에 관한 기록',
