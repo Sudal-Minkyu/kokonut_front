@@ -13,6 +13,7 @@
     import {ajaxGet, ajaxParam, reportCatch} from "../../../components/common/ajax.js";
     import {debounce200} from "../../../components/common/eventRateControls.js";
     import {openBanner} from "../../../components/common/ui/DialogManager.js";
+    import AdminUpdate from "../../../components/service/admin/management/AdminUpdate.svelte";
 
     onMount(async ()=>{
         // 페이지번호 초기화
@@ -45,6 +46,7 @@
     let adminSavePop = false;
     function adminSavePopChange() {
         adminSavePop = !adminSavePop;
+
     }
 
     let admin_list = [];
@@ -131,6 +133,15 @@
         });
     });
 
+    const adminUpdateService = {
+        visibility: true,
+        open: () => {adminUpdateService.visibility = true;},
+        close: () => {adminUpdateService.visibility = false;},
+        updateAdmin: (adminInfo) => {
+            console.log('업데이트할 관리자 정보', adminInfo);
+        },
+    }
+
 </script>
 
 <Header />
@@ -168,4 +179,8 @@
 <!-- [D] 관리자 등록 팝업 -->
 {#if adminSavePop}
     <AdminCreate {adminSavePopChange} {adminList} />
+{/if}
+
+{#if adminUpdateService.visibility}
+    <AdminUpdate {adminUpdateService}/>
 {/if}

@@ -1,6 +1,7 @@
 
 <script>
     import {openBanner} from "../../../common/ui/DialogManager.js";
+    import {userInfoData} from "../../../../lib/store.js";
 
     export let page;
     export let size;
@@ -10,22 +11,29 @@
     export let emailSend;
     export let pwChangeMail;
 
+    export let activateUser;
+    export let deactivateUser;
+
+    const getModifiability = (targetRole) => {
+        switch ($userInfoData.role) {
+            case 'ROLE_MASTER':
+                return true;
+            case 'ROLE_ADMIN':
+                return ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_GUEST'].includes(targetRole);
+            case 'ROLE_USER':
+                return ['ROLE_USER', 'ROLE_GUEST'].includes(targetRole);
+            case 'ROLE_GUEST':
+                return false;
+        }
+    };
+
+
+        ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
 </script>
 
 <div class="kotable adminManagement">
     <table>
         <caption>관리자 목록 리스트</caption>
-        <colgroup>
-            <col style="width:4%;">
-            <col style="width:22%;">
-            <col style="width:8%;">
-            <col style="width:6%;">
-            <col style="width:13%;">
-            <col style="width:25%;">
-            <col style="width:6%;">
-            <col style="width:7%;">
-            <col style="width:13%;">
-        </colgroup>
         <thead>
         <tr>
             <th>No</th>
@@ -56,7 +64,7 @@
                     {#if admin.knLastLoginDate === ""}
                         <td>없음</td>
                     {:else}
-                        <td>{admin.knLastLoginDate}(IP:{admin.knIpAddr})</td>
+                        <td>{admin.knLastLoginDate}</td>
                     {/if}
 
                     <td>
@@ -81,12 +89,17 @@
                         {/if}
                     </td>
 
+<!--                    <td>-->
+<!--&lt;!&ndash;                        <button on:click={()=>{openBanner("현재 준비중인 서비스입니다.")}}>사업자 변경</button>&ndash;&gt;-->
+<!--                        {#if admin.knIsEmailAuth === "Y"}-->
+<!--                            <button on:click={()=>{pwChangeMail(admin.knEmail)}}>비밀번호 변경</button>-->
+<!--                        {:else}-->
+<!--                            <button on:click={()=>emailSend(admin.knEmail)}>인증메일 재전송</button>-->
+<!--                        {/if}-->
+<!--                    </td>-->
                     <td>
-<!--                        <button on:click={()=>{openBanner("현재 준비중인 서비스입니다.")}}>사업자 변경</button>-->
-                        {#if admin.knIsEmailAuth === "Y"}
-                            <button on:click={()=>{pwChangeMail(admin.knEmail)}}>비밀번호 변경</button>
-                        {:else}
-                            <button on:click={()=>emailSend(admin.knEmail)}>인증메일 재전송</button>
+                        {#if getModifiability(admin.knRoleCode)}
+                            <button on:click={()=>{}}>설정</button>
                         {/if}
                     </td>
                 </tr>
