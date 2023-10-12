@@ -65,40 +65,6 @@
         filterState: '',
     }
 
-    // 관리자 목록 호출 함수
-    const emailSend = function emailAgain(userEmail) {
-        const sendDate = {
-            userEmail : userEmail
-        }
-
-        let url = "/v2/api/Admin/createMailAgain";
-
-        ajaxParam(url, sendDate,(res) => {
-            try {
-                openBanner("재인증메일을 전송하였습니다.");
-            } catch (e) {
-                reportCatch('temp065', e);
-            }
-        });
-    }
-
-    // 관리자 목록 호출 함수
-    const pwChangeMail = function pwChange(userEmail) {
-        const sendDate = {
-            userEmail : userEmail
-        }
-
-        let url = "/v2/api/Admin/passwordChangeMail";
-
-        ajaxParam(url, sendDate,(res) => {
-            try {
-                openBanner("비밀번호변경 메일을 전송하였습니다.");
-            } catch (e) {
-                reportCatch('temp066', e);
-            }
-        });
-    }
-
     // 엔터키 클릭
     function enterPress(event) {
         if(event.key === "Enter") {
@@ -134,11 +100,68 @@
     });
 
     const adminUpdateService = {
-        visibility: true,
-        open: () => {adminUpdateService.visibility = true;},
-        close: () => {adminUpdateService.visibility = false;},
-        updateAdmin: (adminInfo) => {
-            console.log('업데이트할 관리자 정보', adminInfo);
+        visibility: false,
+        adminData: {
+            knEmail: '',
+            knIsEmailAuth: '',
+            knRoleCode: '',
+            activeStatus: '',
+        },
+        open: (adminData) => {
+            adminUpdateService.setAdminData(adminData);
+            adminUpdateService.visibility = true;
+        },
+        close: () => {
+            adminUpdateService.visibility = false;
+            adminUpdateService.setAdminData({});
+        },
+        updateAdmin: () => {
+            console.log('업데이트할 관리자 정보', adminUpdateService.adminData);
+        },
+        sendVerifyMail: () => {
+            const sendDate = {
+                userEmail : adminUpdateService.adminData.knEmail,
+            }
+
+            let url = "/v2/api/Admin/createMailAgain";
+
+            ajaxParam(url, sendDate,(res) => {
+                try {
+                    openBanner("재인증메일을 전송하였습니다.");
+                } catch (e) {
+                    reportCatch('temp065', e);
+                }
+            });
+        },
+        sendPwChangeMail: () => {
+            const sendData = {
+                userEmail : adminUpdateService.adminData.knEmail,
+            }
+
+            let url = "/v2/api/Admin/passwordChangeMail";
+
+            ajaxParam(url, sendData,(res) => {
+                try {
+                    openBanner("비밀번호변경 메일을 전송하였습니다.");
+                } catch (e) {
+                    reportCatch('temp066', e);
+                }
+            });
+        },
+        setAdminData: (rawAdminData) => {
+            if (typeof rawAdminData === 'object') {
+                console.log('raw admin', rawAdminData);
+                adminUpdateService.adminData = {
+                    knEmail: rawAdminData.knEmail,
+                    knIsEmailAuth: rawAdminData.knIsEmailAuth,
+                    knRoleCode: rawAdminData.knRoleCode,
+                    activeStatus: '1',
+                }
+                console.log('refinedAdminData', adminUpdateService.adminData);
+            }
+        },
+        getAdminData: () => {
+            return adminUpdateService.adminData;
         },
     }
 
@@ -168,7 +191,7 @@
         <LoadingOverlay bind:loadState={adminManagementLayout} top={195} >
             <div in:fade>
                 <!-- 테이블 영역 -->
-                <AdminTable page={searchCondition.page} {admin_list} {size} {total} {emailSend} {pwChangeMail} />
+                <AdminTable page={searchCondition.page} {admin_list} {size} {total} {adminUpdateService}/>
                 <!-- 페이징 영역 -->
                 <Paging page={searchCondition.page} total_page="{total_page}" data_list="{admin_list}" dataFunction="{adminList}" />
             </div>

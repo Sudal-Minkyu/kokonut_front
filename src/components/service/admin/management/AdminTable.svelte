@@ -8,11 +8,7 @@
     export let total;
     export let admin_list;
 
-    export let emailSend;
-    export let pwChangeMail;
-
-    export let activateUser;
-    export let deactivateUser;
+    export let adminUpdateService;
 
     const getModifiability = (targetRole) => {
         switch ($userInfoData.role) {
@@ -99,7 +95,7 @@
 <!--                    </td>-->
                     <td>
                         {#if getModifiability(admin.knRoleCode)}
-                            <button on:click={()=>{}}>설정</button>
+                            <button on:click={() => {adminUpdateService.open(admin)}}>설정</button>
                         {/if}
                     </td>
                 </tr>

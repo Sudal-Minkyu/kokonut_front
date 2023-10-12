@@ -443,12 +443,23 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {#each legalPrivacyRetention as {title, content, period}}
-                                        <tr>
-                                            <td class="praLeft">{title}</td>
-                                            <td class="praLeft">{content}</td>
-                                            <td class="praLeft">{period}</td>
-                                        </tr>
+                                    {#each legalPrivacyRetention as {title, content, period}, i}
+                                        {#if policyInfoData.piChoseListString[i]}
+                                            <tr>
+                                                <td class="praLeft">{title}</td>
+                                                <td class="praLeft">{content}</td>
+                                                <td class="praLeft">{period}</td>
+                                            </tr>
+                                        {/if}
+                                    {/each}
+                                    {#each policyInfoData.piChoseCustomList as {pisaTitle, pisaContents, pistPeriod, pistCheck}}
+                                        {#if pistCheck}
+                                            <tr>
+                                                <td class="praLeft">{pisaTitle}</td>
+                                                <td class="praLeft">{pisaContents}</td>
+                                                <td class="praLeft">{pistPeriod}</td>
+                                            </tr>
+                                        {/if}
                                     {/each}
                                     </tbody>
                                 </table>
