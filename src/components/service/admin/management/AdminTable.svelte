@@ -37,6 +37,7 @@
             <th>이메일 인증</th>
             <th>계정 상태</th>
             <th>설정</th>
+            <th>설정</th>
         </tr>
         </thead>
         <tbody>
@@ -79,6 +80,9 @@
                         {:else if admin.knState === 0}
                             <div class="secession">정지</div>
                         {/if}
+                    </td>
+                    <td>
+                        <button on:click={() => {adminUpdateService.open(admin)}}>비밀번호 변경</button>
                     </td>
                     <td>
                         {#if getModifiability(admin.knRoleCode) && $userInfoData.knEmail !== admin.knEmail}

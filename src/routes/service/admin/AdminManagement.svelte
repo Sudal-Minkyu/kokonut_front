@@ -100,13 +100,14 @@
     });
 
     const adminUpdateService = {
-        visibility: false,
+        visibility: true,
         adminData: {
             knEmail: '',
             knIsEmailAuth: '',
             knRoleCode: '',
             knActiveStatus: '',
             otpValue: '',
+            otpErrMsg: '',
         },
         open: (adminData) => {
             adminUpdateService.setAdminData(adminData);
@@ -114,9 +115,23 @@
         },
         close: () => {
             adminUpdateService.visibility = false;
-            adminUpdateService.setAdminData({});
+            adminUpdateService.setAdminData({
+                knEmail: '',
+                knIsEmailAuth: '',
+                knRoleCode: '',
+                knActiveStatus: '',
+                otpValue: '',
+                otpErrMsg: '',
+            });
         },
         updateAdmin: () => {
+
+            if (!adminUpdateService.adminData.otpValue) {
+                adminUpdateService.adminData.otpErrMsg = 'OTP를 적어주세요.';
+                return;
+            } else {
+                adminUpdateService.adminData.otpErrMsg = '';
+            }
             console.log('업데이트할 관리자 정보', adminUpdateService.adminData);
             ajaxParam('/v2/api/Admin/updateAdminData', adminUpdateService.adminData, (res) => {
                 console.log('통신성공', res);
@@ -163,7 +178,7 @@
                     knRoleCode: rawAdminData.knRoleCode,
                     knActiveStatus: '1',
                     otpValue: '',
-                    otpErrorMsg: '',
+                    otpErrMsg: '',
                 }
                 console.log('refinedAdminData', adminUpdateService.adminData);
             }

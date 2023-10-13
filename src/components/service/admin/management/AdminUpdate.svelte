@@ -75,8 +75,8 @@
             <div class="kopopinput">
                 <label>구글 OTP 인증번호(6자리)</label>
                 <input type="text" bind:value={adminUpdateService.adminData.otpValue} maxlength="6"
-                       on:keyup={() => adminUpdateService.adminData.otpValue = onlyNumber(adminUpdateService.adminData.otpValue)} placeholder="OTP를 적어주세요." />
-                <ErrorHighlight message={adminUpdateService.otpErrorMsg}/>
+                       on:keyup={() => {adminUpdateService.adminData.otpValue = onlyNumber(adminUpdateService.adminData.otpValue)}} placeholder="OTP를 적어주세요." />
+                <ErrorHighlight message={adminUpdateService.otpErrMsg}/>
             </div>
             <div class="kokopopBtnBox">
                 <div class="koko_cancel adm_registration_pop_close" on:click={adminUpdateService.close}>취소</div>
