@@ -1,6 +1,5 @@
 
 <script>
-    import {openBanner} from "../../../common/ui/DialogManager.js";
     import {userInfoData} from "../../../../lib/store.js";
 
     export let page;
@@ -22,9 +21,6 @@
                 return false;
         }
     };
-
-
-        ['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role);
 </script>
 
 <div class="kotable adminManagement">
@@ -84,17 +80,8 @@
                             <div class="secession">정지</div>
                         {/if}
                     </td>
-
-<!--                    <td>-->
-<!--&lt;!&ndash;                        <button on:click={()=>{openBanner("현재 준비중인 서비스입니다.")}}>사업자 변경</button>&ndash;&gt;-->
-<!--                        {#if admin.knIsEmailAuth === "Y"}-->
-<!--                            <button on:click={()=>{pwChangeMail(admin.knEmail)}}>비밀번호 변경</button>-->
-<!--                        {:else}-->
-<!--                            <button on:click={()=>emailSend(admin.knEmail)}>인증메일 재전송</button>-->
-<!--                        {/if}-->
-<!--                    </td>-->
                     <td>
-                        {#if getModifiability(admin.knRoleCode)}
+                        {#if getModifiability(admin.knRoleCode) && $userInfoData.knEmail !== admin.knEmail}
                             <button on:click={() => {adminUpdateService.open(admin)}}>설정</button>
                         {/if}
                     </td>

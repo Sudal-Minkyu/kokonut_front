@@ -105,7 +105,8 @@
             knEmail: '',
             knIsEmailAuth: '',
             knRoleCode: '',
-            activeStatus: '',
+            knActiveStatus: '',
+            otpValue: '',
         },
         open: (adminData) => {
             adminUpdateService.setAdminData(adminData);
@@ -117,6 +118,11 @@
         },
         updateAdmin: () => {
             console.log('업데이트할 관리자 정보', adminUpdateService.adminData);
+            ajaxParam('/v2/api/Admin/updateAdminData', adminUpdateService.adminData, (res) => {
+                console.log('통신성공', res);
+            }, (errCode, errMsg) => {
+
+            });
         },
         sendVerifyMail: () => {
             const sendDate = {
@@ -155,13 +161,12 @@
                     knEmail: rawAdminData.knEmail,
                     knIsEmailAuth: rawAdminData.knIsEmailAuth,
                     knRoleCode: rawAdminData.knRoleCode,
-                    activeStatus: '1',
+                    knActiveStatus: '1',
+                    otpValue: '',
+                    otpErrorMsg: '',
                 }
                 console.log('refinedAdminData', adminUpdateService.adminData);
             }
-        },
-        getAdminData: () => {
-            return adminUpdateService.adminData;
         },
     }
 
