@@ -9,17 +9,25 @@
     export let adminUpdateService;
 
     onMount(() => {
-        initializeRoleSelectBox();
+        console.log('액티브', adminUpdateService.adminData.knActiveStatus);
+        if (adminUpdateService.adminData.knRoleCode !== 'ROLE_GUEST') {
+            initializeRoleSelectBox();
+        }
     });
 
+    let isChangeRoleAvailable = false;
     const initializeRoleSelectBox = () => {
+        isChangeRoleAvailable = true;
+
         const roleEnum = Object.freeze({
             ROLE_ADMIN: '최고관리자',
             ROLE_USER: '관리자',
             ROLE_GUEST: '게스트',
         });
 
-        document.getElementById('adminRoleSelect').innerHTML = roleEnum[adminUpdateService.adminData.knRoleCode];
+        setTimeout(() => {
+            document.getElementById('adminRoleSelect').innerHTML = roleEnum[adminUpdateService.adminData.knRoleCode];
+        }, 0);
     }
 
     const handleSelectRole = (el) => {
@@ -33,18 +41,18 @@
             <div class="koko_popup_title">
                 <h3 class="">관리자 설정</h3>
             </div>
-
-            <div class="kopop_SelBox marB24" style="margin-top: 10px">
-                <p>관리자 등급</p>
-                <div class="selectBox wid162" use:SelectBoxManager={{callback: handleSelectRole}}>
-                    <div class="label" id="adminRoleSelect">선택</div>
-                    <ul class="optionList">
-                        <li class="optionItem anoGrade" data-value="ROLE_ADMIN">최고관리자</li>
-                        <li class="optionItem anoGrade" data-value="ROLE_USER">관리자</li>
-                        <li class="optionItem anoGrade" data-value="ROLE_GUEST">게스트</li>
-                    </ul>
+            {#if isChangeRoleAvailable}
+                <div class="kopop_SelBox marB24" style="margin-top: 10px">
+                    <p>관리자 등급</p>
+                    <div class="selectBox wid162" use:SelectBoxManager={{callback: handleSelectRole}}>
+                        <div class="label" id="adminRoleSelect">선택</div>
+                        <ul class="optionList">
+                            <li class="optionItem anoGrade" data-value="ROLE_ADMIN">최고관리자</li>
+                            <li class="optionItem anoGrade" data-value="ROLE_USER">관리자</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            {/if}
             <div class="kopopinput marB24">
                 <label>활성화 상태</label>
                 <div class="popRadio" style="padding: 0;">
@@ -58,25 +66,25 @@
                     </div>
                 </div>
             </div>
-            {#if adminUpdateService.adminData.knEmail !== $userInfoData.knEmail}
-                <div class="kopopinput marB24">
-                    <label>인증 및 보안</label>
-                    {#if adminUpdateService.adminData.knIsEmailAuth === 'Y'}
-                        <div style="text-align: left">
-                            <div class="koko_cancel adm_registration_pop_close" on:click={adminUpdateService.sendPwChangeMail} style="width: 17rem;">비밀번호 변경 메일 전송</div>
-                        </div>
-                    {:else}
-                        <div style="text-align: left">
-                            <div class="koko_cancel adm_registration_pop_close" on:click={adminUpdateService.sendVerifyMail} style="width: 13rem;">인증메일 재전송</div>
-                        </div>
-                    {/if}
-                </div>
-            {/if}
+            <!--{#if adminUpdateService.adminData.knEmail !== $userInfoData.knEmail}-->
+            <!--    <div class="kopopinput marB24">-->
+            <!--        <label>인증 및 보안</label>-->
+            <!--        {#if adminUpdateService.adminData.knIsEmailAuth === 'Y'}-->
+            <!--            <div style="text-align: left">-->
+            <!--                <div class="koko_cancel adm_registration_pop_close" on:click={()=>{adminUpdateService.sendPwChangeMail(adminUpdateService.adminData.knEmail)}} style="width: 17rem;">비밀번호 변경 메일 전송</div>-->
+            <!--            </div>-->
+            <!--        {:else}-->
+            <!--            <div style="text-align: left">-->
+            <!--                <div class="koko_cancel adm_registration_pop_close" on:click={()=>{adminUpdateService.sendVerifyMail(adminUpdateService.adminData.knEmail)}} style="width: 13rem;">인증메일 재전송</div>-->
+            <!--            </div>-->
+            <!--        {/if}-->
+            <!--    </div>-->
+            <!--{/if}-->
             <div class="kopopinput">
                 <label>구글 OTP 인증번호(6자리)</label>
                 <input type="text" bind:value={adminUpdateService.adminData.otpValue} maxlength="6"
                        on:keyup={() => {adminUpdateService.adminData.otpValue = onlyNumber(adminUpdateService.adminData.otpValue)}} placeholder="OTP를 적어주세요." />
-                <ErrorHighlight message={adminUpdateService.otpErrMsg}/>
+                <ErrorHighlight message={adminUpdateService.adminData.otpErrMsg}/>
             </div>
             <div class="kokopopBtnBox">
                 <div class="koko_cancel adm_registration_pop_close" on:click={adminUpdateService.close}>취소</div>

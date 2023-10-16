@@ -48,6 +48,7 @@
                 const userInfo = res.data.sendData;
                 is_login.set(true);
                 userInfoData.set(userInfo);
+                console.log('관리자 정보 확인', userInfo);
                 expireDate.set(getFutureDate(Number(userInfo.csAutoLogoutSetting)).toISOString());
                 isReadyToShow = true;
             } catch (e) {

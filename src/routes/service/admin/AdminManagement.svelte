@@ -100,7 +100,7 @@
     });
 
     const adminUpdateService = {
-        visibility: true,
+        visibility: false,
         adminData: {
             knEmail: '',
             knIsEmailAuth: '',
@@ -115,33 +115,33 @@
         },
         close: () => {
             adminUpdateService.visibility = false;
-            adminUpdateService.setAdminData({
+            adminUpdateService.adminData = {
                 knEmail: '',
                 knIsEmailAuth: '',
                 knRoleCode: '',
                 knActiveStatus: '',
                 otpValue: '',
                 otpErrMsg: '',
-            });
+            };
         },
         updateAdmin: () => {
-
             if (!adminUpdateService.adminData.otpValue) {
                 adminUpdateService.adminData.otpErrMsg = 'OTP를 적어주세요.';
                 return;
             } else {
                 adminUpdateService.adminData.otpErrMsg = '';
             }
+
             console.log('업데이트할 관리자 정보', adminUpdateService.adminData);
             ajaxParam('/v2/api/Admin/updateAdminData', adminUpdateService.adminData, (res) => {
-                console.log('통신성공', res);
-            }, (errCode, errMsg) => {
-
+                adminList(searchCondition.page);
+                openBanner('관리자 정보 변경을 완료하였습니다.');
+                adminUpdateService.close();
             });
         },
-        sendVerifyMail: () => {
+        sendVerifyMail: (email) => {
             const sendDate = {
-                userEmail : adminUpdateService.adminData.knEmail,
+                userEmail : email,
             }
 
             let url = "/v2/api/Admin/createMailAgain";
@@ -154,9 +154,9 @@
                 }
             });
         },
-        sendPwChangeMail: () => {
+        sendPwChangeMail: (email) => {
             const sendData = {
-                userEmail : adminUpdateService.adminData.knEmail,
+                userEmail : email,
             }
 
             let url = "/v2/api/Admin/passwordChangeMail";
@@ -176,7 +176,7 @@
                     knEmail: rawAdminData.knEmail,
                     knIsEmailAuth: rawAdminData.knIsEmailAuth,
                     knRoleCode: rawAdminData.knRoleCode,
-                    knActiveStatus: '1',
+                    knActiveStatus: rawAdminData.knActiveStatus,
                     otpValue: '',
                     otpErrMsg: '',
                 }

@@ -9,6 +9,7 @@
 
     export let adminUpdateService;
 
+    // 각 대상에 대한 수정 권한 여부 리턴
     const getModifiability = (targetRole) => {
         switch ($userInfoData.role) {
             case 'ROLE_MASTER':
@@ -16,7 +17,7 @@
             case 'ROLE_ADMIN':
                 return ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_GUEST'].includes(targetRole);
             case 'ROLE_USER':
-                return ['ROLE_USER', 'ROLE_GUEST'].includes(targetRole);
+                return ['ROLE_GUEST'].includes(targetRole);
             case 'ROLE_GUEST':
                 return false;
         }
@@ -35,9 +36,9 @@
             <th>등록 일시</th>
             <th>최근 접속일시 (접속IP)</th>
             <th>이메일 인증</th>
+            <th>인증 및 보안</th>
             <th>계정 상태</th>
-            <th>설정</th>
-            <th>설정</th>
+            <th>권한</th>
         </tr>
         </thead>
         <tbody>
@@ -67,22 +68,20 @@
                             <div class="secession">미완료</div>
                         {/if}
                     </td>
-
                     <td>
-                        {#if admin.knState === 1}
-                            <div class="normal">정상</div>
-                        {:else if admin.knState === 3}
-                            <div class="secession">탈퇴</div>
-                        {:else if admin.knState === 4}
-                            <div class="dormancy">휴면</div>
-                        {:else if admin.knState === 2}
-                            <div class="secession">로그인제한</div>
-                        {:else if admin.knState === 0}
-                            <div class="secession">정지</div>
+                        {#if admin.knIsEmailAuth === "Y"}
+                            <button on:click={()=>{adminUpdateService.sendPwChangeMail(admin.knEmail)}}>비밀번호 변경</button>
+                        {:else}
+                            <button on:click={()=>{adminUpdateService.sendVerifyMail(admin.knEmail)}}>인증메일 재전송</button>
                         {/if}
                     </td>
+
                     <td>
-                        <button on:click={() => {adminUpdateService.open(admin)}}>비밀번호 변경</button>
+                        {#if admin.knActiveStatus === '1'}
+                            <div class="normal">활성</div>
+                        {:else if admin.knActiveStatus === '0'}
+                            <div class="secession">비활성</div>
+                        {/if}
                     </td>
                     <td>
                         {#if getModifiability(admin.knRoleCode) && $userInfoData.knEmail !== admin.knEmail}
