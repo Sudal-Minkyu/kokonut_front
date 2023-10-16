@@ -38,8 +38,8 @@
                         <div class="label grade" id="stateSelect" data-value="">전체</div>
                         <ul class="optionList">
                             <li class="optionItem anoGrade" data-value="">전체</li>
-                            <li class="optionItem anoGrade" data-value="1">정상</li>
-                            <li class="optionItem anoGrade" data-value="2">로그인제한</li>
+                            <li class="optionItem anoGrade" data-value="1">활성</li>
+                            <li class="optionItem anoGrade" data-value="0">비활성</li>
                         </ul>
                     </div>
                 </div>

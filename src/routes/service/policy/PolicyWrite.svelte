@@ -148,6 +148,14 @@ let writingCheck = false;
                     obj.thirdOverseasDataList = res.data.sendData.thirdOverseasDataList;
                     obj.reponsibleDataList = res.data.sendData.reponsibleDataList;
                     obj.policyData3 = res.data.sendData.policyInfo3;
+
+                    if(res.data.sendData.piChoseListString) {
+                        obj.policyData2.piChoseListString = JSON.parse(res.data.sendData.piChoseListString);
+                        obj.policyData2.piChoseCustomList = res.data.sendData.piChoseCustomList;
+                    } else {
+                        obj.policyData2.piChoseListString = JSON.parse("[false, false]");
+                        obj.policyData2.piChoseCustomList = [];
+                    }
                     return obj;
                 });
             } catch (e) {
