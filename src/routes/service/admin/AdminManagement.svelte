@@ -132,7 +132,6 @@
                 adminUpdateService.adminData.otpErrMsg = '';
             }
 
-            console.log('업데이트할 관리자 정보', adminUpdateService.adminData);
             ajaxParam('/v2/api/Admin/updateAdminData', adminUpdateService.adminData, (res) => {
                 adminList(searchCondition.page);
                 openBanner('관리자 정보 변경을 완료하였습니다.');
@@ -171,7 +170,6 @@
         },
         setAdminData: (rawAdminData) => {
             if (typeof rawAdminData === 'object') {
-                console.log('raw admin', rawAdminData);
                 adminUpdateService.adminData = {
                     knEmail: rawAdminData.knEmail,
                     knIsEmailAuth: rawAdminData.knIsEmailAuth,
@@ -180,7 +178,6 @@
                     otpValue: '',
                     otpErrMsg: '',
                 }
-                console.log('refinedAdminData', adminUpdateService.adminData);
             }
         },
     }

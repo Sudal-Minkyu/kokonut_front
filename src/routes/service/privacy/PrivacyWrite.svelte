@@ -36,7 +36,6 @@
 const getColumnList = () => {
         ajaxGet('/v2/api/DynamicUser/privateTableColumnCall', false, (json_success) => {
             try {
-                console.log(json_success);
                 providePrivacyWriteData.update(obj => {
                     obj.step4.columnList = json_success.data.sendData.fieldList.filter(item => !['PASSWORD_1_PW'].includes( item.fieldCode));
                     return obj;

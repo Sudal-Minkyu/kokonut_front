@@ -6,6 +6,7 @@
     import {location, push} from "svelte-spa-router";
     import {ajaxGet, reportCatch} from "./components/common/ajax.js";
     import {logout} from "./components/common/authActions.js";
+    import {get} from "svelte/store";
 
     let isReadyToShow;
     let currentLocation;
@@ -28,12 +29,13 @@
         isReadyToShow = false;
         const isServiceLocation = href.substring(0, 8) === '/service';
         if (isServiceLocation && $is_login) {
-            if (isForceGetUserInfoPage || $userInfoData.knEmail === '') { // 사용자 정보 필요, 임시 통과조치
-                getUserInfo();
-            } else { // 사용자 정보 있음
-                // 향후 로그인 정보 특정조건 갱신 필요의 경우 여기에 작성
-                isReadyToShow = true;
-            }
+            // if (isForceGetUserInfoPage || $userInfoData.knEmail === '') { // 사용자 정보 필요, 임시 통과조치
+            //     getUserInfo();
+            // } else { // 사용자 정보 있음
+            //     // 향후 로그인 정보 특정조건 갱신 필요의 경우 여기에 작성
+            //     isReadyToShow = true;
+            // }
+            getUserInfo();
         } else if (isServiceLocation) { // 로그인을 하지 않고 서비스 페이지 진입
             push('/login');
         } else { // 사용자 정보 불필요 페이지
@@ -43,12 +45,21 @@
 
     const getUserInfo = () => {
         isReadyToShow = false;
+        const pastRole = get(userInfoData).role;
+
         ajaxGet('/v2/api/Admin/authorityCheck', false, (res) => {
             try {
                 const userInfo = res.data.sendData;
                 is_login.set(true);
                 userInfoData.set(userInfo);
-                console.log('관리자 정보 확인', userInfo);
+                if (userInfo.knActiveStatus === "0") {
+                    logout();
+                    alert("사용자의 계정이 비활성화되어 로그아웃 되었습니다.");
+                }
+                if (pastRole && pastRole !== userInfo.role) {
+                    logout();
+                    alert("사용자의 권한 등급이 변경되어 로그아웃합니다. 다시 로그인 해 주세요.");
+                }
                 expireDate.set(getFutureDate(Number(userInfo.csAutoLogoutSetting)).toISOString());
                 isReadyToShow = true;
             } catch (e) {

@@ -40,7 +40,6 @@
 
         let url = "/v2/api/Provision/provisionList";
         ajaxGet(url, searchCondition, (res) => {
-            console.log(res);
             try {
                 provision_list = res.data.datalist;
                 total = res.data.total_rows;

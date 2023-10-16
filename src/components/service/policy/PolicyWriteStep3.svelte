@@ -159,8 +159,6 @@
             piAdvertisementChose: $policyInfoData.policyData2.piAdvertisementChose,
         }
 
-        console.log('보내는 데이터', sendData);
-
         ajaxBody(url, sendData, (res) => {
             try {
                 stateChange(goToState);

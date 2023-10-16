@@ -141,7 +141,6 @@
                 }
 
                 if(!emailBlank && !pwdBlank) {
-                    console.log("일로잘왔음");
                     loginBtn(knEmail, encryptedPassword);
                 }
 

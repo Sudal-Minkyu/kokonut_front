@@ -9,7 +9,6 @@
     export let adminUpdateService;
 
     onMount(() => {
-        console.log('액티브', adminUpdateService.adminData.knActiveStatus);
         if (adminUpdateService.adminData.knRoleCode !== 'ROLE_GUEST') {
             initializeRoleSelectBox();
         }
