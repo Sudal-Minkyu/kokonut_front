@@ -161,9 +161,14 @@
             </div>
         </div>
 
-        <div class="koinput marB32">
-            <input type="text" bind:value="{searchCondition.searchText}" on:keypress={enterPress} class="wid360" placeholder="제공자 검색" />
-            <button on:click={() => provisionList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
+        <div class="seaWrap">
+<!--            <div class="kotopBtn">-->
+<!--                <button id="excel_download_pop" on:click={excelDownloadPopService.open}>현재목록 엑셀 다운로드</button>-->
+<!--            </div>-->
+            <div class="koinput marB32">
+                <input type="text" bind:value="{searchCondition.searchText}" on:keypress={enterPress} class="wid360" placeholder="제공자 검색" />
+                <button on:click={() => provisionList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
+            </div>
         </div>
 
         <!-- 상단 검색 영역 -->
