@@ -150,13 +150,6 @@
             piChoseListString: JSON.stringify($policyInfoData.policyData2.piChoseListString),
             piChoseCustomList: $policyInfoData.policyData2.piChoseCustomList,
             piChoseCustomDeleteIdList: piChoseCustomItemRemoveIdList,
-
-            // 아래 다섯개는 더 이상 저장하지 않을 요소
-            piInternetChose: $policyInfoData.policyData2.piInternetChose,
-            piContractChose: $policyInfoData.policyData2.piContractChose,
-            piPayChose: $policyInfoData.policyData2.piPayChose,
-            piConsumerChose: $policyInfoData.policyData2.piConsumerChose,
-            piAdvertisementChose: $policyInfoData.policyData2.piAdvertisementChose,
         }
 
         ajaxBody(url, sendData, (res) => {

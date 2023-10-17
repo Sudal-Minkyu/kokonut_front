@@ -141,7 +141,6 @@ let writingCheck = false;
                     obj.beforeDataList = res.data.sendData.beforeDataList;
                     obj.afterDataList = res.data.sendData.afterDataList;
                     obj.serviceAutoDataList = res.data.sendData.serviceAutoDataList;
-                    obj.policyData2 = res.data.sendData.policyInfo2;
                     obj.outDataList = res.data.sendData.outDataList;
                     obj.outDetailDataList = res.data.sendData.outDetailDataList;
                     obj.thirdDataList = res.data.sendData.thirdDataList;
