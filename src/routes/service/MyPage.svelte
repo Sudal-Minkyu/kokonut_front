@@ -18,6 +18,7 @@
     import {logout} from "../../components/common/authActions.js";
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet, reportCatch} from "../../components/common/ajax.js";
+    import {openAsk} from "../../components/common/ui/DialogManager.js";
 
     let changeState = 0;
     function changeStatePop(val) {
@@ -110,6 +111,23 @@
         }
     }
 
+    function handleDeactivateMyAccount() {
+        openAsk({
+            icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+            title: '내 계정을 비활성화 하시겠습니까?', // 제목
+            contents1: '비활성화시 로그아웃되고, 접속 불가 처리 됩니다.', // 내용
+            contents2: '복구를 원하시면 최고관리자에게 문의해 주세요.',
+            btnCheck: '', // 확인 버튼의 텍스트
+            btnStart: '비활성화', // 실행 버튼의 텍스트
+            btnCancel: '취소', // 취소 버튼의 텍스트
+            callback: () => {},
+        });
+    }
+
+    function deactivateAccount() {
+
+    }
+
     let myInfoLayout = 0;
     let otpTitle = "구글 OTP 2단계 인증 재등록"
     // 구글 OTP 팝업
@@ -197,6 +215,14 @@
                         <div class="myInfoBox">
                             <span class="otptext">구글 OTP 인증 사용중</span>
                             <button class="myinfoChangeBtn" id="otp_pop" on:click|preventDefault={otpCreate}>재등록</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="seaContentLine borB">
+                    <div class="seaCont wid100per">
+                        <dl>계정 비활성화</dl>
+                        <div class="myInfoBox">
+                            <button style="margin-left: 0" class="myinfoChangeBtn" id="otp_pop" on:click|preventDefault={handleDeactivateMyAccount}>비활성화</button>
                         </div>
                     </div>
                 </div>
