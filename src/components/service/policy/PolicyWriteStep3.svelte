@@ -8,6 +8,7 @@
     import {legalPrivacyRetention} from "../../common/enum/legalPrivacyRetention.js";
 
     export let stateChange;
+    export let policyWriting;
 
     const beforeRemoveIdList = [];
     const createBeforeItem = () => {
@@ -154,7 +155,7 @@
 
         ajaxBody(url, sendData, (res) => {
             try {
-                stateChange(goToState);
+                policyWriting(goToState);
             } catch (e) {
                 reportCatch('t23082304', e);
             }

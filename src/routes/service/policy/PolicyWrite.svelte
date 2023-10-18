@@ -127,14 +127,15 @@ let writingCheck = false;
     }
 
     // 개인정보처리방침 작성중인 글 조회
-    function policyWriting() {
+    function policyWriting(changeStage = 0) {
         let url = "/v2/api/Policy/privacyPolicyWriting"
         let sendData = {
             piId : $piId,
         }
         ajaxGet(url, sendData, (res) => {
             try {
-                stage = $piStage;
+                stateChange(changeStage ? changeStage : $piStage);
+                console.log('스테이지', stage);
                 policyInfoData.update(obj => {
                     obj.policyData1 = res.data.sendData.policyInfo1;
                     obj.purposeDataList = res.data.sendData.purposeInfo;
@@ -152,7 +153,7 @@ let writingCheck = false;
                         obj.policyData2.piChoseListString = JSON.parse(res.data.sendData.piChoseListString);
                         obj.policyData2.piChoseCustomList = res.data.sendData.piChoseCustomList;
                     } else {
-                        obj.policyData2.piChoseListString = JSON.parse("[false, false]");
+                        obj.policyData2.piChoseListString = [];
                         obj.policyData2.piChoseCustomList = [];
                     }
                     return obj;

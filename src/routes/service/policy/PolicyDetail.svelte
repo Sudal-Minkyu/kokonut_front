@@ -61,6 +61,7 @@
 
         ajaxGet(url, false, (res) => {
             try {
+                console.log("받은데이터", res.data.sendData);
                 policyInfoData.policyData = res.data.sendData.policyData;
 
                 policyInfoData.purposeDataList = res.data.sendData.purposeDataList;
@@ -87,9 +88,10 @@
                     policyInfoData.piChoseListString = JSON.parse(res.data.sendData.piChoseListString);
                     policyInfoData.piChoseCustomList = res.data.sendData.piChoseCustomList;
                 } else {
-                    policyInfoData.piChoseListString = JSON.parse("[false, false]");
+                    policyInfoData.piChoseListString = JSON.parse([]);
                     policyInfoData.piChoseCustomList = [];
                 }
+
 
                 policyDetailLayout = 1;
             } catch (e) {
