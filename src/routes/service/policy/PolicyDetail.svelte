@@ -12,6 +12,12 @@
     import {openBanner, openConfirm} from "../../../components/common/ui/DialogManager.js";
     import {legalPrivacyRetention} from "../../../components/common/enum/legalPrivacyRetention.js";
 
+    let section2Count = 1;
+    let state = 0;
+    let pageErrMsg1;
+    let pageErrMsg2;
+    let pageErrUrl;
+    let policyDetailLayout= 0;
     let piId;
 
     onMount( () => {
@@ -61,7 +67,7 @@
 
         ajaxGet(url, false, (res) => {
             try {
-                console.log("받은데이터", res.data.sendData);
+                console.log("받은데이터", res.data);
                 policyInfoData.policyData = res.data.sendData.policyData;
 
                 policyInfoData.purposeDataList = res.data.sendData.purposeDataList;
@@ -84,14 +90,15 @@
                 }
                 policyInfoData.reponsibleDataList = res.data.sendData.reponsibleDataList;
 
-                if(res.data.sendData.piChoseListString) {
-                    policyInfoData.piChoseListString = JSON.parse(res.data.sendData.piChoseListString);
+                if(res.data.sendData.piChoseCustomList) {
+                    // policyInfoData.piChoseListString = JSON.parse(res.data.sendData.piChoseListString);
+                    policyInfoData.piChoseListString = JSON.parse(res.data.sendData.policyData.piChoseListString);
                     policyInfoData.piChoseCustomList = res.data.sendData.piChoseCustomList;
                 } else {
-                    policyInfoData.piChoseListString = JSON.parse([]);
+                    policyInfoData.piChoseListString = [];
                     policyInfoData.piChoseCustomList = [];
                 }
-
+                console.log("데이터확인", policyInfoData);
 
                 policyDetailLayout = 1;
             } catch (e) {
@@ -250,15 +257,6 @@
                 break;
         }
     }
-
-    let state = 0;
-    let pageErrMsg1;
-    let pageErrMsg2;
-    let pageErrUrl;
-
-    let policyDetailLayout= 0;
-
-    let section2Count = 1;
 </script>
 
 <Header />

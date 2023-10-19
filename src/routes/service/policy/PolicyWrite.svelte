@@ -135,7 +135,6 @@ let writingCheck = false;
         ajaxGet(url, sendData, (res) => {
             try {
                 stateChange(changeStage ? changeStage : $piStage);
-                console.log('스테이지', stage);
                 policyInfoData.update(obj => {
                     obj.policyData1 = res.data.sendData.policyInfo1;
                     obj.purposeDataList = res.data.sendData.purposeInfo;
@@ -156,6 +155,7 @@ let writingCheck = false;
                         obj.policyData2.piChoseListString = [];
                         obj.policyData2.piChoseCustomList = [];
                     }
+                    console.log('불러온 값', obj);
                     return obj;
                 });
             } catch (e) {
