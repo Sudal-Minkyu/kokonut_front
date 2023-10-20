@@ -58,11 +58,15 @@
                     <td>{provision.knName}</td>
                     <td>{provision.insert_date}</td>
                     <td>{provision.proStartDate} ~ {provision.proExpDate}</td>
+                    <td><div>
                     {#if provision.offerType === "1"}
-                        <td><div>제공함</div></td>
+                        제공함
+                    {:else if provision.offerType === "3"}
+                        제공/제공받음
                     {:else}
-                        <td><div>제공받음</div></td>
+                        제공받음
                     {/if}
+                    </div></td>
                     <td>{provision.offerCount}</td>
                     <td><div class="dcount downcountPop" on:click={() => downloadHistoryClick(provision.proCode)}>{provision.downloadCount}</div></td>
                     <td>

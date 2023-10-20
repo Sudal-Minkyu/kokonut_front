@@ -76,8 +76,9 @@
                         <div class="label" data-rating="">전체</div>
                         <ul class="optionList">
                             <li class="optionItem curv" data-rating="">전체</li>
-                            <li class="optionItem curv" data-rating="0">제공함</li>
-                            <li class="optionItem curv" data-rating="1">제공받음</li>
+                            <li class="optionItem curv" data-rating="1">제공함</li>
+                            <li class="optionItem curv" data-rating="2">제공받음</li>
+                            <li class="optionItem curv" data-rating="3">제공/제공받음</li>
                         </ul>
                     </div>
                 </div>

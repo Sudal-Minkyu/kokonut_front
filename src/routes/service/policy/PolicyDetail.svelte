@@ -6,11 +6,18 @@
     import {link} from 'svelte-spa-router'
     import {fade} from 'svelte/transition'
     import {onMount} from "svelte";
-    import {backBtn, userInfoData} from '../../../lib/store.js'
+    import {backBtn} from '../../../lib/store.js'
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
     import {openBanner, openConfirm} from "../../../components/common/ui/DialogManager.js";
+    import {legalPrivacyRetention} from "../../../components/common/enum/legalPrivacyRetention.js";
 
+    let section2Count = 1;
+    let state = 0;
+    let pageErrMsg1;
+    let pageErrMsg2;
+    let pageErrUrl;
+    let policyDetailLayout= 0;
     let piId;
 
     onMount( () => {
@@ -27,11 +34,6 @@
             piDate : '',
             piHeader : '',
             knName : '',
-            piInternetChose : false,
-            piContractChose : false,
-            piPayChose : false,
-            piConsumerChose : false,
-            piAdvertisementChose : false,
             piOutChose : false,
             piThirdChose : false,
             piThirdOverseasChose : false,
@@ -54,6 +56,9 @@
         thirdOverseasDataList: [],
 
         reponsibleDataList: [],
+
+        piChoseListString: [],
+        piChoseCustomList: [],
     };
 
     // 상세조회
@@ -62,6 +67,7 @@
 
         ajaxGet(url, false, (res) => {
             try {
+                console.log("받은데이터", res.data);
                 policyInfoData.policyData = res.data.sendData.policyData;
 
                 policyInfoData.purposeDataList = res.data.sendData.purposeDataList;
@@ -83,6 +89,17 @@
                     policyInfoData.thirdOverseasDataList = res.data.sendData.thirdOverseasDataList;
                 }
                 policyInfoData.reponsibleDataList = res.data.sendData.reponsibleDataList;
+
+                if(res.data.sendData.piChoseCustomList) {
+                    // policyInfoData.piChoseListString = JSON.parse(res.data.sendData.piChoseListString);
+                    policyInfoData.piChoseListString = JSON.parse(res.data.sendData.policyData.piChoseListString);
+                    policyInfoData.piChoseCustomList = res.data.sendData.piChoseCustomList;
+                } else {
+                    policyInfoData.piChoseListString = [];
+                    policyInfoData.piChoseCustomList = [];
+                }
+                console.log("데이터확인", policyInfoData);
+
                 policyDetailLayout = 1;
             } catch (e) {
                 reportCatch('temp078', e);
@@ -240,15 +257,6 @@
                 break;
         }
     }
-
-    let state = 0;
-    let pageErrMsg1;
-    let pageErrMsg2;
-    let pageErrUrl;
-
-    let policyDetailLayout= 0;
-
-    let section2Count = 1;
 </script>
 
 <Header />
@@ -412,9 +420,7 @@
                         </div>
                     {/if}
 
-                    {#if policyInfoData.policyData.piInternetChose || policyInfoData.policyData.piContractChose
-                        || policyInfoData.policyData.piPayChose || policyInfoData.policyData.piConsumerChose
-                        || policyInfoData.policyData.piAdvertisementChose }
+                    {#if true }
                         <div class="prtextaddbox marB40">
                             <dl>({section2Count++}) 법령에 따른 개인정보의 보유기간</dl>
                             <div class="prarea_table">
@@ -432,41 +438,24 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {#if policyInfoData.policyData.piInternetChose}
-                                        <tr>
-                                            <td class="praLeft">인터넷 접속 로그</td>
-                                            <td class="praLeft">통신비밀보호법 제15조의2, 시행령 제41조</td>
-                                            <td class="praLeft">3개월</td>
-                                        </tr>
-                                    {/if}
-                                    {#if policyInfoData.policyData.piContractChose}
-                                        <tr>
-                                            <td class="praLeft">개인정보취급자의 서비스 접속 및 이용 기록</td>
-                                            <td class="praLeft">개인정보보호법 제29조, 개인정보의 안전성 확보조치 기준 고시 제8조</td>
-                                            <td class="praLeft">2년</td>
-                                        </tr>
-                                    {/if}
-                                    {#if policyInfoData.policyData.piPayChose}
-                                        <tr>
-                                            <td class="praLeft">대금결제 및 재화 등의 공급에 관한 기록</td>
-                                            <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
-                                            <td class="praLeft">5년</td>
-                                        </tr>
-                                    {/if}
-                                    {#if policyInfoData.policyData.piConsumerChose}
-                                        <tr>
-                                            <td class="praLeft">소비자의 불만 또는 분쟁처리에 관한 기록</td>
-                                            <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
-                                            <td class="praLeft">3년</td>
-                                        </tr>
-                                    {/if}
-                                    {#if policyInfoData.policyData.piAdvertisementChose}
-                                        <tr>
-                                            <td class="praLeft">표시·광고에 관한 기록</td>
-                                            <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
-                                            <td class="praLeft">6개월</td>
-                                        </tr>
-                                    {/if}
+                                    {#each legalPrivacyRetention as {title, content, period}, i}
+                                        {#if policyInfoData.piChoseListString[i]}
+                                            <tr>
+                                                <td class="praLeft">{title}</td>
+                                                <td class="praLeft">{content}</td>
+                                                <td class="praLeft">{period}</td>
+                                            </tr>
+                                        {/if}
+                                    {/each}
+                                    {#each policyInfoData.piChoseCustomList as {pisaTitle, pisaContents, pistPeriod, pistCheck}}
+                                        {#if pistCheck}
+                                            <tr>
+                                                <td class="praLeft">{pisaTitle}</td>
+                                                <td class="praLeft">{pisaContents}</td>
+                                                <td class="praLeft">{pistPeriod}</td>
+                                            </tr>
+                                        {/if}
+                                    {/each}
                                     </tbody>
                                 </table>
                             </div>

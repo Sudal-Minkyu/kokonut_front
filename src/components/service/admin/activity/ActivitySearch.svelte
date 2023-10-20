@@ -131,6 +131,10 @@
                                 <label for="관리자 등록">관리자 등록</label>
                             </div>
                             <div class="actCheck">
+                                <input type="checkbox" name="activity" class="act_sel" id="관리자 수정" value="AC_39"/>
+                                <label for="관리자 수정">다른 관리자 수정</label>
+                            </div>
+                            <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="관리자 인증메일 재전송" value="AC_05"/>
                                 <label for="관리자 인증메일 재전송">관리자 인증메일 재전송</label>
                             </div>

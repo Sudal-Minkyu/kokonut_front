@@ -17,7 +17,9 @@
     import GoogleOTP from "../../components/common/certification/GoogleOTP.svelte";
     import {logout} from "../../components/common/authActions.js";
     import LoadingOverlay from "../../components/common/ui/LoadingOverlay.svelte";
-    import {ajaxGet, reportCatch} from "../../components/common/ajax.js";
+    import {ajaxGet, ajaxParam, reportCatch} from "../../components/common/ajax.js";
+    import {openAsk} from "../../components/common/ui/DialogManager.js";
+    import SelfDeactivatePop from "../../components/service/environment/mypage/SelfDeactivatePop.svelte";
 
     let changeState = 0;
     function changeStatePop(val) {
@@ -107,6 +109,40 @@
             knDepartment = val;
         } else if(num === 3) {
             knDepartmentState = val
+        }
+    }
+
+    const deactivateAccountService = {
+        visibility: false,
+        sendData: {
+            otpValue: '',
+        },
+        otpValueErrMsg: '',
+        doAgree: false,
+        agreeErrMsg: '',
+        show: () => {
+            deactivateAccountService.visibility = true;
+        },
+        hide: () => {
+            deactivateAccountService.visibility = false;
+        },
+        deactivateAccount: () => {
+            if (!deactivateAccountService.sendData.otpValue) {
+                deactivateAccountService.otpValueErrMsg = 'OTP를 입력해 주세요.';
+                return;
+            } else {
+                deactivateAccountService.otpValueErrMsg = '';
+            }
+            if (!deactivateAccountService.doAgree) {
+                deactivateAccountService.agreeErrMsg = '주의사항을 확인하고 동의를 해주세요.';
+                return;
+            } else {
+                deactivateAccountService.agreeErrMsg = '';
+            }
+            ajaxParam('/v2/api/Admin/deactivateAdmin', deactivateAccountService.sendData, (res) => {
+                logout();
+                alert('계정이 비활성화 되었습니다. 복구를 원하시면 관리자에게 문의해 주세요.');
+            });
         }
     }
 
@@ -200,6 +236,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="seaContentLine borB">
+                    <div class="seaCont wid100per">
+                        <dl>계정 비활성화</dl>
+                        <div class="myInfoBox">
+                            <button style="margin-left: 0" class="myinfoChangeBtn" id="otp_pop" on:click|preventDefault={deactivateAccountService.show}>비활성화</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </LoadingOverlay>
     </div>
@@ -217,4 +261,8 @@
 
 {#if googleOtpPop}
     <GoogleOTP popTitle="{'구글 OTP 재등록을 완료했습니다.'}" {otpTitle} {knEmail} {src} {knOtpKey} {googleOtpPopBtn} />
+{/if}
+
+{#if deactivateAccountService.visibility}
+    <SelfDeactivatePop {deactivateAccountService} />
 {/if}

@@ -13,6 +13,7 @@
     import {ajaxGet, ajaxParam, reportCatch} from "../../../components/common/ajax.js";
     import {debounce200} from "../../../components/common/eventRateControls.js";
     import {openBanner} from "../../../components/common/ui/DialogManager.js";
+    import AdminUpdate from "../../../components/service/admin/management/AdminUpdate.svelte";
 
     onMount(async ()=>{
         // 페이지번호 초기화
@@ -45,6 +46,7 @@
     let adminSavePop = false;
     function adminSavePopChange() {
         adminSavePop = !adminSavePop;
+
     }
 
     let admin_list = [];
@@ -61,40 +63,6 @@
         searchText: '',
         filterRole: '',
         filterState: '',
-    }
-
-    // 관리자 목록 호출 함수
-    const emailSend = function emailAgain(userEmail) {
-        const sendDate = {
-            userEmail : userEmail
-        }
-
-        let url = "/v2/api/Admin/createMailAgain";
-
-        ajaxParam(url, sendDate,(res) => {
-            try {
-                openBanner("재인증메일을 전송하였습니다.");
-            } catch (e) {
-                reportCatch('temp065', e);
-            }
-        });
-    }
-
-    // 관리자 목록 호출 함수
-    const pwChangeMail = function pwChange(userEmail) {
-        const sendDate = {
-            userEmail : userEmail
-        }
-
-        let url = "/v2/api/Admin/passwordChangeMail";
-
-        ajaxParam(url, sendDate,(res) => {
-            try {
-                openBanner("비밀번호변경 메일을 전송하였습니다.");
-            } catch (e) {
-                reportCatch('temp066', e);
-            }
-        });
     }
 
     // 엔터키 클릭
@@ -131,6 +99,92 @@
         });
     });
 
+    const adminUpdateService = {
+        visibility: false,
+        adminData: {
+            knName: '',
+            knEmail: '',
+            knIsEmailAuth: '',
+            knRoleCode: '',
+            knActiveStatus: '',
+            otpValue: '',
+            otpErrMsg: '',
+        },
+        open: (adminData) => {
+            adminUpdateService.setAdminData(adminData);
+            adminUpdateService.visibility = true;
+        },
+        close: () => {
+            adminUpdateService.visibility = false;
+            adminUpdateService.adminData = {
+                knName: '',
+                knEmail: '',
+                knIsEmailAuth: '',
+                knRoleCode: '',
+                knActiveStatus: '',
+                otpValue: '',
+                otpErrMsg: '',
+            };
+        },
+        updateAdmin: () => {
+            if (!adminUpdateService.adminData.otpValue) {
+                adminUpdateService.adminData.otpErrMsg = 'OTP를 적어주세요.';
+                return;
+            } else {
+                adminUpdateService.adminData.otpErrMsg = '';
+            }
+
+            ajaxParam('/v2/api/Admin/updateAdminData', adminUpdateService.adminData, (res) => {
+                adminList(searchCondition.page);
+                openBanner('관리자 정보 변경을 완료하였습니다.');
+                adminUpdateService.close();
+            });
+        },
+        sendVerifyMail: (email) => {
+            const sendDate = {
+                userEmail : email,
+            }
+
+            let url = "/v2/api/Admin/createMailAgain";
+
+            ajaxParam(url, sendDate,(res) => {
+                try {
+                    openBanner("재인증메일을 전송하였습니다.");
+                } catch (e) {
+                    reportCatch('temp065', e);
+                }
+            });
+        },
+        sendPwChangeMail: (email) => {
+            const sendData = {
+                userEmail : email,
+            }
+
+            let url = "/v2/api/Admin/passwordChangeMail";
+
+            ajaxParam(url, sendData,(res) => {
+                try {
+                    openBanner("비밀번호변경 메일을 전송하였습니다.");
+                } catch (e) {
+                    reportCatch('temp066', e);
+                }
+            });
+        },
+        setAdminData: (rawAdminData) => {
+            if (typeof rawAdminData === 'object') {
+                adminUpdateService.adminData = {
+                    knName: rawAdminData.knName,
+                    knEmail: rawAdminData.knEmail,
+                    knIsEmailAuth: rawAdminData.knIsEmailAuth,
+                    knRoleCode: rawAdminData.knRoleCode,
+                    knActiveStatus: rawAdminData.knActiveStatus,
+                    otpValue: '',
+                    otpErrMsg: '',
+                }
+            }
+        },
+    }
+
 </script>
 
 <Header />
@@ -157,7 +211,7 @@
         <LoadingOverlay bind:loadState={adminManagementLayout} top={195} >
             <div in:fade>
                 <!-- 테이블 영역 -->
-                <AdminTable page={searchCondition.page} {admin_list} {size} {total} {emailSend} {pwChangeMail} />
+                <AdminTable page={searchCondition.page} {admin_list} {size} {total} {adminUpdateService}/>
                 <!-- 페이징 영역 -->
                 <Paging page={searchCondition.page} total_page="{total_page}" data_list="{admin_list}" dataFunction="{adminList}" />
             </div>
@@ -168,4 +222,8 @@
 <!-- [D] 관리자 등록 팝업 -->
 {#if adminSavePop}
     <AdminCreate {adminSavePopChange} {adminList} />
+{/if}
+
+{#if adminUpdateService.visibility}
+    <AdminUpdate {adminUpdateService}/>
 {/if}

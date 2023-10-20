@@ -1,18 +1,13 @@
 <script>
 
     import { fade } from 'svelte/transition'
-    import {policyInfoData, piId, initialPolicyInfo} from "../../../lib/store.js";
+    import {policyInfoData, piId} from "../../../lib/store.js";
     import {onMount} from "svelte";
     import {singleDatePicker} from "../../../lib/libSearch.js";
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
     import moment from "moment";
 
     onMount(async () => {
-        if($piId === 0) {
-        } else {
-            policyWriting();
-        }
-
         singleDatePicker('startdate', (result) => {
             policyInfoData.update(obj => {
                 obj.policyData1.piDate = result.format('YYYY-MM-DD');
@@ -62,7 +57,7 @@
                 if ($piId === 0) {
                     piId.set(res.data.sendData.saveId);
                 }
-                stateChange(2);
+                policyWriting(2);
             } catch (e) {
                 reportCatch('t23082302', e);
             }

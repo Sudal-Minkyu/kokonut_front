@@ -5,6 +5,7 @@
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
 
     export let stateChange;
+    export let policyWriting;
 
     const policyResponsibleDeleteIdList = [];
     const createResponsibleItem = () => {
@@ -45,7 +46,7 @@
         }
         ajaxBody(url, sendData, (res) => {
             try {
-                stateChange(goToState);
+                policyWriting(goToState);
             } catch (e) {
                 reportCatch('t23082301', e);
             }

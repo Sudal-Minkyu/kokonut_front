@@ -5,8 +5,10 @@
     import ErrorHighlight from "../../common/ui/ErrorHighlight.svelte";
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
     import {checkFalsyValuesExceptIgnoredKeys} from "../../../lib/common.js";
+    import {legalPrivacyRetention} from "../../common/enum/legalPrivacyRetention.js";
 
     export let stateChange;
+    export let policyWriting;
 
     const beforeRemoveIdList = [];
     const createBeforeItem = () => {
@@ -50,8 +52,8 @@
     }
     const removeAfterItem = (index) => {
         policyInfoData.update((obj) => {
-            if (obj.afterDataList[index].pibId) {
-                afterRemoveIdList.push(obj.afterDataList[index].pibId);
+            if (obj.afterDataList[index].piaId) {
+                afterRemoveIdList.push(obj.afterDataList[index].piaId);
             }
             obj.afterDataList.splice(index, 1);
             return obj;
@@ -75,18 +77,43 @@
     }
     const removeServiceAutoItem = (index) => {
         policyInfoData.update((obj) => {
-            if (obj.serviceAutoDataList[index].pibId) {
-                serviceAutoRemoveIdList.push(obj.serviceAutoDataList[index].pibId);
+            if (obj.serviceAutoDataList[index].pisaId) {
+                serviceAutoRemoveIdList.push(obj.serviceAutoDataList[index].pisaId);
             }
             obj.serviceAutoDataList.splice(index, 1);
             return obj;
         });
     }
 
+    const piChoseCustomItemRemoveIdList = [];
+    const createPiChoseCustomItem = () => {
+        policyInfoData.update(obj => {
+            obj.policyData2.piChoseCustomList = [
+                ...obj.policyData2.piChoseCustomList, {
+                    pistId: 0,
+                    pisaTitle: '',
+                    pisaContents: '',
+                    pistPeriod: '',
+                    pistCheck: true,
+                }
+            ];
+            return obj;
+        });
+    }
+
+    const removePiChoseCustomItem = (index) => {
+        policyInfoData.update(obj => {
+            if (obj.policyData2.piChoseCustomList[index].pistId) {
+                piChoseCustomItemRemoveIdList.push(obj.policyData2.piChoseCustomList[index].pistId);
+            }
+            obj.policyData2.piChoseCustomList.splice(index, 1);
+            return obj;
+        });
+    }
+
     onMount(async () => {
-        // 툴팁 아이콘 클릭시 툴팁을 보이고 숨기기 위함.
-        if (!$policyInfoData.beforeDataList.length) {
-            policyInfoData.update(obj => {
+        policyInfoData.update(obj => {
+            if (!obj.beforeDataList.length) {
                 obj.beforeDataList = [{
                     pibId: 0,
                     pibPurpose: '서비스 제공 및 운영',
@@ -94,9 +121,10 @@
                     pibChose: '',
                     pibPeriod: '탈퇴 또는 계약 종료 시까지',
                 }];
-                return obj;
-            });
-        }
+            }
+
+            return obj;
+        });
     });
 
     let beforeDataListErrorMsg = '';
@@ -118,16 +146,17 @@
             policyAfterDeleteIdList: afterRemoveIdList,
             policyServiceAutoSaveDtoList: $policyInfoData.serviceAutoDataList,
             policyServiceAutoDeleteIdList: serviceAutoRemoveIdList,
-            piInternetChose: $policyInfoData.policyData2.piInternetChose,
-            piContractChose: $policyInfoData.policyData2.piContractChose,
-            piPayChose: $policyInfoData.policyData2.piPayChose,
-            piConsumerChose: $policyInfoData.policyData2.piConsumerChose,
-            piAdvertisementChose: $policyInfoData.policyData2.piAdvertisementChose,
+
+            // 아래 세개가 추가된 요소
+            piChoseListString: JSON.stringify($policyInfoData.policyData2.piChoseListString),
+            piChoseCustomList: $policyInfoData.policyData2.piChoseCustomList,
+            piChoseCustomDeleteIdList: piChoseCustomItemRemoveIdList,
         }
 
+        console.log('보내는 데이터', sendData);
         ajaxBody(url, sendData, (res) => {
             try {
-                stateChange(goToState);
+                policyWriting(goToState);
             } catch (e) {
                 reportCatch('t23082304', e);
             }
@@ -352,10 +381,11 @@
             <div class="prarea_table">
                 <table>
                     <colgroup>
-                        <col style="width:5.48%;">
-                        <col style="width:31.51%;">
-                        <col style="width:31.51%;">
-                        <col style="width:31.51%;">
+                        <col class="wid6per">
+                        <col class="wid40per">
+                        <col class="wid40per">
+                        <col class="wid10per">
+                        <col class="wid4per">
                     </colgroup>
                     <thead>
                     <tr>
@@ -366,68 +396,40 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                            <div class="prarea">
-                                <input type="checkbox" name="prt01" id="prt01"
-                                       bind:checked={$policyInfoData.policyData2.piInternetChose} />
-                                <label for="prt01"><em></em></label>
-                            </div>
-                        </td>
-                        <td class="praLeft">인터넷 접속 로그</td>
-                        <td class="praLeft">통신비밀보호법 제15조의2, 시행령 제41조</td>
-                        <td class="praLeft">3개월</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="prarea">
-                                <input type="checkbox" name="prt02" id="prt02"
-                                       bind:checked={$policyInfoData.policyData2.piContractChose} />
-                                <label for="prt02"><em></em></label>
-                            </div>
-                        </td>
-                        <td class="praLeft">개인정보취급자의 서비스 접속 및 이용 기록</td>
-                        <td class="praLeft">개인정보보호법 제29조, 개인정보의 안전성 확보조치 기준 고시 제8조</td>
-                        <td class="praLeft">2년</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="prarea">
-                                <input type="checkbox" name="prt03" id="prt03"
-                                       bind:checked={$policyInfoData.policyData2.piPayChose} />
-                                <label for="prt03"><em></em></label>
-                            </div>
-                        </td>
-                        <td class="praLeft">대금결제 및 재화 등의 공급에 관한 기록</td>
-                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
-                        <td class="praLeft">5년</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="prarea">
-                                <input type="checkbox" name="prt04" id="prt04"
-                                       bind:checked={$policyInfoData.policyData2.piConsumerChose} />
-                                <label for="prt04"><em></em></label>
-                            </div>
-                        </td>
-                        <td class="praLeft">소비자의 불만 또는 분쟁처리에 관한 기록</td>
-                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
-                        <td class="praLeft">3년</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="prarea">
-                                <input type="checkbox" name="prt05" id="prt05"
-                                       bind:checked={$policyInfoData.policyData2.piAdvertisementChose} />
-                                <label for="prt05"><em></em></label>
-                            </div>
-                        </td>
-                        <td class="praLeft">표시·광고에 관한 기록</td>
-                        <td class="praLeft">전자상거래 등에서의 소비자보호에 관한 법률 제6조</td>
-                        <td class="praLeft">6개월</td>
-                    </tr>
+
+                    {#each legalPrivacyRetention as {title, content, period}, i}
+                        <tr>
+                            <td>
+                                <div class="prarea">
+                                    <input type="checkbox" name="pbl{i}" id="pbl{i}"
+                                           bind:checked={$policyInfoData.policyData2.piChoseListString[i]} />
+                                    <label for="pbl{i}"><em></em></label>
+                                </div>
+                            </td>
+                            <td class="praLeft">{title}</td>
+                            <td class="praLeft">{content}</td>
+                            <td class="praLeft">{period}</td>
+                        </tr>
+                    {/each}
+                    {#each $policyInfoData.policyData2.piChoseCustomList as {pisaTitle, pisaContents, pistPeriod, pistCheck}, i }
+                        <tr>
+                            <td>
+                                <div class="prarea">
+                                    <input type="checkbox" name="pbcl{i}" id="pbcl{i}" bind:checked={pistCheck} />
+                                    <label for="pbcl{i}"><em></em></label>
+                                </div>
+                            </td>
+                            <td class="praLeft"><input class="nonePad wid100per" type="text" bind:value={pisaTitle} placeholder="예) 조제기록부"></td>
+                            <td class="praLeft"><input class="nonePad wid100per" type="text" bind:value={pisaContents} placeholder="예) 약사법 제30조"></td>
+                            <td class="praLeft"><input class="nonePad wid100per" type="text" bind:value={pistPeriod} placeholder="예) 5년"></td>
+                            <td><a on:click={()=>{removePiChoseCustomItem(i)}} class="pr_delete"></a></td>
+                        </tr>
+                    {/each}
                     </tbody>
                 </table>
+            </div>
+            <div class="pr_fieldBtnInner">
+                <button on:click={createPiChoseCustomItem} class="add_pr_field3 pr_fieldBtn"></button>
             </div>
         </div>
         <div class="prtextaddbox nonebor">

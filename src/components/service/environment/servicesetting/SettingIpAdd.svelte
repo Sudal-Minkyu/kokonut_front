@@ -106,21 +106,25 @@
                             <div class="kopopMuntiinput">
                                 <input type="text" id="ip1" bind:value={$serviceSettingData.addAccessIpPop.ip1}
                                        readonly={$serviceSettingData.addAccessIpPop.isIpInputReadonly}
+                                       class={$serviceSettingData.addAccessIpPop.isIpInputReadonly ? 'readOnlyText' : ''}
                                        on:input={handleKeyupIpInput}/>
                             </div>
                             <div class="kopopMuntiinput">
                                 <input type="text" id="ip2" bind:value={$serviceSettingData.addAccessIpPop.ip2}
                                        readonly={$serviceSettingData.addAccessIpPop.isIpInputReadonly}
+                                       class={$serviceSettingData.addAccessIpPop.isIpInputReadonly ? 'readOnlyText' : ''}
                                        on:input={handleKeyupIpInput}/>
                             </div>
                             <div class="kopopMuntiinput">
                                 <input type="text" id="ip3" bind:value={$serviceSettingData.addAccessIpPop.ip3}
                                        readonly={$serviceSettingData.addAccessIpPop.isIpInputReadonly}
+                                       class={$serviceSettingData.addAccessIpPop.isIpInputReadonly ? 'readOnlyText' : ''}
                                        on:input={handleKeyupIpInput}/>
                             </div>
                             <div class="kopopMuntiinput">
                                 <input type="text" id="ip4" bind:value={$serviceSettingData.addAccessIpPop.ip4}
                                        readonly={$serviceSettingData.addAccessIpPop.isIpInputReadonly}
+                                       class={$serviceSettingData.addAccessIpPop.isIpInputReadonly ? 'readOnlyText' : ''}
                                        on:input={handleKeyupIpInput}/>
                             </div>
                         </div>

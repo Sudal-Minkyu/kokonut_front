@@ -1,31 +1,32 @@
 
 <script>
-    import {openBanner} from "../../../common/ui/DialogManager.js";
+    import {userInfoData} from "../../../../lib/store.js";
 
     export let page;
     export let size;
     export let total;
     export let admin_list;
 
-    export let emailSend;
-    export let pwChangeMail;
+    export let adminUpdateService;
 
+    // 각 대상에 대한 수정 권한 여부 리턴
+    const getModifiability = (targetRole) => {
+        switch ($userInfoData.role) {
+            case 'ROLE_MASTER':
+                return true;
+            case 'ROLE_ADMIN':
+                return ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_GUEST'].includes(targetRole);
+            case 'ROLE_USER':
+                return ['ROLE_GUEST'].includes(targetRole);
+            case 'ROLE_GUEST':
+                return false;
+        }
+    };
 </script>
 
 <div class="kotable adminManagement">
     <table>
         <caption>관리자 목록 리스트</caption>
-        <colgroup>
-            <col style="width:4%;">
-            <col style="width:22%;">
-            <col style="width:8%;">
-            <col style="width:6%;">
-            <col style="width:13%;">
-            <col style="width:25%;">
-            <col style="width:6%;">
-            <col style="width:7%;">
-            <col style="width:13%;">
-        </colgroup>
         <thead>
         <tr>
             <th>No</th>
@@ -33,10 +34,11 @@
             <th>관리자 등급</th>
             <th>등록자</th>
             <th>등록 일시</th>
-            <th>최근 접속일시 (접속IP)</th>
+            <th>최근 접속</th>
             <th>이메일 인증</th>
+            <th>인증 및 보안</th>
             <th>계정 상태</th>
-            <th>설정</th>
+            <th>권한</th>
         </tr>
         </thead>
         <tbody>
@@ -56,7 +58,7 @@
                     {#if admin.knLastLoginDate === ""}
                         <td>없음</td>
                     {:else}
-                        <td>{admin.knLastLoginDate}(IP:{admin.knIpAddr})</td>
+                        <td>{admin.knLastLoginDate}</td>
                     {/if}
 
                     <td>
@@ -66,27 +68,24 @@
                             <div class="secession">미완료</div>
                         {/if}
                     </td>
-
                     <td>
-                        {#if admin.knState === 1}
-                            <div class="normal">정상</div>
-                        {:else if admin.knState === 3}
-                            <div class="secession">탈퇴</div>
-                        {:else if admin.knState === 4}
-                            <div class="dormancy">휴면</div>
-                        {:else if admin.knState === 2}
-                            <div class="secession">로그인제한</div>
-                        {:else if admin.knState === 0}
-                            <div class="secession">정지</div>
+                        {#if admin.knIsEmailAuth === "Y"}
+                            <button on:click={()=>{adminUpdateService.sendPwChangeMail(admin.knEmail)}}>비밀번호 변경</button>
+                        {:else}
+                            <button on:click={()=>{adminUpdateService.sendVerifyMail(admin.knEmail)}}>인증메일 재전송</button>
                         {/if}
                     </td>
 
                     <td>
-<!--                        <button on:click={()=>{openBanner("현재 준비중인 서비스입니다.")}}>사업자 변경</button>-->
-                        {#if admin.knIsEmailAuth === "Y"}
-                            <button on:click={()=>{pwChangeMail(admin.knEmail)}}>비밀번호 변경</button>
-                        {:else}
-                            <button on:click={()=>emailSend(admin.knEmail)}>인증메일 재전송</button>
+                        {#if admin.knActiveStatus === '1'}
+                            <div class="normal">활성</div>
+                        {:else if admin.knActiveStatus === '0'}
+                            <div class="secession">비활성</div>
+                        {/if}
+                    </td>
+                    <td>
+                        {#if getModifiability(admin.knRoleCode) && $userInfoData.knEmail !== admin.knEmail}
+                            <button on:click={() => {adminUpdateService.open(admin)}}>설정</button>
                         {/if}
                     </td>
                 </tr>

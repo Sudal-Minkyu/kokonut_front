@@ -34,11 +34,14 @@
 
     let notErrPwd_msg = "";
     let notErrPwd = false;
-
+    let isDeactivatedAccount = false;
     let stage = 0;
 
     // 로그인 버튼
     function loginBtn(knEmail, encryptedPassword) {
+        notRegister = false;
+        notErrPwd = false;
+        isDeactivatedAccount = false;
         // 아이디 비번 체크
         mainScreenBlockerVisibility.set(true);
         document.activeElement.blur();
@@ -53,12 +56,6 @@
         ajaxGet(url, sendData, () => {
             try {
                 mainScreenBlockerVisibility.set(false);
-                if(notRegister) {
-                    notRegister = false;
-                }
-                if(notErrPwd) {
-                    notErrPwd = false;
-                }
                 stage=1;
             } catch (e) {
                 reportCatch('temp112', e);
@@ -79,6 +76,9 @@
                 } else if (errCode === "KO016") {
                     knPassword = "";
                     notJoinUser();
+                } else if (errCode === "KO121") {
+                    knPassword = "";
+                    isDeactivatedAccount = true;
                 } else {
                     knPassword = "";
                 }
@@ -141,7 +141,6 @@
                 }
 
                 if(!emailBlank && !pwdBlank) {
-                    console.log("일로잘왔음");
                     loginBtn(knEmail, encryptedPassword);
                 }
 
@@ -227,6 +226,8 @@
                 } else if (errCode === "KO016") {
                     knPassword = "";
                     notJoinUser();
+                } else if (errCode === "KO121") {
+                    isDeactivatedAccount = true;
                 } else {
                     knPassword = "";
                 }
@@ -313,6 +314,8 @@
             <p class="{emailBlank === true ? 'notxt' : 'notxt not_work'}">ID (e-mail)를 입력해주세요.</p>
             <p class="{notRegister === true ? 'notxt' : 'notxt not_work'}">아이디 또는 비밀번호가 일치하지 않습니다.</p>
             <p class="{notErrPwd === true ? 'notxt' : 'notxt not_work'}">{notErrPwd_msg}</p>
+            <p class="{isDeactivatedAccount ? 'notxt' : 'notxt not_work'}">비활성화된 사용자 계정입니다.</p>
+
         </div>
         <div class="input-field mt30">
             <!-- type="password"는 autocomplete="off" 셋팅 : 자동완성을 막아줌. 그치만 저장된 데이터는 막기힘들다고함. 콘솔 워닝 이슈 -->
