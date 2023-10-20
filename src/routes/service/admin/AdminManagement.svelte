@@ -102,6 +102,7 @@
     const adminUpdateService = {
         visibility: false,
         adminData: {
+            knName: '',
             knEmail: '',
             knIsEmailAuth: '',
             knRoleCode: '',
@@ -116,6 +117,7 @@
         close: () => {
             adminUpdateService.visibility = false;
             adminUpdateService.adminData = {
+                knName: '',
                 knEmail: '',
                 knIsEmailAuth: '',
                 knRoleCode: '',
@@ -171,6 +173,7 @@
         setAdminData: (rawAdminData) => {
             if (typeof rawAdminData === 'object') {
                 adminUpdateService.adminData = {
+                    knName: rawAdminData.knName,
                     knEmail: rawAdminData.knEmail,
                     knIsEmailAuth: rawAdminData.knIsEmailAuth,
                     knRoleCode: rawAdminData.knRoleCode,

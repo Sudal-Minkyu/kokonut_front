@@ -40,6 +40,14 @@
             <div class="koko_popup_title">
                 <h3 class="">관리자 설정</h3>
             </div>
+            <div class="kopopinput marB24" style="margin-top: 10px">
+                <label>관리자 이름</label>
+                <input class="readOnlyText" type="text" value={adminUpdateService.adminData.knName} readonly />
+            </div>
+            <div class="kopopinput marB24" style="margin-top: 10px">
+                <label>관리자 이메일</label>
+                <input class="readOnlyText" type="text" value={adminUpdateService.adminData.knEmail} readonly />
+            </div>
             {#if isChangeRoleAvailable}
                 <div class="kopop_SelBox marB24" style="margin-top: 10px">
                     <p>관리자 등급</p>
