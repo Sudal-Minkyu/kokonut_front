@@ -105,7 +105,7 @@
         }
     }
 
-    // ID 찾기
+    // 이메일 ID 찾기
     function emailFind(keyEmail) {
         if(keyEmail !== null) {
             let url = "/v1/api/Auth/findKnEmail"

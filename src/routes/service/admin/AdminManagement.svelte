@@ -200,7 +200,7 @@
 
         <div class="seaWrap">
             <div class="koinput marB32">
-                <input type="text" bind:value="{searchCondition.searchText}"  class="wid360" placeholder="관리자 검색(이름, 아이디)" on:keypress={enterPress} />
+                <input type="text" bind:value="{searchCondition.searchText}"  class="wid360" placeholder="관리자 검색(이름 혹은 이메일ID)" on:keypress={enterPress} />
                 <button on:click={() => adminList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
             </div>
         </div>

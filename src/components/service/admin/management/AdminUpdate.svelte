@@ -45,7 +45,7 @@
                 <input class="readOnlyText" type="text" value={adminUpdateService.adminData.knName} readonly />
             </div>
             <div class="kopopinput marB24" style="margin-top: 10px">
-                <label>관리자 이메일</label>
+                <label>이메일 ID</label>
                 <input class="readOnlyText" type="text" value={adminUpdateService.adminData.knEmail} readonly />
             </div>
             {#if isChangeRoleAvailable}

@@ -196,7 +196,7 @@
                 </div>
                 <div class="seaContentLine borB">
                     <div class="seaCont wid100per">
-                        <dl>ID (e-mail)</dl>
+                        <dl>이메일 ID</dl>
                         <div class="myInfoBox">
                             <span>{knEmail}</span>
                         </div>

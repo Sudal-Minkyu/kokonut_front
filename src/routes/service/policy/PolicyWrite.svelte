@@ -176,9 +176,11 @@ let writingCheck = false;
 <Header />
 <section class="bodyWrap">
     <div class="contentInnerWrap">
-        <div class="pageTitleBtn marB50">
-            <a style="cursor: pointer" on:click={stopWrite}>{$backBtn}</a><h1>개인정보처리방침 제작</h1>
-            <dl>해당 페이지는 최고관리자만 이용할 수 있습니다.</dl>
+        <div class="spcontWrap">
+            <div class="pageTitleBtn marB50">
+                <a style="cursor: pointer" on:click={stopWrite}>{$backBtn}</a><h1>개인정보처리방침 제작</h1>
+                <dl>💡 해당 페이지는 최고관리자만 이용할 수 있습니다.</dl>
+            </div>
         </div>
 
         <LoadingOverlay bind:loadState={stage} top={300}>

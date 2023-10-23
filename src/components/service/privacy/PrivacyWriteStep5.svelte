@@ -5,7 +5,7 @@
     import {onMount} from "svelte";
     import {ajaxBody, ajaxGet, reportCatch} from "../../common/ajax.js";
     import PrivacyWriteStep5FilterPop from "./PrivacyWriteStep5FilterPop.svelte";
-    import {openBanner, openConfirm} from "../../common/ui/DialogManager.js";
+    import {openBanner, openConfirm, openAsk} from "../../common/ui/DialogManager.js";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
     import {push} from "svelte-spa-router";
 
@@ -35,8 +35,21 @@
         if (confirmProps.title) {
             openConfirm(confirmProps);
             return;
+        } else {
+            openAsk({
+                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: '개인 정보 제공 완료', // 제목
+                contents1: '입력하신 대로 개인정보 제공을 하시겠습니까?', // 내용
+                contents2: '',
+                btnCheck: '', // 확인 버튼의 텍스트
+                btnStart: '예', // 실행 버튼의 텍스트
+                btnCancel: '아니오', // 취소 버튼의 텍스트
+                callback: reportSave,
+            });
         }
+    }
 
+    const reportSave = () => {
         const ppd = $providePrivacyWriteData;
         const sendData = {
             proProvide: ppd.step1.proProvide,
@@ -61,6 +74,7 @@
             }
         });
     }
+
 
     onMount(async => {
         getAllCustomerList();
@@ -182,7 +196,7 @@ if ($providePrivacyWriteData.step5.memberList.length) {
     <div class="pristep">
         <div class="pristepContent">
             <div class="marB46">
-                <label class="steplabel">개인정보를 제공할 회원을 선택해 주세요.</label>
+                <label class="steplabel">제공할 개인정보의 회원 유형을 선택해주세요.</label>
                 <div class="step_radioBox">
                     <div class="step_radio">
                         <input type="radio" class="stradio all" name="porim" id="radioEveryone" value="everyone"
