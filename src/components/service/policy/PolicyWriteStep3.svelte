@@ -153,7 +153,6 @@
             piChoseCustomDeleteIdList: piChoseCustomItemRemoveIdList,
         }
 
-        console.log('보내는 데이터', sendData);
         ajaxBody(url, sendData, (res) => {
             try {
                 policyWriting(goToState);

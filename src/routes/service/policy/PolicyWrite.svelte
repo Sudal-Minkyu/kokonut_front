@@ -155,7 +155,6 @@ let writingCheck = false;
                         obj.policyData2.piChoseListString = [];
                         obj.policyData2.piChoseCustomList = [];
                     }
-                    console.log('불러온 값', obj);
                     return obj;
                 });
             } catch (e) {

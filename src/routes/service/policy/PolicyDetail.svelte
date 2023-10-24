@@ -67,7 +67,6 @@
 
         ajaxGet(url, false, (res) => {
             try {
-                console.log("받은데이터", res.data);
                 policyInfoData.policyData = res.data.sendData.policyData;
 
                 policyInfoData.purposeDataList = res.data.sendData.purposeDataList;
@@ -98,7 +97,6 @@
                     policyInfoData.piChoseListString = [];
                     policyInfoData.piChoseCustomList = [];
                 }
-                console.log("데이터확인", policyInfoData);
 
                 policyDetailLayout = 1;
             } catch (e) {
