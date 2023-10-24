@@ -13,7 +13,7 @@
 
 <div class="findContArea">
     <p class="findEx">
-        가입되신 이메일을 입력 후<br>
+        비밀번호를 찾으실 이메일 ID를 입력 후<br>
         휴대폰 인증을 해주세요.
     </p>
 </div>
@@ -22,7 +22,7 @@
 <div class="j_inputArea">
     <div class="input-field">
         <input type="text" id="knEmail" bind:value={$findPwd} required placeholder="" on:keyup={() => conditionFun(emailCheck($findPwd), "이메일 형식이 올바르지 않습니다.")}>
-        <label for="knEmail"><span>이메일</span></label>
+        <label for="knEmail"><span>이메일 ID</span></label>
     </div>
     <p class="{emailErrorState === true ? 'notxt not_work' : 'notxt'}">{emailErrorState_Msg}</p>
 </div>

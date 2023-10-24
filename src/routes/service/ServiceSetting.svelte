@@ -244,12 +244,14 @@ const getEmailColumnLIst = () => {
 <Header />
 <section class="bodyWrap">
     <div class="contentInnerWrap serviceSetWrap">
-        <div class="pageTitleBtn marB50">
-            <a use:link href="/service/environment">{$backBtn}</a>
-            <h1>서비스 설정</h1>
-            <dl>
-                해당 페이지는 최고관리자만 수정할 수 있습니다.
-            </dl>
+        <div class="spcontWrap">
+            <div class="pageTitleBtn marB50">
+                <a use:link href="/service/environment">{$backBtn}</a>
+                <h1>서비스 설정</h1>
+                <dl>
+                    💡 해당 페이지는 최고관리자만 수정할 수 있습니다.
+                </dl>
+            </div>
         </div>
 
         <LoadingOverlay bind:loadState={settingLoadState} top={300}>

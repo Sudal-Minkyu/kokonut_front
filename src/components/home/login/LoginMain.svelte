@@ -310,8 +310,8 @@
     <div class="j_inputArea">
         <div class="input-field">
             <input bind:value={knEmail} id="knEmail" type="text"  required placeholder="">
-            <label for="knEmail"><span>ID (e-mail)</span></label>
-            <p class="{emailBlank === true ? 'notxt' : 'notxt not_work'}">ID (e-mail)를 입력해주세요.</p>
+            <label for="knEmail"><span>이메일 ID</span></label>
+            <p class="{emailBlank === true ? 'notxt' : 'notxt not_work'}">이메일 ID를 입력해주세요.</p>
             <p class="{notRegister === true ? 'notxt' : 'notxt not_work'}">아이디 또는 비밀번호가 일치하지 않습니다.</p>
             <p class="{notErrPwd === true ? 'notxt' : 'notxt not_work'}">{notErrPwd_msg}</p>
             <p class="{isDeactivatedAccount ? 'notxt' : 'notxt not_work'}">비활성화된 사용자 계정입니다.</p>
@@ -329,7 +329,7 @@
         <div class="id_re">
             <input type="checkbox" bind:checked={emailSaveCheckBox}>
             <label>
-                <p on:click={checkBox} class="check">ID 기억하기</p>
+                <p on:click={checkBox} class="check">이메일 ID 기억하기</p>
             </label>
         </div>
         <a use:link href="/find"><p class="go_find">로그인이 안되시나요?</p></a>

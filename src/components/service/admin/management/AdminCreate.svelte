@@ -32,7 +32,7 @@
     function existsEmail() {
         if(!emailPass) {
             if(knEmail === "" || knEmail.search(/\s/) !== -1) {
-                error_msg = '이메일을 입력해주세요.';
+                error_msg = '이메일 중복확인을 해주세요.';
                 emailConfirm = true;
                 return false;
             } else {
@@ -73,7 +73,7 @@
     function adminCreate() {
         if(!emailPass) {
             emailConfirm = true;
-            error_msg = "이메일 인증을 해주시길 바랍니다."
+            error_msg = "이메일 중복확인을 해주세요."
             return false;
         } else {
             emailConfirm = false;

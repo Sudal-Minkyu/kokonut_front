@@ -15,6 +15,31 @@
         getProvideTargetAdminList();
     });
 
+    $: subTitle = createSubtitleText($providePrivacyWriteData.step1.proProvide, $providePrivacyWriteData.step2.selectedAdminIdList);
+
+    const createSubtitleText = (provide, offerList) => {
+        const listLength = offerList.length;
+        const subTitleText = [
+            "제공받을 팀원을 선택해 주세요.",
+            "여기를 눌러 개인정보를 제공받을 팀원을 추가해주세요.",
+            "제공받을 외부 게스트를 선택해주세요",
+            "여기를 눌러 개인정보를 제공받을 외부 게스트를 추가해주세요"
+        ];
+        if (provide === 0) {
+            if (listLength) {
+                return subTitleText[0];
+            } else {
+                return subTitleText[1];
+            }
+        } else if (provide === 1) {
+            if (listLength) {
+                return subTitleText[2];
+            } else {
+                return subTitleText[3];
+            }
+        }
+    }
+
     const getProvideTargetAdminList = () => {
         let sendData = {
             type: $providePrivacyWriteData.step1.proProvide,
@@ -179,13 +204,13 @@
 
                 {#if $providePrivacyWriteData.step2.provideTargetType === 'teammate' || $providePrivacyWriteData.step1.proProvide === 1 }
                     <div class="teamtable">
-                        <label class="steplabel">제공받을 팀원을 선택해 주세요.</label>
+                        <label class="steplabel">{subTitle}</label>
                         <div class="tea_ListFlexBox marT24">
                             <div class="tea_ListBox">
                                 <div class="teamSeaBox">
                                     <div class="memseaBox marB32">
                                         <div class="koinput">
-                                            <input type="text" class="wid236" placeholder="이메일 검색"
+                                            <input type="text" class="wid236" placeholder="이메일 ID 검색"
                                                    bind:value={$providePrivacyWriteData.step2.searchCondition.email}
                                                    on:keyup={filterAdminList} />
                                             <button><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
@@ -239,7 +264,7 @@
                                                                 <label for="allcheck"><em></em></label>
                                                             </div>
                                                         </th>
-                                                        <th>이메일</th>
+                                                        <th>이메일 ID</th>
                                                         <th>이름</th>
                                                         <th>관리자 등급</th>
                                                     </tr>

@@ -67,7 +67,7 @@ $: privacy_history_list.map(obj => {
             <th>처리 내용</th>
             <th>관리자</th>
             <th>관리자 등급</th>
-            <th>관리자 이메일</th>
+            <th>이메일 ID</th>
             <th>활동 일시
             <span class="tiptool" id="tool_btn01">
                 <!-- [D] tooltip : 처리목적 -->

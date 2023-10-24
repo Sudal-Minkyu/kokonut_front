@@ -84,6 +84,6 @@
     }
 </script>
 
-{#if isReadyToShow}
+<!--{#if true || isReadyToShow}-->
     <Router {routes} />
-{/if}
+<!--{/if}-->
