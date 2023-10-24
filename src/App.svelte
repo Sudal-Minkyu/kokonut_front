@@ -8,10 +8,7 @@
     import {logout} from "./components/common/authActions.js";
     import {get} from "svelte/store";
 
-    let isReadyToShow;
     let currentLocation;
-    const forceGetUserInfoPage = ['/service', '/service/emailList']; // 사용자 정보 갱신이 필요한 루트들
-    let isForceGetUserInfoPage = forceGetUserInfoPage.includes($location);
 
     onMount(() => {
         // 페이지 변경시마다 실행되도록 하기 위함
@@ -26,25 +23,17 @@
     });
 
     const authProcess = (href) => {
-        isReadyToShow = false;
         const isServiceLocation = href.substring(0, 8) === '/service';
         if (isServiceLocation && $is_login) {
-            // if (isForceGetUserInfoPage || $userInfoData.knEmail === '') { // 사용자 정보 필요, 임시 통과조치
-            //     getUserInfo();
-            // } else { // 사용자 정보 있음
-            //     // 향후 로그인 정보 특정조건 갱신 필요의 경우 여기에 작성
-            //     isReadyToShow = true;
-            // }
             getUserInfo();
         } else if (isServiceLocation) { // 로그인을 하지 않고 서비스 페이지 진입
             push('/login');
         } else { // 사용자 정보 불필요 페이지
-            isReadyToShow = true;
+
         }
     }
 
     const getUserInfo = () => {
-        isReadyToShow = false;
         const pastRole = get(userInfoData).role;
 
         ajaxGet('/v2/api/Admin/authorityCheck', false, (res) => {
@@ -61,7 +50,6 @@
                     alert("사용자의 권한 등급이 변경되어 로그아웃합니다. 다시 로그인 해 주세요.");
                 }
                 expireDate.set(getFutureDate(Number(userInfo.csAutoLogoutSetting)).toISOString());
-                isReadyToShow = true;
             } catch (e) {
                 alert('관리자 정보를 수신했지만, 데이터에 문제가 있습니다. 페이지를 새로고침한 후 다시 시도를 해보세요. ' +
                     '계속 같은 문제가 발생하면 관리자에게 문의해 주세요.');
@@ -84,6 +72,4 @@
     }
 </script>
 
-<!--{#if true || isReadyToShow}-->
-    <Router {routes} />
-<!--{/if}-->
+<Router {routes} />
