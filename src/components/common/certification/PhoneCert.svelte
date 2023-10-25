@@ -105,7 +105,7 @@
         }
     }
 
-    // ID 찾기
+    // 이메일 ID 찾기
     function emailFind(keyEmail) {
         if(keyEmail !== null) {
             let url = "/v1/api/Auth/findKnEmail"
@@ -186,7 +186,13 @@
         ajaxGet(url, sendData, (res) => {
             try {
                 authOtpKey = res.data.sendData.authOtpKey // 재등록하는 OTP의 인증키
-                phoneCheckOpen(state);
+
+                if(res.data.sendData.phoneCheckPass) {
+                    // 회원가입 or 관리자등록 한지 10분내면 휴대폰본인인증 패스
+                    googleOtpSave();
+                } else {
+                    phoneCheckOpen(state);
+                }
             } catch (e) {
                 reportCatch('t23082203', e);
             }

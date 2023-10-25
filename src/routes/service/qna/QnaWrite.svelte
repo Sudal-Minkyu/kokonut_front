@@ -165,12 +165,14 @@
 <Header />
 <section class="bodyWrap">
     <div class="contentInnerWrap">
-        <div class="pageTitleBtn marB50">
-            <a use:link href="/service/environment/qnaList">{$backBtn}</a><h1>1:1 문의</h1>
-            <dl>
-                서비스 관련 궁금증이 있으신가요?<br>
-                궁금한 내용을 남겨주시면 최대한 빠르게 답변을 드리도록 하겠습니다.
-            </dl>
+        <div class="spcontWrap">
+            <div class="pageTitleBtn marB50">
+                <a use:link href="/service/environment/qnaList">{$backBtn}</a><h1>1:1 문의</h1>
+                <dl>
+                    💡 서비스 관련 궁금증이 있으신가요?<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;궁금한 내용을 남겨주시면 최대한 빠르게 답변을 드리도록 하겠습니다.
+                </dl>
+            </div>
         </div>
         <div class="seaWrap marT24" in:fade>
             <div class="seaContentBox">

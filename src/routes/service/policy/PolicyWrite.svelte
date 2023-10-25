@@ -127,27 +127,35 @@ let writingCheck = false;
     }
 
     // 개인정보처리방침 작성중인 글 조회
-    function policyWriting() {
+    function policyWriting(changeStage = 0) {
         let url = "/v2/api/Policy/privacyPolicyWriting"
         let sendData = {
             piId : $piId,
         }
         ajaxGet(url, sendData, (res) => {
             try {
-                stage = $piStage;
+                stateChange(changeStage ? changeStage : $piStage);
                 policyInfoData.update(obj => {
                     obj.policyData1 = res.data.sendData.policyInfo1;
                     obj.purposeDataList = res.data.sendData.purposeInfo;
                     obj.beforeDataList = res.data.sendData.beforeDataList;
                     obj.afterDataList = res.data.sendData.afterDataList;
                     obj.serviceAutoDataList = res.data.sendData.serviceAutoDataList;
-                    obj.policyData2 = res.data.sendData.policyInfo2;
                     obj.outDataList = res.data.sendData.outDataList;
                     obj.outDetailDataList = res.data.sendData.outDetailDataList;
                     obj.thirdDataList = res.data.sendData.thirdDataList;
                     obj.thirdOverseasDataList = res.data.sendData.thirdOverseasDataList;
                     obj.reponsibleDataList = res.data.sendData.reponsibleDataList;
                     obj.policyData3 = res.data.sendData.policyInfo3;
+
+                    if(res.data.sendData.piChoseListString) {
+                        obj.policyData2.piChoseListString = JSON.parse(res.data.sendData.piChoseListString);
+                        obj.policyData2.piChoseCustomList = res.data.sendData.piChoseCustomList;
+                    } else {
+                        obj.policyData2.piChoseListString = [];
+                        obj.policyData2.piChoseCustomList = [];
+                    }
+                    console.log('불러온 값', obj);
                     return obj;
                 });
             } catch (e) {
@@ -168,9 +176,11 @@ let writingCheck = false;
 <Header />
 <section class="bodyWrap">
     <div class="contentInnerWrap">
-        <div class="pageTitleBtn marB50">
-            <a style="cursor: pointer" on:click={stopWrite}>{$backBtn}</a><h1>개인정보처리방침 제작</h1>
-            <dl>해당 페이지는 최고관리자만 이용할 수 있습니다.</dl>
+        <div class="spcontWrap">
+            <div class="pageTitleBtn marB50">
+                <a style="cursor: pointer" on:click={stopWrite}>{$backBtn}</a><h1>개인정보처리방침 제작</h1>
+                <dl>💡 해당 페이지는 최고관리자만 이용할 수 있습니다.</dl>
+            </div>
         </div>
 
         <LoadingOverlay bind:loadState={stage} top={300}>

@@ -3,21 +3,9 @@
 
     import { fade } from 'svelte/transition'
     import {piId, policyInfoData} from '../../../lib/store.js'
-    import {onMount} from "svelte";
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
 
-    onMount(async () => {
-        if($piId === 0) {
-        } else {
-            policyWriting();
-        }
-    })
-
-    window.cd = () => {
-    }
-
     export let policyWriting;
-    export let stateChange;
 
     let policyPurposeDeleteIdList = [];
 
@@ -56,7 +44,7 @@
         }
         ajaxBody(url, sendData, (res) => {
             try {
-                stateChange(goToState);
+                policyWriting(goToState);
             } catch (e) {
                 reportCatch('t23082303', e);
             }

@@ -47,7 +47,7 @@ export const ivSto = writable(''); // 테스트 iv
 export const emailSave = persist_storage('emailSave',''); // 이메일기억하기 체크시 저장
 
 export const stateVal = writable(0); // 상태값 컴포넌트 번호
-export const findEmail = writable('ID 찾는중...'); // ID (e-mail) 찾기의 이메일변수
+export const findEmail = writable('ID 찾는중...'); // 이메일 ID 찾기의 이메일변수
 export const findPwd = writable(''); // 비밀번호 찾기의 이메일변수
 export const tempPwd = writable(''); // 임시비밀번호 변수
 export const openDiv = writable(0); // 이메일/비번찾기 페이지용 open 컴포넌트 번호
@@ -68,11 +68,8 @@ export const initialPolicyInfo = JSON.stringify({
     afterDataList: [],
     serviceAutoDataList: [],
     policyData2: {
-        piInternetChose : false,
-        piContractChose : false,
-        piPayChose : false,
-        piConsumerChose : false,
-        piAdvertisementChose : false,
+        piChoseListString: [false, false, null, null, false, null, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        piChoseCustomList: [],
     },
 
     outDataList: [],

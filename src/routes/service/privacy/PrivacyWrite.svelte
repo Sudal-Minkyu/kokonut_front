@@ -36,7 +36,6 @@
 const getColumnList = () => {
         ajaxGet('/v2/api/DynamicUser/privateTableColumnCall', false, (json_success) => {
             try {
-                console.log(json_success);
                 providePrivacyWriteData.update(obj => {
                     obj.step4.columnList = json_success.data.sendData.fieldList.filter(item => !['PASSWORD_1_PW'].includes( item.fieldCode));
                     return obj;
@@ -56,7 +55,7 @@ const getColumnList = () => {
             <div class="pageTitleBtn marB50">
                 <a style="cursor: pointer" use:link href="/service/privacy/privacyList">{$backBtn}</a><h1>개인정보 제공</h1>
                 <dl>
-                    💡 더 이상 이메일로 회원의 소중한 개인정보를 공유하지 마세요. 코코넛을 통해 안전하게 개인정보를 제공하고 조회할 수 있습니다.
+                    💡 개인정보를 업무상 꼭 제공해야 할 때 내부는 물론 외부까지 안전하게 제공하세요.
                 </dl>
             </div>
 

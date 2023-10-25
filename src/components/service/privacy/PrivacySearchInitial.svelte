@@ -16,12 +16,13 @@ const handlePage = ({detail}) => {
     }
 
 </script>
-
-<div class="pageTitleBtn marB50">
-    <h1>개인정보 검색</h1>
-    <dl>
-        개인정보 조회 및 열람 시 기록이 남습니다.
-    </dl>
+<div class="spcontWrap">
+    <div class="pageTitleBtn marB50">
+        <h1>개인정보 검색</h1>
+        <dl>
+            💡 개인정보 검색 및 상세보기 클릭 시 '개인정보 처리 이력' 에 기록이 남습니다.
+        </dl>
+    </div>
 </div>
 
 {#each $privacySearchData.searchConditionList as {searchCode, currentColumnName, key}, i (key)}

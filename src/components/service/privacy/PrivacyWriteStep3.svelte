@@ -52,7 +52,7 @@
     <div class="pristep">
         <div class="pristepContent">
             <div class="marB80">
-                <label class="steplabel">제공받을 수 있는 기간을 정해주세요.</label>
+                <label class="steplabel">개인정보를 다운로드할 수 있는 기간을 정해주세요.</label>
                 <div class="callender_radio_box">
                     <div class="start_end_search_box">
                         <div class="start_end_search_Inner">

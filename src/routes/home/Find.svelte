@@ -49,7 +49,7 @@
             <div class="joinContBox">
                 {#if openNum === 0}
                     <ul class="f_type" style="padding-left: 15px;">
-                        <li class="{$stateVal === 2 ? 'active' : ''}" on:click={() => clickFun(2)}><p>ID 찾기</p></li>
+                        <li class="{$stateVal === 2 ? 'active' : ''}" on:click={() => clickFun(2)}><p>이메일 ID 찾기</p></li>
                         <li class="{$stateVal === 3 ? 'active' : ''}" on:click={() => clickFun(3)}><p>비밀번호 찾기</p></li>
                     </ul>
                     {#if $stateVal === 2}
