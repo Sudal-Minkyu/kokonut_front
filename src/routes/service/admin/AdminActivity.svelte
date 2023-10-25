@@ -164,7 +164,7 @@
         <LoadingOverlay bind:loadState={adminActivityLayout} top={140} >
             <div in:fade>
                 <!-- 테이블 영역 -->
-                <ActivityTable page={searchCondition.page} {activityList} {activity_list} {total} {size} {total_page} />
+                <ActivityTable page={searchCondition.page} {activity_list} {total} {size} />
                 <!-- 페이징 영역 -->
                 <Paging page={searchCondition.page} total_page="{total_page}" data_list="{activity_list}" dataFunction="{activityList}" />
             </div>

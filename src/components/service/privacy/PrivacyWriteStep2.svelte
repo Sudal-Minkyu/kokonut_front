@@ -2,7 +2,7 @@
 <script>
     import { fade } from 'svelte/transition'
     import {pageTransitionData, providePrivacyWriteData} from "../../../lib/store.js";
-    import { onMount } from "svelte";
+    import {onDestroy, onMount} from "svelte";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
     import {push} from "svelte-spa-router";
     import {openConfirm} from "../../common/ui/DialogManager.js";
@@ -12,10 +12,28 @@
     let isMasterCheckBoxChecked = false;
 
     onMount(async => {
+        history.pushState({stage: 2}, '', '');
+        window.addEventListener('popstate', handleNavigation);
         getProvideTargetAdminList();
     });
 
+    onDestroy(() => {
+        window.removeEventListener('popstate', handleNavigation);
+    });
+
     $: subTitle = createSubtitleText($providePrivacyWriteData.step1.proProvide, $providePrivacyWriteData.step2.selectedAdminIdList);
+
+    const handleNavigation = (e) => {
+        console.log(e)
+        if (e.state && e.state.stage < 3) {
+            stateChange(e.state.stage);
+        } else if (e.state && e.state.stage) {
+            handleNext();
+        } else {
+            window.removeEventListener('popstate', handleNavigation);
+            history.back();
+        }
+    }
 
     const createSubtitleText = (provide, offerList) => {
         const listLength = offerList.length;

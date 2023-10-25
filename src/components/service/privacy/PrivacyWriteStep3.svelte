@@ -2,15 +2,31 @@
 <script>
     import { fade } from 'svelte/transition'
     import {providePrivacyWriteData} from "../../../lib/store.js";
-    import {onMount} from "svelte";
+    import {onDestroy, onMount} from "svelte";
     import {setCustomSelectBox, setDateRangePicker, setOptionItem} from "../../../lib/libSearch.js";
     import {openConfirm} from "../../common/ui/DialogManager.js";
 
     export let stateChange;
 
     onMount(async ()=>{
+        history.pushState({stage: 3}, '', '');
+        window.addEventListener('popstate', handleNavigation);
         fatchSearchModule();
     });
+
+    onDestroy(() => {
+        window.removeEventListener('popstate', handleNavigation);
+    });
+
+    const handleNavigation = (e) => {
+        console.log(e)
+        if (e.state && e.state.stage) {
+            stateChange(e.state.stage);
+        } else {
+            window.removeEventListener('popstate', handleNavigation);
+            history.back();
+        }
+    }
 
     const fatchSearchModule = () => {
         setDateRangePicker('stime', true, 'period');
