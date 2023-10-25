@@ -1757,3 +1757,7 @@
 input.readOnlyText{
     background: #F8F8F8;
 }
+
+.cursorPointer:hover {
+    cursor: pointer;
+}
