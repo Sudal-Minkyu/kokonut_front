@@ -3,13 +3,22 @@
     import { fade } from 'svelte/transition'
     import {providePrivacyWriteData} from "../../../lib/store.js";
     import {openConfirm} from "../../common/ui/DialogManager.js";
-    import {onDestroy, onMount} from "svelte";
-
-    onMount(() => {
-        history.pushState({stage: 1}, '', '');
-    });
+    import {onMount} from "svelte";
+    import {location as spaLocation} from "svelte-spa-router";
 
     export let stateChange;
+    export let didForwardBackwardNavBtnClicked;
+    export let privacyStage;
+    export let navigationForwardFunction;
+
+    onMount(() => {
+        if (didForwardBackwardNavBtnClicked) {
+            didForwardBackwardNavBtnClicked = false;
+        } else {
+            history.pushState({privacyStage}, '', '/#' + $spaLocation);
+        }
+        navigationForwardFunction = handleNext;
+    });
 
     const handleNext = () => {
         if ($providePrivacyWriteData.step1.proProvide === '') {
@@ -20,7 +29,7 @@
                 contents2: '',
                 btnCheck: '확인', // 확인 버튼의 텍스트
             });
-            return;
+            return true;
         }
         stateChange(2);
     }

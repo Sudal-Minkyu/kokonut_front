@@ -545,7 +545,7 @@
         <LoadingOverlay bind:loadState={personalInfoItemProp.loadState} top={150}>
             <div class="prDivideBox" in:fade>
                 <PersonalInfoCategory {personalInfoCategoryService} />
-                <PersonalInfoTable {personalInfoItemProp} {personalInfoTableService} />
+                <PersonalInfoTable {personalInfoTableService} />
             </div>
         </LoadingOverlay>
     </div>

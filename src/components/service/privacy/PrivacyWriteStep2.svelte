@@ -4,15 +4,24 @@
     import {pageTransitionData, providePrivacyWriteData} from "../../../lib/store.js";
     import {onDestroy, onMount} from "svelte";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
-    import {push} from "svelte-spa-router";
+    import {location as spaLocation, push} from "svelte-spa-router";
     import {openConfirm} from "../../common/ui/DialogManager.js";
     import {ajaxGet, reportCatch} from "../../common/ajax.js";
 
     export let stateChange;
+    export let didForwardBackwardNavBtnClicked;
+    export let privacyStage;
+    export let navigationForwardFunction;
+
     let isMasterCheckBoxChecked = false;
 
     onMount(async => {
-        history.pushState({stage: 2}, '', '');
+        if (didForwardBackwardNavBtnClicked) {
+            didForwardBackwardNavBtnClicked = false;
+        } else {
+            history.pushState({privacyStage}, '', '/#' + $spaLocation);
+        }
+        navigationForwardFunction = handleNext;
         getProvideTargetAdminList();
     });
 
@@ -177,7 +186,7 @@
         }
         if (confirmProps.title) {
             openConfirm(confirmProps);
-            return;
+            return true;
         }
 
         stateChange(3);

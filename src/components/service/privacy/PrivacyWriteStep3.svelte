@@ -5,11 +5,20 @@
     import {onDestroy, onMount} from "svelte";
     import {setCustomSelectBox, setDateRangePicker, setOptionItem} from "../../../lib/libSearch.js";
     import {openConfirm} from "../../common/ui/DialogManager.js";
+    import {location as spaLocation} from "svelte-spa-router";
 
     export let stateChange;
+    export let didForwardBackwardNavBtnClicked;
+    export let privacyStage;
+    export let navigationForwardFunction;
 
     onMount(async ()=>{
-        history.pushState({stage: 3}, '', '');
+        if (didForwardBackwardNavBtnClicked) {
+            didForwardBackwardNavBtnClicked = false;
+        } else {
+            history.pushState({privacyStage}, '', '/#' + $spaLocation);
+        }
+        navigationForwardFunction = handleNext;
         fatchSearchModule();
     });
 
@@ -37,7 +46,7 @@
         }
         if (confirmProps.title) {
             openConfirm(confirmProps);
-            return;
+            return true;
         }
 
         providePrivacyWriteData.update(obj => {

@@ -11,7 +11,8 @@
     import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
     import {openBanner, openConfirm} from "../../../components/common/ui/DialogManager.js";
     import {legalPrivacyRetention} from "../../../components/common/enum/legalPrivacyRetention.js";
-    import {params} from "svelte-spa-router";
+
+    export let params;
 
     let section2Count = 1;
     let state = 0;
@@ -23,7 +24,6 @@
 
     onMount( () => {
         setTimeout(() => policyDetailLayout = 1, 500);
-
         piId = params.piId
         policyDetail(piId);
     });
