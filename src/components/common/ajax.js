@@ -194,15 +194,16 @@ const handleOnConnectionError = (errorRes, handleSuccess, handleFail) => {
 const handleSingleConnectionError = (errorRes, handleSuccess, handleFail) => {
     alert('서버와의 통신이 원활하지 않습니다. 인터넷 연결을 확인하시고 확인을 눌러 주세요.');
     handleAxiosError(errorRes, handleSuccess, handleFail);
+    window.location.reload();
 }
 
 // 한번에 여러개의 요청이 타임아웃으로 실패한 경우 호출됨
 const handleMultipleConnectionError = (errorRes) => {
     if(get(is_login)) {
         if(get(spaLocation) === '/service') {
-            location.reload();
             handleAxiosError(errorRes, ()=>{}, ()=>{});
             alert('서버와의 통신이 원활하지 않습니다. 인터넷 연결을 확인하시고 확인을 눌러 새로고침 합니다.');
+            window.location.reload();
         } else {
             handleAxiosError(errorRes, ()=>{}, ()=>{});
             push('/service');
@@ -210,9 +211,9 @@ const handleMultipleConnectionError = (errorRes) => {
         }
     } else {
         if(get(spaLocation) === '/login') {
-            location.reload();
             handleAxiosError(errorRes, ()=>{}, ()=>{});
             alert('서버와의 통신이 원활하지 않습니다. 인터넷 연결을 확인하시고 확인을 눌러 새로고침 합니다.');
+            window.location.reload();
         } else {
             handleAxiosError(errorRes, ()=>{}, ()=>{});
             push('/login');
@@ -299,7 +300,7 @@ const makeUIResponse = (action, message, errorCode, handleSuccess) => {
             break;
         case errorActionTypes.MAIN:
             openError(message, errorCode, () => {
-                location.href = '/#/service';
+                window.location.href = '/#/service';
             });
             break;
         case errorActionTypes.LOGIN:
@@ -309,13 +310,13 @@ const makeUIResponse = (action, message, errorCode, handleSuccess) => {
             break;
         case errorActionTypes.UP:
             openError(message, errorCode, () => {
-                const li = location.href.lastIndexOf('/');
-                location.href = location.href.substring(0, li);
+                const li = window.location.href.lastIndexOf('/');
+                window.location.href = window.location.href.substring(0, li);
             });
             break;
         case errorActionTypes.REFRESH:
             openError(message, errorCode, () => {
-                location.reload();
+                window.location.reload();
             });
             break;
         case errorActionTypes.INFODO:

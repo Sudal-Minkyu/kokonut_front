@@ -17,15 +17,28 @@
     import PrivacyWriteStep3 from "../../../components/service/privacy/PrivacyWriteStep3.svelte";
     import PrivacyWriteStep4 from "../../../components/service/privacy/PrivacyWriteStep4.svelte";
     import PrivacyWriteStep5 from "../../../components/service/privacy/PrivacyWriteStep5.svelte";
-    import {onMount} from "svelte";
+    import {onDestroy, onMount} from "svelte";
     import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
     onMount(async () => {
+        window.addEventListener('popstate', handleNavigation);
         setTimeout(() => priavacyStage = 1, 500);
         providePrivacyWriteData.set(JSON.parse(initialProvidePrivacyWrite));
         getColumnList();
     });
+
+    onDestroy(() => {
+        window.removeEventListener('popstate', handleNavigation);
+    });
+
+    const handleNavigation = (e) => {
+        console.log(e)
+        if (e.state && e.state.stage) {
+            stateChange(e.state.stage);
+        } else {
+        }
+    }
 
     function stateChange(val) {
         priavacyStage = val;

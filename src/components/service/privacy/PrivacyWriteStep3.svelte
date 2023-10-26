@@ -10,23 +10,8 @@
 
     onMount(async ()=>{
         history.pushState({stage: 3}, '', '');
-        window.addEventListener('popstate', handleNavigation);
         fatchSearchModule();
     });
-
-    onDestroy(() => {
-        window.removeEventListener('popstate', handleNavigation);
-    });
-
-    const handleNavigation = (e) => {
-        console.log(e)
-        if (e.state && e.state.stage) {
-            stateChange(e.state.stage);
-        } else {
-            window.removeEventListener('popstate', handleNavigation);
-            history.back();
-        }
-    }
 
     const fatchSearchModule = () => {
         setDateRangePicker('stime', true, 'period');

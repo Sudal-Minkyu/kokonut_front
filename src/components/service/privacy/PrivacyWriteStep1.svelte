@@ -7,24 +7,9 @@
 
     onMount(() => {
         history.pushState({stage: 1}, '', '');
-        window.addEventListener('popstate', handleNavigation);
-    });
-
-    onDestroy(() => {
-        window.removeEventListener('popstate', handleNavigation);
     });
 
     export let stateChange;
-
-    const handleNavigation = (e) => {
-        console.log(e)
-        if (e.state && e.state.stage) {
-            stateChange(e.state.stage);
-        } else {
-            window.removeEventListener('popstate', handleNavigation);
-            history.back();
-        }
-    }
 
     const handleNext = () => {
         if ($providePrivacyWriteData.step1.proProvide === '') {

@@ -13,27 +13,11 @@
 
     onMount(async => {
         history.pushState({stage: 2}, '', '');
-        window.addEventListener('popstate', handleNavigation);
         getProvideTargetAdminList();
     });
 
-    onDestroy(() => {
-        window.removeEventListener('popstate', handleNavigation);
-    });
 
     $: subTitle = createSubtitleText($providePrivacyWriteData.step1.proProvide, $providePrivacyWriteData.step2.selectedAdminIdList);
-
-    const handleNavigation = (e) => {
-        console.log(e)
-        if (e.state && e.state.stage < 3) {
-            stateChange(e.state.stage);
-        } else if (e.state && e.state.stage) {
-            handleNext();
-        } else {
-            window.removeEventListener('popstate', handleNavigation);
-            history.back();
-        }
-    }
 
     const createSubtitleText = (provide, offerList) => {
         const listLength = offerList.length;

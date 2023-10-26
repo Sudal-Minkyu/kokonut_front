@@ -5,7 +5,7 @@
 
     const handleGoTo = (href) => {
         if (get(spaLocation) === href) {
-            location.reload();
+            window.location.reload();
         } else {
             push(href);
         }
