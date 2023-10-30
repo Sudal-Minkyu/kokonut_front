@@ -173,5 +173,5 @@
 </section>
 
 {#if excelDownloadPopService.visibility}
-    <ExcelDownloadPop {excelDownloadPopService} />
+    <ExcelDownloadPop {excelDownloadPopService} popType={2} />
 {/if}

@@ -362,8 +362,9 @@
                     </div>
                     <div class="popcaseInfoBox">
                         <p>주의사항</p>
-                        <dl>구독이 해지됩니다.</dl>
-                        <dl>서비스 제공시 즉시 중단됩니다.</dl>
+                        <dl>구독은 즉시 해지되며 데이터는 한달후 일괄 삭제됩니다.</dl>
+                        <dl>삭제된 데이터는 복구되지 않습니다.</dl>
+                        <dl>서비스 요금은 이번 달 일할계산으로 계산되어 청구됩니다.</dl>
                     </div>
                     <div class="koko_check">
                         <input type="checkbox" value="1" id="pricheck" bind:checked={suspendSubscriptionPopService.isCautionChecked}>

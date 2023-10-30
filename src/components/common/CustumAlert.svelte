@@ -71,8 +71,8 @@
         {#if popType === 1}
             <button on:click={popCheckBtn} type="button" class="popCheck">{popCheck}</button>
         {:else}
-            <button on:click={popStartBtn} type="button" class="popStart">{popStart}</button>
             <button on:click={popCloseBtn} type="button" class="popCancel">{popCancel}</button>
+            <button on:click={popStartBtn} type="button" class="popStart">{popStart}</button>
         {/if}
 
     </div>

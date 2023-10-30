@@ -4,6 +4,7 @@ import {serviceSettingData} from "../../../../lib/store.js";
 import {ajaxBody, reportCatch} from "../../../common/ajax.js";
 import {openBanner, openConfirm} from "../../../common/ui/DialogManager.js";
 import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
+import {onlyNumber} from "../../../../lib/common.js";
 
 export let getServiceSettingDataAndInitializing;
 
@@ -14,6 +15,8 @@ const closeRemoveAccessIpPop = () => {
     });
 };
 
+let otpErrMsg = "";
+let cautionChkErrMsg = "";
 const commitRemoveAccessIp = () => {
     const removeTargetInfo = {
         otpValue: $serviceSettingData.removeAccessIpPop.otpValue,
@@ -32,19 +35,36 @@ const commitRemoveAccessIp = () => {
     }
 
     if (!removeTargetInfo.otpValue) {
-
+        otpErrMsg = "OTP 값을 적어주세요.";
+        return;
+    } else {
+        otpErrMsg = "";
     }
 
     if (!$serviceSettingData.removeAccessIpPop.cautionChecked) {
-
+        cautionChkErrMsg = "주의사항을 확인해 주시고 체크해 주세요.";
+        return;
+    } else {
+        cautionChkErrMsg = "";
     }
 
     ajaxBody('/v2/api/CompanySetting/accessIpDelete', removeTargetInfo, (res) => {
         try {
-            openBanner('선택하신 IP를 삭제하였습니다.');
+            openBanner('선택하신 접속허용 IP를 삭제하였습니다.');
             getServiceSettingDataAndInitializing();
         } catch (e) {
             reportCatch('temp132', e);
+        }
+    }, (errCode, errMsg) => {
+        try {
+            if (errCode === "KO010" || errCode === "KO011" || errCode === "KO012") {
+                otpErrMsg = errMsg;
+            } else {
+                alert(errMsg);
+            }
+            return {action: 'NONE'};
+        } catch (e) {
+            reportCatch('temp141', e);
         }
     });
 }
@@ -58,10 +78,10 @@ const commitRemoveAccessIp = () => {
             </div>
             <form>
                 <div class="kopopinput marB24">
-                    <label>OTP</label>
-                    <input type="text" placeholder="OTP를 적어주세요." bind:value={$serviceSettingData.removeAccessIpPop.otpValue} />
+                    <label>구글 OTP 인증번호(6자리)</label>
+                    <input type="text" placeholder="OTP를 적어주세요." maxlength="6" on:keyup={() => {$serviceSettingData.removeAccessIpPop.otpValue = onlyNumber($serviceSettingData.removeAccessIpPop.otpValue)}} bind:value={$serviceSettingData.removeAccessIpPop.otpValue} />
+                    <ErrorHighlight bind:message={otpErrMsg} />
                 </div>
-                <ErrorHighlight />
                 <div class="popcaseInfoBox pi_noneicon">
                     <p>주의사항</p>
                     <dl>해당 IP 에서는 더 이상 로그인 하실 수 없습니다.</dl>
@@ -71,9 +91,9 @@ const commitRemoveAccessIp = () => {
                     <label for="checkcation">
                         <em></em>
                         <p class="check">주의사항에 대해 확인했습니다.</p>
+                        <ErrorHighlight bind:message={cautionChkErrMsg} />
                     </label>
                 </div>
-                <ErrorHighlight />
                 <div class="kokopopBtnBox">
                     <div class="koko_cancel ipdel_pop_close" on:click={closeRemoveAccessIpPop}>취소</div>
                     <div class="koko_go"><button type="button" on:click={commitRemoveAccessIp}>확인</button></div>

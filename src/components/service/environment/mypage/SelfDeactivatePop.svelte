@@ -24,7 +24,7 @@
                 </div>
                 <div class="popcaseInfoBox pi_noneicon">
                     <p>주의사항</p>
-                    <dl>비활성화시 <span>이 계정으로 더이상 서비스를 이용하실 수 없습니다.</span></dl>
+                    <dl>비활성화시 <span>이 계정으로 더 이상 서비스를 이용하실 수 없습니다.</span></dl>
                     <dl>계정을 다시 활성화하기 위해서는 관리자에게 문의를 하셔야 합니다.</dl>
                 </div>
                 <div class="koko_check">

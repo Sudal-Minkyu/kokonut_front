@@ -1695,11 +1695,11 @@
 .popcBtnBox .popCheck{margin:0 0.4rem 0 0.4rem;display:inline-block;width: 9rem;height: 4.4rem;background: #EBEDEF;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#888;}
 .popcBtnBox .popCheck:hover{background: #00C389;color: #fff;}
 
-.popcBtnBox .popStart{margin:0 0.4rem 0 0.4rem;display:inline-block;width: 9rem;height: 4.4rem;background: #EBEDEF;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#888;}
-.popcBtnBox .popStart:hover{background: #dddedf;}
+.popcBtnBox .popCancel{margin:0 0.4rem 0 0.4rem;display:inline-block;width: 9rem;height: 4.4rem;background: #EBEDEF;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#888;}
+.popcBtnBox .popCancel:hover{background: #dddedf;}
 
-.popcBtnBox .popCancel{margin:0 0.4rem 0 0.4rem;display:inline-block;width: 9rem;height: 4.4rem;background: #00C389;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#fff;}
-.popcBtnBox .popCancel:hover{background: #00BA83;}
+.popcBtnBox .popStart{margin:0 0.4rem 0 0.4rem;display:inline-block;width: 9rem;height: 4.4rem;background: #00C389;border-radius: 0.8rem;font-family: Pretendard, sans-serif;font-size: 1.6rem;font-weight: 500;line-height: 2.4rem;letter-spacing: 0;text-align: center;color:#fff;}
+.popcBtnBox .popStart:hover{background: #00BA83;}
 
 /*-----------------------------------------------------------------------------------------
 # 404페이지

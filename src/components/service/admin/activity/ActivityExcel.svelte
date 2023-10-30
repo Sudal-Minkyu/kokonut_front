@@ -2,8 +2,9 @@
 <script>
 
     import { fade } from 'svelte/transition';
-    import { getToday } from "../../../../lib/common.js"
-    import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte"; // 공통함수
+    import {getToday, onlyNumber} from "../../../../lib/common.js"
+    import ErrorHighlight from "../../../common/ui/ErrorHighlight.svelte";
+    import {serviceSettingData} from "../../../../lib/store.js"; // 공통함수
 
     export let excelPopClick;
     export let total;
@@ -63,7 +64,7 @@ const downloadExcelFile = () => {
                 </div>
                 <div class="kopopinput marB24">
                     <label>OTP</label>
-                    <input type="text" placeholder="OTP를 적어주세요." bind:value={additionalInfo.otpValue} />
+                    <input type="text" placeholder="OTP를 적어주세요." maxlength="6" on:keyup={() => {additionalInfo.otpValue = onlyNumber(additionalInfo.otpValue)}} bind:value={additionalInfo.otpValue} />
                     <ErrorHighlight message={otpValueErrMsg}/>
                 </div>
                 <div class="popcaseInfoBox">

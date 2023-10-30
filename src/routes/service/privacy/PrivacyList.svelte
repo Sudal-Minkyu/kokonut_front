@@ -195,5 +195,5 @@
 {/if}
 
 {#if excelDownloadPopService.visibility}
-    <ExcelDownloadPop {excelDownloadPopService} />
+    <ExcelDownloadPop {excelDownloadPopService} popType={3} />
 {/if}

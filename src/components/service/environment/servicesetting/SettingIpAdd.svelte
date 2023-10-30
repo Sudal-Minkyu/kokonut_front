@@ -83,7 +83,7 @@
 
         ajaxParam('/v2/api/CompanySetting/accessIpSave', addData, (res) => {
             try {
-                openBanner('접속 허용 IP를 추가하였습니다.');
+                openBanner('접속 허용 IP가 추가되었습니다.');
                 getServiceSettingDataAndInitializing();
             } catch (e) {
                 reportCatch('temp131', e);
