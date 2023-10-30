@@ -3,9 +3,26 @@
     import { fade } from 'svelte/transition'
     import {policyInfoData,piId} from "../../../lib/store.js";
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
+    import {onMount} from "svelte";
+    import {location as spaLocation} from "svelte-spa-router";
 
     export let stateChange;
     export let policyWriting;
+    export let didNavBtnClicked;
+    export let navBackwardFn;
+    export let navForwardFn;
+    export let stage;
+
+    onMount(() => {
+        if (didNavBtnClicked) {
+            didNavBtnClicked = false;
+        } else {
+            history.pushState({stage}, '', '/#' + $spaLocation);
+        }
+        navBackwardFn = fifthDepthSave;
+        navForwardFn = fifthDepthSave;
+
+    });
 
     const policyThirdDeleteIdList = [];
     const createThirdItem = () => {
@@ -74,6 +91,7 @@
                 policyWriting(goToState);
             } catch (e) {
                 reportCatch('t23082306', e);
+                return true;
             }
         });
     }

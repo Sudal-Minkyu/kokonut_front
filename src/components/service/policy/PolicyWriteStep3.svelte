@@ -6,9 +6,14 @@
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
     import {checkFalsyValuesExceptIgnoredKeys} from "../../../lib/common.js";
     import {legalPrivacyRetention} from "../../common/enum/legalPrivacyRetention.js";
+    import {location as spaLocation} from "svelte-spa-router";
 
     export let stateChange;
     export let policyWriting;
+    export let didNavBtnClicked;
+    export let navBackwardFn;
+    export let navForwardFn;
+    export let stage;
 
     const beforeRemoveIdList = [];
     const createBeforeItem = () => {
@@ -112,6 +117,14 @@
     }
 
     onMount(async () => {
+        if (didNavBtnClicked) {
+            didNavBtnClicked = false;
+        } else {
+            history.pushState({stage}, '', '/#' + $spaLocation);
+        }
+        navBackwardFn = thirdDepthSave;
+        navForwardFn = thirdDepthSave;
+
         policyInfoData.update(obj => {
             if (!obj.beforeDataList.length) {
                 obj.beforeDataList = [{
@@ -131,10 +144,10 @@
     const thirdDepthSave = (goToState) => {
         if (!$policyInfoData.beforeDataList.length) {
             beforeDataListErrorMsg = '서비스 가입 시 수집하는 개인정보는 최소 1개 이상 작성하여 주세요.';
-            return;
+            return true;
         } else if (checkFalsyValuesExceptIgnoredKeys($policyInfoData.beforeDataList)) {
             beforeDataListErrorMsg = '서비스 가입 시 수집하는 개인정보를 채워주세요.'
-            return;
+            return true;
         }
         let url = "/v2/api/Policy/privacyPolicyThirdSave";
 
@@ -158,6 +171,7 @@
                 policyWriting(goToState);
             } catch (e) {
                 reportCatch('t23082304', e);
+                return true;
             }
         });
     }

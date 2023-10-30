@@ -4,10 +4,26 @@
     import { fade } from 'svelte/transition'
     import {piId, policyInfoData} from '../../../lib/store.js'
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
+    import {onMount} from "svelte";
+    import {location as spaLocation} from "svelte-spa-router";
 
     export let policyWriting;
+    export let didNavBtnClicked;
+    export let navBackwardFn;
+    export let navForwardFn;
+    export let stage;
 
     let policyPurposeDeleteIdList = [];
+
+    onMount(() => {
+        if (didNavBtnClicked) {
+            didNavBtnClicked = false;
+        } else {
+            history.pushState({stage}, '', '/#' + $spaLocation);
+        }
+        navBackwardFn = secondDepthSave;
+        navForwardFn = secondDepthSave;
+    });
 
     function createItem() {
         if ($policyInfoData.purposeDataList.length < 4) {
@@ -47,6 +63,7 @@
                 policyWriting(goToState);
             } catch (e) {
                 reportCatch('t23082303', e);
+                return true;
             }
         });
     }

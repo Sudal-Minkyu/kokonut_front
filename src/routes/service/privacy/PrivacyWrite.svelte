@@ -20,8 +20,8 @@
     import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
-    let didForwardBackwardNavBtnClicked = true;
-    let navigationForwardFunction = () => {};
+    let didNavBtnClicked = true;
+    let navForwardFn = () => {};
 
     onMount(async () => {
         window.addEventListener('popstate', handleNavigation);
@@ -40,7 +40,7 @@
             openConfirm({
                 icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                 title: "만료된 페이지", // 제목
-                contents1: '해당 개인정보 작성 페이지는 만료되었습니다.',
+                contents1: '해당 개인정보 제공 작성 페이지는 만료되었습니다.',
                 contents2: '개인정보 제공을 눌러 해당 기능을 이용해 주세요.',
                 btnCheck: '확인', // 확인 버튼의 텍스트
                 callback: () => {
@@ -54,14 +54,14 @@
 
     const handleNavigation = (e) => {
         if (e.state && e.state.privacyStage < privacyStage) {
-            didForwardBackwardNavBtnClicked = true;
+            didNavBtnClicked = true;
             stateChange(e.state.privacyStage);
             // history.replaceState('', '', '');
         } else if (e.state && e.state.privacyStage > privacyStage) {
-            didForwardBackwardNavBtnClicked = true;
-            if(navigationForwardFunction()) {
+            didNavBtnClicked = true;
+            if(navForwardFn()) {
                 window.history.back();
-                didForwardBackwardNavBtnClicked = false;
+                didNavBtnClicked = false;
             }
         }
     }
@@ -100,15 +100,15 @@ const getColumnList = () => {
 
             <LoadingOverlay bind:loadState={privacyStage} top={40} >
                 {#if privacyStage === 1}
-                <PrivacyWriteStep1 {privacyStage} {stateChange} bind:didForwardBackwardNavBtnClicked={didForwardBackwardNavBtnClicked} bind:navigationForwardFunction={navigationForwardFunction} />
+                <PrivacyWriteStep1 {privacyStage} {stateChange} bind:didNavBtnClicked={didNavBtnClicked} bind:navForwardFn={navForwardFn} />
                 {:else if privacyStage === 2}
-                <PrivacyWriteStep2 {privacyStage} {stateChange} bind:didForwardBackwardNavBtnClicked={didForwardBackwardNavBtnClicked} bind:navigationForwardFunction={navigationForwardFunction} />
+                <PrivacyWriteStep2 {privacyStage} {stateChange} bind:didNavBtnClicked={didNavBtnClicked} bind:navForwardFn={navForwardFn} />
                 {:else if privacyStage === 3}
-                <PrivacyWriteStep3 {privacyStage} {stateChange} bind:didForwardBackwardNavBtnClicked={didForwardBackwardNavBtnClicked} bind:navigationForwardFunction={navigationForwardFunction} />
+                <PrivacyWriteStep3 {privacyStage} {stateChange} bind:didNavBtnClicked={didNavBtnClicked} bind:navForwardFn={navForwardFn} />
                 {:else if privacyStage === 4}
-                <PrivacyWriteStep4 {privacyStage} {stateChange} bind:didForwardBackwardNavBtnClicked={didForwardBackwardNavBtnClicked} bind:navigationForwardFunction={navigationForwardFunction} />
+                <PrivacyWriteStep4 {privacyStage} {stateChange} bind:didNavBtnClicked={didNavBtnClicked} bind:navForwardFn={navForwardFn} />
                 {:else if privacyStage === 5}
-                <PrivacyWriteStep5 {privacyStage} {stateChange} bind:didForwardBackwardNavBtnClicked={didForwardBackwardNavBtnClicked} bind:navigationForwardFunction={navigationForwardFunction} />
+                <PrivacyWriteStep5 {privacyStage} {stateChange} bind:didNavBtnClicked={didNavBtnClicked} bind:navForwardFn={navForwardFn} />
                 {/if}
             </LoadingOverlay>
         </div>

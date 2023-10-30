@@ -6,8 +6,24 @@
     import {singleDatePicker} from "../../../lib/libSearch.js";
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
     import moment from "moment";
+    import {location as spaLocation} from "svelte-spa-router";
+
+    export let policyWriting;
+    export let stateChange;
+    export let didNavBtnClicked;
+    export let navBackwardFn;
+    export let navForwardFn;
+    export let stage;
 
     onMount(async () => {
+        if (didNavBtnClicked) {
+            didNavBtnClicked = false;
+        } else {
+            history.pushState({stage}, '', '/#' + $spaLocation);
+        }
+        navBackwardFn = () => {};
+        navForwardFn = firstDepthSave;
+
         singleDatePicker('startdate', (result) => {
             policyInfoData.update(obj => {
                 obj.policyData1.piDate = result.format('YYYY-MM-DD');
@@ -20,28 +36,22 @@
         });
     });
 
-    window.gogo = () => {
-        stateChange(2);
-    }
-
-    export let policyWriting;
-    export let stateChange;
 
     let textState = 0;
-    function firstDepthSave() {
+    function firstDepthSave(stage = 2) {
         if($policyInfoData.policyData1.piVersion === "") {
             textState = 1;
-            return false;
+            return true;
         }
 
         if($policyInfoData.policyData1.piDate === "") {
             textState = 2;
-            return false;
+            return true;
         }
 
         if($policyInfoData.policyData1.piHeader === "") {
             textState = 3;
-            return false;
+            return true;
         }
         let url = "/v2/api/Policy/privacyPolicyFirstSave"
 
@@ -57,14 +67,13 @@
                 if ($piId === 0) {
                     piId.set(res.data.sendData.saveId);
                 }
-                policyWriting(2);
+                policyWriting(stage);
             } catch (e) {
                 reportCatch('t23082302', e);
+                return true;
             }
         });
     }
-    const startdateChanged = (e) => {
-    };
 </script>
 
 <div in:fade>
@@ -128,7 +137,7 @@
                 <div class="pris_num">
                     <dl><span>1</span> / 7</dl>
                 </div>
-                <button on:click="{firstDepthSave}" class="pri_nextBtn">다음</button>
+                <button on:click="{()=>{firstDepthSave(2)}}" class="pri_nextBtn">다음</button>
             </div>
         </div>
     </div>

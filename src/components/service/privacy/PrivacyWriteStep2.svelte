@@ -9,19 +9,19 @@
     import {ajaxGet, reportCatch} from "../../common/ajax.js";
 
     export let stateChange;
-    export let didForwardBackwardNavBtnClicked;
+    export let didNavBtnClicked;
     export let privacyStage;
-    export let navigationForwardFunction;
+    export let navForwardFn;
 
     let isMasterCheckBoxChecked = false;
 
     onMount(async => {
-        if (didForwardBackwardNavBtnClicked) {
-            didForwardBackwardNavBtnClicked = false;
+        if (didNavBtnClicked) {
+            didNavBtnClicked = false;
         } else {
             history.pushState({privacyStage}, '', '/#' + $spaLocation);
         }
-        navigationForwardFunction = handleNext;
+        navForwardFn = handleNext;
         getProvideTargetAdminList();
     });
 

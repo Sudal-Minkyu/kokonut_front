@@ -7,17 +7,18 @@
     import {location as spaLocation} from "svelte-spa-router";
 
     export let stateChange;
-    export let didForwardBackwardNavBtnClicked;
+    export let didNavBtnClicked;
     export let privacyStage;
-    export let navigationForwardFunction;
+    export let navBackwardFn;
+    export let navForwardFn;
 
     onMount(() => {
-        if (didForwardBackwardNavBtnClicked) {
-            didForwardBackwardNavBtnClicked = false;
+        if (didNavBtnClicked) {
+            didNavBtnClicked = false;
         } else {
             history.pushState({privacyStage}, '', '/#' + $spaLocation);
         }
-        navigationForwardFunction = handleNext;
+        navForwardFn = handleNext;
     });
 
     const handleNext = () => {
