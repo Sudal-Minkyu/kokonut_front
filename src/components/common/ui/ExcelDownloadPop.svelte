@@ -7,10 +7,14 @@
     import {mainScreenBlockerVisibility} from "../../../lib/store.js";
     import {userInfoData} from "../../../lib/store.js";
 
-    export let popType; // 0 개인정보 열람, 1 개인정보 처리 이력, 2 관리자 활동 이력, 3 개인정보 제공, 4 개인정보 제공 등록된 리스트
+    export let popType; // 0 개인정보 열람, 1 개인정보 처리 이력, 2 관리자 활동 이력, 3 개인정보 제공, 4 개인정보 제공 등록된 리스트, 5 개인정보 제공이력 리스트
 
     // 메뉴에 따라 다른 메시지를 보여줄 것을 대비하여 만들어둠. popType의 순서대로 내용에 표출될 예정
     const warnContents = [
+        "<dl>"+$userInfoData.knEmail+"님께서 다운받으신 개인정보 파일은<br>개인정보 보호법 및 관련 법령에 따라 보호되는 정보입니다.</dl>" +
+        "<dl>해당 파일을 다운받으신 사유에 따라 이용하신 뒤(목적 달성)에는<br>개인정보 파일을 반드시 파기해야 합니다.</dl>" +
+        "<dl>해당 파일을 다운받으신 사유 이외로 활용하시거나 배포하시면<br>법적 책임을 질 수 있습니다.</dl>",
+
         "<dl>"+$userInfoData.knEmail+"님께서 다운받으신 개인정보 파일은<br>개인정보 보호법 및 관련 법령에 따라 보호되는 정보입니다.</dl>" +
         "<dl>해당 파일을 다운받으신 사유에 따라 이용하신 뒤(목적 달성)에는<br>개인정보 파일을 반드시 파기해야 합니다.</dl>" +
         "<dl>해당 파일을 다운받으신 사유 이외로 활용하시거나 배포하시면<br>법적 책임을 질 수 있습니다.</dl>",
@@ -71,10 +75,12 @@
         }
         mainScreenBlockerVisibility.set(true);
 
+        console.log("excelDownloadPopService.requestURL : "+excelDownloadPopService.requestURL);
         if (excelDownloadPopService.useBodyParam) {
             ajaxExcelBodyParam(excelDownloadPopService.requestURL, excelDownloadPopService.requestData, requestData
                 , excelReqSuccess, excelReqFail);
         } else {
+            console.log({...requestData, ...excelDownloadPopService.requestData});
             ajaxParam(excelDownloadPopService.requestURL, {...requestData, ...excelDownloadPopService.requestData}
                 , excelReqSuccess, excelReqFail);
         }

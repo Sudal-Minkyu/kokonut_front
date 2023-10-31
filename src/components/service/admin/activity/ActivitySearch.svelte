@@ -152,6 +152,10 @@
                                 <label for="관리자 활동이력 다운로드">관리자 활동이력 다운로드</label>
                             </div>
                             <div class="actCheck">
+                                <input type="checkbox" name="activity" class="act_sel" id="개인정보제공이력 다운로드" value="AC_47_3"/>
+                                <label for="개인정보제공이력 다운로드">개인정보제공이력 다운로드</label>
+                            </div>
+                            <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="추가 카테고리 항목 추가" value="AC_42"/>
                                 <label for="추가 카테고리 항목 추가">추가 카테고리 항목 추가</label>
                             </div>
