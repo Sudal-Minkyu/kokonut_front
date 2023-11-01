@@ -129,7 +129,7 @@
                             </div>
                         </div>
                     </div>
-                    <ErrorHighlight message={$serviceSettingData.addAccessIpPop.ipInputErrorMsg}/>
+                    <ErrorHighlight bind:message={$serviceSettingData.addAccessIpPop.ipInputErrorMsg}/>
                     <div class="koko_check">
                         <input type="checkbox" value="1" name="IPcheck" id="IPcheck" on:change={setCurrentAccessIp}>
                         <label for="IPcheck">

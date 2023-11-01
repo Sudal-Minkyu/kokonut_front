@@ -105,7 +105,7 @@ const handleSelectHour = (el) => {
                 </div>
             </div>
         </div>
-        <ErrorHighlight message={highlightMsg} />
+        <ErrorHighlight bind:message={highlightMsg} />
     </div>
     <div class="mrBottomBox">
         <div class="marT20 marL30" style="color: #888; font-size: 1.5rem;">

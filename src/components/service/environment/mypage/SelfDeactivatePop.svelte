@@ -20,7 +20,7 @@
                     <label>구글 OTP 인증번호(6자리)</label>
                     <input type="text" bind:value={deactivateAccountService.sendData.otpValue} maxlength="6"
                            on:keyup={() => deactivateAccountService.sendData.otpValue = onlyNumber(deactivateAccountService.sendData.otpValue)} placeholder="OTP를 입력해 주세요." />
-                    <ErrorHighlight message="{deactivateAccountService.otpValueErrMsg}" />
+                    <ErrorHighlight bind:message="{deactivateAccountService.otpValueErrMsg}" />
                 </div>
                 <div class="popcaseInfoBox pi_noneicon">
                     <p>주의사항</p>
@@ -34,7 +34,7 @@
                         <p class="check">주의사항에 대해 확인했습니다.</p>
                     </label>
                 </div>
-                <ErrorHighlight message="{deactivateAccountService.agreeErrMsg}" />
+                <ErrorHighlight bind:message="{deactivateAccountService.agreeErrMsg}" />
                 <div class="kokopopBtnBox">
                     <div class="koko_cancel delete_pr_pop_close" on:click={deactivateAccountService.hide} >취소</div>
                     <div class="koko_go"><button type="button" on:click={deactivateAccountService.deactivateAccount}>확인</button></div>

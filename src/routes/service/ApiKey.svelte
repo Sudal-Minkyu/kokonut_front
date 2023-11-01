@@ -213,9 +213,14 @@
 <Header />
 <section class="bodyWrap">
     <div class="contentInnerWrap">
+        <div class="spcontWrap">
 
-        <div class="pageTitleBtn marB50">
-            <a use:link href="/service/environment">{$backBtn}</a><h1>API Key 발급</h1>
+            <div class="pageTitleBtn marB50">
+                <a use:link href="/service/environment">{$backBtn}</a><h1>API Key 발급</h1>
+                <dl>
+                    💡 Api Key 는 백엔드 웹서버에서 코코넛의 서비스를 사용하기 위한 보안키 입니다.
+                </dl>
+            </div>
         </div>
 
         <div class="apikeyBox">

@@ -110,13 +110,13 @@
                 <div class="kopopinput marB24">
                     <label>사유</label>
                     <textarea placeholder="사유를 적어주세요." bind:value={requestData.downloadReason}></textarea>
-                    <ErrorHighlight message={downloadReasonErrMsg}/>
+                    <ErrorHighlight bind:message={downloadReasonErrMsg}/>
                 </div>
                 <div class="kopopinput marB24">
                     <label>구글 OTP 인증번호(6자리)</label>
                     <input type="text" bind:value={requestData.otpValue} maxlength="6"
                            on:keyup={() => requestData.otpValue = onlyNumber(requestData.otpValue)} placeholder="OTP를 적어주세요." />
-                    <ErrorHighlight message={otpValueErrMsg}/>
+                    <ErrorHighlight bind:message={otpValueErrMsg}/>
                 </div>
                 <div class="popcaseInfoBox">
                     <p>주의사항</p>
@@ -128,7 +128,7 @@
                         <em></em>
                         <p class="check">주의사항에 대해 확인했습니다.</p>
                     </label>
-                    <ErrorHighlight message={cautionErrMsg}/>
+                    <ErrorHighlight bind:message={cautionErrMsg}/>
                 </div>
 
                 <div class="kokopopBtnBox">

@@ -317,3 +317,8 @@ export const initialEmailSend = JSON.stringify({
 });
 
 export const emailSendData = writable(JSON.parse(initialEmailSend));
+
+export const debouncedTopScrollData = writable({
+    timeout: null,
+    scrollTo: null,
+});

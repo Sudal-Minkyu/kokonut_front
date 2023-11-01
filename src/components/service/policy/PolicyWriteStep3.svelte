@@ -254,7 +254,7 @@
             <div class="pr_fieldBtnInner">
                 <button on:click={createBeforeItem} class="add_pr_field3 pr_fieldBtn"></button>
             </div>
-            <ErrorHighlight message={beforeDataListErrorMsg} />
+            <ErrorHighlight bind:message={beforeDataListErrorMsg} />
             <div class="prdot_text marT16">기기 정보를 수집하는 경우에는 일방향 암호화(Hash)를 통해 기기를 식별할 수 없는 방법으로 변환하여 보관합니다.</div>
         </div>
         <div class="prtextaddbox marB40">
@@ -432,9 +432,9 @@
                                     <label for="pbcl{i}"><em></em></label>
                                 </div>
                             </td>
-                            <td class="praLeft"><input class="nonePad wid100per" type="text" bind:value={pisaTitle} placeholder="예) 조제기록부"></td>
-                            <td class="praLeft"><input class="nonePad wid100per" type="text" bind:value={pisaContents} placeholder="예) 약사법 제30조"></td>
-                            <td class="praLeft"><input class="nonePad wid100per" type="text" bind:value={pistPeriod} placeholder="예) 5년"></td>
+                            <td class="praLeft"><input class="legalInput nonePad wid100per" type="text" bind:value={pisaTitle} placeholder="예) 조제기록부"></td>
+                            <td class="praLeft"><input class="legalInput nonePad wid100per" type="text" bind:value={pisaContents} placeholder="예) 약사법 제30조"></td>
+                            <td class="praLeft"><input class="legalInput nonePad wid100per" type="text" bind:value={pistPeriod} placeholder="예) 5년"></td>
                             <td><a on:click={()=>{removePiChoseCustomItem(i)}} class="pr_delete"></a></td>
                         </tr>
                     {/each}

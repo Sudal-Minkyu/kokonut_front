@@ -182,7 +182,7 @@ function scrollToBottom() {
                     <p style="font-size: 18px;font-weight: 500;" class="check">모든 사항을 확인하였고 동의합니다.</p>
                 </label>
             </div>
-            <ErrorHighlight message={checkAgreeErrorMsg} fontSize={2} />
+            <ErrorHighlight bind:message={checkAgreeErrorMsg} fontSize={2} />
         </div>
     </div>
 

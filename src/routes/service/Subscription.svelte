@@ -352,13 +352,13 @@
                     <div class="kopopinput marB24">
                         <label>사유</label>
                         <textarea placeholder="사유를 적어주세요." bind:value={suspendSubscriptionPopService.requestData.downloadReason}></textarea>
-                        <ErrorHighlight message={suspendSubscriptionPopService.downloadReasonErrMsg}/>
+                        <ErrorHighlight bind:message={suspendSubscriptionPopService.downloadReasonErrMsg}/>
                     </div>
                     <div class="kopopinput marB24">
                         <label>구글 OTP 인증번호(6자리)</label>
                         <input type="text" bind:value={suspendSubscriptionPopService.requestData.otpValue} maxlength="6"
                                on:keyup={() => suspendSubscriptionPopService.requestData.otpValue = onlyNumber(suspendSubscriptionPopService.requestData.otpValue)} placeholder="OTP를 적어주세요." />
-                        <ErrorHighlight message={suspendSubscriptionPopService.otpValueErrMsg}/>
+                        <ErrorHighlight bind:message={suspendSubscriptionPopService.otpValueErrMsg}/>
                     </div>
                     <div class="popcaseInfoBox">
                         <p>주의사항</p>
@@ -372,7 +372,7 @@
                             <em></em>
                             <p class="check">주의사항에 대해 확인했습니다.</p>
                         </label>
-                        <ErrorHighlight message={suspendSubscriptionPopService.cautionErrMsg}/>
+                        <ErrorHighlight bind:message={suspendSubscriptionPopService.cautionErrMsg}/>
                     </div>
 
                     <div class="kokopopBtnBox">

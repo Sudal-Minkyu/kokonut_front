@@ -1761,3 +1761,17 @@ input.readOnlyText{
 .cursorPointer:hover {
     cursor: pointer;
 }
+
+.legalInput {
+    font-family: Pretendard, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #666;
+}
+
+.legalInput::placeholder {
+    font-family: Pretendard, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #aaa;
+}

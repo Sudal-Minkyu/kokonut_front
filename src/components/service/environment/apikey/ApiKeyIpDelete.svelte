@@ -112,7 +112,7 @@
             <div class="kopopinput marB24">
                 <label>구글 OTP 인증번호(6자리)</label>
                 <input type="text" id="opt" bind:value={otpValue} maxlength="6" on:keyup={() => otpValue = onlyNumber(otpValue)} placeholder="OTP를 적어주세요." />
-                <ErrorHighlight message={otp_err_msg}/>
+                <ErrorHighlight bind:message={otp_err_msg}/>
             </div>
             <div class="popcaseInfoBox">
                 <p>주의사항</p>

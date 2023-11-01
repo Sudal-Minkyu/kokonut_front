@@ -60,12 +60,12 @@ const downloadExcelFile = () => {
                 <div class="kopopinput marB24">
                     <label>사유</label>
                     <textarea placeholder="사유를 적어주세요." bind:value={additionalInfo.excuses}></textarea>
-                    <ErrorHighlight message={excusesErrMsg}/>
+                    <ErrorHighlight bind:message={excusesErrMsg}/>
                 </div>
                 <div class="kopopinput marB24">
                     <label>OTP</label>
                     <input type="text" placeholder="OTP를 적어주세요." maxlength="6" on:keyup={() => {additionalInfo.otpValue = onlyNumber(additionalInfo.otpValue)}} bind:value={additionalInfo.otpValue} />
-                    <ErrorHighlight message={otpValueErrMsg}/>
+                    <ErrorHighlight bind:message={otpValueErrMsg}/>
                 </div>
                 <div class="popcaseInfoBox">
                     <p>주의사항</p>
@@ -78,7 +78,7 @@ const downloadExcelFile = () => {
                         <em></em>
                         <p class="check">주의사항에 대해 확인했습니다.</p>
                     </label>
-                    <ErrorHighlight message={cautionErrMsg}/>
+                    <ErrorHighlight bind:message={cautionErrMsg}/>
                 </div>
 
                 <div class="kokopopBtnBox">
