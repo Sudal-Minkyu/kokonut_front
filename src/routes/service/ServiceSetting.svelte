@@ -245,7 +245,7 @@ const getEmailColumnLIst = () => {
 <section class="bodyWrap">
     <div class="contentInnerWrap serviceSetWrap">
         <div class="spcontWrap">
-            <div class="pageTitleBtn marB50">
+            <div class="pageTitleBtn marB32">
                 <a use:link href="/service/environment">{$backBtn}</a>
                 <h1>서비스 설정</h1>
                 <dl>

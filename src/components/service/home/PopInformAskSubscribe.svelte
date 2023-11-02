@@ -38,7 +38,7 @@
                         <p class="check">{askSubscribeService.texts.agreement}</p>
                     </label>
                 </div>
-                <ErrorHighlight message={checkMessage}/>
+                <ErrorHighlight bind:message={checkMessage}/>
             </div>
             <div class="payBtnBox">
                 <div class="koko_cancel unsubscribe_pop_close" on:click={askSubscribeService.handleCancel}>로그아웃</div>

@@ -1,16 +1,31 @@
 <script>
 
-    import { push } from 'svelte-spa-router'
+    import {location as spaLocation, push} from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
     import {policyInfoData, piId, initialPolicyInfo, piStage} from "../../../lib/store.js";
     import ErrorHighlight from "../../common/ui/ErrorHighlight.svelte";
     import {openConfirm} from "../../common/ui/DialogManager.js";
     import {ajaxParam, reportCatch} from "../../common/ajax.js";
+    import {onMount} from "svelte";
 
     export let stateChange;
+    export let didNavBtnClicked;
+    export let navBackwardFn;
+    export let navForwardFn;
+    export let stage;
 
     let checkAgree = false;
     let checkAgreeErrorMsg = '';
+
+    onMount(() => {
+        if (didNavBtnClicked) {
+            didNavBtnClicked = false;
+        } else {
+            history.pushState({stage}, '', '/#' + $spaLocation);
+        }
+        navBackwardFn = stateChange;
+        navForwardFn = () => {};
+    });
 
 function scrollToBottom() {
         window.scrollTo({
@@ -52,6 +67,7 @@ function scrollToBottom() {
                 openConfirm(customConfirmProp);
             } catch (e) {
                 reportCatch('t23082307', e);
+                return true;
             }
         });
     }
@@ -166,7 +182,7 @@ function scrollToBottom() {
                     <p style="font-size: 18px;font-weight: 500;" class="check">모든 사항을 확인하였고 동의합니다.</p>
                 </label>
             </div>
-            <ErrorHighlight message={checkAgreeErrorMsg} fontSize={2} />
+            <ErrorHighlight bind:message={checkAgreeErrorMsg} fontSize={2} />
         </div>
     </div>
 

@@ -352,18 +352,19 @@
                     <div class="kopopinput marB24">
                         <label>사유</label>
                         <textarea placeholder="사유를 적어주세요." bind:value={suspendSubscriptionPopService.requestData.downloadReason}></textarea>
-                        <ErrorHighlight message={suspendSubscriptionPopService.downloadReasonErrMsg}/>
+                        <ErrorHighlight bind:message={suspendSubscriptionPopService.downloadReasonErrMsg}/>
                     </div>
                     <div class="kopopinput marB24">
                         <label>구글 OTP 인증번호(6자리)</label>
                         <input type="text" bind:value={suspendSubscriptionPopService.requestData.otpValue} maxlength="6"
                                on:keyup={() => suspendSubscriptionPopService.requestData.otpValue = onlyNumber(suspendSubscriptionPopService.requestData.otpValue)} placeholder="OTP를 적어주세요." />
-                        <ErrorHighlight message={suspendSubscriptionPopService.otpValueErrMsg}/>
+                        <ErrorHighlight bind:message={suspendSubscriptionPopService.otpValueErrMsg}/>
                     </div>
                     <div class="popcaseInfoBox">
                         <p>주의사항</p>
-                        <dl>구독이 해지됩니다.</dl>
-                        <dl>서비스 제공시 즉시 중단됩니다.</dl>
+                        <dl>구독은 즉시 해지되며 데이터는 한달후 일괄 삭제됩니다.</dl>
+                        <dl>삭제된 데이터는 복구되지 않습니다.</dl>
+                        <dl>서비스 요금은 이번 달 일할계산으로 계산되어 청구됩니다.</dl>
                     </div>
                     <div class="koko_check">
                         <input type="checkbox" value="1" id="pricheck" bind:checked={suspendSubscriptionPopService.isCautionChecked}>
@@ -371,7 +372,7 @@
                             <em></em>
                             <p class="check">주의사항에 대해 확인했습니다.</p>
                         </label>
-                        <ErrorHighlight message={suspendSubscriptionPopService.cautionErrMsg}/>
+                        <ErrorHighlight bind:message={suspendSubscriptionPopService.cautionErrMsg}/>
                     </div>
 
                     <div class="kokopopBtnBox">

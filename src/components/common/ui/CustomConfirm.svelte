@@ -50,8 +50,8 @@
             {#if $customConfirmData.type === 'confirm'}
                 <button on:click={btnCheck} type="button" class="popCheck">{$customConfirmData.btnCheck}</button>
             {:else if $customConfirmData.type === 'ask'}
-                <button on:click={btnStart} type="button" class="popCancel">{$customConfirmData.btnStart}</button>
-                <button on:click={btnCancel} type="button" class="popStart">{$customConfirmData.btnCancel}</button>
+                <button on:click={btnCancel} type="button" class="popCancel">{$customConfirmData.btnCancel}</button>
+                <button on:click={btnStart} type="button" class="popStart">{$customConfirmData.btnStart}</button>
             {/if}
         </div>
     </div>

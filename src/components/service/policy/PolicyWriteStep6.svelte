@@ -3,9 +3,26 @@
     import {fade} from 'svelte/transition'
     import {piId, policyInfoData} from "../../../lib/store.js";
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
+    import {onMount} from "svelte";
+    import {location as spaLocation} from "svelte-spa-router";
 
     export let stateChange;
     export let policyWriting;
+    export let didNavBtnClicked;
+    export let navBackwardFn;
+    export let navForwardFn;
+    export let stage;
+
+    onMount(() => {
+        if (didNavBtnClicked) {
+            didNavBtnClicked = false;
+        } else {
+            history.pushState({stage}, '', '/#' + $spaLocation);
+        }
+        navBackwardFn = sixthDepthSave;
+        navForwardFn = sixthDepthSave;
+
+    });
 
     const policyResponsibleDeleteIdList = [];
     const createResponsibleItem = () => {
@@ -49,27 +66,32 @@
                 policyWriting(goToState);
             } catch (e) {
                 reportCatch('t23082301', e);
+                return true;
             }
         });
     }
 
-        // 숫자와 제어키를 제외한 입력을 입력단계에서 막음
+    // 숫자와 제어키를 제외한 입력을 입력단계에서 막음
     function handleOnlyNum(e) {
         const charCode = e.which ? e.which : e.keyCode;
+        console.log("함수작동", charCode);
 
-        if (
-            (charCode < 48 || charCode > 57) &&   // 숫자 키
-            (charCode < 96 || charCode > 105) &&  // 숫자 패드
-            charCode !== 8 &&                     // 백스페이스
-            charCode !== 9 &&                     // 탭
-            charCode !== 37 &&                    // 좌 화살표
-            charCode !== 39 &&                    // 우 화살표
-            charCode !== 35 &&                    // End
-            charCode !== 36 &&                    // Home
-            charCode !== 46                       // Delete
-        ) {
+        // 제어키와 특수키
+        const controlKeys = [8, 9, 37, 39, 35, 36, 46, 13, 27]; // 백스페이스, 탭, 화살표, End, Home, Delete, Enter, Esc
+        const isControlKey = controlKeys.includes(charCode);
+
+        // 숫자와 숫자 패드의 키코드
+        const isNumber = (charCode >= 48 && charCode <= 57);
+        const isNumberPad = (charCode >= 96 && charCode <= 105);
+
+        if (!isControlKey && !isNumber && !isNumberPad || charCode === 229) {
             e.preventDefault();
         }
+    }
+
+    // 한글이 입력되는 특수한 경우를 위한 후처리
+    function handleInvalidCharacters(value) {
+        return value.replace(/[^0-9]/g, '');
     }
 </script>
 
@@ -78,16 +100,16 @@
     <div class="priContentBox" style="border-top:0;padding: 0">
         <div class="priC_title marB24">5. 개인정보보호 책임자에 관한 사항
             <span class="tiptool" id="tool_btn17">
-                        <!-- [D] tooltip : 개인정보보호 책임자에 관한 사항 -->
-                        <div class="layerToolType pmtool_02" id="tool_box17">
-                            <div class="tipContents">
-                                <p>
-                                    개인정보보호책임자(CPO)는 반드시 임원으로 선임해야 합니다. 선임하지 않으면 CEO가 개인정보보호책임자(CPO)인 것으로 간주됩니다. 반드시 한 명일 필요는 없습니다.
-                                </p>
-                            </div>
-                        </div>
+                <!-- [D] tooltip : 개인정보보호 책임자에 관한 사항 -->
+                <div class="layerToolType pmtool_02" id="tool_box17">
+                    <div class="tipContents">
+                        <p>
+                            개인정보보호책임자(CPO)는 반드시 임원으로 선임해야 합니다. 선임하지 않으면 CEO가 개인정보보호책임자(CPO)인 것으로 간주됩니다. 반드시 한 명일 필요는 없습니다.
+                        </p>
+                    </div>
+                </div>
                 <!-- // [D] 개인정보보호 책임자에 관한 사항 -->
-                    </span>
+                </span>
         </div>
         <div class="prinortext marB24">
             정보주체는 개인정보 보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보보호 책임자에게 문의하실 수 있습니다. 개인정보보호 책임자는 이용자의 문의에 대해 지체없이 답변 및 처리해 드릴 것입니다.
@@ -153,23 +175,22 @@
                 이전 개인정보 처리방침 시행 일자 :
                 <div class="koinput wid64 marL8">
                     <input type="text" bind:value={$policyInfoData.policyData3.piYear} data-cat="piYear"
-                           placeholder="2023" maxlength="4" on:keypress={handleOnlyNum}>
+                           placeholder="2023" maxlength="4" on:keydown={handleOnlyNum} on:input={()=>{$policyInfoData.policyData3.piYear = handleInvalidCharacters($policyInfoData.policyData3.piYear)}} >
                 </div>
                 년
                 <div class="koinput wid44 marL16">
                     <input type="text" bind:value={$policyInfoData.policyData3.piMonth} data-cat="piMonth"
-                           placeholder="01" maxlength="2" on:keypress={handleOnlyNum}>
+                           placeholder="01" maxlength="2" on:keydown={handleOnlyNum} on:input={()=>{$policyInfoData.policyData3.piMonth = handleInvalidCharacters($policyInfoData.policyData3.piMonth)}} >
                 </div>
                 월
                 <div class="koinput wid44 marL16">
                     <input type="text" bind:value={$policyInfoData.policyData3.piDay} data-cat="piDay"
-                           placeholder="01" maxlength="2" on:keypress={handleOnlyNum}>
+                           placeholder="01" maxlength="2" on:keydown={handleOnlyNum} on:input={()=>{$policyInfoData.policyData3.piDay = handleInvalidCharacters($policyInfoData.policyData3.piDay)}} >
                 </div>
                 일
             </div>
         </div>
     </div>
-
 </div>
 
 <div class="fixstepInnerWrap">

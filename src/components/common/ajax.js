@@ -1,8 +1,9 @@
-import {accessToken, ivSto, keyBufferSto} from "../../lib/store.js";
+import {accessToken, is_login, ivSto, keyBufferSto} from "../../lib/store.js";
 import {get} from 'svelte/store';
 import axios from 'axios';
 import {openConfirm} from "./ui/DialogManager.js";
 import {logout} from "./authActions.js";
+import {push, location as spaLocation} from "svelte-spa-router";
 
 const pendingRequests = new Map();
 
@@ -111,6 +112,9 @@ export const reportCatch = (name, e) => {
     }
 }
 
+let connectionErrorCallCnt = 0;
+let connectionErrorTimeoutStore = null;
+
 // RestAPI 호출 함수 from. Woody, mod. Joffrey
 // 호출 주소 앞단은 크게 v0, v1, v2 세 종류로 나뉘며 v0은 인증없이 접근할 수 있다.
 // url -> 호출할 api 주소
@@ -128,6 +132,7 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
         data,
         headers,
         withCredentials: true,
+        timeout: 10000,
     };
 
     const configString = JSON.stringify(requestConfig);
@@ -156,12 +161,66 @@ const restapi = ({url, handleSuccess, handleFail, method, data, params, contentT
     }).catch(errorRes => {
         pendingRequests.delete(configString);
         try {
-            handleAxiosError(errorRes, handleSuccess, handleFail);
+            if (errorRes.code === "ECONNABORTED") {
+                handleOnConnectionError(errorRes, handleSuccess, handleFail);
+            } else {
+                handleAxiosError(errorRes, handleSuccess, handleFail);
+            }
         } catch (e) {
             reportCatch('temp006', e);
         }
     });
 };
+
+// 사용자 요청 시간이 오래 지난 경우 작동할 디바운싱화된 함수
+const handleOnConnectionError = (errorRes, handleSuccess, handleFail) => {
+    if (connectionErrorTimeoutStore) {
+        clearTimeout(connectionErrorTimeoutStore);
+        connectionErrorTimeoutStore = null;
+    }
+
+    connectionErrorCallCnt++;
+    connectionErrorTimeoutStore = setTimeout(() => { // 아래에 실질적으로 일어날 동작의 정의
+        if (connectionErrorCallCnt > 1) {
+            handleMultipleConnectionError(errorRes);
+        } else {
+            handleSingleConnectionError(errorRes, handleSuccess, handleFail);
+        }
+        connectionErrorCallCnt = 0;
+    }, 1000);
+}
+
+// 하나의 요청만 타임아웃으로 실패한 경우 호출됨
+const handleSingleConnectionError = (errorRes, handleSuccess, handleFail) => {
+    alert('서버와의 통신이 원활하지 않습니다. 인터넷 연결을 확인하시고 확인을 눌러 주세요.');
+    handleAxiosError(errorRes, handleSuccess, handleFail);
+    window.location.reload();
+}
+
+// 한번에 여러개의 요청이 타임아웃으로 실패한 경우 호출됨
+const handleMultipleConnectionError = (errorRes) => {
+    if(get(is_login)) {
+        if(get(spaLocation) === '/service') {
+            handleAxiosError(errorRes, ()=>{}, ()=>{});
+            alert('서버와의 통신이 원활하지 않습니다. 인터넷 연결을 확인하시고 확인을 눌러 새로고침 합니다.');
+            window.location.reload();
+        } else {
+            handleAxiosError(errorRes, ()=>{}, ()=>{});
+            push('/service');
+            alert('서버와의 통신이 원활하지 않습니다. 인터넷 연결을 확인하시고 확인을 눌러 메인 페이지로 이동합니다.');
+        }
+    } else {
+        if(get(spaLocation) === '/login') {
+            handleAxiosError(errorRes, ()=>{}, ()=>{});
+            alert('서버와의 통신이 원활하지 않습니다. 인터넷 연결을 확인하시고 확인을 눌러 새로고침 합니다.');
+            window.location.reload();
+        } else {
+            handleAxiosError(errorRes, ()=>{}, ()=>{});
+            push('/login');
+            alert('서버와의 통신이 원활하지 않습니다. 인터넷 연결을 확인하시고 확인을 눌러 로그인 페이지로 이동합니다.');
+        }
+    }
+}
 
 // 헤더 설정
 const configureHeaders = (url, contentType, apiKey) => {
@@ -241,7 +300,7 @@ const makeUIResponse = (action, message, errorCode, handleSuccess) => {
             break;
         case errorActionTypes.MAIN:
             openError(message, errorCode, () => {
-                location.href = '/#/service';
+                window.location.href = '/#/service';
             });
             break;
         case errorActionTypes.LOGIN:
@@ -251,13 +310,13 @@ const makeUIResponse = (action, message, errorCode, handleSuccess) => {
             break;
         case errorActionTypes.UP:
             openError(message, errorCode, () => {
-                const li = location.href.lastIndexOf('/');
-                location.href = location.href.substring(0, li);
+                const li = window.location.href.lastIndexOf('/');
+                window.location.href = window.location.href.substring(0, li);
             });
             break;
         case errorActionTypes.REFRESH:
             openError(message, errorCode, () => {
-                location.reload();
+                window.location.reload();
             });
             break;
         case errorActionTypes.INFODO:

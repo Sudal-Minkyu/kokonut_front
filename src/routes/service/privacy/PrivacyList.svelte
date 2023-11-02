@@ -41,6 +41,13 @@
         let url = "/v2/api/Provision/provisionList";
         ajaxGet(url, searchCondition, (res) => {
             try {
+                excelProvisionListDownloadPopService.requestData = {
+                    searchText: searchCondition.searchText,
+                    stime: searchCondition.stime,
+                    filterOfferType: searchCondition.filterOfferType,
+                    filterState: searchCondition.filterState
+                };
+
                 provision_list = res.data.datalist;
                 total = res.data.total_rows;
                 provisionLayout = 1;
@@ -111,6 +118,24 @@
         },
     }
 
+    const excelProvisionListDownloadPopService = {
+        visibility: false,
+        useBodyParam: false,
+        requestURL: '/v2/api/Provision/provisionListDownloadExcel',
+        requestData: {
+            searchText: '',
+            stime: '',
+            filterOfferType: '',
+            filterState: '',
+        },
+        close: () => {
+            excelProvisionListDownloadPopService.visibility = false;
+        },
+        open: () => {
+            excelProvisionListDownloadPopService.visibility = true;
+        },
+    }
+
     // 제공종료
     function provisionExit(proCode) {
 
@@ -162,9 +187,9 @@
         </div>
 
         <div class="seaWrap">
-<!--            <div class="kotopBtn">-->
-<!--                <button id="excel_download_pop" on:click={excelDownloadPopService.open}>현재목록 엑셀 다운로드</button>-->
-<!--            </div>-->
+            <div class="kotopBtn">
+                <button id="excel_download_pop" on:click={excelProvisionListDownloadPopService.open}>개인정보제공 리스트 엑셀 다운로드</button>
+            </div>
             <div class="koinput marB32">
                 <input type="text" bind:value="{searchCondition.searchText}" on:keypress={enterPress} class="wid360" placeholder="제공자 검색" />
                 <button on:click={() => provisionList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
@@ -195,5 +220,9 @@
 {/if}
 
 {#if excelDownloadPopService.visibility}
-    <ExcelDownloadPop {excelDownloadPopService} />
+    <ExcelDownloadPop {excelDownloadPopService} popType={3} />
+{/if}
+
+{#if excelProvisionListDownloadPopService.visibility}
+    <ExcelDownloadPop excelDownloadPopService = {excelProvisionListDownloadPopService} popType={5} />
 {/if}

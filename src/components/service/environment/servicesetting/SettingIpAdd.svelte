@@ -83,7 +83,7 @@
 
         ajaxParam('/v2/api/CompanySetting/accessIpSave', addData, (res) => {
             try {
-                openBanner('접속 허용 IP를 추가하였습니다.');
+                openBanner('접속 허용 IP가 추가되었습니다.');
                 getServiceSettingDataAndInitializing();
             } catch (e) {
                 reportCatch('temp131', e);
@@ -129,7 +129,7 @@
                             </div>
                         </div>
                     </div>
-                    <ErrorHighlight message={$serviceSettingData.addAccessIpPop.ipInputErrorMsg}/>
+                    <ErrorHighlight bind:message={$serviceSettingData.addAccessIpPop.ipInputErrorMsg}/>
                     <div class="koko_check">
                         <input type="checkbox" value="1" name="IPcheck" id="IPcheck" on:change={setCurrentAccessIp}>
                         <label for="IPcheck">

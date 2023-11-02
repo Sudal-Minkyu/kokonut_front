@@ -2,18 +2,29 @@
 <script>
     import { fade } from 'svelte/transition'
     import {pageTransitionData, providePrivacyWriteData} from "../../../lib/store.js";
-    import { onMount } from "svelte";
+    import {onDestroy, onMount} from "svelte";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
-    import {push} from "svelte-spa-router";
+    import {location as spaLocation, push} from "svelte-spa-router";
     import {openConfirm} from "../../common/ui/DialogManager.js";
     import {ajaxGet, reportCatch} from "../../common/ajax.js";
 
     export let stateChange;
+    export let didNavBtnClicked;
+    export let privacyStage;
+    export let navForwardFn;
+
     let isMasterCheckBoxChecked = false;
 
     onMount(async => {
+        if (didNavBtnClicked) {
+            didNavBtnClicked = false;
+        } else {
+            history.pushState({privacyStage}, '', '/#' + $spaLocation);
+        }
+        navForwardFn = handleNext;
         getProvideTargetAdminList();
     });
+
 
     $: subTitle = createSubtitleText($providePrivacyWriteData.step1.proProvide, $providePrivacyWriteData.step2.selectedAdminIdList);
 
@@ -175,7 +186,7 @@
         }
         if (confirmProps.title) {
             openConfirm(confirmProps);
-            return;
+            return true;
         }
 
         stateChange(3);

@@ -77,8 +77,8 @@
         askContinueSubscribe: () => {
             askSubscribeService.texts = {
                 title: '구독 다시하기',
-                content: '서비스의 이용을 위해서는 구독 다시하기가 필요합니다.',
-                notification: '다시 요금이 청구됩니다. 수정필요',
+                content: '구독 취소 전에 보호받던 데이터 그대로 다시 이용하실 수 있습니다.',
+                notification: '요금은 취소한 기간을 제외하고 일할 계산되어 청구됩니다.',
                 agreement: '안내사항을 확인하였으며, 구독을 재개하는 것에 대해 동의합니다.',
             };
             askSubscribeService.handleNext = $userInfoData.paymentDeleteCancel === "1" ? askSubscribeService.continueSubscribeWhenCardInfoExist : askSubscribeService.continueSubscribeWhenCardInfoDeleted;

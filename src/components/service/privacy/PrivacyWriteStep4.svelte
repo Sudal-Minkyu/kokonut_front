@@ -3,12 +3,22 @@
     import { fade } from 'svelte/transition'
     import { providePrivacyWriteData} from "../../../lib/store.js";
     export let stateChange;
+    export let didNavBtnClicked;
+    export let privacyStage;
+    export let navForwardFn;
+
     import PrivacyWriteStep4PersonalInfoList from "./PrivacyWriteStep4PersonalInfoList.svelte";
     import {onMount} from "svelte";
     import {openConfirm} from "../../common/ui/DialogManager.js";
+    import {location as spaLocation} from "svelte-spa-router";
 
     onMount(async => {
-
+        if (didNavBtnClicked) {
+            didNavBtnClicked = false;
+        } else {
+            history.pushState({privacyStage}, '', '/#' + $spaLocation);
+        }
+        navForwardFn = handleNext;
     });
 
 const handleNext = () => {
@@ -28,7 +38,7 @@ const handleNext = () => {
         }
         if (confirmProps.title) {
             openConfirm(confirmProps);
-            return;
+            return true;
         }
 
         stateChange(5);

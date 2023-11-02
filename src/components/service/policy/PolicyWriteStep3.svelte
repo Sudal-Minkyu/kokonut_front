@@ -6,9 +6,14 @@
     import {ajaxBody, reportCatch} from "../../common/ajax.js";
     import {checkFalsyValuesExceptIgnoredKeys} from "../../../lib/common.js";
     import {legalPrivacyRetention} from "../../common/enum/legalPrivacyRetention.js";
+    import {location as spaLocation} from "svelte-spa-router";
 
     export let stateChange;
     export let policyWriting;
+    export let didNavBtnClicked;
+    export let navBackwardFn;
+    export let navForwardFn;
+    export let stage;
 
     const beforeRemoveIdList = [];
     const createBeforeItem = () => {
@@ -112,6 +117,14 @@
     }
 
     onMount(async () => {
+        if (didNavBtnClicked) {
+            didNavBtnClicked = false;
+        } else {
+            history.pushState({stage}, '', '/#' + $spaLocation);
+        }
+        navBackwardFn = thirdDepthSave;
+        navForwardFn = thirdDepthSave;
+
         policyInfoData.update(obj => {
             if (!obj.beforeDataList.length) {
                 obj.beforeDataList = [{
@@ -131,10 +144,10 @@
     const thirdDepthSave = (goToState) => {
         if (!$policyInfoData.beforeDataList.length) {
             beforeDataListErrorMsg = '서비스 가입 시 수집하는 개인정보는 최소 1개 이상 작성하여 주세요.';
-            return;
+            return true;
         } else if (checkFalsyValuesExceptIgnoredKeys($policyInfoData.beforeDataList)) {
             beforeDataListErrorMsg = '서비스 가입 시 수집하는 개인정보를 채워주세요.'
-            return;
+            return true;
         }
         let url = "/v2/api/Policy/privacyPolicyThirdSave";
 
@@ -153,12 +166,12 @@
             piChoseCustomDeleteIdList: piChoseCustomItemRemoveIdList,
         }
 
-        console.log('보내는 데이터', sendData);
         ajaxBody(url, sendData, (res) => {
             try {
                 policyWriting(goToState);
             } catch (e) {
                 reportCatch('t23082304', e);
+                return true;
             }
         });
     }
@@ -241,7 +254,7 @@
             <div class="pr_fieldBtnInner">
                 <button on:click={createBeforeItem} class="add_pr_field3 pr_fieldBtn"></button>
             </div>
-            <ErrorHighlight message={beforeDataListErrorMsg} />
+            <ErrorHighlight bind:message={beforeDataListErrorMsg} />
             <div class="prdot_text marT16">기기 정보를 수집하는 경우에는 일방향 암호화(Hash)를 통해 기기를 식별할 수 없는 방법으로 변환하여 보관합니다.</div>
         </div>
         <div class="prtextaddbox marB40">
@@ -419,9 +432,9 @@
                                     <label for="pbcl{i}"><em></em></label>
                                 </div>
                             </td>
-                            <td class="praLeft"><input class="nonePad wid100per" type="text" bind:value={pisaTitle} placeholder="예) 조제기록부"></td>
-                            <td class="praLeft"><input class="nonePad wid100per" type="text" bind:value={pisaContents} placeholder="예) 약사법 제30조"></td>
-                            <td class="praLeft"><input class="nonePad wid100per" type="text" bind:value={pistPeriod} placeholder="예) 5년"></td>
+                            <td class="praLeft"><input class="legalInput nonePad wid100per" type="text" bind:value={pisaTitle} placeholder="예) 조제기록부"></td>
+                            <td class="praLeft"><input class="legalInput nonePad wid100per" type="text" bind:value={pisaContents} placeholder="예) 약사법 제30조"></td>
+                            <td class="praLeft"><input class="legalInput nonePad wid100per" type="text" bind:value={pistPeriod} placeholder="예) 5년"></td>
                             <td><a on:click={()=>{removePiChoseCustomItem(i)}} class="pr_delete"></a></td>
                         </tr>
                     {/each}
