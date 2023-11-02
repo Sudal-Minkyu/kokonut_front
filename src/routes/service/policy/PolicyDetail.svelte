@@ -12,6 +12,8 @@
     import {openBanner, openConfirm} from "../../../components/common/ui/DialogManager.js";
     import {legalPrivacyRetention} from "../../../components/common/enum/legalPrivacyRetention.js";
 
+    export let params;
+
     let section2Count = 1;
     let state = 0;
     let pageErrMsg1;
@@ -22,8 +24,7 @@
 
     onMount( () => {
         setTimeout(() => policyDetailLayout = 1, 500);
-
-        piId = window.location.href.split('/').pop();
+        piId = params.piId
         policyDetail(piId);
     });
 
@@ -67,7 +68,6 @@
 
         ajaxGet(url, false, (res) => {
             try {
-                console.log("받은데이터", res.data);
                 policyInfoData.policyData = res.data.sendData.policyData;
 
                 policyInfoData.purposeDataList = res.data.sendData.purposeDataList;
@@ -98,7 +98,6 @@
                     policyInfoData.piChoseListString = [];
                     policyInfoData.piChoseCustomList = [];
                 }
-                console.log("데이터확인", policyInfoData);
 
                 policyDetailLayout = 1;
             } catch (e) {

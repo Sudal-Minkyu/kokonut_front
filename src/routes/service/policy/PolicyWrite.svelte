@@ -1,7 +1,7 @@
 <script>
     import Header from "../../../components/service/layout/Header.svelte"
 
-    import { push } from 'svelte-spa-router'
+    import {location as spaLocation, push} from 'svelte-spa-router'
     import {onDestroy, onMount} from "svelte";
 
     import PolicyWritingCheck from '../../../components/service/policy/PolicyWritingCheck.svelte'
@@ -16,10 +16,47 @@
 
     import {backBtn, policyInfoData, piId, piStage, initialPolicyInfo} from '../../../lib/store.js'
 
-    import {openAsk} from "../../../components/common/ui/DialogManager.js";
+    import {openAsk, openConfirm} from "../../../components/common/ui/DialogManager.js";
     import {logout} from "../../../components/common/authActions.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
     import {ajaxGet, ajaxParam, reportCatch} from "../../../components/common/ajax.js";
+
+    let didNavBtnClicked = true;
+    let navBackwardFn = () => {};
+    let navForwardFn = () => {};
+
+    const handleNavigation = (e) => {
+        if (e.state && e.state.stage < stage) {
+            didNavBtnClicked = true;
+            if (navBackwardFn(stage)) {
+                window.history.forward();
+                didNavBtnClicked = false;
+            }
+        } else if (e.state && e.state.stage > stage) {
+            didNavBtnClicked = true;
+            if (navForwardFn(stage)) {
+                window.history.back();
+                didNavBtnClicked = false;
+            }
+        }
+    }
+
+    const initializeHistoryState = () => {
+        if (history.state && history.state.stage) {
+            openConfirm({
+                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: "만료된 페이지", // 제목
+                contents1: '해당 처리방침 제작 페이지는 만료되었습니다.',
+                contents2: '개인정보처리방침 제작을 눌러 이용해 주세요.',
+                btnCheck: '확인', // 확인 버튼의 텍스트
+                callback: () => {
+                    push('/service/policyList');
+                },
+            });
+        } else {
+            policyCheck();
+        }
+    }
 
     // 툴팁기능 (클릭시 펼쳐지는 물음표) 동작을 위함
     const tooltipEvent = (e) => {
@@ -41,12 +78,14 @@
     }
 
     onMount(() => {
-        policyCheck();
         document.addEventListener('click', tooltipEvent);
+        window.addEventListener('popstate', handleNavigation);
+        initializeHistoryState();
     });
 
     onDestroy(() => {
         document.removeEventListener('click', tooltipEvent);
+        window.removeEventListener('popstate', handleNavigation);
     });
 
 let writingCheck = false;
@@ -63,6 +102,7 @@ let writingCheck = false;
                     writingCheck = true;
                     piId.set(res.data.sendData.piId)
                     piStage.set(res.data.sendData.piStage);
+                    history.replaceState({stage}, '', '/#' + $spaLocation);
                 } else {
                     setTimeout(() => stage = 1, 500);
                 }
@@ -82,13 +122,6 @@ let writingCheck = false;
     }
 
     let stage = $piStage;
-
-    // let popType = 2; // 1: 버튼하나, 2: 여부를 묻는 버튼 두개
-    // let imgState = 4; // 1 : 성공, 2 : 경고, 3: 실패, 4: 물음표
-    // let popTitle = "제작을 중단하시겠습니까?"; // 제목 텍스트
-    // let popContents1 = "중단하게 되면 작성중인 글은 삭제됩니다.";  // 내용1 텍스트
-    // let popStart = "예"; // 예 텍스트
-    // let popCancel = "아니오"; // 아니오 텍스트
 
     function stopWrite() {
         if(stage === 1 && $piId === 0) {
@@ -155,7 +188,6 @@ let writingCheck = false;
                         obj.policyData2.piChoseListString = [];
                         obj.policyData2.piChoseCustomList = [];
                     }
-                    console.log('불러온 값', obj);
                     return obj;
                 });
             } catch (e) {
@@ -179,25 +211,25 @@ let writingCheck = false;
         <div class="spcontWrap">
             <div class="pageTitleBtn marB50">
                 <a style="cursor: pointer" on:click={stopWrite}>{$backBtn}</a><h1>개인정보처리방침 제작</h1>
-                <dl>💡 해당 페이지는 최고관리자만 이용할 수 있습니다.</dl>
+<!--                <dl>💡 해당 페이지는 최고관리자만 이용할 수 있습니다.</dl>-->
             </div>
         </div>
 
         <LoadingOverlay bind:loadState={stage} top={300}>
             {#if stage === 1}
-            <PolicyWriteStep1 {stateChange} {policyWriting} />
+            <PolicyWriteStep1 {stage} {stateChange} {policyWriting} bind:didNavBtnClicked bind:navBackwardFn bind:navForwardFn />
             {:else if stage === 2}
-            <PolicyWriteStep2 {stateChange} {policyWriting} />
+            <PolicyWriteStep2 {stage} {policyWriting} bind:didNavBtnClicked bind:navBackwardFn bind:navForwardFn />
             {:else if stage === 3}
-            <PolicyWriteStep3 {stateChange} {policyWriting} />
+            <PolicyWriteStep3 {stage} {stateChange} {policyWriting} bind:didNavBtnClicked bind:navBackwardFn bind:navForwardFn />
             {:else if stage === 4}
-            <PolicyWriteStep4 {stateChange} {policyWriting} />
+            <PolicyWriteStep4 {stage} {stateChange} {policyWriting} bind:didNavBtnClicked bind:navBackwardFn bind:navForwardFn />
             {:else if stage === 5}
-            <PolicyWriteStep5 {stateChange} {policyWriting} />
+            <PolicyWriteStep5 {stage} {stateChange} {policyWriting} bind:didNavBtnClicked bind:navBackwardFn bind:navForwardFn />
             {:else if stage === 6}
-            <PolicyWriteStep6 {stateChange} {policyWriting} />
+            <PolicyWriteStep6 {stage} {stateChange} {policyWriting} bind:didNavBtnClicked bind:navBackwardFn bind:navForwardFn />
             {:else if stage === 7}
-            <PolicyWriteStep7 {stateChange} />
+            <PolicyWriteStep7 {stage} {stateChange} bind:didNavBtnClicked bind:navBackwardFn bind:navForwardFn />
             {/if}
         </LoadingOverlay>
     </div>

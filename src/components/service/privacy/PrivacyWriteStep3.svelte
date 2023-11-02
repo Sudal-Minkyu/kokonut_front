@@ -2,13 +2,23 @@
 <script>
     import { fade } from 'svelte/transition'
     import {providePrivacyWriteData} from "../../../lib/store.js";
-    import {onMount} from "svelte";
+    import {onDestroy, onMount} from "svelte";
     import {setCustomSelectBox, setDateRangePicker, setOptionItem} from "../../../lib/libSearch.js";
     import {openConfirm} from "../../common/ui/DialogManager.js";
+    import {location as spaLocation} from "svelte-spa-router";
 
     export let stateChange;
+    export let didNavBtnClicked;
+    export let privacyStage;
+    export let navForwardFn;
 
     onMount(async ()=>{
+        if (didNavBtnClicked) {
+            didNavBtnClicked = false;
+        } else {
+            history.pushState({privacyStage}, '', '/#' + $spaLocation);
+        }
+        navForwardFn = handleNext;
         fatchSearchModule();
     });
 
@@ -36,7 +46,7 @@
         }
         if (confirmProps.title) {
             openConfirm(confirmProps);
-            return;
+            return true;
         }
 
         providePrivacyWriteData.update(obj => {
@@ -66,27 +76,27 @@
 
                     <div class="seaRadio">
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="radioToday" value="-1" checked/>
+                            <input type="radio" class="radio" name="period" id="radioToday" value="-1" bind:group={$providePrivacyWriteData.step3.selectedRadio} checked/>
                             <label for="radioToday"><em><dt></dt></em>오늘</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="radioWeek" value="-7" />
+                            <input type="radio" class="radio" name="period" id="radioWeek" value="-7" bind:group={$providePrivacyWriteData.step3.selectedRadio} />
                             <label for="radioWeek"><em><dt></dt></em>1주일</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="radioMonth" value="-30" />
+                            <input type="radio" class="radio" name="period" id="radioMonth" value="-30" bind:group={$providePrivacyWriteData.step3.selectedRadio} />
                             <label for="radioMonth"><em><dt></dt></em>1개월</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="radio3Month" value="-90" />
+                            <input type="radio" class="radio" name="period" id="radio3Month" value="-90" bind:group={$providePrivacyWriteData.step3.selectedRadio} />
                             <label for="radio3Month"><em><dt></dt></em>3개월</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="radio6Month" value="-180" />
+                            <input type="radio" class="radio" name="period" id="radio6Month" value="-180" bind:group={$providePrivacyWriteData.step3.selectedRadio} />
                             <label for="radio6Month"><em><dt></dt></em>6개월</label>
                         </div>
                         <div class="check radioCheck">
-                            <input type="radio" class="radio" name="period" id="사용자 지정" value="-0"/>
+                            <input type="radio" class="radio" name="period" id="사용자 지정" value="-0" bind:group={$providePrivacyWriteData.step3.selectedRadio} />
                             <label for="사용자 지정"><em><dt></dt></em>사용자 지정</label>
                         </div>
                     </div>

@@ -2,12 +2,11 @@
 <script>
     import Header from "../../../components/service/layout/Header.svelte"
 
-    import { link } from 'svelte-spa-router'
-
+    import {link, push} from 'svelte-spa-router'
+    import {location as spaLocation} from "svelte-spa-router";
+    import {openConfirm} from "../../../components/common/ui/DialogManager.js";
     import {
         backBtn,
-        is_login,
-        accessToken,
         providePrivacyWriteData,
         initialProvidePrivacyWrite
     } from '../../../lib/store.js'
@@ -17,21 +16,61 @@
     import PrivacyWriteStep3 from "../../../components/service/privacy/PrivacyWriteStep3.svelte";
     import PrivacyWriteStep4 from "../../../components/service/privacy/PrivacyWriteStep4.svelte";
     import PrivacyWriteStep5 from "../../../components/service/privacy/PrivacyWriteStep5.svelte";
-    import {onMount} from "svelte";
+    import {onDestroy, onMount} from "svelte";
     import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
+    let didNavBtnClicked = true;
+    let navForwardFn = () => {};
+
     onMount(async () => {
-        setTimeout(() => priavacyStage = 1, 500);
+        window.addEventListener('popstate', handleNavigation);
+        setTimeout(() => privacyStage = 1, 500);
         providePrivacyWriteData.set(JSON.parse(initialProvidePrivacyWrite));
         getColumnList();
+        initializeHistoryState();
     });
 
-    function stateChange(val) {
-        priavacyStage = val;
+    onDestroy(() => {
+        window.removeEventListener('popstate', handleNavigation);
+    });
+
+    const initializeHistoryState = () => {
+        if (history.state && history.state.privacyStage) {
+            openConfirm({
+                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: "만료된 페이지", // 제목
+                contents1: '해당 개인정보 제공 작성 페이지는 만료되었습니다.',
+                contents2: '개인정보 제공을 눌러 해당 기능을 이용해 주세요.',
+                btnCheck: '확인', // 확인 버튼의 텍스트
+                callback: () => {
+                    push('/service/privacy/privacyList');
+                },
+            });
+        } else {
+            history.replaceState({privacyStage: 1}, '', '/#' + $spaLocation);
+        }
     }
 
-    let priavacyStage = 0;
+    const handleNavigation = (e) => {
+        if (e.state && e.state.privacyStage < privacyStage) {
+            didNavBtnClicked = true;
+            stateChange(e.state.privacyStage);
+            // history.replaceState('', '', '');
+        } else if (e.state && e.state.privacyStage > privacyStage) {
+            didNavBtnClicked = true;
+            if(navForwardFn()) {
+                window.history.back();
+                didNavBtnClicked = false;
+            }
+        }
+    }
+
+    function stateChange(val) {
+        privacyStage = val;
+    }
+
+    let privacyStage = 0;
 
 const getColumnList = () => {
         ajaxGet('/v2/api/DynamicUser/privateTableColumnCall', false, (json_success) => {
@@ -59,17 +98,17 @@ const getColumnList = () => {
                 </dl>
             </div>
 
-            <LoadingOverlay bind:loadState={priavacyStage} top={40} >
-                {#if priavacyStage === 1}
-                <PrivacyWriteStep1 {stateChange} />
-                {:else if priavacyStage === 2}
-                <PrivacyWriteStep2 {stateChange} />
-                {:else if priavacyStage === 3}
-                <PrivacyWriteStep3 {stateChange} />
-                {:else if priavacyStage === 4}
-                <PrivacyWriteStep4 {stateChange} />
-                {:else if priavacyStage === 5}
-                <PrivacyWriteStep5 {stateChange} />
+            <LoadingOverlay bind:loadState={privacyStage} top={40} >
+                {#if privacyStage === 1}
+                <PrivacyWriteStep1 {privacyStage} {stateChange} bind:didNavBtnClicked={didNavBtnClicked} bind:navForwardFn={navForwardFn} />
+                {:else if privacyStage === 2}
+                <PrivacyWriteStep2 {privacyStage} {stateChange} bind:didNavBtnClicked={didNavBtnClicked} bind:navForwardFn={navForwardFn} />
+                {:else if privacyStage === 3}
+                <PrivacyWriteStep3 {privacyStage} {stateChange} bind:didNavBtnClicked={didNavBtnClicked} bind:navForwardFn={navForwardFn} />
+                {:else if privacyStage === 4}
+                <PrivacyWriteStep4 {privacyStage} {stateChange} bind:didNavBtnClicked={didNavBtnClicked} bind:navForwardFn={navForwardFn} />
+                {:else if privacyStage === 5}
+                <PrivacyWriteStep5 {privacyStage} {stateChange} bind:didNavBtnClicked={didNavBtnClicked} bind:navForwardFn={navForwardFn} />
                 {/if}
             </LoadingOverlay>
         </div>

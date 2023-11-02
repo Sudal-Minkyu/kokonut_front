@@ -7,9 +7,22 @@
     import PrivacyWriteStep5FilterPop from "./PrivacyWriteStep5FilterPop.svelte";
     import {openBanner, openConfirm, openAsk} from "../../common/ui/DialogManager.js";
     import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
-    import {push} from "svelte-spa-router";
+    import {location as spaLocation, push} from "svelte-spa-router";
 
     export let stateChange;
+    export let didNavBtnClicked;
+    export let privacyStage;
+    export let navForwardFn;
+
+    onMount(() => {
+        if (didNavBtnClicked) {
+            didNavBtnClicked = false;
+        } else {
+            history.pushState({privacyStage}, '', '/#' + $spaLocation);
+        }
+        navForwardFn = () => {};
+        getAllCustomerList();
+    });
 
     // 전체 체크박스 꺼지고 켜짐 상태 동기화
     $: isMasterCheckBoxChecked = $providePrivacyWriteData.step5.filteredMemberList.length
@@ -34,7 +47,7 @@
         }
         if (confirmProps.title) {
             openConfirm(confirmProps);
-            return;
+            return true;
         } else {
             openAsk({
                 icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
@@ -74,11 +87,6 @@
             }
         });
     }
-
-
-    onMount(async => {
-        getAllCustomerList();
-    });
 
     const getAllCustomerList = () => {
         ajaxGet('/v2/api/DynamicUser/tableBasicList', false, (json_success) => {

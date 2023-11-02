@@ -3,6 +3,7 @@
 
     import { ipCheck, onlyNumber} from '../../../../lib/common'
     import {ajaxParam, reportCatch} from "../../../common/ajax.js";
+    import {openBanner} from "../../../common/ui/DialogManager.js";
 
     export let apiKeyInfo;
     export let ipChange;
@@ -48,6 +49,7 @@
                 try {
                     apiKeyInfo();
                     ipChange(0);
+                    openBanner("접속 허용 IP가 추가되었습니다.");
                 } catch (e) {
                     reportCatch('temp121', e);
                 }
@@ -142,10 +144,10 @@
                     <input type="text" bind:value={ipMemo} placeholder="메모를 적어주세요."/>
                 </div>
                 <div class="kokopopBtnBox">
+                    <div class="koko_cancel" on:click={() => ipChange(0)}>취소</div>
                     <div class="koko_go">
                         <button type="button" on:click={accessIpAdd}>추가</button>
                     </div>
-                    <div class="koko_cancel" on:click={() => ipChange(0)}>취소</div>
                 </div>
             </form>
         </div>

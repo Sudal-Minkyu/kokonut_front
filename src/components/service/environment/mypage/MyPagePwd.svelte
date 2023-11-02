@@ -236,10 +236,10 @@
                 </div>
             </form>
             <div class="kokopopBtnBox">
+                <div class="koko_cancel" on:click={closePop}>{regularChangeRoutine ? '다음에 변경' : '취소'}</div>
                 <div class="koko_go">
                     <button type="button" on:click={pwdChageBefore}>변경</button>
                 </div>
-                <div class="koko_cancel" on:click={closePop}>{regularChangeRoutine ? '다음에 변경' : '취소'}</div>
             </div>
         </div>
         <div class="koko-popup-close password_pop_close" data-popup-close="password_pop_close" on:click={closePop}></div>

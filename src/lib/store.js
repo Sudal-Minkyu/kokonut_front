@@ -170,6 +170,7 @@ export const initialProvidePrivacyWrite = JSON.stringify({
         proStartDate: '',
         proExpDate: '',
         proDownloadYn: 1, // 다운로드 유무 - 0: NO, 1:YES
+        selectedRadio: '-1', // 선택된 다운로드 기간 라디오 버튼(프론트에서만 활용)
     },
     step4: {
         proTargetType: 1, // 제공 개인정보 여부 - 0: 전체 개인정보, 1: 일부 개인정보
@@ -316,3 +317,8 @@ export const initialEmailSend = JSON.stringify({
 });
 
 export const emailSendData = writable(JSON.parse(initialEmailSend));
+
+export const debouncedTopScrollData = writable({
+    timeout: null,
+    scrollTo: null,
+});

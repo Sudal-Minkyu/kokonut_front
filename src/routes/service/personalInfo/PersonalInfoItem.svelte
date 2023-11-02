@@ -94,7 +94,7 @@
                 ajaxParam('/v2/api/Company/saveItem', $personalInfoCategoryData.createItemPop.inputData, (res) => {
                     try {
                         personalInfoCategoryService.getAdditionalItemList();
-                        openBanner("선택한 항목을 추가하였습니다.");
+                        openBanner("항목이 추가되었습니다.");
                         personalInfoCategoryService.createItemPop.initInputData();
                         personalInfoCategoryService.createItemPop.hide();
                     } catch (e) {
@@ -545,7 +545,7 @@
         <LoadingOverlay bind:loadState={personalInfoItemProp.loadState} top={150}>
             <div class="prDivideBox" in:fade>
                 <PersonalInfoCategory {personalInfoCategoryService} />
-                <PersonalInfoTable {personalInfoItemProp} {personalInfoTableService} />
+                <PersonalInfoTable {personalInfoTableService} />
             </div>
         </LoadingOverlay>
     </div>

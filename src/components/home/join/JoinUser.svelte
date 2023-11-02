@@ -393,13 +393,13 @@
             <input type="checkbox" id="check2" style="margin-right: 10px;" bind:checked={isSecondAgree}>
             <label for="check2"></label>
             <span style="font-size: 2rem; font-family: 'Pretendard', sans-serif; color: #9A9A9A" >[필수]&nbsp이용약관 동의<a style="cursor: pointer;text-decoration: underline;margin-left: 10px" on:click={() => {handleOpenAgreement(2)}}>전문보기</a></span>
-            <ErrorHighlight message={secondAgreeCautionMsg} />
+            <ErrorHighlight bind:message={secondAgreeCautionMsg} />
             <br/>
             <br/>
             <input type="checkbox" id="check1" style="margin-right: 10px" bind:checked={isFirstAgree}>
             <label for="check1"></label>
             <span style="font-size: 2rem; font-family: 'Pretendard', sans-serif; color: #9A9A9A" >[필수]&nbsp개인정보 처리방침 동의<a style="cursor: pointer;text-decoration: underline;margin-left: 10px" on:click={() => {handleOpenAgreement(1)}}>전문보기</a></span>
-            <ErrorHighlight message={firstAgreeCautionMsg} />
+            <ErrorHighlight bind:message={firstAgreeCautionMsg} />
         </div>
 
 </div>

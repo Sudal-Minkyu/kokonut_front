@@ -103,7 +103,7 @@
                             </div>
                         </div>
                     </div>
-                    <ErrorHighlight message={tsBizmReceiverNumCodeErrMsg} />
+                    <ErrorHighlight bind:message={tsBizmReceiverNumCodeErrMsg} />
                 </div>
                 <div class="kopopinput marB24">
                     <label>카카오 앱 아이디</label>
@@ -120,7 +120,7 @@
                             </div>
                         </div>
                     </div>
-                    <ErrorHighlight message={tsBizmAppUserIdCodeErrMsg} />
+                    <ErrorHighlight bind:message={tsBizmAppUserIdCodeErrMsg} />
                 </div>
 <!--                <div class="kopopinput marB24">-->
 <!--                    <label>카카오앱아이디 항목 지정</label>-->
@@ -133,7 +133,7 @@
                         <p class="check">코코넛에 보관되어있는 개인정보를 “해피톡"에 전달하는 것에 동의합니다.<!--<b>자세히보기</b>--></p>
                     </label>
                 </div>
-                <ErrorHighlight message={confirmCheckErrMsg} />
+                <ErrorHighlight bind:message={confirmCheckErrMsg} />
                 <div class="kokopopBtnBox">
                     <div class="koko_cancel change_pop_close" on:click={handleCancel} >취소</div>
                     <div class="koko_go"><button type="button" on:click={handleSave} >저장</button></div>
