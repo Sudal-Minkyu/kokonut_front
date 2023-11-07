@@ -49,7 +49,7 @@ $: privacy_history_list.map(obj => {
 <div class="kotable searchList">
 
     <table>
-        <caption>개인정보 처리이력 리스트</caption>
+        <caption>개인정보 처리 이력 리스트</caption>
         <colgroup>
             <col style="width:5%;">
             <col style="width:7%;">

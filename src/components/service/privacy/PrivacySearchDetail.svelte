@@ -15,7 +15,7 @@
     <div class="pageTitleBtn seaTitle seaWrap marB50">
         <a style="cursor: pointer" on:click={handleToPreviousPage}>{$backBtn}</a>
         <dl>개인정보 열람</dl>
-        <div class="kotopBtn"><button type="button" on:click={excelDownloadPopService.open}>개인정보 엑셀 다운로드</button></div>
+        <div class="kotopBtn"><button type="button" on:click={excelDownloadPopService.open}>현재 개인정보 다운로드</button></div>
     </div>
 
     <div in:fade>

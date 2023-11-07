@@ -149,11 +149,11 @@
 
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="관리자 활동이력 다운로드" value="AC_07_2"/>
-                                <label for="관리자 활동이력 다운로드">관리자 활동이력 다운로드</label>
+                                <label for="관리자 활동이력 다운로드">관리자 활동 이력 다운로드</label>
                             </div>
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="개인정보제공이력 다운로드" value="AC_47_3"/>
-                                <label for="개인정보제공이력 다운로드">개인정보제공이력 다운로드</label>
+                                <label for="개인정보제공이력 다운로드">개인정보 제공 목록 다운로드</label>
                             </div>
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="추가 카테고리 항목 추가" value="AC_42"/>
@@ -164,8 +164,8 @@
                                 <label for="개인정보제공 등록">개인정보제공 등록</label>
                             </div>
                             <div class="actCheck">
-                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 처리이력 다운로드" value="AC_10"/>
-                                <label for="개인정보 처리이력 다운로드">개인정보 처리이력 다운로드</label>
+                                <input type="checkbox" name="activity" class="act_sel" id="개인정보 처리 이력 다운로드" value="AC_10"/>
+                                <label for="개인정보 처리 이력 다운로드">개인정보 처리 이력 다운로드</label>
                             </div>
                             <div class="actCheck">
                                 <input type="checkbox" name="activity" class="act_sel" id="API KEY 재발급" value="AC_25"/>

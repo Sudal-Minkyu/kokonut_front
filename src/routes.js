@@ -138,7 +138,7 @@ export default {
     // 개인정보 제공페이지
     "/service/privacy/PrivacyWrite": PrivacyWrite,
 
-    // 개인정보 처리이력 페이지
+    // 개인정보 처리 이력 페이지
     "/service/privacy/PrivacyHistory": PrivacyHistory,
     // 개인정보 검색 페이지
     "/service/privacy/PrivacySearch": PrivacySearch,

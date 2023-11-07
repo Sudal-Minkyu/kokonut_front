@@ -9,6 +9,14 @@
 
     export let popType; // 0 개인정보 열람, 1 개인정보 처리 이력, 2 관리자 활동 이력, 3 개인정보 제공, 4 개인정보 제공 등록된 리스트, 5 개인정보 제공이력 리스트
 
+    const title = [
+        "현재 개인정보 다운로드",
+        "개인정보 처리 이력 다운로드",
+        "관리자 활동 이력 다운로드",
+        "제공받은 개인정보 다운로드",
+        "개인정보 제공 목록 다운로드",
+    ]
+
     // 메뉴에 따라 다른 메시지를 보여줄 것을 대비하여 만들어둠. popType의 순서대로 내용에 표출될 예정
     const warnContents = [
         "<dl>"+$userInfoData.knEmail+"님께서 다운받으신 개인정보 파일은<br>개인정보 보호법 및 관련 법령에 따라 보호되는 정보입니다.</dl>" +
@@ -110,7 +118,7 @@
     <div class="koko_popup_inner">
         <div class="koko_popup_container">
             <div class="koko_popup_title">
-                <h3 class="">엑셀 다운로드</h3>
+                <h3 class="">{title[popType]}</h3>
             </div>
             <form>
                 <div class="kopopinput marB24">

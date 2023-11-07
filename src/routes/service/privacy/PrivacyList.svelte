@@ -178,7 +178,7 @@
     <div class="contentInnerWrap">
 
         <div class="pageTitleBtn marB50">
-            <h1>개인정보 제공리스트</h1>
+            <h1>개인정보 제공 리스트</h1>
             <div class="TitleBtn">
                 <a use:link href="/service/privacy/privacyWrite">
                     <button id="adm_registration_pop">개인정보 제공</button>
@@ -188,7 +188,7 @@
 
         <div class="seaWrap">
             <div class="kotopBtn">
-                <button id="excel_download_pop" on:click={excelProvisionListDownloadPopService.open}>개인정보제공 리스트 엑셀 다운로드</button>
+                <button id="excel_download_pop" on:click={excelProvisionListDownloadPopService.open}>개인정보 제공 목록 다운로드</button>
             </div>
             <div class="koinput marB32">
                 <input type="text" bind:value="{searchCondition.searchText}" on:keypress={enterPress} class="wid360" placeholder="제공자 검색" />
@@ -224,5 +224,5 @@
 {/if}
 
 {#if excelProvisionListDownloadPopService.visibility}
-    <ExcelDownloadPop excelDownloadPopService = {excelProvisionListDownloadPopService} popType={5} />
+    <ExcelDownloadPop excelDownloadPopService = {excelProvisionListDownloadPopService} popType={4} />
 {/if}

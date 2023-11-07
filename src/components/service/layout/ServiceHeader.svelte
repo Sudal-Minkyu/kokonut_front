@@ -11,9 +11,6 @@
 
     let autoLogoutInterval;
     onMount(() => {
-        document.addEventListener('click', handleTimeoutReset);
-        document.addEventListener('mousemove', handleTimeoutReset);
-        document.addEventListener('keydown', handleTimeoutReset);
         autoLogoutInterval = setInterval(() => {
             timeLeftClock = getRemainingTime();
             if (new Date(localStorage.getItem('expireDate').replaceAll('"', '')) < new Date()) {
@@ -31,28 +28,8 @@
     });
 
     onDestroy(() => {
-        document.removeEventListener('click', handleTimeoutReset);
-        document.removeEventListener('mousemove', handleTimeoutReset);
-        document.removeEventListener('keydown', handleTimeoutReset);
         clearInterval(autoLogoutInterval);
     });
-
-    let debouncingTime;
-    const handleTimeoutReset = () => {
-        clearTimeout(debouncingTime);
-        debouncingTime = setTimeout(() => {
-            if ($is_login) {
-                expireDate.set(getFutureDate(Number($userInfoData.csAutoLogoutSetting)).toISOString());
-            }
-        }, 1000); // 1000ms 동안 추가 이벤트가 없을 때 처리
-    }
-
-    // 현재 시각의 분에 인자로 받은 분을 더해 새로운 분으로 설정한 객체 반환
-    function getFutureDate(minutesFromNow) {
-        let futureDate = new Date();
-        futureDate.setMinutes(futureDate.getMinutes() + minutesFromNow);
-        return futureDate;
-    }
 
     let timeLeftClock = '00:00';
     // 초 단위를 문자형 시간으로 변환
