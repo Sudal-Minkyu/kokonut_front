@@ -64,7 +64,7 @@
         const now = new Date();
 
         // 만료 시각과 현재 시각의 차이를 밀리초로 계산
-        let remainingTimeInMilliseconds = new Date($expireDate.replaceAll('"', '')) - now;
+        let remainingTimeInMilliseconds = $expireDate ? new Date($expireDate.replaceAll('"', '')) - now : 0;
 
         // 시각이 0 이하이면 "00:00" 반환
         if (remainingTimeInMilliseconds <= 0) {

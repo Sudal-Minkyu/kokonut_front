@@ -47,7 +47,6 @@
         ajaxGet('/v2/api/Admin/authorityCheck', false, (res) => {
             try {
                 const userInfo = res.data.sendData;
-                is_login.set(true);
                 userInfoData.set(userInfo);
                 if (userInfo.knActiveStatus === "0") {
                     logout();
@@ -57,6 +56,7 @@
                     logout();
                     alert("사용자의 권한 등급이 변경되어 로그아웃합니다. 다시 로그인 해 주세요.");
                 }
+
                 if ($expireDate === null || (new Date($expireDate.replaceAll('"', '')) > new Date())) {
                     expireDate.set(getFutureDate(Number($userInfoData.csAutoLogoutSetting)).toISOString());
                 } else {
@@ -110,7 +110,7 @@
         clearTimeout(debounceTimeoutReset);
         debounceTimeoutReset = setTimeout(() => {
             if ($is_login) {
-                if (new Date($expireDate.replaceAll('"', '')) > new Date()) {
+                if ($expireDate === null || new Date($expireDate.replaceAll('"', '')) > new Date()) {
                     expireDate.set(getFutureDate(Number($userInfoData.csAutoLogoutSetting)).toISOString());
                 } else {
                     openConfirm({
