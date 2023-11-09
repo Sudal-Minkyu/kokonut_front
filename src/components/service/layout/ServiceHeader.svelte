@@ -3,7 +3,6 @@
     import {
         userInfoData,
         expireDate,
-        is_login,
     } from "../../../lib/store.js"
     import {openConfirm} from "../../common/ui/DialogManager.js";
     import {onDestroy, onMount} from "svelte";
@@ -13,7 +12,7 @@
     onMount(() => {
         autoLogoutInterval = setInterval(() => {
             timeLeftClock = getRemainingTime();
-            if (new Date(localStorage.getItem('expireDate').replaceAll('"', '')) < new Date()) {
+            if ($expireDate !== null && (new Date($expireDate.replaceAll('"', '')) < new Date())) {
                 openConfirm({
                     icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                     title: '자동 로그아웃 됨', // 제목
@@ -65,7 +64,7 @@
         const now = new Date();
 
         // 만료 시각과 현재 시각의 차이를 밀리초로 계산
-        let remainingTimeInMilliseconds = new Date(localStorage.getItem('expireDate').replaceAll('"', '')) - now;
+        let remainingTimeInMilliseconds = new Date($expireDate.replaceAll('"', '')) - now;
 
         // 시각이 0 이하이면 "00:00" 반환
         if (remainingTimeInMilliseconds <= 0) {

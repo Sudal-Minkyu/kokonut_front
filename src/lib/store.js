@@ -16,7 +16,7 @@ const persist_storage = (key, initValue) => {
 export const accessToken = persist_storage('accessToken','');
 // 로그인 여부
 export const is_login = persist_storage('is_login',false);
-export const expireDate = persist_storage('expireDate', new Date(new Date().setMinutes(new Date().getMinutes() + 60)).toISOString());
+export const expireDate = persist_storage('expireDate', null);
 
 export const doChangePwdLater = persist_storage('doChangePwdLater', false); // 로그인시 false -> 암호 변경 나중에 하기 -> true
 
