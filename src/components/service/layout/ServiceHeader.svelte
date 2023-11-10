@@ -2,7 +2,6 @@
     import { link } from 'svelte-spa-router'
     import {
         userInfoData,
-        expireDate,
     } from "../../../lib/store.js"
     import {openConfirm} from "../../common/ui/DialogManager.js";
     import {onDestroy, onMount} from "svelte";
@@ -12,7 +11,8 @@
     onMount(() => {
         autoLogoutInterval = setInterval(() => {
             timeLeftClock = getRemainingTime();
-            if ($expireDate !== null && (new Date($expireDate.replaceAll('"', '')) < new Date())) {
+            const currentExpireDate = getExpireDate();
+            if (currentExpireDate && (currentExpireDate < new Date())) {
                 openConfirm({
                     icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                     title: '자동 로그아웃 됨', // 제목
@@ -63,8 +63,9 @@
     const getRemainingTime = () => {
         const now = new Date();
 
+        const currentExpireDate = getExpireDate();
         // 만료 시각과 현재 시각의 차이를 밀리초로 계산
-        let remainingTimeInMilliseconds = $expireDate ? new Date($expireDate.replaceAll('"', '')) - now : 0;
+        let remainingTimeInMilliseconds = currentExpireDate ? currentExpireDate - now : 0;
 
         // 시각이 0 이하이면 "00:00" 반환
         if (remainingTimeInMilliseconds <= 0) {
@@ -87,6 +88,11 @@
         } else {
             return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
+    }
+
+    const getExpireDate = () => {
+        const expireDateString = localStorage.getItem('expireDate').replaceAll('"', '');
+        return expireDateString === 'null' ? null : new Date(expireDateString);
     }
 
 </script>

@@ -57,7 +57,8 @@
                     alert("사용자의 권한 등급이 변경되어 로그아웃합니다. 다시 로그인 해 주세요.");
                 }
 
-                if ($expireDate === null || (new Date($expireDate.replaceAll('"', '')) > new Date())) {
+                const currentExpireDate = getExpireDate();
+                if (currentExpireDate === null || (currentExpireDate > new Date())) {
                     expireDate.set(getFutureDate(Number($userInfoData.csAutoLogoutSetting)).toISOString());
                 } else {
                     openConfirm({
@@ -110,7 +111,8 @@
         clearTimeout(debounceTimeoutReset);
         debounceTimeoutReset = setTimeout(() => {
             if ($is_login) {
-                if ($expireDate === null || new Date($expireDate.replaceAll('"', '')) > new Date()) {
+                const currentExpireDate = getExpireDate();
+                if (currentExpireDate === null || (currentExpireDate > new Date())) {
                     expireDate.set(getFutureDate(Number($userInfoData.csAutoLogoutSetting)).toISOString());
                 } else {
                     openConfirm({
@@ -124,6 +126,11 @@
                 }
             }
         }, 1000); // 1000ms 동안 추가 이벤트가 없을 때 처리
+    }
+
+    const getExpireDate = () => {
+        const expireDateString = localStorage.getItem('expireDate').replaceAll('"', '');
+        return expireDateString === 'null' ? null : new Date(expireDateString);
     }
 </script>
 
