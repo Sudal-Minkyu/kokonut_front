@@ -1,7 +1,7 @@
 <script>
     import Router from 'svelte-spa-router';
     import routes from './routes.js';
-    import {expireDate, is_login, userInfoData} from "./lib/store.js";
+    import {expireDate, is_login, userInfoData, tracked, refreshStore} from "./lib/store.js";
     import {onDestroy, onMount} from "svelte";
     import {location, push} from "svelte-spa-router";
     import {ajaxGet, reportCatch} from "./components/common/ajax.js";
@@ -14,6 +14,7 @@
 
     onMount(() => {
         setIdleLogoutEvent();
+        window.addEventListener('storage', handleRefreshStore);
 
         // 페이지 변경시마다 실행되도록 하기 위함
         const unsubscribe = location.subscribe((href) => {
@@ -27,6 +28,7 @@
     });
 
     onDestroy(() => {
+        window.removeEventListener('storage', handleRefreshStore);
         removeIdleLogoutEvent();
     });
 
@@ -61,6 +63,7 @@
                 if (currentExpireDate === null || (currentExpireDate > new Date())) {
                     expireDate.set(getFutureDate(Number($userInfoData.csAutoLogoutSetting)).toISOString());
                 } else {
+                    console.log('exp', $expireDate);
                     openConfirm({
                         icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                         title: '자동 로그아웃 됨', // 제목
@@ -131,6 +134,43 @@
     const getExpireDate = () => {
         const expireDateString = localStorage.getItem('expireDate').replaceAll('"', '');
         return expireDateString === 'null' ? null : new Date(expireDateString);
+    }
+
+    // storage 가 변경되는 이벤트가 있을 때 실행되며, 이벤트의 대상키가 store의 추적되는 객체값이면 업데이트를 위함.
+    // 이는 본탭에서는 스토어의 정보가 갱신되지만, 다른탭에서 갱신된 로컬스토어 값은 본탭에 반영이 안되는 문제를 해결하기 위함
+    function handleRefreshStore(event) {
+        if (Object.keys($tracked).includes(event.key)) {
+            refreshStore(event.key, event.newValue);
+        }
+    }
+
+    // 초 단위를 문자형 시간으로 변환
+    function formatTime(seconds) {
+        if (typeof seconds !== 'number' || seconds <= 0) {
+            return '00:00';
+        }
+
+        const hrs = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+
+        let result = '';
+
+        if (hrs > 0) {
+            result += hrs + ':';
+        }
+
+        if (mins < 10 && hrs > 0) {
+            result += '0';
+        }
+        result += mins + ':';
+
+        if (secs < 10) {
+            result += '0';
+        }
+        result += secs;
+
+        return result;
     }
 </script>
 

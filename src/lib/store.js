@@ -1,10 +1,13 @@
-import { writable } from 'svelte/store'
+import {readable, writable} from 'svelte/store'
 
 const persist_storage = (key, initValue) => {
     const storedValueStr = localStorage.getItem(key)
     const store = writable(storedValueStr != null ? JSON.parse(storedValueStr) : initValue)
     store.subscribe((val) => {
-        localStorage.setItem(key, JSON.stringify(val))
+        // 로컬 저장소에 있는 현재 값과 새로운 값이 같지 않을 경우에만 호출하여 로컬저장소에 걸린 이벤트리스너와 연계된 비정상 작동 방지
+        if (localStorage.getItem(key) !== JSON.stringify(val)) {
+            localStorage.setItem(key, JSON.stringify(val))
+        }
     })
     return store
 }
@@ -322,3 +325,11 @@ export const debouncedTopScrollData = writable({
     timeout: null,
     scrollTo: null,
 });
+
+export const tracked = readable({
+    accessToken, is_login, expireDate, doChangePwdLater, emailSave
+});
+
+export const refreshStore = (key, newValue) => {
+    tracked[key]?.set(newValue);
+}
