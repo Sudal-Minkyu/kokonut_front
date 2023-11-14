@@ -49,7 +49,6 @@ export const SelectBoxManager = (targetEl, props = {}) => {
         },
         // 컴포넌트에 전달된 props 의 속성이 변경될 때 박스의 활성화나 비활성화가 되도록 조치
         update(newProps) {
-            console.log("여기동", box.label);
             box.props = {...defaultProps, ...newProps};
             if (box.isCurrentlyActivated && box.props.readOnly) {
                 destroyBox(box);

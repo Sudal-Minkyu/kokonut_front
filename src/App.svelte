@@ -63,7 +63,6 @@
                 if (currentExpireDate === null || (currentExpireDate > new Date())) {
                     expireDate.set(getFutureDate(Number($userInfoData.csAutoLogoutSetting)).toISOString());
                 } else {
-                    console.log('exp', $expireDate);
                     openConfirm({
                         icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                         title: '자동 로그아웃 됨', // 제목
@@ -139,8 +138,12 @@
     // storage 가 변경되는 이벤트가 있을 때 실행되며, 이벤트의 대상키가 store의 추적되는 객체값이면 업데이트를 위함.
     // 이는 본탭에서는 스토어의 정보가 갱신되지만, 다른탭에서 갱신된 로컬스토어 값은 본탭에 반영이 안되는 문제를 해결하기 위함
     function handleRefreshStore(event) {
-        if (Object.keys($tracked).includes(event.key)) {
-            refreshStore(event.key, event.newValue);
+        const newValue = typeof event.newValue === 'string' ? event.newValue.replace(/^"|"$/g, '') : null;
+        if (Object.keys(tracked).includes(event.key)) {
+            refreshStore(event.key, newValue);
+        }
+        if (event.key === 'is_login' && !JSON.parse(newValue)) {
+            push('/login');
         }
     }
 

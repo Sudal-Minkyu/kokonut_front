@@ -179,7 +179,6 @@
 
         ajaxParam(url, sendData, (res) => {
             try {
-                console.log('로그인', res);
                 mainScreenBlockerVisibility.set(false);
                 $accessToken = res.data.sendData.jwtToken;
                 if (res.data.sendData.blockAbroad !== undefined) {
@@ -203,7 +202,6 @@
                     ivSto.set('');
                     doChangePwdLater.set(false);
                     knPassword = "";
-                    console.log('여기도착');
                     push("/service");
                 }
             } catch (e) {

@@ -1,4 +1,4 @@
-import {readable, writable} from 'svelte/store'
+import {readable, writable, get} from 'svelte/store'
 
 const persist_storage = (key, initValue) => {
     const storedValueStr = localStorage.getItem(key)
@@ -9,7 +9,7 @@ const persist_storage = (key, initValue) => {
             localStorage.setItem(key, JSON.stringify(val))
         }
     })
-    return store
+    return store;
 }
 
 // UI 적인 변수만 설정할 것
@@ -326,9 +326,10 @@ export const debouncedTopScrollData = writable({
     scrollTo: null,
 });
 
-export const tracked = readable({
+
+export const tracked = {
     accessToken, is_login, expireDate, doChangePwdLater, emailSave
-});
+};
 
 export const refreshStore = (key, newValue) => {
     tracked[key]?.set(newValue);
