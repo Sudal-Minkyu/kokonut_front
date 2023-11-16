@@ -31,6 +31,5 @@ const initializingUserData = () => {
     accessToken.set('');
     is_login.set(false);
     expireDate.set(null);
-    emailSave.set('');
     push('/login');
 }

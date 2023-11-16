@@ -135,8 +135,13 @@
         return expireDateString === 'null' ? null : new Date(expireDateString);
     }
 
-    // storage 가 변경되는 이벤트가 있을 때 실행되며, 이벤트의 대상키가 store의 추적되는 객체값이면 업데이트를 위함.
-    // 이는 본탭에서는 스토어의 정보가 갱신되지만, 다른탭에서 갱신된 로컬스토어 값은 본탭에 반영이 안되는 문제를 해결하기 위함
+    /**
+     * storage 가 변경되는 이벤트가 있을 때 실행되며, 이벤트의 대상키가 store의 추적되는 객체값이면 업데이트를 위함.
+     * 이는 본탭에서는 스토어의 정보가 갱신되지만, 다른탭에서 갱신된 로컬스토어 값은 본탭에 반영이 안되는 문제를 해결하기 위함
+     * 스토리지 이벤트 발생시 붙는 맨앞, 맨뒤의 "를 제거해줘야 정상 작동을 보장한다.
+     * 로그인 여부가 false 로 바뀌면 해당 스토리지를 공유하는 다른 탭과 창도 일제히 다른 페이지도 로그아웃 되도록 함
+     * @param event
+     */
     function handleRefreshStore(event) {
         const newValue = typeof event.newValue === 'string' ? event.newValue.replace(/^"|"$/g, '') : null;
         if (Object.keys(tracked).includes(event.key)) {

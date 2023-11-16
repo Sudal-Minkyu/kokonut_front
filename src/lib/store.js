@@ -327,10 +327,12 @@ export const debouncedTopScrollData = writable({
 });
 
 
+// 로컬 스토리지에 저장되어 있으며, 다른 탭에서 최신화가 되어야할 필요가 있는 대상들의 나열 (refreshStore 함수를 통해 key에 따라 대상을 동적 set 하기 위함)
 export const tracked = {
     accessToken, is_login, expireDate, doChangePwdLater, emailSave
 };
 
+// 해당 키에 해당하는 스토어의 업데이트를 호출
 export const refreshStore = (key, newValue) => {
     tracked[key]?.set(newValue);
 }
