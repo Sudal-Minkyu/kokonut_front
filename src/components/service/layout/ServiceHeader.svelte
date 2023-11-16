@@ -2,8 +2,6 @@
     import { link } from 'svelte-spa-router'
     import {
         userInfoData,
-        expireDate,
-        is_login,
     } from "../../../lib/store.js"
     import {openConfirm} from "../../common/ui/DialogManager.js";
     import {onDestroy, onMount} from "svelte";
@@ -11,12 +9,10 @@
 
     let autoLogoutInterval;
     onMount(() => {
-        document.addEventListener('click', handleTimeoutReset);
-        document.addEventListener('mousemove', handleTimeoutReset);
-        document.addEventListener('keydown', handleTimeoutReset);
         autoLogoutInterval = setInterval(() => {
             timeLeftClock = getRemainingTime();
-            if (new Date(localStorage.getItem('expireDate').replaceAll('"', '')) < new Date()) {
+            const currentExpireDate = getExpireDate();
+            if (currentExpireDate && (currentExpireDate < new Date())) {
                 openConfirm({
                     icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
                     title: '자동 로그아웃 됨', // 제목
@@ -31,28 +27,8 @@
     });
 
     onDestroy(() => {
-        document.removeEventListener('click', handleTimeoutReset);
-        document.removeEventListener('mousemove', handleTimeoutReset);
-        document.removeEventListener('keydown', handleTimeoutReset);
         clearInterval(autoLogoutInterval);
     });
-
-    let debouncingTime;
-    const handleTimeoutReset = () => {
-        clearTimeout(debouncingTime);
-        debouncingTime = setTimeout(() => {
-            if ($is_login) {
-                expireDate.set(getFutureDate(Number($userInfoData.csAutoLogoutSetting)).toISOString());
-            }
-        }, 1000); // 1000ms 동안 추가 이벤트가 없을 때 처리
-    }
-
-    // 현재 시각의 분에 인자로 받은 분을 더해 새로운 분으로 설정한 객체 반환
-    function getFutureDate(minutesFromNow) {
-        let futureDate = new Date();
-        futureDate.setMinutes(futureDate.getMinutes() + minutesFromNow);
-        return futureDate;
-    }
 
     let timeLeftClock = '00:00';
     // 초 단위를 문자형 시간으로 변환
@@ -87,8 +63,9 @@
     const getRemainingTime = () => {
         const now = new Date();
 
+        const currentExpireDate = getExpireDate();
         // 만료 시각과 현재 시각의 차이를 밀리초로 계산
-        let remainingTimeInMilliseconds = new Date(localStorage.getItem('expireDate').replaceAll('"', '')) - now;
+        let remainingTimeInMilliseconds = currentExpireDate ? currentExpireDate - now : 0;
 
         // 시각이 0 이하이면 "00:00" 반환
         if (remainingTimeInMilliseconds <= 0) {
@@ -111,6 +88,11 @@
         } else {
             return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
+    }
+
+    const getExpireDate = () => {
+        const expireDateString = localStorage.getItem('expireDate').replaceAll('"', '');
+        return expireDateString === 'null' ? null : new Date(expireDateString);
     }
 
 </script>

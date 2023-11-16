@@ -74,7 +74,6 @@
     // 숫자와 제어키를 제외한 입력을 입력단계에서 막음
     function handleOnlyNum(e) {
         const charCode = e.which ? e.which : e.keyCode;
-        console.log("함수작동", charCode);
 
         // 제어키와 특수키
         const controlKeys = [8, 9, 37, 39, 35, 36, 46, 13, 27]; // 백스페이스, 탭, 화살표, End, Home, Delete, Enter, Esc

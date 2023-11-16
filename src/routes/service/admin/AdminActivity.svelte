@@ -151,7 +151,7 @@
 
         <div class="seaWrap">
             <div class="kotopBtn">
-                <button id="excel_download_pop" on:click={excelDownloadPopService.open}>현재목록 엑셀 다운로드</button>
+                <button id="excel_download_pop" on:click={excelDownloadPopService.open}>관리자 활동 이력 다운로드</button>
             </div>
             <div class="koinput marB32">
                 <input type="text" bind:value="{searchCondition.searchText}" class="wid360" placeholder="관리자 검색(이름 혹은 이메일ID)" on:keypress={enterPress} />

@@ -1,12 +1,15 @@
-import { writable } from 'svelte/store'
+import {readable, writable, get} from 'svelte/store'
 
 const persist_storage = (key, initValue) => {
     const storedValueStr = localStorage.getItem(key)
     const store = writable(storedValueStr != null ? JSON.parse(storedValueStr) : initValue)
     store.subscribe((val) => {
-        localStorage.setItem(key, JSON.stringify(val))
+        // 로컬 저장소에 있는 현재 값과 새로운 값이 같지 않을 경우에만 호출하여 로컬저장소에 걸린 이벤트리스너와 연계된 비정상 작동 방지
+        if (localStorage.getItem(key) !== JSON.stringify(val)) {
+            localStorage.setItem(key, JSON.stringify(val))
+        }
     })
-    return store
+    return store;
 }
 
 // UI 적인 변수만 설정할 것
@@ -16,7 +19,7 @@ const persist_storage = (key, initValue) => {
 export const accessToken = persist_storage('accessToken','');
 // 로그인 여부
 export const is_login = persist_storage('is_login',false);
-export const expireDate = persist_storage('expireDate', new Date(new Date().setMinutes(new Date().getMinutes() + 60)).toISOString());
+export const expireDate = persist_storage('expireDate', null);
 
 export const doChangePwdLater = persist_storage('doChangePwdLater', false); // 로그인시 false -> 암호 변경 나중에 하기 -> true
 
@@ -322,3 +325,14 @@ export const debouncedTopScrollData = writable({
     timeout: null,
     scrollTo: null,
 });
+
+
+// 로컬 스토리지에 저장되어 있으며, 다른 탭에서 최신화가 되어야할 필요가 있는 대상들의 나열 (refreshStore 함수를 통해 key에 따라 대상을 동적 set 하기 위함)
+export const tracked = {
+    accessToken, is_login, expireDate, doChangePwdLater, emailSave
+};
+
+// 해당 키에 해당하는 스토어의 업데이트를 호출
+export const refreshStore = (key, newValue) => {
+    tracked[key]?.set(newValue);
+}

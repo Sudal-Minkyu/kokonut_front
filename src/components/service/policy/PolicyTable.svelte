@@ -14,7 +14,7 @@
 <!--        <div class="kt_total">총 <span>{total}</span>건</div>-->
 <!--    </div>-->
     <table>
-        <caption>개인정보 처리이력 리스트</caption>
+        <caption>개인정보 처리 이력 리스트</caption>
         <colgroup>
             <col style="width:5.48%;">
             <col style="width:13.59%;">
