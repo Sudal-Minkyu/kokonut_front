@@ -11,7 +11,8 @@ phases:
       
   pre_build:
     commands:
-      - npm ci
+      - npm install
+      - npm install vite@4.5.0
 
   build:
     commands:
