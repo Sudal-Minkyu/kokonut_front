@@ -111,23 +111,25 @@
     // 특정 동작 발생시 자동 로그아웃을 리셋하기 위함
     const handleTimeoutReset = () => {
         clearTimeout(debounceTimeoutReset);
-        debounceTimeoutReset = setTimeout(() => {
-            if ($is_login) {
-                const currentExpireDate = getExpireDate();
-                if (currentExpireDate === null || (currentExpireDate > new Date())) {
-                    expireDate.set(getFutureDate(Number($userInfoData.csAutoLogoutSetting)).toISOString());
-                } else {
-                    openConfirm({
-                        icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                        title: '자동 로그아웃 됨', // 제목
-                        contents1: formatTime(60 * Number($userInfoData.csAutoLogoutSetting)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
-                        contents2: '자동 로그아웃 됩니다.',
-                        btnCheck: '확인', // 확인 버튼의 텍스트
-                    });
-                    logout();
-                }
+        debounceTimeoutReset = setTimeout(checkTimeout, 1000); // 1000ms 동안 추가 이벤트가 없을 때 처리
+    }
+
+    const checkTimeout = () => {
+        if ($is_login && $location.substring(0, 8) === '/service') {
+            const currentExpireDate = getExpireDate();
+            if (currentExpireDate === null || (currentExpireDate > new Date())) {
+                expireDate.set(getFutureDate(Number($userInfoData.csAutoLogoutSetting)).toISOString());
+            } else {
+                openConfirm({
+                    icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: '자동 로그아웃 됨', // 제목
+                    contents1: formatTime(60 * Number($userInfoData.csAutoLogoutSetting)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
+                    contents2: '자동 로그아웃 됩니다.',
+                    btnCheck: '확인', // 확인 버튼의 텍스트
+                });
+                logout();
             }
-        }, 1000); // 1000ms 동안 추가 이벤트가 없을 때 처리
+        }
     }
 
     const getExpireDate = () => {
