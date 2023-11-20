@@ -1,4 +1,4 @@
-import {accessToken, is_login, userInfoData, initialUserInfo} from "../../lib/store.js";
+import {accessToken, is_login, userInfoData, initialUserInfo, expireDate, emailSave} from "../../lib/store.js";
 import {ajaxParam, reportCatch} from "./ajax.js";
 import {get} from "svelte/store";
 import {push} from "svelte-spa-router";
@@ -30,5 +30,6 @@ const initializingUserData = () => {
     userInfoData.set(JSON.parse(initialUserInfo));
     accessToken.set('');
     is_login.set(false);
+    expireDate.set(null);
     push('/login');
 }

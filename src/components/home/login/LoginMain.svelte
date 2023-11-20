@@ -7,7 +7,7 @@
         accessToken,
         emailSave,
         keyBufferSto,
-        ivSto, doChangePwdLater, mainScreenBlockerVisibility,
+        ivSto, doChangePwdLater, mainScreenBlockerVisibility, expireDate
     } from '../../../lib/store'
     import { callCapsLock, encryptData } from '../../../lib/common'
     import {openAsk, openConfirm} from "../../common/ui/DialogManager.js";
@@ -197,6 +197,7 @@
                     })
                 } else {
                     is_login.set(true);
+                    expireDate.set(null);
                     keyBufferSto.set('');
                     ivSto.set('');
                     doChangePwdLater.set(false);

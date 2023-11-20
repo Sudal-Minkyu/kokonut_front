@@ -42,6 +42,9 @@ import ThirdPartyConnection from "./routes/service/ThirdPartyConnection.svelte";
 import EmailSendComplete from "./routes/service/email/EmailSendComplete.svelte";
 import EmailBookComplete from "./routes/service/email/EmailBookComplete.svelte";
 import addMember from "./routes/service/addMember.svelte";
+import NotFound from "./routes/NotFound.svelte";
+import NotAuth from "./components/common/error/NotAuth.svelte";
+import AdminHome from "./routes/admin/AdminHome.svelte";
 
 export default {
     // API 테스트하는 화면
@@ -138,13 +141,22 @@ export default {
     // 개인정보 제공페이지
     "/service/privacy/PrivacyWrite": PrivacyWrite,
 
-    // 개인정보 처리이력 페이지
+    // 개인정보 처리 이력 페이지
     "/service/privacy/PrivacyHistory": PrivacyHistory,
     // 개인정보 검색 페이지
     "/service/privacy/PrivacySearch": PrivacySearch,
 
+
+    // @@@@@@@@@@@@@@@@ 고객 서비스 부분 @@@@@@@@@@@@@@@@ //
+    "/admin": AdminHome,
+
+
+
     // 랜딩페이지
     "/landing" : Landing,
+
+    "/404" : NotFound,
+    "/401" : NotAuth,
 
     "*": wrap({
         asyncComponent: () => import("./routes/NotFound.svelte"),
