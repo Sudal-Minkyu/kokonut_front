@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 
-// https://vitejs.dev/config/
+// https://vitejs.dev/config
 export default defineConfig({
     plugins: [svelte()],
     build: {
@@ -19,8 +19,4 @@ export default defineConfig({
         },
     },
 
-    // server: {
-    //     port: 8051,
-    //     host: '0.0.0.0'
-    // }
-})
+});

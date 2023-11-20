@@ -3,32 +3,7 @@
     import {
         userInfoData,
     } from "../../../lib/store.js"
-    import {openConfirm} from "../../common/ui/DialogManager.js";
-    import {onDestroy, onMount} from "svelte";
     import {logout} from "../../common/authActions.js";
-
-    let autoLogoutInterval;
-    onMount(() => {
-        autoLogoutInterval = setInterval(() => {
-            timeLeftClock = getRemainingTime();
-            const currentExpireDate = getExpireDate();
-            if (currentExpireDate && (currentExpireDate < new Date())) {
-                openConfirm({
-                    icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                    title: '자동 로그아웃 됨', // 제목
-                    contents1: formatTime(60 * Number($userInfoData.csAutoLogoutSetting)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
-                    contents2: '자동 로그아웃 됩니다.',
-                    btnCheck: '확인', // 확인 버튼의 텍스트
-                });
-                logout();
-                clearInterval(autoLogoutInterval);
-            }
-        }, 1000);
-    });
-
-    onDestroy(() => {
-        clearInterval(autoLogoutInterval);
-    });
 
     let timeLeftClock = '00:00';
     // 초 단위를 문자형 시간으로 변환

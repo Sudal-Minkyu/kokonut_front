@@ -11,7 +11,6 @@ phases:
       
   pre_build:
     commands:
-      - npm install
       - npm install vite@latest
 
   build:
@@ -24,5 +23,5 @@ phases:
 artifacts:
   files:
      - '**/*'
-#  discard-path: no
+#  discard-path: nod
 #  base-directory: build
