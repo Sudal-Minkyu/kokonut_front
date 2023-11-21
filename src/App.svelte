@@ -17,21 +17,6 @@
         setIdleLogoutEvent();
         window.addEventListener('storage', handleRefreshStore);
 
-        autoLogoutInterval = setInterval(() => {
-            timeLeftClock.set(getRemainingTime());
-            if (new Date($expireDate.replaceAll('"', '')) < new Date()) {
-                openConfirm({
-                    icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                    title: '자동 로그아웃 됨', // 제목
-                    contents1: formatTime(60 * Number($userInfoData.csAutoLogoutSetting)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
-                    contents2: '자동 로그아웃 됩니다.',
-                    btnCheck: '확인', // 확인 버튼의 텍스트
-                });
-                clearInterval(autoLogoutInterval);
-                logout();
-            }
-        }, 1000);
-
         // 페이지 변경시마다 실행되도록 하기 위함
         const unsubscribe = location.subscribe((href) => {
             if (currentLocation !== href) {
@@ -53,10 +38,25 @@
         const isServiceLocation = href.substring(0, 8) === '/service';
         if (isServiceLocation && $is_login) {
             getUserInfo();
+            autoLogoutInterval = setInterval(() => {
+                timeLeftClock.set(getRemainingTime());
+                if (new Date($expireDate.replaceAll('"', '')) < new Date()) {
+                    openConfirm({
+                        icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                        title: '자동 로그아웃 됨', // 제목
+                        contents1: formatTime(60 * Number($userInfoData.csAutoLogoutSetting)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
+                        contents2: '자동 로그아웃 됩니다.',
+                        btnCheck: '확인', // 확인 버튼의 텍스트
+                    });
+                    clearInterval(autoLogoutInterval);
+                    logout();
+                }
+            }, 1000);
         } else if (isServiceLocation) { // 로그인을 하지 않고 서비스 페이지 진입
+            clearInterval(autoLogoutInterval);
             push('/login');
         } else { // 사용자 정보 불필요 페이지
-
+            clearInterval(autoLogoutInterval);
         }
     }
 
