@@ -60,6 +60,8 @@ export const piStage = writable(0); // 개인정보처리방침 작성중인 글
 
 export const mainScreenBlockerVisibility = writable(false); // 메인 스크린
 
+export const timeLeftClock = writable('00:00');
+
 export const initialPolicyInfo = JSON.stringify({
     policyData1: {
         piVersion : '',
