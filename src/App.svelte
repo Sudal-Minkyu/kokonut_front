@@ -1,7 +1,7 @@
 <script>
     import Router from 'svelte-spa-router';
     import routes from './routes.js';
-    import {expireDate, is_login, userInfoData, tracked, refreshStore} from "./lib/store.js";
+    import {expireDate, is_login, userInfoData, tracked, refreshStore, timeLeftClock} from "./lib/store.js";
     import {onDestroy, onMount} from "svelte";
     import {location, push} from "svelte-spa-router";
     import {ajaxGet, reportCatch} from "./components/common/ajax.js";
@@ -12,9 +12,25 @@
     let currentLocation;
     let debounceTimeoutReset; // 자리비움시 로그아웃 되는 기능을 1초간 모아서 실행하도록 한다.
 
+    let autoLogoutInterval;
     onMount(() => {
         setIdleLogoutEvent();
         window.addEventListener('storage', handleRefreshStore);
+
+        autoLogoutInterval = setInterval(() => {
+            timeLeftClock.set(getRemainingTime());
+            if (new Date($expireDate.replaceAll('"', '')) < new Date()) {
+                openConfirm({
+                    icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                    title: '자동 로그아웃 됨', // 제목
+                    contents1: formatTime(60 * Number($userInfoData.csAutoLogoutSetting)) + ' 동안 사용이 감지되지 않았습니다.', // 내용
+                    contents2: '자동 로그아웃 됩니다.',
+                    btnCheck: '확인', // 확인 버튼의 텍스트
+                });
+                clearInterval(autoLogoutInterval);
+                logout();
+            }
+        }, 1000);
 
         // 페이지 변경시마다 실행되도록 하기 위함
         const unsubscribe = location.subscribe((href) => {
@@ -30,6 +46,7 @@
     onDestroy(() => {
         window.removeEventListener('storage', handleRefreshStore);
         removeIdleLogoutEvent();
+        clearInterval(autoLogoutInterval);
     });
 
     const authProcess = (href) => {
@@ -181,6 +198,35 @@
         result += secs;
 
         return result;
+    }
+
+    const getRemainingTime = () => {
+        const now = new Date();
+
+        // 만료 시각과 현재 시각의 차이를 밀리초로 계산
+        let remainingTimeInMilliseconds = new Date(localStorage.getItem('expireDate').replaceAll('"', '')) - now;
+
+        // 시각이 0 이하이면 "00:00" 반환
+        if (remainingTimeInMilliseconds <= 0) {
+            return "00:00";
+        }
+
+        // 밀리초를 초 단위로 변환
+        let remainingTimeInSeconds = Math.floor(remainingTimeInMilliseconds / 1000);
+
+        // 시간, 분, 초 계산
+        const hours = Math.floor(remainingTimeInSeconds / 3600);
+        remainingTimeInSeconds %= 3600;
+        const minutes = Math.floor(remainingTimeInSeconds / 60);
+        const seconds = remainingTimeInSeconds % 60;
+
+        // 문자열로 반환. 시간이 0일 경우 시간은 생략
+        if (hours > 0) {
+            return `${hours}:${            minutes.toString().padStart(2, '0')
+            }:${seconds.toString().padStart(2, '0')}`;
+        } else {
+            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
     }
 </script>
 
