@@ -8,7 +8,7 @@ phases:
       - echo node version check
       - node -v
       - npm -v
-      
+
   pre_build:
     commands:
       - npm install vite@4.5.0
@@ -22,6 +22,6 @@ phases:
 
 artifacts:
   files:
-     - '**/*'
-#  discard-path: no
-#  base-directory: build
+    - '**/*'
+  #  discard-path: no
+  #  base-directory: build
