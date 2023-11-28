@@ -181,7 +181,7 @@ let backupEmailSendData;
                 <h3 class="">회원선택 <span>{$emailSendData.emailSendChoseListFinal.length}</span></h3>
             </div>
             {#if $privacySearchData.columnList.length}
-                {#each $privacySearchData.searchConditionList as {searchCode, currentColumnName, key}, i (key)}
+                {#each $privacySearchData.searchConditionList as {currentColumnName, key}, i (key)}
                     <div class="memseaBox marB8" style="justify-content: center;">
                         <div class="mu_SelBox wid130">
                             <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: (e) => {handleChangeColumnBox(e, i)}}}>
@@ -213,13 +213,6 @@ let backupEmailSendData;
                 {/if}
             {/if}
 
-<!--            <div class="memselBox marT20 marB36">-->
-<!--                <div class="memName">김코코(인사팀)<button class="memdel"></button></div>-->
-<!--                <div class="memName">정코코(인사팀)<button class="memdel"></button></div>-->
-<!--                <div class="memName">최코코(인사팀)<button class="memdel"></button></div>-->
-<!--                <div class="memName">박코코(인사팀)<button class="memdel"></button></div>-->
-<!--            </div>-->
-
             {#if $privacySearchData.searchResultState !== -1}
                 <LoadingOverlay bind:loadState={$privacySearchData.searchResultState} top={80} >
                     <div class="sea_resultWrap" in:fade>
@@ -227,15 +220,6 @@ let backupEmailSendData;
                             <div class="kt_tableTopBox marB24">
                                 <div class="kt_total">총 <span>{$privacySearchData.resultValueList.length}</span>건</div>
                                 <div class="kt_selbox wid120">
-                                    <!--                <div class="selectBox wid100per nonePad">-->
-                                    <!--                    <div class="label" id="">최근 등록순</div>-->
-                                    <!--                    <ul class="optionList">-->
-                                    <!--                        <li class="optionItem curv">최근 등록순</li>-->
-                                    <!--                        <li class="optionItem curv">정확도순</li>-->
-                                    <!--                        <li class="optionItem curv">오름차순</li>-->
-                                    <!--                        <li class="optionItem curv">내림차순</li>-->
-                                    <!--                    </ul>-->
-                                    <!--                </div>-->
                                 </div>
                             </div>
                             <table>

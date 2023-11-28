@@ -1,9 +1,8 @@
 <script>
-    import {EMAIL_SEARCH_CONDITION_LIMIT, addSearchCondition, removeSearchCondition, handleChangeColumnBox,
-        getUserListByCondition, handleEnterSearchText, handleChangePage,
-        distinguishSearchTextPlaceholder, getColumnList} from "../../common/privacySearch/privacySearchFullData.js";
+    import {
+        getUserListByCondition, handleEnterSearchText, handleChangePage, getColumnList
+    } from "../../common/privacySearch/privacySearchFullData.js";
     import {emailSendData, privacySearchData} from "../../../lib/store.js";
-    import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
     import Pagination from "../../common/ui/Pagination.svelte";
     import LoadingOverlay from "../../common/ui/LoadingOverlay.svelte";
     import {fade} from "svelte/transition";
@@ -178,41 +177,19 @@ let backupEmailSendData;
     <div class="koko_popup_inner">
         <div class="koko_popup_container">
             <div class="koko_popup_title">
-                <h3 class="">회원선택 <span>{$emailSendData.emailSendChoseListFinal.length}</span></h3>
+                <h3 class="">관리자선택 <span>{$emailSendData.emailSendChoseListFinal.length}</span></h3>
             </div>
-            {#if $privacySearchData.columnList.length}
-                {#each $privacySearchData.searchConditionList as {searchCode, currentColumnName, key}, i (key)}
-                    <div class="memseaBox marB8" style="justify-content: center;">
-                        <div class="mu_SelBox wid130">
-                            <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: (e) => {handleChangeColumnBox(e, i)}}}>
-                                <div class="label">{currentColumnName}</div>
-                                <ul class="optionList" style="z-index: 21;">
-                                    {#each $privacySearchData.columnList as {fieldCode, fieldComment, fieldSecrity}, j (fieldCode)}
-                                        <li class="optionItem curv" data-value={fieldCode} data-secrity={fieldSecrity}>{fieldComment}</li>
-                                    {/each}
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="memselBox wid320">
-                            <div class="koinput wid100per">
-                                <input type="text" class="wid320"
-                                       placeholder={distinguishSearchTextPlaceholder($privacySearchData.searchConditionList[i])}
-                                       bind:value={$privacySearchData.searchConditionList[i].searchText}
-                                       on:keypress={handleEnterSearch} />
-                                <button on:click={handleClickSearch}><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
-                            </div>
-                        </div>
-                        <div style="position: relative; width: 13px; visibility: {$privacySearchData.searchConditionList.length > 1 ? 'visible' : 'hidden'}"
-                             on:click={() => {removeSearchCondition(i)}}>
-                            <a class="pr_delete"></a>
-                        </div>
+            <div class="memseaBox marB8" style="justify-content: center;">
+                <div class="memselBox wid400">
+                    <div class="koinput wid100per">
+                        <input type="text" class="wid400"
+                               placeholder="관리자명, 회사명, 관리자 이메일 검색"
+                               bind:value={$privacySearchData.searchConditionList[0].searchText}
+                               on:keypress={handleEnterSearch} />
+                        <button on:click={handleClickSearch}><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
                     </div>
-                {/each}
-                {#if $privacySearchData.searchConditionList.length < EMAIL_SEARCH_CONDITION_LIMIT}
-                    <button type="button" class="pr_fieldBtn" on:click={addSearchCondition}></button>
-                {/if}
-            {/if}
-
+                </div>
+            </div>
 <!--            <div class="memselBox marT20 marB36">-->
 <!--                <div class="memName">김코코(인사팀)<button class="memdel"></button></div>-->
 <!--                <div class="memName">정코코(인사팀)<button class="memdel"></button></div>-->
@@ -244,14 +221,16 @@ let backupEmailSendData;
                                 <tr>
                                     <th><input type="checkbox" id="chkSelectAllInfo" class="partcheck"
                                                on:click={handleChkSelectAllInfoChange}></th>
-                                    {#each $privacySearchData.visibleColumnList as columnName, i}
-                                        {#if i}
-                                            <th>{columnName}</th>
-                                        {/if}
-                                    {/each}
+                                    <th>IDX</th>
+                                    <th>회사명</th>
+                                    <th>관리자명</th>
+                                    <th>이메일</th>
+                                    <th>권한</th>
+                                    <th>활성화 상태</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <!--검색된 관리자 키값에 따른 고정화된 표출-->
                                 {#each $privacySearchData.visibleValueList as values (values[0])}
                                     <tr>
                                         <td>

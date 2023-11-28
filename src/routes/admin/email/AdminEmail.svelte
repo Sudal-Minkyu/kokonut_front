@@ -8,8 +8,6 @@
     import {onMount} from "svelte";
     import {stimeVal, setOptionItem} from "../../../components/common/action/DatePicker.js";
     import {ajaxGet, reportCatch} from "../../../components/common/ajax.js";
-    import {userInfoData} from "../../../lib/store.js";
-    import {openConfirm} from "../../../components/common/ui/DialogManager.js";
     import {debounce200} from "../../../components/common/eventRateControls.js";
     import LoadingOverlay from "../../../components/common/ui/LoadingOverlay.svelte";
 
@@ -23,51 +21,6 @@
         setOptionItem(customSelectBoxOpt);
         emailSendList(0);
     }
-
-    // 이메일 사용가능여부 체크
-    const checkEmailColumnAvailableInterval = setInterval(() => {
-        let chkCount = 0;
-        if (chkCount === 100) { // 10초간 사용자 정보를 가져오지 못하면......
-            openConfirm({
-                icon: 'fail', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                title: "통신 상태 불량", // 제목
-                contents1: '이메일 주소가 담겨있는 항목을 가져오지 못했습니다.',
-                contents2: '통신 연결 상태를 점검하시고, 이상이 없는 경우 관리자에게 문의해 주세요.',
-                btnCheck: '확인', // 확인 버튼의 텍스트
-                callback: () => {
-                    push('/admin');
-                },
-            });
-            clearInterval(checkEmailColumnAvailableInterval);
-            return;
-        }
-
-        if ($userInfoData.emailSendSettingState === '') {
-            chkCount++;
-            return;
-        }
-
-        if ($userInfoData.emailSendSettingState === '0') {
-            const openConfirmProps = {
-                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
-                title: "이메일 항목 지정 필요", // 제목
-                contents1: '이메일 주소가 담겨있는 항목의 지정이 필요합니다.',
-                contents2: '최고관리자에게 해당 사실을 문의해 주세요.',
-                btnCheck: '확인', // 확인 버튼의 텍스트
-                callback: () => {
-                    push('/admin');
-                },
-            };
-            if (['ROLE_MASTER', 'ROLE_ADMIN'].includes($userInfoData.role)) {
-                openConfirmProps.contents2 = '서비스 설정 페이지로 이동합니다.';
-                openConfirmProps.callback = () => {
-                    push('/admin/environment/setting');
-                };
-            }
-            openConfirm(openConfirmProps);
-        }
-        clearInterval(checkEmailColumnAvailableInterval);
-    }, 100);
 
     let customSelectBoxOpt = [
         {id : "emailTypeSelect", use_all : true, codeName : "email_type"},
@@ -92,7 +45,7 @@
         searchCondition.stime = stimeVal;
         searchCondition.page = page;
 
-        let url = "/v2/api/Email/emailList";
+        let url = "/v4/api/Email/systemEmailList";
 
         ajaxGet(url, searchCondition, (res) => {
             try {
@@ -112,7 +65,7 @@
     }
 
     function moveEmailSend() {
-        push("/admin/emailSend")
+        push("/admin/emailSend");
     }
 </script>
 
