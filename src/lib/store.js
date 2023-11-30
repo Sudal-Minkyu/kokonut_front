@@ -94,8 +94,7 @@ export const initialPolicyInfo = JSON.stringify({
 // 개인정보처리방침 정보데이터
 export const policyInfoData = writable(JSON.parse(initialPolicyInfo));
 
-// 개인정보 항목관리 항목분류
-export const personalInfoCategoryData = writable({
+export const initialPersonalInfoCategory = JSON.stringify({
     basicCategoryList: [],
     addItemList: [],
     checkedItemNameList: [],
@@ -131,8 +130,10 @@ export const personalInfoCategoryData = writable({
     },
 });
 
-// 개인정보 항목관리의 탭과 탭에 속한 항목
-export const personalInfoTableData = writable({
+// 개인정보 항목관리 항목분류
+export const personalInfoCategoryData = writable(JSON.parse(initialPersonalInfoCategory));
+
+export const initialPersonalInfoTable = JSON.stringify({
     columnList: [],
     checkedColumnNameList: [],
     checkedColumnCodeList: [],
@@ -152,6 +153,9 @@ export const personalInfoTableData = writable({
         cautionAgreeErrorMsg: '',
     }
 });
+
+// 개인정보 항목관리의 탭과 탭에 속한 항목
+export const personalInfoTableData = writable(JSON.parse(initialPersonalInfoTable));
 
 export const initialProvidePrivacyWrite = JSON.stringify({
     currentStage: '',

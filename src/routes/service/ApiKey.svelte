@@ -79,7 +79,6 @@
     let apiKey = "";
     let filterApiKey = "";
     let accessIpList;
-    // let accessIpMemoList  = [];
 
     // 허용ip 사이즈
     let ipSize = 0;
