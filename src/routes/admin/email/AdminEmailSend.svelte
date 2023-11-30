@@ -147,7 +147,7 @@
         for (const file of es.multipartFiles) {
             sendForm.append('multipartFiles', file);
         }
-        ajaxMultipart('/v2/api/Email/sendEmailService', sendForm, (res) => {
+        ajaxMultipart('/v4/api/Email/systemSendEmail', sendForm, (res) => {
             try {
                 emailSendData.set(JSON.parse(initialEmailSend));
                 privacySearchData.set(JSON.parse(initialPrivacySearch));
