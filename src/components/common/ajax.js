@@ -227,7 +227,7 @@ const configureHeaders = (url, contentType, apiKey) => {
     const headers = {};
     headers["Content-Type"] = contentType;
 
-    if (url.slice(0, 5).includes('v2/')) { // v2는 인증이 필요한 api 호출에 사용
+    if (url.slice(0, 5).includes('v2/') || url.slice(0, 5).includes('v4/')) { // v2는 인증이 필요한 api 호출에 사용
         headers["Authorization"] = get(accessToken);
     } else if (url.slice(0, 5).includes('v1/')) { // v1은 인증이 불필요한 api 호출에 사용
         headers["keyBufferSto"] = get(keyBufferSto);
