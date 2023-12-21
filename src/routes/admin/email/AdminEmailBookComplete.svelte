@@ -18,7 +18,7 @@
                 </div>
                 <h2>메일 발송 예약이 완료되었습니다.</h2>
                 <div class="mailcomplateBtnBox">
-                    <div class="mailcBtn listBtn"><a use:link href="/service/emailList">발송목록</a></div>
+                    <div class="mailcBtn listBtn"><a use:link href="/admin/emailList">발송목록</a></div>
                 </div>
             </div>
         </div>

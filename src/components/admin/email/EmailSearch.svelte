@@ -6,7 +6,7 @@
     export let searchCondition;
     export let emailSendList;
 
-const handleSelectPeriod = (result) => {
+    const handleSelectPeriod = () => {
         emailSendList(0);
     }
 

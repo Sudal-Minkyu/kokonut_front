@@ -1,39 +1,25 @@
 <script>
-    import {EMAIL_SEARCH_CONDITION_LIMIT, addSearchCondition, removeSearchCondition, handleChangeColumnBox,
-        getUserListByCondition, handleEnterSearchText, handleChangePage,
-        distinguishSearchTextPlaceholder, getColumnList} from "../../common/privacySearch/privacySearchFullData.js";
     import {emailSendData, privacySearchData} from "../../../lib/store.js";
-    import {SelectBoxManager} from "../../common/action/SelectBoxManager.js";
-    import Pagination from "../../common/ui/Pagination.svelte";
     import LoadingOverlay from "../../common/ui/LoadingOverlay.svelte";
     import {fade} from "svelte/transition";
     import {ajaxGet, reportCatch} from "../../common/ajax.js";
     import {onMount} from "svelte";
+    import {handleChangeColumnBox} from "../../common/privacySearch/privacySearchFullData.js";
 
+    let adminList = [];
+    let searchText = "";
     onMount(() => {
-        getColumnList();
-        getCsEmailCodeSetting();
         backupExistingCondition();
-        determineChkSelectAllInfo();
+        getAdminList();
     });
     export let closeEmailPersonSelectPop;
 
-let backupEmailSendData;
+    let backupEmailSendData;
     let backupPrivacySearchData;
+    let searchResultState = 0;
     const backupExistingCondition = () => {
         backupEmailSendData = JSON.parse(JSON.stringify($emailSendData));
         backupPrivacySearchData = JSON.parse(JSON.stringify($privacySearchData));
-    }
-
-    let csEmailCodeSetting = '';
-    const getCsEmailCodeSetting = () => {
-        ajaxGet('/v2/api/CompanySetting/settingInfo', false, (res) => {
-            try {
-                csEmailCodeSetting = res.data.sendData.settingInfo.csEmailCodeSetting;
-            } catch (e) {
-                reportCatch('temp120', e);
-            }
-        });
     }
 
     const handleTargetChkChange = (e) => {
@@ -57,7 +43,7 @@ let backupEmailSendData;
     }
 
     const determineChkSelectAllInfo = () => {
-        if ($privacySearchData.searchResultState === 1) {
+        if (searchResultState === 1) {
             const checkboxes = document.querySelectorAll('.visibleInfoChk');
             const emailSendChoseList = $emailSendData.emailSendChoseList;
             const selectAllCheckbox = document.getElementById('chkSelectAllInfo');
@@ -123,7 +109,6 @@ let backupEmailSendData;
                 return obj;
             });
         }
-        handleEnterSearchText(e, [csEmailCodeSetting], 10000, handleRefreshCheckBoxOnOff);
     }
 
     const handleClickSearch = () => {
@@ -131,7 +116,6 @@ let backupEmailSendData;
             obj.emailSendChoseList = [];
             return obj;
         });
-        getUserListByCondition(1, 10000, [csEmailCodeSetting], handleRefreshCheckBoxOnOff);
     }
 
     const handleRefreshCheckBoxOnOff = () => {
@@ -160,17 +144,28 @@ let backupEmailSendData;
         setTimeout(determineChkSelectAllInfo, 0);
     }
 
-    const handlePage = ({detail}) => {
-        privacySearchData.update(obj => {
-            obj.currentPage = detail.page;
-            return obj;
+    const getAdminList = () => {
+        ajaxGet('/v4/api/Email/systemSendAdminList', false, (res) => {
+            adminList = res.data.sendData.adminList;
+            searchResultState = 1;
+            setTimeout(() => {
+                determineChkSelectAllInfo();
+            }, 0);
+            console.log(adminList);
         });
-        handleChangePage({
-            page: detail.page,
-            limitNum: 10,
-        });
-        setTimeout(determineChkSelectAllInfo, 0);
+    };
+
+    const roleNameDict = {
+        ROLE_SYSTEM: '코코넛어드민',
+        ROLE_MASTER: '왕관관리자',
+        ROLE_ADMIN: '최고관리자',
+        ROLE_USER: '관리자',
+        ROLE_GUEST: '게스트',
     }
+
+    const getRoleName = (roleCode) => {
+        return roleNameDict[roleCode] || roleCode
+    };
 </script>
 
 <!-- [D] 회원선택 팝업 -->
@@ -178,41 +173,19 @@ let backupEmailSendData;
     <div class="koko_popup_inner">
         <div class="koko_popup_container">
             <div class="koko_popup_title">
-                <h3 class="">회원선택 <span>{$emailSendData.emailSendChoseListFinal.length}</span></h3>
+                <h3 class="">관리자선택 <span>{$emailSendData.emailSendChoseListFinal.length}</span></h3>
             </div>
-            {#if $privacySearchData.columnList.length}
-                {#each $privacySearchData.searchConditionList as {searchCode, currentColumnName, key}, i (key)}
-                    <div class="memseaBox marB8" style="justify-content: center;">
-                        <div class="mu_SelBox wid130">
-                            <div class="selectBox wid100per nonePad" use:SelectBoxManager={{callback: (e) => {handleChangeColumnBox(e, i)}}}>
-                                <div class="label">{currentColumnName}</div>
-                                <ul class="optionList" style="z-index: 21;">
-                                    {#each $privacySearchData.columnList as {fieldCode, fieldComment, fieldSecrity}, j (fieldCode)}
-                                        <li class="optionItem curv" data-value={fieldCode} data-secrity={fieldSecrity}>{fieldComment}</li>
-                                    {/each}
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="memselBox wid320">
-                            <div class="koinput wid100per">
-                                <input type="text" class="wid320"
-                                       placeholder={distinguishSearchTextPlaceholder($privacySearchData.searchConditionList[i])}
-                                       bind:value={$privacySearchData.searchConditionList[i].searchText}
-                                       on:keypress={handleEnterSearch} />
-                                <button on:click={handleClickSearch}><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>
-                            </div>
-                        </div>
-                        <div style="position: relative; width: 13px; visibility: {$privacySearchData.searchConditionList.length > 1 ? 'visible' : 'hidden'}"
-                             on:click={() => {removeSearchCondition(i)}}>
-                            <a class="pr_delete"></a>
-                        </div>
-                    </div>
-                {/each}
-                {#if $privacySearchData.searchConditionList.length < EMAIL_SEARCH_CONDITION_LIMIT}
-                    <button type="button" class="pr_fieldBtn" on:click={addSearchCondition}></button>
-                {/if}
-            {/if}
-
+<!--            <div class="memseaBox marB8" style="justify-content: center;height: 40px;">-->
+<!--                <div class="memselBox wid400">-->
+<!--                    <div class="koinput wid100per">-->
+<!--                        <input type="text" class="wid400"-->
+<!--                               placeholder="회사명, 관리자명, 이메일 검색"-->
+<!--                               bind:value={searchText}-->
+<!--                               on:keypress={handleEnterSearch} />-->
+<!--                        <button on:click={handleClickSearch}><img src="/assets/images/common/icon_search_ver2.png" alt=""></button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 <!--            <div class="memselBox marT20 marB36">-->
 <!--                <div class="memName">김코코(인사팀)<button class="memdel"></button></div>-->
 <!--                <div class="memName">정코코(인사팀)<button class="memdel"></button></div>-->
@@ -220,67 +193,61 @@ let backupEmailSendData;
 <!--                <div class="memName">박코코(인사팀)<button class="memdel"></button></div>-->
 <!--            </div>-->
 
-            {#if $privacySearchData.searchResultState !== -1}
-                <LoadingOverlay bind:loadState={$privacySearchData.searchResultState} top={80} >
-                    <div class="sea_resultWrap" in:fade>
-                        <div class="kotable search_result">
-                            <div class="kt_tableTopBox marB24">
-                                <div class="kt_total">총 <span>{$privacySearchData.resultValueList.length}</span>건</div>
-                                <div class="kt_selbox wid120">
-                                    <!--                <div class="selectBox wid100per nonePad">-->
-                                    <!--                    <div class="label" id="">최근 등록순</div>-->
-                                    <!--                    <ul class="optionList">-->
-                                    <!--                        <li class="optionItem curv">최근 등록순</li>-->
-                                    <!--                        <li class="optionItem curv">정확도순</li>-->
-                                    <!--                        <li class="optionItem curv">오름차순</li>-->
-                                    <!--                        <li class="optionItem curv">내림차순</li>-->
-                                    <!--                    </ul>-->
-                                    <!--                </div>-->
-                                </div>
-                            </div>
-                            <table>
-                                <caption>개인정보 검색결과 테이블</caption>
-                                <thead>
-                                <tr>
-                                    <th><input type="checkbox" id="chkSelectAllInfo" class="partcheck"
-                                               on:click={handleChkSelectAllInfoChange}></th>
-                                    {#each $privacySearchData.visibleColumnList as columnName, i}
-                                        {#if i}
-                                            <th>{columnName}</th>
-                                        {/if}
-                                    {/each}
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {#each $privacySearchData.visibleValueList as values (values[0])}
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" name="chkInfo" class="partcheck visibleInfoChk" value={values[0]}
-                                                   bind:group={$emailSendData.emailSendChoseList}
-                                                   on:click={handleTargetChkChange} >
-                                        </td>
-                                        {#each values as value, i}
-                                            {#if i}
-                                                <td>{value}</td>
-                                            {/if}
-                                        {/each}
-                                    </tr>
-                                {/each}
-                                </tbody>
-                            </table>
-                            <div style="display: none">
-                                {#each $privacySearchData.invisibleValueList as values (values[0])}
-                                    <input type="checkbox" name="chkInfo" class="partcheck" value={values[0]}
-                                           bind:group={$emailSendData.emailSendChoseList} >
-                                {/each}
+            <LoadingOverlay loadState={searchResultState} top={80} >
+                <div class="sea_resultWrap" in:fade>
+                    <div class="kotable search_result">
+                        <div class="kt_tableTopBox marB24">
+                            <div class="kt_total">총 <span>{adminList.length}</span>건</div>
+                            <div class="kt_selbox wid120">
+                                <!--                <div class="selectBox wid100per nonePad">-->
+                                <!--                    <div class="label" id="">최근 등록순</div>-->
+                                <!--                    <ul class="optionList">-->
+                                <!--                        <li class="optionItem curv">최근 등록순</li>-->
+                                <!--                        <li class="optionItem curv">정확도순</li>-->
+                                <!--                        <li class="optionItem curv">오름차순</li>-->
+                                <!--                        <li class="optionItem curv">내림차순</li>-->
+                                <!--                    </ul>-->
+                                <!--                </div>-->
                             </div>
                         </div>
-                        <Pagination bind:currentPage={$privacySearchData.currentPage}
-                                    bind:totalPosts={$privacySearchData.totalPosts}
-                                    on:change={handlePage} />
+                        <div class="iptableWrap">
+                        <table>
+                            <caption>개인정보 검색결과 테이블</caption>
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="chkSelectAllInfo" class="partcheck"
+                                           on:click={handleChkSelectAllInfoChange}></th>
+                                <th>IDX</th>
+                                <th>회사명</th>
+                                <th>관리자명</th>
+                                <th>이메일</th>
+                                <th>권한</th>
+                                <th>활성화 상태</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!--검색된 관리자 키값에 따른 고정화된 표출-->
+                            {#each adminList as {adminId, cpName, knName, knEmail, knRoleCode, knActiveStatus} (adminId)}
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="chkInfo" class="partcheck visibleInfoChk" value={knEmail}
+                                               bind:group={$emailSendData.emailSendChoseList}
+                                               on:click={handleTargetChkChange} >
+                                    </td>
+                                    <td>{adminId}</td>
+                                    <td>{cpName}</td>
+                                    <td>{knName}</td>
+                                    <td>{knEmail}</td>
+                                    <td>{getRoleName(knRoleCode)}</td>
+                                    <td>{knActiveStatus ? '활성' : '비활성'}</td>
+                                </tr>
+                            {/each}
+                            </tbody>
+                        </table>
+                        </div>
                     </div>
-                </LoadingOverlay>
-            {/if}
+                </div>
+            </LoadingOverlay>
 
             <div class="kokopopBtnBox">
                 <div class="koko_cancel email_member_pop_close" on:click={handleReset}>초기화</div>
