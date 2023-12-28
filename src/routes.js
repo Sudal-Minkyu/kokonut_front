@@ -49,6 +49,7 @@ import AdminEmail from "./routes/admin/email/AdminEmail.svelte";
 import AdminEmailSend from "./routes/admin/email/AdminEmailSend.svelte";
 import AdminEmailSendComplete from "./routes/admin/email/AdminEmailSendComplete.svelte";
 import AdminEmailBookComplete from "./routes/admin/email/AdminEmailBookComplete.svelte";
+import AdminAccountManagement from "./routes/admin/account/AdminAccountManagement.svelte";
 
 export default {
     // API 테스트하는 화면
@@ -161,6 +162,7 @@ export default {
     // 어드민 이메일 전송, 예약 완료 관련 페이지
     "/admin/emailSendComplete": AdminEmailSendComplete,
     "/admin/emailBookComplete": AdminEmailBookComplete,
+    "/admin/accountManagement": AdminAccountManagement,
 
 
 
