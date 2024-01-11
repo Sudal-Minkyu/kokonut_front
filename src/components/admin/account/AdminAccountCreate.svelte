@@ -21,12 +21,14 @@
     ]; // 선택 박스 옵션
 
     let knEmail = "";
+    let userPw = "";
 
     // 이메일 조건 변수
     let error_msg = "";
     let emailConfirm = false;
     let emailNotForm = true;
     let emailPass = false;
+    let pwErrMsg = "";
 
     // 이메일 중복체크
     function existsEmail() {
@@ -35,13 +37,9 @@
                 error_msg = '이메일 중복확인을 해주세요.';
                 emailConfirm = true;
                 return false;
-            } else {
-                emailConfirm = false;
             }
 
-            if(emailConfirm) {
-                emailConfirm = false;
-            }
+            emailConfirm = false;
             let url = "/v1/api/Auth/existsByKnEmail"
 
             let sendData = {
@@ -78,22 +76,28 @@
         } else {
             emailConfirm = false;
         }
+        if (!userPw) {
+            pwErrMsg = "부여하실 암호를 입력해 주세요.";
+            return false;
+        } else {
+            pwErrMsg = "";
+        }
 
         // 사용중인 이메일이 아닐경우 해당 이메일로 이메일확인전송 -> 확인 후 해당 관리자 로그인 가능
-        let url = "/v2/api/Admin/create"
+        let url = "/v4/api/Admin/systemCreate"
 
         let sendData = {
             userEmail : knEmail,
-            choseRole : jQuery("#createAdminRoleSelect").text(),
+            userPw : userPw,
         }
 
         ajaxParam(url, sendData, (res) => {
             try {
                 popType = 1;
                 imgState = 1;
-                popTitle = "관리자 등록완료";
-                popContents1 = "안내에 따라 이어서 가입을 해주세요."
-                popContents2 = "이메일인증후 등록은 24시간동안만 유효합니다."
+                popTitle = "코코넛 관리자 등록완료";
+                popContents1 = ""
+                popContents2 = ""
                 popCheck = "확인";
                 startFun = adminSavePopChange;
                 adminList(0);
@@ -153,14 +157,11 @@
             <p class="{emailConfirm === false ? 'notxt not_work' : 'notxt'}" style="text-align: left;margin-bottom: 10px">{error_msg}</p>
             <p class="{emailPass === false ? 'notxt not_work' : 'notxt pass'}" style="text-align: left;margin-bottom: 10px">사용하실 수 있는 이메일입니다.</p>
 
-            <div class="kopop_SelBox" style="margin-top: 10px">
-                <p>관리자 등급</p>
-                <div class="selectBox wid162">
-                    <div class="label" id="createAdminRoleSelect"></div>
-                    <ul class="optionList">
-                    </ul>
-                </div>
+            <div class="kopopinput padR108 marT20">
+                <label>비밀번호 부여</label>
+                <input type="text" bind:value={userPw} required>
             </div>
+            <p class="{!pwErrMsg ? 'notxt not_work' : 'notxt'}" style="text-align: left;margin-bottom: 10px">{pwErrMsg}</p>
             <div class="kokopopBtnBox">
                 <div class="koko_cancel adm_registration_pop_close" on:click={adminSavePopChange}>취소</div>
                 <div class="koko_go">

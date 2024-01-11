@@ -31,14 +31,12 @@
         <tr>
             <th>No</th>
             <th>관리자</th>
-            <th>관리자 등급</th>
             <th>등록자</th>
             <th>등록 일시</th>
             <th>최근 접속</th>
-            <th>이메일 인증</th>
-            <th>인증 및 보안</th>
             <th>계정 상태</th>
-            <th>권한</th>
+            <th>활성화 제어</th>
+            <th>계정 삭제</th>
         </tr>
         </thead>
         <tbody>
@@ -46,12 +44,7 @@
             {#each admin_list as admin, i}
                 <tr>
                     <td>{ total - (page * size) - i }</td>
-                    <td>{admin.knName}({admin.knEmail})</td>
-                    {#if admin.knRoleCode === "ROLE_MASTER"}
-                        <td style="left: 10px">{admin.knRoleDesc}<div class="mastericon"></div></td>
-                    {:else}
-                        <td>{admin.knRoleDesc}</td>
-                    {/if}
+                    <td>{admin.knEmail}</td>
                     <td>{admin.insertName}</td>
                     <td>{admin.insert_date}</td>
 
@@ -60,22 +53,6 @@
                     {:else}
                         <td>{admin.knLastLoginDate}</td>
                     {/if}
-
-                    <td>
-                        {#if admin.knIsEmailAuth === "Y"}
-                            <div class="normal">완료</div>
-                        {:else}
-                            <div class="secession">미완료</div>
-                        {/if}
-                    </td>
-                    <td>
-                        {#if admin.knIsEmailAuth === "Y"}
-                            <button on:click={()=>{adminUpdateService.sendPwChangeMail(admin.knEmail)}}>비밀번호 변경</button>
-                        {:else}
-                            <button on:click={()=>{adminUpdateService.sendVerifyMail(admin.knEmail)}}>인증메일 재전송</button>
-                        {/if}
-                    </td>
-
                     <td>
                         {#if admin.knActiveStatus === '1'}
                             <div class="normal">활성</div>
@@ -84,9 +61,14 @@
                         {/if}
                     </td>
                     <td>
-                        {#if getModifiability(admin.knRoleCode) && $userInfoData.knEmail !== admin.knEmail}
-                            <button on:click={() => {adminUpdateService.open(admin)}}>설정</button>
+                        {#if admin.knActiveStatus === '1'}
+                            <button on:click={() => {adminUpdateService.toggleKokonutAdminActivity(admin)}}>비활성화</button>
+                        {:else if admin.knActiveStatus === '0'}
+                            <button on:click={() => {adminUpdateService.toggleKokonutAdminActivity(admin)}}>활성화</button>
                         {/if}
+                    </td>
+                    <td>
+                        <button on:click={() => {adminUpdateService.deleteKokonutAdmin(admin.knEmail)}}>삭제</button>
                     </td>
                 </tr>
             {/each}

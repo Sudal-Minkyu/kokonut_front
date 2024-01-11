@@ -13,6 +13,7 @@
     import AdminAccountCreate from "../../../components/admin/account/AdminAccountCreate.svelte";
     import AdminAccountUpdate from "../../../components/admin/account/AdminAccountUpdate.svelte";
     import AdminAccountTable from "../../../components/admin/account/AdminAccountTable.svelte";
+    import {openAsk} from "../../../components/common/ui/DialogManager.js";
 
     onMount(async ()=>{
         // 페이지번호 초기화
@@ -60,8 +61,6 @@
         page: 0,
         size,
         searchText: '',
-        filterRole: '',
-        filterState: '',
     }
 
     // 엔터키 클릭
@@ -76,11 +75,12 @@
         adminManagementLayout = 0;
         searchCondition.page = page;
 
-        let url = "/v2/api/Admin/list";
+        let url = "/v4/api/Admin/systemList";
 
         ajaxGet(url, searchCondition, (res) => {
+            console.log("시스템리스트응답", res);
             try {
-                admin_list = res.data.sendData.datalist
+                admin_list = res.data.sendData.datalist.content
                 total = res.data.sendData.total_rows
                 adminManagementLayout = 1;
             } catch (e) {
@@ -125,48 +125,59 @@
                 otpErrMsg: '',
             };
         },
-        updateAdmin: () => {
-            if (!adminUpdateService.adminData.otpValue) {
-                adminUpdateService.adminData.otpErrMsg = 'OTP를 적어주세요.';
-                return;
-            } else {
-                adminUpdateService.adminData.otpErrMsg = '';
-            }
+        deleteKokonutAdmin: (email) => {
+            openAsk({
+                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: '코코넛 관리자 삭제', // 제목
+                contents1: '선택하신 관리자를 삭제 하시겠습니까?', // 내용
+                contents2: '',
+                btnCheck: '', // 확인 버튼의 텍스트
+                btnStart: '예', // 실행 버튼의 텍스트
+                btnCancel: '아니오', // 취소 버튼의 텍스트
+                callback: () => {
+                    const sendData = {
+                        knEmail : email,
+                    }
 
-            ajaxParam('/v2/api/Admin/updateAdminData', adminUpdateService.adminData, (res) => {
-                adminList(searchCondition.page);
-                openBanner('관리자 정보 변경을 완료하였습니다.');
-                adminUpdateService.close();
+                    let url = "/v4/api/Admin/deleteSystemAdmin";
+
+                    ajaxParam(url, sendData,(res) => {
+                        try {
+                            openBanner("선택하신 코코넛 관리자를 삭제하였습니다.");
+                            adminList(searchCondition.page);
+                        } catch (e) {
+                            reportCatch('temp066', e);
+                        }
+                    });
+                }, // 확인버튼시 동작
             });
         },
-        sendVerifyMail: (email) => {
-            const sendDate = {
-                userEmail : email,
-            }
+        toggleKokonutAdminActivity: (admin) => {
 
-            let url = "/v2/api/Admin/createMailAgain";
+            openAsk({
+                icon: 'warning', // 'pass' 성공, 'warning' 경고, 'fail' 실패, 'question' 물음표
+                title: `코코넛 관리자 ${admin.knActiveStatus === "1" ? "비" : ""}활성화`, // 제목
+                contents1: `선택하신 관리자를 ${admin.knActiveStatus === "1" ? "비" : ""}활성화 하시겠습니까?`, // 내용
+                contents2: '',
+                btnCheck: '', // 확인 버튼의 텍스트
+                btnStart: '예', // 실행 버튼의 텍스트
+                btnCancel: '아니오', // 취소 버튼의 텍스트
+                callback: () => {
+                    const sendData = {
+                        knEmail : admin.knEmail,
+                    }
 
-            ajaxParam(url, sendDate,(res) => {
-                try {
-                    openBanner("재인증메일을 전송하였습니다.");
-                } catch (e) {
-                    reportCatch('temp065', e);
-                }
-            });
-        },
-        sendPwChangeMail: (email) => {
-            const sendData = {
-                userEmail : email,
-            }
+                    let url = "/v4/api/Admin/deactivateSystemAdmin";
 
-            let url = "/v2/api/Admin/passwordChangeMail";
-
-            ajaxParam(url, sendData,(res) => {
-                try {
-                    openBanner("비밀번호변경 메일을 전송하였습니다.");
-                } catch (e) {
-                    reportCatch('temp066', e);
-                }
+                    ajaxParam(url, sendData,(res) => {
+                        try {
+                            openBanner("선택하신 코코넛 관리자를 " + (admin.knActiveStatus === "1" ? "비" : "") + "활성화하였습니다.");
+                            adminList(searchCondition.page);
+                        } catch (e) {
+                            reportCatch('temp066', e);
+                        }
+                    });
+                }, // 확인버튼시 동작
             });
         },
         setAdminData: (rawAdminData) => {
@@ -197,12 +208,12 @@
             </div>
         </div>
 
-<!--        <div class="seaWrap">-->
-<!--            <div class="koinput marB32">-->
-<!--                <input type="text" bind:value="{searchCondition.searchText}"  class="wid360" placeholder="관리자 검색(이름 혹은 이메일ID)" on:keypress={enterPress} />-->
-<!--                <button on:click={() => adminList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="seaWrap">
+            <div class="koinput marB32">
+                <input type="text" bind:value="{searchCondition.searchText}"  class="wid360" placeholder="코코넛 관리자 검색(이메일ID)" on:keypress={enterPress} />
+                <button on:click={() => adminList(0)}><img src="/assets/images/common/icon_search.png" alt=""></button>
+            </div>
+        </div>
 
         <!-- 상단 검색 영역 -->
         <LoadingOverlay bind:loadState={adminManagementLayout} top={195} >
