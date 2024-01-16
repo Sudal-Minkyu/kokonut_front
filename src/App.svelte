@@ -36,6 +36,7 @@
 
     const authProcess = (href) => {
         const isServiceLocation = href.substring(0, 8) === '/service';
+        const isAdminLocation = href.substring(0, 6) === '/admin';
         if (isServiceLocation && $is_login) {
             getUserInfo();
             autoLogoutInterval = setInterval(() => {
@@ -55,6 +56,8 @@
         } else if (isServiceLocation) { // 로그인을 하지 않고 서비스 페이지 진입
             clearInterval(autoLogoutInterval);
             push('/login');
+        } else if (isAdminLocation) {
+            getUserInfo();
         } else { // 사용자 정보 불필요 페이지
             clearInterval(autoLogoutInterval);
         }
@@ -65,6 +68,7 @@
 
         ajaxGet('/v2/api/Admin/authorityCheck', false, (res) => {
             try {
+                console.log('res',res);
                 const userInfo = res.data.sendData;
                 userInfoData.set(userInfo);
                 if (userInfo.knActiveStatus === "0") {
