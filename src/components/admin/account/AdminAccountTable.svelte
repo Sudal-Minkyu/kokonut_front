@@ -9,19 +9,7 @@
 
     export let adminUpdateService;
 
-    // 각 대상에 대한 수정 권한 여부 리턴
-    const getModifiability = (targetRole) => {
-        switch ($userInfoData.role) {
-            case 'ROLE_MASTER':
-                return true;
-            case 'ROLE_ADMIN':
-                return ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_GUEST'].includes(targetRole);
-            case 'ROLE_USER':
-                return ['ROLE_GUEST'].includes(targetRole);
-            case 'ROLE_GUEST':
-                return false;
-        }
-    };
+    console.log($userInfoData);
 </script>
 
 <div class="kotable adminManagement">
@@ -61,14 +49,16 @@
                         {/if}
                     </td>
                     <td>
-                        {#if admin.knActiveStatus === '1'}
+                        {#if admin.knActiveStatus === '1' && $userInfoData.knEmail !== admin.knEmail}
                             <button on:click={() => {adminUpdateService.toggleKokonutAdminActivity(admin)}}>비활성화</button>
-                        {:else if admin.knActiveStatus === '0'}
+                        {:else if admin.knActiveStatus === '0' && $userInfoData.knEmail !== admin.knEmail}
                             <button on:click={() => {adminUpdateService.toggleKokonutAdminActivity(admin)}}>활성화</button>
                         {/if}
                     </td>
                     <td>
-                        <button on:click={() => {adminUpdateService.deleteKokonutAdmin(admin.knEmail)}}>삭제</button>
+                        {#if $userInfoData.knEmail !== admin.knEmail}
+                            <button on:click={() => {adminUpdateService.deleteKokonutAdmin(admin.knEmail)}}>삭제</button>
+                        {/if}
                     </td>
                 </tr>
             {/each}
