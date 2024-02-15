@@ -45,6 +45,11 @@ import addMember from "./routes/service/addMember.svelte";
 import NotFound from "./routes/NotFound.svelte";
 import NotAuth from "./components/common/error/NotAuth.svelte";
 import AdminHome from "./routes/admin/AdminHome.svelte";
+import AdminEmail from "./routes/admin/email/AdminEmail.svelte";
+import AdminEmailSend from "./routes/admin/email/AdminEmailSend.svelte";
+import AdminEmailSendComplete from "./routes/admin/email/AdminEmailSendComplete.svelte";
+import AdminEmailBookComplete from "./routes/admin/email/AdminEmailBookComplete.svelte";
+import AdminAccountManagement from "./routes/admin/account/AdminAccountManagement.svelte";
 
 export default {
     // API 테스트하는 화면
@@ -147,8 +152,17 @@ export default {
     "/service/privacy/PrivacySearch": PrivacySearch,
 
 
-    // @@@@@@@@@@@@@@@@ 고객 서비스 부분 @@@@@@@@@@@@@@@@ //
+    // @@@@@@@@@@@@@@@@ 어드민 서비스 부분 @@@@@@@@@@@@@@@@ //
     "/admin": AdminHome,
+
+    // 어드민 이메일 목록 조회
+    "/admin/emailList": AdminEmail,
+    // 어드민 이메일 발송 페이지
+    "/admin/emailSend": AdminEmailSend,
+    // 어드민 이메일 전송, 예약 완료 관련 페이지
+    "/admin/emailSendComplete": AdminEmailSendComplete,
+    "/admin/emailBookComplete": AdminEmailBookComplete,
+    "/admin/accountManagement": AdminAccountManagement,
 
 
 

@@ -1,8 +1,14 @@
 <script>
     import Header from "../../components/service/layout/Header.svelte";
-    import {onMount} from "svelte";
+    import {onMount, onDestroy} from "svelte";
     import {bootpayChangeToAnotherMethod} from "../../components/common/bootpayment.js";
-    import {backBtn, mainScreenBlockerVisibility, subscriptionManagementData, userInfoData,} from "../../lib/store.js";
+    import {
+        backBtn,
+        initialSubscriptionManagement,
+        mainScreenBlockerVisibility,
+        subscriptionManagementData,
+        userInfoData,
+    } from "../../lib/store.js";
     import CalendarPop from "../../components/service/environment/subscription/CalendarPop.svelte";
     import PaymentPop from "../../components/service/environment/subscription/PaymentPop.svelte";
     import UnsubscribePop from "../../components/service/environment/subscription/UnsubscribePop.svelte";
@@ -24,8 +30,13 @@
     let gotPaymentState = 0;
 
     onMount(() => {
+        subscriptionManagementData.set(JSON.parse(initialSubscriptionManagement));
         getCompanyPaymentInfo();
         getPaymentList();
+    });
+
+    onDestroy(() => {
+        subscriptionManagementData.set(JSON.parse(initialSubscriptionManagement));
     });
 
     const getCompanyPaymentInfo = () => {

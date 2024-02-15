@@ -32,6 +32,7 @@
     });
 
     onDestroy(() => {
+        providePrivacyWriteData.set(JSON.parse(initialProvidePrivacyWrite));
         window.removeEventListener('popstate', handleNavigation);
     });
 

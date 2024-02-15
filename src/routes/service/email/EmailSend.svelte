@@ -14,13 +14,18 @@
     import EmailPersonSelectPop from "../../../components/service/email/EmailPersonSelectPop.svelte";
     import EmailBookPop from "../../../components/service/email/EmailBookPop.svelte";
     import {SelectBoxManager} from "../../../components/common/action/SelectBoxManager.js";
-    import {onMount} from "svelte";
+    import {onMount, onDestroy} from "svelte";
     import {ajaxMultipart, reportCatch} from "../../../components/common/ajax.js";
     import {openConfirm} from "../../../components/common/ui/DialogManager.js";
 
     let textEditorComponent;
 
     onMount(() => {
+        emailSendData.set(JSON.parse(initialEmailSend));
+        privacySearchData.set(JSON.parse(initialPrivacySearch));
+    });
+
+    onDestroy(() => {
         emailSendData.set(JSON.parse(initialEmailSend));
         privacySearchData.set(JSON.parse(initialPrivacySearch));
     });

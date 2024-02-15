@@ -147,7 +147,7 @@
         for (const file of es.multipartFiles) {
             sendForm.append('multipartFiles', file);
         }
-        ajaxMultipart('/v2/api/Email/sendEmailService', sendForm, (res) => {
+        ajaxMultipart('/v4/api/Email/systemSendEmail', sendForm, (res) => {
             try {
                 emailSendData.set(JSON.parse(initialEmailSend));
                 privacySearchData.set(JSON.parse(initialPrivacySearch));
@@ -173,7 +173,7 @@
     <div class="contentInnerWrap">
         <div class="pageTitleBtn marB50">
             <a use:link href="/admin/emailList">{$backBtn}</a>
-            <h1>이메일 발송</h1>
+            <h1>관리자 이메일 발송</h1>
         </div>
 
         <!-- 이메일 발송 영역 -->
@@ -227,7 +227,7 @@
                                            bind:group={$emailSendData.emReceiverType} >
                                     <label for="전체 회원">
                                         <em><dt></dt></em>
-                                        전체 회원
+                                        전체 관리자
                                     </label>
                                 </div>
                                 <div class="check poprCheck">
@@ -235,7 +235,7 @@
                                            bind:group={$emailSendData.emReceiverType} >
                                     <label for="선택 회원">
                                         <em><dt></dt></em>
-                                        선택 회원
+                                        선택 관리자
                                         <span>{$emailSendData.emailSendChoseListFinal.length}</span>
                                         <div class="sendMemberBtn" id="email_member_pop" on:click={openEmailPersonSelectPop}>회원선택</div>
                                     </label>

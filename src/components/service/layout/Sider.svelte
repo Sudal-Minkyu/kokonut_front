@@ -22,7 +22,6 @@
                 <div class="subNav">
                     <ul>
                         <li class="onedepth"><img src="/assets/images/common/menu_icon_privacy.png" alt="">개인정보 검색</li>
-<!--                        <li><a use:link href="/service">대시보드</a></li>-->
                         <li><a class="cursorPointer" on:click={() => {handleGoTo("/service/privacy/PrivacySearch")}}>개인정보 검색</a></li>
                         <li><a class="cursorPointer" on:click={() => {handleGoTo("/service/privacy/PrivacyHistory")}}>개인정보 처리 이력</a></li>
                     </ul>

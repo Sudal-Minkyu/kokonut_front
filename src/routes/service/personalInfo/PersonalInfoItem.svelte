@@ -7,11 +7,16 @@
         from "../../../components/service/environment/personalInfo/PersonalInfoCreateItemPop.svelte";
     import PersonalInfoAddTabPop
         from "../../../components/service/environment/personalInfo/PersonalInfoAddTabPop.svelte";
-    import { onMount } from 'svelte'
+    import { onMount, onDestroy } from 'svelte'
     import {link} from 'svelte-spa-router'
     import { fade } from 'svelte/transition'
     import jQuery from "jquery";
-    import {backBtn, personalInfoCategoryData, personalInfoTableData} from '../../../lib/store.js'
+    import {
+        backBtn, initialPersonalInfoCategory,
+        initialPersonalInfoTable,
+        personalInfoCategoryData,
+        personalInfoTableData
+    } from '../../../lib/store.js'
     import PersonalInfoRemoveColumnPop
         from "../../../components/service/environment/personalInfo/PersonalInfoRemoveColumnPop.svelte";
     import PersonalInfoInsertItemPop
@@ -516,6 +521,11 @@
         await personalInfoCategoryService.getAdditionalItemList();
         await personalInfoCategoryService.getBasicCategoryList();
         await personalInfoItemProp.getTableColumnList();
+    });
+
+    onDestroy(() => {
+        personalInfoTableData.set(JSON.parse(initialPersonalInfoTable));
+        personalInfoCategoryData.set(JSON.parse(initialPersonalInfoCategory));
     });
 
     jQuery(function(){

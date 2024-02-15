@@ -202,7 +202,7 @@
                     ivSto.set('');
                     doChangePwdLater.set(false);
                     knPassword = "";
-                    push("/service");
+                    push(res.data.sendData.directUrl);
                 }
             } catch (e) {
                 reportCatch('temp112', e);
