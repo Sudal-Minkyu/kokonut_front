@@ -44,12 +44,23 @@ import EmailBookComplete from "./routes/service/email/EmailBookComplete.svelte";
 import addMember from "./routes/service/addMember.svelte";
 import NotFound from "./routes/NotFound.svelte";
 import NotAuth from "./components/common/error/NotAuth.svelte";
+
+
+// 코코넛(시스팀)관리자용 페이지
 import AdminHome from "./routes/admin/AdminHome.svelte";
+
 import AdminEmail from "./routes/admin/email/AdminEmail.svelte";
 import AdminEmailSend from "./routes/admin/email/AdminEmailSend.svelte";
 import AdminEmailSendComplete from "./routes/admin/email/AdminEmailSendComplete.svelte";
 import AdminEmailBookComplete from "./routes/admin/email/AdminEmailBookComplete.svelte";
+
 import AdminAccountManagement from "./routes/admin/account/AdminAccountManagement.svelte";
+
+import CompanyList from "./routes/admin/company/CompanyList.svelte";
+
+import PaymentList from "./routes/admin/payment/PaymentList.svelte";
+
+import HistoryList from "./routes/admin/history/HistoryList.svelte";
 
 export default {
     // API 테스트하는 화면
@@ -162,9 +173,18 @@ export default {
     // 어드민 이메일 전송, 예약 완료 관련 페이지
     "/admin/emailSendComplete": AdminEmailSendComplete,
     "/admin/emailBookComplete": AdminEmailBookComplete,
+
+    // 시스템관리자 리스트
     "/admin/accountManagement": AdminAccountManagement,
 
+    // 시스템관리자 기업리스트
+    "/admin/companyList": CompanyList,
 
+    // 시스템관리자 결제 관리
+    "/admin/paymentList": PaymentList,
+
+    // 시스템관리자 이력 관리
+    "/admin/historyList": HistoryList,
 
     // 랜딩페이지
     "/landing" : Landing,

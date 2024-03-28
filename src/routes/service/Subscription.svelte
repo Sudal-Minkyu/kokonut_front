@@ -222,10 +222,6 @@
                         {#if $userInfoData.role === 'ROLE_MASTER' }
                             &nbsp;&nbsp;<button class="myinfoChangeBtn marL8impor" id="unsubscribe_pop" on:click={suspendSubscriptionPopService.open}>구독해지</button>
                         {/if}
-                        <!--
-                        <div class="top_stand02">Standard2</div>
-                        <div class="top_stand03">Standard3</div>
-                        -->
                     </div>
                 </div>
             </div>
@@ -252,7 +248,6 @@
             <!-- 테이블 영역 -->
             <div class="kotable subscription" in:fade>
                 <table>
-                    <caption>1:1문의 리스트</caption>
                     <colgroup>
                         <col style="width:21.82%;">
                         <col style="width:18.16%;">
