@@ -2,11 +2,14 @@
 <script>
 
     import CompanyAdminList from "./CompanyAdminList.svelte";
+    import {ajaxParam, reportCatch} from "../../common/ajax.js";
+    import {openConfirm} from "../../common/ui/DialogManager.js";
 
     export let page;
     export let size;
     export let total;
     export let company_list;
+    export let dataFunction
 
     let companyId;
     let adminListPop = false;
@@ -20,8 +23,42 @@
         alert('준비중인 기능입니다.');
     }
 
-    function companyBlock(companyId) {
-        console.log("companyId : "+companyId);
+    let visible = false;
+    function companyBlock(cpCode, csSystemBlockSetting) {
+        console.log("cpCode : "+cpCode);
+        console.log("차단여부 : "+csSystemBlockSetting);
+
+        let url = "/v4/api/Company/emailSendItemSetting"
+
+        let sendData = {
+            cpCode : cpCode,
+            csSystemBlockSetting : csSystemBlockSetting
+        }
+
+        ajaxParam(url, sendData, (res) => {
+            try {
+                let titleText;
+                if(csSystemBlockSetting === '0') {
+                    titleText = "기업이 차단 되었습니다."
+                } else {
+                    titleText = "차단이 해제 되었습니다."
+                }
+                openConfirm({
+                    icon: 'pass',
+                    title: titleText,
+                    btnCheck: '확인',
+                });
+                dataFunction(0)
+            } catch (e) {
+                reportCatch('temp032', e);
+            }
+        }, (errCode, errMsg) => {
+            try {
+                return {action: 'NONE'};
+            } catch (e) {
+                reportCatch('temp033', e);
+            }
+        });
     }
 
 </script>
@@ -58,7 +95,13 @@
                     </td>
 
                     <td>
-                        <button on:click={handleInformPIS}>기압 차단</button>
+                        <button on:click={() => {companyBlock(company.cpCode, company.csSystemBlockSetting)}}>
+                            {#if company.csSystemBlockSetting === '0'}
+                                기업 차단
+                            {:else}
+                                차단 해제
+                            {/if}
+                        </button>
                     </td>
 
                 </tr>

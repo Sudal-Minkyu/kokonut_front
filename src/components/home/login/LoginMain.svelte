@@ -73,6 +73,10 @@
                     notErrPwd_msg = errMsg;
                     notErrPwdFun();
                     knPassword = "";
+                } else if (errCode === "KO094_2") {
+                    notErrPwd_msg = errMsg;
+                    notErrPwdFun();
+                    knPassword = "";
                 } else if (errCode === "KO016") {
                     knPassword = "";
                     notJoinUser();
@@ -210,8 +214,9 @@
         }, (errCode, errMsg) => {
             try {
                 mainScreenBlockerVisibility.set(false);
+                console.log(errCode);
                 if (errCode === "KO012" || errCode === "KO011" || errCode === "KO010"
-                    || errCode === "KO094") {
+                    || errCode === "KO094" || errCode === "KO094_2") {
                     otpError = true;
                     otp_err_msg = errMsg;
                 } else if (errCode === "KO096" || errCode === "KO095") {

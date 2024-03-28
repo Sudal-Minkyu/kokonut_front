@@ -58,6 +58,9 @@ import AdminAccountManagement from "./routes/admin/account/AdminAccountManagemen
 
 import CompanyList from "./routes/admin/company/CompanyList.svelte";
 
+import PaymentList from "./routes/admin/payment/PaymentList.svelte";
+
+import HistoryList from "./routes/admin/history/HistoryList.svelte";
 
 export default {
     // API 테스트하는 화면
@@ -177,6 +180,11 @@ export default {
     // 시스템관리자 기업리스트
     "/admin/companyList": CompanyList,
 
+    // 시스템관리자 결제 관리
+    "/admin/paymentList": PaymentList,
+
+    // 시스템관리자 이력 관리
+    "/admin/historyList": HistoryList,
 
     // 랜딩페이지
     "/landing" : Landing,
