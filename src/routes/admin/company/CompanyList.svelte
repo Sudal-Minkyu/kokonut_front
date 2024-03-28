@@ -85,7 +85,7 @@
         <LoadingOverlay bind:loadState={companyListLayout} top={195} >
             <div in:fade>
                 <!-- 테이블 영역 -->
-                <ComapnyTable page={searchCondition.page} {company_list} {size} {total} />
+                <ComapnyTable page={searchCondition.page} {company_list} {size} {total} dataFunction="{companyList}" />
                 <!-- 페이징 영역 -->
                 <Paging page={searchCondition.page} total_page="{total_page}" data_list="{company_list}" dataFunction="{companyList}" />
             </div>
